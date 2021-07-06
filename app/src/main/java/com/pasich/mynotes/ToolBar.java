@@ -2,7 +2,9 @@ package com.pasich.mynotes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class ToolBar extends AppCompatActivity {
 
@@ -11,4 +13,5 @@ public class ToolBar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.toolbar);
     }
+
 }

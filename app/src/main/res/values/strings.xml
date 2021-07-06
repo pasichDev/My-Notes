@@ -1,12 +1,12 @@
 <resources>
     <!-- Главные слова -->
     <string name="app_name">Мой блокнот</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">Настройки</string>
     <!-- Титлы -->
     <string name="settings">Настройки</string>
     <string name="sort">Сортировать</string>
-
-
+    <!-- TabsItem -->
+    <string name="info_app">О приложении</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
