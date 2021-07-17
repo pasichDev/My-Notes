@@ -41,9 +41,14 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        getMenuInflater().inflate(R.menu.new_notes_toolbar, menu);
         return true;
     }
-
+    @Override //метод возвращения на глвыную страницу
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if (id==android.R.id.home) finish();
+        return true;
+    }
 
 }

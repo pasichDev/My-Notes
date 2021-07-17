@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyNotes">
-        <activity android:name=".ToolBar"></activity>
+        <activity android:name=".notes"
+            android:windowSoftInputMode="stateVisible"
+            android:label="@string/NewNotes" ></activity>
+        <activity android:name=".ToolBar" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />

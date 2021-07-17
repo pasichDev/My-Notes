@@ -4,14 +4,9 @@
 
 
     <item
-        android:id="@+id/sortBut"
-        android:title="@string/sort"
-        android:icon="@drawable/ic_sort"
-        yourapp:showAsAction="always" />
-    <item
         android:id="@+id/setingsBut"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/settings"
+        android:icon="@drawable/ic_reorder"
+        android:title="@string/DialogMenu"
         yourapp:showAsAction="always" />
 
 </menu>

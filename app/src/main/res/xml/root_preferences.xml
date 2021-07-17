@@ -1,35 +1,46 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:iconSpaceReserved="false"
+        app:title="@string/system_header">
 
         <ListPreference
-            app:defaultValue="reply"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultValue="System"
             app:entries="@array/reply_entries"
             app:entryValues="@array/reply_values"
+            app:iconSpaceReserved="false"
             app:key="reply"
-            app:title="@string/reply_title"
+            app:title="@string/language_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/theme_header">
 
         <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:key="sync"
-            app:title="@string/sync_title" />
+            app:title="@string/darkTheme_title" />
+        <ListPreference
+            app:iconSpaceReserved="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:defaultValue="false"
+            android:entries="@array/coloTolbar_enteries"
+            android:entryValues="@array/coloTolbar_values"
+            android:key="themeToolbar"
+            android:title="@string/ThemeToolbar_title"
+            app:useSimpleSummaryProvider="true" />
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
 
     </PreferenceCategory>
 
