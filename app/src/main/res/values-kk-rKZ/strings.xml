@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Менің жазбаларым</string>
+    <string name="NewNote">Жаңа ескертпе</string>
+    <string name="EditNote">Өңдеу</string>
+    <string name="title_activity_settings">Параметрлер</string>
+    <string name="settings">Параметрлер</string>
+    <string name="Delete">Жою</string>
+    <string name="sizeText">Мәтін өлшемі</string>
+    <string name="sortData">Күні бойынша</string>
+    <string name="sortName">Аты бойынша</string>
+    <string name="ThemeToolbar_title">Түс схемасы</string>
+    <string name="red">Қызыл</string>
+    <string name="green">Жасыл</string>
+    <string name="purple">Күлгін</string>
+    <string name="dark">Қара</string>
+    <string name="trashNotes">Жою</string>
+    <string name="trashN">Себет</string>
+    <string name="trashClean" >Себетті босату</string>
+    <string name ="saveNotes" >Ескертуді сақтау</string>
+    <string name="share">Бөлісу</string>
+    <string name ="cleanTrashquestion" >Себетті шынымен босатқыңыз келе ме?</string>
+    <string name ="yesCleanTrash" >Иә, тазалаңыз</string >
+    <string name="cancel" >Болдырмау</string>
+    <string name ="OpenViewNotes" >Көру үшін ашық</string>
+    <string name ="removeNotes" >Ескертпені жою</string>
+    <string name ="viewNotes" >Көру</string>
+    <string name ="trashNull" >Себет бос!</string >
+    <string name ="shareNull" >Бөлісетін ештеңе жоқ!</string >
+    <string name="sendDev">Хабар әзірлеушісі</string>
+    <string name ="whatUpdate" >Не жаңалық?</string >
+    <string name ="addFolder">Қалта қосу</string>
+    <string name="orange">Апельсин</string>
+    <string name="error_folder_NoExists">Қалта жоқ!</string>
+    <string name="copyNotes">"Ескертуді жылжыту"</string>
+    <string name ="inputNameFolder">Қалта атын енгізіңіз:</string>
+    <string name ="createFolder">Қалта жасау</string>
+    <string name ="deleteFolder">Қалтаны жою</string>
+    <string name="renameFolder">Қалтаның атын өзгерту</string>
+    <string name="save">Сақтау</string>
+    <string name ="error_name_folder" >Қалта атауы дұрыс емес!</string >
+    <string name="error_folder_system">Бұл қалтаны жасау мүмкін емес!</string>
+    <string name ="cleanFolder">Қалтаны тазалау</string>
+    <string name="rootFolder">Түбірлік қалта</string>
+    <string name="copyNotefor">"Ескертпе көшірілетін қалтаны таңдаңыз: "</string>
+    <string name ="warning" >"Ескерту"</string>
+    <string name ="yesDeleteIsFiles">Иә, қалтаны жойыңыз</string>
+    <string name="deleteFolderIsFiles">Бұл қалтада файлдар бар, олар жойылған кезде жоғалады! Осы қалтаны шынымен жойғыңыз келе ме?</string >
+    <string name ="error_folders_exists">Сізде жасалған қалталар жоқ, жылжыту мүмкін емес!</string>
+    <string name="errorCreateZipRecovery">Rez жасау қатесі. көшірмелер</string>
+    <string name="errorInternetConectSpeech">Интернет қосылымы жоқ. Интернет желісінің қолжетімділігін тексеріңіз.</string >
+    <string name = "error_TTS">Сөйлеу қызметі табылмады</string>
+    <string name="error_TTS_Message">Дауыспен енгізуді пайдалану үшін Google Speech Services қолданбасын орнату қажет. </string>
+    <string name="errorPermisions">Рұқсат қатесі</string>
+    <string name="errorPermisions_Message">Бұл мүмкіндікті пайдалану үшін дыбыс жазуға рұқсат беру керек.
+    Ол үшін қолданба туралы -> Рұқсаттар мәзірін ашыңыз және микрофонды пайдалануға рұқсат етіңіз</string>
+    <string name = "importNotesFinishSucces">Ескертпелер сәтті импортталды</string>
+    <string name = "open_PlayMarket">Ашық Play Market</string>
+    <string name = "holdOn">Ұстаңыз…</string>
+    <string name = "holdOnSpeec">Ұстаңыз және сөйлеңіз</string>
+    <string name = "open_infoApp">Қолданба туралы</string>
+    <string name = "notes">Ескертпелер</string>
+    <string name="viceNotes">Дауыстық жазбалар</string>
+    <string name="voiceNoteFragmentToUpdate">Бұл мүмкіндік болашақ жаңартуларда қолжетімді болады!</string>
+    <string name = "backupIsCreate">Сақтық көшірме жасалды</string>
+    <string name="continueNext">Жалғастыру</string>
+    <string name="restoreDialogMessage">Ескертпелерді қалпына келтіргіңіз келетініне сенімдісіз бе? Барлық бар ескертпелер жойылады және сақтық көшірмедегілермен ауыстырылады.</string >
+    <string name="indigo">Индиго</string>
+    <string name="noSave">Сақтамай жабу</string>
+    <string name="lineSetSPech">Бір жол</string>
+    <string name="paragraphSetSpech">Жаңа абзацтан</string>
+    <string name="mainPrefences">Негізгі</string>
+    <string name = "recoveryCopy">Сақтық көшірмелер</string>
+    <string name = "speechPrefences">Сөйлеу теңшелімдері</string>
+    <string name = "infoAppPrefences">Қолданба туралы</string>
+    <string name="comunicateDev">Байланыс</string>
+    <string name="ratingApp">Қолданбаны бағалау</string>
+    <string name="localStorg">Жергілікті жад</string>
+    <string name = "importsNotes">Ескертпелерді импорттау</string>
+    <string name = "exportsNotes">Ескертпелерді экспорттау</string>
+    <string name = "importsNotesSymmary">Жергілікті жадтан жазбаларды қалпына келтіру</string>
+    <string name = "exportsNotesSymmary">Сақтық көшірмені жергілікті жадқа сақтаңыз</string>
+    <string name="Function_not_available">Функция қолжетімді емес</string>
+    <string name = "pressToInfo">Мәліметтерді көру үшін басыңыз</string>
+    <string name = "spechPrefences">Сөйлеуді тану теңшелімдері</string>
+    <string name = "spechLaunguage">Тану тілін таңдаңыз</string>
+    <string name = "setSpechOutputText">Қабылданған мәтін үшін жазу режимі</string>
+    <string name = "autoSave">Ескертпелерді автоматты сақтау</string>
+    <string name = "autoSaveSumarry">Қоңырау шалғанда немесе қолданбадан кездейсоқ шыққанда ескертпе сақтаңыз</string>
+    <string name="swipeToExit">Шығуды растау</string>
+    <string name = "swipeToExitSymmary">Қолданбаның кездейсоқ шығуын болдырмайды</string>
+    <string name = "interaction">Өзара әрекеттесу</string>
+    <string name = "emptySpeec">Қайталап көргеніңізді есту мүмкін емес</string>
+    <string name = "spechToListen">Сөйле, мен тыңдап жатырмын..</string>
+    <string name = "restartTheme"> Өзгерістер күшіне енуі үшін қолданбаны қайта іске қосыңыз.</string >
+    <string name = "defaultLangVoiece">Әдепкі құрылғы</string>
+    <string name = "exitWhat">Шығу үшін әрекетті қайталау керек</string>
+
+    <string name="fontStyleBoldItalic">Қалың-курсив</string>
+    <string name="fontStyleItalic">Көлбеу</string>
+    <string name="fontStyleBold">Қалың</string>
+    <string name="fontStyleNormal">Стандарт</string>
+    <string name="textStyleTitle">Қаріп мәнері</string>
+    <string name = "ThemeToolbar_summary">Қолданбаның түс схемасын таңдаңыз</string>
+    <string name = "selectColorPrimaryApp">Қолданбаның негізгі түсін таңдаңыз:</string>
+    <string name = "languageGitLinkSummary">Полиглот болуға көмектесіңіз</string>
+    <string name = "languageGitLinkTitle">Аударма ресурстары (Github)</string>
+    <string name="updateNowM">
+- Қосылды: жаңа түс схемасын таңдау диалогы.\n
+- Қосылды: қаріп мәнерін таңдау.\n
+- Қосылды: қазақ тілі пакеті.\n
+- Қосылды: аударма ресурстарына сілтеме.\n
+- Түзетілді: түс схемасын өзгерткеннен кейін, сондай-ақ жазбаларды импорттағаннан кейін қолданбаның бұзылуы.\n
+- Қолданбаны оңтайландыру.\n
+    </string>
+</resources>

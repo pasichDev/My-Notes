@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Мои Заметки</string>
+    <string name="NewNote">Создать заметку</string>
+    <string name="EditNote">Редактирование</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="settings">Настройки</string>
+    <string name="Delete">Удалить</string>
+    <string name="sizeText">Размер текста</string>
+    <string name="sortData">По Дате</string>
+    <string name="sortName">По Названию</string>
+    <string name="ThemeToolbar_title">Цветовая схема</string>
+    <string name="red">Красная</string>
+    <string name="green">Зеленая</string>
+    <string name="purple">Фиолетова</string>
+    <string name="dark">Черная</string>
+    <string name="trashNotes">Удалить</string>
+    <string name="trashN">Корзина</string>
+    <string name="trashClean" >Очистить корзину</string>
+    <string name="saveNotes" >Сохранить заметку</string>
+    <string name="share">Поделиться</string>
+    <string name="cleanTrashquestion" >Вы действительно хотите очистить корзину?</string>
+    <string name="yesCleanTrash" >Да, очистить</string>
+    <string name="cancel" >Отменить</string>
+    <string name="OpenViewNotes" >Открыть для просмотра</string>
+    <string name="removeNotes" >Восстановить заметку</string>
+    <string name="viewNotes" >Просмотр</string>
+    <string name="trashNull" >Корзина пустая!</string>
+    <string name="shareNull" >Нечем делиться!</string>
+    <string name="sendDev">Написать разработчику</string>
+    <string name="whatUpdate">Что нового?</string>
+    <string name="addFolder">Добавить папку</string>
+    <string name="orange">Оранжевая</string>
+    <string name="error_folder_NoExists">Папки не существует!</string>
+    <string name="copyNotes">"Переместить заметку "</string>
+    <string name="inputNameFolder">Введите название папки:</string>
+    <string name="createFolder">Создать папку</string>
+    <string name="deleteFolder">Удалить папку</string>
+    <string name="renameFolder">Переименовать папку</string>
+    <string name="save">Сохранить</string>
+    <string name="error_name_folder">Название папки не компетентно!</string>
+    <string name="error_folder_system">Данную папку создавать нельзя!</string>
+    <string name="cleanFolder">Очистить папку</string>
+    <string name="rootFolder">Корневая папка</string>
+    <string name="copyNotefor">"Выберите папку в которую вы хотите преместить заметку: "</string>
+    <string name="warning">"Предупреждение "</string>
+    <string name="yesDeleteIsFiles">Да, удалить папку</string>
+    <string name="deleteFolderIsFiles">В даной папке есть файлы, при удалении они пропадут! Вы действительно хотите удалить данную папку?</string>
+    <string name="error_folders_exists">У вас нет созданных папок, перемещение невозможное!</string>
+
+
+    <string name="errorCreateZipRecovery">Ошибка при создании рез. копии</string>
+    <string name="errorInternetConectSpeech">Отсутствует подключение к интернету. Проверьте доступность интернет сети.</string>
+    <string name="error_TTS">Служба распознавания речи не найдена</string>
+    <string name="error_TTS_Message">Чтобы использовать голосовой ввод, вам нужно установить приложение Speech Services by Google. </string>
+    <string name="errorPermisions">Ошибка доступа</string>
+    <string name="errorPermisions_Message">Для возможности использовать данную функцию, вам нужно предоставить разрешение на запись аудио.
+    Для этого откройте меню О приложении -> Разрешения и разрешите использовать микрофон</string>
+    <string name="importNotesFinishSucces">Импорт заметок произведен успешно</string>
+    <string name="open_PlayMarket">Открыть Play Market </string>
+    <string name="holdOn">Удерживайте…</string>
+    <string name="holdOnSpeec">Удерживайте и говорите</string>
+    <string name="open_infoApp">О приложении</string>
+    <string name="notes">Заметки</string>
+    <string name="viceNotes">Голосовые заметки</string>
+    <string name="voiceNoteFragmentToUpdate">Данная функция будет доступна в следующих обновлениях!</string>
+    <string name="backupIsCreate">Резервную копию создано</string>
+    <string name="continueNext">Продолжить</string>
+    <string name="restoreDialogMessage">Вы действительно хотите восстановить заметки? Все существующие заметки будут удалены и заменены на те, которые находятся в резервной копии.</string>
+    <string name="indigo">Indigo</string>
+    <string name="noSave">Закрыть без сохранения</string>
+    <string name="lineSetSPech">В одну строку</string>
+    <string name="paragraphSetSpech">С нового абзаца</string>
+    <string name="mainPrefences">Основные</string>
+    <string name="recoveryCopy">Резервные копии</string>
+    <string name="speechPrefences">Настройки речи</string>
+    <string name="infoAppPrefences">О приложении</string>
+    <string name="comunicateDev">Связь</string>
+    <string name="ratingApp">Оценить приложение</string>
+    <string name="localStorg">Локальное хранилище</string>
+    <string name="importsNotes">Импортировать заметки</string>
+    <string name="exportsNotes">Экспортировать заметки</string>
+    <string name="importsNotesSymmary">Восстановить заметки с локального хранилища</string>
+    <string name="exportsNotesSymmary">Сохранить резервную копию в локальное хранилище</string>
+    <string name="Function_not_available">Функция не доступная</string>
+    <string name="pressToInfo">Нажмите, чтобы посмотреть подробности</string>
+    <string name="spechPrefences">Настройки распознавания речи</string>
+    <string name="spechLaunguage">Выберите язык распознавания</string>
+    <string name="setSpechOutputText">Режим записи для полученного  текста</string>
+    <string name="autoSave">Автоматическое сохранение заметок</string>
+    <string name="autoSaveSumarry">Сохраняем заметку при звонке, или случайном выходе с приложения</string>
+    <string name="swipeToExit">Подтверждать выход</string>
+    <string name="swipeToExitSymmary">Предотвращает случайное закрытие приложения</string>
+    <string name="interaction">Взаимодействие</string>
+    <string name="emptySpeec">Вас не слышно повторите попытку</string>
+    <string name="spechToListen">Говорите, я вас слушаю..</string>
+    <string name = "restartTheme"> Чтобы изменения вступили в силу, перезагрузите приложение.</string>
+    <string name = "defaultLangVoiece">По умолчанию устройства</string>
+    <string name = "exitWhat">Для выхода, нужно повторить действие</string>
+
+    <string name="fontStyleBoldItalic">Жирный-Курсив</string>
+    <string name="fontStyleItalic">Курсив</string>
+    <string name="fontStyleBold">Жирный</string>
+    <string name="fontStyleNormal">Стандартный</string>
+    <string name="textStyleTitle">Стиль шрифта</string>
+    <string name="ThemeToolbar_summary">Выберите цветовую схему приложения</string>
+    <string name="selectColorPrimaryApp">Выберите основной цвет приложения:</string>
+    <string name="languageGitLinkSummary">Помоги нам стать полиглотом</string>
+    <string name="languageGitLinkTitle">Ресурсы переводов (Github)</string>
+
+    <string name="updateNowM">
+- Добавлено: Новое диалоговое окно выбора цветовой схемы.\n
+- Добавлено: Выбор стиля шрифта.\n
+- Добавлено: Языковый пакет Казахский.\n
+- Добавлено: Ссылку на ресурсы переводов.\n
+- Исправлено: Крах приложения после смены цветовой схемы, а также импорт заметок.\n
+- Оптимизация приложения.\n
+    </string>
+</resources>

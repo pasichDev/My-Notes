@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <PreferenceCategory android:title="@string/localStorg">
+                <Preference
+                    app:key="importBackupPreferences"
+                    android:icon="@drawable/ic_import_backup"
+                    android:title="@string/importsNotes"
+                    android:summary="@string/importsNotesSymmary" />
+                <Preference
+                    app:key="exportBackupPreferences"
+                    android:icon="@drawable/ic_export_backup"
+                    android:title="@string/exportsNotes"
+                    android:summary="@string/exportsNotesSymmary" />
+        </PreferenceCategory>
+</PreferenceScreen>
+

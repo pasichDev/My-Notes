@@ -1,25 +1,70 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>@string/auto_system</item>
-        <item>Ukraine</item>
+
+    <!-- Стиль текста при редактировании приложения -->
+    <string-array name="textStyle_name">
+        <item>@string/fontStyleItalic</item>
+        <item>@string/fontStyleNormal</item>
+        <item>@string/fontStyleBold</item>
+        <item>@string/fontStyleBoldItalic</item>
+    </string-array>
+    <string-array name="textStyle_value">
+        <item>italic</item>
+        <item>normal</item>
+        <item>bold</item>
+        <item>bold-italic</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>@string/auto_system</item>
-        <item>Ukraine</item>
+
+
+
+    <!-- Режим ввода продиктованого текста -->
+    <string-array name="spechOutputSettings_name">
+        <item>@string/lineSetSPech</item>
+        <item>@string/paragraphSetSpech</item>
+    </string-array>
+    <string-array name="spechOutputSettings_value">
+        <item>line</item>
+        <item>paragraph</item>
     </string-array>
 
-    <!-- Reply Preference -->
-    <string-array name="coloTolbar_enteries">
+    <!-- Спиннер сортировки -->
+    <string-array name="spinner_sort_name">
+        <item>@string/sortData</item>
+        <item>@string/sortName</item>
+    </string-array>
+    <string-array name="spinner_sort_value">
+        <item>date</item>
+        <item>name</item>
+    </string-array>
+
+    <!-- Основной язык голосового ввода -->
+    <string-array name="spechMain_enteries">
+        <item>@string/defaultLangVoiece</item>
+        <item>English</item>
+        <item>Русский</item>
+        <item>Polskie</item>
+        <item>Українська</item>
+    </string-array>
+
+    <string-array name="spechMain_values">
+        <item>default</item>
+        <item>en-EN</item>
+        <item>ru-RU</item>
+        <item>pl-PL</item>
+        <item>uk-UA</item>
+    </string-array>
+
+
+    <string-array name="themeColor_values">
         <item>Red</item>
-        <item>Dark</item>
+        <item>Orange</item>
         <item>Green</item>
+        <item>Indigo</item>
+        <item>Purple</item>
+        <item>Dark</item>
+
+
     </string-array>
 
-    <string-array name="coloTolbar_values">
-        <item>Red</item>
-        <item>Dark</item>
-        <item>Green</item>
-    </string-array>
+
 </resources>

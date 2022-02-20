@@ -1,0 +1,49 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <PreferenceCategory android:title="@string/mainPrefences">
+
+                <Preference
+                    app:useSimpleSummaryProvider="true"
+                    android:key="themeColor"
+                    android:summary="@string/ThemeToolbar_summary"
+                    android:title="@string/ThemeToolbar_title"
+                    android:icon="@drawable/ic_themeedit"
+                    />
+
+                <ListPreference
+                    android:icon="@drawable/ic_font_style"
+                    android:key="textStyle"
+                    android:defaultValue="normal"
+                    android:entryValues="@array/textStyle_value"
+                    android:entries="@array/textStyle_name"
+                    android:title="@string/textStyleTitle"
+                    app:useSimpleSummaryProvider="true"
+                    />
+                <SeekBarPreference
+                    app:useSimpleSummaryProvider="true"
+                    android:defaultValue="16"
+                    app:showSeekBarValue="true"
+                    android:key="textSize"
+                    app:icon="@drawable/ic_sizetext"
+                    android:title="@string/sizeText"
+                    android:max="34"
+                    app:min="12"/>
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="@string/interaction">
+                <SwitchPreference
+                    android:defaultValue="true"
+                    android:key="swipeToExit"
+                    app:icon="@drawable/ic_dialog_exitapp"
+                    android:summary="@string/swipeToExitSymmary"
+                    android:title="@string/swipeToExit" />
+                <SwitchPreference
+                    android:defaultValue="true"
+                    android:key="autoSave"
+                    android:summary="@string/autoSaveSumarry"
+                    android:title="@string/autoSave"
+                    app:icon="@drawable/ic_auto_save" />
+        </PreferenceCategory>
+</PreferenceScreen>
+

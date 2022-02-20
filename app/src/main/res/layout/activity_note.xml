@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoteActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_actionbar"
+            layout="@layout/toolbar" />
+
+        <include
+            android:id="@+id/noteView"
+            layout="@layout/note_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editNotesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:backgroundTint="?attr/colorPrimary"
+        android:contentDescription="@string/EditNote"
+        android:onClick="activeButtonEditText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_edit"
+        app:tint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/spechTextNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/holdOnSpeec"
+        android:visibility="invisible"
+        app:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/editNotesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_mic"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/spechStartText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="35dp"
+        android:contentDescription="@string/holdOn"
+        android:text="@string/holdOn"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/editNotesButton"
+        app:layout_constraintEnd_toStartOf="@id/spechTextNote" />
+
+    <ImageView
+        android:id="@+id/imageSpechVolume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="26dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/editNotesButton"
+        app:layout_constraintEnd_toStartOf="@id/spechStartText"
+        app:srcCompat="@drawable/ic_speec_voice" />
+</androidx.constraintlayout.widget.ConstraintLayout>

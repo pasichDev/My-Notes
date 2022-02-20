@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name = "app_name"> Мої Нотатки </string>
+    <string name = "NewNote"> Створити нотатку </string>
+    <string name = "EditNote"> Редагування </string>
+    <string name = "title_activity_settings"> Налаштування </string>
+    <string name = "settings"> Налаштування </string>
+    <string name = "Delete"> Видалити </string>
+    <string name = "sizeText"> Розмір тексту </string>
+    <string name = "sortData"> За Датою </string>
+    <string name = "sortName"> За Назвою </string>
+    <string name = "ThemeToolbar_title"> Основний колiр </string>
+    <string name = "red"> Червона</string>
+    <string name = "green"> Зелена </string>
+    <string name = "purple"> Фіолетова</string>
+    <string name="dark">Чорна</string>
+    <string name = "trashNotes">Видалити</string>
+    <string name = "trashN"> Кошик </string>
+    <string name="trashClean" >Очистити корзину</string>
+    <string name="saveNotes" >Зберегти нотатку</string>
+    <string name="share">Поділитися</string>
+    <string name="cleanTrashquestion" >Ви дійсно хочете очистити корзину?</string>
+    <string name="yesCleanTrash" >Так, очистити</string>
+    <string name="cancel" >Відмінити</string>
+    <string name="OpenViewNotes" >Переглянути</string>
+    <string name="removeNotes" >Відмінити нотатку</string>
+    <string name="viewNotes" >Перегляд</string>
+    <string name="trashNull" >Корзина порожня!</string>
+    <string name="shareNull" >Пуста корзина!</string>
+    <string name="sendDev">Написати розробнику</string>
+    <string name="whatUpdate">Що нового?</string>
+    <string name="addFolder">Створити папку</string>
+    <string name="orange">Оранжева</string>
+    <string name="error_folder_NoExists">Папки немає!</string>
+    <string name="copyNotes">Перемістити нотатку</string>
+    <string name="inputNameFolder">Введіть назву папки:</string>
+    <string name="createFolder">Створити папку</string>
+    <string name="deleteFolder">Видалити папку</string>
+    <string name="renameFolder">Перейменувати папку</string>
+    <string name="save">Зберегти</string>
+    <string name="error_name_folder">Назва папки не є компетентною!</string>
+    <string name="error_folder_system">Цю папку створювати не можна!</string>
+    <string name="cleanFolder">Очистити папку</string>
+    <string name="rootFolder">Коренева папка</string>
+    <string name="copyNotefor">Виберіть папку в яку ви хочете перемістити нотатку:</string>
+    <string name="warning">Попередження</string>
+    <string name="yesDeleteIsFiles">Так, видалити папку</string>
+    <string name="deleteFolderIsFiles">У цій папці є файли, при видаленні вони пропадуть! Ви дійсно хочете видалити цю папку?</string>
+    <string name="error_folders_exists">У вас немає створених папок, переміщення неможливе!</string>
+    <string name="errorCreateZipRecovery">Помилка при створенні рез. копії</string>
+    <string name="errorInternetConectSpeech">Відсутнє підключення до інтернету. Перевірте доступність інтернет-мережi.</string>
+    <string name="error_TTS">Служба розпізнавання мовлення не знайдена</string>
+    <string name="error_TTS_Message">Щоб використовувати голосовий ввiд, вам потрібно встановити додаток Speech Services від Google. </string>
+    <string name="errorPermisions">Помилка доступу</string>
+    <string name="errorPermisions_Message">Для можливості використовувати цю функцію, вам потрібно надати дозвіл на запис аудіо.
+    Для цього відкрийте меню Про додаток -> Дозволи та дозвольте використовувати мікрофон</string>
+    <string name="importNotesFinishSucces">Імпорт нотаток виконано успішно</string>
+    <string name="open_PlayMarket">Відкрити Play Market </string>
+    <string name="holdOn">Утримуйте…</string>
+    <string name="holdOnSpeec">Утримуйте і говорiть</string>
+    <string name="open_infoApp">Про додаток</string>
+    <string name="notes">Нотатки</string>
+    <string name="viceNotes">Голосові нотатки</string>
+    <string name="voiceNoteFragmentToUpdate">Ця функція буде доступна в наступних оновленнях!</string>
+    <string name="backupIsCreate">Резервну копію створено</string>
+    <string name="continueNext">Продовжити</string>
+    <string name="restoreDialogMessage">Ви дійсно хочете відновити нотатки? Усі наявні нотатки будуть видалені та замінені на тi, які знаходяться в резервній копії.</string>
+    <string name="indigo">Індиго</string>
+    <string name="noSave">Закрити без збереження</string>
+    <string name="lineSetSPech">В один рядок</string>
+    <string name="paragraphSetSpech">З нового абзацу</string>
+    <string name="mainPrefences">Основні</string>
+    <string name="recoveryCopy">Резервні копії</string>
+    <string name="speechPrefences">Налаштування мовленя</string>
+    <string name="infoAppPrefences">Про додаток</string>
+    <string name="comunicateDev">Зв\'язок</string>
+    <string name="ratingApp">Оцінити додаток</string>
+    <string name="localStorg">Локальне сховище</string>
+    <string name="importsNotes">Імпортувати нотатки</string>
+    <string name="exportsNotes">Експортувати нотатки</string>
+    <string name="importsNotesSymmary">Вiдновити нотатки з локального сховища</string>
+    <string name="exportsNotesSymmary">Зберегти резервну копію в локальному сховищi</string>
+    <string name="Function_not_available">Функція не доступна</string>
+    <string name="pressToInfo">Натиснiть, щоб переглянути подробиці</string>
+    <string name="spechPrefences">Налаштування розпізнавання мовленя</string>
+    <string name="spechLaunguage">Виберіть мову розпізнавання</string>
+    <string name="setSpechOutputText">Режим запису для отриманого тексту</string>
+    <string name="autoSave">Автоматичне збереження нотатки</string>
+    <string name="autoSaveSumarry">Зберігаємо нотатку під час дзвінка, або випадковому виході з додатка</string>
+    <string name="swipeToExit">Підтвердити вихід</string>
+    <string name="swipeToExitSymmary">Запобігає випадковому, завершеню додатка</string>
+    <string name="interaction">Взаємодія</string>
+    <string name="emptySpeec">Вас не чути, спробуйте ще раз..</string>
+    <string name="spechToListen">Говоріть, я вас слухаю..</string>
+    <string name = "restartTheme"> Щоб зміни набрали чинності, перезавантажте програму.</string>
+    <string name = "defaultLangVoiece">За замовчуванням пристрою</string>
+    <string name = "exitWhat">Для виходу потрібно повторити дію</string>
+
+    <string name="fontStyleBoldItalic">Жирний-Курсив</string>
+    <string name="fontStyleItalic">Курсив</string>
+    <string name="languageGitLinkTitle">Ресурси перекладів (Github)</string>
+    <string name="languageGitLinkSummary">Допоможи нам стати поліглотом</string>
+    <string name="selectColorPrimaryApp">Виберіть основний колір програми:</string>
+    <string name="ThemeToolbar_summary">Виберіть колірну схему програми</string>
+    <string name="textStyleTitle">Стиль шрифту</string>
+    <string name="fontStyleBold">Жирний</string>
+    <string name="fontStyleNormal">Стандартний</string>
+
+    <string name="updateNowM">
+- Додано: Нове діалогове вікно вибору колірної схеми.\n
+- Додано: Вибір стилю шрифту.\n
+- Додано: Мовний пакет Казахський.\n
+- Додано: Посилання на ресурси перекладів.\n
+- Виправлено: Крах програми після зміни колірної схеми, а також імпорт нотаток.\n
+- Оптимізація програми.\n
+    </string>
+</resources>
