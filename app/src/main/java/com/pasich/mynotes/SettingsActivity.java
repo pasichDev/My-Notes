@@ -20,7 +20,6 @@ import com.pasich.mynotes.Fragments.Prefences.FragmentMain;
 import com.pasich.mynotes.Fragments.Prefences.FragmentVoice;
 import com.pasich.mynotes.Сore.SystemCostant;
 
-
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
