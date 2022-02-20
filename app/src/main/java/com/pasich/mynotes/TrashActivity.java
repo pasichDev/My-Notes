@@ -34,7 +34,6 @@ public class TrashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Инициализация Ядра приложения
         checkSystemFolder(this);
         setTheme(ThemeColorValue(PreferenceManager
                 .getDefaultSharedPreferences(this).getString("themeColor", SystemCostant.Settings_Theme)));
@@ -103,9 +102,4 @@ public class TrashActivity extends AppCompatActivity {
                    new Intent().putExtra("updateList", countItems != defaultListAdapter.getCount()));
             finish();
         }
-
-
-
-
-
 }

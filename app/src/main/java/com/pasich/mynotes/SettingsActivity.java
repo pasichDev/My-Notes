@@ -62,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override //метод возвращения на глвыную страницу
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             closeSettings();
