@@ -245,17 +245,19 @@ public class FileCore extends AppCompatActivity {
      * @return - возвращает название длиной меньнше 40 символов
      */
     public String cleanName(String inputName){
+        inputName = inputName.replaceAll("[^\\p{L}\\p{N}\\s]+", "");
         String nameNoteNoRename;
         if (inputName.length() > 40) {
             nameNoteNoRename = inputName.substring(0, 40);
         } else {
             nameNoteNoRename = inputName;
         }
+        //Здесь идет интересный нюанс стирает слеш а остальное оставлаяет
         return nameNoteNoRename.replaceAll("\\n|\\r\\n", " ");
     }
 
     /**
-     * Метод дуже каверкан, желательно переделать в 1.3.8
+     * Метод дуже каверкан, желательно переделать в 1.4.x
      * @param nameNotes
      * @param folder
      * @return
