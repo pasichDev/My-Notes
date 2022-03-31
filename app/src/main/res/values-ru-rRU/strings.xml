@@ -105,8 +105,7 @@
     <string name="textStyleTitle">Стиль шрифта</string>
     <string name="ThemeToolbar_summary">Выберите цветовую схему приложения</string>
     <string name="selectColorPrimaryApp">Выберите основной цвет приложения:</string>
-    <string name="languageGitLinkSummary">Помоги нам стать полиглотом</string>
-    <string name="languageGitLinkTitle">Ресурсы переводов (Github)</string>
+    <string name="languageGitLinkTitle">Исходный код (Github)</string>
 
     <string name="updateNowM">
 - Добавлено: Новое диалоговое окно выбора цветовой схемы.\n

@@ -96,8 +96,7 @@
     <string name = "defaultLangVoiece">Па змаўчанні прылады</string>
     <string name = "exitWhat">Для выхаду, трэба паўтарыць дзеянне</string>
 
-    <string name="languageGitLinkTitle">Рэсурсы перакладаў (Github)</string>
-    <string name="languageGitLinkSummary">Дапамажы нам стаць паліглотам</string>
+    <string name="languageGitLinkTitle">Зыходны код (Github)</string>
     <string name="selectColorPrimaryApp">Абярыце асноўны колер прыкладання:</string>
     <string name="ThemeToolbar_summary">Абярыце каляровую схему прыкладання</string>
     <string name="textStyleTitle">Стыль шрыфта</string>

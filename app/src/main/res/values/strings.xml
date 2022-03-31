@@ -101,8 +101,7 @@
     <string name = "defaultLangVoiece">Default devices</string>
     <string name = "exitWhat">To exit, you need to repeat the action</string>
 
-    <string name="languageGitLinkTitle">Translation resources (Github)</string>
-    <string name="languageGitLinkSummary">Help us become a polyglot</string>
+    <string name="languageGitLinkTitle">Source (Github)</string>
     <string name="selectColorPrimaryApp">Choose the main color of the application:</string>
     <string name="ThemeToolbar_summary">Choose an app color scheme</string>
     <string name="textStyleTitle">Font style</string>

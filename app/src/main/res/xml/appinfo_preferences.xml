@@ -16,16 +16,7 @@
                             android:action="android.intent.action.VIEW"
                             android:data="https://t.me/andriipasichnik" />
                 </Preference>
-                <Preference
-                    android:icon="@drawable/ic_language_git"
-                    android:summary="@string/languageGitLinkSummary"
-                    android:title="@string/languageGitLinkTitle"
-                    app:enabled="true"
-                    android:key="languageGitLink">
-                        <intent
-                            android:action="android.intent.action.VIEW"
-                            android:data="https://github.com/pasichDev/My-Notes-Translation-resources-" />
-                </Preference>
+
         </PreferenceCategory>
         <PreferenceCategory android:title="@string/app_name">
                 <Preference
@@ -34,6 +25,15 @@
                     app:enabled="true"
                     app:key="whatsUpdate"
                     android:key="@string/whatUpdate"/>
+                <Preference
+                    android:icon="@drawable/ic_source_git"
+                    android:title="@string/languageGitLinkTitle"
+                    app:enabled="true"
+                    android:key="languageGitLink">
+                        <intent
+                            android:action="android.intent.action.VIEW"
+                            android:data="https://github.com/pasichDev/My-Notes" />
+                </Preference>
                 <Preference
                     android:icon="@drawable/ic_update"
                     android:summary="@string/author"
