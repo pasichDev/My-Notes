@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
         onCreate = true;
     }
 
+    /**
+     * Тоже очень интересная реализация
+     * Позже желательно изменить
+     */
     @Override
     public void onStart(){
         super.onStart();
@@ -167,8 +171,6 @@ public class MainActivity extends AppCompatActivity {
      * Запуск активности Settings
      */
     private void openSettings() {
-    /*   Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity.launch(intent);*/
         startActivity(new Intent(this, SettingsActivity.class));
     }
 
