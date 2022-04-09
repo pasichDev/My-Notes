@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Adapters.SourceNiteList;
+package com.pasich.mynotes.Adapters.SourceNoteList;
 
 public class SourceListContent {
 

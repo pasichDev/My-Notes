@@ -1,6 +1,4 @@
-package com.pasich.mynotes.Adapters.SourceNiteList;
-
-import static com.pasich.mynotes.Сore.File.FileCore.getWithoutExtension;
+package com.pasich.mynotes.Adapters.SourceNoteList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -46,24 +44,38 @@ public class SouceListAdapter extends ArrayAdapter<SourceListContent> {
         String sourceItem = listNotesfor.getSource();
         String typeItem = listNotesfor.getType();
 
+       switch (typeItem){
+           case "Url":
+               viewHolder.imgSource.setVisibility(View.VISIBLE);
+               viewHolder.imgSource.setImageResource(R.drawable.ic_url);
+               break;
+           case "Tel":
+               viewHolder.imgSource.setVisibility(View.VISIBLE);
+               viewHolder.imgSource.setImageResource(R.drawable.ic_tel);
+               break;
+           case "Mail":
+               viewHolder.imgSource.setVisibility(View.VISIBLE);
+               viewHolder.imgSource.setImageResource(R.drawable.ic_mail);
+               break;
+       }
 
 
 
-        viewHolder.nameView.setText(sourceItem);
-    //    viewHolder.dateView.setText(typeItem);
+        viewHolder.sourceView.setText(sourceItem);
+        viewHolder.typeView.setText(typeItem);
 
         return convertView;
     }
 
 
     private class ViewHolder {
-        final TextView nameView, dateView;
-        final ImageView imgFolder;
+        final TextView sourceView, typeView;
+        final ImageView imgSource;
 
         ViewHolder(View view){
-            nameView =  view.findViewById(R.id.nameNotesL);
-            dateView =  view.findViewById(R.id.dateNotesL);
-            imgFolder = view.findViewById(R.id.imageFolder);
+            sourceView =  view.findViewById(R.id.nameSource);
+            typeView =  view.findViewById(R.id.typeSource);
+            imgSource = view.findViewById(R.id.imageSource);
         }
     }
 
