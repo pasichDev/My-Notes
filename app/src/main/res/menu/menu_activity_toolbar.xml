@@ -35,23 +35,14 @@
         android:title="@string/saveNotes"
         yourapp:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/deleteBut"
-        android:title="@string/Delete"
-        android:visible="false"
-        yourapp:showAsAction="collapseActionView|withText" />
 
-    <item
-        android:id="@+id/shareBut"
-        android:visible="false"
-        android:title="@string/share"
-        yourapp:showAsAction="collapseActionView|withText" />
 
     <item
         android:id="@+id/noSave"
         android:visible="false"
+        android:icon="@drawable/ic_close"
         android:title="@string/noSave"
-        yourapp:showAsAction="collapseActionView|withText" />
+        yourapp:showAsAction="ifRoom" />
     <item
         android:id="@+id/trashClean"
         android:visible="false"

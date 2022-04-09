@@ -120,15 +120,13 @@ public class NoteActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
         if(KeyFunction.equals("NewNote") || KeyFunction.equals("EditNote")){
-            if(!KeyFunction.equals("NewNote")){
+          /*  if(!KeyFunction.equals("NewNote")){
                 menu.findItem(R.id.shareBut).setVisible(true);
-                menu.findItem(R.id.deleteBut).setVisible(true);}
+                menu.findItem(R.id.deleteBut).setVisible(true);}*/
             menu.findItem(R.id.applyBut).setVisible(true);
             menu.findItem(R.id.noSave).setVisible(true);
         }else if(KeyFunction.equals("TrashNote")){
-            menu.findItem(R.id.deleteBut).setVisible(false);
             menu.findItem(R.id.applyBut).setVisible(false);
-            menu.findItem(R.id.shareBut).setVisible(true);
         }
         return true;
     }
@@ -146,13 +144,13 @@ public class NoteActivity extends AppCompatActivity {
         if(item.getItemId()==android.R.id.home){
             closeNotesSave(settingsAutoSave,true);
         }
-        if (item.getItemId() == R.id.shareBut) {
-            shareNotes(this, valueTextEdit().toString());
+      /*  if (item.getItemId() == R.id.shareBut) {
+
         }
         if (item.getItemId() == R.id.deleteBut) {
             fileCore.transferNotes(idNote,"trash",folder);
             closeNotesSave(false,false);
-        }
+        }*/
         if(item.getItemId() == R.id.noSave) {
             closeNotesSave(false,true);
         }
@@ -436,4 +434,15 @@ public class NoteActivity extends AppCompatActivity {
         });
     }
 
+
+    public void shareButton(View v){
+        shareNotes(this, valueTextEdit().toString());
+    }
+
+    public void deleteButton(View v){
+        fileCore.transferNotes(idNote,"trash",folder);
+        closeNotesSave(false,false);
+        Toast.makeText(getApplicationContext(),
+                R.string.transferToTrash, Toast.LENGTH_LONG).show();
+    }
 }
