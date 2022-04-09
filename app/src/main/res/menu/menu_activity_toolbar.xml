@@ -35,8 +35,6 @@
         android:title="@string/saveNotes"
         yourapp:showAsAction="ifRoom" />
 
-
-
     <item
         android:id="@+id/noSave"
         android:visible="false"

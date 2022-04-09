@@ -33,6 +33,7 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Dialogs.PermissionError;
+import com.pasich.mynotes.Dialogs.sourcesNoteList;
 import com.pasich.mynotes.Сore.File.FileCore;
 import com.pasich.mynotes.Сore.NoteControler.NotesX;
 import com.pasich.mynotes.Сore.SystemCostant;
@@ -144,13 +145,7 @@ public class NoteActivity extends AppCompatActivity {
         if(item.getItemId()==android.R.id.home){
             closeNotesSave(settingsAutoSave,true);
         }
-      /*  if (item.getItemId() == R.id.shareBut) {
 
-        }
-        if (item.getItemId() == R.id.deleteBut) {
-            fileCore.transferNotes(idNote,"trash",folder);
-            closeNotesSave(false,false);
-        }*/
         if(item.getItemId() == R.id.noSave) {
             closeNotesSave(false,true);
         }
@@ -445,4 +440,10 @@ public class NoteActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),
                 R.string.transferToTrash, Toast.LENGTH_LONG).show();
     }
+
+    public void soucesNote(View v){
+
+        new sourcesNoteList().show(getSupportFragmentManager(), "sourcesNoteList");
+    }
+
 }

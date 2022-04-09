@@ -88,10 +88,10 @@ public class TrashActivity extends AppCompatActivity {
             CleanTrash dialog = new CleanTrash(defaultListAdapter);
             dialog.show(getSupportFragmentManager(), "CleanTrash"); }
             else{
-                Toast toast = Toast.makeText(getApplicationContext(),
+                Toast.makeText(getApplicationContext(),
                         R.string.trashNull,
-                        Toast.LENGTH_SHORT);
-                toast.show();
+                        Toast.LENGTH_SHORT).show();
+
             }
         }
         return true; }
