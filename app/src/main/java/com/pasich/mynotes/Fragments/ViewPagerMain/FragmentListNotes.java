@@ -127,7 +127,7 @@ public class FragmentListNotes extends Fragment
 
     private void restartListNotes(String folder, boolean modes){
 
-        defaultListAdapter.clear();
+       if(defaultListAdapter!= null) defaultListAdapter.clear();
         listNotesfors  = NotesListData.newListAdapter(folder,modes);
         defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, listNotesfors);
         NotesList.setAdapter(defaultListAdapter);
