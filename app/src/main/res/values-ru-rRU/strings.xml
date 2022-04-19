@@ -33,7 +33,7 @@
     <string name="orange">Оранжевая</string>
     <string name="error_folder_NoExists">Папки не существует!</string>
     <string name="copyNotes">"Переместить заметку "</string>
-    <string name="inputNameFolder">Введите название папки:</string>
+    <string name="inputNameFolder">Введите название папки</string>
     <string name="createFolder">Создать папку</string>
     <string name="deleteFolder">Удалить папку</string>
     <string name="renameFolder">Переименовать папку</string>
@@ -115,4 +115,5 @@
 - Исправлено: Крах приложения после смены цветовой схемы, а также импорт заметок.\n
 - Оптимизация приложения.\n
     </string>
+    <string name="telegram">Открыть контакты разработчика</string>
 </resources>

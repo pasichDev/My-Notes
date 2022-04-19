@@ -33,7 +33,7 @@
     <string name="orange">Аранжавая</string>
     <string name="error_folder_NoExists">Тэчкі не існуе!</string>
     <string name="copyNotes">"Перамясціць нататку "</string>
-    <string name="inputNameFolder">Увядзіце назву тэчкі:</string>
+    <string name="inputNameFolder">Увядзіце назву тэчкі</string>
     <string name="createFolder">Стварыць тэчку</string>
     <string name="deleteFolder">Выдаліць тэчку</string>
     <string name="renameFolder">Перайменаваць тэчку</string>
@@ -113,4 +113,5 @@
 - Выпраўлена: Крах прыкладання пасля змены каляровай схемы, а таксама імпарт нататак.\n
 - Аптымізацыя прыкладання.\n
     </string>
+    <string name="telegram">Адкрыць кантакты распрацоўніка</string>
 </resources>

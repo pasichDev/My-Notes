@@ -33,7 +33,7 @@
     <string name="orange">Апельсин</string>
     <string name="error_folder_NoExists">Қалта жоқ!</string>
     <string name="copyNotes">"Ескертуді жылжыту"</string>
-    <string name ="inputNameFolder">Қалта атын енгізіңіз:</string>
+    <string name ="inputNameFolder">Қалта атын енгізіңіз</string>
     <string name ="createFolder">Қалта жасау</string>
     <string name ="deleteFolder">Қалтаны жою</string>
     <string name="renameFolder">Қалтаның атын өзгерту</string>
@@ -112,4 +112,5 @@
 - Түзетілді: түс схемасын өзгерткеннен кейін, сондай-ақ жазбаларды импорттағаннан кейін қолданбаның бұзылуы.\n
 - Қолданбаны оңтайландыру.\n
     </string>
+    <string name="telegram">Әзірлеуші ​​контактілерін ашыңыз</string>
 </resources>

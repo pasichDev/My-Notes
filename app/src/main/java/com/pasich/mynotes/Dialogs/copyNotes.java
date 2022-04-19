@@ -3,10 +3,12 @@ package com.pasich.mynotes.Dialogs;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -59,10 +61,18 @@ public class copyNotes extends DialogFragment {
                 folderListArray.add(folderSel.getName());
             }
         }
+        LinearLayout container = new LinearLayout(getContext());
+        container.setOrientation(LinearLayout.VERTICAL);
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
+        TextView headText = convertView.findViewById(R.id.textViewHead);
+        headText.setText(getString(R.string.copyNotesTo));
+        container.addView(convertView);
+
         if (folderListArray.size()>=1){
-            builder.setMessage(getString(R.string.copyNotefor));
-            LinearLayout container = new LinearLayout(getContext());
-            container.setOrientation(LinearLayout.VERTICAL);
+      //      builder.setMessage(getString(R.string.copyNotefor));
+
+
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             lp.setMargins(60, 40, 60, 0);
 

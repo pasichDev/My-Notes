@@ -30,11 +30,11 @@
     <string name="trashNull">Your cart is empty!</string>
     <string name="shareNull">Nothing to share!</string>
     <string name="sendDev">Communication with developers</string>
-    <string name="telegram" translatable="false">Telegram: @andriipasichnik</string>
+    <string name="telegram">Open developer contacts</string>
     <string name="whatUpdate">Whats new?</string>
     <string name="addFolder">New Folder</string>
     <string name="copyNotes">Move note</string>
-    <string name="inputNameFolder">Enter folder name:</string>
+    <string name="inputNameFolder">Enter folder name</string>
     <string name="createFolder">Create a folder</string>
     <string name="orange">Orange</string>
     <string name="deleteFolder">Delete folder</string>
@@ -126,7 +126,7 @@
     <string name="transferToTrash" translatable="false">Заметку перемещено в корзину.</string>
     <string name="copyX" translatable="false">Скопировано </string>
     <string name="investments" translatable="false">Вложения </string>
-
-
+    <string name="newFolder" translatable="false">Создать новую папку </string>
+    <string name="copyNotesTo" translatable="false">Перенос заметки</string>
 
 </resources>

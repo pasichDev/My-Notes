@@ -6,10 +6,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -35,7 +38,8 @@ public class folderOption extends DialogFragment {
         FileCore fileCore = new FileCore(getContext());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         EditNameDialogListener listener = (EditNameDialogListener) getTargetFragment();
-        builder.setMessage(getString(R.string.inputNameFolder));
+
+      //  builder.setMessage(getString(R.string.inputNameFolder));
         LinearLayout container = new LinearLayout(getContext());
         container.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -49,9 +53,17 @@ public class folderOption extends DialogFragment {
         input.setGravity(android.view.Gravity.TOP|android.view.Gravity.LEFT);
         input.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES|InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         input.setLines(1);
+        input.setHint(getString(R.string.inputNameFolder));
         input.setMaxLines(1);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
+        TextView headText = convertView.findViewById(R.id.textViewHead);
+        headText.setText(getString(R.string.newFolder));
+        container.addView(convertView);
         container.addView(input, lp);
         builder.setView(container);
+
         if(editName.length()>=1) input.setText(editName);
         input.setEnabled(true);
         input.setFocusable(true);

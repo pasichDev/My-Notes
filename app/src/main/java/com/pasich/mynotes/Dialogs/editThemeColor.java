@@ -8,8 +8,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -41,8 +44,7 @@ public class editThemeColor extends DialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         listen = (updateTheme) getTargetFragment();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.selectColorPrimaryApp));
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LinearLayout container = new LinearLayout(getContext());
         container.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -53,6 +55,13 @@ public class editThemeColor extends DialogFragment {
         gridview.setAdapter(new ImageAdapter(getContext()));
         gridview.setLayoutParams(lp);
         gridview.setGravity(android.view.Gravity.TOP | android.view.Gravity.LEFT);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
+        TextView headText = convertView.findViewById(R.id.textViewHead);
+        headText.setText(getString(R.string.selectColorPrimaryApp));
+        container.addView(convertView);
+
         container.addView(gridview, lp);
         builder.setView(container);
         builder.setNegativeButton(getString(R.string.cancel),null);

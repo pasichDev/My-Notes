@@ -14,7 +14,7 @@
                     app:enabled="true">
                         <intent
                             android:action="android.intent.action.VIEW"
-                            android:data="https://t.me/andriipasichnik" />
+                            android:data="https://pasichdev.github.io/pasich/contact.html" />
                 </Preference>
 
         </PreferenceCategory>

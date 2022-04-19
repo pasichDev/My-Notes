@@ -33,7 +33,7 @@
     <string name = "orange"> Pomarańczowy </string>
     <string name = "error_folder_NoExists"> Brak folderu! </string>
     <string name = "copyNotes"> Przenieś notatkę </string>
-    <string name = "inputNameFolder"> Wprowadź nazwę folderu: </string>
+    <string name = "inputNameFolder">" Wprowadź nazwę folderu"</string>
     <string name = "createFolder"> Utwórz folder </string>
     <string name = "deleteFolder"> Usuń folder </string>
     <string name = "renameFolder"> Zmień nazwę folderu </string>
@@ -113,4 +113,5 @@
 - Naprawiono: awaria aplikacji po zmianie schematu kolorów oraz importowaniu notatek.\n
 - Optymalizacja aplikacji.\n
     </string>
+    <string name="telegram">Otwórz kontakty programistów</string>
 </resources>

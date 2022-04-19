@@ -33,7 +33,7 @@
     <string name="orange">Оранжева</string>
     <string name="error_folder_NoExists">Папки немає!</string>
     <string name="copyNotes">Перемістити нотатку</string>
-    <string name="inputNameFolder">Введіть назву папки:</string>
+    <string name="inputNameFolder">Введіть назву папки</string>
     <string name="createFolder">Створити папку</string>
     <string name="deleteFolder">Видалити папку</string>
     <string name="renameFolder">Перейменувати папку</string>
@@ -113,4 +113,5 @@
 - Виправлено: Крах програми після зміни колірної схеми, а також імпорт нотаток.\n
 - Оптимізація програми.\n
     </string>
+    <string name="telegram">Відкрити контакти розробника</string>
 </resources>

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -441,9 +442,15 @@ public class NoteActivity extends AppCompatActivity {
                 R.string.transferToTrash, Toast.LENGTH_LONG).show();
     }
 
-    public void soucesNote(View v){
+    public void soucesButton(View v){
 
-        new sourcesNoteList().show(getSupportFragmentManager(), "sourcesNoteList");
+
+        Log.d("xxxx",  LinkMovementMethod.getInstance().toString() + "x");
+
+     //   new sourcesNoteList().show(getSupportFragmentManager(), "sourcesNoteList");
     }
 
+    public void remindButton(View v) {
+        Toast.makeText(getApplicationContext(), R.string.voiceNoteFragmentToUpdate, Toast.LENGTH_LONG).show();
+    }
 }
