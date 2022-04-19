@@ -107,7 +107,7 @@
     <string name="selectColorPrimaryApp">Выберите основной цвет приложения:</string>
     <string name="languageGitLinkTitle">Исходный код (Github)</string>
 
-    <string name="updateNowM">
+    <string name="updateNowM">\n
 - Добавлено: Новое диалоговое окно выбора цветовой схемы.\n
 - Добавлено: Выбор стиля шрифта.\n
 - Добавлено: Языковый пакет Казахский.\n

@@ -70,17 +70,16 @@ public class copyNotes extends DialogFragment {
         container.addView(convertView);
 
         if (folderListArray.size()>=1){
-      //      builder.setMessage(getString(R.string.copyNotefor));
-
-
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(60, 40, 60, 0);
-
+            lp.setMargins(60, 5, 60, 0);
+            TextView textMessage = new TextView(getContext());
+            textMessage.setText(getString(R.string.copyNotefor));
             Spinner spinner = new Spinner(getContext());
             spinner.setAdapter( new FolderSpinnerAdapter(getContext(),folderListArray));
             spinner.setLayoutParams(lp);
             spinner.setGravity(android.view.Gravity.TOP | android.view.Gravity.LEFT);
-            container.addView(spinner, lp);
+            container.addView(textMessage, lp);
+            container.addView(spinner);
             builder.setView(container);
 
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -105,7 +104,6 @@ public class copyNotes extends DialogFragment {
             builder.setPositiveButton("Ok", (dialog, which) -> {
             });
         }
-
 
             return builder.create();
 

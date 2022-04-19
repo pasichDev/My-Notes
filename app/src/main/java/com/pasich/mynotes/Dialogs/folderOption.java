@@ -38,8 +38,6 @@ public class folderOption extends DialogFragment {
         FileCore fileCore = new FileCore(getContext());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         EditNameDialogListener listener = (EditNameDialogListener) getTargetFragment();
-
-      //  builder.setMessage(getString(R.string.inputNameFolder));
         LinearLayout container = new LinearLayout(getContext());
         container.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);

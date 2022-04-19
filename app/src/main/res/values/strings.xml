@@ -127,6 +127,6 @@
     <string name="copyX" translatable="false">Скопировано </string>
     <string name="investments" translatable="false">Вложения </string>
     <string name="newFolder" translatable="false">Создать новую папку </string>
-    <string name="copyNotesTo" translatable="false">Перенос заметки</string>
+    <string name="copyNotesTo" translatable="false">Перемещение заметки</string>
 
 </resources>
