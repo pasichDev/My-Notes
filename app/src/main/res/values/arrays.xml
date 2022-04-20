@@ -27,15 +27,7 @@
         <item>paragraph</item>
     </string-array>
 
-    <!-- Спиннер сортировки -->
-    <string-array name="spinner_sort_name">
-        <item>@string/sortData</item>
-        <item>@string/sortName</item>
-    </string-array>
-    <string-array name="spinner_sort_value">
-        <item>date</item>
-        <item>name</item>
-    </string-array>
+
 
     <!-- Основной язык голосового ввода -->
     <string-array name="spechMain_enteries">
