@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@null"
                 android:backgroundTintMode="add"
-                android:src="@drawable/ic_sort_spinner"
+                android:src="@drawable/ic_sort_letters"
                 app:layout_constraintEnd_toStartOf="@+id/imageButton" />
 
             <ImageButton
