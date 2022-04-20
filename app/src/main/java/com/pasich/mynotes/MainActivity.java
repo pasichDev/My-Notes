@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             TabLayout tabLayout = findViewById(R.id.tabModeMain);
             setupViewPager(viewPager);
             tabLayout.setupWithViewPager(viewPager);
-            createSpinnerSort();
+          //  createSpinnerSort();
         }
 
         onCreate = true;
@@ -200,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Метод который инициализирует SpinnerSort
      */
-    private void createSpinnerSort(){
+  /*  private void createSpinnerSort(){
         Spinner spinner = findViewById(R.id.MainActivitySpinner);
         SortSpinnerAdapter customAdapter = new SortSpinnerAdapter(this,getResources().getStringArray(R.array.spinner_sort_name));
         spinner.setAdapter(customAdapter);
@@ -221,7 +222,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+*/
 
 
 
+    public void formatNotes (View v){
+
+    }
 }
