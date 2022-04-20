@@ -445,9 +445,9 @@ public class NoteActivity extends AppCompatActivity {
     public void soucesButton(View v){
 
 
-        Log.d("xxxx",  LinkMovementMethod.getInstance().toString() + "x");
+      //  Log.d("xxxx",  LinkMovementMethod.getInstance().toString() + "x");
 
-     //   new sourcesNoteList().show(getSupportFragmentManager(), "sourcesNoteList");
+       new sourcesNoteList().show(getSupportFragmentManager(), "sourcesNoteList");
     }
 
     public void remindButton(View v) {

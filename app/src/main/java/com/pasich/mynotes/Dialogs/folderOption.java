@@ -41,7 +41,7 @@ public class folderOption extends DialogFragment {
         LinearLayout container = new LinearLayout(getContext());
         container.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(60, 0, 60, 0);
+        lp.setMargins(60, 60, 60, 0);
 
 
         final EditText input = new EditText(getContext());
