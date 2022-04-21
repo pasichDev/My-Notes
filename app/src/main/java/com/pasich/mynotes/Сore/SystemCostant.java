@@ -7,6 +7,7 @@ import com.pasich.mynotes.R;
  */
 public class SystemCostant {
     public final static String Settings_Sort = "date";
+    public final static int Setting_Format = 1;
     public final static String Settings_Theme = "Dark";
     public final static boolean Settings_SwipeToExit = true;
     public final static int Settings_TextSize = 16;

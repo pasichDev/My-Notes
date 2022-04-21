@@ -15,6 +15,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
@@ -24,6 +25,7 @@ import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.Interface.IOnBackPressed;
 import com.pasich.mynotes.Сore.ListContolers.NotesListData;
+import com.pasich.mynotes.Сore.SystemCostant;
 
 import java.util.ArrayList;
 
@@ -70,7 +72,8 @@ public class FragmentListNotes extends Fragment
         View view = inflater.inflate(R.layout.fragment_list_notes, container, false);
 
         NotesList = view.findViewById(R.id.ListFileNotes);
-
+        NotesList.setNumColumns(PreferenceManager
+                .getDefaultSharedPreferences(getContext()).getInt("formatParam", SystemCostant.Setting_Format));
         NotesListData = new NotesListData(getContext());
         listNotesfors = NotesListData.newListAdapter( "",mode_note);
         defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, listNotesfors);
@@ -134,6 +137,8 @@ public class FragmentListNotes extends Fragment
         defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, listNotesfors);
         NotesList.setAdapter(defaultListAdapter);
         defaultListAdapter.notifyDataSetChanged();
+        NotesList.setNumColumns(PreferenceManager
+                .getDefaultSharedPreferences(getContext()).getInt("formatParam", SystemCostant.Setting_Format));
         FOLDER = folder;
     }
 

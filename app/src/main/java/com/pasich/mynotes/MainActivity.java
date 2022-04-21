@@ -24,6 +24,7 @@ import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
 import com.pasich.mynotes.Fragments.ViewPagerMain.FragmentListNotes;
 import com.pasich.mynotes.Fragments.ViewPagerMain.FragmentListNotesVoice;
 import com.pasich.mynotes.Сore.Interface.IOnBackPressed;
+import com.pasich.mynotes.Сore.SwitchButtonMain.formatSwitch;
 import com.pasich.mynotes.Сore.SwitchButtonMain.sortSwitch;
 import com.pasich.mynotes.Сore.SystemCostant;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean onCreate = false;
     public ImageButton sortButton, formatButton;
     public sortSwitch sortSwitch;
-
+    public formatSwitch formatSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         checkSystemFolder(this);
@@ -44,9 +45,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar_actionbar));
-        this.sortSwitch = new sortSwitch(this, sortButton);
         sortButton = findViewById(R.id.sortButton);
         formatButton = findViewById(R.id.formatButton);
+
+
+        this.sortSwitch = new sortSwitch(this, sortButton);
+        this.formatSwitch = new formatSwitch(this, formatButton);
+
 
         if (!onCreate) {
             FragmentListNotes = new FragmentListNotes().newInstance(true);
@@ -209,7 +214,8 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void formatNotes(View v) {
-
+        formatSwitch.formatNote();
+        FragmentListNotes.restartListNotes();
     }
 
     /**
@@ -226,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
      * Create Button List to TabPanel
      */
     private void startButtonList(){
-        this.sortSwitch = new sortSwitch(this, sortButton);
         sortSwitch.getSortParam();
+        formatSwitch.getFormatParam();
     }
 }
