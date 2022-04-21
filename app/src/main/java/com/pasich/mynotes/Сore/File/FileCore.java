@@ -24,7 +24,7 @@ import java.io.IOException;
 public class FileCore extends AppCompatActivity {
     private final Context context;
     private String fileName;
-    private StringBuilder stringBuilder;
+
     public FileCore(Context context) {
         this.context = context;
     }
@@ -173,7 +173,7 @@ public class FileCore extends AppCompatActivity {
     //*data file - текст который вводил пользователь
     //*folded - папка из которой было создано заметку
     public StringBuilder readFile(String data_file, String folder) {
-        stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         String line;
         try {
             // открываем поток для чтения

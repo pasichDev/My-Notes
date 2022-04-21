@@ -3,7 +3,6 @@ package com.pasich.mynotes.Adapters.GridView;
 import static com.pasich.mynotes.Сore.SystemCostant.ColorThemePrimary;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
