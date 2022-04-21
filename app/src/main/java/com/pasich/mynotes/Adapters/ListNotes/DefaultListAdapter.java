@@ -54,9 +54,11 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
         }else if(listNotesfor.getFolder()){
             viewHolder.imgFolder.setVisibility(View.VISIBLE);
             viewHolder.imgFolder.setImageResource(R.drawable.ic_folder);
+        }
+        else{ viewHolder.imgFolder.setVisibility(View.VISIBLE);
+            viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
 
         }
-        else{ viewHolder.imgFolder.setVisibility(View.GONE);}
             nameItem = getWithoutExtension(nameItem);
             if(nameItem.length()>39) nameItem = nameItem +"...";
 

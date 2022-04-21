@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,7 @@ public class FragmentListNotes extends Fragment
         IOnBackPressed {
 
     private DefaultListAdapter defaultListAdapter;
-    private ListView NotesList;
+    private GridView NotesList;
     private NotesListData NotesListData;
     private ArrayList<ListNotesfor> listNotesfors;
     private boolean mode_note;
@@ -69,6 +70,7 @@ public class FragmentListNotes extends Fragment
         View view = inflater.inflate(R.layout.fragment_list_notes, container, false);
 
         NotesList = view.findViewById(R.id.ListFileNotes);
+
         NotesListData = new NotesListData(getContext());
         listNotesfors = NotesListData.newListAdapter( "",mode_note);
         defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, listNotesfors);

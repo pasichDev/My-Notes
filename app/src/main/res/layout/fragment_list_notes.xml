@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/fragmentListNotes"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragmentListNotes"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
      >
 
-    <ListView
-    android:id="@+id/ListFileNotes"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    <GridView
+        android:numColumns="1"
+        android:id="@+id/ListFileNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
 
 
 
