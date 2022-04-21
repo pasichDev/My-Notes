@@ -256,6 +256,10 @@ public class NoteActivity extends AppCompatActivity {
         else if(KeyFunction.equals("TrashNote") && !idNote.equals("null")){
             setTitle(getResources().getText(R.string.viewNotes));
             MyEditText.setText(fileCore.readFile(idNote,"trash/"));
+            EditButton.setVisibility(View.GONE);
+            SpechToTextButton.setVisibility(View.GONE);
+            findViewById(R.id.deleteButton).setVisibility(View.GONE);
+            findViewById(R.id.remindButton).setVisibility(View.GONE);
             notesControler.deactiveEditText();
         }
 

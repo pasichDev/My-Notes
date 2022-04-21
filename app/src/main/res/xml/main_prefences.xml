@@ -8,7 +8,7 @@
                     android:key="themeColor"
                     android:summary="@string/ThemeToolbar_summary"
                     android:title="@string/ThemeToolbar_title"
-                    android:icon="@drawable/ic_themeedit"
+                    android:icon="@drawable/ic_theme_edit"
                     />
 
                 <ListPreference
@@ -43,7 +43,7 @@
                     android:key="autoSave"
                     android:summary="@string/autoSaveSumarry"
                     android:title="@string/autoSave"
-                    app:icon="@drawable/ic_auto_save" />
+                    app:icon="@drawable/ic_autosave" />
         </PreferenceCategory>
 </PreferenceScreen>
 
