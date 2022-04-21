@@ -136,7 +136,7 @@ public class FragmentListNotes extends Fragment
         listNotesfors  = NotesListData.newListAdapter(folder,modes);
         defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, listNotesfors);
         NotesList.setAdapter(defaultListAdapter);
-        defaultListAdapter.notifyDataSetChanged();
+        // defaultListAdapter.notifyDataSetChanged();
         NotesList.setNumColumns(PreferenceManager
                 .getDefaultSharedPreferences(getContext()).getInt("formatParam", SystemCostant.Setting_Format));
         FOLDER = folder;

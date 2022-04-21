@@ -48,12 +48,13 @@ public class editThemeColor extends DialogFragment {
         LinearLayout container = new LinearLayout(getContext());
         container.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(40, 20, 40, 20);
+        lp.setMargins(50, 60, 50, 20);
+
         GridView gridview = new GridView(getContext());
         gridview.setNumColumns(6);
         gridview.setHorizontalSpacing(10);
         gridview.setAdapter(new ImageAdapter(getContext()));
-        gridview.setLayoutParams(lp);
+
         gridview.setGravity(android.view.Gravity.TOP | android.view.Gravity.LEFT);
 
         LayoutInflater inflater = getLayoutInflater();
