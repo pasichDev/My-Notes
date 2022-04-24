@@ -48,7 +48,7 @@ public class NoteActivity extends AppCompatActivity {
     private final int REQUEST_AUDIO_PERMISSION_RESULT = 22;
     private NotesX notesControler;
     private final FileCore fileCore = new FileCore(this);
-    private String KeyFunction,folder,idNote, settingsSpechLaung, settingsSpechOutput;
+    private String KeyFunction,folder,idNote, settingsSpechLaung, settingsSpechOutput, shareText;
     private StringBuilder textToFile;
     private ImageButton EditButton,SpechToTextButton;
     private EditText MyEditText;
@@ -208,6 +208,9 @@ public class NoteActivity extends AppCompatActivity {
         KeyFunction = getIntent().getStringExtra("KeyFunction");
         idNote = getIntent().getStringExtra("idNote");
         folder = getIntent().getStringExtra("folder");
+
+
+
         MyEditText = findViewById(R.id.newNotesTextInput);
         spechStartText = findViewById(R.id.spechStartText);
         EditButton = findViewById(R.id.editNotesButton);
@@ -220,6 +223,12 @@ public class NoteActivity extends AppCompatActivity {
         settingsSpechOutput = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext()).getString("setSpechOutputText", SystemCostant.Settings_SpeechOutput);
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+
+        //Здесь мы получаем даные если мы хотим сохранить заметку из под другог приложения
+        shareText = getIntent().getStringExtra("shareText");
+        if(shareText!= null && shareText.length()>5){
+            MyEditText.setText(shareText);
+        }
     }
 
     /**
@@ -449,9 +458,13 @@ public class NoteActivity extends AppCompatActivity {
 
     public void soucesButton(View v){
 
-
+        String msg = "Please go to http://stackoverflow.com";
+        String withURL = msg.replaceAll("(?:https?|ftps?)://[\\w/%.-]+", "<a href='$0'>$0</a>");
+        Log.d("xxxx", withURL);
       //  Log.d("xxxx",  LinkMovementMethod.getInstance().toString() + "x");
-
+        if (MyEditText.getText().toString().contains("www") || MyEditText.getText().toString().contains("http://")){
+            Log.d("xxxx", "lol");
+        }
        new sourcesNoteList().show(getSupportFragmentManager(), "sourcesNoteList");
     }
 

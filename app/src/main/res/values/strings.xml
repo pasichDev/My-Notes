@@ -129,4 +129,5 @@
     <string name="newFolder" translatable="false">Создать новую папку </string>
     <string name="copyNotesTo" translatable="false">Перемещение заметки</string>
 
+    <string name="notSupportedShare" translatable="false">Этот контент не поддерживаеться.</string>
 </resources>

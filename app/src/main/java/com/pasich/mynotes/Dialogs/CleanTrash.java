@@ -32,9 +32,10 @@ public class CleanTrash extends DialogFragment {
 
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(60, 0, 60, 0);
+        lp.setMargins(100, 60, 40, 40);
         TextView textMessage = new TextView(getContext());
         textMessage.setText(getString(R.string.cleanTrashquestion));
+        textMessage.setTextSize(18);
         LinearLayout container = new LinearLayout(getContext());
         container.setOrientation(LinearLayout.VERTICAL);
         LayoutInflater inflater = getLayoutInflater();
@@ -44,9 +45,6 @@ public class CleanTrash extends DialogFragment {
         container.addView(convertView);
         container.addView(textMessage, lp);
 
-
-                 /*   .setTitle(getString(R.string.trashN))
-                    .setMessage(getString(R.string.cleanTrashquestion))*/
 
         builder.setView(container);
                     builder.setPositiveButton(getString(R.string.yesCleanTrash), (dialog, which) -> {

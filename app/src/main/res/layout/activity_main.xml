@@ -28,8 +28,7 @@
                 android:id="@+id/sortButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-
-                android:backgroundTintMode="add"
+                style="?android:attr/actionButtonStyle"
                 android:onClick="sortListNotes"
                 android:src="@drawable/ic_sort_letters"
                 app:layout_constraintEnd_toStartOf="@+id/formatButton" />
@@ -38,7 +37,7 @@
                 android:id="@+id/formatButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:backgroundTintMode="add"
+                style="?android:attr/actionButtonStyle"
                 android:onClick="formatNotes"
                 android:src="@drawable/ic_edit_format_tiles"
                 app:layout_constraintEnd_toEndOf="parent"

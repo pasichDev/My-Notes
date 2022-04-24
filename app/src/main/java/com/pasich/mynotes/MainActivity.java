@@ -72,13 +72,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
         if (UPDATE_THEME) {
             finish();
             startActivity(getIntent());
             overridePendingTransition(0, 0);
             UPDATE_THEME = false;
         }
-        if (UPDATE_LISTVIEW) {
+        else if (UPDATE_LISTVIEW) {
             FragmentListNotes.restartListNotes();
             UPDATE_LISTVIEW = false;
         }

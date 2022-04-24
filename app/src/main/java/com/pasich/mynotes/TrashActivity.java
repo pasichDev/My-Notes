@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class TrashActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); }
 
-        ListView trashNotesList = findViewById(R.id.ListNotesTrash);
+        GridView trashNotesList = findViewById(R.id.ListNotesTrash);
         TrashListData trashListData = new TrashListData(this);
         listNotesfors  = trashListData.newListAdapter();
 

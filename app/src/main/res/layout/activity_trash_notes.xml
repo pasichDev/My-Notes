@@ -10,15 +10,16 @@
         android:id="@+id/toolbar_actionbar"
         layout="@layout/toolbar" />
 
-    <ListView
+
+    <GridView
+        android:numColumns="1"
         android:id="@+id/ListNotesTrash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:choiceMode="none"
-        android:headerDividersEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/emptyTrash"
