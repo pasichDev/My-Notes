@@ -19,11 +19,26 @@
             android:id="@+id/toolbar_actionbar"
             layout="@layout/toolbar" />
 
-        <include
-            android:id="@+id/noteView"
-            layout="@layout/note_view"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <EditText
+                android:id="@+id/newNotesTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:ems="12"
+                android:gravity="start|top"
+                android:inputType="none|text|textCapSentences|textMultiLine"
+                android:minHeight="100dp"
+                android:padding="10dp"
+                android:textColor="?attr/colorTextNote"
+                android:textSize="16sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </ScrollView>
 
 
     </LinearLayout>

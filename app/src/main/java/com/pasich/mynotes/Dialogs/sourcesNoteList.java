@@ -26,6 +26,12 @@ import java.util.Objects;
 
 public class sourcesNoteList extends DialogFragment {
 
+
+    private ArrayList <String> arrayResource;
+
+    public sourcesNoteList(ArrayList <String> arrayResource){
+        this.arrayResource = arrayResource;
+    }
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -45,11 +51,15 @@ public class sourcesNoteList extends DialogFragment {
         builder.setView(container);
         ArrayList<SourceListContent> ListSoc = new ArrayList<>();
 
+        for(String link : arrayResource) {
+            ListSoc.add(new SourceListContent(link,"Url"));
+        }
+        /*
         ListSoc.add(new SourceListContent("hideb.com","Url"));
         ListSoc.add(new SourceListContent("+380505304185","Tel"));
         ListSoc.add(new SourceListContent("asdas@sdas.sad","Mail"));
 
-
+*/
         SouceListAdapter souceListAdapter = new SouceListAdapter(getContext(), R.layout.list_source_note, ListSoc);
         listView.setAdapter(souceListAdapter);
 
@@ -58,7 +68,7 @@ public class sourcesNoteList extends DialogFragment {
             String selectedItem = listItem.getSource();
 
             ClipboardManager clipboard = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("simple text", selectedItem);
+            ClipData clip = ClipData.newPlainText(selectedItem, selectedItem);
             clipboard.setPrimaryClip(clip);
 
             Toast.makeText(getContext(),getString(R.string.copyX)+ " " + selectedItem,Toast.LENGTH_SHORT).show();

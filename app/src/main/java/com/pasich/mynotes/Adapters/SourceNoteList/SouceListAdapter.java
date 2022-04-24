@@ -43,6 +43,7 @@ public class SouceListAdapter extends ArrayAdapter<SourceListContent> {
         //Обработка именни пункта
         String sourceItem = listNotesfor.getSource();
         String typeItem = listNotesfor.getType();
+        viewHolder.sourceView.setLines(1);
 
        switch (typeItem){
            case "Url":

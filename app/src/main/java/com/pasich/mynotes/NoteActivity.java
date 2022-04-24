@@ -9,18 +9,27 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,12 +45,16 @@ import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.Dialogs.PermissionError;
 import com.pasich.mynotes.Dialogs.sourcesNoteList;
 import com.pasich.mynotes.Сore.File.FileCore;
+import com.pasich.mynotes.Сore.Methods.findSourceForNote;
 import com.pasich.mynotes.Сore.NoteControler.NotesX;
 import com.pasich.mynotes.Сore.SystemCostant;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NoteActivity extends AppCompatActivity {
 
@@ -58,6 +71,9 @@ public class NoteActivity extends AppCompatActivity {
     private TextView spechStartText;
     private ImageView imageSpechVolume;
     private Menu toolbarMenu;
+    private  int startLengtOneString;
+
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -93,7 +109,82 @@ public class NoteActivity extends AppCompatActivity {
                 }
                 return false;
             });  }
+
+
+        this.startLengtOneString = getLengtOneString();
+        //  MyEditText..setSpan()
+/*
+        SpannableString spanString = new SpannableString (lines[1]);
+        StyleSpan span = new StyleSpan(Typeface.BOLD_ITALIC);
+        spanString.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        MyEditText.setText(spanString);
+
+
+        int lineEndIndex = MyEditText.getText().toString().indexOf("\n");
+        int firstLineLength;
+        if(lineEndIndex == -1) {
+            firstLineLength = MyEditText.getText().toString().length();
+        } else {
+            firstLineLength = lineEndIndex;
+        }*/
+  /*
+
+       Log.d("xxxx", lines.length + "count");
+        Log.d("xxxx", lines[0] + " size date");
+        Log.d("xxxx", lines[0].length() + " size string");
+*/
+        SpannableString spanString = new SpannableString (valueTextEdit());
+        StyleSpan span = new StyleSpan(Typeface.BOLD_ITALIC);
+       spanString.setSpan(span, 0, getLengtOneString(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+       // spanString.setSpan(new RelativeSizeSpan(1.2f), 0, getLengtOneString(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        MyEditText.setText(spanString);
+
+
+
+        /*
+        SPAN_EXCLUSIVE_EXCLUSIVE - только вкзаана должина
+         */
+
+
+
+
+
+        MyEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+            /*    Log.d("xxxx", start + " start");
+                Log.d("xxxx", before  + " before");
+                Log.d("xxxx", count  + " count");*/
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // TODO Auto-generated method stub
+            }
+        });
     }
+
+
+    public int getLengtOneString(){
+        String[] lines = MyEditText.getText().toString().split("\n");
+        return  lines[0].length();
+    }
+
+
+
+
+
+
+
 
 
     /**
@@ -229,6 +320,8 @@ public class NoteActivity extends AppCompatActivity {
         if(shareText!= null && shareText.length()>5){
             MyEditText.setText(shareText);
         }
+
+
     }
 
     /**
@@ -458,14 +551,17 @@ public class NoteActivity extends AppCompatActivity {
 
     public void soucesButton(View v){
 
-        String msg = "Please go to http://stackoverflow.com";
-        String withURL = msg.replaceAll("(?:https?|ftps?)://[\\w/%.-]+", "<a href='$0'>$0</a>");
-        Log.d("xxxx", withURL);
-      //  Log.d("xxxx",  LinkMovementMethod.getInstance().toString() + "x");
-        if (MyEditText.getText().toString().contains("www") || MyEditText.getText().toString().contains("http://")){
-            Log.d("xxxx", "lol");
+        String regex= "(380|718)[-+0-9]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(valueTextEdit().toString());
+        while(m.find()) {
+         Log.d("xxxx", "FOUND:" + m.group());
+         Log.d("xxxx", "nice" + m.groupCount());
         }
-       new sourcesNoteList().show(getSupportFragmentManager(), "sourcesNoteList");
+
+        findSourceForNote findSourceForNote = new findSourceForNote();
+
+       new sourcesNoteList(findSourceForNote.getLinks(valueTextEdit().toString())).show(getSupportFragmentManager(), "sourcesNoteList");
     }
 
     public void remindButton(View v) {
