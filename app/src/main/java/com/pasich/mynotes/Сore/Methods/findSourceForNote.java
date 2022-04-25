@@ -29,7 +29,7 @@ public class findSourceForNote {
                 .matcher(this.textString);
 
         while (match.find())
-            arrayLink.add(match.group());
+            if(!arrayLink.contains(match.group()))  arrayLink.add(match.group());
         return arrayLink;
     }
 
@@ -45,7 +45,7 @@ public class findSourceForNote {
                 .matcher(this.textString);
 
         while (match.find())
-            arrayMail.add(match.group());
+            if(!arrayMail.contains(match.group()))   arrayMail.add(match.group());
         return arrayMail;
     }
 
@@ -54,7 +54,7 @@ public class findSourceForNote {
      * @return - ArrayList<String>
      */
     public ArrayList<String> getPhoneNumber(){
-        ArrayList<String> arrayMail = new ArrayList<>();
+        ArrayList<String> arrayNumber = new ArrayList<>();
         String regPhoneNumber = "(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}"
                 + "|(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}"
                 + "|(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}";
@@ -63,8 +63,8 @@ public class findSourceForNote {
                 .matcher(this.textString);
 
         while (match.find())
-            arrayMail.add(match.group());
-        return arrayMail;
+            if(!arrayNumber.contains(match.group())) arrayNumber.add(match.group());
+        return arrayNumber;
     }
 
 

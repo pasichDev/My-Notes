@@ -1,5 +1,6 @@
 package com.pasich.mynotes.Dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -7,8 +8,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +31,7 @@ import java.util.Objects;
 public class sourcesNoteList extends DialogFragment {
 
 
-    private ArrayList <SourceListContent> ListSoc;
+    private final ArrayList <SourceListContent> ListSoc;
 
     public sourcesNoteList(ArrayList <SourceListContent> ListSoc){
         this.ListSoc = ListSoc;
@@ -38,25 +42,30 @@ public class sourcesNoteList extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LinearLayout container = new LinearLayout(getContext());
-        container.setOrientation(LinearLayout.VERTICAL);
         ListView listView = new ListView(getContext());
-
-
         LayoutInflater inflater = getLayoutInflater();
-        View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
+        @SuppressLint("InflateParams") View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
         TextView headText = convertView.findViewById(R.id.textViewHead);
+        ImageButton closeBut = convertView.findViewById(R.id.closeDialog);
+
+      //  ScrollView scrollVIew = new ScrollView(getContext());
+
+
+
+        container.setOrientation(LinearLayout.VERTICAL);
+
+
+        closeBut.setVisibility(View.VISIBLE);
+        closeBut.setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
+
+
         headText.setText(getString(R.string.investments));
         container.addView(convertView);
+       // scrollVIew.addView(listView);
         container.addView(listView);
 
         builder.setView(container);
 
-        /*
-        ListSoc.add(new SourceListContent("hideb.com","Url"));
-        ListSoc.add(new SourceListContent("+380505304185","Tel"));
-        ListSoc.add(new SourceListContent("asdas@sdas.sad","Mail"));
-
-*/
         SouceListAdapter souceListAdapter = new SouceListAdapter(getContext(), R.layout.list_source_note, ListSoc);
         listView.setAdapter(souceListAdapter);
 

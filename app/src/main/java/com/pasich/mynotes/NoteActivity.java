@@ -19,17 +19,13 @@ import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,28 +47,28 @@ import com.pasich.mynotes.Сore.NoteControler.NotesX;
 import com.pasich.mynotes.Сore.SystemCostant;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class NoteActivity extends AppCompatActivity {
 
     private final int REQUEST_AUDIO_PERMISSION_RESULT = 22;
-    private NotesX notesControler;
+    private NotesX notesControllers;
     private final FileCore fileCore = new FileCore(this);
-    private String KeyFunction,folder,idNote, settingsSpechLaung, settingsSpechOutput, shareText;
+    private String KeyFunction;
+    private String folder;
+    private String idNote;
+    private String settingsSpeechLung;
+    private String settingsSpeechOutput;
     private StringBuilder textToFile;
-    private ImageButton EditButton,SpechToTextButton;
+    private ImageButton EditButton, SpeechToTextButton;
     private EditText MyEditText;
     private boolean settingsAutoSave, exitToButton;
     private SpeechRecognizer speechRecognizer;
     private Intent speechRecognizerIntent;
-    private TextView spechStartText;
-    private ImageView imageSpechVolume;
+    private TextView speechStartText;
+    private ImageView imageSpeechVolume;
     private Menu toolbarMenu;
-    private  int startLengtOneString;
 
 
 
@@ -91,17 +87,17 @@ public class NoteActivity extends AppCompatActivity {
 
         //Установим переменные
         createVariable();
-        notesControler =  new NotesX(getApplicationContext(),MyEditText,EditButton,KeyFunction,SpechToTextButton);
-        notesControler.SetTextSize(PreferenceManager
+        notesControllers =  new NotesX(getApplicationContext(),MyEditText,EditButton,KeyFunction, SpeechToTextButton);
+        notesControllers.SetTextSize(PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext()).getInt("textSize", SystemCostant.Settings_TextSize));
-        notesControler.setStyleText(PreferenceManager
+        notesControllers.setStyleText(PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext()).getString("textStyle", SystemCostant.Settings_TextStyle));
         checkToTextNote();
         NotesMode();
 
         if(isRecognitionAvailable(getApplicationContext())){
             initializateSpechToTextMethod();
-            SpechToTextButton.setOnTouchListener((view, motionEvent) -> {
+            SpeechToTextButton.setOnTouchListener((view, motionEvent) -> {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP){
                     speechRecognizer.stopListening();
                 }
@@ -112,7 +108,7 @@ public class NoteActivity extends AppCompatActivity {
             });  }
 
 
-        this.startLengtOneString = getLengtOneString();
+      //  this.startLengtOneString = getLengtOneString();
         //  MyEditText..setSpan()
 /*
         SpannableString spanString = new SpannableString (lines[1]);
@@ -194,7 +190,7 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     public void onRestart(){
         super.onRestart();
-        notesControler.activeEditText();
+        notesControllers.activeEditText();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED);
     }
     /**
@@ -259,7 +255,7 @@ public class NoteActivity extends AppCompatActivity {
                 }
             }
 
-            notesControler.deactiveEditText();
+            notesControllers.deactiveEditText();
             checkToTextNote();
         }
 
@@ -304,21 +300,21 @@ public class NoteActivity extends AppCompatActivity {
 
 
         MyEditText = findViewById(R.id.newNotesTextInput);
-        spechStartText = findViewById(R.id.spechStartText);
+        speechStartText = findViewById(R.id.spechStartText);
         EditButton = findViewById(R.id.editNotesButton);
-        SpechToTextButton = findViewById(R.id.spechTextNote);
-        imageSpechVolume = findViewById(R.id.imageSpechVolume);
+        SpeechToTextButton = findViewById(R.id.spechTextNote);
+        imageSpeechVolume = findViewById(R.id.imageSpechVolume);
         settingsAutoSave = PreferenceManager
                 .getDefaultSharedPreferences(this).getBoolean("autoSave", SystemCostant.Settings_AutoSave);
-        settingsSpechLaung = PreferenceManager
+        settingsSpeechLung = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext()).getString("spechLaunguage", SystemCostant.Settings_SpeechLanguage);
-        settingsSpechOutput = PreferenceManager
+        settingsSpeechOutput = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext()).getString("setSpechOutputText", SystemCostant.Settings_SpeechOutput);
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
         //Здесь мы получаем даные если мы хотим сохранить заметку из под другог приложения
-        shareText = getIntent().getStringExtra("shareText");
-        if(shareText!= null && shareText.length()>5){
+        String shareText = getIntent().getStringExtra("shareText");
+        if(shareText != null && shareText.length()>5){
             MyEditText.setText(shareText);
         }
 
@@ -331,7 +327,7 @@ public class NoteActivity extends AppCompatActivity {
     public void activeButtonEditText(View view) {
 
         toolbarMenu.findItem(R.id.noSave).setVisible(true);
-        notesControler.activeEditText();
+        notesControllers.activeEditText();
     }
 
     /**
@@ -352,19 +348,19 @@ public class NoteActivity extends AppCompatActivity {
     private void NotesMode(){
         if(KeyFunction.equals("NewNote") && idNote.equals("null")){
             setTitle(getResources().getText(R.string.NewNote));
-            notesControler.activeEditText(); }
+            notesControllers.activeEditText(); }
         else  if(KeyFunction.equals("EditNote") && !idNote.equals("null")){
             setTitle(getResources().getText(R.string.EditNote));
             MyEditText.setText(fileCore.readFile(idNote,folder+"/"));
-            notesControler.deactiveEditText(); }
+            notesControllers.deactiveEditText(); }
         else if(KeyFunction.equals("TrashNote") && !idNote.equals("null")){
             setTitle(getResources().getText(R.string.viewNotes));
             MyEditText.setText(fileCore.readFile(idNote,"trash/"));
             EditButton.setVisibility(View.GONE);
-            SpechToTextButton.setVisibility(View.GONE);
+            SpeechToTextButton.setVisibility(View.GONE);
             findViewById(R.id.deleteButton).setVisibility(View.GONE);
             findViewById(R.id.remindButton).setVisibility(View.GONE);
-            notesControler.deactiveEditText();
+            notesControllers.deactiveEditText();
         }
 
     }
@@ -423,7 +419,7 @@ public class NoteActivity extends AppCompatActivity {
      */
     @SuppressLint("SetTextI18n")
     private void saveSpeechToText(ArrayList<String> result) {
-        String valueLine = settingsSpechOutput.equals("line") ? " " : MyEditText.getText().length()==0 ? "" :"\n";
+        String valueLine = settingsSpeechOutput.equals("line") ? " " : MyEditText.getText().length()==0 ? "" :"\n";
         MyEditText.setText(MyEditText.getText() + valueLine + result.get(0));
         MyEditText.setSelection(MyEditText.getText().length()); //Отобразим курсор на последнем слове
 
@@ -462,7 +458,7 @@ public class NoteActivity extends AppCompatActivity {
         speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
-                settingsSpechLaung.equals(SystemCostant.Settings_SpeechLanguage)? Locale.getDefault() : settingsSpechLaung);
+                settingsSpeechLung.equals(SystemCostant.Settings_SpeechLanguage)? Locale.getDefault() : settingsSpeechLung);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
         speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
@@ -472,10 +468,10 @@ public class NoteActivity extends AppCompatActivity {
 
             @Override
             public void onBeginningOfSpeech() {
-                spechStartText.setVisibility(View.VISIBLE);
-                imageSpechVolume.setVisibility(View.VISIBLE);
+                speechStartText.setVisibility(View.VISIBLE);
+                imageSpeechVolume.setVisibility(View.VISIBLE);
                 //Эта функция начинает запис текста
-               spechStartText.setText(getString(R.string.spechToListen));
+               speechStartText.setText(getString(R.string.spechToListen));
             }
 
             @Override
@@ -504,15 +500,15 @@ public class NoteActivity extends AppCompatActivity {
             public void onError(int i) {
                 Log.d("xxx", String.valueOf(i));
                if(i==7){
-                   spechStartText.setVisibility(View.GONE);
-                   imageSpechVolume.setVisibility(View.GONE);
+                   speechStartText.setVisibility(View.GONE);
+                   imageSpeechVolume.setVisibility(View.GONE);
                    Toast.makeText(getApplicationContext(),
                            getString(R.string.emptySpeec),
                            Toast.LENGTH_SHORT).show();
                }
                 if(i==2){
-                    spechStartText.setVisibility(View.GONE);
-                    imageSpechVolume.setVisibility(View.GONE);
+                    speechStartText.setVisibility(View.GONE);
+                    imageSpeechVolume.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(),
                             getString(R.string.errorInternetConectSpeech),
                             Toast.LENGTH_LONG).show();
@@ -524,7 +520,7 @@ public class NoteActivity extends AppCompatActivity {
             public void onResults(Bundle bundle) {
                 ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 saveSpeechToText(data);
-                spechStartText.setVisibility(View.GONE);
+                speechStartText.setVisibility(View.GONE);
             }
 
             @Override
@@ -550,21 +546,7 @@ public class NoteActivity extends AppCompatActivity {
                 R.string.transferToTrash, Toast.LENGTH_LONG).show();
     }
 
-    public void soucesButton(View v){
-
-      /*  String regex
-                = "(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}"
-                + "|(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}"
-                + "|(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}";
-
-
-        Pattern pattern = Pattern.compile(regex);
-        Matcher m = pattern.matcher(valueTextEdit().toString());
-        while(m.find()) {
-         Log.d("xxxx", "FOUND:" + m.group());
-         Log.d("xxxx", "nice" + m.groupCount());
-        }*/
-
+    public void sourcesButton(View v){
         findSourceForNote findSourceForNote = new findSourceForNote(valueTextEdit().toString());
         ArrayList<SourceListContent> ListSoc
                 = createArrayListSoc(
@@ -583,7 +565,7 @@ public class NoteActivity extends AppCompatActivity {
      * A method that creates one array of three (mail, phones, links)
      * @param arrayLink - array Links
      * @param arrayMail - array Mail
-     * @return
+     * @return - array
      */
     private ArrayList<SourceListContent> createArrayListSoc(ArrayList<String> arrayLink,
                                                             ArrayList<String> arrayMail,

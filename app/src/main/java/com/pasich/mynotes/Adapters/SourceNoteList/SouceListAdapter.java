@@ -63,21 +63,20 @@ public class SouceListAdapter extends ArrayAdapter<SourceListContent> {
 
 
         viewHolder.sourceView.setText(sourceItem);
-        viewHolder.typeView.setText(typeItem);
+ //       viewHolder.typeView.setText(typeItem);
 
         return convertView;
     }
 
 
     private class ViewHolder {
-        final TextView sourceView, typeView;
+        final TextView sourceView;
         final ImageView imgSource;
 
         ViewHolder(View view){
             sourceView =  view.findViewById(R.id.nameSource);
-            typeView =  view.findViewById(R.id.typeSource);
-            imgSource = view.findViewById(R.id.imageSource);
-        }
+        //    typeView =  view.findViewById(R.id.typeSource);
+            imgSource = view.findViewById(R.id.imageSource); }
     }
 
 
