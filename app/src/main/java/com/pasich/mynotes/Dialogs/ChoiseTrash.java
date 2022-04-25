@@ -53,7 +53,8 @@ public class ChoiseTrash extends DialogFragment {
                     fileCore.removeNotesFile(selectedItem);
                     listNotesfors.remove(pos);
                     defaultListAdapter.notifyDataSetChanged();
-                    checkCountListTrashActivity(getActivity(),defaultListAdapter);
+                    if(defaultListAdapter.getCount() == 0)
+                    checkCountListTrashActivity(getActivity());
 
                     break;
             }

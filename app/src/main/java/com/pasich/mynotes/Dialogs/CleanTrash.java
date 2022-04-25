@@ -51,7 +51,8 @@ public class CleanTrash extends DialogFragment {
                         fileCore.deleteAllNotes();
                         defaultListAdapter.clear();
                         defaultListAdapter.notifyDataSetChanged();
-                        checkCountListTrashActivity(getActivity(),defaultListAdapter);
+                        if(defaultListAdapter.getCount() == 0)
+                        checkCountListTrashActivity(getActivity());
                     })
                     .setNegativeButton(getString(R.string.cancel), null);
         return builder.create();

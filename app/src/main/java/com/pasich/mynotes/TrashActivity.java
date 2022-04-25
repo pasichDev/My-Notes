@@ -46,30 +46,34 @@ public class TrashActivity extends AppCompatActivity {
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mActionBarToolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); }
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         GridView trashNotesList = findViewById(R.id.ListNotesTrash);
         TrashListData trashListData = new TrashListData(this);
-        listNotesfors  = trashListData.newListAdapter();
+        listNotesfors = trashListData.newListAdapter();
 
 
         defaultListAdapter = new DefaultListAdapter(getApplicationContext(), R.layout.list_notes, listNotesfors);
         trashNotesList.setAdapter(defaultListAdapter);
         trashNotesList.setOnItemClickListener((parent, v, position, id) -> {
-            ChoiseTrash dialog = new ChoiseTrash(position,listNotesfors,defaultListAdapter);
+            ChoiseTrash dialog = new ChoiseTrash(position, listNotesfors, defaultListAdapter);
             dialog.show(getSupportFragmentManager(), "choiseTrash");
         });
 
-        checkCountListTrashActivity(this,defaultListAdapter);
         countItems = defaultListAdapter.getCount();
+        if (countItems == 0)
+            checkCountListTrashActivity(this);
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
-        if(defaultListAdapter.getCount()>=1)
-        menu.findItem(R.id.trashClean).setVisible(true);
+        if (defaultListAdapter.getCount() >= 1)
+            menu.findItem(R.id.trashClean).setVisible(true);
         return true;
     }
 
@@ -80,27 +84,27 @@ public class TrashActivity extends AppCompatActivity {
     }
 
     @Override //Метод который звонит при каждом нажатии на тулбар
-    public boolean onOptionsItemSelected(MenuItem item){
-        if (item.getItemId()==android.R.id.home){
-           closeActivity();
-            }else
-        if (item.getItemId()==R.id.trashClean){
-            if(!(defaultListAdapter.getCount() == 0)) {
-            CleanTrash dialog = new CleanTrash(defaultListAdapter);
-            dialog.show(getSupportFragmentManager(), "CleanTrash"); }
-            else{
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            closeActivity();
+        } else if (item.getItemId() == R.id.trashClean) {
+            if (!(defaultListAdapter.getCount() == 0)) {
+                CleanTrash dialog = new CleanTrash(defaultListAdapter);
+                dialog.show(getSupportFragmentManager(), "CleanTrash");
+            } else {
                 Toast.makeText(getApplicationContext(),
                         R.string.trashNull,
                         Toast.LENGTH_SHORT).show();
 
             }
         }
-        return true; }
+        return true;
+    }
 
 
-    public void closeActivity(){
-           setResult(24,
-                   new Intent().putExtra("updateList", countItems != defaultListAdapter.getCount()));
-            finish();
-        }
+    public void closeActivity() {
+        setResult(24,
+                new Intent().putExtra("updateList", countItems != defaultListAdapter.getCount()));
+        finish();
+    }
 }

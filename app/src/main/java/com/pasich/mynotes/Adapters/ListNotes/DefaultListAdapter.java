@@ -3,12 +3,15 @@ package com.pasich.mynotes.Adapters.ListNotes;
 import static com.pasich.mynotes.Сore.File.FileCore.getWithoutExtension;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.pasich.mynotes.R;
 
@@ -46,16 +49,12 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
         String nameItem = listNotesfor.getNameList();
         String dateItem = listNotesfor.getDateList();
 
-
-
+        viewHolder.imgFolder.setVisibility(View.VISIBLE);
         if(listNotesfor.getBackFolder()){
-            viewHolder.imgFolder.setVisibility(View.VISIBLE);
             viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
         }else if(listNotesfor.getFolder()){
-            viewHolder.imgFolder.setVisibility(View.VISIBLE);
             viewHolder.imgFolder.setImageResource(R.drawable.ic_folder);
-        }
-        else{ viewHolder.imgFolder.setVisibility(View.VISIBLE);
+        }else{
             viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
         }
             nameItem = getWithoutExtension(nameItem);

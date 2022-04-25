@@ -14,7 +14,7 @@
         <!-- Цвет меню item -->
         <item name="android:itemTextAppearance">@style/textItemColor</item>
         <!-- Цвет иконок -->
-        <item name="iconDrawableColor">@color/red_Drawable</item>
+        <item name="iconDrawableTint">@color/red_Drawable</item>
         <!-- Цвет иконок тулбара -->
         <item name="colorHiden">@color/hiden</item>
         <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
@@ -37,7 +37,7 @@
         <!-- Цвет меню item -->
         <item name="android:itemTextAppearance">@style/textItemColor</item>
         <!-- Цвет иконок -->
-        <item name="iconDrawableColor">@color/green_Drawable</item>
+        <item name="iconDrawableTint">@color/green_Drawable</item>
         <!-- Цвет иконок тулбара -->
         <item name="colorHiden">@color/hiden</item>
         <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
@@ -58,7 +58,7 @@
         <!-- Цвет меню item -->
         <item name="android:itemTextAppearance">@style/textItemColor</item>
         <!-- Цвет иконок -->
-        <item name="iconDrawableColor">@color/indigo_Drawable</item>
+        <item name="iconDrawableTint">@color/indigo_Drawable</item>
         <!-- Цвет иконок тулбара -->
         <item name="colorHiden">@color/hiden</item>
         <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
@@ -79,7 +79,7 @@
         <!-- Цвет меню item -->
         <item name="android:itemTextAppearance">@style/textItemColor</item>
         <!-- Цвет иконок -->
-        <item name="iconDrawableColor">@color/purple_Drawable</item>
+        <item name="iconDrawableTint">@color/purple_Drawable</item>
         <!-- Цвет иконок тулбара -->
         <item name="colorHiden">@color/hiden</item>
         <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
@@ -100,7 +100,7 @@
         <!-- Цвет меню item -->
         <item name="android:itemTextAppearance">@style/textItemColor</item>
         <!-- Цвет иконок -->
-        <item name="iconDrawableColor">@color/orange_Drawable</item>
+        <item name="iconDrawableTint">@color/orange_Drawable</item>
         <!-- Цвет иконок тулбара -->
         <item name="colorHiden">@color/hiden</item>
         <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
@@ -121,7 +121,7 @@
         <!-- Цвет меню item -->
         <item name="android:itemTextAppearance">@style/textItemColor</item>
         <!-- Цвет иконок -->
-        <item name="iconDrawableColor">@color/dark_Drawable</item>
+        <item name="iconDrawableTint">@color/dark_Drawable</item>
         <!-- Цвет иконок тулбара -->
         <item name="colorHiden">@color/hiden</item>
         <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
@@ -140,4 +140,5 @@
     <style name="textColorDateList">
         <item name="android:textColor">@color/textHidenColor</item>
     </style>
+
 </resources>
