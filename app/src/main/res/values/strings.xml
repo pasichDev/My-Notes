@@ -130,4 +130,5 @@
     <string name="copyNotesTo" translatable="false">Перемещение заметки</string>
 
     <string name="notSupportedShare" translatable="false">Этот контент не поддерживаеться.</string>
+    <string name="notSource" translatable="false">В данной заметке нет вложений</string>
 </resources>

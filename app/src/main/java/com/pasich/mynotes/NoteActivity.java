@@ -42,6 +42,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
+import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
 import com.pasich.mynotes.Dialogs.PermissionError;
 import com.pasich.mynotes.Dialogs.sourcesNoteList;
 import com.pasich.mynotes.Сore.File.FileCore;
@@ -551,18 +552,60 @@ public class NoteActivity extends AppCompatActivity {
 
     public void soucesButton(View v){
 
-        String regex= "(380|718)[-+0-9]";
+      /*  String regex
+                = "(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}"
+                + "|(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}"
+                + "|(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}";
+
+
         Pattern pattern = Pattern.compile(regex);
         Matcher m = pattern.matcher(valueTextEdit().toString());
         while(m.find()) {
          Log.d("xxxx", "FOUND:" + m.group());
          Log.d("xxxx", "nice" + m.groupCount());
+        }*/
+
+        findSourceForNote findSourceForNote = new findSourceForNote(valueTextEdit().toString());
+        ArrayList<SourceListContent> ListSoc
+                = createArrayListSoc(
+                findSourceForNote.getLinks() ,
+                findSourceForNote.getMail(),
+                findSourceForNote.getPhoneNumber());
+
+       if(ListSoc.size() >= 1)
+           new sourcesNoteList(ListSoc).show(getSupportFragmentManager(), "sourcesNoteList");
+       else
+           Toast.makeText(getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * A method that creates one array of three (mail, phones, links)
+     * @param arrayLink - array Links
+     * @param arrayMail - array Mail
+     * @return
+     */
+    private ArrayList<SourceListContent> createArrayListSoc(ArrayList<String> arrayLink,
+                                                            ArrayList<String> arrayMail,
+                                                            ArrayList<String> arrayPhoneNumber) {
+        ArrayList<SourceListContent> ListSoc = new ArrayList<>();
+
+        for(String link : arrayLink) {
+            ListSoc.add(new SourceListContent(link,"Url"));
         }
 
-        findSourceForNote findSourceForNote = new findSourceForNote();
+        for(String mail : arrayMail) {
+            ListSoc.add(new SourceListContent(mail,"Mail"));
+        }
 
-       new sourcesNoteList(findSourceForNote.getLinks(valueTextEdit().toString())).show(getSupportFragmentManager(), "sourcesNoteList");
+        for(String number : arrayPhoneNumber) {
+            ListSoc.add(new SourceListContent(number,"Tel"));
+        }
+        return ListSoc;
     }
+
+
+
 
     public void remindButton(View v) {
         Toast.makeText(getApplicationContext(), R.string.voiceNoteFragmentToUpdate, Toast.LENGTH_LONG).show();

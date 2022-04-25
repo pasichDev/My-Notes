@@ -32,21 +32,7 @@ public class ListNotesClass {
                     Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);}
     }
 
-    /* **Данный метод конвертирует sortIndex  в позицию спиннера */
-    public static int sortIndToInt(String sortIndx){
-        int x = 0;
-        switch (sortIndx) {
-            case "date":
-                x = 0;
-                break;
-            case "name":
-                x = 1;
-                break;
-            default:
-                x = 0;
-        }
-        return x;
-    }
+
 
 
 

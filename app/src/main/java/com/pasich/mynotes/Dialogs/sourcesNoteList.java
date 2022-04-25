@@ -27,13 +27,14 @@ import java.util.Objects;
 public class sourcesNoteList extends DialogFragment {
 
 
-    private ArrayList <String> arrayResource;
+    private ArrayList <SourceListContent> ListSoc;
 
-    public sourcesNoteList(ArrayList <String> arrayResource){
-        this.arrayResource = arrayResource;
+    public sourcesNoteList(ArrayList <SourceListContent> ListSoc){
+        this.ListSoc = ListSoc;
     }
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LinearLayout container = new LinearLayout(getContext());
@@ -49,11 +50,7 @@ public class sourcesNoteList extends DialogFragment {
         container.addView(listView);
 
         builder.setView(container);
-        ArrayList<SourceListContent> ListSoc = new ArrayList<>();
 
-        for(String link : arrayResource) {
-            ListSoc.add(new SourceListContent(link,"Url"));
-        }
         /*
         ListSoc.add(new SourceListContent("hideb.com","Url"));
         ListSoc.add(new SourceListContent("+380505304185","Tel"));
