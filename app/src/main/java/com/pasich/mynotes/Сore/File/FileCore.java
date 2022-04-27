@@ -248,8 +248,8 @@ public class FileCore extends AppCompatActivity {
         inputName = inputName.replaceAll("[^\\p{L}\\p{N}\\s]+", "");
         inputName = inputName.trim();
         String nameNoteNoRename;
-        if (inputName.length() > 40) {
-            nameNoteNoRename = inputName.substring(0, 40);
+        if (inputName.length() > 50) {
+            nameNoteNoRename = inputName.substring(0, 50);
         } else {
             nameNoteNoRename = inputName;
         }

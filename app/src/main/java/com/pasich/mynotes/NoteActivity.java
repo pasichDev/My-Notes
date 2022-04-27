@@ -108,9 +108,11 @@ public class NoteActivity extends AppCompatActivity {
             });  }
 
 
-      //  this.startLengtOneString = getLengtOneString();
-        //  MyEditText..setSpan()
+
 /*
+
+  //  this.startLengtOneString = getLengtOneString();
+        //  MyEditText..setSpan()
         SpannableString spanString = new SpannableString (lines[1]);
         StyleSpan span = new StyleSpan(Typeface.BOLD_ITALIC);
         spanString.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
@@ -123,22 +125,21 @@ public class NoteActivity extends AppCompatActivity {
             firstLineLength = MyEditText.getText().toString().length();
         } else {
             firstLineLength = lineEndIndex;
-        }*/
-  /*
+        }
 
        Log.d("xxxx", lines.length + "count");
         Log.d("xxxx", lines[0] + " size date");
         Log.d("xxxx", lines[0].length() + " size string");
-*/
+
         SpannableString spanString = new SpannableString (valueTextEdit());
         StyleSpan span = new StyleSpan(Typeface.BOLD_ITALIC);
        spanString.setSpan(span, 0, getLengtOneString(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-       // spanString.setSpan(new RelativeSizeSpan(1.2f), 0, getLengtOneString(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+
         MyEditText.setText(spanString);
 
 
 
-        /*
+
         SPAN_EXCLUSIVE_EXCLUSIVE - только вкзаана должина
          */
 

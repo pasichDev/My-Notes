@@ -8,11 +8,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,20 +46,13 @@ public class sourcesNoteList extends DialogFragment {
         TextView headText = convertView.findViewById(R.id.textViewHead);
         ImageButton closeBut = convertView.findViewById(R.id.closeDialog);
 
-      //  ScrollView scrollVIew = new ScrollView(getContext());
-
-
-
         container.setOrientation(LinearLayout.VERTICAL);
-
 
         closeBut.setVisibility(View.VISIBLE);
         closeBut.setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
 
-
         headText.setText(getString(R.string.investments));
         container.addView(convertView);
-       // scrollVIew.addView(listView);
         container.addView(listView);
 
         builder.setView(container);
@@ -80,8 +71,8 @@ public class sourcesNoteList extends DialogFragment {
             Toast.makeText(getContext(),getString(R.string.copyX)+ " " + selectedItem,Toast.LENGTH_SHORT).show();
             Objects.requireNonNull(getDialog()).dismiss();
         });
-        return  builder.create();
 
+        return  builder.create();
     }
 
 }
