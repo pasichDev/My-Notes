@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
+import com.pasich.mynotes.Dialogs.TestDialog;
 import com.pasich.mynotes.Fragments.ViewPagerMain.FragmentListNotes;
 import com.pasich.mynotes.Fragments.ViewPagerMain.FragmentListNotesVoice;
 import com.pasich.mynotes.Сore.Interface.IOnBackPressed;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
             startButtonList(); //start button list
         }
 
+    //    TestDialog testDial = new TestDialog();
+     //   testDial.show(getSupportFragmentManager(),"xxxx");
         onCreate = true;
     }
 

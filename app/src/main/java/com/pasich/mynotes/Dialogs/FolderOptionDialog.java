@@ -21,9 +21,9 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.File.FileCore;
 
-public class folderOption extends DialogFragment {
+public class FolderOptionDialog extends DialogFragment {
     private final  String editName;
-    public folderOption(String editName) {
+    public FolderOptionDialog(String editName) {
         this.editName = editName;
     }
 

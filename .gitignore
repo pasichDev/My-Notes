@@ -8,3 +8,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+app/src/main/java/com.pasich.mynotes/Dialogs/TestDialog.java

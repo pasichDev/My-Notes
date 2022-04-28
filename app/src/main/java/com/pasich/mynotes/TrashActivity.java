@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -19,7 +18,7 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
-import com.pasich.mynotes.Dialogs.ChoiseTrash;
+import com.pasich.mynotes.Dialogs.ChoiceTrashDialog;
 import com.pasich.mynotes.Dialogs.CleanTrash;
 import com.pasich.mynotes.Сore.ListContolers.TrashListData;
 import com.pasich.mynotes.Сore.SystemCostant;
@@ -58,7 +57,7 @@ public class TrashActivity extends AppCompatActivity {
         defaultListAdapter = new DefaultListAdapter(getApplicationContext(), R.layout.list_notes, listNotesfors);
         trashNotesList.setAdapter(defaultListAdapter);
         trashNotesList.setOnItemClickListener((parent, v, position, id) -> {
-            ChoiseTrash dialog = new ChoiseTrash(position, listNotesfors, defaultListAdapter);
+            ChoiceTrashDialog dialog = new ChoiceTrashDialog(position, listNotesfors, defaultListAdapter);
             dialog.show(getSupportFragmentManager(), "choiseTrash");
         });
 
@@ -104,7 +103,8 @@ public class TrashActivity extends AppCompatActivity {
 
     public void closeActivity() {
         setResult(24,
-                new Intent().putExtra("updateList", countItems != defaultListAdapter.getCount()));
+                new Intent().putExtra("updateList",
+                        countItems != defaultListAdapter.getCount()));
         finish();
     }
 }

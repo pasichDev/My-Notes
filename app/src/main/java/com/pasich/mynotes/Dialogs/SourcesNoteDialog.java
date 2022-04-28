@@ -1,17 +1,12 @@
 package com.pasich.mynotes.Dialogs;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,41 +16,33 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.Adapters.SourceNoteList.SouceListAdapter;
 import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.lib.CustomUIDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class sourcesNoteList extends DialogFragment {
+public class SourcesNoteDialog extends DialogFragment {
 
+    private final ArrayList<SourceListContent> ListSoc;
 
-    private final ArrayList <SourceListContent> ListSoc;
-
-    public sourcesNoteList(ArrayList <SourceListContent> ListSoc){
+    public SourcesNoteDialog(ArrayList<SourceListContent> ListSoc) {
         this.ListSoc = ListSoc;
     }
+
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LinearLayout container = new LinearLayout(getContext());
         ListView listView = new ListView(getContext());
-        LayoutInflater inflater = getLayoutInflater();
-        @SuppressLint("InflateParams") View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
-        TextView headText = convertView.findViewById(R.id.textViewHead);
-        ImageButton closeBut = convertView.findViewById(R.id.closeDialog);
+        CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
 
-        container.setOrientation(LinearLayout.VERTICAL);
+        uiDialog.setHeadTextView(getString(R.string.investments));
+        uiDialog.getContainer().addView(listView);
+        uiDialog.getCloseButton().setVisibility(View.VISIBLE);
+        uiDialog.getCloseButton().setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
 
-        closeBut.setVisibility(View.VISIBLE);
-        closeBut.setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
-
-        headText.setText(getString(R.string.investments));
-        container.addView(convertView);
-        container.addView(listView);
-
-        builder.setView(container);
+        builder.setView(uiDialog.getContainer());
 
         SouceListAdapter souceListAdapter = new SouceListAdapter(getContext(), R.layout.list_source_note, ListSoc);
         listView.setAdapter(souceListAdapter);
@@ -64,15 +51,15 @@ public class sourcesNoteList extends DialogFragment {
             SourceListContent listItem = ListSoc.get(position);
             String selectedItem = listItem.getSource();
 
-            ClipboardManager clipboard = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText(selectedItem, selectedItem);
             clipboard.setPrimaryClip(clip);
 
-            Toast.makeText(getContext(),getString(R.string.copyX)+ " " + selectedItem,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.copyX) + " " + selectedItem, Toast.LENGTH_SHORT).show();
             Objects.requireNonNull(getDialog()).dismiss();
         });
 
-        return  builder.create();
+        return builder.create();
     }
 
 }

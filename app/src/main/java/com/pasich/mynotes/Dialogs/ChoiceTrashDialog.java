@@ -18,11 +18,11 @@ import com.pasich.mynotes.Сore.File.FileCore;
 
 import java.util.ArrayList;
 
-public class ChoiseTrash extends DialogFragment {
+public class ChoiceTrashDialog extends DialogFragment {
     private final ArrayList listNotesfors;
     private  final int pos;
     private  final DefaultListAdapter defaultListAdapter;
-    public ChoiseTrash(int pos, ArrayList ListNotesfors, DefaultListAdapter defaultListAdapter)
+    public ChoiceTrashDialog(int pos, ArrayList ListNotesfors, DefaultListAdapter defaultListAdapter)
     {
         this.pos=pos;
         this.defaultListAdapter=defaultListAdapter;

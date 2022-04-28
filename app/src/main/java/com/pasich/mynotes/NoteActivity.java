@@ -40,7 +40,7 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
 import com.pasich.mynotes.Dialogs.PermissionError;
-import com.pasich.mynotes.Dialogs.sourcesNoteList;
+import com.pasich.mynotes.Dialogs.SourcesNoteDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
 import com.pasich.mynotes.Сore.Methods.findSourceForNote;
 import com.pasich.mynotes.Сore.NoteControler.NotesX;
@@ -556,7 +556,7 @@ public class NoteActivity extends AppCompatActivity {
                 findSourceForNote.getPhoneNumber());
 
        if(ListSoc.size() >= 1)
-           new sourcesNoteList(ListSoc).show(getSupportFragmentManager(), "sourcesNoteList");
+           new SourcesNoteDialog(ListSoc).show(getSupportFragmentManager(), "SourcesNoteDialog");
        else
            Toast.makeText(getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT).show();
     }

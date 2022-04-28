@@ -18,8 +18,8 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
-import com.pasich.mynotes.Dialogs.ChoiseList;
-import com.pasich.mynotes.Dialogs.folderOption;
+import com.pasich.mynotes.Dialogs.ChoiceListDialog;
+import com.pasich.mynotes.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.Interface.IOnBackPressed;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 
 public class FragmentListNotes extends Fragment
-        implements folderOption.EditNameDialogListener,
+        implements FolderOptionDialog.EditNameDialogListener,
         IOnBackPressed {
 
     private DefaultListAdapter defaultListAdapter;
@@ -104,9 +104,9 @@ public class FragmentListNotes extends Fragment
             if (!listNotesfor.getNameList().equals("VoiceNotes")) {
                 boolean typeFile = listNotesfor.getFolder();
                 FragmentManager fm = getFragmentManager();
-                ChoiseList dialog = new ChoiseList(position, listNotesfors, defaultListAdapter, typeFile, FOLDER);
+                ChoiceListDialog dialog = new ChoiceListDialog(position, listNotesfors, defaultListAdapter, typeFile, FOLDER);
                 dialog.setTargetFragment(FragmentListNotes.this, 300);
-                dialog.show(fm, "ChoiseList");
+                dialog.show(fm, "ChoiceListDialog");
             }
             return true;
         });
@@ -155,7 +155,7 @@ public class FragmentListNotes extends Fragment
             case R.id.addFolder:
 
                 FragmentManager fm = getFragmentManager();
-                folderOption editNameDialogFragment = new folderOption("");
+                FolderOptionDialog editNameDialogFragment = new FolderOptionDialog("");
                 editNameDialogFragment.setTargetFragment(FragmentListNotes.this, 300);
                 assert fm != null;
                 editNameDialogFragment.show(fm, "newFolder");
