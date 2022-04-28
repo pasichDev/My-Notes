@@ -11,26 +11,26 @@ import com.pasich.mynotes.R;
 
 public class RestoreNotes extends DialogFragment {
 
-    public interface continueImport{
-        void continueImportMethod();
-    }
+  public interface continueImport {
+    void continueImportMethod();
+  }
 
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+  @NonNull
+  public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        continueImport listen = (continueImport) getTargetFragment();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    continueImport listen = (continueImport) getTargetFragment();
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-            return builder
-                    .setTitle(getString(R.string.warning))
-                    .setMessage(getString(R.string.restoreDialogMessage))
-                    .setPositiveButton(getString(R.string.continueNext), (dialog, which) -> {
-                        assert listen != null;
-                        listen.continueImportMethod();
-                    })
-                    .setNegativeButton(getString(R.string.cancel), null)
-                    .create();
-    }
-
-
+    return builder
+        .setTitle(getString(R.string.warning))
+        .setMessage(getString(R.string.restoreDialogMessage))
+        .setPositiveButton(
+            getString(R.string.continueNext),
+            (dialog, which) -> {
+              assert listen != null;
+              listen.continueImportMethod();
+            })
+        .setNegativeButton(getString(R.string.cancel), null)
+        .create();
+  }
 }

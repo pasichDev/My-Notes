@@ -20,33 +20,33 @@ import java.util.Objects;
 
 public class TrashListData {
 
-    private final Context context;
-    protected String sortPref;
-    public TrashListData(Context context){
-        this.context=context;
+  private final Context context;
+  protected String sortPref;
+
+  public TrashListData(Context context) {
+    this.context = context;
+  }
+
+  public ArrayList newListAdapter() {
+    ArrayList listNotesfors = new ArrayList();
+    sortPref =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString("sortPref", SystemCostant.Settings_Sort);
+
+    File dirFiles = new File(context.getFilesDir() + "/trash");
+    // Список файлов!
+    File[] fileNames = dirFiles.listFiles((FileFilter) FileFileFilter.FILE);
+    if (fileNames.length >= 1) {
+      sortFileList(sortPref, fileNames);
+      String[] fileName = convertFromFilesArray(Objects.requireNonNull(fileNames));
+
+      for (String file : fileName) {
+        File notesFile = new File(dirFiles, file);
+        if (file.endsWith(".txt")) {
+          listNotesfors.add(new ListNotesfor(file, returnDateFile(notesFile), false, false));
+        }
+      }
     }
-
-
-    public ArrayList newListAdapter(){
-        ArrayList listNotesfors = new ArrayList();
-        sortPref = PreferenceManager.getDefaultSharedPreferences(context).getString("sortPref", SystemCostant.Settings_Sort);
-
-        File dirFiles = new File(context.getFilesDir() + "/trash");
-            //Список файлов!
-            File[] fileNames = dirFiles.listFiles((FileFilter) FileFileFilter.FILE);
-            if(fileNames.length>=1) {
-                sortFileList(sortPref, fileNames);
-                String[] fileName = convertFromFilesArray(Objects.requireNonNull(fileNames));
-
-                for (String file : fileName) {
-                    File notesFile = new File(dirFiles, file);
-                    if (file.endsWith(".txt")) {
-                        listNotesfors.add(new ListNotesfor(file, returnDateFile(notesFile), false, false));
-                    }
-                }
-            }
-        return listNotesfors;
-    }
-
-
+    return listNotesfors;
+  }
 }

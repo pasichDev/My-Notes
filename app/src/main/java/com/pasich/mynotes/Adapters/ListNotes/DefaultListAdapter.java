@@ -19,67 +19,58 @@ import java.util.List;
 
 public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
 
-    private final LayoutInflater inflater;
-    private final int layout;
-    private final List<ListNotesfor> listNotesfors;
+  private final LayoutInflater inflater;
+  private final int layout;
+  private final List<ListNotesfor> listNotesfors;
 
-    public DefaultListAdapter(Context context, int resource, List<ListNotesfor> listNotesfors) {
-        super(context, resource, listNotesfors);
-        this.listNotesfors = listNotesfors;
-        this.layout = resource;
-        this.inflater = LayoutInflater.from(getContext());
+  public DefaultListAdapter(Context context, int resource, List<ListNotesfor> listNotesfors) {
+    super(context, resource, listNotesfors);
+    this.listNotesfors = listNotesfors;
+    this.layout = resource;
+    this.inflater = LayoutInflater.from(getContext());
+  }
 
+  public View getView(int position, View convertView, ViewGroup parent) {
+    ListNotesfor listNotesfor = listNotesfors.get(position);
+
+    ViewHolder viewHolder;
+    if (convertView == null) {
+      convertView = inflater.inflate(this.layout, parent, false);
+      viewHolder = new ViewHolder(convertView);
+      convertView.setTag(viewHolder);
+    } else {
+      viewHolder = (ViewHolder) convertView.getTag();
     }
 
+    // Обработка именни пункта
+    String nameItem = listNotesfor.getNameList();
+    String dateItem = listNotesfor.getDateList();
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-       ListNotesfor listNotesfor = listNotesfors.get(position);
-
-        ViewHolder viewHolder;
-        if(convertView==null){
-            convertView = inflater.inflate(this.layout, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        }
-        else{
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        //Обработка именни пункта
-        String nameItem = listNotesfor.getNameList();
-        String dateItem = listNotesfor.getDateList();
-
-        viewHolder.imgFolder.setVisibility(View.VISIBLE);
-        if(listNotesfor.getBackFolder()){
-            viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
-        }else if(listNotesfor.getFolder()){
-            viewHolder.imgFolder.setImageResource(R.drawable.ic_folder);
-        }else{
-            viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
-        }
-            nameItem = getWithoutExtension(nameItem);
-            if(nameItem.length()>39) nameItem = nameItem +"...";
-
-        viewHolder.nameView.setText(nameItem);
-        viewHolder.dateView.setText(dateItem);
-
-        return convertView;
+    viewHolder.imgFolder.setVisibility(View.VISIBLE);
+    if (listNotesfor.getBackFolder()) {
+      viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
+    } else if (listNotesfor.getFolder()) {
+      viewHolder.imgFolder.setImageResource(R.drawable.ic_folder);
+    } else {
+      viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
     }
+    nameItem = getWithoutExtension(nameItem);
+    if (nameItem.length() > 39) nameItem = nameItem + "...";
 
+    viewHolder.nameView.setText(nameItem);
+    viewHolder.dateView.setText(dateItem);
 
-    private class ViewHolder {
-        final TextView nameView, dateView;
-        final ImageView imgFolder;
+    return convertView;
+  }
 
-        ViewHolder(View view){
-            nameView =  view.findViewById(R.id.nameNotesL);
-            dateView =  view.findViewById(R.id.dateNotesL);
-            imgFolder = view.findViewById(R.id.imageFolder);
-        }
+  private class ViewHolder {
+    final TextView nameView, dateView;
+    final ImageView imgFolder;
+
+    ViewHolder(View view) {
+      nameView = view.findViewById(R.id.nameNotesL);
+      dateView = view.findViewById(R.id.dateNotesL);
+      imgFolder = view.findViewById(R.id.imageFolder);
     }
-
-
-
-
-
+  }
 }

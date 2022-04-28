@@ -21,45 +21,50 @@ import com.pasich.mynotes.lib.CustomUIDialog;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
 public class SourcesNoteDialog extends DialogFragment {
 
-    private final ArrayList<SourceListContent> ListSoc;
+  private final ArrayList<SourceListContent> ListSoc;
 
-    public SourcesNoteDialog(ArrayList<SourceListContent> ListSoc) {
-        this.ListSoc = ListSoc;
-    }
+  public SourcesNoteDialog(ArrayList<SourceListContent> ListSoc) {
+    this.ListSoc = ListSoc;
+  }
 
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+  @NonNull
+  public Dialog onCreateDialog(Bundle savedInstanceState) {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        ListView listView = new ListView(getContext());
-        CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
+    ListView listView = new ListView(getContext());
+    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
 
-        uiDialog.setHeadTextView(getString(R.string.investments));
-        uiDialog.getContainer().addView(listView);
-        uiDialog.getCloseButton().setVisibility(View.VISIBLE);
-        uiDialog.getCloseButton().setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
+    uiDialog.setHeadTextView(getString(R.string.investments));
+    uiDialog.getContainer().addView(listView);
+    uiDialog.getCloseButton().setVisibility(View.VISIBLE);
+    uiDialog
+        .getCloseButton()
+        .setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
 
-        builder.setView(uiDialog.getContainer());
+    builder.setView(uiDialog.getContainer());
 
-        SouceListAdapter souceListAdapter = new SouceListAdapter(getContext(), R.layout.list_source_note, ListSoc);
-        listView.setAdapter(souceListAdapter);
+    SouceListAdapter souceListAdapter =
+        new SouceListAdapter(getContext(), R.layout.list_source_note, ListSoc);
+    listView.setAdapter(souceListAdapter);
 
-        listView.setOnItemClickListener((parent, v, position, id) -> {
-            SourceListContent listItem = ListSoc.get(position);
-            String selectedItem = listItem.getSource();
+    listView.setOnItemClickListener(
+        (parent, v, position, id) -> {
+          SourceListContent listItem = ListSoc.get(position);
+          String selectedItem = listItem.getSource();
 
-            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText(selectedItem, selectedItem);
-            clipboard.setPrimaryClip(clip);
+          ClipboardManager clipboard =
+              (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+          ClipData clip = ClipData.newPlainText(selectedItem, selectedItem);
+          clipboard.setPrimaryClip(clip);
 
-            Toast.makeText(getContext(), getString(R.string.copyX) + " " + selectedItem, Toast.LENGTH_SHORT).show();
-            Objects.requireNonNull(getDialog()).dismiss();
+          Toast.makeText(
+                  getContext(), getString(R.string.copyX) + " " + selectedItem, Toast.LENGTH_SHORT)
+              .show();
+          Objects.requireNonNull(getDialog()).dismiss();
         });
 
-        return builder.create();
-    }
-
+    return builder.create();
+  }
 }

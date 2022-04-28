@@ -19,50 +19,51 @@ import com.pasich.mynotes.Сore.File.FileCore;
 import java.util.ArrayList;
 
 public class ChoiceTrashDialog extends DialogFragment {
-    private final ArrayList listNotesfors;
-    private  final int pos;
-    private  final DefaultListAdapter defaultListAdapter;
-    public ChoiceTrashDialog(int pos, ArrayList ListNotesfors, DefaultListAdapter defaultListAdapter)
-    {
-        this.pos=pos;
-        this.defaultListAdapter=defaultListAdapter;
-        this.listNotesfors=ListNotesfors;
-    }
+  private final ArrayList listNotesfors;
+  private final int pos;
+  private final DefaultListAdapter defaultListAdapter;
 
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+  public ChoiceTrashDialog(
+      int pos, ArrayList ListNotesfors, DefaultListAdapter defaultListAdapter) {
+    this.pos = pos;
+    this.defaultListAdapter = defaultListAdapter;
+    this.listNotesfors = ListNotesfors;
+  }
 
-        FileCore fileCore = new FileCore(getContext());
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+  @NonNull
+  public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        String[] choise = {getString(R.string.OpenViewNotes),getString(R.string.removeNotes)};
+    FileCore fileCore = new FileCore(getContext());
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        ListNotesfor listNotesfor = (ListNotesfor) listNotesfors.get(pos);
-        String selectedItem = listNotesfor.getNameList();
+    String[] choise = {getString(R.string.OpenViewNotes), getString(R.string.removeNotes)};
 
-        builder.setItems(choise, (dialog, which) -> {
-            switch (which) {
-                case 0:
-                    Intent intent = new Intent(getActivity(), NoteActivity.class);
-                    intent.putExtra("KeyFunction", "TrashNote");
-                    intent.putExtra("idNote", selectedItem);
-                    startActivityForResult(intent, 1);
+    ListNotesfor listNotesfor = (ListNotesfor) listNotesfors.get(pos);
+    String selectedItem = listNotesfor.getNameList();
 
-                    break;
-                case 1:
-                    fileCore.removeNotesFile(selectedItem);
-                    listNotesfors.remove(pos);
-                    defaultListAdapter.notifyDataSetChanged();
-                    if(defaultListAdapter.getCount() == 0)
-                    checkCountListTrashActivity(getActivity());
+    builder.setItems(
+        choise,
+        (dialog, which) -> {
+          switch (which) {
+            case 0:
+              Intent intent = new Intent(getActivity(), NoteActivity.class);
+              intent.putExtra("KeyFunction", "TrashNote");
+              intent.putExtra("idNote", selectedItem);
+              startActivityForResult(intent, 1);
 
-                    break;
-            }
+              break;
+            case 1:
+              fileCore.removeNotesFile(selectedItem);
+              listNotesfors.remove(pos);
+              defaultListAdapter.notifyDataSetChanged();
+              if (defaultListAdapter.getCount() == 0) checkCountListTrashActivity(getActivity());
+
+              break;
+          }
         });
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        return dialog;
-    }
-
+    AlertDialog dialog = builder.create();
+    dialog.show();
+    return dialog;
+  }
 }
