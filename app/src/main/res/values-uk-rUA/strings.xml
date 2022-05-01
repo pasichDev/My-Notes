@@ -5,15 +5,8 @@
     <string name = "EditNote"> Редагування </string>
     <string name = "title_activity_settings"> Налаштування </string>
     <string name = "settings"> Налаштування </string>
-    <string name = "Delete"> Видалити </string>
     <string name = "sizeText"> Розмір тексту </string>
-    <string name = "sortData"> За Датою </string>
-    <string name = "sortName"> За Назвою </string>
     <string name = "ThemeToolbar_title"> Основний колiр </string>
-    <string name = "red"> Червона</string>
-    <string name = "green"> Зелена </string>
-    <string name = "purple"> Фіолетова</string>
-    <string name="dark">Чорна</string>
     <string name = "trashNotes">Видалити</string>
     <string name = "trashN"> Кошик </string>
     <string name="trashClean" >Очистити корзину</string>
@@ -30,7 +23,6 @@
     <string name="sendDev">Написати розробнику</string>
     <string name="whatUpdate">Що нового?</string>
     <string name="addFolder">Створити папку</string>
-    <string name="orange">Оранжева</string>
     <string name="error_folder_NoExists">Папки немає!</string>
     <string name="copyNotes">Перемістити нотатку</string>
     <string name="inputNameFolder">Введіть назву папки</string>
@@ -65,7 +57,6 @@
     <string name="backupIsCreate">Резервну копію створено</string>
     <string name="continueNext">Продовжити</string>
     <string name="restoreDialogMessage">Ви дійсно хочете відновити нотатки? Усі наявні нотатки будуть видалені та замінені на тi, які знаходяться в резервній копії.</string>
-    <string name="indigo">Індиго</string>
     <string name="noSave">Закрити без збереження</string>
     <string name="lineSetSPech">В один рядок</string>
     <string name="paragraphSetSpech">З нового абзацу</string>
@@ -92,7 +83,6 @@
     <string name="interaction">Взаємодія</string>
     <string name="emptySpeec">Вас не чути, спробуйте ще раз..</string>
     <string name="spechToListen">Говоріть, я вас слухаю..</string>
-    <string name = "restartTheme"> Щоб зміни набрали чинності, перезавантажте програму.</string>
     <string name = "defaultLangVoiece">За замовчуванням пристрою</string>
     <string name = "exitWhat">Для виходу потрібно повторити дію</string>
 

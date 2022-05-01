@@ -5,21 +5,14 @@
     <string name="EditNote"> Editing </string>
     <string name="title_activity_settings"> Settings </string>
     <string name="settings"> Settings </string>
-    <string name="Delete"> Delete </string>
     <string name="verApp" translatable="false"> versionApp </string>
     <string name="author" translatable="false"> Andrii Pasichnik (pasichDev) </string>
     <string name="sizeText"> Text size </string>
-    <string name="sortData"> By Date </string>
-    <string name="sortName"> By Name </string>
     <string name="ThemeToolbar_title"> Color scheme </string>
-    <string name="red"> Red </string>
-    <string name="green"> Green </string>
-    <string name="purple"> Purple </string>
     <string name="trashNotes">Delete</string>
     <string name="trashN"> Trash </string>
     <string name="trashClean">Trash Clean</string>
     <string name="saveNotes">Save notes</string>
-    <string name="dark">Dark</string>
     <string name="share">Share</string>
     <string name="cleanTrashquestion">Are you sure you want to empty your trash?</string>
     <string name="yesCleanTrash">Yes, clear</string>
@@ -36,7 +29,6 @@
     <string name="copyNotes">Move note</string>
     <string name="inputNameFolder">Enter folder name</string>
     <string name="createFolder">Create a folder</string>
-    <string name="orange">Orange</string>
     <string name="deleteFolder">Delete folder</string>
     <string name="renameFolder">Rename folder</string>
     <string name="save">Save</string>
@@ -70,7 +62,6 @@
     <string name = "backupIsCreate"> Backup created </string>
     <string name = "continueNext"> Continue </string>
     <string name = "restoreDialogMessage"> Are you sure you want to restore your notes? Any existing notes will be deleted and replaced with those in the backup. </string>
-    <string name = "indigo"> Indigo </string>
     <string name = "noSave"> Close without saving </string>
     <string name = "lineSetSPech"> One line </string>
     <string name = "paragraphSetSpech"> From new paragraph </string>
@@ -97,7 +88,6 @@
     <string name = "interaction"> Interaction </string>
     <string name = "emptySpeec"> Can\'t hear you please try again </string>
     <string name = "spechToListen"> Speak, I\'m listening .. </string>
-    <string name = "restartTheme">Restart the application for the changes to take effect.</string>
     <string name = "defaultLangVoiece">Default devices</string>
     <string name = "exitWhat">To exit, you need to repeat the action</string>
 

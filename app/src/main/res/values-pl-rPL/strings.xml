@@ -5,15 +5,8 @@
     <string name = "EditNote"> Edytuj </string>
     <string name = "title_activity_settings"> Ustawienia </string>
     <string name = "settings"> Ustawienia </string>
-    <string name = "Delete"> Usuń </string>
     <string name = "sizeText"> Rozmiar tekstu </string>
-    <string name = "sortData"> Według daty </string>
-    <string name = "sortName"> Według nazwy </string>
     <string name = "ThemeToolbar_title"> Kolor podstawowy </string>
-    <string name = "red"> Czerwony </string>
-    <string name = "green"> Zielony </string>
-    <string name = "purple"> Fioletowy </string>
-    <string name = "dark"> Czarny </string>
     <string name = "trashNotes"> Usuń </string>
     <string name = "trashN"> Kosz </string>
     <string name = "trashClean"> Wyczyść kosz </string>
@@ -30,7 +23,6 @@
     <string name = "sendDev"> Napisz do programisty </string>
     <string name = "whatUpdate"> Co nowego? </string>
     <string name = "addFolder"> Utwórz folder </string>
-    <string name = "orange"> Pomarańczowy </string>
     <string name = "error_folder_NoExists"> Brak folderu! </string>
     <string name = "copyNotes"> Przenieś notatkę </string>
     <string name = "inputNameFolder">" Wprowadź nazwę folderu"</string>
@@ -65,7 +57,6 @@
     <string name = "backupIsCreate"> Utworzono kopię zapasową </string>
     <string name = "continueNext"> Kontynuuj </string>
     <string name = "restoreDialogMessage"> Czy na pewno chcesz przywrócić notatki? Wszystkie istniejące notatki zostaną usunięte i zastąpione tymi z kopii zapasowej. </string>
-    <string name = "indigo"> Indygo </string>
     <string name = "noSave"> Zamknij bez zapisywania </string>
     <string name = "lineSetSPech"> W jednej linii </string>
     <string name = "paragraphSetSpech"> Z nowego akapitu </string>
@@ -92,7 +83,6 @@
     <string name = "interaction"> Interakcja </string>
     <string name = "emptySpeec"> Nie słyszę, proszę spróbuj ponownie .. </string>
     <string name = "spechToListen"> Powiedz, że cię słucham .. </string>
-    <string name = "restartTheme">Uruchom ponownie aplikację, aby zmiany zaczęły obowiązywać.</string>
     <string name = "defaultLangVoiece">Urządzenia domyślne</string>
     <string name = "exitWhat">Aby wyjść, musisz powtórzyć czynność</string>
 

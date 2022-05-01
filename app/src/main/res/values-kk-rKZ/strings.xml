@@ -5,15 +5,8 @@
     <string name="EditNote">Өңдеу</string>
     <string name="title_activity_settings">Параметрлер</string>
     <string name="settings">Параметрлер</string>
-    <string name="Delete">Жою</string>
     <string name="sizeText">Мәтін өлшемі</string>
-    <string name="sortData">Күні бойынша</string>
-    <string name="sortName">Аты бойынша</string>
     <string name="ThemeToolbar_title">Түс схемасы</string>
-    <string name="red">Қызыл</string>
-    <string name="green">Жасыл</string>
-    <string name="purple">Күлгін</string>
-    <string name="dark">Қара</string>
     <string name="trashNotes">Жою</string>
     <string name="trashN">Себет</string>
     <string name="trashClean" >Себетті босату</string>
@@ -30,7 +23,6 @@
     <string name="sendDev">Хабар әзірлеушісі</string>
     <string name ="whatUpdate" >Не жаңалық?</string >
     <string name ="addFolder">Қалта қосу</string>
-    <string name="orange">Апельсин</string>
     <string name="error_folder_NoExists">Қалта жоқ!</string>
     <string name="copyNotes">"Ескертуді жылжыту"</string>
     <string name ="inputNameFolder">Қалта атын енгізіңіз</string>
@@ -65,7 +57,6 @@
     <string name = "backupIsCreate">Сақтық көшірме жасалды</string>
     <string name="continueNext">Жалғастыру</string>
     <string name="restoreDialogMessage">Ескертпелерді қалпына келтіргіңіз келетініне сенімдісіз бе? Барлық бар ескертпелер жойылады және сақтық көшірмедегілермен ауыстырылады.</string >
-    <string name="indigo">Индиго</string>
     <string name="noSave">Сақтамай жабу</string>
     <string name="lineSetSPech">Бір жол</string>
     <string name="paragraphSetSpech">Жаңа абзацтан</string>
@@ -92,7 +83,6 @@
     <string name = "interaction">Өзара әрекеттесу</string>
     <string name = "emptySpeec">Қайталап көргеніңізді есту мүмкін емес</string>
     <string name = "spechToListen">Сөйле, мен тыңдап жатырмын..</string>
-    <string name = "restartTheme"> Өзгерістер күшіне енуі үшін қолданбаны қайта іске қосыңыз.</string >
     <string name = "defaultLangVoiece">Әдепкі құрылғы</string>
     <string name = "exitWhat">Шығу үшін әрекетті қайталау керек</string>
 

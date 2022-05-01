@@ -1,3 +1,0 @@
-package com.pasich.mynotes;
-
-

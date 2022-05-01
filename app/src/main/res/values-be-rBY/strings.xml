@@ -5,15 +5,8 @@
     <string name="EditNote">Рэдагаванне</string>
     <string name="title_activity_settings">Налады</string>
     <string name="settings">Налады</string>
-    <string name="Delete">Выдаліць</string>
     <string name="sizeText">Памер тэксту</string>
-    <string name="sortData">Па Даце</string>
-    <string name="sortName">Па Назве</string>
     <string name="ThemeToolbar_title">Колеравая схема</string>
-    <string name="red">Чырвоная</string>
-    <string name="green">Зялёная</string>
-    <string name="purple">Фіялетава</string>
-    <string name="dark">Чорная</string>
     <string name="trashNotes">Выдаліць</string>
     <string name="trashN">Кошык</string>
     <string name="trashClean" >Ачысціць кошык</string>
@@ -30,7 +23,6 @@
     <string name="sendDev">Напісаць распрацоўніку</string>
     <string name="whatUpdate">Што новага?</string>
     <string name="addFolder">Дадаць тэчку</string>
-    <string name="orange">Аранжавая</string>
     <string name="error_folder_NoExists">Тэчкі не існуе!</string>
     <string name="copyNotes">"Перамясціць нататку "</string>
     <string name="inputNameFolder">Увядзіце назву тэчкі</string>
@@ -65,7 +57,6 @@
     <string name="backupIsCreate">Рэзервовую копію створана</string>
     <string name="continueNext">Працягнуць</string>
     <string name="restoreDialogMessage">Вы сапраўды хочаце аднавіць нататкі? Усе наяўныя нататкі будуць выдалены і заменены на тыя, якія знаходзяцца ў рэзервовай копіі.</string>
-    <string name="indigo">Indigo</string>
     <string name="noSave">Зачыніць без захавання</string>
     <string name="lineSetSPech">У адзін радок</string>
     <string name="paragraphSetSpech">З новага абзаца</string>
@@ -92,7 +83,6 @@
     <string name="interaction">Узаемадзеянне</string>
     <string name="emptySpeec">Вас не чуваць, паспрабуйце яшчэ раз</string>
     <string name="spechToListen">Гаварыце, я вас слухаю..</string>
-    <string name = "restartTheme"> Каб змены ўступілі ў сілу, перазагрузіце праграму.</string>
     <string name = "defaultLangVoiece">Па змаўчанні прылады</string>
     <string name = "exitWhat">Для выхаду, трэба паўтарыць дзеянне</string>
 
