@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.pasich.mynotes.Dialogs.errorTTS;
+import com.pasich.mynotes.Dialogs.TtsErrorDialog;
 import com.pasich.mynotes.R;
 
 public class FragmentVoice extends PreferenceFragmentCompat {
@@ -16,7 +16,6 @@ public class FragmentVoice extends PreferenceFragmentCompat {
     setPreferencesFromResource(R.xml.voice_prefences, rootKey);
 
     Preference errorSpechService = findPreference("errorSpechService");
-    // Проверим на доступность настроект распознавание речи
     if (!isRecognitionAvailable(getContext())) {
       findPreference("spechLaunguage").setVisible(false);
       findPreference("setSpechOutputText").setVisible(false);
@@ -26,7 +25,7 @@ public class FragmentVoice extends PreferenceFragmentCompat {
     assert errorSpechService != null;
     errorSpechService.setOnPreferenceClickListener(
         preference -> {
-          new errorTTS().show(getParentFragmentManager(), "Error Service Spech");
+          new TtsErrorDialog().show(getParentFragmentManager(), "Error Service Spech");
           return true;
         });
   }

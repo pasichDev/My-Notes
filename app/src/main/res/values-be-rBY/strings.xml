@@ -87,7 +87,7 @@
     <string name = "exitWhat">Для выхаду, трэба паўтарыць дзеянне</string>
 
     <string name="languageGitLinkTitle">Зыходны код (Github)</string>
-    <string name="selectColorPrimaryApp">Абярыце асноўны колер прыкладання:</string>
+    <string name="selectColorPrimaryApp">Абярыце асноўны колер прыкладання</string>
     <string name="ThemeToolbar_summary">Абярыце каляровую схему прыкладання</string>
     <string name="textStyleTitle">Стыль шрыфта</string>
     <string name="fontStyleBold">Тоўсты</string>

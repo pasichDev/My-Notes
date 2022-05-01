@@ -4,6 +4,7 @@ import static com.pasich.mynotes.Сore.Methods.MethodCheckEmptyTrash.checkCountL
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,10 +16,10 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.lib.CustomUIDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
 
-public class CleanTrash extends DialogFragment {
+public class CleanTrashDialog extends DialogFragment {
   private final DefaultListAdapter defaultListAdapter;
 
-  public CleanTrash(DefaultListAdapter defaultListAdapter) {
+  public CleanTrashDialog(DefaultListAdapter defaultListAdapter) {
     this.defaultListAdapter = defaultListAdapter;
   }
 
@@ -32,7 +33,7 @@ public class CleanTrash extends DialogFragment {
 
     TextView textMessage = new TextView(getContext());
     textMessage.setText(getString(R.string.cleanTrashquestion));
-
+    uiDialog.setTextSizeMessage(textMessage);
     uiDialog.getContainer().addView(textMessage, uiDialog.lp);
     builder.setView(uiDialog.getContainer());
 

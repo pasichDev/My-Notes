@@ -89,7 +89,7 @@
     <string name="fontStyleBoldItalic">Pogrubiona-kursywa</string>
     <string name="fontStyleItalic">Kursywa</string>
     <string name="languageGitLinkTitle">Źródło  (Github)</string>
-    <string name="selectColorPrimaryApp">Wybierz główny kolor aplikacji:</string>
+    <string name="selectColorPrimaryApp">Wybierz główny kolor aplikacji</string>
     <string name="ThemeToolbar_summary">Wybierz schemat kolorów aplikacji</string>
     <string name="textStyleTitle">Styl czcionki</string>
     <string name="fontStyleBold">Tłuszczowy</string>

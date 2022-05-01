@@ -21,7 +21,7 @@ import com.pasich.mynotes.Сore.SystemCostant;
 
 import java.util.Objects;
 
-public class editThemeColor extends DialogFragment {
+public class EditThemeColorDialog extends DialogFragment {
   /** An interface that updates the activity after changing the theme */
   public interface updateTheme {
     void updateThemeCheck();
@@ -29,7 +29,7 @@ public class editThemeColor extends DialogFragment {
 
   private final Context context;
 
-  public editThemeColor(Context context) {
+  public EditThemeColorDialog(Context context) {
     this.context = context;
   }
 
@@ -40,16 +40,13 @@ public class editThemeColor extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     listen = (updateTheme) getTargetFragment();
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
     GridView gridview = new GridView(getContext());
     gridview.setNumColumns(6);
     gridview.setHorizontalSpacing(10);
     gridview.setAdapter(new ImageAdapter(getContext()));
-
     gridview.setGravity(android.view.Gravity.TOP | android.view.Gravity.LEFT);
-
-    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
     uiDialog.setHeadTextView(getString(R.string.selectColorPrimaryApp));
-
     uiDialog.getContainer().addView(gridview, uiDialog.lp);
     builder.setView(uiDialog.getContainer());
     builder.setNegativeButton(getString(R.string.cancel), null);

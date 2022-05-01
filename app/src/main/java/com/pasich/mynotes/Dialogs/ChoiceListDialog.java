@@ -92,8 +92,8 @@ public class ChoiceListDialog extends DialogFragment {
               }
               break;
             case 2: // Перместить заметку
-              copyNotes copyNotes =
-                  new copyNotes(listNotesfors, defaultListAdapter, selectedItem, pos, folderOutput);
+              CopyNotesDialog copyNotes =
+                  new CopyNotesDialog(listNotesfors, defaultListAdapter, selectedItem, pos, folderOutput);
               assert getFragmentManager() != null;
               copyNotes.show(getFragmentManager(), "Copy Notes");
 

@@ -33,7 +33,7 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
-import com.pasich.mynotes.Dialogs.PermissionError;
+import com.pasich.mynotes.Dialogs.PermissionErrorDialog;
 import com.pasich.mynotes.Dialogs.SourcesNoteDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
 import com.pasich.mynotes.Сore.Methods.findSourceForNote;
@@ -268,7 +268,7 @@ public class NoteActivity extends AppCompatActivity {
 
     if (requestCode == REQUEST_AUDIO_PERMISSION_RESULT) {
       if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-        new PermissionError("Audio").show(getSupportFragmentManager(), "permissonError");
+        new PermissionErrorDialog("Audio").show(getSupportFragmentManager(), "permissonError");
       }
     }
   }

@@ -19,7 +19,7 @@ import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
 import com.pasich.mynotes.Dialogs.ChoiceTrashDialog;
-import com.pasich.mynotes.Dialogs.CleanTrash;
+import com.pasich.mynotes.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Сore.ListContolers.TrashListData;
 import com.pasich.mynotes.Сore.SystemCostant;
 
@@ -85,8 +85,8 @@ public class TrashActivity extends AppCompatActivity {
       closeActivity();
     } else if (item.getItemId() == R.id.trashClean) {
       if (!(defaultListAdapter.getCount() == 0)) {
-        CleanTrash dialog = new CleanTrash(defaultListAdapter);
-        dialog.show(getSupportFragmentManager(), "CleanTrash");
+        CleanTrashDialog dialog = new CleanTrashDialog(defaultListAdapter);
+        dialog.show(getSupportFragmentManager(), "CleanTrashDialog");
       } else {
         Toast.makeText(getApplicationContext(), R.string.trashNull, Toast.LENGTH_SHORT).show();
       }

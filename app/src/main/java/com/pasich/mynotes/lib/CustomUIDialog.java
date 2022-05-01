@@ -1,6 +1,7 @@
 package com.pasich.mynotes.lib;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,7 +25,7 @@ public class CustomUIDialog {
   protected LinearLayout container;
   protected ImageButton closeBut;
   public LinearLayout.LayoutParams lp;
-  public int sizeTextMessage;
+  public int sizeTextMessage = 17;
 
   public CustomUIDialog(Context context, LayoutInflater inflater) {
     this.convertView = inflater.inflate(this.headLayout, null);
@@ -34,7 +35,7 @@ public class CustomUIDialog {
     this.lp =
         new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    this.lp.setMargins(70, 50, 30, 30);
+    this.lp.setMargins(70, 40, 70, 20);
     this.setContainer();
   }
 
@@ -71,4 +72,12 @@ public class CustomUIDialog {
   public LinearLayout getContainer() {
     return this.container;
   }
+
+  /**
+   * method to set font size for message
+   */
+  public void setTextSizeMessage(TextView textView){
+    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeTextMessage);
+  }
+
 }

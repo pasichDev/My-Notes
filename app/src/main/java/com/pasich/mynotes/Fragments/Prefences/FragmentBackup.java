@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.pasich.mynotes.Dialogs.RestoreNotes;
+import com.pasich.mynotes.Dialogs.RestoreNotesDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.File.BackupToRestoreClass;
 
@@ -27,7 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class FragmentBackup extends PreferenceFragmentCompat
-    implements RestoreNotes.continueImport {
+    implements RestoreNotesDialog.continueImport {
 
   private BackupToRestoreClass backupClass;
 
@@ -45,7 +45,7 @@ public class FragmentBackup extends PreferenceFragmentCompat
           } else {
             // Отобразим диалогове окно перед импортом заметок!
             FragmentManager fm = getParentFragmentManager();
-            RestoreNotes RestoreNotes = new RestoreNotes();
+            RestoreNotesDialog RestoreNotes = new RestoreNotesDialog();
             RestoreNotes.setTargetFragment(this, 300);
             RestoreNotes.show(fm, "RestoreFragmentDIalog");
           }

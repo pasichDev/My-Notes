@@ -92,7 +92,7 @@
     <string name="fontStyleNormal">Стандарт</string>
     <string name="textStyleTitle">Қаріп мәнері</string>
     <string name = "ThemeToolbar_summary">Қолданбаның түс схемасын таңдаңыз</string>
-    <string name = "selectColorPrimaryApp">Қолданбаның негізгі түсін таңдаңыз:</string>
+    <string name = "selectColorPrimaryApp">Қолданбаның негізгі түсін таңдаңыз</string>
     <string name = "languageGitLinkTitle">Дереккөз (Github)</string>
     <string name="updateNowM">
 - Қосылды: жаңа түс схемасын таңдау диалогы.\n

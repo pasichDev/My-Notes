@@ -2,23 +2,22 @@ package com.pasich.mynotes.Dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.lib.CustomUIDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
 
 public class FolderOptionDialog extends DialogFragment {
@@ -38,30 +37,22 @@ public class FolderOptionDialog extends DialogFragment {
     FileCore fileCore = new FileCore(getContext());
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     EditNameDialogListener listener = (EditNameDialogListener) getTargetFragment();
+
     LinearLayout container = new LinearLayout(getContext());
     container.setOrientation(LinearLayout.VERTICAL);
-    LinearLayout.LayoutParams lp =
-        new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    lp.setMargins(60, 60, 60, 0);
+    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
 
     final EditText input = new EditText(getContext());
 
-    input.setLayoutParams(lp);
     input.setGravity(android.view.Gravity.TOP | android.view.Gravity.LEFT);
     input.setInputType(
         InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
     input.setLines(1);
     input.setHint(getString(R.string.inputNameFolder));
     input.setMaxLines(1);
-
-    LayoutInflater inflater = getLayoutInflater();
-    View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
-    TextView headText = convertView.findViewById(R.id.textViewHead);
-    headText.setText(getString(R.string.newFolder));
-    container.addView(convertView);
-    container.addView(input, lp);
-    builder.setView(container);
+    uiDialog.setHeadTextView(getString(editName.equals("")? R.string.newFolder : R.string.renameFolder));
+    uiDialog.getContainer().addView(input, uiDialog.lp);
+    builder.setView(uiDialog.getContainer());
 
     if (editName.length() >= 1) input.setText(editName);
     input.setEnabled(true);
@@ -77,6 +68,7 @@ public class FolderOptionDialog extends DialogFragment {
           (dialog, which) -> {
             if (!input.getText().toString().equals(editName)) {
               fileCore.saveNameFolder(input.getText().toString(), true, editName);
+              assert listener != null;
               listener.onFinishfolderOption(true);
             }
           });
@@ -86,6 +78,7 @@ public class FolderOptionDialog extends DialogFragment {
           (dialog, which) -> {
             if (input.getText().toString().length() >= 1) {
               fileCore.saveNameFolder(input.getText().toString(), false, "");
+              assert listener != null;
               listener.onFinishfolderOption(true);
             }
           });
@@ -93,7 +86,7 @@ public class FolderOptionDialog extends DialogFragment {
 
     InputMethodManager inputMgr =
         (InputMethodManager)
-            builder.getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+            builder.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
 
     return builder.create();

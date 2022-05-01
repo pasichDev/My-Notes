@@ -3,12 +3,11 @@ package com.pasich.mynotes.Dialogs;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -17,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.SpinnerNotes.FolderSpinnerAdapter;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.lib.CustomUIDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
 
 import org.apache.commons.io.comparator.NameFileComparator;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class copyNotes extends DialogFragment {
+public class CopyNotesDialog extends DialogFragment {
 
   private final ArrayList listNotesfors;
   public final String nameNotes, folderOutput;
@@ -34,7 +34,7 @@ public class copyNotes extends DialogFragment {
   private final DefaultListAdapter defaultListAdapter;
   private int getItem;
 
-  public copyNotes(
+  public CopyNotesDialog(
       ArrayList ListNotesfors,
       DefaultListAdapter defaultListAdapter,
       String nameNotes,
@@ -50,13 +50,15 @@ public class copyNotes extends DialogFragment {
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-
     FileCore fileCore = new FileCore(getContext());
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     File[] listFolders = getContext().getFilesDir().listFiles();
+    List<String> folderListArray = new ArrayList<String>();
+    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
+    TextView textMessage = new TextView(getContext());
     Arrays.sort(listFolders, NameFileComparator.NAME_COMPARATOR);
 
-    List<String> folderListArray = new ArrayList<String>();
+    uiDialog.setHeadTextView(getString(R.string.copyNotesTo));
 
     if (folderOutput.length() >= 1) {
       folderListArray.add(getString(R.string.rootFolder));
@@ -69,28 +71,16 @@ public class copyNotes extends DialogFragment {
         folderListArray.add(folderSel.getName());
       }
     }
-    LinearLayout container = new LinearLayout(getContext());
-    container.setOrientation(LinearLayout.VERTICAL);
-    LayoutInflater inflater = getLayoutInflater();
-    View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
-    TextView headText = convertView.findViewById(R.id.textViewHead);
-    headText.setText(getString(R.string.copyNotesTo));
-    container.addView(convertView);
 
     if (folderListArray.size() >= 1) {
-      LinearLayout.LayoutParams lp =
-          new LinearLayout.LayoutParams(
-              LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-      lp.setMargins(60, 5, 60, 0);
-      TextView textMessage = new TextView(getContext());
-      textMessage.setText(getString(R.string.copyNotefor));
       Spinner spinner = new Spinner(getContext());
       spinner.setAdapter(new FolderSpinnerAdapter(getContext(), folderListArray));
-      spinner.setLayoutParams(lp);
       spinner.setGravity(android.view.Gravity.TOP | android.view.Gravity.LEFT);
-      container.addView(textMessage, lp);
-      container.addView(spinner);
-      builder.setView(container);
+
+      textMessage.setText(getString(R.string.copyNotefor));
+      uiDialog.setTextSizeMessage(textMessage);
+      uiDialog.getContainer().addView(textMessage, uiDialog.lp);
+      uiDialog.getContainer().addView(spinner, uiDialog.lp);
 
       spinner.setOnItemSelectedListener(
           new AdapterView.OnItemSelectedListener() {
@@ -115,10 +105,11 @@ public class copyNotes extends DialogFragment {
             Log.d("xxx", String.valueOf(getItem));
           });
     } else {
-      builder.setMessage(getString(R.string.error_folders_exists));
-      builder.setPositiveButton("Ok", (dialog, which) -> {});
+      dismiss();
+      Toast.makeText(getContext(), getString(R.string.error_folders_exists), Toast.LENGTH_LONG)
+          .show();
     }
-
+    builder.setView(uiDialog.getContainer());
     return builder.create();
   }
 }

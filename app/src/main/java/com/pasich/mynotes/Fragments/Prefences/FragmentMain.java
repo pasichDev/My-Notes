@@ -5,10 +5,10 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.pasich.mynotes.Dialogs.editThemeColor;
+import com.pasich.mynotes.Dialogs.EditThemeColorDialog;
 import com.pasich.mynotes.R;
 
-public class FragmentMain extends PreferenceFragmentCompat implements editThemeColor.updateTheme {
+public class FragmentMain extends PreferenceFragmentCompat implements EditThemeColorDialog.updateTheme {
   @Override
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     setPreferencesFromResource(R.xml.main_prefences, rootKey);
@@ -17,7 +17,7 @@ public class FragmentMain extends PreferenceFragmentCompat implements editThemeC
     assert themeColorEdit != null;
     themeColorEdit.setOnPreferenceClickListener(
         preference -> {
-          editThemeColor editThemeColor = new editThemeColor(getContext());
+          EditThemeColorDialog editThemeColor = new EditThemeColorDialog(getContext());
           editThemeColor.setTargetFragment(this, 300);
           editThemeColor.show(getParentFragmentManager(), "ssss");
           return true;

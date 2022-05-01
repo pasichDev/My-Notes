@@ -89,7 +89,7 @@
     <string name="fontStyleBoldItalic">Жирний-Курсив</string>
     <string name="fontStyleItalic">Курсив</string>
     <string name="languageGitLinkTitle">Вихідний код (Github)</string>
-    <string name="selectColorPrimaryApp">Виберіть основний колір програми:</string>
+    <string name="selectColorPrimaryApp">Виберіть основний колір програми</string>
     <string name="ThemeToolbar_summary">Виберіть колірну схему програми</string>
     <string name="textStyleTitle">Стиль шрифту</string>
     <string name="fontStyleBold">Жирний</string>
