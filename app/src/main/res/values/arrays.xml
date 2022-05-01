@@ -14,9 +14,6 @@
         <item>bold-italic</item>
     </string-array>
 
-
-
-
     <!-- Режим ввода продиктованого текста -->
     <string-array name="spechOutputSettings_name">
         <item>@string/lineSetSPech</item>
@@ -26,8 +23,6 @@
         <item>line</item>
         <item>paragraph</item>
     </string-array>
-
-
 
     <!-- Основной язык голосового ввода -->
     <string-array name="spechMain_enteries">

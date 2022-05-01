@@ -40,7 +40,6 @@ public class ShareActivity extends AppCompatActivity {
 
   /**
    * Returns the received text from the heap
-   *
    * @return - String (TextData share)
    */
   private String handleSendText() {
