@@ -3,17 +3,12 @@ package com.pasich.mynotes.Fragments.Prefences;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.BuildConfig;
+import com.pasich.mynotes.Dialogs.WhatUpdateDialog;
 import com.pasich.mynotes.R;
 
 public class FragmentAppInfo extends PreferenceFragmentCompat {
@@ -44,26 +39,7 @@ public class FragmentAppInfo extends PreferenceFragmentCompat {
     assert whatsUpdateKey != null;
     whatsUpdateKey.setOnPreferenceClickListener(
         preference -> {
-          AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-          LinearLayout.LayoutParams lp =
-              new LinearLayout.LayoutParams(
-                  LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-          lp.setMargins(40, 5, 40, 20);
-
-          LayoutInflater inflater = getLayoutInflater();
-          LinearLayout container = new LinearLayout(getContext());
-          container.setOrientation(LinearLayout.VERTICAL);
-          View convertView = (View) inflater.inflate(R.layout.dialog_head_bar, null);
-          TextView headText = convertView.findViewById(R.id.textViewHead);
-          headText.setText(getString(R.string.app_name) + " " + versionName);
-          TextView textView = new TextView(getContext());
-          textView.setText(getString(R.string.updateNowM));
-          container.addView(convertView);
-          container.addView(textView, lp);
-          builder.setView(container);
-          builder.setNegativeButton(getString(R.string.cancel), null);
-          builder.show();
+          new WhatUpdateDialog().show(getParentFragmentManager(), "WhatUpdateDialog");
           return true;
         });
   }
