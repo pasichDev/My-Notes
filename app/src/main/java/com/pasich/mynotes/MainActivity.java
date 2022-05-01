@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -59,10 +58,20 @@ public class MainActivity extends AppCompatActivity {
       TabLayout tabLayout = findViewById(R.id.tabModeMain);
       setupViewPager(viewPager);
       tabLayout.setupWithViewPager(viewPager);
-      startButtonList(); // start button list
+      startButtonList();
     }
 
     onCreate = true;
+
+
+    findViewById(R.id.sortButton).setOnClickListener(v -> {
+      sortSwitch.sortNote();
+      FragmentListNotes.restartListNotes();
+    });
+    findViewById(R.id.formatButton).setOnClickListener(v -> {
+      formatSwitch.formatNote();
+      FragmentListNotes.restartListNotes();
+    });
   }
 
   /** Тоже очень интересная реализация Позже желательно изменить */
@@ -185,25 +194,6 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  /**
-   * Switchable formatButton True to onClick
-   *
-   * @param v
-   */
-  public void formatNotes(View v) {
-    formatSwitch.formatNote();
-    FragmentListNotes.restartListNotes();
-  }
-
-  /**
-   * Switchable sortButton True to onClick
-   *
-   * @param v
-   */
-  public void sortListNotes(View v) {
-    sortSwitch.sortNote();
-    FragmentListNotes.restartListNotes();
-  }
 
   /** Create Button List to TabPanel */
   private void startButtonList() {

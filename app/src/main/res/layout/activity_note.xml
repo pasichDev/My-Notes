@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="44dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -29,6 +29,7 @@
                 android:id="@+id/newNotesTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="no"
                 android:background="#00FFFFFF"
                 android:ems="12"
                 android:gravity="start|top"
@@ -47,10 +48,9 @@
         android:id="@+id/editNotesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="22dp"
         android:contentDescription="@string/EditNote"
-        android:onClick="activeButtonEditText"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,8 +61,8 @@
         android:id="@+id/spechTextNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="22dp"
         android:contentDescription="@string/holdOnSpeec"
         android:visibility="invisible"
         app:backgroundTint="?attr/colorPrimary"
@@ -75,24 +75,24 @@
         android:id="@+id/spechStartText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="35dp"
         android:contentDescription="@string/holdOn"
         android:text="@string/holdOn"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/editNotesButton"
-        app:layout_constraintEnd_toStartOf="@id/spechTextNote" />
+        app:layout_constraintEnd_toStartOf="@id/spechTextNote"
+        app:layout_constraintTop_toTopOf="@+id/spechTextNote" />
 
     <ImageView
         android:id="@+id/imageSpechVolume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="26dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@null"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/editNotesButton"
         app:layout_constraintEnd_toStartOf="@id/spechStartText"
-        app:srcCompat="@drawable/ic_speec_voice" />
+        app:layout_constraintTop_toTopOf="@+id/spechTextNote"
+        app:srcCompat="@drawable/ic_spech_voice" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -100,7 +100,7 @@
         android:background="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/shareButton"
@@ -110,7 +110,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:onClick="shareButton"
+            android:contentDescription="@string/share"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/deleteButton"
             app:layout_constraintTop_toTopOf="parent"
@@ -124,7 +124,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:onClick="sourcesButton"
+            android:contentDescription="@string/investments"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -138,7 +138,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:onClick="remindButton"
+            android:contentDescription="@string/cd_remind"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sourceButton"
             app:layout_constraintTop_toTopOf="parent"
@@ -152,7 +152,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:onClick="deleteButton"
+            android:contentDescription="@string/cd_deleteNote"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/remindButton"
             app:layout_constraintTop_toTopOf="parent"

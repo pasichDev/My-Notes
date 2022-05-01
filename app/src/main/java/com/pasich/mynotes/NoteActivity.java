@@ -9,17 +9,11 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextWatcher;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -147,34 +141,45 @@ public class NoteActivity extends AppCompatActivity {
           SPAN_EXCLUSIVE_EXCLUSIVE - только вкзаана должина
            */
 
-    MyEditText.addTextChangedListener(
-        new TextWatcher() {
-          @Override
-          public void onTextChanged(CharSequence s, int start, int before, int count) {
-            /*    Log.d("xxxx", start + " start");
-            Log.d("xxxx", before  + " before");
-            Log.d("xxxx", count  + " count");*/
+    findViewById(R.id.editNotesButton).setOnClickListener(v -> {
+      toolbarMenu.findItem(R.id.noSave).setVisible(true);
+      notesControllers.activeEditText();
+    });
 
-          }
+    findViewById(R.id.deleteButton).setOnClickListener(v -> {
+      fileCore.transferNotes(idNote, "trash", folder);
+      closeNotesSave(false, false);
+      Toast.makeText(getApplicationContext(), R.string.transferToTrash, Toast.LENGTH_LONG).show();
+    });
 
-          @Override
-          public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    findViewById(R.id.remindButton).setOnClickListener(v ->
+            Toast.makeText(getApplicationContext(), R.string.voiceNoteFragmentToUpdate, Toast.LENGTH_LONG).show());
 
-            // TODO Auto-generated method stub
-          }
+    findViewById(R.id.shareButton).setOnClickListener(v ->
+            shareNotes(this, valueTextEdit().toString()));
 
-          @Override
-          public void afterTextChanged(Editable s) {
+    findViewById(R.id.sourceButton).setOnClickListener(v -> {
+      findSourceForNote findSourceForNote = new findSourceForNote(valueTextEdit().toString());
+      ArrayList<SourceListContent> ListSoc =
+              createArrayListSoc(
+                      findSourceForNote.getLinks(),
+                      findSourceForNote.getMail(),
+                      findSourceForNote.getPhoneNumber());
 
-            // TODO Auto-generated method stub
-          }
-        });
+      if (ListSoc.size() >= 1)
+        new SourcesNoteDialog(ListSoc).show(getSupportFragmentManager(), "SourcesNoteDialog");
+      else
+        Toast.makeText(getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT)
+                .show();
+    });
+
   }
 
+  /*
   public int getLengtOneString() {
     String[] lines = MyEditText.getText().toString().split("\n");
     return lines[0].length();
-  }
+  }*/
 
   /** Метод восстановдения заметки после остановки активности на паузу */
   @Override
@@ -199,7 +204,7 @@ public class NoteActivity extends AppCompatActivity {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     if (KeyFunction.equals("NewNote") || KeyFunction.equals("EditNote")) {
       menu.findItem(R.id.applyBut).setVisible(true);
-      //   menu.findItem(R.id.noSave).setVisible(true);
+      if(KeyFunction.equals("NewNote")) menu.findItem(R.id.noSave).setVisible(true);
     } else if (KeyFunction.equals("TrashNote")) {
       menu.findItem(R.id.applyBut).setVisible(false);
     }
@@ -298,12 +303,7 @@ public class NoteActivity extends AppCompatActivity {
     }
   }
 
-  /** OnClick для EditButton */
-  public void activeButtonEditText(View view) {
 
-    toolbarMenu.findItem(R.id.noSave).setVisible(true);
-    notesControllers.activeEditText();
-  }
 
   /**
    * Метод которые записывает исходный текст для заметки! В некоторых случаях нужно перевызвать для
@@ -321,6 +321,8 @@ public class NoteActivity extends AppCompatActivity {
   private void NotesMode() {
     if (KeyFunction.equals("NewNote") && idNote.equals("null")) {
       setTitle(getResources().getText(R.string.NewNote));
+      findViewById(R.id.deleteButton).setVisibility(View.GONE);
+      findViewById(R.id.remindButton).setVisibility(View.GONE);
       notesControllers.activeEditText();
     } else if (KeyFunction.equals("EditNote") && !idNote.equals("null")) {
       setTitle(getResources().getText(R.string.EditNote));
@@ -499,31 +501,6 @@ public class NoteActivity extends AppCompatActivity {
         });
   }
 
-  public void shareButton(View v) {
-    shareNotes(this, valueTextEdit().toString());
-  }
-
-  public void deleteButton(View v) {
-    fileCore.transferNotes(idNote, "trash", folder);
-    closeNotesSave(false, false);
-    Toast.makeText(getApplicationContext(), R.string.transferToTrash, Toast.LENGTH_LONG).show();
-  }
-
-  public void sourcesButton(View v) {
-    findSourceForNote findSourceForNote = new findSourceForNote(valueTextEdit().toString());
-    ArrayList<SourceListContent> ListSoc =
-        createArrayListSoc(
-            findSourceForNote.getLinks(),
-            findSourceForNote.getMail(),
-            findSourceForNote.getPhoneNumber());
-
-    if (ListSoc.size() >= 1)
-      new SourcesNoteDialog(ListSoc).show(getSupportFragmentManager(), "SourcesNoteDialog");
-    else
-      Toast.makeText(getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT)
-          .show();
-  }
-
   /**
    * A method that creates one array of three (mail, phones, links)
    *
@@ -551,8 +528,5 @@ public class NoteActivity extends AppCompatActivity {
     return ListSoc;
   }
 
-  public void remindButton(View v) {
-    Toast.makeText(getApplicationContext(), R.string.voiceNoteFragmentToUpdate, Toast.LENGTH_LONG)
-        .show();
-  }
+
 }

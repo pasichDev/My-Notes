@@ -118,7 +118,11 @@
     <string name="investments" translatable="false">Вложения </string>
     <string name="newFolder" translatable="false">Создать новую папку </string>
     <string name="copyNotesTo" translatable="false">Перемещение заметки</string>
-
+    <string name="cd_remind" translatable="false">Оповещения</string>
+    <string name="cd_sort" translatable="false">Сортировать заметки</string>
+    <string name="cd_format" translatable="false">Форматировать заметки</string>
+    <string name="cd_emptyTrash" translatable="false">Корзина Пустая</string>
+    <string name="cd_deleteNote" translatable="false">Удалить заметку</string>
     <string name="notSupportedShare" translatable="false">Этот контент не поддерживаеться.</string>
     <string name="notSource" translatable="false">В данной заметке нет вложений</string>
 </resources>
