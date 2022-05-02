@@ -49,7 +49,7 @@ public class TrashActivity extends AppCompatActivity {
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    GridView trashNotesList = findViewById(R.id.ListNotesTrash);
+    GridView trashNotesList = findViewById(R.id.ListTrash);
     TrashListData trashListData = new TrashListData(this);
     listNotesfors = trashListData.newListAdapter();
 

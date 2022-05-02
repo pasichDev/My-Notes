@@ -3,7 +3,6 @@ package com.pasich.mynotes.Adapters.ListNotes;
 import static com.pasich.mynotes.Сore.File.FileCore.getWithoutExtension;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 
 import com.pasich.mynotes.R;
 
@@ -42,7 +40,6 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
-    // Обработка именни пункта
     String nameItem = listNotesfor.getNameList();
     String dateItem = listNotesfor.getDateList();
 
@@ -55,7 +52,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
     }
     nameItem = getWithoutExtension(nameItem);
-    if (nameItem.length() > 39) nameItem = nameItem + "...";
+    if (nameItem.length() > 49) nameItem = nameItem + "...";
 
     viewHolder.nameView.setText(nameItem);
     viewHolder.dateView.setText(dateItem);

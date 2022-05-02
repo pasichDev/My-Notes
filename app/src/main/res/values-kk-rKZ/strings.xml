@@ -103,4 +103,18 @@
 - Қолданбаны оңтайландыру.\n
     </string>
     <string name="telegram">Әзірлеуші ​​контактілерін ашыңыз</string>
+    <string name="error">Қате</string>
+    <string name="notSource">Бұл жазбада тіркемелер жоқ.</string>
+    <string name="notSupportedShare">Бұл мазмұнға қолдау көрсетілмейді.</string>
+    <string name="cd_deleteNote">Жазбаны жою</string>
+    <string name="cd_emptyTrash">Себет бос</string>
+    <string name="notFoundPlayMarket">Play Market қолданбасы жоқ</string>
+    <string name="transferToTrash">Ескертпе себетке жіберілді</string>
+    <string name="copyX">Көшірілген</string>
+    <string name="investments">Инвестициялар</string>
+    <string name="newFolder">Жаңа қалта жасаңыз</string>
+    <string name="copyNotesTo">Жазбаны жылжыту</string>
+    <string name="cd_remind">Еске салғыш</string>
+    <string name="cd_sort">Жазбаларды сұрыптау</string>
+    <string name="cd_format">Жазбаларды пішімдеу</string>
 </resources>

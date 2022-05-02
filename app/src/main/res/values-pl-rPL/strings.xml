@@ -104,4 +104,18 @@
 - Optymalizacja aplikacji.\n
     </string>
     <string name="telegram">Otwórz kontakty programistów</string>
+    <string name="error">Błąd</string>
+    <string name="notSource">Ten post nie ma załączników.</string>
+    <string name="notSupportedShare">Ta zawartość nie jest obsługiwana.</string>
+    <string name="cd_deleteNote">Usuń notatkę</string>
+    <string name="cd_emptyTrash">wózek jest pusty</string>
+    <string name="notFoundPlayMarket">Brak aplikacji Play Market</string>
+    <string name="transferToTrash">Notatka została przeniesiona do kosza</string>
+    <string name="copyX">Skopiowane</string>
+    <string name="investments">Inwestycje</string>
+    <string name="newFolder">Stworzyć nowy folder</string>
+    <string name="copyNotesTo">Przenoszenie notatki</string>
+    <string name="cd_remind">Przypomnienie</string>
+    <string name="cd_sort">Sortuj notatki</string>
+    <string name="cd_format">Formatuj notatki</string>
 </resources>

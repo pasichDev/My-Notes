@@ -104,4 +104,18 @@
 - Аптымізацыя прыкладання.\n
     </string>
     <string name="telegram">Адкрыць кантакты распрацоўніка</string>
+    <string name="error">Памылка</string>
+    <string name="notSource">У дадзенай нататцы няма укладанняў</string>
+    <string name="notSupportedShare">Гэты кантэнт не падтрымліваецца.</string>
+    <string name="cd_deleteNote">Выдаліць нататку</string>
+    <string name="cd_emptyTrash">Кошык пусты</string>
+    <string name="notFoundPlayMarket">Адсутнічае прыкладанне Play Market</string>
+    <string name="transferToTrash">Нататку перамешчана ў кошык</string>
+    <string name="copyX">Скапіравана</string>
+    <string name="investments">Укладанні</string>
+    <string name="newFolder">Стварыць новую тэчку</string>
+    <string name="copyNotesTo">Перамяшчэнне нататкі</string>
+    <string name="cd_remind">Напамін</string>
+    <string name="cd_sort">Сартаваць нататкі</string>
+    <string name="cd_format">Фарматаваць нататкі</string>
 </resources>

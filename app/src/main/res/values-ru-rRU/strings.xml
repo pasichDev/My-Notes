@@ -106,4 +106,18 @@
 - Оптимизация приложения.\n
     </string>
     <string name="telegram">Открыть контакты разработчика</string>
+    <string name="error">Ошибка</string>
+    <string name="notSource">В данной заметке нет вложений</string>
+    <string name="notSupportedShare" translatable="false">Этот контент не поддерживается.</string>
+    <string name="cd_deleteNote">Удалить заметку</string>
+    <string name="cd_emptyTrash">Корзина пустая</string>
+    <string name="notFoundPlayMarket">Отсутствует приложение Play Market</string>
+    <string name="transferToTrash">Заметку перемещено в корзину</string>
+    <string name="copyX">"Скопировано "</string>
+    <string name="investments">Вложения</string>
+    <string name="newFolder">"Создать новую папку "</string>
+    <string name="copyNotesTo">Перемещение заметки</string>
+    <string name="cd_remind">Напоминание</string>
+    <string name="cd_sort">Сортировать заметки</string>
+    <string name="cd_format">Форматировать заметки</string>
 </resources>

@@ -2,7 +2,7 @@ package com.pasich.mynotes.Сore;
 
 import com.pasich.mynotes.R;
 
-/** Class который содержит системные константы настроек */
+/** Class which contains system settings constants */
 public class SystemCostant {
   public static final String Settings_Sort = "date";
   public static final int Setting_Format = 1;

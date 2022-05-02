@@ -99,7 +99,7 @@
     <string name="fontStyleNormal">Standard</string>
     <string name="fontStyleItalic">Italic</string>
     <string name="fontStyleBoldItalic">Bold-Italic</string>
-    <string name="notFoundPlayMarket" translatable="false">Missing Play Market app</string>
+    <string name="notFoundPlayMarket">Missing Play Market app</string>
 
 
 
@@ -113,17 +113,17 @@
     </string>
 
 
-    <string name="transferToTrash" translatable="false">Заметку перемещено в корзину.</string>
-    <string name="copyX" translatable="false">Скопировано </string>
-    <string name="investments" translatable="false">Вложения </string>
-    <string name="newFolder" translatable="false">Создать новую папку </string>
-    <string name="copyNotesTo" translatable="false">Перемещение заметки</string>
-    <string name="cd_remind" translatable="false">Оповещения</string>
-    <string name="cd_sort" translatable="false">Сортировать заметки</string>
-    <string name="cd_format" translatable="false">Форматировать заметки</string>
-    <string name="cd_emptyTrash" translatable="false">Корзина Пустая</string>
-    <string name="cd_deleteNote" translatable="false">Удалить заметку</string>
-    <string name="notSupportedShare" translatable="false">Этот контент не поддерживаеться.</string>
-    <string name="notSource" translatable="false">В данной заметке нет вложений</string>
-    <string name="error" translatable="false">Ошибка</string>
+    <string name="transferToTrash">The note has been moved to the trash</string>
+    <string name="notSupportedShare">This content is not supported.</string>
+    <string name="error">Error</string>
+    <string name="notSource">This note has no attachments.</string>
+    <string name="cd_deleteNote">Delete note</string>
+    <string name="cd_emptyTrash">Trash empty</string>
+    <string name="copyX">Copied</string>
+    <string name="investments">Investments</string>
+    <string name="newFolder">Create a new folder</string>
+    <string name="copyNotesTo">Moving a note</string>
+    <string name="cd_remind">Reminder</string>
+    <string name="cd_sort">Sort notes</string>
+    <string name="cd_format">Format notes</string>
 </resources>

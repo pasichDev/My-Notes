@@ -104,4 +104,18 @@
 - Оптимізація програми.\n
     </string>
     <string name="telegram">Відкрити контакти розробника</string>
+    <string name="error">Помилка</string>
+    <string name="notSource">У даній нотатці немає активних вкладень</string>
+    <string name="notSupportedShare" translatable="false">Цей вміст не підтримується.</string>
+    <string name="cd_deleteNote">Видалити нотатку</string>
+    <string name="cd_emptyTrash">Корзина порожня</string>
+    <string name="notFoundPlayMarket">Відсутній  Play Market</string>
+    <string name="transferToTrash">Нотатку переміщено до кошика</string>
+    <string name="copyX">Скопійовано</string>
+    <string name="investments">вкладення</string>
+    <string name="newFolder">Створити нову теку</string>
+    <string name="copyNotesTo">Переміщення нотатки</string>
+    <string name="cd_remind">Нагадування</string>
+    <string name="cd_sort">Сортувати нотатки</string>
+    <string name="cd_format">Форматувати нотатки</string>
 </resources>
