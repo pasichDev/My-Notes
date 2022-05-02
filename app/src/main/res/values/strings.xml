@@ -104,12 +104,13 @@
 
 
     <string name="updateNowM">
-- Added: New color scheme selection dialog.\n
-- Added: Font style selection.\n
-- Added: Kazakh language pack.\n
-- Added: Link to translation resources.\n
-- Fixed: Application crash after changing color scheme, as well as importing notes.\n
-- Application optimization.\n
+- Added: Note attachments, in this window you can see links, phone numbers, emails that are used in notes \n
+- Added: New switch for sorting notes. \n
+- Added: new function for formatting notes by model List>Table \n
+- Added: Bottom panel \n
+- Fixed bugs in the shopping cart.\n
+- Fixed: an error in the title of notes, the process of switching to a new logic for choosing names has also been launched. \n
+- A lot of optimization has been carried out, and work with the code for the stability of the application.
     </string>
 
 

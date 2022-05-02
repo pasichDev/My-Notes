@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.pasich.mynotes.R;
 
 import java.util.List;
@@ -44,6 +43,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
     String dateItem = listNotesfor.getDateList();
 
     viewHolder.imgFolder.setVisibility(View.VISIBLE);
+
     if (listNotesfor.getBackFolder()) {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
     } else if (listNotesfor.getFolder()) {
@@ -60,6 +60,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
     return convertView;
   }
 
+
   private class ViewHolder {
     final TextView nameView, dateView;
     final ImageView imgFolder;
@@ -68,6 +69,6 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
       nameView = view.findViewById(R.id.nameNotesL);
       dateView = view.findViewById(R.id.dateNotesL);
       imgFolder = view.findViewById(R.id.imageFolder);
-    }
+      }
   }
 }

@@ -2,6 +2,7 @@ package com.pasich.mynotes.Сore.Methods;
 
 import android.app.Activity;
 import android.view.View;
+
 import com.pasich.mynotes.R;
 
 public class MethodCheckEmptyTrash {

@@ -4,7 +4,6 @@ import static com.pasich.mynotes.Сore.Methods.MethodCheckEmptyTrash.checkCountL
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;

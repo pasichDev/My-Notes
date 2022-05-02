@@ -96,12 +96,13 @@
     <string name="fontStyleNormal">Standard</string>
 
     <string name="updateNowM">
-- Dodano: Nowe okno wyboru schematu kolorów.\n
-- Dodano: wybór stylu czcionki.\n
-- Dodano: pakiet języka kazachskiego.\n
-- Dodano: Link do zasobów tłumaczeniowych.\n
-- Naprawiono: awaria aplikacji po zmianie schematu kolorów oraz importowaniu notatek.\n
-- Optymalizacja aplikacji.\n
+        - Dodano: Załączniki do notatek, w tym oknie możesz zobaczyć linki, numery telefonów, e-maile używane w notatkach \n
+- Dodano: Nowy przełącznik do sortowania notatek. \n
+- Dodano: nową funkcję formatowania notatek według modelu Lista>Tabela \n
+- Dodano: panel dolny \n
+- Naprawiono błędy w koszyku.\n
+- Naprawiono: błąd w tytule notatek, uruchomiono również proces przełączania na nową logikę wyboru nazw. \n
+- Przeprowadzono wiele optymalizacji i pracuję z kodem dla stabilności aplikacji.
     </string>
     <string name="telegram">Otwórz kontakty programistów</string>
     <string name="error">Błąd</string>

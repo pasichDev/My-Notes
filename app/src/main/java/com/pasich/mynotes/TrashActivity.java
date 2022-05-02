@@ -54,7 +54,7 @@ public class TrashActivity extends AppCompatActivity {
     listNotesfors = trashListData.newListAdapter();
 
     defaultListAdapter =
-        new DefaultListAdapter(getApplicationContext(), R.layout.list_notes, listNotesfors);
+        new DefaultListAdapter(this, R.layout.list_notes, listNotesfors);
     trashNotesList.setAdapter(defaultListAdapter);
     trashNotesList.setOnItemClickListener(
         (parent, v, position, id) -> {

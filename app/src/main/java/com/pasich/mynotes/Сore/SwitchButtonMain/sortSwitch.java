@@ -1,9 +1,12 @@
 package com.pasich.mynotes.Сore.SwitchButtonMain;
 
 import static com.pasich.mynotes.Сore.SystemCostant.settingsFileName;
+
 import android.content.Context;
 import android.widget.ImageButton;
+
 import androidx.preference.PreferenceManager;
+
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.SystemCostant;
 
