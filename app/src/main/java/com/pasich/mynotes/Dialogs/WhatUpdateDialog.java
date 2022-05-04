@@ -23,7 +23,7 @@ public class WhatUpdateDialog extends DialogFragment {
     String versionName = BuildConfig.VERSION_NAME;
 
     CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
-    uiDialog.setHeadTextView(getString(R.string.app_name) + " " + versionName);
+    uiDialog.setHeadTextView(getString(R.string.whatUpdate));
     TextView textMessage = new TextView(getContext());
 
     textMessage.setText(getString(R.string.updateNowM));
