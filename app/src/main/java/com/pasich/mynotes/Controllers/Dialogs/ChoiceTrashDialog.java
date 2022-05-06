@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
+import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.File.FileCore;
@@ -38,7 +38,7 @@ public class ChoiceTrashDialog extends DialogFragment {
 
     String[] choise = {getString(R.string.OpenViewNotes), getString(R.string.removeNotes)};
 
-    ListNotesfor listNotesfor = (ListNotesfor) listNotesfors.get(pos);
+    ListNotesModel listNotesfor = (ListNotesModel) listNotesfors.get(pos);
     String selectedItem = listNotesfor.getNameList();
 
     builder.setItems(

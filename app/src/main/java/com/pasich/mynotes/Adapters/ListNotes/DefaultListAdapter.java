@@ -14,13 +14,13 @@ import com.pasich.mynotes.R;
 
 import java.util.List;
 
-public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
+public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
-  private final List<ListNotesfor> listNotesfors;
+  private final List<ListNotesModel> listNotesfors;
 
-  public DefaultListAdapter(Context context, int resource, List<ListNotesfor> listNotesfors) {
+  public DefaultListAdapter(Context context, int resource, List<ListNotesModel> listNotesfors) {
     super(context, resource, listNotesfors);
     this.listNotesfors = listNotesfors;
     this.layout = resource;
@@ -28,7 +28,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
   }
 
   public View getView(int position, View convertView, ViewGroup parent) {
-    ListNotesfor listNotesfor = listNotesfors.get(position);
+    ListNotesModel listNotesfor = listNotesfors.get(position);
 
     ViewHolder viewHolder;
     if (convertView == null) {
@@ -41,6 +41,9 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesfor> {
 
     String nameItem = listNotesfor.getNameList();
     String dateItem = listNotesfor.getDateList();
+
+    viewHolder.imgFolder.setVisibility(View.VISIBLE);
+
 
     viewHolder.imgFolder.setVisibility(View.VISIBLE);
 

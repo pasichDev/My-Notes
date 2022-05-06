@@ -8,7 +8,7 @@ import android.content.Context;
 
 import androidx.preference.PreferenceManager;
 
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
+import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Сore.SystemCostant;
 
 import org.apache.commons.io.filefilter.FileFileFilter;
@@ -27,7 +27,9 @@ public class NotesListData {
   }
 
   public ArrayList newListAdapter(String folder, boolean mode_folder) {
+
     ArrayList listNotesfors = new ArrayList();
+
     String sortPref =
         PreferenceManager.getDefaultSharedPreferences(context)
             .getString("sortPref", SystemCostant.Settings_Sort);
@@ -51,14 +53,14 @@ public class NotesListData {
           if (notesFile.isDirectory()
               && !notesFile.getName().equals("trash")
               && !notesFile.getName().equals("VoiceNotes")) {
-            listNotesfors.add(new ListNotesfor(file, returnDateFile(notesFile), true, false));
+            listNotesfors.add(new ListNotesModel(file, returnDateFile(notesFile), true, false));
           }
         }
       }
     }
 
     if (!folder.equals("")) {
-      listNotesfors.add(new ListNotesfor("...", "", false, true));
+      listNotesfors.add(new ListNotesModel("...", "", false, true));
     }
 
     // Список файлов!
@@ -71,7 +73,7 @@ public class NotesListData {
         // Узнаем дату
         File notesFile = new File(dirFiles, file);
         if (file.endsWith(".txt")) {
-          listNotesfors.add(new ListNotesfor(file, returnDateFile(notesFile), false, false));
+          listNotesfors.add(new ListNotesModel(file, returnDateFile(notesFile), false, false));
         }
       }
     }

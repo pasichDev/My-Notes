@@ -1,10 +1,10 @@
-package com.pasich.mynotes.Сore.Methods;
+package com.pasich.mynotes.Utils;
 
 import android.app.Activity;
 
 import java.io.File;
 
-public class checkSystemFolders {
+public class CheckFolderSysUtils {
 
   public static final String[] folderCreat = {"trash", "VoiceNotes"};
 

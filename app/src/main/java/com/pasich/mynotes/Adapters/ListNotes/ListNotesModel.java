@@ -1,10 +1,10 @@
 package com.pasich.mynotes.Adapters.ListNotes;
 
-public class ListNotesfor {
+public class ListNotesModel {
   private String name, date;
   private boolean folder, backFolder;
 
-  public ListNotesfor(String name, String date, boolean folder, boolean backFolder) {
+  public ListNotesModel(String name, String date, boolean folder, boolean backFolder) {
     this.name = name;
     this.date = date;
     this.folder = folder;

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Сore.SwitchButtonMain;
+package com.pasich.mynotes.Utils.SwitchButtonMain;
 
 import static com.pasich.mynotes.Сore.SystemCostant.settingsFileName;
 
@@ -10,12 +10,12 @@ import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.SystemCostant;
 
-public class formatSwitch {
+public class SortSwitchUtils {
 
   public Context context;
   public ImageButton buttonSort;
 
-  public formatSwitch(Context context, ImageButton buttonSort) {
+  public SortSwitchUtils(Context context, ImageButton buttonSort) {
     this.context = context;
     this.buttonSort = buttonSort;
   }
@@ -23,36 +23,36 @@ public class formatSwitch {
   /**
    * The method that requests the parameter that the user has selected
    *
-   * @return - formatParam (param)
+   * @return - sortPref (param)
    */
-  protected int getSettingsFormatParam() {
+  protected String getSettingsSortParam() {
     return PreferenceManager.getDefaultSharedPreferences(context)
-        .getInt("formatParam", SystemCostant.Setting_Format);
+        .getString("sortPref", SystemCostant.Settings_Sort);
   }
 
   /** Method that sets the icon of the button depending on the parameter getSettingsParam() */
-  public void getFormatParam() {
-    buttonSort.setImageResource(getParamIco(getSettingsFormatParam()));
+  public void getSortParam() {
+    buttonSort.setImageResource(getParamIco(getSettingsSortParam()));
   }
 
   /** The switch itself, which switches the operating mode depending on the selected parameter */
-  public void formatNote() {
-    switch (getSettingsFormatParam()) {
-      case 1:
+  public void sortNote() {
+    switch (getSettingsSortParam()) {
+      case "date":
         context
             .getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
             .edit()
-            .putInt("formatParam", 2)
+            .putString("sortPref", "name")
             .apply();
-        buttonSort.setImageResource(getParamIco(2));
+        buttonSort.setImageResource(getParamIco("name"));
         break;
-      case 2:
+      case "name":
         context
             .getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
             .edit()
-            .putInt("formatParam", 1)
+            .putString("sortPref", "date")
             .apply();
-        buttonSort.setImageResource(getParamIco(1));
+        buttonSort.setImageResource(getParamIco("date"));
         break;
     }
   }
@@ -63,10 +63,10 @@ public class formatSwitch {
    * @param param - The option chosen by the user
    * @return - int drawable
    */
-  protected int getParamIco(int param) {
-    if (param == 2) {
-      return R.drawable.ic_edit_format_tiles;
+  protected int getParamIco(String param) {
+    if ("name".equals(param)) {
+      return R.drawable.ic_sort_letters;
     }
-    return R.drawable.ic_edit_format_list;
+    return R.drawable.ic_sort_date;
   }
 }

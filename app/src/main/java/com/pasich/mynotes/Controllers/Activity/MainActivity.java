@@ -1,7 +1,7 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Сore.Methods.checkSystemFolders.checkSystemFolder;
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.ThemeColorValue;
+import static com.pasich.mynotes.Utils.CheckFolderSysUtils.checkSystemFolder;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Сore.backConstant.UPDATE_LISTVIEW;
 import static com.pasich.mynotes.Сore.backConstant.UPDATE_THEME;
 
@@ -9,130 +9,99 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.preference.PreferenceManager;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotes;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotesVoice;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.SettingsActivity;
 import com.pasich.mynotes.TrashActivity;
+import com.pasich.mynotes.Utils.MainUtils;
+import com.pasich.mynotes.Utils.SwitchButtonMain.FormatSwitchUtils;
+import com.pasich.mynotes.Utils.SwitchButtonMain.SortSwitchUtils;
+import com.pasich.mynotes.View.MainView;
 import com.pasich.mynotes.Сore.Interface.IOnBackPressed;
-import com.pasich.mynotes.Сore.SwitchButtonMain.formatSwitch;
-import com.pasich.mynotes.Сore.SwitchButtonMain.sortSwitch;
-import com.pasich.mynotes.Сore.SystemCostant;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-  private FragmentListNotes FragmentListNotes;
-  private int swipe = 0;
-  private boolean onCreate = false;
-  public ImageButton sortButton, formatButton;
-  public sortSwitch sortSwitch;
-  public formatSwitch formatSwitch;
+
+  protected FragmentListNotes FragmentListNotes;
+  protected SortSwitchUtils sortSwitch;
+  protected FormatSwitchUtils formatSwitch;
+  protected MainView MainView;
+  protected MainUtils MainUtils;
+
+  /** Processing the received response from running activities */
+  protected ActivityResultLauncher<Intent> startActivity =
+      registerForActivityResult(
+          new ActivityResultContracts.StartActivityForResult(),
+          result -> {
+            Intent data = result.getData();
+            if (data == null) return;
+            if (result.getResultCode() == 24) {
+              if (data.getBooleanExtra("updateList", false)) {
+                FragmentListNotes.restartListNotes();
+              }
+            }
+          });
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     checkSystemFolder(this);
-    setTheme(
-        ThemeColorValue(
-            PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("themeColor", SystemCostant.Settings_Theme)));
-
+    setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    setSupportActionBar(findViewById(R.id.toolbar_actionbar));
-    Toolbar mActionBarToolbar = findViewById(R.id.toolbar_actionbar);
 
-    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-    setSupportActionBar(mActionBarToolbar);
+    MainView = new MainView(getWindow().getDecorView());
+    MainUtils = new MainUtils();
+    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
+    formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
 
-    mActionBarToolbar.setNavigationOnClickListener(v -> startActivity(new Intent(getApplicationContext(),FolderActivity.class)));
+    setSupportActionBar(MainView.toolbar);
+    startButtonList();
+    setupViewPager();
 
+    MainView.onCreate = true;
 
-    sortButton = findViewById(R.id.sortButton);
-    formatButton = findViewById(R.id.formatButton);
-
-    this.sortSwitch = new sortSwitch(this, sortButton);
-    this.formatSwitch = new formatSwitch(this, formatButton);
-
-    if (!onCreate) {
-      FragmentListNotes = new FragmentListNotes().newInstance(true);
-      ViewPager viewPager = findViewById(R.id.viewpager);
-      TabLayout tabLayout = findViewById(R.id.tabModeMain);
-      setupViewPager(viewPager);
-      tabLayout.setupWithViewPager(viewPager);
-      startButtonList();
-    }
-
-    onCreate = true;
-
-
-    findViewById(R.id.sortButton).setOnClickListener(v -> {
-      sortSwitch.sortNote();
-      FragmentListNotes.restartListNotes();
-    });
-    findViewById(R.id.formatButton).setOnClickListener(v -> {
-      formatSwitch.formatNote();
-      FragmentListNotes.restartListNotes();
-    });
-
-
-
-  }
-
-  /** Тоже очень интересная реализация Позже желательно изменить */
-  @Override
-  public void onStart() {
-    super.onStart();
-
-    if (UPDATE_THEME) {
-      finish();
-      startActivity(getIntent());
-      overridePendingTransition(0, 0);
-      UPDATE_THEME = false;
-    } else if (UPDATE_LISTVIEW) {
-      FragmentListNotes.restartListNotes();
-      UPDATE_LISTVIEW = false;
-    }
+    findViewById(R.id.sortButton)
+        .setOnClickListener(
+            v -> {
+              sortSwitch.sortNote();
+              FragmentListNotes.restartListNotes();
+            });
+    findViewById(R.id.formatButton)
+        .setOnClickListener(
+            v -> {
+              formatSwitch.formatNote();
+              FragmentListNotes.restartListNotes();
+            });
   }
 
   /**
-   * Метод который настраивает ViewPager
+   * The method that sets up the ViewPager
    *
-   * @param viewPager - ссылка на элемент ViewPager
-   * @addFragment - добавляет воагмент в существующий ViewPager
+   * @addFragment - adds a fragment to an existing ViewPager
    */
-  private void setupViewPager(ViewPager viewPager) {
-    ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-    adapter.addFragment(FragmentListNotes, getString(R.string.notes));
-    adapter.addFragment(new FragmentListNotesVoice(), getString(R.string.viceNotes));
-    viewPager.setAdapter(adapter);
+  private void setupViewPager() {
+    if (!MainView.onCreate) {
+      FragmentListNotes = new FragmentListNotes().newInstance(true);
+      ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+      adapter.addFragment(FragmentListNotes, getString(R.string.notes));
+      adapter.addFragment(new FragmentListNotesVoice(), getString(R.string.viceNotes));
+      MainView.viewPager.setAdapter(adapter);
+      MainView.tabLayout.setupWithViewPager(MainView.viewPager);
+    }
   }
 
-  /** Обработаем нажатие назад */
   @Override
   public void onBackPressed() {
     if (FragmentListNotes == null || !((IOnBackPressed) FragmentListNotes).onBackPressed())
-      exitApp();
+      MainUtils.CloseApp(MainActivity.this);
   }
 
-  /**
-   * Разметка тулбара
-   *
-   * @param menu - ---
-   * @return - true
-   */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
@@ -142,12 +111,6 @@ public class MainActivity extends AppCompatActivity {
     return true;
   }
 
-  /**
-   * Отследить нажатия на кнопки тулбара
-   *
-   * @param item - элемент на который было произведено нажатие
-   * @return - если действие сработало на это активносте возвращаем true, если в фрагментах то false
-   */
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
@@ -163,24 +126,6 @@ public class MainActivity extends AppCompatActivity {
     return false;
   }
 
-  /** Обработка полученого ответа от запущеных активностей */
-  ActivityResultLauncher<Intent> startActivity =
-      registerForActivityResult(
-          new ActivityResultContracts.StartActivityForResult(),
-          result -> {
-            Intent data = result.getData();
-            if (data == null) {
-              return;
-            }
-            switch (result.getResultCode()) {
-              case 24:
-                if (data.getBooleanExtra("updateList", false)) {
-                  FragmentListNotes.restartListNotes();
-                }
-                break;
-            }
-          });
-
   /** Start Trash.activity */
   private void openTrash() {
     Intent intent = new Intent(this, TrashActivity.class);
@@ -192,29 +137,25 @@ public class MainActivity extends AppCompatActivity {
     startActivity(new Intent(this, SettingsActivity.class));
   }
 
-  /** Method to exit app */
-  private void exitApp() {
-    boolean exitToSwipeTap =
-        PreferenceManager.getDefaultSharedPreferences(this)
-            .getBoolean("swipeToExit", SystemCostant.Settings_SwipeToExit);
-    if (exitToSwipeTap) {
-      swipe = swipe + 1;
-      if (swipe == 1) {
-        Toast.makeText(getApplicationContext(), getString(R.string.exitWhat), Toast.LENGTH_SHORT)
-            .show();
-      } else if (swipe == 2) {
-        finish();
-        swipe = 0;
-      }
-    } else {
-      finish();
-    }
-  }
-
-
   /** Create Button List to TabPanel */
   private void startButtonList() {
     sortSwitch.getSortParam();
     formatSwitch.getFormatParam();
+  }
+
+  /** Тоже очень интересная реализация Позже желательно выпилить */
+  @Override
+  public void onStart() {
+    super.onStart();
+
+    if (UPDATE_THEME) {
+      finish();
+      startActivity(getIntent());
+      overridePendingTransition(0, 0);
+      UPDATE_THEME = false;
+    } else if (UPDATE_LISTVIEW) {
+      FragmentListNotes.restartListNotes();
+      UPDATE_LISTVIEW = false;
+    }
   }
 }

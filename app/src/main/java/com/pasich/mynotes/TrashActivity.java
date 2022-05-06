@@ -2,8 +2,7 @@ package com.pasich.mynotes;
 
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Сore.Methods.MethodCheckEmptyTrash.checkCountListTrashActivity;
-import static com.pasich.mynotes.Сore.Methods.checkSystemFolders.checkSystemFolder;
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.ThemeColorValue;
+import static com.pasich.mynotes.Utils.CheckFolderSysUtils.checkSystemFolder;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,21 +14,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
+import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiceTrashDialog;
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Сore.ListContolers.TrashListData;
-import com.pasich.mynotes.Сore.SystemCostant;
 
 import java.util.ArrayList;
 
 public class TrashActivity extends AppCompatActivity {
 
   private DefaultListAdapter defaultListAdapter;
-  private ArrayList<ListNotesfor> listNotesfors;
+  private ArrayList<ListNotesModel> ListNotesModel;
   private int countItems;
 
   @Override
@@ -49,15 +46,15 @@ public class TrashActivity extends AppCompatActivity {
 
     GridView trashNotesList = findViewById(R.id.ListTrash);
     TrashListData trashListData = new TrashListData(this);
-    listNotesfors = trashListData.newListAdapter();
+    ListNotesModel = trashListData.newListAdapter();
 
     defaultListAdapter =
-        new DefaultListAdapter(this, R.layout.list_notes, listNotesfors);
+        new DefaultListAdapter(this, R.layout.list_notes, ListNotesModel);
     trashNotesList.setAdapter(defaultListAdapter);
     trashNotesList.setOnItemClickListener(
         (parent, v, position, id) -> {
           ChoiceTrashDialog dialog =
-              new ChoiceTrashDialog(position, listNotesfors, defaultListAdapter);
+              new ChoiceTrashDialog(position, ListNotesModel, defaultListAdapter);
           dialog.show(getSupportFragmentManager(), "choiseTrash");
         });
 

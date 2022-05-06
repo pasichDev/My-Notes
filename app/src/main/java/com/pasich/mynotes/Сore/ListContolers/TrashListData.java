@@ -8,7 +8,7 @@ import android.content.Context;
 
 import androidx.preference.PreferenceManager;
 
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
+import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Сore.SystemCostant;
 
 import org.apache.commons.io.filefilter.FileFileFilter;
@@ -43,7 +43,7 @@ public class TrashListData {
       for (String file : fileName) {
         File notesFile = new File(dirFiles, file);
         if (file.endsWith(".txt")) {
-          listNotesfors.add(new ListNotesfor(file, returnDateFile(notesFile), false, false));
+          listNotesfors.add(new ListNotesModel(file, returnDateFile(notesFile), false, false));
         }
       }
     }

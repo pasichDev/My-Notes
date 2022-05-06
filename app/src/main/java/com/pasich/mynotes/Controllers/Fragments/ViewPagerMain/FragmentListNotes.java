@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
+import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiceListDialog;
 import com.pasich.mynotes.Controllers.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.NoteActivity;
@@ -34,7 +34,7 @@ public class FragmentListNotes extends Fragment
   private DefaultListAdapter defaultListAdapter;
   private GridView NotesList;
   private NotesListData NotesListData;
-  private ArrayList<ListNotesfor> listNotesfors;
+  private ArrayList<ListNotesModel> ListNotesModel;
   private boolean mode_note;
   private String FOLDER = "";
   private boolean mode_noteEdit;
@@ -69,13 +69,13 @@ public class FragmentListNotes extends Fragment
         PreferenceManager.getDefaultSharedPreferences(getContext())
             .getInt("formatParam", SystemCostant.Setting_Format));
     NotesListData = new NotesListData(getContext());
-    listNotesfors = NotesListData.newListAdapter("", mode_note);
-    defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, listNotesfors);
+    ListNotesModel = NotesListData.newListAdapter("", mode_note);
+    defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, ListNotesModel);
     NotesList.setAdapter(defaultListAdapter);
 
     NotesList.setOnItemClickListener(
         (parent, v, position, id) -> {
-          ListNotesfor listNotesfor = listNotesfors.get(position);
+          ListNotesModel listNotesfor = ListNotesModel.get(position);
           String selectedItem = listNotesfor.getNameList();
 
           if (!listNotesfor.getBackFolder() == false) {
@@ -94,12 +94,12 @@ public class FragmentListNotes extends Fragment
         });
     NotesList.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
-          ListNotesfor listNotesfor = listNotesfors.get(position);
+          ListNotesModel listNotesfor = ListNotesModel.get(position);
           if (!listNotesfor.getNameList().equals("VoiceNotes")) {
             boolean typeFile = listNotesfor.getFolder();
             FragmentManager fm = getFragmentManager();
             ChoiceListDialog dialog =
-                new ChoiceListDialog(position, listNotesfors, defaultListAdapter, typeFile, FOLDER);
+                new ChoiceListDialog(position, ListNotesModel, defaultListAdapter, typeFile, FOLDER);
             dialog.setTargetFragment(FragmentListNotes.this, 300);
             dialog.show(fm, "ChoiceListDialog");
           }
@@ -125,8 +125,8 @@ public class FragmentListNotes extends Fragment
   private void restartListNotes(String folder, boolean modes) {
 
     if (defaultListAdapter != null) defaultListAdapter.clear();
-    listNotesfors = NotesListData.newListAdapter(folder, modes);
-    defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, listNotesfors);
+    ListNotesModel = NotesListData.newListAdapter(folder, modes);
+    defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, ListNotesModel);
     NotesList.setAdapter(defaultListAdapter);
     // defaultListAdapter.notifyDataSetChanged();
     NotesList.setNumColumns(

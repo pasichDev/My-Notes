@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
+import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.File.FileCore;
 
@@ -45,7 +45,7 @@ public class ChoiceListDialog extends DialogFragment {
     fileCore = new FileCore(getContext());
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     String[] choise = choiseItems();
-    ListNotesfor listNotesfor = (ListNotesfor) listNotesfors.get(pos);
+    ListNotesModel listNotesfor = (ListNotesModel) listNotesfors.get(pos);
     String selectedItem = listNotesfor.getNameList();
 
     builder.setItems(
