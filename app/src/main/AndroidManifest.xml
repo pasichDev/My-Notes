@@ -18,32 +18,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_rounder"
         android:theme="@style/ThemeDark">
-        <activity
-            android:name=".Controllers.Activity.FolderActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Controllers.Activity.TrashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".NoteActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".Controllers.Activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".Controllers.Activity.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,7 +48,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
