@@ -1,10 +1,13 @@
-package com.pasich.mynotes;
+package com.pasich.mynotes.Controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.pasich.mynotes.NoteActivity;
+import com.pasich.mynotes.R;
 
 /** An activity that is a gateway to save a note via the save button */
 public class ShareActivity extends AppCompatActivity {
