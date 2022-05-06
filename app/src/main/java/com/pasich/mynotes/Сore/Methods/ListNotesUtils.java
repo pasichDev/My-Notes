@@ -11,7 +11,7 @@ import java.util.Date;
 public class ListNotesUtils {
 
   /**
-   * this method returns the modification date of the file
+   * Еhis method returns the modification date of the file
    * @param file - original file
    * @return - date (string)
    */
@@ -20,16 +20,11 @@ public class ListNotesUtils {
     return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(lastModDate);
   }
 
-  /* **Данный метод конвертирует массив File[] в String[] */
-  public static String[] convertFromFilesArray(File[] files) {
-    String[] result = new String[files.length];
-    for (int i = 0; i < files.length; i++) {
-      result[i] = files[i].getName();
-    }
-    return result;
-  }
-
-  /* **Данный метод сортирует масив заметок    */
+  /**
+   * This method that sorts an array
+   * @param sortPref - key to srt (name,date)
+   * @param files - arrayFiles
+   */
   public static void sortFileList(String sortPref, File[] files) {
     if (sortPref.equals("name")) {
       Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);

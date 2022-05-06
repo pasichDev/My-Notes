@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Сore.ListContolers;
 
-import static com.pasich.mynotes.Сore.Methods.ListNotesUtils.convertFromFilesArray;
 import static com.pasich.mynotes.Сore.Methods.ListNotesUtils.returnDateFile;
 import static com.pasich.mynotes.Сore.Methods.ListNotesUtils.sortFileList;
 
@@ -27,6 +26,9 @@ public class NotesListData {
   }
 
   public ArrayList newListAdapter(String folder, boolean mode_folder) {
+
+
+
 
     ArrayList listNotesfors = new ArrayList();
 
@@ -78,5 +80,20 @@ public class NotesListData {
       }
     }
     return listNotesfors;
+  }
+
+
+  /**
+   *Єто просто пизда, здесь нужно убрать из этого файла все такие косяки потому что это хуйня настоящая
+   * ОБЯЗАТЕЛЬНО !!!!!!!
+   */
+
+  /* **Данный метод конвертирует массив File[] в String[]*/
+  public static String[] convertFromFilesArray(File[] files) {
+    String[] result = new String[files.length];
+    for (int i = 0; i < files.length; i++) {
+      result[i] = files[i].getName();
+    }
+    return result;
   }
 }
