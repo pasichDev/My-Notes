@@ -1,4 +1,4 @@
-package com.pasich.mynotes;
+package com.pasich.mynotes.Controllers.Activity;
 
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Utils.Utils.CheckEmptyTrashUtils.checkCountListTrash;
@@ -8,25 +8,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Dialogs.ChoiceTrashDialog;
 import com.pasich.mynotes.Dialogs.CleanTrashDialog;
-import com.pasich.mynotes.Сore.ListContolers.TrashListData;
-
-import java.util.ArrayList;
+import com.pasich.mynotes.Model.TrashModel;
+import com.pasich.mynotes.R;
+import com.pasich.mynotes.View.TrashView;
 
 public class TrashActivity extends AppCompatActivity {
 
   private DefaultListAdapter defaultListAdapter;
-  private ArrayList<ListNotesModel> ListNotesModel;
+  protected TrashView TrashView;
+  protected TrashModel TrashModel;
   private int countItems;
 
   @Override
@@ -35,37 +33,31 @@ public class TrashActivity extends AppCompatActivity {
     setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_trash_notes);
-    setTitle(getResources().getText(R.string.trashN));
 
-    Toolbar mActionBarToolbar = findViewById(R.id.toolbar_actionbar);
-    setSupportActionBar(mActionBarToolbar);
+    TrashView = new TrashView(getWindow().getDecorView());
+    TrashModel = new TrashModel(this);
+    setSupportActionBar(TrashView.toolbar);
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
+    if (TrashModel.getSizeArray() != 0) {
+      defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, TrashModel.notesArray);
+      TrashView.trashNotesList.setAdapter(defaultListAdapter);
 
-    GridView trashNotesList = findViewById(R.id.ListTrash);
-    TrashListData trashListData = new TrashListData(this);
-    ListNotesModel = trashListData.newListAdapter();
-
-    defaultListAdapter =
-        new DefaultListAdapter(this, R.layout.list_notes, ListNotesModel);
-    trashNotesList.setAdapter(defaultListAdapter);
-    trashNotesList.setOnItemClickListener(
-        (parent, v, position, id) -> {
-          ChoiceTrashDialog dialog =
-              new ChoiceTrashDialog(position, ListNotesModel, defaultListAdapter);
-          dialog.show(getSupportFragmentManager(), "choiseTrash");
-        });
-
-    countItems = defaultListAdapter.getCount();
-    if (countItems == 0) checkCountListTrash(this);
+      TrashView.trashNotesList.setOnItemClickListener(
+          (parent, v, position, id) -> {
+            new ChoiceTrashDialog(position, TrashModel.notesArray, defaultListAdapter)
+                .show(getSupportFragmentManager(), "choiseTrash");
+          });
+    } else checkCountListTrash(this);
+    countItems = TrashModel.getSizeArray();
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
-    if (defaultListAdapter.getCount() >= 1) menu.findItem(R.id.trashClean).setVisible(true);
+    if (TrashModel.getSizeArray() >= 1) menu.findItem(R.id.trashClean).setVisible(true);
     return true;
   }
 
@@ -74,7 +66,7 @@ public class TrashActivity extends AppCompatActivity {
     closeActivity();
   }
 
-  @Override // Метод который звонит при каждом нажатии на тулбар
+  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
       closeActivity();
@@ -93,6 +85,4 @@ public class TrashActivity extends AppCompatActivity {
     setResult(24, new Intent().putExtra("updateList", countItems != defaultListAdapter.getCount()));
     finish();
   }
-
-
 }

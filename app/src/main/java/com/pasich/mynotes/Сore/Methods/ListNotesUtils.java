@@ -8,9 +8,13 @@ import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
-public class ListNotesClass {
+public class ListNotesUtils {
 
-  /* **Данный метод возвращает дату изменения файла */
+  /**
+   * this method returns the modification date of the file
+   * @param file - original file
+   * @return - date (string)
+   */
   public static String returnDateFile(File file) {
     Date lastModDate = new Date(file.lastModified());
     return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(lastModDate);

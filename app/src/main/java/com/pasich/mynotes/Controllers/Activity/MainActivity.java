@@ -18,7 +18,6 @@ import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotes;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotesVoice;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.TrashActivity;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.SortSwitchUtils;

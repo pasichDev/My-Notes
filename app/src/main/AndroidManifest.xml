@@ -22,7 +22,7 @@
             android:name=".Controllers.Activity.FolderActivity"
             android:exported="false" />
         <activity
-            android:name=".TrashActivity"
+            android:name=".Controllers.Activity.TrashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

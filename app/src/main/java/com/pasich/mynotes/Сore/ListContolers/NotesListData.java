@@ -1,8 +1,8 @@
 package com.pasich.mynotes.Сore.ListContolers;
 
-import static com.pasich.mynotes.Сore.Methods.ListNotesClass.convertFromFilesArray;
-import static com.pasich.mynotes.Сore.Methods.ListNotesClass.returnDateFile;
-import static com.pasich.mynotes.Сore.Methods.ListNotesClass.sortFileList;
+import static com.pasich.mynotes.Сore.Methods.ListNotesUtils.convertFromFilesArray;
+import static com.pasich.mynotes.Сore.Methods.ListNotesUtils.returnDateFile;
+import static com.pasich.mynotes.Сore.Methods.ListNotesUtils.sortFileList;
 
 import android.content.Context;
 
