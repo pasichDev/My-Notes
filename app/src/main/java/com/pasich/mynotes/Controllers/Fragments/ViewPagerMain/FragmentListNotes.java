@@ -18,8 +18,8 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
-import com.pasich.mynotes.Controllers.Dialogs.ChoiceListDialog;
-import com.pasich.mynotes.Controllers.Dialogs.FolderOptionDialog;
+import com.pasich.mynotes.Dialogs.ChoiceListDialog;
+import com.pasich.mynotes.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;

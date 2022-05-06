@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Controllers.Dialogs;
+package com.pasich.mynotes.Dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
