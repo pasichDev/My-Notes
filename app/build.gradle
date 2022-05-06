@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.pasich.mynotes"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 10
         versionName '1.4.10'
 
@@ -25,6 +25,8 @@ android {
 
 
     }
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -41,3 +43,4 @@ dependencies {
     implementation 'androidx.preference:preference:1.2.0'
 
 }
+
