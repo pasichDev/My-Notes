@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Utils.CheckFolderUtils.checkSystemFolder;
+import static com.pasich.mynotes.Utils.Check.CheckFolderUtils.checkSystemFolder;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_LISTVIEW;
 import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_THEME;

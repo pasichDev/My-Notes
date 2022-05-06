@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Dialogs;
 
-import static com.pasich.mynotes.Utils.Utils.CheckEmptyTrashUtils.checkCountListTrash;
+import static com.pasich.mynotes.Utils.Check.CheckEmptyTrashUtils.checkCountListTrash;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.CustomView.CustomUIDialog;
-import com.pasich.mynotes.Сore.File.FileCore;
+import com.pasich.mynotes.Utils.File.FileCore;
 
 public class CleanTrashDialog extends DialogFragment {
   private final DefaultListAdapter defaultListAdapter;

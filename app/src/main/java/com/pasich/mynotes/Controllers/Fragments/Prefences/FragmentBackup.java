@@ -1,7 +1,7 @@
 package com.pasich.mynotes.Controllers.Fragments.Prefences;
 
-import static com.pasich.mynotes.Сore.File.BackupToRestoreClass.getDataBackup;
-import static com.pasich.mynotes.Сore.File.BackupToRestoreClass.getNameBackup;
+import static com.pasich.mynotes.Utils.File.BackupToRestoreClass.getDataBackup;
+import static com.pasich.mynotes.Utils.File.BackupToRestoreClass.getNameBackup;
 import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_LISTVIEW;
 
 import android.app.Activity;
@@ -19,7 +19,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.Dialogs.RestoreNotesDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Сore.File.BackupToRestoreClass;
+import com.pasich.mynotes.Utils.File.BackupToRestoreClass;
 
 import java.io.File;
 import java.io.FileNotFoundException;

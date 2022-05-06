@@ -17,7 +17,7 @@ import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.SpinnerNotes.FolderSpinnerAdapter;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.CustomView.CustomUIDialog;
-import com.pasich.mynotes.Сore.File.FileCore;
+import com.pasich.mynotes.Utils.File.FileCore;
 
 import org.apache.commons.io.comparator.NameFileComparator;
 

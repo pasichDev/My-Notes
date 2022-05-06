@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Utils.Utils;
+package com.pasich.mynotes.Utils.Check;
 
 import android.app.Activity;
 import android.view.View;

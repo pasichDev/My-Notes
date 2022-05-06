@@ -35,7 +35,7 @@ import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
 import com.pasich.mynotes.Dialogs.PermissionErrorDialog;
 import com.pasich.mynotes.Dialogs.SourcesNoteDialog;
-import com.pasich.mynotes.Сore.File.FileCore;
+import com.pasich.mynotes.Utils.File.FileCore;
 import com.pasich.mynotes.Utils.Utils.FindSourceForNotesUtils;
 import com.pasich.mynotes.Сore.NoteControler.NotesX;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;

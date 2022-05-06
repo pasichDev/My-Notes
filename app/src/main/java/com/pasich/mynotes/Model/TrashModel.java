@@ -1,7 +1,7 @@
 package com.pasich.mynotes.Model;
 
-import static com.pasich.mynotes.Сore.Methods.ListNotesUtils.returnDateFile;
-import static com.pasich.mynotes.Сore.Methods.ListNotesUtils.sortFileList;
+import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
+import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
 
 import android.content.Context;
 

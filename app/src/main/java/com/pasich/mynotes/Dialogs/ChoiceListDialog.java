@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Сore.File.FileCore;
+import com.pasich.mynotes.Utils.File.FileCore;
 
 import java.io.File;
 import java.util.ArrayList;

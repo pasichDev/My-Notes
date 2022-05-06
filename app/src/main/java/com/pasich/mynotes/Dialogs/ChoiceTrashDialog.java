@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Dialogs;
 
-import static com.pasich.mynotes.Utils.Utils.CheckEmptyTrashUtils.checkCountListTrash;
+import static com.pasich.mynotes.Utils.Check.CheckEmptyTrashUtils.checkCountListTrash;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Сore.File.FileCore;
+import com.pasich.mynotes.Utils.File.FileCore;
 
 import java.util.ArrayList;
 

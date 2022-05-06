@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Сore.Methods;
+package com.pasich.mynotes.Utils.Utils;
 
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.comparator.NameFileComparator;

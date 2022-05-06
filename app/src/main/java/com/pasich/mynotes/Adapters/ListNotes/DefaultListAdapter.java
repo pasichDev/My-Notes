@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Adapters.ListNotes;
 
-import static com.pasich.mynotes.Сore.File.FileCore.getWithoutExtension;
+import static com.pasich.mynotes.Utils.File.FileCore.getWithoutExtension;
 
 import android.content.Context;
 import android.view.LayoutInflater;

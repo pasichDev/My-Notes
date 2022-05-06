@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Сore.File;
+package com.pasich.mynotes.Utils.File;
 
 import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
 
