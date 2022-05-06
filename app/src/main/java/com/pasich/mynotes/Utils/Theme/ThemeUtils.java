@@ -3,7 +3,7 @@ package com.pasich.mynotes.Utils.Theme;
 import android.content.Context;
 import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 
 /**
@@ -21,7 +21,7 @@ public class ThemeUtils {
   public static int applyTheme(Context context){
    return ThemeColorValue(PreferenceManager
             .getDefaultSharedPreferences(context)
-            .getString("themeColor", SystemCostant.Settings_Theme));
+            .getString("themeColor", SystemConstant.Settings_Theme));
   }
 
   /**

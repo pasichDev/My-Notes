@@ -6,7 +6,7 @@ import android.widget.Toast;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 public class MainUtils {
 
@@ -20,7 +20,7 @@ public class MainUtils {
   public void CloseApp(Activity activity) {
     boolean exitToSwipeTap =
         PreferenceManager.getDefaultSharedPreferences(activity)
-            .getBoolean("swipeToExit", SystemCostant.Settings_SwipeToExit);
+            .getBoolean("swipeToExit", SystemConstant.Settings_SwipeToExit);
     if (exitToSwipeTap) {
       Swipe = Swipe + 1;
       if (Swipe == 1) {

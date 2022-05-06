@@ -22,9 +22,9 @@ import com.pasich.mynotes.Controllers.Dialogs.ChoiceListDialog;
 import com.pasich.mynotes.Controllers.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Сore.Interface.IOnBackPressed;
+import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.Сore.ListContolers.NotesListData;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 import java.util.ArrayList;
 
@@ -67,7 +67,7 @@ public class FragmentListNotes extends Fragment
     NotesList = view.findViewById(R.id.ListFileNotes);
     NotesList.setNumColumns(
         PreferenceManager.getDefaultSharedPreferences(getContext())
-            .getInt("formatParam", SystemCostant.Setting_Format));
+            .getInt("formatParam", SystemConstant.Setting_Format));
     NotesListData = new NotesListData(getContext());
     ListNotesModel = NotesListData.newListAdapter("", mode_note);
     defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, ListNotesModel);
@@ -131,7 +131,7 @@ public class FragmentListNotes extends Fragment
     // defaultListAdapter.notifyDataSetChanged();
     NotesList.setNumColumns(
         PreferenceManager.getDefaultSharedPreferences(getContext())
-            .getInt("formatParam", SystemCostant.Setting_Format));
+            .getInt("formatParam", SystemConstant.Setting_Format));
     FOLDER = folder;
   }
 

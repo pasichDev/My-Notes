@@ -9,7 +9,7 @@ import android.content.Context;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 import org.apache.commons.io.filefilter.FileFileFilter;
 
@@ -31,7 +31,7 @@ public class TrashListData {
     ArrayList listNotesfors = new ArrayList();
     sortPref =
         PreferenceManager.getDefaultSharedPreferences(context)
-            .getString("sortPref", SystemCostant.Settings_Sort);
+            .getString("sortPref", SystemConstant.Settings_Sort);
 
     File dirFiles = new File(context.getFilesDir() + "/trash");
     // Список файлов!

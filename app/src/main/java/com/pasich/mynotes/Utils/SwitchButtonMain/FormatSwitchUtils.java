@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Utils.SwitchButtonMain;
 
-import static com.pasich.mynotes.Сore.SystemCostant.settingsFileName;
+import static com.pasich.mynotes.Utils.Constants.SystemConstant.settingsFileName;
 
 import android.content.Context;
 import android.widget.ImageButton;
@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 public class FormatSwitchUtils {
 
@@ -27,7 +27,7 @@ public class FormatSwitchUtils {
    */
   protected int getSettingsFormatParam() {
     return PreferenceManager.getDefaultSharedPreferences(context)
-        .getInt("formatParam", SystemCostant.Setting_Format);
+        .getInt("formatParam", SystemConstant.Setting_Format);
   }
 
   /** Method that sets the icon of the button depending on the parameter getSettingsParam() */

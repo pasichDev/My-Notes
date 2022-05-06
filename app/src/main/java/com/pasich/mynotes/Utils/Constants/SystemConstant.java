@@ -1,9 +1,9 @@
-package com.pasich.mynotes.Сore;
+package com.pasich.mynotes.Utils.Constants;
 
 import com.pasich.mynotes.R;
 
 /** Class which contains system settings constants */
-public class SystemCostant {
+public class SystemConstant {
   public static final String Settings_Sort = "date";
   public static final int Setting_Format = 1;
   public static final String Settings_Theme = "Dark";

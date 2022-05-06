@@ -8,6 +8,7 @@ import com.pasich.mynotes.R;
 
 public class shareNotesMethod {
 
+
   public static void shareNotes(Activity activity, String textValue) {
     if (!(textValue.length() == 0)) {
       Intent intent = new Intent("android.intent.action.SEND");

@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Сore.File;
 
-import static com.pasich.mynotes.Сore.SystemCostant.folderSystem;
+import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
 
 import android.content.Context;
 import android.widget.Toast;

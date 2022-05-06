@@ -1,9 +1,9 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.CheckFolderSysUtils.checkSystemFolder;
+import static com.pasich.mynotes.Utils.CheckFolderUtils.checkSystemFolder;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
-import static com.pasich.mynotes.Сore.backConstant.UPDATE_LISTVIEW;
-import static com.pasich.mynotes.Сore.backConstant.UPDATE_THEME;
+import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_LISTVIEW;
+import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_THEME;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,13 +18,12 @@ import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotes;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotesVoice;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.SettingsActivity;
 import com.pasich.mynotes.TrashActivity;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.SortSwitchUtils;
 import com.pasich.mynotes.View.MainView;
-import com.pasich.mynotes.Сore.Interface.IOnBackPressed;
+import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
   /**
    * The method that sets up the ViewPager
    *
-   * @addFragment - adds a fragment to an existing ViewPager
    */
   private void setupViewPager() {
     if (!MainView.onCreate) {

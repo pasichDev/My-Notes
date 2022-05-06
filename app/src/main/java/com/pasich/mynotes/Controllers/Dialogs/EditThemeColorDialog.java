@@ -1,7 +1,7 @@
 package com.pasich.mynotes.Controllers.Dialogs;
 
-import static com.pasich.mynotes.Сore.SystemCostant.settingsFileName;
-import static com.pasich.mynotes.Сore.backConstant.UPDATE_THEME;
+import static com.pasich.mynotes.Utils.Constants.SystemConstant.settingsFileName;
+import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_THEME;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -17,7 +17,7 @@ import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.Adapters.GridView.ImageAdapter;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.CustomView.CustomUIDialog;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 import java.util.Objects;
 
@@ -58,7 +58,7 @@ public class EditThemeColorDialog extends DialogFragment {
   private final GridView.OnItemClickListener gridviewOnItemClickListener =
       (parent, v, position, id) -> {
         if (!PreferenceManager.getDefaultSharedPreferences(getContext())
-            .getString("themeColor", SystemCostant.Settings_Theme)
+            .getString("themeColor", SystemConstant.Settings_Theme)
             .equals(getResources().getStringArray(R.array.themeColor_values)[position])) {
           editThemePrefences(position);
           UPDATE_THEME = true;

@@ -4,7 +4,6 @@ import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Сore.Methods.shareNotesMethod.shareNotes;
 import static com.pasich.mynotes.Сore.NoteControler.NotesX.closeKeyboard;
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.ThemeColorValue;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -39,7 +38,7 @@ import com.pasich.mynotes.Controllers.Dialogs.SourcesNoteDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
 import com.pasich.mynotes.Сore.Methods.findSourceForNote;
 import com.pasich.mynotes.Сore.NoteControler.NotesX;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -84,10 +83,10 @@ public class NoteActivity extends AppCompatActivity {
             getApplicationContext(), MyEditText, EditButton, KeyFunction, SpeechToTextButton);
     notesControllers.SetTextSize(
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-            .getInt("textSize", SystemCostant.Settings_TextSize));
+            .getInt("textSize", SystemConstant.Settings_TextSize));
     notesControllers.setStyleText(
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-            .getString("textStyle", SystemCostant.Settings_TextStyle));
+            .getString("textStyle", SystemConstant.Settings_TextStyle));
     checkToTextNote();
     NotesMode();
 
@@ -285,13 +284,13 @@ public class NoteActivity extends AppCompatActivity {
     imageSpeechVolume = findViewById(R.id.imageSpechVolume);
     settingsAutoSave =
         PreferenceManager.getDefaultSharedPreferences(this)
-            .getBoolean("autoSave", SystemCostant.Settings_AutoSave);
+            .getBoolean("autoSave", SystemConstant.Settings_AutoSave);
     settingsSpeechLung =
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-            .getString("spechLaunguage", SystemCostant.Settings_SpeechLanguage);
+            .getString("spechLaunguage", SystemConstant.Settings_SpeechLanguage);
     settingsSpeechOutput =
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-            .getString("setSpechOutputText", SystemCostant.Settings_SpeechOutput);
+            .getString("setSpechOutputText", SystemConstant.Settings_SpeechOutput);
     speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
     // Здесь мы получаем даные если мы хотим сохранить заметку из под другог приложения
@@ -425,7 +424,7 @@ public class NoteActivity extends AppCompatActivity {
         RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
     speechRecognizerIntent.putExtra(
         RecognizerIntent.EXTRA_LANGUAGE,
-        settingsSpeechLung.equals(SystemCostant.Settings_SpeechLanguage)
+        settingsSpeechLung.equals(SystemConstant.Settings_SpeechLanguage)
             ? Locale.getDefault()
             : settingsSpeechLung);
     speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);

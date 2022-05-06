@@ -1,6 +1,5 @@
-package com.pasich.mynotes;
+package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.ThemeColorValue;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
 import android.os.Bundle;
@@ -9,47 +8,44 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.preference.PreferenceManager;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentAppInfo;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentBackup;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentMain;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentVoice;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.R;
+import com.pasich.mynotes.View.SettingsView;
 
 public class SettingsActivity extends AppCompatActivity {
+  protected SettingsView SettingsView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     setTheme(applyTheme(this));
-    setTitle(getResources().getText(R.string.settings));
-
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
 
-    Toolbar mActionBarToolbar = findViewById(R.id.toolbar_actionbar);
-    setSupportActionBar(mActionBarToolbar);
+    SettingsView = new SettingsView(getWindow().getDecorView());
+    setSupportActionBar(SettingsView.toolbar);
+
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
-    ViewPager viewPager = findViewById(R.id.settingsViewPager);
-    setupViewPager(viewPager);
-    TabLayout tabLayout = findViewById(R.id.settingsTabLayout);
-    tabLayout.setupWithViewPager(viewPager);
+
+    setupViewPager();
   }
 
-  private void setupViewPager(ViewPager viewPager) {
+  /** The method that sets up the ViewPager */
+  private void setupViewPager() {
     ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
     adapter.addFragment(new FragmentMain(), getString(R.string.mainPrefences));
     adapter.addFragment(new FragmentBackup(), getString(R.string.recoveryCopy));
     adapter.addFragment(new FragmentVoice(), getString(R.string.speechPrefences));
     adapter.addFragment(new FragmentAppInfo(), getString(R.string.infoAppPrefences));
-    viewPager.setAdapter(adapter);
+    SettingsView.viewPager.setAdapter(adapter);
+    SettingsView.tabLayout.setupWithViewPager(SettingsView.viewPager);
   }
 
   @Override

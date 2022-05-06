@@ -2,7 +2,7 @@ package com.pasich.mynotes.Controllers.Fragments.Prefences;
 
 import static com.pasich.mynotes.Сore.File.BackupToRestoreClass.getDataBackup;
 import static com.pasich.mynotes.Сore.File.BackupToRestoreClass.getNameBackup;
-import static com.pasich.mynotes.Сore.backConstant.UPDATE_LISTVIEW;
+import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_LISTVIEW;
 
 import android.app.Activity;
 import android.content.Intent;

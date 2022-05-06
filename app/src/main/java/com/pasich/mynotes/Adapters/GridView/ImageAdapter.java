@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Adapters.GridView;
 
-import static com.pasich.mynotes.Сore.SystemCostant.ColorThemePrimary;
+import static com.pasich.mynotes.Utils.Constants.SystemConstant.ColorThemePrimary;
 
 import android.content.Context;
 import android.view.View;

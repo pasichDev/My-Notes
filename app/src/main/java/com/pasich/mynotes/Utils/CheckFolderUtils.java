@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import java.io.File;
 
-public class CheckFolderSysUtils {
+public class CheckFolderUtils {
 
   public static final String[] folderCreat = {"trash", "VoiceNotes"};
 

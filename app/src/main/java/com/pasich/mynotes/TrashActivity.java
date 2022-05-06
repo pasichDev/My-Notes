@@ -2,7 +2,7 @@ package com.pasich.mynotes;
 
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Сore.Methods.MethodCheckEmptyTrash.checkCountListTrashActivity;
-import static com.pasich.mynotes.Utils.CheckFolderSysUtils.checkSystemFolder;
+import static com.pasich.mynotes.Utils.CheckFolderUtils.checkSystemFolder;
 
 import android.content.Intent;
 import android.os.Bundle;

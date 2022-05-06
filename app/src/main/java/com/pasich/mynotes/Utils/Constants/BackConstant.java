@@ -1,6 +1,6 @@
-package com.pasich.mynotes.Сore;
+package com.pasich.mynotes.Utils.Constants;
 
-public class backConstant {
+public class BackConstant {
   public static boolean UPDATE_THEME = false;
   public static boolean UPDATE_LISTVIEW = false;
 }

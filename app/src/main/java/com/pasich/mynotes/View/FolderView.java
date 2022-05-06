@@ -7,7 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Сore.SystemCostant;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 public class FolderView {
 
@@ -32,7 +32,7 @@ public class FolderView {
     private void setFoldersList(){
         foldersList.setNumColumns(PreferenceManager
                 .getDefaultSharedPreferences(view.getContext())
-                .getInt("formatParam", SystemCostant.Setting_Format));
+                .getInt("formatParam", SystemConstant.Setting_Format));
     }
 
 }
