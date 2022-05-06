@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Controllers.Dialogs;
 
-import static com.pasich.mynotes.Сore.Methods.MethodCheckEmptyTrash.checkCountListTrashActivity;
+import static com.pasich.mynotes.Utils.Utils.CheckEmptyTrashUtils.checkCountListTrash;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -43,7 +43,7 @@ public class CleanTrashDialog extends DialogFragment {
               fileCore.deleteAllNotes();
               defaultListAdapter.clear();
               defaultListAdapter.notifyDataSetChanged();
-              if (defaultListAdapter.getCount() == 0) checkCountListTrashActivity(getActivity());
+              if (defaultListAdapter.getCount() == 0) checkCountListTrash(getActivity());
             })
         .setNegativeButton(getString(R.string.cancel), null);
     return builder.create();

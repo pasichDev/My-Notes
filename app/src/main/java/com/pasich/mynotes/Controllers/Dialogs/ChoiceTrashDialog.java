@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Controllers.Dialogs;
 
-import static com.pasich.mynotes.Сore.Methods.MethodCheckEmptyTrash.checkCountListTrashActivity;
+import static com.pasich.mynotes.Utils.Utils.CheckEmptyTrashUtils.checkCountListTrash;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -56,7 +56,7 @@ public class ChoiceTrashDialog extends DialogFragment {
               fileCore.removeNotesFile(selectedItem);
               listNotesfors.remove(pos);
               defaultListAdapter.notifyDataSetChanged();
-              if (defaultListAdapter.getCount() == 0) checkCountListTrashActivity(getActivity());
+              if (defaultListAdapter.getCount() == 0) checkCountListTrash(getActivity());
 
               break;
           }

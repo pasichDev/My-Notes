@@ -1,15 +1,15 @@
-package com.pasich.mynotes.Сore.Methods;
+package com.pasich.mynotes.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /** A class that receives text in which to find resources, links, mail, phones */
-public class findSourceForNote {
+public class FindSourceForNotesUtils {
 
   private final String textString;
 
-  public findSourceForNote(String string) {
+  public FindSourceForNotesUtils(String string) {
     this.textString = string;
   }
 
@@ -36,7 +36,6 @@ public class findSourceForNote {
     ArrayList<String> arrayMail = new ArrayList<>();
     String regMail = "[A-Za-z0-9+_.-]+@(.+)";
     Matcher match = Pattern.compile(regMail).matcher(this.textString);
-
     while (match.find()) if (!arrayMail.contains(match.group())) arrayMail.add(match.group());
     return arrayMail;
   }

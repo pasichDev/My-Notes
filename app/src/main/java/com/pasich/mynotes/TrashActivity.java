@@ -1,8 +1,8 @@
 package com.pasich.mynotes;
 
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
-import static com.pasich.mynotes.Сore.Methods.MethodCheckEmptyTrash.checkCountListTrashActivity;
-import static com.pasich.mynotes.Utils.CheckFolderUtils.checkSystemFolder;
+import static com.pasich.mynotes.Utils.Utils.CheckEmptyTrashUtils.checkCountListTrash;
+import static com.pasich.mynotes.Utils.Utils.CheckFolderUtils.checkSystemFolder;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -59,7 +59,7 @@ public class TrashActivity extends AppCompatActivity {
         });
 
     countItems = defaultListAdapter.getCount();
-    if (countItems == 0) checkCountListTrashActivity(this);
+    if (countItems == 0) checkCountListTrash(this);
   }
 
   @Override
@@ -93,4 +93,6 @@ public class TrashActivity extends AppCompatActivity {
     setResult(24, new Intent().putExtra("updateList", countItems != defaultListAdapter.getCount()));
     finish();
   }
+
+
 }

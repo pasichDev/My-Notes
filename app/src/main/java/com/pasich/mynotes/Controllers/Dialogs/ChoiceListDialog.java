@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Controllers.Dialogs;
 
-import static com.pasich.mynotes.Сore.Methods.shareNotesMethod.shareNotes;
+import static com.pasich.mynotes.Utils.Utils.ShareNotesMethodUtils.shareNotes;
 
 import android.app.Dialog;
 import android.os.Bundle;

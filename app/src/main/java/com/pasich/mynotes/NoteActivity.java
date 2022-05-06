@@ -2,7 +2,7 @@ package com.pasich.mynotes;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
-import static com.pasich.mynotes.Сore.Methods.shareNotesMethod.shareNotes;
+import static com.pasich.mynotes.Utils.Utils.ShareNotesMethodUtils.shareNotes;
 import static com.pasich.mynotes.Сore.NoteControler.NotesX.closeKeyboard;
 
 import android.Manifest;
@@ -36,7 +36,7 @@ import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
 import com.pasich.mynotes.Controllers.Dialogs.PermissionErrorDialog;
 import com.pasich.mynotes.Controllers.Dialogs.SourcesNoteDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
-import com.pasich.mynotes.Сore.Methods.findSourceForNote;
+import com.pasich.mynotes.Utils.Utils.FindSourceForNotesUtils;
 import com.pasich.mynotes.Сore.NoteControler.NotesX;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
@@ -156,7 +156,7 @@ public class NoteActivity extends AppCompatActivity {
             shareNotes(this, valueTextEdit().toString()));
 
     findViewById(R.id.sourceButton).setOnClickListener(v -> {
-      findSourceForNote findSourceForNote = new findSourceForNote(valueTextEdit().toString());
+      FindSourceForNotesUtils findSourceForNote = new FindSourceForNotesUtils(valueTextEdit().toString());
       ArrayList<SourceListContent> ListSoc =
               createArrayListSoc(
                       findSourceForNote.getLinks(),
