@@ -1,11 +1,11 @@
-package com.pasich.mynotes.Fragments.Prefences;
+package com.pasich.mynotes.Controllers.Fragments.Prefences;
 
 import android.os.Bundle;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.pasich.mynotes.Dialogs.EditThemeColorDialog;
+import com.pasich.mynotes.Controllers.Dialogs.EditThemeColorDialog;
 import com.pasich.mynotes.R;
 
 public class FragmentMain extends PreferenceFragmentCompat implements EditThemeColorDialog.updateTheme {

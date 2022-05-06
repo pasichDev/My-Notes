@@ -1,7 +1,7 @@
-package com.pasich.mynotes;
+package com.pasich.mynotes.Controllers.Activity;
 
 import static com.pasich.mynotes.Сore.Methods.checkSystemFolders.checkSystemFolder;
-import static com.pasich.mynotes.Сore.ThemeClass.ThemeColorValue;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.ThemeColorValue;
 import static com.pasich.mynotes.Сore.backConstant.UPDATE_LISTVIEW;
 import static com.pasich.mynotes.Сore.backConstant.UPDATE_THEME;
 
@@ -15,17 +15,23 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
-import com.pasich.mynotes.Fragments.ViewPagerMain.FragmentListNotes;
-import com.pasich.mynotes.Fragments.ViewPagerMain.FragmentListNotesVoice;
+import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotes;
+import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotesVoice;
+import com.pasich.mynotes.R;
+import com.pasich.mynotes.SettingsActivity;
+import com.pasich.mynotes.TrashActivity;
 import com.pasich.mynotes.Сore.Interface.IOnBackPressed;
 import com.pasich.mynotes.Сore.SwitchButtonMain.formatSwitch;
 import com.pasich.mynotes.Сore.SwitchButtonMain.sortSwitch;
 import com.pasich.mynotes.Сore.SystemCostant;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
   private FragmentListNotes FragmentListNotes;
@@ -46,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     setSupportActionBar(findViewById(R.id.toolbar_actionbar));
+    Toolbar mActionBarToolbar = findViewById(R.id.toolbar_actionbar);
+
+    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+    setSupportActionBar(mActionBarToolbar);
+
+    mActionBarToolbar.setNavigationOnClickListener(v -> startActivity(new Intent(getApplicationContext(),FolderActivity.class)));
+
+
     sortButton = findViewById(R.id.sortButton);
     formatButton = findViewById(R.id.formatButton);
 
@@ -72,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
       formatSwitch.formatNote();
       FragmentListNotes.restartListNotes();
     });
+
+
+
   }
 
   /** Тоже очень интересная реализация Позже желательно изменить */

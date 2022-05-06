@@ -1,4 +1,4 @@
-package com.pasich.mynotes.lib;
+package com.pasich.mynotes.View.CustomView;
 
 import android.content.Context;
 import android.util.TypedValue;

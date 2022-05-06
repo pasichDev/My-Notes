@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Fragments.Prefences;
+package com.pasich.mynotes.Controllers.Fragments.Prefences;
 
 import static com.pasich.mynotes.Сore.File.BackupToRestoreClass.getDataBackup;
 import static com.pasich.mynotes.Сore.File.BackupToRestoreClass.getNameBackup;
@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.pasich.mynotes.Dialogs.RestoreNotesDialog;
+import com.pasich.mynotes.Controllers.Dialogs.RestoreNotesDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.File.BackupToRestoreClass;
 

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Dialogs;
+package com.pasich.mynotes.Controllers.Dialogs;
 
 import static com.pasich.mynotes.Сore.SystemCostant.settingsFileName;
 import static com.pasich.mynotes.Сore.backConstant.UPDATE_THEME;
@@ -16,7 +16,7 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.GridView.ImageAdapter;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.lib.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomUIDialog;
 import com.pasich.mynotes.Сore.SystemCostant;
 
 import java.util.Objects;

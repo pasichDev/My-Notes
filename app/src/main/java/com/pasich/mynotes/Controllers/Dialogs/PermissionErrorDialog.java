@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Dialogs;
+package com.pasich.mynotes.Controllers.Dialogs;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.lib.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomUIDialog;
 
 public class PermissionErrorDialog extends DialogFragment {
   String mode;

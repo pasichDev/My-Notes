@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Dialogs;
+package com.pasich.mynotes.Controllers.Dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.SpinnerNotes.FolderSpinnerAdapter;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.lib.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomUIDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
 
 import org.apache.commons.io.comparator.NameFileComparator;

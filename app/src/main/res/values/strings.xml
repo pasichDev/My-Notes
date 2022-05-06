@@ -43,53 +43,53 @@
     <string name="error_name_folder">The folder name is not competent!</string>
     <string name="error_folder_NoExists">The folder does not exist!</string>
     <string name="error_folders_exists">You have no folders created, moving is impossible!</string>
-    <string name = "errorCreateZipRecovery"> Error creating zip. copies </string>
-    <string name = "errorInternetConectSpeech"> No internet connection. Check the internet availability. </string>
-    <string name = "error_TTS"> Speech service not found </string>
-    <string name = "error_TTS_Message"> To use voice input, you need to install the Speech Services by Google app. </string>
-    <string name = "errorPermisions"> Access error </string>
-    <string name = "errorPermisions_Message"> To be able to use this function, you need to grant permission to record audio.
+    <string name="errorCreateZipRecovery"> Error creating zip. copies </string>
+    <string name="errorInternetConectSpeech"> No internet connection. Check the internet availability. </string>
+    <string name="error_TTS"> Speech service not found </string>
+    <string name="error_TTS_Message"> To use voice input, you need to install the Speech Services by Google app. </string>
+    <string name="errorPermisions"> Access error </string>
+    <string name="errorPermisions_Message"> To be able to use this function, you need to grant permission to record audio.
     To do this, open the About app -> Permissions menu and allow using the microphone </string>
 
-    <string name = "importNotesFinishSucces"> Notes were imported successfully </string>
-    <string name = "open_PlayMarket"> Open Play Market </string>
-    <string name = "holdOn"> Hold … </string>
-    <string name = "holdOnSpeec"> Hold and talk </string>
-    <string name = "open_infoApp"> About the app </string>
-    <string name = "notes"> Notes </string>
-    <string name = "viceNotes"> Voice Notes </string>
-    <string name = "voiceNoteFragmentToUpdate"> This feature will be available in the next updates! </string>
-    <string name = "backupIsCreate"> Backup created </string>
-    <string name = "continueNext"> Continue </string>
-    <string name = "restoreDialogMessage"> Are you sure you want to restore your notes? Any existing notes will be deleted and replaced with those in the backup. </string>
-    <string name = "noSave"> Close without saving </string>
-    <string name = "lineSetSPech"> One line </string>
-    <string name = "paragraphSetSpech"> From new paragraph </string>
-    <string name = "mainPrefences"> Main </string>
-    <string name = "recoveryCopy"> Backups </string>
-    <string name = "speechPrefences"> Speech Settings </string>
-    <string name = "infoAppPrefences"> About App </string>
-    <string name = "comunicateDev"> Link </string>
-    <string name = "ratingApp"> Rate this app </string>
-    <string name = "localStorg"> Local storage </string>
-    <string name = "importsNotes"> Import Notes </string>
-    <string name = "exportsNotes"> Export notes </string>
-    <string name = "importsNotesSymmary"> Restore notes from local storage </string>
-    <string name = "exportsNotesSymmary"> Save backup to local storage </string>
-    <string name = "Function_not_available"> Function not available </string>
-    <string name = "pressToInfo"> Click to view details </string>
-    <string name = "spechPrefences"> Speech recognition settings </string>
-    <string name = "spechLaunguage"> Select recognition language </string>
-    <string name = "setSpechOutputText"> Write mode for received text </string>
-    <string name = "autoSave"> Auto save notes </string>
-    <string name = "autoSaveSumarry"> Save the note when you call or accidentally exit the application </string>
-    <string name = "swipeToExit"> Confirm exit </string>
-    <string name = "swipeToExitSymmary"> Prevents accidental application closing </string>
-    <string name = "interaction"> Interaction </string>
-    <string name = "emptySpeec"> Can\'t hear you please try again </string>
-    <string name = "spechToListen"> Speak, I\'m listening .. </string>
-    <string name = "defaultLangVoiece">Default devices</string>
-    <string name = "exitWhat">To exit, you need to repeat the action</string>
+    <string name="importNotesFinishSucces"> Notes were imported successfully </string>
+    <string name="open_PlayMarket"> Open Play Market </string>
+    <string name="holdOn"> Hold … </string>
+    <string name="holdOnSpeec"> Hold and talk </string>
+    <string name="open_infoApp"> About the app </string>
+    <string name="notes"> Notes </string>
+    <string name="viceNotes"> Voice Notes </string>
+    <string name="voiceNoteFragmentToUpdate"> This feature will be available in the next updates! </string>
+    <string name="backupIsCreate"> Backup created </string>
+    <string name="continueNext"> Continue </string>
+    <string name="restoreDialogMessage"> Are you sure you want to restore your notes? Any existing notes will be deleted and replaced with those in the backup. </string>
+    <string name="noSave"> Close without saving </string>
+    <string name="lineSetSPech"> One line </string>
+    <string name="paragraphSetSpech"> From new paragraph </string>
+    <string name="mainPrefences"> Main </string>
+    <string name="recoveryCopy"> Backups </string>
+    <string name="speechPrefences"> Speech Settings </string>
+    <string name="infoAppPrefences"> About App </string>
+    <string name="comunicateDev"> Link </string>
+    <string name="ratingApp"> Rate this app </string>
+    <string name="localStorg"> Local storage </string>
+    <string name="importsNotes"> Import Notes </string>
+    <string name="exportsNotes"> Export notes </string>
+    <string name="importsNotesSymmary"> Restore notes from local storage </string>
+    <string name="exportsNotesSymmary"> Save backup to local storage </string>
+    <string name="Function_not_available"> Function not available </string>
+    <string name="pressToInfo"> Click to view details </string>
+    <string name="spechPrefences"> Speech recognition settings </string>
+    <string name="spechLaunguage"> Select recognition language </string>
+    <string name="setSpechOutputText"> Write mode for received text </string>
+    <string name="autoSave"> Auto save notes </string>
+    <string name="autoSaveSumarry"> Save the note when you call or accidentally exit the application </string>
+    <string name="swipeToExit"> Confirm exit </string>
+    <string name="swipeToExitSymmary"> Prevents accidental application closing </string>
+    <string name="interaction"> Interaction </string>
+    <string name="emptySpeec"> Can\'t hear you please try again </string>
+    <string name="spechToListen"> Speak, I\'m listening .. </string>
+    <string name="defaultLangVoiece">Default devices</string>
+    <string name="exitWhat">To exit, you need to repeat the action</string>
 
     <string name="languageGitLinkTitle">Source (Github)</string>
     <string name="selectColorPrimaryApp">Choose the main color of the application</string>
@@ -100,7 +100,6 @@
     <string name="fontStyleItalic">Italic</string>
     <string name="fontStyleBoldItalic">Bold-Italic</string>
     <string name="notFoundPlayMarket">Missing Play Market app</string>
-
 
 
     <string name="updateNowM">
@@ -127,4 +126,7 @@
     <string name="cd_remind">Reminder</string>
     <string name="cd_sort">Sort notes</string>
     <string name="cd_format">Format notes</string>
+
+
+    <string name="folders" translatable="false" >Папки</string>
 </resources>

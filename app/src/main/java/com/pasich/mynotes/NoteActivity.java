@@ -1,9 +1,10 @@
 package com.pasich.mynotes;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Сore.Methods.shareNotesMethod.shareNotes;
 import static com.pasich.mynotes.Сore.NoteControler.NotesX.closeKeyboard;
-import static com.pasich.mynotes.Сore.ThemeClass.ThemeColorValue;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.ThemeColorValue;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -33,8 +34,8 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
-import com.pasich.mynotes.Dialogs.PermissionErrorDialog;
-import com.pasich.mynotes.Dialogs.SourcesNoteDialog;
+import com.pasich.mynotes.Controllers.Dialogs.PermissionErrorDialog;
+import com.pasich.mynotes.Controllers.Dialogs.SourcesNoteDialog;
 import com.pasich.mynotes.Сore.File.FileCore;
 import com.pasich.mynotes.Сore.Methods.findSourceForNote;
 import com.pasich.mynotes.Сore.NoteControler.NotesX;
@@ -67,10 +68,7 @@ public class NoteActivity extends AppCompatActivity {
   @SuppressLint("ClickableViewAccessibility")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    setTheme(
-        ThemeColorValue(
-            PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("themeColor", SystemCostant.Settings_Theme)));
+    setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_note);
     setTitle(getResources().getText(R.string.NewNote));

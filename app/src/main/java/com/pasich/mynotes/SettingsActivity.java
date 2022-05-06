@@ -1,6 +1,7 @@
 package com.pasich.mynotes;
 
-import static com.pasich.mynotes.Сore.ThemeClass.ThemeColorValue;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.ThemeColorValue;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,20 +15,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
-import com.pasich.mynotes.Fragments.Prefences.FragmentAppInfo;
-import com.pasich.mynotes.Fragments.Prefences.FragmentBackup;
-import com.pasich.mynotes.Fragments.Prefences.FragmentMain;
-import com.pasich.mynotes.Fragments.Prefences.FragmentVoice;
+import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentAppInfo;
+import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentBackup;
+import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentMain;
+import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentVoice;
 import com.pasich.mynotes.Сore.SystemCostant;
 
 public class SettingsActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    setTheme(
-        ThemeColorValue(
-            PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("themeColor", SystemCostant.Settings_Theme)));
+    setTheme(applyTheme(this));
     setTitle(getResources().getText(R.string.settings));
 
     super.onCreate(savedInstanceState);

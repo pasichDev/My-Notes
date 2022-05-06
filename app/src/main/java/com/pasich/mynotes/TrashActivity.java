@@ -1,8 +1,9 @@
 package com.pasich.mynotes;
 
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Сore.Methods.MethodCheckEmptyTrash.checkCountListTrashActivity;
 import static com.pasich.mynotes.Сore.Methods.checkSystemFolders.checkSystemFolder;
-import static com.pasich.mynotes.Сore.ThemeClass.ThemeColorValue;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.ThemeColorValue;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +19,8 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
-import com.pasich.mynotes.Dialogs.ChoiceTrashDialog;
-import com.pasich.mynotes.Dialogs.CleanTrashDialog;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiceTrashDialog;
+import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Сore.ListContolers.TrashListData;
 import com.pasich.mynotes.Сore.SystemCostant;
 
@@ -34,10 +35,7 @@ public class TrashActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     checkSystemFolder(this);
-    setTheme(
-        ThemeColorValue(
-            PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("themeColor", SystemCostant.Settings_Theme)));
+    setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_trash_notes);
     setTitle(getResources().getText(R.string.trashN));

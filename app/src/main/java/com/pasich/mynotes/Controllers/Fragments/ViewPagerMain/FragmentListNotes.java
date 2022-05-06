@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Fragments.ViewPagerMain;
+package com.pasich.mynotes.Controllers.Fragments.ViewPagerMain;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +18,8 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesfor;
-import com.pasich.mynotes.Dialogs.ChoiceListDialog;
-import com.pasich.mynotes.Dialogs.FolderOptionDialog;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiceListDialog;
+import com.pasich.mynotes.Controllers.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Сore.Interface.IOnBackPressed;

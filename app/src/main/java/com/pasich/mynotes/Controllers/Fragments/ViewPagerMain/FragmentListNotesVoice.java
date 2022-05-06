@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Fragments.ViewPagerMain;
+package com.pasich.mynotes.Controllers.Fragments.ViewPagerMain;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
