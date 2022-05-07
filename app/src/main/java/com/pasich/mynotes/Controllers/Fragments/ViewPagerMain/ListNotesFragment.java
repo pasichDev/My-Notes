@@ -49,7 +49,6 @@ public class ListNotesFragment extends Fragment
 
     ListNotesView.NotesList.setOnItemClickListener((parent, v, position, id) -> openNote(position));
     view.findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
-
     ListNotesView.NotesList.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
           new ChoiceListDialog(

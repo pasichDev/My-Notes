@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotesVoice;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
+import com.pasich.mynotes.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.Utils.MainUtils;
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
               if (data.getBooleanExtra("updateList", false))
                 FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
             }
-
           });
 
   @Override
@@ -108,9 +108,14 @@ public class MainActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.setingsBut) openSettings();
     else if (item.getItemId() == R.id.trashBut) openTrash();
-    else if (item.getItemId() == R.id.addFolder) openTrash();
+    else if (item.getItemId() == R.id.addFolder) openFolderOption();
 
     return false;
+  }
+
+  /** Start FolderOption.Dialog */
+  private void openFolderOption() {
+    new FolderOptionDialog("").show(getSupportFragmentManager(), "newFolder");
   }
 
   /** Start Trash.activity */
