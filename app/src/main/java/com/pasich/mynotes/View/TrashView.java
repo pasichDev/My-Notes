@@ -18,13 +18,12 @@ public class TrashView {
     public TrashView(View rootView){
         this.view = rootView;
         this.toolbar = view.findViewById(R.id.toolbar_actionbar);
-       this.trashNotesList = view.findViewById(R.id.ListTrash);
+        this.trashNotesList = view.findViewById(R.id.ListTrash);
         setToolbar();
     }
 
     private void setToolbar(){
         toolbar.setTitle(R.string.trashN);
-
     }
 
 

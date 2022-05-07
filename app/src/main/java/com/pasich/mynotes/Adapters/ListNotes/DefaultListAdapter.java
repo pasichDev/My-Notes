@@ -43,10 +43,6 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     String dateItem = listNotesfor.getDateList();
 
     viewHolder.imgFolder.setVisibility(View.VISIBLE);
-
-
-    viewHolder.imgFolder.setVisibility(View.VISIBLE);
-
     if (listNotesfor.getBackFolder()) {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
     } else if (listNotesfor.getFolder()) {

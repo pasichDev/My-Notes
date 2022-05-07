@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Сore.ListContolers;
+package com.pasich.mynotes.Model.NotesListFragment;
 
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
@@ -17,11 +17,11 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class NotesListData {
+public class NotesModel {
 
   private final Context context;
 
-  public NotesListData(Context context) {
+  public NotesModel(Context context) {
     this.context = context;
   }
 
