@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
    */
   private void setupViewPager() {
     if (!MainView.onCreate) {
-      FragmentListNotes = new ListNotesFragment().newInstance(true);
+      FragmentListNotes = ListNotesFragment.newInstance(true);
       ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
       adapter.addFragment(FragmentListNotes, getString(R.string.notes));
       adapter.addFragment(new FragmentListNotesVoice(), getString(R.string.viceNotes));

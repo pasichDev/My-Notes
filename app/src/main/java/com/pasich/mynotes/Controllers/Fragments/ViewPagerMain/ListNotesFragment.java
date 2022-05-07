@@ -42,7 +42,7 @@ public class ListNotesFragment extends Fragment
 
 
   protected ListNotesView ListNotesView;
-
+  protected View view;
 
 
   public static ListNotesFragment newInstance(boolean mode_note) {
@@ -59,7 +59,7 @@ public class ListNotesFragment extends Fragment
                            ViewGroup container,
                            Bundle savedInstanceState) {
 
-    View view = inflater.inflate(R.layout.fragment_list_notes, container, false);
+    view = inflater.inflate(R.layout.fragment_list_notes, container, false);
     ListNotesView = new ListNotesView(view);
 
 
