@@ -1,8 +1,8 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Utils.Check.CheckEmptyTrashUtils.checkCountListTrash;
 import static com.pasich.mynotes.Utils.Check.CheckFolderUtils.checkSystemFolder;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,10 +46,9 @@ public class TrashActivity extends AppCompatActivity {
       TrashView.trashNotesList.setAdapter(defaultListAdapter);
 
       TrashView.trashNotesList.setOnItemClickListener(
-          (parent, v, position, id) -> {
-            new ChoiceTrashDialog(position, TrashModel.notesArray, defaultListAdapter)
-                .show(getSupportFragmentManager(), "choiseTrash");
-          });
+          (parent, v, position, id) ->
+              new ChoiceTrashDialog(position, TrashModel.notesArray, defaultListAdapter)
+                  .show(getSupportFragmentManager(), "choiseTrash"));
     } else checkCountListTrash(this);
     countItems = TrashModel.getSizeArray();
   }
@@ -81,7 +80,7 @@ public class TrashActivity extends AppCompatActivity {
     return true;
   }
 
-  public void closeActivity() {
+  private void closeActivity() {
     setResult(24, new Intent().putExtra("updateList", countItems != TrashModel.getSizeArray()));
     finish();
   }

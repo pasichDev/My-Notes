@@ -35,10 +35,10 @@ import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
 import com.pasich.mynotes.Dialogs.PermissionErrorDialog;
 import com.pasich.mynotes.Dialogs.SourcesNoteDialog;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 import com.pasich.mynotes.Utils.File.FileCore;
 import com.pasich.mynotes.Utils.Utils.FindSourceForNotesUtils;
 import com.pasich.mynotes.Сore.NoteControler.NotesX;
-import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -138,38 +138,53 @@ public class NoteActivity extends AppCompatActivity {
           SPAN_EXCLUSIVE_EXCLUSIVE - только вкзаана должина
            */
 
-    findViewById(R.id.editNotesButton).setOnClickListener(v -> {
-      toolbarMenu.findItem(R.id.noSave).setVisible(true);
-      notesControllers.activeEditText();
-    });
+    findViewById(R.id.editNotesButton)
+        .setOnClickListener(
+            v -> {
+              toolbarMenu.findItem(R.id.noSave).setVisible(true);
+              notesControllers.activeEditText();
+            });
 
-    findViewById(R.id.deleteButton).setOnClickListener(v -> {
-      fileCore.transferNotes(idNote, "trash", folder);
-      closeNotesSave(false, false);
-      Toast.makeText(getApplicationContext(), R.string.transferToTrash, Toast.LENGTH_LONG).show();
-    });
+    findViewById(R.id.deleteButton)
+        .setOnClickListener(
+            v -> {
+              fileCore.transferNotes(idNote, "trash", folder);
+              closeNotesSave(false, false);
+              Toast.makeText(getApplicationContext(), R.string.transferToTrash, Toast.LENGTH_LONG)
+                  .show();
+            });
 
-    findViewById(R.id.remindButton).setOnClickListener(v ->
-            Toast.makeText(getApplicationContext(), R.string.voiceNoteFragmentToUpdate, Toast.LENGTH_LONG).show());
+    findViewById(R.id.remindButton)
+        .setOnClickListener(
+            v ->
+                Toast.makeText(
+                        getApplicationContext(),
+                        R.string.voiceNoteFragmentToUpdate,
+                        Toast.LENGTH_LONG)
+                    .show());
 
-    findViewById(R.id.shareButton).setOnClickListener(v ->
-            shareNotes(this, valueTextEdit().toString()));
+    findViewById(R.id.shareButton)
+        .setOnClickListener(v -> shareNotes(this, valueTextEdit().toString()));
 
-    findViewById(R.id.sourceButton).setOnClickListener(v -> {
-      FindSourceForNotesUtils findSourceForNote = new FindSourceForNotesUtils(valueTextEdit().toString());
-      ArrayList<SourceListContent> ListSoc =
-              createArrayListSoc(
+    findViewById(R.id.sourceButton)
+        .setOnClickListener(
+            v -> {
+              FindSourceForNotesUtils findSourceForNote =
+                  new FindSourceForNotesUtils(valueTextEdit().toString());
+              ArrayList<SourceListContent> ListSoc =
+                  createArrayListSoc(
                       findSourceForNote.getLinks(),
                       findSourceForNote.getMail(),
                       findSourceForNote.getPhoneNumber());
 
-      if (ListSoc.size() >= 1)
-        new SourcesNoteDialog(ListSoc).show(getSupportFragmentManager(), "SourcesNoteDialog");
-      else
-        Toast.makeText(getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT)
-                .show();
-    });
-
+              if (ListSoc.size() >= 1)
+                new SourcesNoteDialog(ListSoc)
+                    .show(getSupportFragmentManager(), "SourcesNoteDialog");
+              else
+                Toast.makeText(
+                        getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT)
+                    .show();
+            });
   }
 
   /*
@@ -201,7 +216,7 @@ public class NoteActivity extends AppCompatActivity {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     if (KeyFunction.equals("NewNote") || KeyFunction.equals("EditNote")) {
       menu.findItem(R.id.applyBut).setVisible(true);
-      if(KeyFunction.equals("NewNote")) menu.findItem(R.id.noSave).setVisible(true);
+      if (KeyFunction.equals("NewNote")) menu.findItem(R.id.noSave).setVisible(true);
     } else if (KeyFunction.equals("TrashNote")) {
       menu.findItem(R.id.applyBut).setVisible(false);
     }
@@ -300,8 +315,6 @@ public class NoteActivity extends AppCompatActivity {
     }
   }
 
-
-
   /**
    * Метод которые записывает исходный текст для заметки! В некоторых случаях нужно перевызвать для
    * обновления исходного текста
@@ -355,26 +368,24 @@ public class NoteActivity extends AppCompatActivity {
 
   /** mode - Отправлять результат для обновления listView mode2 - Сохранять заметку */
   private void closeNotesSave(boolean mode, boolean mode2) {
-
     exitToButton = true;
     Intent intent = new Intent();
     if (!mode) {
-      intent.putExtra("checkUpdate", "no");
+      intent.putExtra("updateList", "no");
       if (!mode2) {
-        intent.putExtra("checkUpdate", "yes");
+        intent.putExtra("updateList", "yes");
         intent.putExtra("FOLDER", folder.length() == 0 ? "" : folder);
       }
     } else if (KeyFunction.equals("NewNote")
         || KeyFunction.equals("EditNote")
             && !textToFile.toString().equals(valueTextEdit().toString())) {
       CreateNotes(valueTextEdit());
-      intent.putExtra("checkUpdate", "yes");
+      intent.putExtra("updateList", "yes");
       intent.putExtra("FOLDER", folder.length() == 0 ? "" : folder);
     } else {
-      intent.putExtra("checkUpdate", "no");
+      intent.putExtra("updateList", "no");
     }
-
-    setResult(RESULT_OK, intent);
+    setResult(44, intent);
     finish();
   }
 
@@ -525,6 +536,4 @@ public class NoteActivity extends AppCompatActivity {
     }
     return ListSoc;
   }
-
-
 }

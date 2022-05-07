@@ -6,8 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
@@ -24,63 +25,50 @@ public class ListNotesFragment extends Fragment
 
   private DefaultListAdapter defaultListAdapter;
   private String selectFolder = "";
-
-  protected ListNotesView ListNotesView;
-  protected NotesFragmentModel NotesModel;
-  protected View view;
+  private ListNotesView ListNotesView;
+  private NotesFragmentModel NotesModel;
+  private final ActivityResultLauncher<Intent> startActivity =
+      registerForActivityResult(
+          new ActivityResultContracts.StartActivityForResult(),
+          result -> {
+            Intent data = result.getData();
+            if (result.getResultCode() == 44 && result.getData() != null)
+              if (data.getStringExtra("updateList").equals("yes"))
+                restartListNotes(getSelectFolder());
+          });
 
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-    view = inflater.inflate(R.layout.fragment_list_notes, container, false);
+    View view = inflater.inflate(R.layout.fragment_list_notes, container, false);
     ListNotesView = new ListNotesView(view);
     NotesModel = new NotesFragmentModel(getContext());
     defaultListAdapter =
         new DefaultListAdapter(getContext(), R.layout.list_notes, NotesModel.notesArray);
     ListNotesView.NotesList.setAdapter(defaultListAdapter);
 
-
     ListNotesView.NotesList.setOnItemClickListener((parent, v, position, id) -> openNote(position));
     view.findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
 
-    /**
-     * ЄТу хуйню нужно полностью переделать Чтобы для каждого положения было разное диалогвоек окно
-     */
     ListNotesView.NotesList.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
-          ListNotesModel listNotesfor = NotesModel.notesArray.get(position);
-          if (!listNotesfor.getNameList().equals("VoiceNotes")) {
-            boolean typeFile = listNotesfor.getFolder();
-            FragmentManager fm = getFragmentManager();
-            ChoiceListDialog dialog =
-                new ChoiceListDialog(
-                    position, NotesModel.notesArray, defaultListAdapter, typeFile, selectFolder);
-            dialog.setTargetFragment(ListNotesFragment.this, 300);
-            dialog.show(fm, "ChoiceListDialog");
-          }
+          new ChoiceListDialog(
+                  position,
+                  NotesModel.notesArray,
+                  defaultListAdapter,
+                  NotesModel.notesArray.get(position).getFolder(),
+                  getSelectFolder())
+              .show(getChildFragmentManager(), "ChoiceListDialog");
           return true;
         });
 
     return view;
   }
 
-
-
-  @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (data == null) return;
-  /*  if (data.getStringExtra("checkUpdate").equals("yes"))
-      restartListNotes();
-      requireActivity()
-        .getWindow()
-        .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);*/
-  }
-
   @Override
   public boolean onBackPressed() {
     exitFolder();
-    return getSelectFolder().length() == 0 ? false : true;
+    return getSelectFolder().length() >= 1;
   }
 
   @Override
@@ -90,51 +78,69 @@ public class ListNotesFragment extends Fragment
 
   /** Method that changes the number of columns in a list */
   public void formatListView() {
-   ListNotesView.setNotesListCountColumns();
+    ListNotesView.setNotesListCountColumns();
   }
 
   /** Method that restarts adapter and model with list data */
   public void restartListNotes(String folder) {
-    if (defaultListAdapter != null) this.defaultListAdapter.clear();
+    assert defaultListAdapter != null;
+    this.defaultListAdapter.clear();
     NotesModel.getUpdateArray(folder);
     ListNotesView.NotesList.setAdapter(
         new DefaultListAdapter(getContext(), R.layout.list_notes, NotesModel.notesArray));
   }
 
-  public String getSelectFolder(){
+  /**
+   * Open folder request in real life fragment
+   *
+   * @return - select folder
+   */
+  public String getSelectFolder() {
     return this.selectFolder;
   }
 
-  protected void exitFolder(){
+  /**
+   * A method that closes an open folder, i.e. removes the folder name variable and updates the
+   * given adapter
+   */
+  private void exitFolder() {
     selectFolder = "";
     restartListNotes(getSelectFolder());
   }
 
-  public void openNote(int position) {
-    ListNotesModel listNotesfor = NotesModel.notesArray.get(position);
-    String selectedItem = listNotesfor.getNameList();
-    if (listNotesfor.getBackFolder()) {
-      exitFolder();
-    } else if (!listNotesfor.getFolder()) {
-      Intent intent =
-              new Intent(getActivity(), NoteActivity.class)
-                      .putExtra("KeyFunction", "EditNote")
-                      .putExtra("idNote", selectedItem)
-                      .putExtra("folder", selectFolder);
-      startActivityForResult(intent, 1);
-    } else{
+  /**
+   * Method that regulates the click of opening a note, possible options, close the folder, open the
+   * note, open the folder
+   *
+   * @param position - the position of the selected in the array, needed to define the annotation
+   */
+  private void openNote(int position) {
+    ListNotesModel listModel = NotesModel.notesArray.get(position);
+    String selectedItem = listModel.getNameList();
+    if (listModel.getBackFolder()) exitFolder();
+    else if (!listModel.getFolder()) {
+      startActivity.launch(
+          new Intent(getActivity(), NoteActivity.class)
+              .putExtra("KeyFunction", "EditNote")
+              .putExtra("idNote", selectedItem)
+              .putExtra("folder", getSelectFolder()));
+    } else {
       selectFolder = selectedItem;
-      restartListNotes(getSelectFolder());}
+      restartListNotes(getSelectFolder());
+    }
   }
 
-  protected void createNotesButton(View v) {
-    if (v.getId() == R.id.newNotesButton) {
-      Intent intent =
-              new Intent(getActivity(), NoteActivity.class)
-                      .putExtra("KeyFunction", "NewNote")
-                      .putExtra("idNote", "null")
-                      .putExtra("folder", selectFolder);
-      startActivityForResult(intent, 12);
-    }
+  /**
+   * Method for creating a new note
+   *
+   * @param v - view
+   */
+  private void createNotesButton(View v) {
+    if (v.getId() == R.id.newNotesButton)
+      startActivity.launch(
+          new Intent(getActivity(), NoteActivity.class)
+              .putExtra("KeyFunction", "NewNote")
+              .putExtra("idNote", "null")
+              .putExtra("folder", getSelectFolder()));
   }
 }

@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
           result -> {
             Intent data = result.getData();
             if (result.getResultCode() == 24 && result.getData() != null) {
-              if (data.getBooleanExtra("updateList", false)) {
+              if (data.getBooleanExtra("updateList", false))
                 FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
-              }
             }
+
           });
 
   @Override

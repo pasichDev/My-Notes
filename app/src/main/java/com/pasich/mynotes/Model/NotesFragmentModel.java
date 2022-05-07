@@ -4,9 +4,9 @@ import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.preference.PreferenceManager;
+
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
@@ -24,15 +24,17 @@ public class NotesFragmentModel {
   }
 
   /**
-   * Method that finds notes and folders in the root directory
-   * This note method sorts notes based on the principle of folder at the top.
+   * Method that finds notes and folders in the root directory This note method sorts notes based on
+   * the principle of folder at the top.
    */
   public void searchNotes() {
     File[] folderNames = context.getFilesDir().listFiles();
     assert folderNames != null;
     if (folderNames.length >= 1) {
-      sortFileList(PreferenceManager.getDefaultSharedPreferences(context)
-              .getString("sortPref", SystemConstant.Settings_Sort), folderNames);
+      sortFileList(
+          PreferenceManager.getDefaultSharedPreferences(context)
+              .getString("sortPref", SystemConstant.Settings_Sort),
+          folderNames);
 
       for (File file : folderNames) {
         if (file.isDirectory()
@@ -49,6 +51,7 @@ public class NotesFragmentModel {
 
   /**
    * Method that finds the note inside the selected folder
+   *
    * @param folder - select folder
    */
   public void searchNotesForFolder(String folder) {
@@ -56,8 +59,10 @@ public class NotesFragmentModel {
     notesArray.add(new ListNotesModel("...", "", false, true));
     assert folderNames != null;
     if (folderNames.length >= 1) {
-      sortFileList(PreferenceManager.getDefaultSharedPreferences(context)
-              .getString("sortPref", SystemConstant.Settings_Sort), folderNames);
+      sortFileList(
+          PreferenceManager.getDefaultSharedPreferences(context)
+              .getString("sortPref", SystemConstant.Settings_Sort),
+          folderNames);
 
       for (File file : folderNames) {
         if (file.getName().endsWith(".txt"))
@@ -66,18 +71,10 @@ public class NotesFragmentModel {
     }
   }
 
-
-
-  /**
-   * Method that clears an array and starts a new one
-   */
-  public void getUpdateArray(String folder){
+  /** Method that clears an array and starts a new one */
+  public void getUpdateArray(String folder) {
     notesArray.clear();
-    if(folder.length()>1)
-      searchNotesForFolder(folder);
-    else
-    searchNotes();
+    if (folder.length() > 1) searchNotesForFolder(folder);
+    else searchNotes();
   }
-
-
 }
