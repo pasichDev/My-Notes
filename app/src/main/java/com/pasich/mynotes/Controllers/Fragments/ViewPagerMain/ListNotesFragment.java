@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
@@ -17,14 +16,14 @@ import com.pasich.mynotes.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.Model.NotesFragmentModel;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Constants.SystemConstant;
+import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.View.ListNotesView;
 
 public class ListNotesFragment extends Fragment
-    implements FolderOptionDialog.EditNameDialogListener {
+    implements FolderOptionDialog.EditNameDialogListener, IOnBackPressed {
 
   private DefaultListAdapter defaultListAdapter;
-  private String FOLDER = "";
+  private String selectFolder = "";
 
   protected ListNotesView ListNotesView;
   protected NotesFragmentModel NotesModel;
@@ -41,8 +40,8 @@ public class ListNotesFragment extends Fragment
         new DefaultListAdapter(getContext(), R.layout.list_notes, NotesModel.notesArray);
     ListNotesView.NotesList.setAdapter(defaultListAdapter);
 
-    ListNotesView.NotesList.setOnItemClickListener((parent, v, position, id) -> openNote(position));
 
+    ListNotesView.NotesList.setOnItemClickListener((parent, v, position, id) -> openNote(position));
     view.findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
 
     /**
@@ -56,7 +55,7 @@ public class ListNotesFragment extends Fragment
             FragmentManager fm = getFragmentManager();
             ChoiceListDialog dialog =
                 new ChoiceListDialog(
-                    position, NotesModel.notesArray, defaultListAdapter, typeFile, FOLDER);
+                    position, NotesModel.notesArray, defaultListAdapter, typeFile, selectFolder);
             dialog.setTargetFragment(ListNotesFragment.this, 300);
             dialog.show(fm, "ChoiceListDialog");
           }
@@ -66,29 +65,7 @@ public class ListNotesFragment extends Fragment
     return view;
   }
 
-  public void openNote(int position) {
-    ListNotesModel listNotesfor = NotesModel.notesArray.get(position);
-    String selectedItem = listNotesfor.getNameList();
-    if (!listNotesfor.getFolder()) {
-      Intent intent =
-          new Intent(getActivity(), NoteActivity.class)
-              .putExtra("KeyFunction", "EditNote")
-              .putExtra("idNote", selectedItem)
-              .putExtra("folder", FOLDER);
-      startActivityForResult(intent, 1);
-    } else restartListNotes();
-  }
 
-  protected void createNotesButton(View v) {
-    if (v.getId() == R.id.newNotesButton) {
-      Intent intent =
-          new Intent(getActivity(), NoteActivity.class)
-              .putExtra("KeyFunction", "NewNote")
-              .putExtra("idNote", "null")
-              .putExtra("folder", FOLDER);
-      startActivityForResult(intent, 12);
-    }
-  }
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -100,10 +77,15 @@ public class ListNotesFragment extends Fragment
         .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);*/
   }
 
+  @Override
+  public boolean onBackPressed() {
+    exitFolder();
+    return getSelectFolder().length() == 0 ? false : true;
+  }
 
   @Override
   public void onFinishfolderOption(boolean updateList) {
-    restartListNotes();
+    restartListNotes(getSelectFolder());
   }
 
   /** Method that changes the number of columns in a list */
@@ -112,10 +94,47 @@ public class ListNotesFragment extends Fragment
   }
 
   /** Method that restarts adapter and model with list data */
-  public void restartListNotes() {
+  public void restartListNotes(String folder) {
     if (defaultListAdapter != null) this.defaultListAdapter.clear();
-    NotesModel.getUpdateArray();
+    NotesModel.getUpdateArray(folder);
     ListNotesView.NotesList.setAdapter(
         new DefaultListAdapter(getContext(), R.layout.list_notes, NotesModel.notesArray));
+  }
+
+  public String getSelectFolder(){
+    return this.selectFolder;
+  }
+
+  protected void exitFolder(){
+    selectFolder = "";
+    restartListNotes(getSelectFolder());
+  }
+
+  public void openNote(int position) {
+    ListNotesModel listNotesfor = NotesModel.notesArray.get(position);
+    String selectedItem = listNotesfor.getNameList();
+    if (listNotesfor.getBackFolder()) {
+      exitFolder();
+    } else if (!listNotesfor.getFolder()) {
+      Intent intent =
+              new Intent(getActivity(), NoteActivity.class)
+                      .putExtra("KeyFunction", "EditNote")
+                      .putExtra("idNote", selectedItem)
+                      .putExtra("folder", selectFolder);
+      startActivityForResult(intent, 1);
+    } else{
+      selectFolder = selectedItem;
+      restartListNotes(getSelectFolder());}
+  }
+
+  protected void createNotesButton(View v) {
+    if (v.getId() == R.id.newNotesButton) {
+      Intent intent =
+              new Intent(getActivity(), NoteActivity.class)
+                      .putExtra("KeyFunction", "NewNote")
+                      .putExtra("idNote", "null")
+                      .putExtra("folder", selectFolder);
+      startActivityForResult(intent, 12);
+    }
   }
 }

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -39,15 +38,9 @@ public class MainActivity extends AppCompatActivity {
           new ActivityResultContracts.StartActivityForResult(),
           result -> {
             Intent data = result.getData();
-            if (data == null) return;
-            if (result.getResultCode() == 24) {
+            if (result.getResultCode() == 24 && result.getData() != null) {
               if (data.getBooleanExtra("updateList", false)) {
-                FragmentListNotes.restartListNotes();
-              }
-              if (data.getStringExtra("checkUpdate").equals("yes")) {
-                FragmentListNotes.restartListNotes();
-                    getWindow()
-                    .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
               }
             }
           });
@@ -74,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         .setOnClickListener(
             v -> {
               sortSwitch.sortNote();
-              FragmentListNotes.restartListNotes();
+              FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
             });
     findViewById(R.id.formatButton)
         .setOnClickListener(
@@ -84,10 +77,7 @@ public class MainActivity extends AppCompatActivity {
             });
   }
 
-  /**
-   * The method that sets up the ViewPager
-   *
-   */
+  /** The method that sets up the ViewPager */
   private void setupViewPager() {
     if (!MainView.onCreate) {
       this.FragmentListNotes = new ListNotesFragment();
@@ -116,17 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.setingsBut:
-        openSettings();
-        return true;
-      case R.id.trashBut:
-        openTrash();
-        return true;
-      case R.id.addFolder:
-        return false;
+    if (item.getItemId() == R.id.setingsBut) openSettings();
+    else if (item.getItemId() == R.id.trashBut) openTrash();
+    else if (item.getItemId() == R.id.addFolder) openTrash();
 
-    }
     return false;
   }
 
@@ -157,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
       overridePendingTransition(0, 0);
       UPDATE_THEME = false;
     } else if (UPDATE_LISTVIEW) {
-      FragmentListNotes.restartListNotes();
+      FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
       UPDATE_LISTVIEW = false;
     }
   }

@@ -4,6 +4,8 @@ import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
 
 import android.content.Context;
+import android.util.Log;
+
 import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
@@ -45,8 +47,13 @@ public class NotesFragmentModel {
     }
   }
 
+  /**
+   * Method that finds the note inside the selected folder
+   * @param folder - select folder
+   */
   public void searchNotesForFolder(String folder) {
-    File[] folderNames = context.getFilesDir().listFiles();
+    File[] folderNames = new File(context.getFilesDir() + "/" + folder).listFiles();
+    notesArray.add(new ListNotesModel("...", "", false, true));
     assert folderNames != null;
     if (folderNames.length >= 1) {
       sortFileList(PreferenceManager.getDefaultSharedPreferences(context)
@@ -64,8 +71,13 @@ public class NotesFragmentModel {
   /**
    * Method that clears an array and starts a new one
    */
-  public void getUpdateArray(){
+  public void getUpdateArray(String folder){
     notesArray.clear();
+    if(folder.length()>1)
+      searchNotesForFolder(folder);
+    else
     searchNotes();
   }
+
+
 }
