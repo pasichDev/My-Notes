@@ -2,6 +2,7 @@ package com.pasich.mynotes.Controllers.Fragments.ViewPagerMain;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,29 +18,29 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
-import com.pasich.mynotes.Dialogs.ChoiceListDialog;
 import com.pasich.mynotes.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Constants.SystemConstant;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.View.ListNotesView;
 import com.pasich.mynotes.Model.NotesListFragment.NotesModel;
-import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 import java.util.ArrayList;
+
 
 public class ListNotesFragment extends Fragment
     implements FolderOptionDialog.EditNameDialogListener, IOnBackPressed {
 
   private DefaultListAdapter defaultListAdapter;
-  private NotesModel NotesListData;
-  private ArrayList<ListNotesModel> ListNotesModel;
   private boolean mode_note;
   private String FOLDER = "";
   private boolean mode_noteEdit;
+  private ArrayList<ListNotesModel> listNotesfors;
 
 
   protected ListNotesView ListNotesView;
+  protected NotesModel NotesModel;
   protected View view;
 
 
@@ -59,24 +60,19 @@ public class ListNotesFragment extends Fragment
 
     view = inflater.inflate(R.layout.fragment_list_notes, container, false);
     ListNotesView = new ListNotesView(view);
-
+    NotesModel = new NotesModel(getContext());
 
     mode_note = getArguments().getBoolean("mode_note", true);
     mode_noteEdit = mode_note;
 
-
-
-    NotesListData = new NotesModel(getContext());
-    ListNotesModel = NotesListData.newListAdapter("", mode_note);
-
-
-
-    defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, ListNotesModel);
+    defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, NotesModel.notesArray);
     ListNotesView.NotesList.setAdapter(defaultListAdapter);
 
+
+/*
     ListNotesView.NotesList.setOnItemClickListener(
         (parent, v, position, id) -> {
-          ListNotesModel listNotesfor = ListNotesModel.get(position);
+          ListNotesModel listNotesfor = listNotesfor.get(position);
           String selectedItem = listNotesfor.getNameList();
 
           if (!listNotesfor.getBackFolder() == false) {
@@ -93,6 +89,7 @@ public class ListNotesFragment extends Fragment
             mode_noteEdit = true;
           }
         });
+
     ListNotesView.NotesList.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
           ListNotesModel listNotesfor = ListNotesModel.get(position);
@@ -105,7 +102,9 @@ public class ListNotesFragment extends Fragment
             dialog.show(fm, "ChoiceListDialog");
           }
           return true;
-        });
+        });*/
+
+
     view.findViewById(R.id.newNotesButton)
         .setOnClickListener(
             v -> {
@@ -124,13 +123,13 @@ public class ListNotesFragment extends Fragment
   private void restartListNotes(String folder, boolean modes) {
 
     if (defaultListAdapter != null) defaultListAdapter.clear();
-    ListNotesModel = NotesListData.newListAdapter(folder, modes);
-    defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes, ListNotesModel);
+    NotesModel.getUpdateArray();
+    listNotesfors = NotesModel.notesArray;
+    defaultListAdapter = new DefaultListAdapter(getContext(), R.layout.list_notes,  NotesModel.notesArray);
     ListNotesView.NotesList.setAdapter(defaultListAdapter);
-    // defaultListAdapter.notifyDataSetChanged();
-    ListNotesView.NotesList.setNumColumns(
-        PreferenceManager.getDefaultSharedPreferences(getContext())
-            .getInt("formatParam", SystemConstant.Setting_Format));
+  //  defaultListAdapter.notifyDataSetChanged();
+
+    Log.d("xxxx","checkUpdateRestart");
     FOLDER = folder;
   }
 
@@ -177,6 +176,17 @@ public class ListNotesFragment extends Fragment
   // Обновление списка после клика на Spinner
   public void restartListNotes() {
     restartListNotes("", mode_noteEdit);
+  }
+
+
+
+
+
+
+  public void formatListView() {
+    ListNotesView.NotesList.setNumColumns(
+            PreferenceManager.getDefaultSharedPreferences(getContext())
+                    .getInt("formatParam", SystemConstant.Setting_Format));
   }
 
   @Override

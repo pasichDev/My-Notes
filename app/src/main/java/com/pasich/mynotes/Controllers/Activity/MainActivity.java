@@ -1,9 +1,9 @@
 package com.pasich.mynotes.Controllers.Activity;
 
 import static com.pasich.mynotes.Utils.Check.CheckFolderUtils.checkSystemFolder;
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_LISTVIEW;
 import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_THEME;
+import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,14 +15,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotesVoice;
+import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.SortSwitchUtils;
 import com.pasich.mynotes.View.MainView;
-import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         .setOnClickListener(
             v -> {
               formatSwitch.formatNote();
-              FragmentListNotes.restartListNotes();
+              FragmentListNotes.formatListView();
             });
   }
 
@@ -125,8 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
   /** Start Trash.activity */
   private void openTrash() {
-    Intent intent = new Intent(this, TrashActivity.class);
-    startActivity.launch(intent);
+    startActivity.launch(new Intent(this, TrashActivity.class));
   }
 
   /** Start Settings.activity */

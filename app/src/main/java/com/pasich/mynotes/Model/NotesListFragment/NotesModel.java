@@ -4,96 +4,53 @@ import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
 
 import android.content.Context;
-
 import androidx.preference.PreferenceManager;
-
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
-import org.apache.commons.io.filefilter.FileFileFilter;
-
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class NotesModel {
 
-  private final Context context;
+  protected final Context context;
+  public ArrayList<ListNotesModel> notesArray = new ArrayList<>();
 
   public NotesModel(Context context) {
     this.context = context;
+    searchNotes();
   }
 
-  public ArrayList newListAdapter(String folder, boolean mode_folder) {
+  /**
+   * Method that finds notes and folders in the root directory
+   * This note method sorts notes based on the principle of folder at the top.
+   */
+  public void searchNotes() {
+    File[] folderNames = context.getFilesDir().listFiles();
+    assert folderNames != null;
+    if (folderNames.length >= 1) {
+      sortFileList(PreferenceManager.getDefaultSharedPreferences(context)
+              .getString("sortPref", SystemConstant.Settings_Sort), folderNames);
 
-
-
-
-    ArrayList listNotesfors = new ArrayList();
-
-    String sortPref =
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .getString("sortPref", SystemConstant.Settings_Sort);
-
-    File dirFiles;
-    if (!folder.equals("")) {
-      dirFiles = new File(context.getFilesDir() + "/" + folder);
-    } else {
-      dirFiles = context.getFilesDir();
-    }
-
-    if (mode_folder) {
-      File[] folderNames = dirFiles.listFiles();
-      if (folderNames.length >= 1) {
-        sortFileList(sortPref, folderNames);
-        String[] folderName = convertFromFilesArray(Objects.requireNonNull(folderNames));
-
-        for (String file : folderName) {
-          // Узнаем дату
-          File notesFile = new File(dirFiles, file);
-          if (notesFile.isDirectory()
-              && !notesFile.getName().equals("trash")
-              && !notesFile.getName().equals("VoiceNotes")) {
-            listNotesfors.add(new ListNotesModel(file, returnDateFile(notesFile), true, false));
-          }
-        }
+      for (File file : folderNames) {
+        if (file.isDirectory()
+            && !file.getName().equals("trash")
+            && !file.getName().equals("VoiceNotes"))
+          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), true, false));
+      }
+      for (File file : folderNames) {
+        if (file.getName().endsWith(".txt"))
+          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), false, false));
       }
     }
-
-    if (!folder.equals("")) {
-      listNotesfors.add(new ListNotesModel("...", "", false, true));
-    }
-
-    // Список файлов!
-    File[] fileNames = dirFiles.listFiles((FileFilter) FileFileFilter.FILE);
-    if (fileNames.length >= 1) {
-      sortFileList(sortPref, fileNames);
-      String[] fileName = convertFromFilesArray(Objects.requireNonNull(fileNames));
-
-      for (String file : fileName) {
-        // Узнаем дату
-        File notesFile = new File(dirFiles, file);
-        if (file.endsWith(".txt")) {
-          listNotesfors.add(new ListNotesModel(file, returnDateFile(notesFile), false, false));
-        }
-      }
-    }
-    return listNotesfors;
   }
 
 
   /**
-   *Єто просто пизда, здесь нужно убрать из этого файла все такие косяки потому что это хуйня настоящая
-   * ОБЯЗАТЕЛЬНО !!!!!!!
+   * Method that clears an array and starts a new one
    */
-
-  /* **Данный метод конвертирует массив File[] в String[]*/
-  public static String[] convertFromFilesArray(File[] files) {
-    String[] result = new String[files.length];
-    for (int i = 0; i < files.length; i++) {
-      result[i] = files[i].getName();
-    }
-    return result;
+  public void getUpdateArray(){
+    notesArray.clear();
+    searchNotes();
   }
 }
