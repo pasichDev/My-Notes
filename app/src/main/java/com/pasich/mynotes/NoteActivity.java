@@ -373,6 +373,7 @@ public class NoteActivity extends AppCompatActivity {
     } else {
       intent.putExtra("checkUpdate", "no");
     }
+
     setResult(RESULT_OK, intent);
     finish();
   }

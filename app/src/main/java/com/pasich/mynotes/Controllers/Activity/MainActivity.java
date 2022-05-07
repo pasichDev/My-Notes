@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -42,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
             if (result.getResultCode() == 24) {
               if (data.getBooleanExtra("updateList", false)) {
                 FragmentListNotes.restartListNotes();
+              }
+              if (data.getStringExtra("checkUpdate").equals("yes")) {
+                FragmentListNotes.restartListNotes();
+                    getWindow()
+                    .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
               }
             }
           });
@@ -119,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
       case R.id.addFolder:
         return false;
+
     }
     return false;
   }

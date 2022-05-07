@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Model.NotesListFragment;
+package com.pasich.mynotes.Model;
 
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
@@ -11,12 +11,12 @@ import com.pasich.mynotes.Utils.Constants.SystemConstant;
 import java.io.File;
 import java.util.ArrayList;
 
-public class NotesModel {
+public class NotesFragmentModel {
 
   protected final Context context;
   public ArrayList<ListNotesModel> notesArray = new ArrayList<>();
 
-  public NotesModel(Context context) {
+  public NotesFragmentModel(Context context) {
     this.context = context;
     searchNotes();
   }
@@ -44,6 +44,21 @@ public class NotesModel {
       }
     }
   }
+
+  public void searchNotesForFolder(String folder) {
+    File[] folderNames = context.getFilesDir().listFiles();
+    assert folderNames != null;
+    if (folderNames.length >= 1) {
+      sortFileList(PreferenceManager.getDefaultSharedPreferences(context)
+              .getString("sortPref", SystemConstant.Settings_Sort), folderNames);
+
+      for (File file : folderNames) {
+        if (file.getName().endsWith(".txt"))
+          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), false, false));
+      }
+    }
+  }
+
 
 
   /**
