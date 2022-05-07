@@ -23,12 +23,13 @@ import com.pasich.mynotes.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
+import com.pasich.mynotes.View.ListNotesView;
 import com.pasich.mynotes.Сore.ListContolers.NotesListData;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 import java.util.ArrayList;
 
-public class FragmentListNotes extends Fragment
+public class ListNotesFragment extends Fragment
     implements FolderOptionDialog.EditNameDialogListener, IOnBackPressed {
 
   private DefaultListAdapter defaultListAdapter;
@@ -39,30 +40,36 @@ public class FragmentListNotes extends Fragment
   private String FOLDER = "";
   private boolean mode_noteEdit;
 
-  public static FragmentListNotes newInstance(boolean mode_note) {
+
+  protected ListNotesView ListNotesView;
+
+
+
+  public static ListNotesFragment newInstance(boolean mode_note) {
     Bundle args = new Bundle();
     args.putBoolean("mode_note", mode_note);
-    FragmentListNotes f = new FragmentListNotes();
+    ListNotesFragment f = new ListNotesFragment();
     f.setArguments(args);
     return f;
   }
 
-  @Override
-  public void setUserVisibleHint(boolean isVisibleToUser) {
-    super.setUserVisibleHint(isVisibleToUser);
-    if (isVisibleToUser && isResumed()) {
-      getActivity().findViewById(R.id.newNotesButton).setVisibility(View.VISIBLE);
-    }
-  }
 
   @Override
-  public View onCreateView(
-      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater,
+                           ViewGroup container,
+                           Bundle savedInstanceState) {
+
+    View view = inflater.inflate(R.layout.fragment_list_notes, container, false);
+    ListNotesView = new ListNotesView(view);
+
+
+
+
 
     mode_note = getArguments().getBoolean("mode_note", true);
     mode_noteEdit = mode_note;
 
-    View view = inflater.inflate(R.layout.fragment_list_notes, container, false);
+
 
     NotesList = view.findViewById(R.id.ListFileNotes);
     NotesList.setNumColumns(
@@ -100,13 +107,12 @@ public class FragmentListNotes extends Fragment
             FragmentManager fm = getFragmentManager();
             ChoiceListDialog dialog =
                 new ChoiceListDialog(position, ListNotesModel, defaultListAdapter, typeFile, FOLDER);
-            dialog.setTargetFragment(FragmentListNotes.this, 300);
+            dialog.setTargetFragment(ListNotesFragment.this, 300);
             dialog.show(fm, "ChoiceListDialog");
           }
           return true;
         });
-    getActivity()
-        .findViewById(R.id.newNotesButton)
+    view.findViewById(R.id.newNotesButton)
         .setOnClickListener(
             v -> {
               if (v.getId() == R.id.newNotesButton) {
@@ -117,7 +123,6 @@ public class FragmentListNotes extends Fragment
                 startActivityForResult(intent, 1);
               }
             });
-    setHasOptionsMenu(true);
 
     return view;
   }
@@ -147,7 +152,7 @@ public class FragmentListNotes extends Fragment
       case R.id.addFolder:
         FragmentManager fm = getFragmentManager();
         FolderOptionDialog editNameDialogFragment = new FolderOptionDialog("");
-        editNameDialogFragment.setTargetFragment(FragmentListNotes.this, 300);
+        editNameDialogFragment.setTargetFragment(ListNotesFragment.this, 300);
         assert fm != null;
         editNameDialogFragment.show(fm, "newFolder");
         return true;

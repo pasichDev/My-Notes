@@ -1,32 +1,27 @@
 package com.pasich.mynotes.Model;
 
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
-import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
 
 import android.content.Context;
 
-import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
-import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
+import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.FileFileFilter;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TrashModel {
 
   protected final Context context;
   public ArrayList<ListNotesModel> notesArray = new ArrayList<>();
-  public final String sortPref;
 
   public TrashModel(Context context) {
     this.context = context;
-    this.sortPref =
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .getString("sortPref", SystemConstant.Settings_Sort);
     searchNotes();
   }
 
@@ -37,8 +32,7 @@ public class TrashModel {
 
     assert fileListNames != null;
     if (fileListNames.length >= 1) {
-      sortFileList(sortPref, fileListNames);
-
+      Arrays.sort(fileListNames, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
       for (File file : fileListNames) {
         if (file.getName().endsWith(".txt"))
           notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), false, false));

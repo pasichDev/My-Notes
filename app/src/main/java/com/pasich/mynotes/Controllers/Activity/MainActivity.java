@@ -15,7 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotes;
+import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotesVoice;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.MainUtils;
@@ -26,7 +26,7 @@ import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 
 public class MainActivity extends AppCompatActivity {
 
-  protected FragmentListNotes FragmentListNotes;
+  protected ListNotesFragment FragmentListNotes;
   protected SortSwitchUtils sortSwitch;
   protected FormatSwitchUtils formatSwitch;
   protected MainView MainView;
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
    */
   private void setupViewPager() {
     if (!MainView.onCreate) {
-      FragmentListNotes = new FragmentListNotes().newInstance(true);
+      FragmentListNotes = new ListNotesFragment().newInstance(true);
       ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
       adapter.addFragment(FragmentListNotes, getString(R.string.notes));
       adapter.addFragment(new FragmentListNotesVoice(), getString(R.string.viceNotes));
