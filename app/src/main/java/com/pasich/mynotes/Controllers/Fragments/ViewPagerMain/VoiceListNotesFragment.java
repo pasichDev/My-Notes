@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.R;
 
-public class FragmentListNotesVoice extends Fragment {
+public class VoiceListNotesFragment extends Fragment {
 
   @Override
   public View onCreateView(

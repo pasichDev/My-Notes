@@ -15,7 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.FragmentListNotesVoice;
+import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFragment;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.R;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
       this.FragmentListNotes = new ListNotesFragment();
       ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
       adapter.addFragment(FragmentListNotes, getString(R.string.notes));
-      adapter.addFragment(new FragmentListNotesVoice(), getString(R.string.viceNotes));
+      adapter.addFragment(new VoiceListNotesFragment(), getString(R.string.viceNotes));
       MainView.viewPager.setAdapter(adapter);
       MainView.tabLayout.setupWithViewPager(MainView.viewPager);
     }

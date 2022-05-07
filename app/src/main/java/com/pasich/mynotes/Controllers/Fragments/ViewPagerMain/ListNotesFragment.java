@@ -13,15 +13,13 @@ import androidx.fragment.app.Fragment;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Dialogs.ChoiceListDialog;
-import com.pasich.mynotes.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.Model.NotesFragmentModel;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.View.ListNotesView;
 
-public class ListNotesFragment extends Fragment
-    implements FolderOptionDialog.EditNameDialogListener, IOnBackPressed {
+public class ListNotesFragment extends Fragment implements IOnBackPressed {
 
   private DefaultListAdapter defaultListAdapter;
   private String selectFolder = "";
@@ -68,11 +66,6 @@ public class ListNotesFragment extends Fragment
   public boolean onBackPressed() {
     exitFolder();
     return getSelectFolder().length() >= 1;
-  }
-
-  @Override
-  public void onFinishfolderOption(boolean updateList) {
-    restartListNotes(getSelectFolder());
   }
 
   /** Method that changes the number of columns in a list */
