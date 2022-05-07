@@ -13,8 +13,6 @@ The application does not require any suspicious permissions, and most importantl
 
 ## Roadmap
 
-- [ ] Add voice notes 
-
 
 See the [open issues](https://github.com/pasichDev/My-Notes/issues) for a full list of proposed features (and known issues).
 
