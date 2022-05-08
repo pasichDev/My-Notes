@@ -19,12 +19,12 @@ import com.pasich.mynotes.Utils.File.FileCore;
 import java.util.ArrayList;
 
 public class ChoiceTrashDialog extends DialogFragment {
-  private final ArrayList listNotesfors;
+  private final ArrayList<ListNotesModel> listNotesfors;
   private final int pos;
   private final DefaultListAdapter defaultListAdapter;
 
   public ChoiceTrashDialog(
-      int pos, ArrayList ListNotesfors, DefaultListAdapter defaultListAdapter) {
+      int pos, ArrayList<ListNotesModel> ListNotesfors, DefaultListAdapter defaultListAdapter) {
     this.pos = pos;
     this.defaultListAdapter = defaultListAdapter;
     this.listNotesfors = ListNotesfors;
@@ -34,7 +34,7 @@ public class ChoiceTrashDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
 
     FileCore fileCore = new FileCore(getContext());
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
     String[] choise = {getString(R.string.OpenViewNotes), getString(R.string.removeNotes)};
 
@@ -56,7 +56,7 @@ public class ChoiceTrashDialog extends DialogFragment {
               fileCore.removeNotesFile(selectedItem);
               listNotesfors.remove(pos);
               defaultListAdapter.notifyDataSetChanged();
-              if (defaultListAdapter.getCount() == 0) checkCountListTrash(getActivity());
+              if (defaultListAdapter.getCount() == 0) checkCountListTrash(requireActivity());
 
               break;
           }
