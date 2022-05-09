@@ -39,7 +39,7 @@ public class ChoiceNoteDialog extends DialogFragment {
               UpdateListInterface.RemoveItem(Integer.parseInt(arrayKey[0]));
               break;
             case 1:
-              shareNotes(getActivity(), fileCore.readFile(arrayKey[1], "").toString());
+              shareNotes(getActivity(), fileCore.readFile(arrayKey[1], arrayKey[2]).toString());
               break;
             case 2:
               if (fileCore.getCountFolder() == 0)

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiсeDialog.ChoiceNoteDialog;
-import com.pasich.mynotes.Model.NotesFragmentModel;
+import com.pasich.mynotes.Model.FragmentModel.NotesFragmentModel;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;

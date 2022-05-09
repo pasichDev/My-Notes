@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Model;
+package com.pasich.mynotes.Model.FragmentModel;
 
 import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;

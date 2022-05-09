@@ -59,7 +59,6 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     return convertView;
   }
 
-
   private class ViewHolder {
     final TextView nameView, dateView;
     final ImageView imgFolder;
@@ -68,6 +67,6 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       nameView = view.findViewById(R.id.nameNotesL);
       dateView = view.findViewById(R.id.dateNotesL);
       imgFolder = view.findViewById(R.id.imageFolder);
-      }
+    }
   }
 }
