@@ -77,6 +77,7 @@ public class FolderOptionDialog extends DialogFragment {
               fileCore.saveNameFolder(input.getText().toString(), false, "");
               assert listener != null;
               listener.RestartListView();
+
             }
           });
     }
