@@ -15,7 +15,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.FileCore;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.CustomView.CustomUIDialog;
-import com.pasich.mynotes.View.FolderEditAndCreateView;
+import com.pasich.mynotes.View.DialogView.FolderEditAndCreateView;
 
 public class FolderEditAndCreateDialog extends DialogFragment {
 

@@ -1,5 +1,6 @@
 package com.pasich.mynotes.Model;
 
+import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
 
@@ -38,8 +39,8 @@ public class NotesFragmentModel {
 
       for (File file : folderNames) {
         if (file.isDirectory()
-            && !file.getName().equals("trash")
-            && !file.getName().equals("VoiceNotes"))
+            && !folderSystem[0].equals(file.getName())
+            && !folderSystem[1].equals(file.getName()))
           notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), true, false));
       }
       for (File file : folderNames) {

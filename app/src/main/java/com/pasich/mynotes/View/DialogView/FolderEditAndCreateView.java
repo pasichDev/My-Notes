@@ -1,4 +1,4 @@
-package com.pasich.mynotes.View;
+package com.pasich.mynotes.View.DialogView;
 
 import android.content.Context;
 import android.text.InputFilter;
