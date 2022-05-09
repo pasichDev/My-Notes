@@ -27,9 +27,9 @@ public class FragmentAppInfo extends PreferenceFragmentCompat {
     assert ratings != null;
     ratings.setOnPreferenceClickListener(
         preference -> {
-          final Uri uri = Uri.parse("market://details?id=" + getContext().getPackageName());
+          final Uri uri = Uri.parse("market://details?id=" + requireContext().getPackageName());
           final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
-          if (getContext().getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0) {
+          if (requireContext().getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0) {
             startActivity(rateAppIntent);
           } else {
             Toast.makeText(getContext(), getString(R.string.notFoundPlayMarket), Toast.LENGTH_SHORT)

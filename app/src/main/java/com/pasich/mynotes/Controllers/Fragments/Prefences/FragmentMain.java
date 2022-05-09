@@ -27,8 +27,8 @@ public class FragmentMain extends PreferenceFragmentCompat implements EditThemeC
   /** Метод который обновляет активность после смены цвета */
   @Override
   public void updateThemeCheck() {
-    getActivity().finish();
-    startActivity(getActivity().getIntent());
-    getActivity().overridePendingTransition(0, 0);
+    requireActivity().finish();
+    startActivity(requireActivity().getIntent());
+    requireActivity().overridePendingTransition(0, 0);
   }
 }

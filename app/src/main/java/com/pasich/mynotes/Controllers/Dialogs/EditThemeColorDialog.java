@@ -18,8 +18,6 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.CustomView.CustomUIDialog;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
-import java.util.Objects;
-
 public class EditThemeColorDialog extends DialogFragment {
   /** An interface that updates the activity after changing the theme */
   public interface updateTheme {
@@ -57,11 +55,11 @@ public class EditThemeColorDialog extends DialogFragment {
         if (!PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getString("themeColor", SystemConstant.Settings_Theme)
             .equals(getResources().getStringArray(R.array.themeColor_values)[position])) {
-          editThemePrefences(position);
+          editThemePreferences(position);
           UPDATE_THEME = true;
           listen.updateThemeCheck();
         }
-        Objects.requireNonNull(getDialog()).dismiss();
+       requireDialog().dismiss();
       };
 
   /**
@@ -69,7 +67,7 @@ public class EditThemeColorDialog extends DialogFragment {
    *
    * @param pos - the element that was clicked
    */
-  private void editThemePrefences(int pos) {
+  private void editThemePreferences(int pos) {
     context
         .getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
         .edit()

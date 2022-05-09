@@ -15,12 +15,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFragment;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
+import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
+import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
+import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.SortSwitchUtils;
@@ -41,8 +41,7 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
           result -> {
             Intent data = result.getData();
             if (result.getResultCode() == 24 && result.getData() != null) {
-              if (data.getBooleanExtra("updateList", false))
-                FragmentListNotes.restartListNotes();
+              if (data.getBooleanExtra("updateList", false)) FragmentListNotes.restartListNotes();
             }
           });
 

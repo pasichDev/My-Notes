@@ -57,7 +57,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
   @Override
   public boolean onBackPressed() {
     int countFolderSize = getSelectFolder().length();
-    exitFolder();
+   if(countFolderSize !=0) exitFolder();
     return countFolderSize != 0;
   }
 
