@@ -2,6 +2,7 @@ package com.pasich.mynotes.Controllers.Fragments.ViewPagerMain;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,8 +65,9 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
 
   @Override
   public boolean onBackPressed() {
+    int countFolderSize = getSelectFolder().length();
     exitFolder();
-    return getSelectFolder().length() >= 1;
+    return countFolderSize != 0;
   }
 
   /** Method that changes the number of columns in a list */

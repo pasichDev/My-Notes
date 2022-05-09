@@ -18,10 +18,9 @@ public class MainUtils {
    * @param activity - context (this)
    */
   public void CloseApp(Activity activity) {
-    boolean exitToSwipeTap =
-        PreferenceManager.getDefaultSharedPreferences(activity)
-            .getBoolean("swipeToExit", SystemConstant.Settings_SwipeToExit);
-    if (exitToSwipeTap) {
+
+    if (PreferenceManager.getDefaultSharedPreferences(activity)
+        .getBoolean("swipeToExit", SystemConstant.Settings_SwipeToExit)) {
       Swipe = Swipe + 1;
       if (Swipe == 1) {
         Toast.makeText(activity, activity.getString(R.string.exitWhat), Toast.LENGTH_SHORT).show();
