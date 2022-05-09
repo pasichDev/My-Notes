@@ -86,7 +86,7 @@ public class ChoiceListDialog extends DialogFragment {
               } else {
 
                 FragmentManager fm = getParentFragmentManager();
-                FolderOptionDialog dialogFragment = new FolderOptionDialog(selectedItem);
+                FolderEditAndCreateDialog dialogFragment = new FolderEditAndCreateDialog(selectedItem);
                 dialogFragment.setTargetFragment(getTargetFragment(), 300);
                 dialogFragment.show(fm, "renameFolder");
               }

@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFragment;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
-import com.pasich.mynotes.Controllers.Dialogs.FolderOptionDialog;
+import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.FinishDialog;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements FinishDialog {
             Intent data = result.getData();
             if (result.getResultCode() == 24 && result.getData() != null) {
               if (data.getBooleanExtra("updateList", false))
-                FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
+                FragmentListNotes.restartListNotes();
             }
           });
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements FinishDialog {
         .setOnClickListener(
             v -> {
               sortSwitch.sortNote();
-              FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
+              FragmentListNotes.restartListNotes();
             });
     findViewById(R.id.formatButton)
         .setOnClickListener(
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements FinishDialog {
 
   /** Start FolderOption.Dialog */
   private void openFolderOption() {
-    new FolderOptionDialog("").show(getSupportFragmentManager(), "newFolder");
+    new FolderEditAndCreateDialog("").show(getSupportFragmentManager(), "newFolder");
   }
 
   /** Start Trash.activity */
@@ -146,13 +146,13 @@ public class MainActivity extends AppCompatActivity implements FinishDialog {
       overridePendingTransition(0, 0);
       UPDATE_THEME = false;
     } else if (UPDATE_LISTVIEW) {
-      FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
+      FragmentListNotes.restartListNotes();
       UPDATE_LISTVIEW = false;
     }
   }
 
   @Override
   public void RestartListView() {
-    FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
+    FragmentListNotes.restartListNotes();
   }
 }

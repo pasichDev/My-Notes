@@ -32,7 +32,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
             Intent data = result.getData();
             if (result.getResultCode() == 44 && result.getData() != null)
               if (data.getStringExtra("updateList").equals("yes"))
-                restartListNotes(getSelectFolder());
+                restartListNotes();
           });
 
   @Override
@@ -75,10 +75,10 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
   }
 
   /** Method that restarts adapter and model with list data */
-  public void restartListNotes(String folder) {
+  public void restartListNotes() {
     assert defaultListAdapter != null;
     this.defaultListAdapter.clear();
-    NotesModel.getUpdateArray(folder);
+    NotesModel.getUpdateArray(getSelectFolder());
     ListNotesView.NotesList.setAdapter(
         new DefaultListAdapter(getContext(), R.layout.list_notes, NotesModel.notesArray));
   }
@@ -98,7 +98,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
    */
   private void exitFolder() {
     selectFolder = "";
-    restartListNotes(getSelectFolder());
+    restartListNotes();
   }
 
   /**
@@ -119,7 +119,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
               .putExtra("folder", getSelectFolder()));
     } else {
       selectFolder = selectedItem;
-      restartListNotes(getSelectFolder());
+      restartListNotes();
     }
   }
 
