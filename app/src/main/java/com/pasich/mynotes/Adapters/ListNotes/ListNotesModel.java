@@ -1,8 +1,10 @@
 package com.pasich.mynotes.Adapters.ListNotes;
 
 public class ListNotesModel {
-  private String name, date;
-  private boolean folder, backFolder;
+  private final String name;
+  private final String date;
+  private final boolean folder;
+  private final boolean backFolder;
 
   public ListNotesModel(String name, String date, boolean folder, boolean backFolder) {
     this.name = name;
@@ -23,15 +25,9 @@ public class ListNotesModel {
     return this.name;
   }
 
-  public void setNameList(String name) {
-    this.name = name;
-  }
 
   public String getDateList() {
     return this.date;
   }
 
-  public void setDateList(String date) {
-    this.date = date;
-  }
 }

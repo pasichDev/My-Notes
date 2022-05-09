@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
-import com.pasich.mynotes.Controllers.Dialogs.ChoiceListDialog;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiсeDialog.ChoiceNoteDialog;
 import com.pasich.mynotes.Model.NotesFragmentModel;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
@@ -31,8 +31,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
           result -> {
             Intent data = result.getData();
             if (result.getResultCode() == 44 && result.getData() != null)
-              if (data.getStringExtra("updateList").equals("yes"))
-                restartListNotes();
+              if (data.getStringExtra("updateList").equals("yes")) restartListNotes();
           });
 
   @Override
@@ -48,14 +47,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
     ListNotesView.NotesList.setOnItemClickListener((parent, v, position, id) -> openNote(position));
     view.findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
     ListNotesView.NotesList.setOnItemLongClickListener(
-        (arg0, arg1, position, id) -> {
-          new ChoiceListDialog(
-                  position,
-                  NotesModel.notesArray,
-                  defaultListAdapter,
-                  NotesModel.notesArray.get(position).getFolder(),
-                  getSelectFolder())
-              .show(getChildFragmentManager(), "ChoiceListDialog");
+        (arg0, arg1, position, id) -> {openChoiceNote(position);
           return true;
         });
 
@@ -84,6 +76,16 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
   }
 
   /**
+   * Method that removes an element from an array
+   *
+   * @param position - position Item
+   */
+  public void removeItems(int position) {
+    NotesModel.notesArray.remove(position);
+    defaultListAdapter.notifyDataSetChanged();
+  }
+
+  /**
    * Open folder request in real life fragment
    *
    * @return - select folder
@@ -109,19 +111,28 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
    */
   private void openNote(int position) {
     ListNotesModel listModel = NotesModel.notesArray.get(position);
-    String selectedItem = listModel.getNameList();
     if (listModel.getBackFolder()) exitFolder();
     else if (!listModel.getFolder()) {
       startActivity.launch(
           new Intent(getActivity(), NoteActivity.class)
               .putExtra("KeyFunction", "EditNote")
-              .putExtra("idNote", selectedItem)
+              .putExtra("idNote", listModel.getNameList())
               .putExtra("folder", getSelectFolder()));
     } else {
-      selectFolder = selectedItem;
+      selectFolder = listModel.getNameList();
       restartListNotes();
     }
   }
+
+  //Ту нужно доработать
+  private void openChoiceNote(int position){
+    ListNotesModel listModel = NotesModel.notesArray.get(position);
+    if (listModel.getFolder()){
+    } else {
+      new ChoiceNoteDialog(new String[] {Integer.toString(position), listModel.getNameList(), getSelectFolder()})
+          .show(getChildFragmentManager(), "ChoiceNoteDialog");
+  }
+    }
 
   /**
    * Method for creating a new note

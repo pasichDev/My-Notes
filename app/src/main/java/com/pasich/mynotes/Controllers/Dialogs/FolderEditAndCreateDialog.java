@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.FileCore;
-import com.pasich.mynotes.Utils.Interface.FinishDialog;
+import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.CustomView.CustomUIDialog;
 import com.pasich.mynotes.View.FolderEditAndCreateView;
 
@@ -22,7 +22,7 @@ public class FolderEditAndCreateDialog extends DialogFragment {
   private final String editName;
   private FolderEditAndCreateView DialogView;
   private FileCore fileCore;
-  private FinishDialog listener;
+  private UpdateListInterface RestartListInterface;
 
   public FolderEditAndCreateDialog(String editName) {
     this.editName = editName;
@@ -33,7 +33,7 @@ public class FolderEditAndCreateDialog extends DialogFragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
     fileCore = new FileCore(getContext());
     DialogView = new FolderEditAndCreateView(getContext());
-    listener = (FinishDialog) getContext();
+    RestartListInterface = (UpdateListInterface) getContext();
     CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
 
     uiDialog.setHeadTextView(
@@ -63,14 +63,14 @@ public class FolderEditAndCreateDialog extends DialogFragment {
 
   private void saveFolder() {
     fileCore.saveNameFolder(DialogView.input.getText().toString(), true, editName);
-    assert listener != null;
-    listener.RestartListView();
+    assert RestartListInterface != null;
+    RestartListInterface.RestartListView();
   }
 
   private void createFolder() {
     fileCore.saveNameFolder(DialogView.input.getText().toString(), false, "");
-    assert listener != null;
-    listener.RestartListView();
+    assert RestartListInterface != null;
+    RestartListInterface.RestartListView();
   }
 
   @Override

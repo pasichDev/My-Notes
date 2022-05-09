@@ -19,14 +19,14 @@ import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFrag
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Interface.FinishDialog;
+import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.SortSwitchUtils;
 import com.pasich.mynotes.View.MainView;
 
-public class MainActivity extends AppCompatActivity implements FinishDialog {
+public class MainActivity extends AppCompatActivity implements UpdateListInterface {
 
   protected ListNotesFragment FragmentListNotes;
   protected SortSwitchUtils sortSwitch;
@@ -154,5 +154,10 @@ public class MainActivity extends AppCompatActivity implements FinishDialog {
   @Override
   public void RestartListView() {
     FragmentListNotes.restartListNotes();
+  }
+
+  @Override
+  public void RemoveItem(int position) {
+    FragmentListNotes.removeItems(position);
   }
 }
