@@ -4,6 +4,7 @@ import static com.pasich.mynotes.Utils.Utils.ShareNotesMethodUtils.shareNotes;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ public class ChoiceNoteDialog extends DialogFragment {
               break;
             case 1:
               shareNotes(getActivity(), fileCore.readFile(arrayKey[1], arrayKey[2]).toString());
+              Log.d("xxxx",arrayKey[2] + "/" + fileCore.readFile(arrayKey[1], arrayKey[2]).toString());
               break;
             case 2:
               if (fileCore.getCountFolder() == 0)

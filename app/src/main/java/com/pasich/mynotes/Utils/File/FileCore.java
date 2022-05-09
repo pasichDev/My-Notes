@@ -169,7 +169,7 @@ public class FileCore extends AppCompatActivity {
     try {
       // открываем поток для чтения
       BufferedReader br =
-          new BufferedReader(new FileReader(context.getFilesDir() + "/" + folder + data_file));
+          new BufferedReader(new FileReader(context.getFilesDir() + "/" + folder + "/"+ data_file));
       while ((line = br.readLine()) != null) {
         stringBuilder.append(line);
         stringBuilder.append('\n');
