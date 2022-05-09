@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.pasich.mynotes.Dialogs.TtsErrorDialog;
+import com.pasich.mynotes.Controllers.Dialogs.TtsErrorDialog;
 import com.pasich.mynotes.R;
 
 public class FragmentVoice extends PreferenceFragmentCompat {

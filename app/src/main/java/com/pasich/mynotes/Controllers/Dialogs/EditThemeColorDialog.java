@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Dialogs;
+package com.pasich.mynotes.Controllers.Dialogs;
 
 import static com.pasich.mynotes.Utils.Constants.SystemConstant.settingsFileName;
 import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_THEME;

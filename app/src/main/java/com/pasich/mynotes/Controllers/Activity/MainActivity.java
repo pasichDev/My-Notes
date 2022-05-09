@@ -17,15 +17,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFragment;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
-import com.pasich.mynotes.Dialogs.FolderOptionDialog;
+import com.pasich.mynotes.Controllers.Dialogs.FolderOptionDialog;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Interface.FinishDialog;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButtonMain.SortSwitchUtils;
 import com.pasich.mynotes.View.MainView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FinishDialog {
 
   protected ListNotesFragment FragmentListNotes;
   protected SortSwitchUtils sortSwitch;
@@ -148,5 +149,10 @@ public class MainActivity extends AppCompatActivity {
       FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
       UPDATE_LISTVIEW = false;
     }
+  }
+
+  @Override
+  public void RestartListView() {
+    FragmentListNotes.restartListNotes(FragmentListNotes.getSelectFolder());
   }
 }

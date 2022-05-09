@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.pasich.mynotes.Dialogs.RestoreNotesDialog;
+import com.pasich.mynotes.Controllers.Dialogs.RestoreNotesDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.BackupToRestoreClass;
 

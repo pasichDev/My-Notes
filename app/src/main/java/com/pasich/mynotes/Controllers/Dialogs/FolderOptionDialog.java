@@ -1,6 +1,5 @@
-package com.pasich.mynotes.Dialogs;
+package com.pasich.mynotes.Controllers.Dialogs;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Interface.FinishDialog;
 import com.pasich.mynotes.View.CustomView.CustomUIDialog;
 import com.pasich.mynotes.Utils.File.FileCore;
 
@@ -27,16 +27,13 @@ public class FolderOptionDialog extends DialogFragment {
     this.editName = editName;
   }
 
-  public interface EditNameDialogListener {
-    void onFinishfolderOption(boolean updateList);
-  }
 
-  @SuppressLint("RtlHardcoded")
+
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     FileCore fileCore = new FileCore(getContext());
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    EditNameDialogListener listener = (EditNameDialogListener) getTargetFragment();
+    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+    FinishDialog listener = (FinishDialog) getContext();
 
     LinearLayout container = new LinearLayout(getContext());
     container.setOrientation(LinearLayout.VERTICAL);
@@ -69,7 +66,7 @@ public class FolderOptionDialog extends DialogFragment {
             if (!input.getText().toString().equals(editName)) {
               fileCore.saveNameFolder(input.getText().toString(), true, editName);
               assert listener != null;
-              listener.onFinishfolderOption(true);
+              listener.RestartListView();
             }
           });
     } else if (editName.trim().length() == 0 || editName.equals("")) {
@@ -79,7 +76,7 @@ public class FolderOptionDialog extends DialogFragment {
             if (input.getText().toString().length() >= 1) {
               fileCore.saveNameFolder(input.getText().toString(), false, "");
               assert listener != null;
-              listener.onFinishfolderOption(true);
+              listener.RestartListView();
             }
           });
     }

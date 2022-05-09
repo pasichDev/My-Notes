@@ -14,8 +14,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
-import com.pasich.mynotes.Dialogs.ChoiceTrashDialog;
-import com.pasich.mynotes.Dialogs.CleanTrashDialog;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiceTrashDialog;
+import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.TrashView;

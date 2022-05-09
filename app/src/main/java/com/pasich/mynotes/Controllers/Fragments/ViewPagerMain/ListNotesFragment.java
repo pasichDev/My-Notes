@@ -2,7 +2,6 @@ package com.pasich.mynotes.Controllers.Fragments.ViewPagerMain;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
-import com.pasich.mynotes.Dialogs.ChoiceListDialog;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiceListDialog;
 import com.pasich.mynotes.Model.NotesFragmentModel;
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
