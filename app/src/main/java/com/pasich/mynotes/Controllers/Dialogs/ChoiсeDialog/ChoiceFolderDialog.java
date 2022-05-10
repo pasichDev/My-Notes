@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Controllers.Dialogs.ChoiсeDialog;
 
-
 import android.app.Dialog;
 import android.os.Bundle;
 
@@ -39,7 +38,8 @@ public class ChoiceFolderDialog extends DialogFragment {
                 FolderUtils.deleteFolder();
                 UpdateListInterface.RemoveItem(Integer.parseInt(arrayKey[0]));
               } else {
-                new DeleteFolderDialog(folder,Integer.parseInt(arrayKey[0])).show(getParentFragmentManager(), "DeleteFolder");
+                new DeleteFolderDialog(folder, Integer.parseInt(arrayKey[0]))
+                    .show(getParentFragmentManager(), "DeleteFolder");
               }
               break;
             case 1:
@@ -53,6 +53,6 @@ public class ChoiceFolderDialog extends DialogFragment {
   }
 
   private String[] choiceItems() {
-    return  new String[] {getString(R.string.deleteFolder), getString(R.string.renameFolder)};
+    return new String[] {getString(R.string.deleteFolder), getString(R.string.renameFolder)};
   }
 }
