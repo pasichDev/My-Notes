@@ -71,7 +71,6 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
   public void restartListNotes() {
     defaultListAdapter.getData().clear();
     NotesModel.getUpdateArray(getSelectFolder());
-    defaultListAdapter.addAll(NotesModel.notesArray);
     defaultListAdapter.notifyDataSetChanged();
   }
 

@@ -19,10 +19,12 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   private final LayoutInflater inflater;
   private final int layout;
   private final List<ListNotesModel> listNotes;
+  private ViewHolder viewHolder;
 
-  public DefaultListAdapter(Context context, int resource, List<ListNotesModel> listNotes) {
-    super(context, resource, listNotes);
-    this.listNotes = listNotes;
+
+  public DefaultListAdapter(Context context, int resource, List<ListNotesModel> list) {
+    super(context, resource, list);
+    this.listNotes = list;
     this.layout = resource;
     this.inflater = LayoutInflater.from(getContext());
   }
@@ -37,9 +39,6 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   }
 
   public View getView(int position, View convertView, ViewGroup parent) {
-    ListNotesModel object = listNotes.get(position);
-
-    ViewHolder viewHolder;
     if (convertView == null) {
       convertView = inflater.inflate(this.layout, parent, false);
       viewHolder = new ViewHolder(convertView);
@@ -48,24 +47,21 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
-    String nameItem = object.getNameList();
-    String dateItem = object.getDateList();
+    setImgFolder(position);
+    viewHolder.nameView.setText(getWithoutExtension(getItem(position).getNameList()));
+    viewHolder.dateView.setText(getItem(position).getDateList());
 
-    viewHolder.imgFolder.setVisibility(View.VISIBLE);
-    if (object.getBackFolder()) {
+    return convertView;
+  }
+
+  private void setImgFolder(int position) {
+    if (getItem(position).getBackFolder()) {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
-    } else if (object.getFolder()) {
+    } else if (getItem(position).getFolder()) {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_folder);
     } else {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
     }
-    nameItem = getWithoutExtension(nameItem);
-    if (nameItem.length() > 49) nameItem = nameItem + "...";
-
-    viewHolder.nameView.setText(nameItem);
-    viewHolder.dateView.setText(dateItem);
-
-    return convertView;
   }
 
   private static class ViewHolder {
@@ -78,5 +74,4 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       imgFolder = view.findViewById(R.id.imageFolder);
     }
   }
-
 }

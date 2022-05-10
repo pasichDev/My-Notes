@@ -74,6 +74,7 @@ public class NotesFragmentModel {
 
   /** Method that clears an array and starts a new one */
   public void getUpdateArray(String folder) {
+   notesArray.clear();
     if (folder.length() >= 1) searchNotesForFolder(folder);
     else searchNotes();
   }
