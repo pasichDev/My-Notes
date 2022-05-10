@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiсeDialog.ChoiceFolderDialog;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiсeDialog.ChoiceNoteDialog;
 import com.pasich.mynotes.Model.FragmentModel.NotesFragmentModel;
@@ -70,11 +69,9 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
 
   /** Method that restarts adapter and model with list data */
   public void restartListNotes() {
-    assert defaultListAdapter != null;
-    this.defaultListAdapter.clear();
+    defaultListAdapter.getData().clear();
     NotesModel.getUpdateArray(getSelectFolder());
-    ListNotesView.NotesList.setAdapter(
-        new DefaultListAdapter(getContext(), R.layout.list_notes, NotesModel.notesArray));
+    defaultListAdapter.addAll(NotesModel.notesArray);
     defaultListAdapter.notifyDataSetChanged();
   }
 
@@ -84,7 +81,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
    * @param position - position Item
    */
   public void removeItems(int position) {
-    NotesModel.notesArray.remove(position);
+    defaultListAdapter.getData().remove(position);
     defaultListAdapter.notifyDataSetChanged();
   }
 
@@ -113,16 +110,15 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
    * @param position - the position of the selected in the array, needed to define the annotation
    */
   private void openNote(int position) {
-    ListNotesModel listModel = NotesModel.notesArray.get(position);
-    if (listModel.getBackFolder()) exitFolder();
-    else if (!listModel.getFolder()) {
+    if (defaultListAdapter.getItem(position).getBackFolder()) exitFolder();
+    else if (!defaultListAdapter.getItem(position).getFolder()) {
       startActivity.launch(
           new Intent(getActivity(), NoteActivity.class)
               .putExtra("KeyFunction", "EditNote")
-              .putExtra("idNote", listModel.getNameList())
+              .putExtra("idNote", defaultListAdapter.getItem(position).getNameList())
               .putExtra("folder", getSelectFolder()));
     } else {
-      selectFolder = listModel.getNameList();
+      selectFolder = defaultListAdapter.getItem(position).getNameList();
       restartListNotes();
     }
   }
@@ -133,13 +129,19 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
    * @param position - position for arraylist
    */
   private void openChoiceNote(int position) {
-    ListNotesModel listModel = NotesModel.notesArray.get(position);
-    if (listModel.getFolder()) {
-      new ChoiceFolderDialog(new String[] {Integer.toString(position), listModel.getNameList()})
+    if (defaultListAdapter.getItem(position).getFolder()) {
+      new ChoiceFolderDialog(
+              new String[] {
+                Integer.toString(position), defaultListAdapter.getItem(position).getNameList()
+              })
           .show(getChildFragmentManager(), "ChoiceFolderDialog");
     } else {
       new ChoiceNoteDialog(
-              new String[] {Integer.toString(position), listModel.getNameList(), getSelectFolder()})
+              new String[] {
+                Integer.toString(position),
+                defaultListAdapter.getItem(position).getNameList(),
+                getSelectFolder()
+              })
           .show(getChildFragmentManager(), "ChoiceNoteDialog");
     }
   }

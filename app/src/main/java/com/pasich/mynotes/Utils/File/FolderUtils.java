@@ -15,13 +15,17 @@ public class FolderUtils {
   }
 
   public void deleteFolder() {
-    try{
+    try {
+      FileUtils.deleteDirectory(folder);
+    } catch (final IOException ignored) {
+    }
+  }
+  public void deleteFolderForce() {
+    try {
       FileUtils.forceDelete(folder);
-    }  catch (final IOException ignored) {
+    } catch (final IOException ignored) {
+    }
   }
-
-  }
-
   public int getNotesForFoldersCount() {
     return Objects.requireNonNull(folder.list()).length;
   }

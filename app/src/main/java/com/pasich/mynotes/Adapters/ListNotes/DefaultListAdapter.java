@@ -18,17 +18,26 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
-  private final List<ListNotesModel> listNotesfors;
+  private final List<ListNotesModel> listNotes;
 
-  public DefaultListAdapter(Context context, int resource, List<ListNotesModel> listNotesfors) {
-    super(context, resource, listNotesfors);
-    this.listNotesfors = listNotesfors;
+  public DefaultListAdapter(Context context, int resource, List<ListNotesModel> listNotes) {
+    super(context, resource, listNotes);
+    this.listNotes = listNotes;
     this.layout = resource;
     this.inflater = LayoutInflater.from(getContext());
   }
 
+  @Override
+  public ListNotesModel getItem(int i) {
+    return listNotes != null ? listNotes.get(i) : null;
+  }
+
+  public List<ListNotesModel> getData() {
+    return this.listNotes;
+  }
+
   public View getView(int position, View convertView, ViewGroup parent) {
-    ListNotesModel listNotesfor = listNotesfors.get(position);
+    ListNotesModel object = listNotes.get(position);
 
     ViewHolder viewHolder;
     if (convertView == null) {
@@ -39,13 +48,13 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
-    String nameItem = listNotesfor.getNameList();
-    String dateItem = listNotesfor.getDateList();
+    String nameItem = object.getNameList();
+    String dateItem = object.getDateList();
 
     viewHolder.imgFolder.setVisibility(View.VISIBLE);
-    if (listNotesfor.getBackFolder()) {
+    if (object.getBackFolder()) {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
-    } else if (listNotesfor.getFolder()) {
+    } else if (object.getFolder()) {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_folder);
     } else {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
@@ -59,7 +68,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     return convertView;
   }
 
-  private class ViewHolder {
+  private static class ViewHolder {
     final TextView nameView, dateView;
     final ImageView imgFolder;
 
@@ -69,4 +78,5 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       imgFolder = view.findViewById(R.id.imageFolder);
     }
   }
+
 }

@@ -8,13 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.pasich.mynotes.Controllers.Dialogs.DeleteFolderDialog;
 import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.FolderUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 
 import java.io.File;
-import java.io.IOException;
 
 public class ChoiceFolderDialog extends DialogFragment {
   private final String[] arrayKey;
@@ -28,44 +28,24 @@ public class ChoiceFolderDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
     UpdateListInterface = (UpdateListInterface) getContext();
-    FolderUtils FolderUtils = new FolderUtils(new File(requireContext().getFilesDir(), arrayKey[1]));
+    File folder = new File(requireContext().getFilesDir(), arrayKey[1]);
+    FolderUtils FolderUtils = new FolderUtils(folder);
     builder.setItems(
         choiceItems(),
         (dialog, which) -> {
           switch (which) {
             case 0:
-             // if(FolderUtils.getNotesForFoldersCount() >= 1){
-                  FolderUtils.deleteFolder();
-                  UpdateListInterface.RemoveItem(Integer.parseInt(arrayKey[0]));
-
-
-           //   }
-
-              /*
-              File folderSelected =
-                      new File(getContext().getFilesDir() + "/" + selectedItem + "/");
-              int columFiles = folderSelected.list().length;
-              if (columFiles == 0) {
-                fileCore.deleteFolder(selectedItem);
-                updateListView(pos);
-              } else if (columFiles >= 1) {
-                AlertDialog.Builder dilogDeleteFolders = new AlertDialog.Builder(getActivity());
-                dilogDeleteFolders.setTitle(getString(R.string.warning));
-                dilogDeleteFolders.setMessage(getString(R.string.deleteFolderIsFiles));
-                dilogDeleteFolders.setPositiveButton(
-                        getString(R.string.yesDeleteIsFiles),
-                        (dialog1, which1) -> {
-                          fileCore.deleteFolder(selectedItem);
-                          updateListView(pos);
-                        });
-                dilogDeleteFolders.setNegativeButton(getString(R.string.cancel), null);
-                dilogDeleteFolders.show();
-              }*/
+              if (FolderUtils.getNotesForFoldersCount() == 0) {
+                FolderUtils.deleteFolder();
+                UpdateListInterface.RemoveItem(Integer.parseInt(arrayKey[0]));
+              } else {
+                new DeleteFolderDialog(folder,Integer.parseInt(arrayKey[0])).show(getParentFragmentManager(), "DeleteFolder");
+              }
               break;
             case 1:
-            new FolderEditAndCreateDialog(arrayKey[1]).show(getParentFragmentManager(), "renameDialog");
+              new FolderEditAndCreateDialog(arrayKey[1])
+                  .show(getParentFragmentManager(), "renameDialog");
               break;
-
           }
         });
 
