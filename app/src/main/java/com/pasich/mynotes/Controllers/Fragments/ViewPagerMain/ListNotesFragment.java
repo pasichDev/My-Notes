@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiсeDialog.ChoiceFolderDialog;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiсeDialog.ChoiceNoteDialog;
 import com.pasich.mynotes.Model.FragmentModel.NotesFragmentModel;
 import com.pasich.mynotes.NoteActivity;
@@ -47,7 +48,8 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
     ListNotesView.NotesList.setOnItemClickListener((parent, v, position, id) -> openNote(position));
     view.findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
     ListNotesView.NotesList.setOnItemLongClickListener(
-        (arg0, arg1, position, id) -> {openChoiceNote(position);
+        (arg0, arg1, position, id) -> {
+          openChoiceNote(position);
           return true;
         });
 
@@ -57,7 +59,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
   @Override
   public boolean onBackPressed() {
     int countFolderSize = getSelectFolder().length();
-   if(countFolderSize !=0) exitFolder();
+    if (countFolderSize != 0) exitFolder();
     return countFolderSize != 0;
   }
 
@@ -73,6 +75,7 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
     NotesModel.getUpdateArray(getSelectFolder());
     ListNotesView.NotesList.setAdapter(
         new DefaultListAdapter(getContext(), R.layout.list_notes, NotesModel.notesArray));
+    defaultListAdapter.notifyDataSetChanged();
   }
 
   /**
@@ -124,15 +127,22 @@ public class ListNotesFragment extends Fragment implements IOnBackPressed {
     }
   }
 
-  //Ту нужно доработать
-  private void openChoiceNote(int position){
+  /**
+   * Method that implements the opening of the action menu on folders and notes
+   *
+   * @param position - position for arraylist
+   */
+  private void openChoiceNote(int position) {
     ListNotesModel listModel = NotesModel.notesArray.get(position);
-    if (listModel.getFolder()){
+    if (listModel.getFolder()) {
+      new ChoiceFolderDialog(new String[] {Integer.toString(position), listModel.getNameList()})
+          .show(getChildFragmentManager(), "ChoiceFolderDialog");
     } else {
-      new ChoiceNoteDialog(new String[] {Integer.toString(position), listModel.getNameList(), getSelectFolder()})
+      new ChoiceNoteDialog(
+              new String[] {Integer.toString(position), listModel.getNameList(), getSelectFolder()})
           .show(getChildFragmentManager(), "ChoiceNoteDialog");
-  }
     }
+  }
 
   /**
    * Method for creating a new note

@@ -12,9 +12,11 @@ public class CopyNotesView {
 
   public final TextView textMessage;
   public final Spinner spinner;
+  private final Context context;
   public CustomUIDialog uiDialog;
 
   public CopyNotesView(Context context, LayoutInflater inflater) {
+    this.context = context;
     this.textMessage = new TextView(context);
     this.uiDialog = new CustomUIDialog(context, inflater);
     this.spinner = new Spinner(context);
@@ -24,7 +26,7 @@ public class CopyNotesView {
   }
 
   private void setUiDialog() {
-    uiDialog.setHeadTextView(String.valueOf(R.string.copyNotesTo));
+    uiDialog.setHeadTextView(context.getString(R.string.copyNotesTo));
     uiDialog.getContainer().addView(textMessage, uiDialog.lp);
     uiDialog.getContainer().addView(spinner, uiDialog.lp);
   }

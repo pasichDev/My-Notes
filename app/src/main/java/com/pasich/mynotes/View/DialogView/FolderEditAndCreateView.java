@@ -27,7 +27,7 @@ public class FolderEditAndCreateView {
     input.setHint(context.getString(R.string.inputNameFolder));
     input.setEnabled(true);
     input.setFocusableInTouchMode(true);
-    input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(25)});
+    input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(50)});
   }
 
   /** A method that sets up an input field after entering text there */

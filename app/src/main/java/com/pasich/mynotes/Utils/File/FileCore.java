@@ -71,16 +71,7 @@ public class FileCore extends AppCompatActivity {
     }
   }
 
-  public void deleteFolder(String nameFile) {
-    File inputFile = new File(context.getFilesDir() + "/" + nameFile);
-    File[] files = inputFile.listFiles();
-    if (files != null) {
-      for (File file : files) {
-        file.delete();
-      }
-    }
-    inputFile.delete();
-  }
+
 
   public void deleteAllNotes() {
     File dirFiles = new File(context.getFilesDir() + "/trash/");
