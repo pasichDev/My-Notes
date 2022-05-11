@@ -22,8 +22,8 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.Utils.MainUtils;
-import com.pasich.mynotes.Utils.SwitchButtonMain.FormatSwitchUtils;
-import com.pasich.mynotes.Utils.SwitchButtonMain.SortSwitchUtils;
+import com.pasich.mynotes.Utils.SwitchButton.FormatSwitchUtils;
+import com.pasich.mynotes.Utils.SwitchButton.SortSwitchUtils;
 import com.pasich.mynotes.View.MainView;
 
 public class MainActivity extends AppCompatActivity implements UpdateListInterface {

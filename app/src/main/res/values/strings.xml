@@ -129,4 +129,5 @@
 
 
     <string name="folders" translatable="false" >Папки</string>
+    <string name="namefolder">NameFolder</string>
 </resources>

@@ -25,9 +25,6 @@ public class FileCore extends AppCompatActivity {
     this.context = context;
   }
 
-
-
-
   @Deprecated
   public void saveNameFolder(String nameFolder, boolean rename, String oldName) {
     Toast toast = null;

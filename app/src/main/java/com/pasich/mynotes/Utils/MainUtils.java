@@ -18,7 +18,6 @@ public class MainUtils {
    * @param activity - context (this)
    */
   public void CloseApp(Activity activity) {
-
     if (PreferenceManager.getDefaultSharedPreferences(activity)
         .getBoolean("swipeToExit", SystemConstant.Settings_SwipeToExit)) {
       Swipe = Swipe + 1;
