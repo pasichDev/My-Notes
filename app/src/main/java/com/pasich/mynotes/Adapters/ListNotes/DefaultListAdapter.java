@@ -1,7 +1,5 @@
 package com.pasich.mynotes.Adapters.ListNotes;
 
-import static com.pasich.mynotes.Utils.File.FileCore.getWithoutExtension;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +52,10 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     return convertView;
   }
 
+  /**
+   * Method that defines an icon for a list item
+   * @param position - itemFile
+   */
   private void setImgFolder(int position) {
     if (getItem(position).getBackFolder()) {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
@@ -62,6 +64,15 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     } else {
       viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
     }
+  }
+
+  /**
+   * A method that truncates the file format, and in this case removes the note extension
+   * @param fileName - File name before trimming -
+   * @return - Without Extension name file
+   */
+  private String getWithoutExtension(String fileName) {
+      return fileName.endsWith("txt") ? fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
   }
 
   private static class ViewHolder {

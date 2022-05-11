@@ -26,13 +26,6 @@ public class FileCore extends AppCompatActivity {
   }
 
 
-  // Метод для обрезки расширения файла
-  @Deprecated
-  public static String getWithoutExtension(String fileFullPath) {
-    if (fileFullPath.endsWith("txt"))
-      return fileFullPath.substring(0, fileFullPath.lastIndexOf('.'));
-    else return fileFullPath;
-  }
 
 
   @Deprecated
