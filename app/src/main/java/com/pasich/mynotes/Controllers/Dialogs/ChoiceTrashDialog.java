@@ -42,7 +42,7 @@ public class ChoiceTrashDialog extends DialogFragment {
               startActivityForResult(intent, 1);
               break;
             case 1:
-              CopyFileUtils.copyFile();
+              CopyFileUtils.moveFile();
               assert UpdateListInterface != null;
               UpdateListInterface.RemoveItem(Integer.parseInt(arrayNoteInfo[0]));
               break;

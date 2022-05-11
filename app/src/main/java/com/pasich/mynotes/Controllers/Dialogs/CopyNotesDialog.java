@@ -13,7 +13,6 @@ import com.pasich.mynotes.Adapters.SpinnerNotes.FolderSpinnerAdapter;
 import com.pasich.mynotes.Model.DialogModel.CopyNotesModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.CopyFileUtils;
-import com.pasich.mynotes.Utils.File.FileCore;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.DialogView.CopyNotesView;
 
@@ -22,8 +21,9 @@ import java.util.List;
 
 public class CopyNotesDialog extends DialogFragment {
   private final String[] arrayNoteInfo;
-  UpdateListInterface UpdateListInterface;
+  private UpdateListInterface UpdateListInterface;
   private int getItem;
+  private List<String> folderListArray;
 
   public CopyNotesDialog(String[] arrayKey) {
     this.arrayNoteInfo = arrayKey;
@@ -32,13 +32,8 @@ public class CopyNotesDialog extends DialogFragment {
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-    FileCore fileCore = new FileCore(getContext());
     CopyNotesView CopyNotesView = new CopyNotesView(requireContext(), getLayoutInflater());
-    CopyFileUtils CopyFileUtils = new CopyFileUtils( new File(requireContext().getFilesDir() + "/" + arrayNoteInfo[2], arrayNoteInfo[1]),
-              new File(requireContext().getFilesDir() + "/trash", ""));
-
-
-    List<String> folderListArray =
+    folderListArray =
         new CopyNotesModel(requireContext().getFilesDir(), arrayNoteInfo[2]).folderListArray;
     UpdateListInterface = (UpdateListInterface) requireContext();
     CopyNotesView.spinner.setAdapter(new FolderSpinnerAdapter(getContext(), folderListArray));
@@ -58,9 +53,15 @@ public class CopyNotesDialog extends DialogFragment {
     builder.setPositiveButton(
         getString(R.string.save),
         (dialog, which) -> {
-            CopyFileUtils.copyFile();
-          fileCore.transferNotes(arrayNoteInfo[1], folderListArray.get(getItem), arrayNoteInfo[2]);
-
+          new CopyFileUtils(
+                  new File(
+                      requireContext().getFilesDir() + "/" + arrayNoteInfo[2], arrayNoteInfo[1]),
+                  new File(
+                      requireContext().getFilesDir(),
+                      folderListArray.get(getItem).equals("...")
+                          ? ""
+                          : folderListArray.get(getItem)))
+              .moveFile();
           UpdateListInterface.RemoveItem(Integer.parseInt(arrayNoteInfo[0]));
         });
 

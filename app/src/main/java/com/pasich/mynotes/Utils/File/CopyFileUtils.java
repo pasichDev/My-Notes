@@ -30,13 +30,14 @@ public class CopyFileUtils {
   /**
    * A method that deletes a folder not recursively, but an empty folder
    */
-  public void copyFile() {
+  public void moveFile() {
     try {
       FileUtils.copyFileToDirectory(note, RootDir);
       FileUtils.forceDelete(note);
     } catch (final IOException ignored) {
     }
   }
+
 
 
 }

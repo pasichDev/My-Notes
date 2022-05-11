@@ -25,16 +25,6 @@ public class FileCore extends AppCompatActivity {
     this.context = context;
   }
 
-  @Deprecated
-  public int getCountFolder() {
-    int countFolder = 0;
-    File[] files = new File(context.getFilesDir() + "/").listFiles();
-    for (File file : files) {
-      if (!folderSystem[0].equals(file.getName()) && !folderSystem[1].equals(file.getName()))
-        countFolder = file.isDirectory() ? countFolder + 1 : countFolder;
-    }
-    return countFolder;
-  }
 
   // Метод для обрезки расширения файла
   @Deprecated

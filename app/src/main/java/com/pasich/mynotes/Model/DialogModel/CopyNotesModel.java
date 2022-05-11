@@ -2,8 +2,6 @@ package com.pasich.mynotes.Model.DialogModel;
 
 import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
 
-import com.pasich.mynotes.R;
-
 import org.apache.commons.io.comparator.NameFileComparator;
 
 import java.io.File;
@@ -26,9 +24,7 @@ public class CopyNotesModel {
     createArrayFolders();
   }
 
-  /**
-   * Method that creates a list of folders
-   */
+  /** Method that creates a list of folders */
   private void createArrayFolders() {
     for (File folderSel : foldersArray) {
       if (folderSel.isDirectory()
@@ -39,18 +35,14 @@ public class CopyNotesModel {
     }
   }
 
-  /**
-   * A method that adds a root folder if needed
-   */
+  /** A method that adds a root folder if needed */
   private void addRootDirectory() {
     if (folderOutput.length() >= 1) {
-      folderListArray.add(String.valueOf(R.string.rootFolder));
+      folderListArray.add("...");
     }
   }
 
-  /**
-   * Method that sorts objects by name
-   */
+  /** Method that sorts objects by name */
   private void sortArray() {
     Arrays.sort(foldersArray, NameFileComparator.NAME_COMPARATOR);
   }

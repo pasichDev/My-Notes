@@ -20,7 +20,7 @@ public class CleanTrashDialog extends DialogFragment {
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-    FolderUtils FolderUtils = new FolderUtils(new File(requireContext().getFilesDir(), "Trash"));
+    FolderUtils FolderUtils = new FolderUtils(new File(requireContext().getFilesDir(), "trash"));
     UpdateListInterface UpdateListInterface = (UpdateListInterface) getContext();
     CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
     uiDialog.setHeadTextView(getString(R.string.trashN));
