@@ -6,7 +6,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-public class TrashUtils {
+public class CopyFileUtils {
 
   /**
    * The file being operated on
@@ -22,7 +22,7 @@ public class TrashUtils {
    * @param filesDir - file (File)
    * @param RootDir -
    */
-  public TrashUtils(File filesDir, File RootDir) {
+  public CopyFileUtils(File filesDir,File RootDir) {
     this.note = filesDir;
     this.RootDir = RootDir;
   }

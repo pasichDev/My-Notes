@@ -12,10 +12,12 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.Adapters.SpinnerNotes.FolderSpinnerAdapter;
 import com.pasich.mynotes.Model.DialogModel.CopyNotesModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.File.CopyFileUtils;
 import com.pasich.mynotes.Utils.File.FileCore;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.DialogView.CopyNotesView;
 
+import java.io.File;
 import java.util.List;
 
 public class CopyNotesDialog extends DialogFragment {
@@ -32,6 +34,10 @@ public class CopyNotesDialog extends DialogFragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
     FileCore fileCore = new FileCore(getContext());
     CopyNotesView CopyNotesView = new CopyNotesView(requireContext(), getLayoutInflater());
+    CopyFileUtils CopyFileUtils = new CopyFileUtils( new File(requireContext().getFilesDir() + "/" + arrayNoteInfo[2], arrayNoteInfo[1]),
+              new File(requireContext().getFilesDir() + "/trash", ""));
+
+
     List<String> folderListArray =
         new CopyNotesModel(requireContext().getFilesDir(), arrayNoteInfo[2]).folderListArray;
     UpdateListInterface = (UpdateListInterface) requireContext();
@@ -52,7 +58,9 @@ public class CopyNotesDialog extends DialogFragment {
     builder.setPositiveButton(
         getString(R.string.save),
         (dialog, which) -> {
+            CopyFileUtils.copyFile();
           fileCore.transferNotes(arrayNoteInfo[1], folderListArray.get(getItem), arrayNoteInfo[2]);
+
           UpdateListInterface.RemoveItem(Integer.parseInt(arrayNoteInfo[0]));
         });
 

@@ -13,7 +13,10 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.Controllers.Dialogs.CopyNotesDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.FileCore;
+import com.pasich.mynotes.Utils.File.CopyFileUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
+
+import java.io.File;
 
 public class ChoiceNoteDialog extends DialogFragment {
   private final String[] arrayKey;
@@ -29,13 +32,15 @@ public class ChoiceNoteDialog extends DialogFragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
     UpdateListInterface = (UpdateListInterface) getContext();
     fileCore = new FileCore(getContext());
+    CopyFileUtils CopyFileUtils = new CopyFileUtils( new File(requireContext().getFilesDir() + "/" + arrayKey[2], arrayKey[1]),
+            new File(requireContext().getFilesDir() + "/trash", ""));
 
     builder.setItems(
         choiceItems(),
         (dialog, which) -> {
           switch (which) {
             case 0:
-              fileCore.transferNotes(arrayKey[1], "trash", arrayKey[2]);
+              CopyFileUtils.copyFile();
               UpdateListInterface.RemoveItem(Integer.parseInt(arrayKey[0]));
               break;
             case 1:

@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.File.TrashUtils;
+import com.pasich.mynotes.Utils.File.CopyFileUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 
 import java.io.File;
@@ -26,8 +26,8 @@ public class ChoiceTrashDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
     UpdateListInterface UpdateListInterface = (UpdateListInterface) getContext();
-    TrashUtils TrashUtils =
-        new TrashUtils(
+    CopyFileUtils CopyFileUtils =
+        new CopyFileUtils(
             new File(requireContext().getFilesDir() + "/trash", arrayNoteInfo[1]),
             new File(requireContext().getFilesDir(), ""));
 
@@ -42,7 +42,7 @@ public class ChoiceTrashDialog extends DialogFragment {
               startActivityForResult(intent, 1);
               break;
             case 1:
-              TrashUtils.copyFile();
+              CopyFileUtils.copyFile();
               assert UpdateListInterface != null;
               UpdateListInterface.RemoveItem(Integer.parseInt(arrayNoteInfo[0]));
               break;
