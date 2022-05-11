@@ -44,6 +44,7 @@
         </activity>
         <activity
             android:name=".Controllers.ShareActivity"
+            android:label="@string/saveNotes"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
