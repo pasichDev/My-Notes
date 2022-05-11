@@ -48,4 +48,10 @@ public class TrashModel {
   public int getSizeArray() {
     return notesArray.size();
   }
+
+  /** Method that clears an array and starts a new one */
+  public void getUpdateArray() {
+    notesArray.clear();
+    searchNotes();
+  }
 }

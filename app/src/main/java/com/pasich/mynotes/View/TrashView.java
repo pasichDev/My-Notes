@@ -1,19 +1,17 @@
 package com.pasich.mynotes.View;
 
 import android.view.View;
-import android.widget.GridView;
+import android.widget.ListView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
 
 public class TrashView {
 
     protected final View view;
     public final Toolbar toolbar;
-    public GridView trashNotesList;
+    public ListView trashNotesList;
 
     public TrashView(View rootView){
         this.view = rootView;
@@ -22,10 +20,17 @@ public class TrashView {
         setToolbar();
     }
 
+
     private void setToolbar(){
         toolbar.setTitle(R.string.trashN);
     }
 
-
+    /**
+     * Method that handles displaying a message about an empty note
+     **/
+    public  void createViewTrashEmpty() {
+        view.findViewById(R.id.emptyTrash).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.imageEmptyTrash).setVisibility(View.VISIBLE);
+    }
 
 }

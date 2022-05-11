@@ -12,8 +12,8 @@
         layout="@layout/toolbar" />
 
 
-    <GridView
-        android:numColumns="1"
+    <ListView
+        android:drawSelectorOnTop="false"
         android:id="@+id/ListTrash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

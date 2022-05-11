@@ -9,6 +9,7 @@
      >
 
     <GridView
+        android:drawSelectorOnTop="false"
         android:numColumns="1"
         android:id="@+id/ListFileNotes"
         android:layout_width="match_parent"

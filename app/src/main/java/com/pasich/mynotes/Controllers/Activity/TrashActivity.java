@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Check.CheckEmptyTrashUtils.checkCountListTrash;
 import static com.pasich.mynotes.Utils.Check.CheckFolderUtils.checkSystemFolder;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
@@ -18,38 +17,28 @@ import com.pasich.mynotes.Controllers.Dialogs.ChoiceTrashDialog;
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.TrashView;
 
-public class TrashActivity extends AppCompatActivity {
+public class TrashActivity extends AppCompatActivity implements UpdateListInterface {
 
-  private DefaultListAdapter defaultListAdapter;
   protected TrashView TrashView;
   protected TrashModel TrashModel;
+  private DefaultListAdapter defaultListAdapter;
   private int countItems;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    checkSystemFolder(this);
     setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_trash_notes);
-
+    setContentView(R.layout.activity_trash);
+    checkSystemFolder(this);
     TrashView = new TrashView(getWindow().getDecorView());
     TrashModel = new TrashModel(this);
-    setSupportActionBar(TrashView.toolbar);
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-    if (TrashModel.getSizeArray() != 0) {
-      defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, TrashModel.notesArray);
-      TrashView.trashNotesList.setAdapter(defaultListAdapter);
+    setupActionBar();
 
-      TrashView.trashNotesList.setOnItemClickListener(
-          (parent, v, position, id) ->
-              new ChoiceTrashDialog(position, TrashModel.notesArray, defaultListAdapter)
-                  .show(getSupportFragmentManager(), "choiseTrash"));
-    } else checkCountListTrash(this);
+    if (TrashModel.getSizeArray() != 0) createAdapterListView();
+    else TrashView.createViewTrashEmpty();
     countItems = TrashModel.getSizeArray();
   }
 
@@ -71,8 +60,7 @@ public class TrashActivity extends AppCompatActivity {
       closeActivity();
     } else if (item.getItemId() == R.id.trashClean) {
       if (!(defaultListAdapter.getCount() == 0)) {
-        CleanTrashDialog dialog = new CleanTrashDialog(defaultListAdapter);
-        dialog.show(getSupportFragmentManager(), "CleanTrashDialog");
+        new CleanTrashDialog().show(getSupportFragmentManager(), "CleanTrashDialog");
       } else {
         Toast.makeText(getApplicationContext(), R.string.trashNull, Toast.LENGTH_SHORT).show();
       }
@@ -80,8 +68,48 @@ public class TrashActivity extends AppCompatActivity {
     return true;
   }
 
+  /** Method that sets up the Activity's ActionBar */
+  private void setupActionBar() {
+    setSupportActionBar(TrashView.toolbar);
+    ActionBar actionBar = getSupportActionBar();
+    if (actionBar != null) {
+      actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+  }
+
+  /** The method that implements the response to the activity with which the arrival was */
   private void closeActivity() {
     setResult(24, new Intent().putExtra("updateList", countItems != TrashModel.getSizeArray()));
     finish();
+  }
+
+  private void createAdapterListView() {
+    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, TrashModel.notesArray);
+    TrashView.trashNotesList.setAdapter(defaultListAdapter);
+    activateListener();
+  }
+
+  private void activateListener() {
+    TrashView.trashNotesList.setOnItemClickListener(
+        (parent, v, position, id) ->
+            new ChoiceTrashDialog(
+                    new String[] {
+                      String.valueOf(position), defaultListAdapter.getItem(position).getNameList()
+                    })
+                .show(getSupportFragmentManager(), "choiceTrash"));
+  }
+
+  @Override
+  public void RestartListView() {
+    defaultListAdapter.getData().clear();
+    defaultListAdapter.notifyDataSetChanged();
+    TrashView.createViewTrashEmpty();
+  }
+
+  @Override
+  public void RemoveItem(int position) {
+    defaultListAdapter.getData().remove(position);
+    defaultListAdapter.notifyDataSetChanged();
+    if (defaultListAdapter.getCount() == 0) TrashView.createViewTrashEmpty();
   }
 }
