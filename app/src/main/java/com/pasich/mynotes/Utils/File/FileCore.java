@@ -33,6 +33,8 @@ public class FileCore extends AppCompatActivity {
       return fileFullPath.substring(0, fileFullPath.lastIndexOf('.'));
     else return fileFullPath;
   }
+
+
   @Deprecated
   public void saveNameFolder(String nameFolder, boolean rename, String oldName) {
     Toast toast = null;
@@ -62,34 +64,6 @@ public class FileCore extends AppCompatActivity {
   }
 
 
-
-  // Метод перноса файлов в корзину
-  @Deprecated
-  public void transferNotes(String data_file, String folder, String folderOutput) {
-    if (new File(context.getFilesDir() + "/" + folder).exists()
-        || folder.equals(context.getString(R.string.rootFolder))) {
-
-      File inputFile;
-      if (folderOutput.length() == 0) {
-        inputFile = new File(context.getFilesDir() + "/" + data_file);
-        inputFile.renameTo(new File(context.getFilesDir() + "/" + folder + "/" + data_file));
-      } else {
-        inputFile = new File(context.getFilesDir() + "/" + folderOutput + "/" + data_file);
-        if (folder.equals(context.getString(R.string.rootFolder))) {
-          inputFile.renameTo(new File(context.getFilesDir() + "/" + data_file));
-
-        } else {
-          inputFile.renameTo(new File(context.getFilesDir() + "/" + folder + "/" + data_file));
-        }
-      }
-      inputFile.delete();
-
-    } else {
-      Toast toast =
-          Toast.makeText(context, getString(R.string.error_folder_NoExists), Toast.LENGTH_SHORT);
-      toast.show();
-    }
-  }
 
 
 

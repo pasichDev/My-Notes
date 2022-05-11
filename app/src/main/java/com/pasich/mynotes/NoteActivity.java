@@ -148,7 +148,10 @@ public class NoteActivity extends AppCompatActivity {
     findViewById(R.id.deleteButton)
         .setOnClickListener(
             v -> {
-              fileCore.transferNotes(idNote, "trash", folder);
+              /**
+               * Нужно реализовать функцию, удалиния заметок
+               */
+            //  fileCore.transferNotes(idNote, "trash", folder);
               closeNotesSave(false, false);
               Toast.makeText(getApplicationContext(), R.string.transferToTrash, Toast.LENGTH_LONG)
                   .show();
