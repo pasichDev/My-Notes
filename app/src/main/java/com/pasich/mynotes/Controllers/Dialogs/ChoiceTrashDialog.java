@@ -10,30 +10,29 @@ import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.NoteActivity;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.File.FileCore;
+import com.pasich.mynotes.Utils.File.TrashUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 
+import java.io.File;
 
 public class ChoiceTrashDialog extends DialogFragment {
   private final String[] arrayNoteInfo;
 
   public ChoiceTrashDialog(String[] array) {
     this.arrayNoteInfo = array;
-
   }
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-    FileCore fileCore = new FileCore(getContext());
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
     UpdateListInterface UpdateListInterface = (UpdateListInterface) getContext();
-
-
-
+    TrashUtils TrashUtils =
+        new TrashUtils(
+            new File(requireContext().getFilesDir() + "/trash", arrayNoteInfo[1]),
+            new File(requireContext().getFilesDir(), ""));
 
     builder.setItems(
-            new String[]{getString(R.string.OpenViewNotes), getString(R.string.removeNotes)},
+        new String[] {getString(R.string.OpenViewNotes), getString(R.string.removeNotes)},
         (dialog, which) -> {
           switch (which) {
             case 0:
@@ -41,10 +40,9 @@ public class ChoiceTrashDialog extends DialogFragment {
               intent.putExtra("KeyFunction", "TrashNote");
               intent.putExtra("idNote", arrayNoteInfo[1]);
               startActivityForResult(intent, 1);
-
               break;
             case 1:
-              fileCore.removeNotesFile(arrayNoteInfo[1]);
+              TrashUtils.copyFile();
               assert UpdateListInterface != null;
               UpdateListInterface.RemoveItem(Integer.parseInt(arrayNoteInfo[0]));
               break;

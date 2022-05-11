@@ -27,6 +27,7 @@ public class FileCore extends AppCompatActivity {
     this.context = context;
   }
 
+  @Deprecated
   public int getCountFolder() {
     int countFolder = 0;
     File[] files = new File(context.getFilesDir() + "/").listFiles();
@@ -38,12 +39,13 @@ public class FileCore extends AppCompatActivity {
   }
 
   // Метод для обрезки расширения файла
+  @Deprecated
   public static String getWithoutExtension(String fileFullPath) {
     if (fileFullPath.endsWith("txt"))
       return fileFullPath.substring(0, fileFullPath.lastIndexOf('.'));
     else return fileFullPath;
   }
-
+  @Deprecated
   public void saveNameFolder(String nameFolder, boolean rename, String oldName) {
     Toast toast = null;
     if (folderSystem[1].equals(nameFolder) || folderSystem[0].equals(nameFolder)) {
@@ -73,27 +75,8 @@ public class FileCore extends AppCompatActivity {
 
 
 
-  public void deleteAllNotes() {
-    File dirFiles = new File(context.getFilesDir() + "/trash/");
-    File[] filex = dirFiles.listFiles((FileFilter) FileFileFilter.FILE);
-    assert filex != null;
-    String[] files = convertFromFilesArray(filex);
-    for (String file : files) {
-      File myFile = new File(dirFiles, file);
-      myFile.delete();
-    }
-  }
-
-  private String[] convertFromFilesArray(File[] files) {
-    String[] result = new String[files.length];
-    for (int i = 0; i < files.length; i++) {
-      result[i] = files[i].getName();
-    }
-
-    return result;
-  }
-
   // Метод перноса файлов в корзину
+  @Deprecated
   public void transferNotes(String data_file, String folder, String folderOutput) {
     if (new File(context.getFilesDir() + "/" + folder).exists()
         || folder.equals(context.getString(R.string.rootFolder))) {
@@ -120,12 +103,6 @@ public class FileCore extends AppCompatActivity {
     }
   }
 
-  // Метод перноса файлов из корзины
-  public void removeNotesFile(String data_file) {
-    File inputFile = new File(context.getFilesDir() + "/trash/" + data_file);
-    inputFile.renameTo(new File(context.getFilesDir() + "/" + data_file));
-    inputFile.delete();
-  }
 
   /**
    * Метод для хранения созданых заметок
@@ -133,6 +110,7 @@ public class FileCore extends AppCompatActivity {
    * @param data_file - вместительность заметки
    * @param folder - папка в которую сохраним заметку
    */
+  @Deprecated
   public void writeNote(StringBuilder data_file, String folder) {
     try {
 
@@ -154,6 +132,7 @@ public class FileCore extends AppCompatActivity {
   // Метод которые открывает заметки
   // *data file - текст который вводил пользователь
   // *folded - папка из которой было создано заметку
+  @Deprecated
   public StringBuilder readFile(String data_file, String folder) {
     StringBuilder stringBuilder = new StringBuilder();
     String line;
@@ -179,6 +158,7 @@ public class FileCore extends AppCompatActivity {
    * @param oldName - название старого файла заметки
    * @param folder - папка в которой находиться исходная заметка
    */
+  @Deprecated
   public void editFile(StringBuilder data_text, String oldName, String folder) {
     try {
       // Сделаем проверку на существование такого же файла!
@@ -215,6 +195,7 @@ public class FileCore extends AppCompatActivity {
    * @param nameFolder - имья которое нужно проверить
    * @return - возвращает проверяное имья папки < 40
    */
+  @Deprecated
   private String checkNameFolder(String nameFolder) {
     String name = cleanName(nameFolder);
     File folder = new File(context.getFilesDir() + "/" + nameFolder);
@@ -230,6 +211,7 @@ public class FileCore extends AppCompatActivity {
    * @param inputName - StringBuilder - который нужно обрезать
    * @return - возвращает название длиной меньнше 40 символов
    */
+  @Deprecated
   public String cleanName(String inputName) {
     inputName = inputName.replaceAll("[^\\p{L}\\p{N}\\s]+", "");
     inputName = inputName.trim();
@@ -250,6 +232,7 @@ public class FileCore extends AppCompatActivity {
    * @param folder
    * @return
    */
+  @Deprecated
   private String checkNameNotes(String nameNotes, String folder) {
 
     String nameNotesOutput = nameNotes;
