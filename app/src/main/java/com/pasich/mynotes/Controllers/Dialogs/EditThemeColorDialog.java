@@ -1,7 +1,6 @@
 package com.pasich.mynotes.Controllers.Dialogs;
 
 import static com.pasich.mynotes.Utils.Constants.SystemConstant.settingsFileName;
-import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_THEME;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -13,39 +12,25 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
 
-import com.pasich.mynotes.Adapters.GridView.ImageAdapter;
+import com.pasich.mynotes.Adapters.GridView.ColorsAdapter;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.View.CustomView.CustomUIDialog;
+import com.pasich.mynotes.Utils.Interface.UpdateTheme;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
+import com.pasich.mynotes.View.DialogView.EditThemeColorView;
 
 public class EditThemeColorDialog extends DialogFragment {
-  /** An interface that updates the activity after changing the theme */
-  public interface updateTheme {
-    void updateThemeCheck();
-  }
 
-  private final Context context;
-
-  public EditThemeColorDialog(Context context) {
-    this.context = context;
-  }
-
-  private updateTheme listen;
+  private UpdateTheme UpdateTheme;
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    listen = (updateTheme) getContext();
+    UpdateTheme = (UpdateTheme) getContext();
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
-    GridView gridview = new GridView(getContext());
-    gridview.setNumColumns(6);
-    gridview.setHorizontalSpacing(10);
-    gridview.setAdapter(new ImageAdapter(getContext()));
-    uiDialog.setHeadTextView(getString(R.string.selectColorPrimaryApp));
-    uiDialog.getContainer().addView(gridview, uiDialog.lp);
-    builder.setView(uiDialog.getContainer());
+    EditThemeColorView editThemeColorView = new EditThemeColorView(getContext(), getLayoutInflater());
+    editThemeColorView.GridView.setAdapter(new ColorsAdapter(getContext()));
+    builder.setView(editThemeColorView.uiDialog.getContainer());
     builder.setNegativeButton(getString(R.string.cancel), null);
-    gridview.setOnItemClickListener(gridviewOnItemClickListener);
+    editThemeColorView.GridView.setOnItemClickListener(gridviewOnItemClickListener);
     return builder.create();
   }
 
@@ -56,8 +41,7 @@ public class EditThemeColorDialog extends DialogFragment {
             .getString("themeColor", SystemConstant.Settings_Theme)
             .equals(getResources().getStringArray(R.array.themeColor_values)[position])) {
           editThemePreferences(position);
-          UPDATE_THEME = true;
-          listen.updateThemeCheck();
+          UpdateTheme.recreateActivity();
         }
        requireDialog().dismiss();
       };
@@ -68,8 +52,7 @@ public class EditThemeColorDialog extends DialogFragment {
    * @param pos - the element that was clicked
    */
   private void editThemePreferences(int pos) {
-    context
-        .getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
+    requireContext().getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
         .edit()
         .putString("themeColor", getResources().getStringArray(R.array.themeColor_values)[pos])
         .apply();

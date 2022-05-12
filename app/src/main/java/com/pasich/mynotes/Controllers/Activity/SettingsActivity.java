@@ -16,9 +16,10 @@ import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentBackup;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentMain;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentVoice;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Interface.UpdateTheme;
 import com.pasich.mynotes.View.SettingsView;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements UpdateTheme {
   protected SettingsView SettingsView;
 
   @Override
@@ -64,22 +65,20 @@ public class SettingsActivity extends AppCompatActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
-      closeSettings();
+      finish();
     }
     return true;
   }
 
   @Override
   public void onBackPressed() {
-    closeSettings();
-  }
-
-  protected void closeSettings() {
     finish();
   }
 
   @Override
-  public void onResume() {
-    super.onResume();
+  public void recreateActivity() {
+    finish();
+    startActivity(getIntent());
+    overridePendingTransition(0, 0);
   }
 }

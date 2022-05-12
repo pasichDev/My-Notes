@@ -1,7 +1,5 @@
 package com.pasich.mynotes.Adapters.GridView;
 
-import static com.pasich.mynotes.Utils.Constants.SystemConstant.ColorThemePrimary;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +9,30 @@ import android.widget.ImageView;
 
 import com.pasich.mynotes.R;
 
-public class ImageAdapter extends BaseAdapter {
-  /** Переменые для адаптера colors = импортируеться из SystemConstant */
+public class ColorsAdapter extends BaseAdapter {
   private final Context mContext;
-
-  private final Integer[] colors = ColorThemePrimary;
+  private final Integer[] colors = {
+          R.color.red_Primary,
+          R.color.orange_Primary,
+          R.color.green_Primary,
+          R.color.indigo_Primary,
+          R.color.purple_Primary,
+          R.color.dark_Primary
+  };
 
   /**
    * Constructor to Adapter
    *
-   * @param c - контекс активности скоторой вызываем адаптер
+   * @param c - activity context with which we call the adapter
    */
-  public ImageAdapter(Context c) {
+  public ColorsAdapter(Context c) {
     mContext = c;
   }
 
   /**
-   * Количество доступных цветов
+   * Number of colors available
    *
-   * @return
+   * @return - int
    */
   public int getCount() {
     return colors.length;
@@ -44,7 +47,7 @@ public class ImageAdapter extends BaseAdapter {
   }
 
   public View getView(int position, View convertView, ViewGroup parent) {
-    ImageView imageView;
+   final ImageView imageView;
     if (convertView == null) {
       imageView = new ImageView(mContext);
       imageView.setLayoutParams(
