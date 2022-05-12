@@ -16,25 +16,17 @@ public class FragmentAppInfo extends PreferenceFragmentCompat {
   @Override
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     setPreferencesFromResource(R.xml.appinfo_preferences, rootKey);
-    String versionName = BuildConfig.VERSION_NAME;
-    Preference verPrefence = findPreference("verPrefence");
-    assert verPrefence != null;
-    verPrefence.setTitle("My Notes (v" + versionName + ")");
+    final Preference verPreference = findPreference("verPrefence");
+    final Preference ratings = findPreference("ratingApp");
+    final Preference whatsUpdateKey = findPreference("whatsUpdate");
 
-    Preference ratings = findPreference("ratingApp");
-    Preference whatsUpdateKey = findPreference("whatsUpdate");
+    assert verPreference != null;
+    verPreference.setTitle("My Notes (v" + BuildConfig.VERSION_NAME + ")");
 
     assert ratings != null;
     ratings.setOnPreferenceClickListener(
         preference -> {
-          final Uri uri = Uri.parse("market://details?id=" + requireContext().getPackageName());
-          final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
-          if (requireContext().getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0) {
-            startActivity(rateAppIntent);
-          } else {
-            Toast.makeText(getContext(), getString(R.string.notFoundPlayMarket), Toast.LENGTH_SHORT)
-                .show();
-          }
+          openPlayMarket();
           return true;
         });
     assert whatsUpdateKey != null;
@@ -43,5 +35,18 @@ public class FragmentAppInfo extends PreferenceFragmentCompat {
           new WhatUpdateDialog().show(getParentFragmentManager(), "WhatUpdateDialog");
           return true;
         });
+  }
+  /** The method that implements open application pages in the play market */
+  private void openPlayMarket() {
+    final Intent rateAppIntent =
+        new Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("market://details?id=" + requireContext().getPackageName()));
+    if (requireContext().getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0) {
+      startActivity(rateAppIntent);
+    } else {
+      Toast.makeText(getContext(), getString(R.string.notFoundPlayMarket), Toast.LENGTH_SHORT)
+          .show();
+    }
   }
 }
