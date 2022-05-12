@@ -31,8 +31,11 @@ public class ThemeUtils {
    */
   public static int ThemeColorValue(String themeValue) {
     int theme = 0;
-    if (themeValue == null && themeValue.trim().isEmpty()) {
-      theme = R.style.ThemeDark;
+    if (themeValue == null) {
+      assert false;
+      if (themeValue.trim().isEmpty()) {
+        theme = R.style.ThemeDark;
+      }
     }
     if (themeValue.equals("Red")) theme = R.style.ThemeRed;
     if (themeValue.equals("Purple")) theme = R.style.ThemePurple;

@@ -12,13 +12,13 @@ import com.pasich.mynotes.R;
 
 import java.util.List;
 
-public class SouceListAdapter extends ArrayAdapter<SourceListContent> {
+public class SourceListAdapter extends ArrayAdapter<SourceListContent> {
 
   private final LayoutInflater inflater;
   private final int layout;
   private final List<SourceListContent> SourceListContent;
 
-  public SouceListAdapter(
+  public SourceListAdapter(
       Context context, int resource, List<SourceListContent> SourceListContent) {
     super(context, resource, SourceListContent);
     this.SourceListContent = SourceListContent;
@@ -59,18 +59,15 @@ public class SouceListAdapter extends ArrayAdapter<SourceListContent> {
     }
 
     viewHolder.sourceView.setText(sourceItem);
-    //       viewHolder.typeView.setText(typeItem);
-
     return convertView;
   }
 
-  private class ViewHolder {
+  private static class ViewHolder {
     final TextView sourceView;
     final ImageView imgSource;
 
     ViewHolder(View view) {
       sourceView = view.findViewById(R.id.nameSource);
-      //    typeView =  view.findViewById(R.id.typeSource);
       imgSource = view.findViewById(R.id.imageSource);
     }
   }

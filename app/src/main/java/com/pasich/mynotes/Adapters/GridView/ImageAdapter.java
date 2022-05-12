@@ -13,7 +13,7 @@ import com.pasich.mynotes.R;
 
 public class ImageAdapter extends BaseAdapter {
   /** Переменые для адаптера colors = импортируеться из SystemConstant */
-  private Context mContext;
+  private final Context mContext;
 
   private final Integer[] colors = ColorThemePrimary;
 

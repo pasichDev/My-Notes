@@ -14,11 +14,11 @@ import java.util.List;
 public class FolderSpinnerAdapter extends BaseAdapter {
 
   private final List<String> Names;
-  private final LayoutInflater inflter;
+  private final LayoutInflater inflater;
 
   public FolderSpinnerAdapter(Context applicationContext, List<String> Names) {
     this.Names = Names;
-    inflter = (LayoutInflater.from(applicationContext));
+    inflater = (LayoutInflater.from(applicationContext));
   }
 
   @Override
@@ -38,7 +38,7 @@ public class FolderSpinnerAdapter extends BaseAdapter {
 
   @Override
   public View getView(int i, View view, ViewGroup viewGroup) {
-    view = inflter.inflate(R.layout.spinner_list_folders, null);
+    view = inflater.inflate(R.layout.spinner_list_folders, null);
     TextView names = view.findViewById(R.id.spinner_textFolders);
     names.setText(Names.get(i));
     return view;

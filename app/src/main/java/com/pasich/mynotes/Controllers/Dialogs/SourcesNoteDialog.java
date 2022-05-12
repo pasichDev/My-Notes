@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.pasich.mynotes.Adapters.SourceNoteList.SouceListAdapter;
+import com.pasich.mynotes.Adapters.SourceNoteList.SourceListAdapter;
 import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.CustomView.CustomUIDialog;
@@ -45,8 +45,8 @@ public class SourcesNoteDialog extends DialogFragment {
 
     builder.setView(uiDialog.getContainer());
 
-    SouceListAdapter souceListAdapter =
-        new SouceListAdapter(getContext(), R.layout.list_source_note, ListSoc);
+    SourceListAdapter souceListAdapter =
+        new SourceListAdapter(getContext(), R.layout.list_source_note, ListSoc);
     listView.setAdapter(souceListAdapter);
 
     listView.setOnItemClickListener(
