@@ -1,8 +1,6 @@
 package com.pasich.mynotes.Controllers.Activity;
 
 import static com.pasich.mynotes.Utils.Check.CheckFolderUtils.checkSystemFolder;
-import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_LISTVIEW;
-import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_THEME;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
 import android.content.Intent;
@@ -29,12 +27,7 @@ import com.pasich.mynotes.View.MainView;
 
 public class MainActivity extends AppCompatActivity implements UpdateListInterface {
 
-  protected ListNotesFragment FragmentListNotes;
-  protected SortSwitchUtils sortSwitch;
-  protected FormatSwitchUtils formatSwitch;
-  protected MainView MainView;
-  protected MainUtils MainUtils;
-
+  private ListNotesFragment FragmentListNotes;
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
       registerForActivityResult(
@@ -44,7 +37,13 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
             if (result.getResultCode() == 24 && result.getData() != null) {
               if (data.getBooleanExtra("updateList", false)) FragmentListNotes.restartListNotes();
             }
+
           });
+
+  private SortSwitchUtils sortSwitch;
+  private FormatSwitchUtils formatSwitch;
+  private MainView MainView;
+  private MainUtils MainUtils;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
     setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
     sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
@@ -82,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
             MainView.tabLayout.selectTab(MainView.tabLayout.getTabAt(position));
           }
         });
+
   }
 
   /** The method that sets up the ViewPager */
@@ -138,26 +137,22 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
     formatSwitch.getFormatParam();
   }
 
-  /** Тоже очень интересная реализация Позже желательно выпилить */
+  /**
+   * Тоже очень интересная реализация Позже желательно выпилить
+   * Нужно любой ценой  реализовать обновления ListView после onPause()
+   * */
   @Override
   public void onStart() {
     super.onStart();
 
-    if (UPDATE_THEME) {
-      finish();
-      startActivity(getIntent());
-      overridePendingTransition(0, 0);
-      UPDATE_THEME = false;
-    } else if (UPDATE_LISTVIEW) {
-      FragmentListNotes.restartListNotes();
-      UPDATE_LISTVIEW = false;
-    }
   }
 
   @Override
   public void RestartListView() {
     FragmentListNotes.restartListNotes();
   }
+
+
 
   @Override
   public void RemoveItem(int position) {
