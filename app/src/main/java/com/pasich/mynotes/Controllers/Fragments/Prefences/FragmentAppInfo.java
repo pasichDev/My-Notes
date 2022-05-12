@@ -16,7 +16,7 @@ public class FragmentAppInfo extends PreferenceFragmentCompat {
   @Override
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     setPreferencesFromResource(R.xml.appinfo_preferences, rootKey);
-    final Preference verPreference = findPreference("verPrefence");
+    final Preference verPreference = findPreference("verPreference");
     final Preference ratings = findPreference("ratingApp");
     final Preference whatsUpdateKey = findPreference("whatsUpdate");
 

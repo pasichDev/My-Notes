@@ -39,7 +39,7 @@
                     android:summary="@string/author"
                     android:title="@string/verApp"
                     app:enabled="false"
-                    android:key="verPrefence"/>
+                    android:key="verPreference"/>
         </PreferenceCategory>
 </PreferenceScreen>
 
