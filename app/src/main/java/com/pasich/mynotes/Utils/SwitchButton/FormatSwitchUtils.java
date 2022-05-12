@@ -1,7 +1,5 @@
 package com.pasich.mynotes.Utils.SwitchButton;
 
-import static com.pasich.mynotes.Utils.Constants.SystemConstant.settingsFileName;
-
 import android.content.Context;
 import android.widget.ImageButton;
 
@@ -40,7 +38,8 @@ public class FormatSwitchUtils {
     switch (getSettingsFormatParam()) {
       case 1:
         context
-            .getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
+            .getSharedPreferences(
+                context.getString(R.string.PreferencesFileName), Context.MODE_PRIVATE)
             .edit()
             .putInt("formatParam", 2)
             .apply();
@@ -48,7 +47,8 @@ public class FormatSwitchUtils {
         break;
       case 2:
         context
-            .getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
+            .getSharedPreferences(
+                context.getString(R.string.PreferencesFileName), Context.MODE_PRIVATE)
             .edit()
             .putInt("formatParam", 1)
             .apply();

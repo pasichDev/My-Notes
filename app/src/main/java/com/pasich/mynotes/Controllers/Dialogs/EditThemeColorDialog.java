@@ -1,7 +1,5 @@
 package com.pasich.mynotes.Controllers.Dialogs;
 
-import static com.pasich.mynotes.Utils.Constants.SystemConstant.settingsFileName;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,8 +12,8 @@ import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.GridView.ColorsAdapter;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Interface.UpdateTheme;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
+import com.pasich.mynotes.Utils.Interface.UpdateTheme;
 import com.pasich.mynotes.View.DialogView.EditThemeColorView;
 
 public class EditThemeColorDialog extends DialogFragment {
@@ -52,7 +50,8 @@ public class EditThemeColorDialog extends DialogFragment {
    * @param pos - the element that was clicked
    */
   private void editThemePreferences(int pos) {
-    requireContext().getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
+    requireContext()
+        .getSharedPreferences(getString(R.string.PreferencesFileName), Context.MODE_PRIVATE)
         .edit()
         .putString("themeColor", getResources().getStringArray(R.array.themeColor_values)[pos])
         .apply();

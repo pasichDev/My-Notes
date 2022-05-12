@@ -128,6 +128,7 @@
     <string name="cd_format">Format notes</string>
 
 
-    <string name="folders" translatable="false" >Папки</string>
-    <string name="namefolder">NameFolder</string>
+    <string name="folders" translatable="false">Папки</string>
+    <string name="namefolder" translatable="false">NameFolder</string>
+    <string name="PreferencesFileName" translatable="false">com.pasich.mynotes_preferences</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Utils.SwitchButton;
 
-import static com.pasich.mynotes.Utils.Constants.SystemConstant.settingsFileName;
 
 import android.content.Context;
 import android.widget.ImageButton;
@@ -40,7 +39,8 @@ public class SortSwitchUtils {
     switch (getSettingsSortParam()) {
       case "date":
         context
-            .getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
+            .getSharedPreferences(
+                context.getString(R.string.PreferencesFileName), Context.MODE_PRIVATE)
             .edit()
             .putString("sortPref", "name")
             .apply();
@@ -48,7 +48,8 @@ public class SortSwitchUtils {
         break;
       case "name":
         context
-            .getSharedPreferences(settingsFileName, Context.MODE_PRIVATE)
+            .getSharedPreferences(
+                context.getString(R.string.PreferencesFileName), Context.MODE_PRIVATE)
             .edit()
             .putString("sortPref", "date")
             .apply();
