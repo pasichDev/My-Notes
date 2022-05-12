@@ -1,5 +1,6 @@
 package com.pasich.mynotes.Adapters.SpinnerNotes;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,11 +37,25 @@ public class FolderSpinnerAdapter extends BaseAdapter {
     return 0;
   }
 
+  @SuppressLint("InflateParams")
   @Override
   public View getView(int i, View view, ViewGroup viewGroup) {
-    view = inflater.inflate(R.layout.spinner_list_folders, null);
-    TextView names = view.findViewById(R.id.spinner_textFolders);
-    names.setText(Names.get(i));
+    ViewHolder viewHolder;
+    if (view == null) {
+      view = inflater.inflate(R.layout.spinner_list_folders, null);
+      viewHolder = new ViewHolder(view);
+      view.setTag(viewHolder);
+    } else {
+      viewHolder = (ViewHolder) view.getTag();
+    }
+    viewHolder.names.setText(Names.get(i));
     return view;
+  }
+
+  private static class ViewHolder {
+    final TextView names ;
+    ViewHolder(View view) {
+      names = view.findViewById(R.id.spinner_textFolders);
+    }
   }
 }

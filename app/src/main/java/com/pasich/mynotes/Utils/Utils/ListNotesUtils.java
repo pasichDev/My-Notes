@@ -4,20 +4,19 @@ import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.comparator.NameFileComparator;
 
 import java.io.File;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Locale;
 
 public class ListNotesUtils {
 
   /**
    * Еhis method returns the modification date of the file
-   * @param file - original file
+   * @param date - original file date
    * @return - date (string)
    */
-  public static String returnDateFile(File file) {
-    Date lastModDate = new Date(file.lastModified());
-    return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(lastModDate);
+  public static String returnDateFile(long date) {
+    return new SimpleDateFormat("dd.MM.yyyy  hh:mm", Locale.getDefault()).format(date);
   }
 
   /**

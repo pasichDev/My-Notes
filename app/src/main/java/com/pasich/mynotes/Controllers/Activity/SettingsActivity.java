@@ -8,8 +8,9 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
+import com.pasich.mynotes.Adapters.VIewPage.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentAppInfo;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentBackup;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentMain;
@@ -35,17 +36,23 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     setupViewPager();
+    SettingsView.viewPager.registerOnPageChangeCallback(
+        new ViewPager2.OnPageChangeCallback() {
+          @Override
+          public void onPageSelected(int position) {
+            SettingsView.tabLayout.selectTab(SettingsView.tabLayout.getTabAt(position));
+          }
+        });
   }
 
   /** The method that sets up the ViewPager */
   private void setupViewPager() {
-    ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-    adapter.addFragment(new FragmentMain(), getString(R.string.mainPrefences));
-    adapter.addFragment(new FragmentBackup(), getString(R.string.recoveryCopy));
-    adapter.addFragment(new FragmentVoice(), getString(R.string.speechPrefences));
-    adapter.addFragment(new FragmentAppInfo(), getString(R.string.infoAppPrefences));
+    ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
+    adapter.addFragment(new FragmentMain());
+    adapter.addFragment(new FragmentBackup());
+    adapter.addFragment(new FragmentVoice());
+    adapter.addFragment(new FragmentAppInfo());
     SettingsView.viewPager.setAdapter(adapter);
-    SettingsView.tabLayout.setupWithViewPager(SettingsView.viewPager);
   }
 
   @Override

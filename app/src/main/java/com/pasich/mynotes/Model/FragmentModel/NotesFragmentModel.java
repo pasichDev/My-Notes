@@ -41,11 +41,11 @@ public class NotesFragmentModel {
         if (file.isDirectory()
             && !folderSystem[0].equals(file.getName())
             && !folderSystem[1].equals(file.getName()))
-          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), true, false));
+          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), true, false));
       }
       for (File file : folderNames) {
         if (file.getName().endsWith(".txt"))
-          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), false, false));
+          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), false, false));
       }
     }
   }
@@ -67,7 +67,7 @@ public class NotesFragmentModel {
 
       for (File file : folderNames) {
         if (file.getName().endsWith(".txt"))
-          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), false, false));
+          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), false, false));
       }
     }
   }

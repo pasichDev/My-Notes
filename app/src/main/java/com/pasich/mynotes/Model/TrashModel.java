@@ -35,7 +35,7 @@ public class TrashModel {
       Arrays.sort(fileListNames, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
       for (File file : fileListNames) {
         if (file.getName().endsWith(".txt"))
-          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file), false, false));
+          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), false, false));
       }
     }
   }

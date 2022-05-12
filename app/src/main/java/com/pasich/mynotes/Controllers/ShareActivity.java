@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.NoteActivity;
@@ -12,41 +14,36 @@ import com.pasich.mynotes.R;
 /** An activity that is a gateway to save a note via the save button */
 public class ShareActivity extends AppCompatActivity {
 
-  private Intent shareIntent;
+  protected ActivityResultLauncher<Intent> startActivity =
+      registerForActivityResult(
+          new ActivityResultContracts.StartActivityForResult(),
+          result -> {
+            if (result.getData() != null) finish();
+          });
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    this.shareIntent = getIntent();
-
-    if (shareIntent.getType().equals("text/plain")) {
-      Intent intent =
-          new Intent(getApplication(), NoteActivity.class)
+    if (getIntent().getType().equals("text/plain")) {
+      startActivity.launch(
+          new Intent(this, NoteActivity.class)
               .putExtra("KeyFunction", "NewNote")
               .putExtra("idNote", "null")
               .putExtra("shareText", handleSendText())
-              .putExtra("folder", "");
-      startActivityForResult(intent, 99);
+              .putExtra("folder", ""));
     } else {
-      Toast.makeText(
-              getApplicationContext(), getString(R.string.notSupportedShare), Toast.LENGTH_LONG)
-          .show();
+      Toast.makeText(this, getString(R.string.notSupportedShare), Toast.LENGTH_LONG).show();
     }
-  }
-
-  @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    finish();
   }
 
   /**
    * Returns the received text from the heap
+   *
    * @return - String (TextData share)
    */
   private String handleSendText() {
-    String sharedText = shareIntent.getStringExtra(Intent.EXTRA_TEXT);
+    String sharedText = getIntent().getStringExtra(Intent.EXTRA_TEXT);
     return sharedText != null ? sharedText : "";
   }
 }

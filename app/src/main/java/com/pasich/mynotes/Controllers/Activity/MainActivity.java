@@ -13,8 +13,9 @@ import android.view.MenuItem;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.pasich.mynotes.Adapters.TabLayout.ViewPagerAdapter;
+import com.pasich.mynotes.Adapters.VIewPage.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFragment;
@@ -61,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
     startButtonList();
     setupViewPager();
 
-    MainView.onCreate = true;
-
     findViewById(R.id.sortButton)
         .setOnClickListener(
             v -> {
@@ -75,18 +74,23 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
               formatSwitch.formatNote();
               FragmentListNotes.formatListView();
             });
+
+    MainView.viewPager.registerOnPageChangeCallback(
+        new ViewPager2.OnPageChangeCallback() {
+          @Override
+          public void onPageSelected(int position) {
+            MainView.tabLayout.selectTab(MainView.tabLayout.getTabAt(position));
+          }
+        });
   }
 
   /** The method that sets up the ViewPager */
   private void setupViewPager() {
-    if (!MainView.onCreate) {
-      this.FragmentListNotes = new ListNotesFragment();
-      ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-      adapter.addFragment(FragmentListNotes, getString(R.string.notes));
-      adapter.addFragment(new VoiceListNotesFragment(), getString(R.string.viceNotes));
-      MainView.viewPager.setAdapter(adapter);
-      MainView.tabLayout.setupWithViewPager(MainView.viewPager);
-    }
+    this.FragmentListNotes = new ListNotesFragment();
+    ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
+    adapter.addFragment(FragmentListNotes);
+    adapter.addFragment(new VoiceListNotesFragment());
+    MainView.viewPager.setAdapter(adapter);
   }
 
   @Override
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
 
   /** Start Settings.activity */
   private void openSettings() {
-    startActivity(new Intent(this, SettingsActivity.class));
+    startActivity.launch(new Intent(this, SettingsActivity.class));
   }
 
   /** Create Button List to TabPanel */
