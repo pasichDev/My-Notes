@@ -27,12 +27,12 @@ public class FileCore extends AppCompatActivity {
   public void saveNameFolder(String nameFolder, boolean rename, String oldName) {
     /** Очень интересный метод, который нужно переписать придерживаесь его логике */
     Toast toast = null;
-    if (new CheckNamesFoldersUtils().getMatchFolders(nameFolder)) {
-      // Блок для названия Trash
+    if (new CheckNamesFoldersUtils().getMatchFolders(nameFolder)) { // Блокировка системных названий
       toast =
           Toast.makeText(
               context, context.getString(R.string.error_folder_system), Toast.LENGTH_SHORT);
-    } else if (nameFolder.trim().length() == 0 || nameFolder == null) {
+
+    } else if (nameFolder.trim().length() == 0) {
       // Проверим имя если оно пустое то кик
       toast =
           Toast.makeText(

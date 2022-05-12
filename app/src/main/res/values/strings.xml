@@ -39,7 +39,7 @@
     <string name="rootFolder">Root folder</string>
     <string name="cleanFolder">Clean  folder</string>
 
-    <string name="error_folder_system">This folder cannot be created!</string>
+    <string name="error_folder_system">You cannot create a folder with this name!</string>
     <string name="error_name_folder">The folder name is not competent!</string>
     <string name="error_folder_NoExists">The folder does not exist!</string>
     <string name="error_folders_exists">You have no folders created, moving is impossible!</string>

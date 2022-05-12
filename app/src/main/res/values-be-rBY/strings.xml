@@ -31,7 +31,7 @@
     <string name="renameFolder">Перайменаваць тэчку</string>
     <string name="save">Захаваць</string>
     <string name="error_name_folder">Назва папкі не кампетэнтная!</string>
-    <string name="error_folder_system">Гэтую тэчку ствараць нельга!</string>
+    <string name="error_folder_system">Тэчку з дадзеным імем ствараць нельга!</string>
     <string name="cleanFolder">Ачысціць тэчку</string>
     <string name="rootFolder">Карнявая тэчка</string>
     <string name="copyNotefor">"Абярыце тэчку ў якую вы жадаеце змясціць нататку: "</string>

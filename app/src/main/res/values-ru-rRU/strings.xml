@@ -31,7 +31,6 @@
     <string name="renameFolder">Переименовать папку</string>
     <string name="save">Сохранить</string>
     <string name="error_name_folder">Название папки не компетентно!</string>
-    <string name="error_folder_system">Данную папку создавать нельзя!</string>
     <string name="cleanFolder">Очистить папку</string>
     <string name="rootFolder">Корневая папка</string>
     <string name="copyNotefor">"Выберите папку в которую вы хотите преместить заметку: "</string>
@@ -122,4 +121,5 @@
     <string name="cd_remind">Напоминание</string>
     <string name="cd_sort">Сортировать заметки</string>
     <string name="cd_format">Форматировать заметки</string>
+    <string name="error_folder_system">Папку с данным именем создавать нельзя!</string>
 </resources>

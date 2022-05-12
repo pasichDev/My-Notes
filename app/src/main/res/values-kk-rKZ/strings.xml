@@ -31,7 +31,7 @@
     <string name="renameFolder">Қалтаның атын өзгерту</string>
     <string name="save">Сақтау</string>
     <string name ="error_name_folder" >Қалта атауы дұрыс емес!</string >
-    <string name="error_folder_system">Бұл қалтаны жасау мүмкін емес!</string>
+    <string name="error_folder_system">Мұндай атаумен қалта жасай алмайсыз!</string>
     <string name ="cleanFolder">Қалтаны тазалау</string>
     <string name="rootFolder">Түбірлік қалта</string>
     <string name="copyNotefor">"Ескертпе көшірілетін қалтаны таңдаңыз: "</string>

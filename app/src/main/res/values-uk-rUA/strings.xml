@@ -31,7 +31,7 @@
     <string name="renameFolder">Перейменувати папку</string>
     <string name="save">Зберегти</string>
     <string name="error_name_folder">Назва папки не є компетентною!</string>
-    <string name="error_folder_system">Цю папку створювати не можна!</string>
+    <string name="error_folder_system">Папку з цим ім\'ям не можна створювати!</string>
     <string name="cleanFolder">Очистити папку</string>
     <string name="rootFolder">Коренева папка</string>
     <string name="copyNotefor">Виберіть папку в яку ви хочете перемістити нотатку:</string>

@@ -31,7 +31,7 @@
     <string name = "renameFolder"> Zmień nazwę folderu </string>
     <string name = "save"> Zapisz </string>
     <string name = "error_name_folder"> Nazwa folderu nie jest właściwa! </string>
-    <string name = "error_folder_system"> Nie można utworzyć tego folderu! </string>
+    <string name="error_folder_system">Nie możesz utworzyć folderu o tej nazwie!</string>
     <string name = "cleanFolder"> Wyczyść folder </string>
     <string name = "rootFolder"> Katalog główny </string>
     <string name = "copyNotefor"> Wybierz folder, do którego chcesz przenieść notatkę: </string>
