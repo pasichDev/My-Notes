@@ -1,22 +1,18 @@
 package com.pasich.mynotes.Utils.Check;
 
-import android.app.Activity;
-
 import java.io.File;
 
 public class CheckFolderUtils {
 
-  public static final String[] folderCreat = {"trash", "VoiceNotes"};
+  /** Array of folders to check */
+  public final String[] folderCreate = {"trash", "VoiceNotes"};
 
   /**
    * Method for checking if system folders exist, if they do not exist, the method will create them
-   * @param activity
    */
-  public static void checkSystemFolder(Activity activity) {
-    for (String folder : folderCreat) {
-      if (!new File(activity.getFilesDir() + "/" + folder).exists()) {
-        new File(activity.getFilesDir() + "/" + folder).mkdir();
-      }
+  public void checkSystemFolder(File file) {
+    for (String folder : folderCreate) {
+      if (!new File(file + "/" + folder).exists()) new File(file + "/" + folder).mkdir();
     }
   }
 }

@@ -1,6 +1,6 @@
 package com.pasich.mynotes.Model.DialogModel;
 
-import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
+import com.pasich.mynotes.Utils.Check.CheckNamesFoldersUtils;
 
 import org.apache.commons.io.comparator.NameFileComparator;
 
@@ -28,8 +28,7 @@ public class CopyNotesModel {
   private void createArrayFolders() {
     for (File folderSel : foldersArray) {
       if (folderSel.isDirectory()
-          && !folderSystem[0].equals(folderSel.getName())
-          && !folderSystem[1].equals(folderSel.getName())) {
+          && new CheckNamesFoldersUtils().getMatchFolders(folderSel.getName())) {
         folderListArray.add(folderSel.getName());
       }
     }

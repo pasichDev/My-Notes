@@ -1,14 +1,12 @@
 package com.pasich.mynotes.Utils.File;
 
-import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
-
 import android.content.Context;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
-
+import com.pasich.mynotes.Utils.Check.CheckNamesFoldersUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,8 +25,9 @@ public class FileCore extends AppCompatActivity {
 
   @Deprecated
   public void saveNameFolder(String nameFolder, boolean rename, String oldName) {
+    /** Очень интересный метод, который нужно переписать придерживаесь его логике */
     Toast toast = null;
-    if (folderSystem[1].equals(nameFolder) || folderSystem[0].equals(nameFolder)) {
+    if (new CheckNamesFoldersUtils().getMatchFolders(nameFolder)) {
       // Блок для названия Trash
       toast =
           Toast.makeText(

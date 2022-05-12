@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Check.CheckFolderUtils.checkSystemFolder;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
 import android.content.Intent;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    checkSystemFolder(this);
     setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);

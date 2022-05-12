@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Check.CheckFolderUtils.checkSystemFolder;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
 import android.content.Intent;
@@ -17,6 +16,7 @@ import com.pasich.mynotes.Controllers.Dialogs.ChoiceTrashDialog;
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Check.CheckFolderUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.TrashView;
 
@@ -29,10 +29,11 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    new CheckFolderUtils().checkSystemFolder(this.getFilesDir());
     setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_trash);
-    checkSystemFolder(this);
+
     TrashView = new TrashView(getWindow().getDecorView());
     TrashModel = new TrashModel(this);
     setupActionBar();

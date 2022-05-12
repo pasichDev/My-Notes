@@ -1,7 +1,5 @@
 package com.pasich.mynotes.Utils.File;
 
-import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
-
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Check.CheckNamesFoldersUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -68,7 +67,7 @@ public class BackupToRestoreClass {
         }
 
         // Добавим папки и подпапки
-        if (file.isDirectory() && !file.getName().equals(folderSystem[1])) {
+        if (file.isDirectory() && new CheckNamesFoldersUtils().getMatchFolders(file.getName())) {
           File[] fileDI = new File(HOME_DIRECTORY + "/" + file.getName() + "/").listFiles();
           assert fileDI != null;
           for (File fileNameIsDir : fileDI) {
@@ -182,9 +181,7 @@ public class BackupToRestoreClass {
     assert (Files != null ? Files.length : 0) >= 1;
     for (File file : Files) {
       String fileName = file.getName();
-      if (file.isDirectory()
-          && !folderSystem[1].equals(fileName)
-          && !folderSystem[0].equals(fileName)) {
+      if (file.isDirectory() && new CheckNamesFoldersUtils().getMatchFolders(fileName)) {
         File[] dirFiles = new File(HOME_DIRECTORY + "/" + file.getName()).listFiles();
         for (File dFile : dirFiles) {
           dFile.delete();
@@ -209,14 +206,17 @@ public class BackupToRestoreClass {
   public static String getDataBackup() {
     return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
   }
+
   /** Метод который возвращает количество файлов приложения */
+  @Deprecated
   public int getCountFilles() {
+    /** Метод плохо организован, из-за то что тут не считает файлы в папках и счита пвпки */
     File[] files = HOME_DIRECTORY.listFiles();
     int count = 0;
 
     assert files != null;
     for (File file : files) {
-      if (!folderSystem[0].equals(file.getName()) && !folderSystem[1].equals(file.getName())) {
+      if (new CheckNamesFoldersUtils().getMatchFolders(file.getName())) {
         count = count + 1;
       }
     }

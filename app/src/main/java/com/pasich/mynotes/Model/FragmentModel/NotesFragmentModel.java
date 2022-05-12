@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Model.FragmentModel;
 
-import static com.pasich.mynotes.Utils.Constants.SystemConstant.folderSystem;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
 import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.sortFileList;
 
@@ -9,6 +8,7 @@ import android.content.Context;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
+import com.pasich.mynotes.Utils.Check.CheckNamesFoldersUtils;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 import java.io.File;
@@ -38,14 +38,15 @@ public class NotesFragmentModel {
           folderNames);
 
       for (File file : folderNames) {
-        if (file.isDirectory()
-            && !folderSystem[0].equals(file.getName())
-            && !folderSystem[1].equals(file.getName()))
-          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), true, false));
+        if (file.isDirectory() && new CheckNamesFoldersUtils().getMatchFolders(file.getName()))
+          notesArray.add(
+              new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), true, false));
       }
       for (File file : folderNames) {
         if (file.getName().endsWith(".txt"))
-          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), false, false));
+          notesArray.add(
+              new ListNotesModel(
+                  file.getName(), returnDateFile(file.lastModified()), false, false));
       }
     }
   }
@@ -67,14 +68,16 @@ public class NotesFragmentModel {
 
       for (File file : folderNames) {
         if (file.getName().endsWith(".txt"))
-          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), false, false));
+          notesArray.add(
+              new ListNotesModel(
+                  file.getName(), returnDateFile(file.lastModified()), false, false));
       }
     }
   }
 
   /** Method that clears an array and starts a new one */
   public void getUpdateArray(String folder) {
-   notesArray.clear();
+    notesArray.clear();
     if (folder.length() >= 1) searchNotesForFolder(folder);
     else searchNotes();
   }

@@ -12,7 +12,6 @@ public class SystemConstant {
   public static final String Settings_SpeechOutput = "line";
   public static final String Settings_SpeechLanguage = "default";
   public static final String Settings_TextStyle = "normal";
-  public static final String[] folderSystem = {"trash", "VoiceNotes"};
   public static final String settingsFileName = "com.pasich.mynotes_preferences";
 
 }
