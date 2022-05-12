@@ -1,7 +1,9 @@
 package com.pasich.mynotes.Utils.Theme;
 
 import android.content.Context;
+
 import androidx.preference.PreferenceManager;
+
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 

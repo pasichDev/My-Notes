@@ -6,7 +6,6 @@ import android.widget.GridView;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 public class ListNotesView {
 
@@ -24,7 +23,6 @@ public class ListNotesView {
    */
   public void setNotesListCountColumns() {
     NotesList.setNumColumns(
-        PreferenceManager.getDefaultSharedPreferences(view.getContext())
-            .getInt("formatParam", SystemConstant.Setting_Format));
+        PreferenceManager.getDefaultSharedPreferences(view.getContext()).getInt("formatParam", 1));
   }
 }

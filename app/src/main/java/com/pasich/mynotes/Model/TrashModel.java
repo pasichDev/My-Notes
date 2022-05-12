@@ -4,7 +4,6 @@ import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
 
 import android.content.Context;
 
-
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 
 import org.apache.commons.io.comparator.LastModifiedFileComparator;

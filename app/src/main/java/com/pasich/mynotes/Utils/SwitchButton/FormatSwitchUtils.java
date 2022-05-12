@@ -6,7 +6,6 @@ import android.widget.ImageButton;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Constants.SystemConstant;
 
 public class FormatSwitchUtils {
 
@@ -24,8 +23,7 @@ public class FormatSwitchUtils {
    * @return - formatParam (param)
    */
   protected int getSettingsFormatParam() {
-    return PreferenceManager.getDefaultSharedPreferences(context)
-        .getInt("formatParam", SystemConstant.Setting_Format);
+    return PreferenceManager.getDefaultSharedPreferences(context).getInt("formatParam", 1);
   }
 
   /** Method that sets the icon of the button depending on the parameter getSettingsParam() */
