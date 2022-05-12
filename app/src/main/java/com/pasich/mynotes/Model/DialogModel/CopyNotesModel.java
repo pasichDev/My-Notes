@@ -28,7 +28,7 @@ public class CopyNotesModel {
   private void createArrayFolders() {
     for (File folderSel : foldersArray) {
       if (folderSel.isDirectory()
-          && new CheckNamesFoldersUtils().getMatchFolders(folderSel.getName())) {
+          && !new CheckNamesFoldersUtils().getMatchFolders(folderSel.getName())) {
         folderListArray.add(folderSel.getName());
       }
     }

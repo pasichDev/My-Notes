@@ -9,7 +9,7 @@
                     app:entries="@array/spechMain_enteries"
                     app:entryValues="@array/spechMain_values"
                     app:icon="@drawable/ic_voice_languagle"
-                    app:key="spechLaunguage"
+                    app:key="speechLanguage"
                     app:title="@string/spechLaunguage"
                     app:useSimpleSummaryProvider="true" />
                 <ListPreference

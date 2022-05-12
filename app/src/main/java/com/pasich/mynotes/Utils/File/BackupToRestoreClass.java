@@ -67,7 +67,7 @@ public class BackupToRestoreClass {
         }
 
         // Добавим папки и подпапки
-        if (file.isDirectory() && new CheckNamesFoldersUtils().getMatchFolders(file.getName())) {
+        if (!file.isDirectory() && new CheckNamesFoldersUtils().getMatchFolders(file.getName())) {
           File[] fileDI = new File(HOME_DIRECTORY + "/" + file.getName() + "/").listFiles();
           assert fileDI != null;
           for (File fileNameIsDir : fileDI) {
@@ -181,7 +181,7 @@ public class BackupToRestoreClass {
     assert (Files != null ? Files.length : 0) >= 1;
     for (File file : Files) {
       String fileName = file.getName();
-      if (file.isDirectory() && new CheckNamesFoldersUtils().getMatchFolders(fileName)) {
+      if (!file.isDirectory() && new CheckNamesFoldersUtils().getMatchFolders(fileName)) {
         File[] dirFiles = new File(HOME_DIRECTORY + "/" + file.getName()).listFiles();
         for (File dFile : dirFiles) {
           dFile.delete();
@@ -216,7 +216,7 @@ public class BackupToRestoreClass {
 
     assert files != null;
     for (File file : files) {
-      if (new CheckNamesFoldersUtils().getMatchFolders(file.getName())) {
+      if (!new CheckNamesFoldersUtils().getMatchFolders(file.getName())) {
         count = count + 1;
       }
     }

@@ -38,7 +38,7 @@ public class NotesFragmentModel {
           folderNames);
 
       for (File file : folderNames) {
-        if (file.isDirectory() && new CheckNamesFoldersUtils().getMatchFolders(file.getName()))
+        if (file.isDirectory() && !new CheckNamesFoldersUtils().getMatchFolders(file.getName()))
           notesArray.add(
               new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), true, false));
       }

@@ -15,7 +15,7 @@ public class CountUtils {
     public int getCountFolders(File mFile){
         int countFolder = 0;
         for (File file : Objects.requireNonNull(new File(String.valueOf(mFile)).listFiles())) {
-      if (new CheckNamesFoldersUtils().getMatchFolders(file.getName()))
+      if (!new CheckNamesFoldersUtils().getMatchFolders(file.getName()))
         countFolder = file.isDirectory() ? countFolder + 1 : countFolder;
         }
         return countFolder;
