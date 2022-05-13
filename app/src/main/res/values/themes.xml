@@ -129,8 +129,6 @@
     </style>
 
 
-
-
     <style name="textItemColor" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/EditViewDark</item>
     </style>

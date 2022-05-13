@@ -1,12 +1,8 @@
 package com.pasich.mynotes.Utils.File;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Check.CheckNamesFoldersUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,39 +18,6 @@ public class FileCore extends AppCompatActivity {
   public FileCore(Context context) {
     this.context = context;
   }
-
-  @Deprecated
-  public void saveNameFolder(String nameFolder, boolean rename, String oldName) {
-    /** Очень интересный метод, который нужно переписать придерживаесь его логике */
-    Toast toast = null;
-    if (new CheckNamesFoldersUtils().getMatchFolders(nameFolder)) { // Блокировка системных названий
-      toast =
-          Toast.makeText(
-              context, context.getString(R.string.error_folder_system), Toast.LENGTH_SHORT);
-
-    } else if (nameFolder.trim().length() == 0) {
-      // Проверим имя если оно пустое то кик
-      toast =
-          Toast.makeText(
-              context, context.getString(R.string.error_name_folder), Toast.LENGTH_SHORT);
-    } else if (!rename) {
-      // Если свойтсво сохранить то сохранянем
-      File trashDir = new File(context.getFilesDir() + "/" + checkNameFolder(nameFolder));
-      trashDir.mkdir();
-    } else if (rename) {
-      // Если переименовать то перименуем папку
-      File oldFolder = new File(context.getFilesDir() + "/" + oldName);
-      oldFolder.renameTo(new File(context.getFilesDir() + "/" + checkNameFolder(nameFolder)));
-    }
-    // Показ Toast
-    if (toast != null) {
-      toast.show();
-    }
-  }
-
-
-
-
 
   /**
    * Метод для хранения созданых заметок
@@ -145,7 +108,6 @@ public class FileCore extends AppCompatActivity {
    * Метод который проверяет название папки и добавляет индекс если она существует
    *
    * @param nameFolder - имья которое нужно проверить
-   * @return - возвращает проверяное имья папки < 40
    */
   @Deprecated
   private String checkNameFolder(String nameFolder) {
