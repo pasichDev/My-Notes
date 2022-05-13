@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.pasich.mynotes"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 32
         versionCode 10
         versionName '1.4.10'

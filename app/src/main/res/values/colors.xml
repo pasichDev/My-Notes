@@ -3,35 +3,21 @@
 
     <color name="white">#FFFFFFFF</color>
     <color name="hiden">#FAFAFA</color>
+
     <color name="EditViewDark">#1C1B1B</color>
     <color name="EditViewWhite">#FAFAFA</color>
-    <color name="textHidenColor">#9A9A9A</color>
+    <color name="textHidenColor">#C6C4C4</color>
     <color name="colorTextDarkTheme">#B5B3B3</color>
+
+
+    <color name="backgroundActivity">#EFEDED</color>
+    <color name="black">#000000</color>
+
 
     <color name="red_Primary">#AC1C1C</color>
     <color name="red_PrimaryVariant">#780202</color>
     <color name="red_Secondary">#E40404</color>
     <color name="red_Drawable">#EF6A6A</color>
-
-    <color name="green_Primary">#429A45</color>
-    <color name="green_PrimaryVariant">#225524</color>
-    <color name="green_Secondary">#3C9340</color>
-    <color name="green_Drawable">#86CA88</color>
-
-    <color name="indigo_Primary">#3F51B5</color>
-    <color name="indigo_PrimaryVariant">#303F9F</color>
-    <color name="indigo_Secondary">#3B54DF</color>
-    <color name="indigo_Drawable">#536DFE</color>
-
-    <color name="purple_Primary">#673AB7</color>
-    <color name="purple_PrimaryVariant">#512DA8</color>
-    <color name="purple_Secondary">#5B2FD5</color>
-    <color name="purple_Drawable">#A182F8</color>
-
-    <color name="orange_Primary">#CC532D</color>
-    <color name="orange_PrimaryVariant">#983313</color>
-    <color name="orange_Secondary">#F14812</color>
-    <color name="orange_Drawable">#FA8661</color>
 
     <color name="dark_Primary">#070505</color>
     <color name="dark_PrimaryVariant">#060706</color>

@@ -13,10 +13,6 @@ public class ColorsAdapter extends BaseAdapter {
   private final Context mContext;
   private final Integer[] colors = {
           R.color.red_Primary,
-          R.color.orange_Primary,
-          R.color.green_Primary,
-          R.color.indigo_Primary,
-          R.color.purple_Primary,
           R.color.dark_Primary
   };
 

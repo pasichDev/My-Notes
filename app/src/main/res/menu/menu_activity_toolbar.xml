@@ -4,24 +4,6 @@
 
 
     <item
-        android:id="@+id/addFolder"
-        android:visible="false"
-        android:icon="@drawable/ic_add_folder"
-        android:title="@string/addFolder"
-        yourapp:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/cleanFolderBut"
-        android:visible="false"
-        android:icon="@drawable/ic_clean_folder"
-        android:title="@string/cleanFolder"
-        yourapp:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/trashBut"
-        android:visible="false"
-        android:icon="@drawable/ic_trash"
-        android:title="@string/trashN"
-        yourapp:showAsAction="ifRoom" />
-    <item
         android:id="@+id/setingsBut"
         android:visible="false"
         android:icon="@drawable/ic_settings"

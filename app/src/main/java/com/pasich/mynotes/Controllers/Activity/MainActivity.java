@@ -1,7 +1,5 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,13 +8,9 @@ import android.view.MenuItem;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.Adapters.VIewPage.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFragment;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
@@ -47,62 +41,17 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
-    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
-    formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
 
     setSupportActionBar(MainView.toolbar);
-    startButtonList();
-    setupViewPager();
-
-    findViewById(R.id.sortButton)
-        .setOnClickListener(
-            v -> {
-              sortSwitch.sortNote();
-              FragmentListNotes.restartListNotes();
-            });
-    findViewById(R.id.formatButton)
-        .setOnClickListener(
-            v -> {
-              formatSwitch.formatNote();
-              FragmentListNotes.formatListView();
-            });
-
-    MainView.viewPager.registerOnPageChangeCallback(
-        new ViewPager2.OnPageChangeCallback() {
-          @Override
-          public void onPageSelected(int position) {
-            MainView.tabLayout.selectTab(MainView.tabLayout.getTabAt(position));
-          }
-        });
 
   }
 
-  /** The method that sets up the ViewPager */
-  private void setupViewPager() {
-    this.FragmentListNotes = new ListNotesFragment();
-    ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
-    adapter.addFragment(FragmentListNotes);
-    adapter.addFragment(new VoiceListNotesFragment());
-    MainView.viewPager.setAdapter(adapter);
-    MainView.tabLayout.addOnTabSelectedListener(
-        new TabLayout.OnTabSelectedListener() {
-          @Override
-          public void onTabSelected(TabLayout.Tab tab) {
-            MainView.viewPager.setCurrentItem(tab.getPosition());
-          }
-
-          @Override
-          public void onTabUnselected(TabLayout.Tab tab) {}
-
-          @Override
-          public void onTabReselected(TabLayout.Tab tab) {}
-        });
-  }
 
   @Override
   public void onBackPressed() {
@@ -114,16 +63,12 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     menu.findItem(R.id.setingsBut).setVisible(true);
-    menu.findItem(R.id.trashBut).setVisible(true);
-    menu.findItem(R.id.addFolder).setVisible(true);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.setingsBut) openSettings();
-    else if (item.getItemId() == R.id.trashBut) openTrash();
-    else if (item.getItemId() == R.id.addFolder) openFolderOption();
 
     return false;
   }
