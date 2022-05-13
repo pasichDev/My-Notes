@@ -12,8 +12,6 @@ import com.pasich.mynotes.R;
 public class ColorsAdapter extends BaseAdapter {
   private final Context mContext;
   private final Integer[] colors = {
-          R.color.red_Primary,
-          R.color.dark_Primary
   };
 
   /**

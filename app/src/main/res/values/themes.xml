@@ -1,27 +1,19 @@
 <resources>
 
-    <!-- Dark color theme. -->
+    <!-- Blue color theme. -->
     <style name="ThemeDark" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Основной цвет -->
-        <item name="colorPrimary">@color/white</item>
-        <!-- Это у нас цвет статусбара -->
-        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
+        <!-- Status bar set. -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
 
-
-        <!-- Второстепенный цвет, используеться в настройках -->
-        <item name="colorSecondary">@color/dark_Secondary</item>
-
-
-        <!-- Цвет иконок -->
-        <item name="iconDrawableTint">@color/dark_Drawable</item>
 
         <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
         <item name="colorTextNote">@color/EditViewDark</item>
 
 
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:windowLightStatusBar">true</item>
     </style>
 
 
@@ -30,23 +22,21 @@
         <item name="tabIndicatorHeight">0dp</item>
         <item name="tabPaddingStart">16dp</item>
         <item name="tabPaddingEnd">16dp</item>
-
-        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextColor">?attr/colorPrimaryVariant</item>
+        <item name="tabBackground">@drawable/tab_background</item>
         <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/white</item>
 
     </style>
 
-    <!-- for text -->
     <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">16sp</item>
         <item name="textAllCaps">false</item>
     </style>
 
     <style name="ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:iconTint">@color/black</item>
-        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:background">@color/white</item>
     </style>
 
 

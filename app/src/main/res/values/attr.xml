@@ -3,4 +3,7 @@
     <attr name="iconDrawableTint" format="reference|color" />
     <attr name="colorHiden" format="reference|color" />
     <attr name="colorTextNote" format="reference|color" />
+
+
+    <attr name="colorPrimaryBackground" format="reference|color" />
 </resources>

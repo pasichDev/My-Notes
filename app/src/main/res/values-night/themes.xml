@@ -1,34 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-
-    <!-- Dark color theme. -->
-    <style name="ThemeDark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Основной цвет -->
-        <item name="colorPrimary">@color/dark_Primary</item>
-        <item name="colorPrimaryVariant">@color/dark_PrimaryVariant</item>
-        <!-- Второстепенный цвет, используеться в настройках -->
-        <item name="colorSecondary">@color/dark_SecondaryDarkTheme</item>
-        <!-- Цвет значка спиннер -->
-        <item name="colorControlNormal">@color/dark_DrawableDarkTheme</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Цвет меню item -->
-        <item name="android:itemTextAppearance">@style/textItemColor</item>
-        <!-- Цвет иконок -->
-        <item name="iconDrawableTint">@color/dark_DrawableDarkTheme</item>
-        <!-- Цвет иконок тулбара -->
-        <item name="colorHiden">@color/hiden</item>
-        <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
-        <item name="colorTextNote">@color/colorTextDarkTheme</item>
-        <item name="android:textColor">@color/colorTextDarkTheme</item>
-    </style>
-
-
+<resources>
 
 
     <style name="textItemColor" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/EditViewWhite</item>
     </style>
+
     <style name="textColorNameList">
         <item name="android:textColor">@color/colorTextDarkTheme</item>
     </style>

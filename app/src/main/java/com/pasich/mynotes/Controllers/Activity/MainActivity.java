@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     menu.findItem(R.id.setingsBut).setVisible(true);
+    menu.findItem(R.id.searchBut).setVisible(true);
     return true;
   }
 

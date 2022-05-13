@@ -14,16 +14,9 @@
     <color name="black">#000000</color>
 
 
-    <color name="red_Primary">#AC1C1C</color>
-    <color name="red_PrimaryVariant">#780202</color>
-    <color name="red_Secondary">#E40404</color>
-    <color name="red_Drawable">#EF6A6A</color>
+    <color name="colorPrimary">#e5f2ff</color>
+    <color name="colorPrimaryVariant">#6995D1</color>
+    <color name="colorPrimaryBackground">#4996fd</color>
 
-    <color name="dark_Primary">#070505</color>
-    <color name="dark_PrimaryVariant">#060706</color>
-    <color name="dark_Secondary">#1B1513</color>
-    <color name="dark_SecondaryDarkTheme">#5A3F34</color>
-    <color name="dark_Drawable">#605E5E</color>
-    <color name="dark_DrawableDarkTheme">#888181</color>
 
 </resources>
