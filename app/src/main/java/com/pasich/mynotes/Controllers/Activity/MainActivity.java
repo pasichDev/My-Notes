@@ -50,9 +50,6 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
     setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
-
-
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
     sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
