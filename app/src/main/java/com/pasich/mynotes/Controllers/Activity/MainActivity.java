@@ -4,18 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
-import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
+import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
-import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButton.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButton.SortSwitchUtils;
@@ -23,7 +24,7 @@ import com.pasich.mynotes.View.MainView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements UpdateListInterface {
+public class MainActivity extends AppCompatActivity {
 
   private ListNotesFragment FragmentListNotes;
   /** Processing the received response from running activities */
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
   private FormatSwitchUtils formatSwitch;
   private MainView MainView;
   private MainUtils MainUtils;
+  public ImageButton sortButton, formatButton;
 
   private DefaultListAdapter defaultListAdapter;
 
@@ -54,6 +56,23 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
     setSupportActionBar(MainView.toolbar);
+
+    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
+    formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
+    startButtonList();
+
+    findViewById(R.id.sortButton)
+        .setOnClickListener(
+            v -> {
+              /*   sortSwitch.sortNote();
+              FragmentListNotes.restartListNotes();*/
+            });
+    findViewById(R.id.formatButton)
+        .setOnClickListener(
+            v -> {
+              formatSwitch.formatNote();
+              MainView.setNotesListCountColumns();
+            });
 
     ArrayList<ListNotesModel> notesArray = new ArrayList<>();
 
@@ -69,8 +88,33 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
 
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, notesArray);
     MainView.ListView.setAdapter(defaultListAdapter);
+
+    MainView.TabLayout.addOnTabSelectedListener(
+        new TabLayout.OnTabSelectedListener() {
+          @Override
+          public void onTabSelected(TabLayout.Tab tab) {
+            switch (tab.getPosition()) {
+              case 0:
+                new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
+                MainView.TabLayout.getTabAt(1).select();
+            }
+          }
+
+          @Override
+          public void onTabUnselected(TabLayout.Tab tab) {}
+
+          @Override
+          public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+    // new NewTagDialog().show(getSupportFragmentManager(),"New Tab");
   }
 
+  /** Create Button List to TabPanel */
+  private void startButtonList() {
+    sortSwitch.getSortParam();
+    formatSwitch.getFormatParam();
+  }
 
   @Override
   public void onBackPressed() {
@@ -89,18 +133,7 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.setingsBut) openSettings();
-
     return false;
-  }
-
-  /** Start FolderOption.Dialog */
-  private void openFolderOption() {
-    new FolderEditAndCreateDialog("").show(getSupportFragmentManager(), "newFolder");
-  }
-
-  /** Start Trash.activity */
-  private void openTrash() {
-    startActivity.launch(new Intent(this, TrashActivity.class));
   }
 
   /** Start Settings.activity */
@@ -108,11 +141,7 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
     startActivity.launch(new Intent(this, SettingsActivity.class));
   }
 
-  /** Create Button List to TabPanel */
-  private void startButtonList() {
-    sortSwitch.getSortParam();
-    formatSwitch.getFormatParam();
-  }
+
 
   /**
    * Тоже очень интересная реализация Позже желательно выпилить
@@ -124,15 +153,4 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
 
   }
 
-  @Override
-  public void RestartListView() {
-    FragmentListNotes.restartListNotes();
-  }
-
-
-
-  @Override
-  public void RemoveItem(int position) {
-    FragmentListNotes.removeItems(position);
-  }
 }

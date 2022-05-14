@@ -6,4 +6,6 @@
 
 
     <attr name="colorPrimaryBackground" format="reference|color" />
+    <attr name="colorBackground" format="reference|color" />
+    <attr name="colorLight" format="reference|color" />
 </resources>

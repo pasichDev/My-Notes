@@ -131,4 +131,9 @@
     <string name="folders" translatable="false">Папки</string>
     <string name="namefolder" translatable="false">NameFolder</string>
     <string name="PreferencesFileName" translatable="false">com.pasich.mynotes_preferences</string>
+
+    <string name="close" translatable="false">Закрыть</string>
+    <string name="addTag" translatable="false">Добавить тег</string>
+
+
 </resources>

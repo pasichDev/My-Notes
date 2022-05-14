@@ -134,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
             android:contentDescription="@string/cd_format"
             android:src="@drawable/ic_edit_format_tiles"
             app:layout_constraintEnd_toEndOf="parent"

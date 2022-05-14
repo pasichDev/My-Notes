@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,29 +19,32 @@ public class CustomUIDialog {
 
   protected View convertView;
   protected int headLayout = R.layout.dialog_head_bar,
-      headTextView = R.id.textViewHead,
       layoutOrientation = LinearLayout.VERTICAL;
   protected TextView headText;
   protected LinearLayout container;
-  protected ImageButton closeBut;
+  private final Button closeButton;
+  private final Button saveButton;
+
   public LinearLayout.LayoutParams lp;
   public int sizeTextMessage = 17;
 
   public CustomUIDialog(Context context, LayoutInflater inflater) {
     this.convertView = inflater.inflate(this.headLayout, null);
-    this.headText = this.convertView.findViewById(headTextView);
+    this.headText = convertView.findViewById(R.id.HeadTextDialog);
+    this.closeButton = convertView.findViewById(R.id.closeButtonDialog);
+    this.saveButton = convertView.findViewById(R.id.saveButtonDialog);
+
     this.container = new LinearLayout(context);
-    this.closeBut = this.convertView.findViewById(R.id.closeDialog);
     this.lp =
         new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    this.lp.setMargins(70, 40, 70, 20);
+    this.lp.setMargins(70, 50, 70, 50);
     this.setContainer();
   }
 
   /** Method for setting up a class container */
   private void setContainer() {
-    this.container.setOrientation(layoutOrientation); // setOrientation container
+    this.container.setOrientation(layoutOrientation);
     this.container.addView(convertView);
   }
 
@@ -59,8 +62,17 @@ public class CustomUIDialog {
    *
    * @return - closeBut
    */
-  public ImageButton getCloseButton() {
-    return this.closeBut;
+  public Button getCloseButton() {
+    return this.closeButton;
+  }
+
+  /**
+   * The method that returns save Button
+   *
+   * @return - save Button
+   */
+  public Button getSaveButton() {
+    return this.saveButton;
   }
 
   /**
