@@ -134,6 +134,8 @@
 
     <string name="close" translatable="false">Закрыть</string>
     <string name="addTag" translatable="false">Добавить тег</string>
+    <string name="nameTagInput" translatable="false">Введите название тега</string>
+    <string name="errorCountNameTag" translatable="false">Название тега не может состоять больше 10 символов</string>
 
 
 </resources>

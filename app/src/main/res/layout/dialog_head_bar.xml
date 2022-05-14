@@ -45,6 +45,7 @@
         android:layout_marginEnd="83dp"
         android:textStyle="bold"
         android:textColor="@color/black"
+        android:textSize="16sp"
         android:hint="TextHead"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/saveButtonDialog"

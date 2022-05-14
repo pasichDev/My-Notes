@@ -12,6 +12,7 @@
 
     <color name="backgroundActivity">#EFEDED</color>
     <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
 
 
     <color name="darkLight">#cdcdcd</color>

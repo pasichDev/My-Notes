@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
           public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-    // new NewTagDialog().show(getSupportFragmentManager(),"New Tab");
   }
 
   /** Create Button List to TabPanel */
