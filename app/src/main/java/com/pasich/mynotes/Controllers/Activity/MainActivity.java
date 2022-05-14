@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -14,10 +13,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.Model.MainModel;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
+import com.pasich.mynotes.Utils.Interface.AddTag;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButton.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButton.SortSwitchUtils;
@@ -25,20 +23,17 @@ import com.pasich.mynotes.Utils.TabLayoutListenerUtils;
 import com.pasich.mynotes.View.MainView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddTag {
 
-  public ImageButton sortButton, formatButton;
-  private ListNotesFragment FragmentListNotes;
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
       registerForActivityResult(
           new ActivityResultContracts.StartActivityForResult(),
           result -> {
-            Intent data = result.getData();
-            if (result.getResultCode() == 24 && result.getData() != null) {
-              if (data.getBooleanExtra("updateList", false)) FragmentListNotes.restartListNotes();
-            }
+
+
           });
   private SortSwitchUtils sortSwitch;
   private FormatSwitchUtils formatSwitch;
@@ -55,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
     MainModel = new MainModel(this);
+
     setSupportActionBar(MainView.toolbar);
 
     sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
@@ -93,16 +89,16 @@ public class MainActivity extends AppCompatActivity {
         new TabLayoutListenerUtils() {
           @Override
           public void listener(TabLayout.Tab Tab) {
-            switch (Tab.getPosition()) {
-              case 0:
-                new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
-                MainView.TabLayout.getTabAt(1).select();
+            if (Tab.getPosition() == 0) {
+              new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
+              Objects.requireNonNull(MainView.TabLayout.getTabAt(1)).select();
             }
           }
         });
   }
 
-  /** Create Button List to TabPanel */
+
+
   private void startButtonList() {
     sortSwitch.getSortParam();
     formatSwitch.getFormatParam();
@@ -110,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public void onBackPressed() {
-    if (FragmentListNotes == null || !((IOnBackPressed) FragmentListNotes).onBackPressed())
       MainUtils.CloseApp(MainActivity.this);
   }
 
@@ -133,12 +128,6 @@ public class MainActivity extends AppCompatActivity {
     startActivity.launch(new Intent(this, SettingsActivity.class));
   }
 
-  /**
-   * Тоже очень интересная реализация Позже желательно выпилить Нужно любой ценой реализовать
-   * обновления ListView после onPause()
-   */
   @Override
-  public void onStart() {
-    super.onStart();
-  }
+  public void addTagQuery(String tagName) {}
 }

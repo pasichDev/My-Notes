@@ -5,27 +5,26 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
-  private static final String DATABASE_NAME = "MyNotes.db"; // название бд
-  private static final int SCHEMA = 1; // версия базы данных
-  static final String TABLE = "tags"; // название таблицы в бд
-
-  public static final String COLUMN_NAME = "name";
+  private static final String DATABASE_NAME = "MyNotes.db";
+  private static final int SCHEMA = 1;
 
   public FeedReaderDbHelper(Context context) {
     super(context, DATABASE_NAME, null, SCHEMA);
   }
 
+  /** Метод который вызиваеться если нет базы данных и создет таблицы */
   @Override
   public void onCreate(SQLiteDatabase db) {
-    db.execSQL("CREATE TABLE " + TABLE + "(" + COLUMN_NAME + " TEXT);");
+    db.execSQL("CREATE TABLE " + "tags" + "(" + "name" + " TEXT);");
 
     // добавление начальных данных
-    db.execSQL("INSERT INTO " + TABLE + " (" + COLUMN_NAME + ") VALUES ('Java');");
+    //  db.execSQL("INSERT INTO " + TABLE + " (" + COLUMN_NAME + ") VALUES ('Java');");
   }
 
+  // ????
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    db.execSQL("DROP TABLE IF EXISTS " + TABLE);
+    db.execSQL("DROP TABLE IF EXISTS " + "tags");
     onCreate(db);
   }
 }

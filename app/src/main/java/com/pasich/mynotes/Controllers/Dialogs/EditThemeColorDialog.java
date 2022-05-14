@@ -13,16 +13,14 @@ import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.Adapters.GridView.ColorsAdapter;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
-import com.pasich.mynotes.Utils.Interface.UpdateTheme;
 import com.pasich.mynotes.View.DialogView.EditThemeColorView;
 
 public class EditThemeColorDialog extends DialogFragment {
 
-  private UpdateTheme UpdateTheme;
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    UpdateTheme = (UpdateTheme) getContext();
+
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
     EditThemeColorView editThemeColorView = new EditThemeColorView(getContext(), getLayoutInflater());
     editThemeColorView.GridView.setAdapter(new ColorsAdapter(getContext()));
@@ -39,7 +37,7 @@ public class EditThemeColorDialog extends DialogFragment {
             .getString("themeColor", SystemConstant.Settings_Theme)
             .equals(getResources().getStringArray(R.array.themeColor_values)[position])) {
           editThemePreferences(position);
-          UpdateTheme.recreateActivity();
+
         }
        requireDialog().dismiss();
       };

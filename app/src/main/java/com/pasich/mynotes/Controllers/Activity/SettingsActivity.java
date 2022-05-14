@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_THEME;
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
 import android.os.Bundle;
@@ -18,10 +17,9 @@ import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentBackup;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentMain;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentVoice;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Interface.UpdateTheme;
 import com.pasich.mynotes.View.SettingsView;
 
-public class SettingsActivity extends AppCompatActivity implements UpdateTheme {
+public class SettingsActivity extends AppCompatActivity {
   private SettingsView SettingsView;
 
   @Override
@@ -90,18 +88,5 @@ public class SettingsActivity extends AppCompatActivity implements UpdateTheme {
     finish();
   }
 
-  /**
-   * Вообщем здесь очень большой трабл Получеться после обновления темы через recreateActivity(),
-   * активность стартует с нуля и все интерфейсы и предачи данных на обратке очисчаються Что можно
-   * сделать? @1 - Это изменить подход, смены темы на этой странице и потом черз интерфейс или через
-   * Intent изменить тему в MainActivity @2 - Это дальше играться со статическими переменами, но это
-   * конечно плохая идея
-   */
-  @Override
-  public void recreateActivity() {
-    UPDATE_THEME = true;
-    finish();
-    startActivity(getIntent());
-    overridePendingTransition(0, 0);
-  }
+
 }
