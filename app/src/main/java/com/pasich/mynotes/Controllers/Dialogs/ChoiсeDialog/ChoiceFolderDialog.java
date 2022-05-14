@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.Controllers.Dialogs.DeleteFolderDialog;
-import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.FolderUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
@@ -43,8 +42,6 @@ public class ChoiceFolderDialog extends DialogFragment {
               }
               break;
             case 1:
-              new FolderEditAndCreateDialog(arrayKey[1])
-                  .show(getParentFragmentManager(), "renameDialog");
               break;
           }
         });

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+  public ImageButton sortButton, formatButton;
   private ListNotesFragment FragmentListNotes;
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
@@ -36,22 +37,17 @@ public class MainActivity extends AppCompatActivity {
             if (result.getResultCode() == 24 && result.getData() != null) {
               if (data.getBooleanExtra("updateList", false)) FragmentListNotes.restartListNotes();
             }
-
           });
-
   private SortSwitchUtils sortSwitch;
   private FormatSwitchUtils formatSwitch;
   private MainView MainView;
   private MainUtils MainUtils;
-  public ImageButton sortButton, formatButton;
-
   private DefaultListAdapter defaultListAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
 
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
@@ -61,12 +57,7 @@ public class MainActivity extends AppCompatActivity {
     formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
     startButtonList();
 
-    findViewById(R.id.sortButton)
-        .setOnClickListener(
-            v -> {
-              /*   sortSwitch.sortNote();
-              FragmentListNotes.restartListNotes();*/
-            });
+    findViewById(R.id.sortButton).setOnClickListener(v -> {});
     findViewById(R.id.formatButton)
         .setOnClickListener(
             v -> {
@@ -89,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, notesArray);
     MainView.ListView.setAdapter(defaultListAdapter);
 
+    /** Перепесить это по примеру Text Validator */
     MainView.TabLayout.addOnTabSelectedListener(
         new TabLayout.OnTabSelectedListener() {
           @Override
@@ -106,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onTabReselected(TabLayout.Tab tab) {}
         });
-
   }
 
   /** Create Button List to TabPanel */
@@ -140,16 +131,12 @@ public class MainActivity extends AppCompatActivity {
     startActivity.launch(new Intent(this, SettingsActivity.class));
   }
 
-
-
   /**
-   * Тоже очень интересная реализация Позже желательно выпилить
-   * Нужно любой ценой  реализовать обновления ListView после onPause()
-   * */
+   * Тоже очень интересная реализация Позже желательно выпилить Нужно любой ценой реализовать
+   * обновления ListView после onPause()
+   */
   @Override
   public void onStart() {
     super.onStart();
-
   }
-
 }
