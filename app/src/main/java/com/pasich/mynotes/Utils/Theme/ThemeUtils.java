@@ -36,10 +36,10 @@ public class ThemeUtils {
     if (themeValue == null) {
       assert false;
       if (themeValue.trim().isEmpty()) {
-        theme = R.style.ThemeDark;
+        theme = R.style.ThemeBlue;
       }
     }
-    if (themeValue.equals("Dark")) theme = R.style.ThemeDark;
+    if (themeValue.equals("Dark")) theme = R.style.ThemeBlue;
     return theme;
   }
 }

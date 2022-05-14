@@ -1,18 +1,30 @@
 <resources>
 
     <!-- Blue color theme. -->
-    <style name="ThemeDark" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="ThemeBlue" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
         <item name="colorBackground">@color/white</item>
         <item name="colorLight">@color/darkLight</item>
 
-
         <item name="colorAccent">@color/colorPrimaryBackground</item>
 
         <!-- Status bar set. -->
         <item name="android:statusBarColor">?attr/colorBackground</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+
+    </style>
+
+
+    <!-- Blue color theme. -->
+    <style name="ThemeBlueSplash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="colorLight">@color/darkLight</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimaryBackground</item>
         <item name="android:windowLightStatusBar">true</item>
 
 

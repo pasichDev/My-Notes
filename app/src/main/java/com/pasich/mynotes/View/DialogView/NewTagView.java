@@ -34,7 +34,7 @@ public class NewTagView {
 
   private void setTextMessageError() {
 
-    textMessageError.setTextColor(context.getResources().getColor(R.color.red));
+    textMessageError.setTextColor(context.getColor(R.color.red));
     textMessageError.setVisibility(View.GONE);
     textMessageError.setText(context.getString(R.string.errorCountNameTag));
     uiDialog.getContainer().addView(textMessageError, uiDialog.lp);
@@ -50,6 +50,7 @@ public class NewTagView {
     inputNameTag.setEnabled(true);
     inputNameTag.setFocusable(true);
     inputNameTag.setFocusableInTouchMode(true);
+    inputNameTag.requestFocus();
     uiDialog.getContainer().addView(inputNameTag, uiDialog.lp);
   }
 }
