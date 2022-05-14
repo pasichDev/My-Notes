@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.TextValidator;
+import com.pasich.mynotes.Utils.TextValidatorUtils;
 import com.pasich.mynotes.View.DialogView.NewTagView;
 
 public class NewTagDialog extends DialogFragment {
@@ -31,7 +31,7 @@ public class NewTagDialog extends DialogFragment {
     builder.setContentView(NewTagView.uiDialog.getContainer());
 
     NewTagView.inputNameTag.addTextChangedListener(
-        new TextValidator(NewTagView.inputNameTag) {
+        new TextValidatorUtils(NewTagView.inputNameTag) {
           @Override
           public void validate(TextView textView, String text) {
             if (text.length() == 11) {

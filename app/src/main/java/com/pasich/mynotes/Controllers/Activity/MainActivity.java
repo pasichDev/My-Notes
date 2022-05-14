@@ -15,11 +15,13 @@ import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
+import com.pasich.mynotes.Model.MainModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButton.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButton.SortSwitchUtils;
+import com.pasich.mynotes.Utils.TabLayoutListenerUtils;
 import com.pasich.mynotes.View.MainView;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
   private MainView MainView;
   private MainUtils MainUtils;
   private DefaultListAdapter defaultListAdapter;
+  private MainModel MainModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
+    MainModel = new MainModel(this);
     setSupportActionBar(MainView.toolbar);
 
     sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
@@ -80,23 +84,21 @@ public class MainActivity extends AppCompatActivity {
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, notesArray);
     MainView.ListView.setAdapter(defaultListAdapter);
 
-    /** Перепесить это по примеру Text Validator */
+    while (MainModel.getTags().moveToNext()) {
+      MainView.TabLayout.addTab(
+          MainView.TabLayout.newTab().setText(MainModel.getTags().getString(0)));
+    }
+
     MainView.TabLayout.addOnTabSelectedListener(
-        new TabLayout.OnTabSelectedListener() {
+        new TabLayoutListenerUtils() {
           @Override
-          public void onTabSelected(TabLayout.Tab tab) {
-            switch (tab.getPosition()) {
+          public void listener(TabLayout.Tab Tab) {
+            switch (Tab.getPosition()) {
               case 0:
                 new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
                 MainView.TabLayout.getTabAt(1).select();
             }
           }
-
-          @Override
-          public void onTabUnselected(TabLayout.Tab tab) {}
-
-          @Override
-          public void onTabReselected(TabLayout.Tab tab) {}
         });
   }
 

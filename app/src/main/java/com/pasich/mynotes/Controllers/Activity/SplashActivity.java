@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
 
@@ -14,6 +15,15 @@ public class SplashActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
 
+    if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("splashEnable", true)) {
+      initialization();
+    } else {
+      finish();
+      startActivity(new Intent(SplashActivity.this, MainActivity.class));
+    }
+  }
+
+  private void initialization() {
     Thread splashScreenStarter =
         new Thread() {
           public void run() {

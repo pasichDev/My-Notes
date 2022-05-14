@@ -44,6 +44,12 @@
                     android:summary="@string/autoSaveSumarry"
                     android:title="@string/autoSave"
                     app:icon="@drawable/ic_autosave" />
+                <SwitchPreference
+                    android:defaultValue="true"
+                    android:key="splashEnable"
+                    android:summary="@string/splashEnablePrefSummary"
+                    android:title="@string/splashEnablePrefTitle"
+                    app:icon="@drawable/ic_splash" />
         </PreferenceCategory>
 </PreferenceScreen>
 

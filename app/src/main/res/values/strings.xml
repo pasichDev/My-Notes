@@ -137,5 +137,6 @@
     <string name="nameTagInput" translatable="false">Введите название тега</string>
     <string name="errorCountNameTag" translatable="false">Название тега не может состоять больше 10 символов</string>
 
-
+    <string name="splashEnablePrefTitle" translatable="false">Показывать екран загрузки</string>
+    <string name="splashEnablePrefSummary" translatable="false">Включить показ екрана загрузки при запуске приложения</string>
 </resources>
