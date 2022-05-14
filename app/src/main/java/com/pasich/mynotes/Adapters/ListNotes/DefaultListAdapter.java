@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
@@ -45,26 +44,13 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
-    setImgFolder(position);
     viewHolder.nameView.setText(getWithoutExtension(getItem(position).getNameList()));
     viewHolder.dateView.setText(getItem(position).getDateList());
 
     return convertView;
   }
 
-  /**
-   * Method that defines an icon for a list item
-   * @param position - itemFile
-   */
-  private void setImgFolder(int position) {
-    if (getItem(position).getBackFolder()) {
-      viewHolder.imgFolder.setImageResource(R.drawable.ic_return_folder);
-    } else if (getItem(position).getFolder()) {
-      viewHolder.imgFolder.setImageResource(R.drawable.ic_folder);
-    } else {
-      viewHolder.imgFolder.setImageResource(R.drawable.ic_note);
-    }
-  }
+
 
   /**
    * A method that truncates the file format, and in this case removes the note extension
@@ -77,12 +63,10 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
 
   private static class ViewHolder {
     final TextView nameView, dateView;
-    final ImageView imgFolder;
 
     ViewHolder(View view) {
       nameView = view.findViewById(R.id.nameNotesL);
       dateView = view.findViewById(R.id.dateNotesL);
-      imgFolder = view.findViewById(R.id.imageFolder);
     }
   }
 }
