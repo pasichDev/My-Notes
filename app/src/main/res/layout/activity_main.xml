@@ -14,7 +14,6 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar">
@@ -24,7 +23,7 @@
             style="@style/headTextCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
             android:text="Tags"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -98,8 +97,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
@@ -109,22 +110,48 @@
             style="@style/headTextCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
+            android:layout_marginTop="12dp"
             android:text="Notes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <ImageButton
+            android:id="@+id/sortButton"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:contentDescription="@string/cd_sort"
+            android:src="@drawable/ic_sort_letters"
+            app:layout_constraintEnd_toStartOf="@+id/formatButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/formatButton"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:contentDescription="@string/cd_format"
+            android:src="@drawable/ic_edit_format_tiles"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <GridView
             android:id="@+id/list_notes"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
-            android:drawSelectorOnTop="false"
+            android:layout_marginBottom="5dp"
+            android:horizontalSpacing="10dp"
             android:numColumns="1"
+            android:scrollbars="none"
+            android:verticalSpacing="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headText2" />

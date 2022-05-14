@@ -62,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
 
     notesArray.add(new ListNotesModel("Notes 3", "12.13.35", false, false));
     notesArray.add(new ListNotesModel("Notes 4", "12.13.35", false, false));
+    notesArray.add(new ListNotesModel("Notes 5", "12.13.35", false, false));
+    notesArray.add(new ListNotesModel("Notes 6", "12.13.35", false, false));
+    notesArray.add(new ListNotesModel("Notes 7", "12.13.35", false, false));
+    notesArray.add(new ListNotesModel("Notes 8", "12.13.35", false, false));
 
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, notesArray);
     MainView.ListView.setAdapter(defaultListAdapter);

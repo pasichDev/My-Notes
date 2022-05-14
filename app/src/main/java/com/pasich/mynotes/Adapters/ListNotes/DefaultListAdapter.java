@@ -44,11 +44,14 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
+
+
     viewHolder.nameView.setText(getWithoutExtension(getItem(position).getNameList()));
     viewHolder.dateView.setText(getItem(position).getDateList());
 
     return convertView;
   }
+
 
 
 
