@@ -9,6 +9,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
+import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
 import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
 import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
 import com.pasich.mynotes.R;
@@ -18,6 +20,8 @@ import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButton.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButton.SortSwitchUtils;
 import com.pasich.mynotes.View.MainView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements UpdateListInterface {
 
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
   private MainView MainView;
   private MainUtils MainUtils;
 
+  private DefaultListAdapter defaultListAdapter;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -47,9 +53,18 @@ public class MainActivity extends AppCompatActivity implements UpdateListInterfa
 
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
-
     setSupportActionBar(MainView.toolbar);
 
+    ArrayList<ListNotesModel> notesArray = new ArrayList<>();
+
+    notesArray.add(new ListNotesModel("Notes 1", "12.13.35", false, false));
+    notesArray.add(new ListNotesModel("Notes 2", "12.13.35", false, false));
+
+    notesArray.add(new ListNotesModel("Notes 3", "12.13.35", false, false));
+    notesArray.add(new ListNotesModel("Notes 4", "12.13.35", false, false));
+
+    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, notesArray);
+    MainView.ListView.setAdapter(defaultListAdapter);
   }
 
 
