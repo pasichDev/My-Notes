@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.pasich.mynotes.NoteActivity;
+import com.pasich.mynotes.Controllers.Activity.NoteActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.CopyFileUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;

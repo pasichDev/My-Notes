@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements AddTag {
           }
         });
 
+    findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
+    MainView.ListView.setOnItemClickListener(
+        (parent, v, position, id) -> openNote(defaultListAdapter.getItem(position).getId()));
+
     while (MainModel.tags.moveToNext()) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));
     }
@@ -74,10 +79,19 @@ public class MainActivity extends AppCompatActivity implements AddTag {
     MainView.ListView.setAdapter(defaultListAdapter);
   }
 
+  private void createNotesButton(View view) {
+    if (view.getId() == R.id.newNotesButton)
+      startActivity.launch(new Intent(this, NoteActivity.class).putExtra("NewNote", true));
+  }
+
+  private void openNote(int id) {
+    startActivity.launch(
+        new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", id));
+  }
+
   @Override
   public void onResume() {
     super.onResume();
-
   }
 
   @Override

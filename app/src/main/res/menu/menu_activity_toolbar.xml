@@ -23,17 +23,10 @@
         yourapp:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/moreBut"
         android:visible="false"
-        android:id="@+id/applyBut"
-        android:icon="@drawable/ic_check"
-        android:title="@string/saveNotes"
-        yourapp:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/noSave"
-        android:visible="false"
-        android:icon="@drawable/ic_close"
-        android:title="@string/noSave"
+        android:icon="@drawable/ic_more"
+        android:title="@string/more"
         yourapp:showAsAction="ifRoom" />
     <item
         android:id="@+id/trashClean"

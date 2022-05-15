@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NoteActivity"
+            android:name=".Controllers.Activity.NoteActivity"
             android:exported="true" />
         <activity
             android:name=".Controllers.Activity.SettingsActivity"

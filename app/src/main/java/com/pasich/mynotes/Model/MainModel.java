@@ -41,6 +41,7 @@ public class MainModel {
     while (testCursor.moveToNext()) {
       notesArray.add(
           new ListNotesModel(
+              testCursor.getInt(0),
               testCursor.getString(1),
               testCursor.getString(2),
               testCursor.getString(3),

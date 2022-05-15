@@ -143,4 +143,7 @@
     <string name="splashEnablePrefSummary" translatable="false">Включить показ екрана загрузки при запуске приложения</string>
 
     <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>
+
+
+    <string name="more" translatable="false">Больше</string>
 </resources>

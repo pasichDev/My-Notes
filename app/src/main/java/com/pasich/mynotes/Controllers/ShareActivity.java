@@ -8,7 +8,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pasich.mynotes.NoteActivity;
+import com.pasich.mynotes.Controllers.Activity.NoteActivity;
 import com.pasich.mynotes.R;
 
 /** An activity that is a gateway to save a note via the save button */
