@@ -48,7 +48,7 @@
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".Controllers.ShareActivity"
+            android:name=".Controllers.Activity.ShareActivity"
             android:exported="true"
             android:label="@string/saveNotes">
             <intent-filter>

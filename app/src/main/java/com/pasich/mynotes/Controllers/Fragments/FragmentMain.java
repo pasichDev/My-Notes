@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Controllers.Fragments.Prefences;
+package com.pasich.mynotes.Controllers.Fragments;
 
 import android.os.Bundle;
 

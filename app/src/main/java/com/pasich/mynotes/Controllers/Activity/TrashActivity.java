@@ -15,7 +15,6 @@ import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
-import com.pasich.mynotes.Utils.Check.CheckFolderUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.TrashView;
 
@@ -28,7 +27,7 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    new CheckFolderUtils().checkSystemFolder(this.getFilesDir());
+
     setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_trash);
@@ -88,16 +87,7 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
     TrashView.trashNotesList.setAdapter(defaultListAdapter);
     //  activateListener();
   }
-  /*
-  private void activateListener() {
-    TrashView.trashNotesList.setOnItemClickListener(
-        (parent, v, position, id) ->
-            new ChoiceTrashDialog(
-                    new String[] {
-                      String.valueOf(position), defaultListAdapter.getItem(position).getNameList()
-                    })
-                .show(getSupportFragmentManager(), "choiceTrash"));
-  }*/
+
 
   @Override
   public void RestartListView() {

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Controllers.Fragments.Prefences;
+package com.pasich.mynotes.Controllers.Fragments;
 
 import static com.pasich.mynotes.Utils.Constants.BackConstant.UPDATE_LISTVIEW;
 import static com.pasich.mynotes.Utils.File.BackupToRestoreClass.getDataBackup;

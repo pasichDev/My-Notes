@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Controllers.Fragments.Prefences;
+package com.pasich.mynotes.Controllers.Fragments;
 
 import android.content.Intent;
 import android.net.Uri;
