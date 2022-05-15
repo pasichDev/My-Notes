@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
+import com.pasich.mynotes.Model.Adapter.ListNotesModel;
 import com.pasich.mynotes.Utils.Database.FeedReaderDbHelper;
 
 import java.util.ArrayList;

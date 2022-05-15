@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Adapters.GridView;
+package com.pasich.mynotes.Utils.Adapters;
 
 import android.content.Context;
 import android.view.View;

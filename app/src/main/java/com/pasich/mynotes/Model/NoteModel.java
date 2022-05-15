@@ -11,6 +11,7 @@ public class NoteModel {
   protected final Activity activity;
   public boolean newNoteKey;
   public int idKey;
+  public String shareText;
   private final SQLiteDatabase db;
   public Cursor cursorNote;
 
@@ -26,6 +27,7 @@ public class NoteModel {
   private void loadingKey() {
     newNoteKey = activity.getIntent().getBooleanExtra("NewNote", true);
     idKey = activity.getIntent().getIntExtra("idNote", 0);
+    shareText = activity.getIntent().getStringExtra("shareText");
   }
 
   /** Метод который загружает курсор с данними заметки */

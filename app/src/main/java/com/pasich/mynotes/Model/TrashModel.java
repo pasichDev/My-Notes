@@ -2,7 +2,7 @@ package com.pasich.mynotes.Model;
 
 import android.content.Context;
 
-import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
+import com.pasich.mynotes.Model.Adapter.ListNotesModel;
 
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.FileFileFilter;

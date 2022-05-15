@@ -11,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.Adapters.VIewPage.ViewPagerAdapter;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentAppInfo;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentBackup;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentMain;
 import com.pasich.mynotes.Controllers.Fragments.Prefences.FragmentVoice;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Adapters.ViewPagerAdapter;
 import com.pasich.mynotes.View.SettingsView;
 
 public class SettingsActivity extends AppCompatActivity {

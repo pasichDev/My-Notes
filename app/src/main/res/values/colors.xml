@@ -7,7 +7,9 @@
     <color name="EditViewDark">#1C1B1B</color>
     <color name="EditViewWhite">#FAFAFA</color>
     <color name="textHidenColor">#C6C4C4</color>
-    <color name="colorTextDarkTheme">#B5B3B3</color>
+
+
+    <color name="colorLightDark">#6C6868</color>
 
 
     <color name="backgroundActivity">#EFEDED</color>

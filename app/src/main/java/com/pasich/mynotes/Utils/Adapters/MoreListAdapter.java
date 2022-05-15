@@ -1,25 +1,25 @@
-package com.pasich.mynotes.Adapters.ListNotes;
+package com.pasich.mynotes.Utils.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pasich.mynotes.Model.Adapter.MoreChoiceModel;
 import com.pasich.mynotes.R;
 
 import java.util.List;
 
-public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
+public class MoreListAdapter extends ArrayAdapter<MoreChoiceModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
-  private final List<ListNotesModel> listNotes;
-  private ViewHolder viewHolder;
+  private final List<MoreChoiceModel> listNotes;
 
-
-  public DefaultListAdapter(Context context, int resource, List<ListNotesModel> list) {
+  public MoreListAdapter(Context context, int resource, List<MoreChoiceModel> list) {
     super(context, resource, list);
     this.listNotes = list;
     this.layout = resource;
@@ -27,15 +27,12 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   }
 
   @Override
-  public ListNotesModel getItem(int i) {
+  public MoreChoiceModel getItem(int i) {
     return listNotes != null ? listNotes.get(i) : null;
   }
 
-  public List<ListNotesModel> getData() {
-    return this.listNotes;
-  }
-
   public View getView(int position, View convertView, ViewGroup parent) {
+    ViewHolder viewHolder;
     if (convertView == null) {
       convertView = inflater.inflate(this.layout, parent, false);
       viewHolder = new ViewHolder(convertView);
@@ -44,21 +41,18 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
-    viewHolder.nameView.setText(getItem(position).getTitle());
-    viewHolder.previewNote.setText(getItem(position).getPreview());
-
+    viewHolder.nameView.setText(getItem(position).getName());
+    viewHolder.iconVIew.setImageResource(getItem(position).getIcon());
     return convertView;
   }
 
-
-
-
   private static class ViewHolder {
-    final TextView nameView, previewNote;
+    final TextView nameView;
+    final ImageView iconVIew;
 
     ViewHolder(View view) {
-      nameView = view.findViewById(R.id.nameNote);
-      previewNote = view.findViewById(R.id.previewNote);
+      nameView = view.findViewById(R.id.nameSource);
+      iconVIew = view.findViewById(R.id.imageSource);
     }
   }
 }

@@ -5,9 +5,7 @@
         <item name="android:textColor">@color/EditViewWhite</item>
     </style>
 
-    <style name="textColorNameList">
-        <item name="android:textColor">@color/colorTextDarkTheme</item>
-    </style>
+
     <style name="textColorDateList">
         <item name="android:textColor">@color/textHidenColor</item>
     </style>

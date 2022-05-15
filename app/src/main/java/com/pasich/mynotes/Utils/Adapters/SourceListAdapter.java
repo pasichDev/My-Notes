@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Adapters.SourceNoteList;
+package com.pasich.mynotes.Utils.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,18 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pasich.mynotes.Model.Adapter.SourceListModel;
 import com.pasich.mynotes.R;
 
 import java.util.List;
 
-public class SourceListAdapter extends ArrayAdapter<SourceListContent> {
+public class SourceListAdapter extends ArrayAdapter<SourceListModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
-  private final List<SourceListContent> SourceListContent;
+  private final List<SourceListModel> SourceListContent;
 
-  public SourceListAdapter(
-      Context context, int resource, List<SourceListContent> SourceListContent) {
+  public SourceListAdapter(Context context, int resource, List<SourceListModel> SourceListContent) {
     super(context, resource, SourceListContent);
     this.SourceListContent = SourceListContent;
     this.layout = resource;
@@ -27,7 +27,7 @@ public class SourceListAdapter extends ArrayAdapter<SourceListContent> {
   }
 
   public View getView(int position, View convertView, ViewGroup parent) {
-    SourceListContent listNotesfor = SourceListContent.get(position);
+    SourceListModel listNotesfor = SourceListContent.get(position);
 
     ViewHolder viewHolder;
     if (convertView == null) {

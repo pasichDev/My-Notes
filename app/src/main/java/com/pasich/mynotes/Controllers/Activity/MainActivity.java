@@ -12,10 +12,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
 import com.pasich.mynotes.Model.MainModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
 import com.pasich.mynotes.Utils.Interface.AddTag;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;

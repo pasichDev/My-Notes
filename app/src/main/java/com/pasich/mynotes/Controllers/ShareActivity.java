@@ -28,10 +28,8 @@ public class ShareActivity extends AppCompatActivity {
     if (getIntent().getType().equals("text/plain")) {
       startActivity.launch(
           new Intent(this, NoteActivity.class)
-              .putExtra("KeyFunction", "NewNote")
-              .putExtra("idNote", "null")
-              .putExtra("shareText", handleSendText())
-              .putExtra("folder", ""));
+              .putExtra("NewNote", true)
+              .putExtra("shareText", handleSendText()));
     } else {
       Toast.makeText(this, getString(R.string.notSupportedShare), Toast.LENGTH_LONG).show();
     }

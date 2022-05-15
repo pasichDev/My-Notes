@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pasich.mynotes.Controllers.Dialogs.MoreNoteDialog;
 import com.pasich.mynotes.Model.NoteModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.NoteView;
@@ -13,8 +14,6 @@ import com.pasich.mynotes.View.NoteView;
 import java.util.Objects;
 
 public class NoteActivity extends AppCompatActivity {
-
-  private Menu toolbarMenu;
 
   private NoteView NoteVIew;
   private NoteModel NoteModel;
@@ -38,6 +37,8 @@ public class NoteActivity extends AppCompatActivity {
   private void initializationActivity() {
     if (NoteModel.newNoteKey) {
       NoteVIew.activatedActivity();
+      if (NoteModel.shareText != null && NoteModel.shareText.length() > 5)
+        NoteVIew.valueNote.setText(NoteModel.shareText);
     } else if (NoteModel.idKey >= 1) {
       noteEdit();
     }
@@ -63,7 +64,6 @@ public class NoteActivity extends AppCompatActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    toolbarMenu = menu;
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     menu.findItem(R.id.moreBut).setVisible(true);
     return true;
@@ -74,7 +74,9 @@ public class NoteActivity extends AppCompatActivity {
     if (item.getItemId() == android.R.id.home) {
       closeNotesSave();
     }
-
+    if (item.getItemId() == R.id.moreBut) {
+      new MoreNoteDialog().show(getSupportFragmentManager(), "moreNote");
+    }
     return true;
   }
 
@@ -87,28 +89,6 @@ public class NoteActivity extends AppCompatActivity {
   protected void onDestroy() {
     super.onDestroy();
   }
-
-  /**
-   * Метод который при старте активности определяет режим ее работы. @KeyFunctions = NewNote -
-   * Новаяя заметка @KeyFunctions = EditNote - Редактировать сущесствующую зaметку @KeyFunctions =
-   * TrashNote - Просмотр заметки из корзины
-   */
-  /*private void NotesMode() {
-    if (KeyFunction.equals("NewNote") && idNote.equals("null")) {
-      setTitle(getResources().getText(R.string.NewNote));
-      notesControllers.activeEditText();
-    } else if (KeyFunction.equals("EditNote") && !idNote.equals("null")) {
-      setTitle(getResources().getText(R.string.EditNote));
-      MyEditText.setText(fileCore.readFile(idNote, folder + "/"));
-      notesControllers.deactiveEditText();
-    } else if (KeyFunction.equals("TrashNote") && !idNote.equals("null")) {
-      setTitle(getResources().getText(R.string.viewNotes));
-      MyEditText.setText(fileCore.readFile(idNote, "trash/"));
-      EditButton.setVisibility(View.GONE);
-      SpeechToTextButton.setVisibility(View.GONE);
-      notesControllers.deactiveEditText();
-    }
-  }*/
 
   private void closeNotesSave() {
     finish();

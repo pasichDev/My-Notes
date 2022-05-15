@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Adapters.ListNotes;
+package com.pasich.mynotes.Model.Adapter;
 
 public class ListNotesModel {
   private final String title;

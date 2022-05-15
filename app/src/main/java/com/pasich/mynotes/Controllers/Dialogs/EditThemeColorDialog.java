@@ -10,8 +10,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
 
-import com.pasich.mynotes.Adapters.GridView.ColorsAdapter;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Adapters.ColorsAdapter;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 import com.pasich.mynotes.View.DialogView.EditThemeColorView;
 

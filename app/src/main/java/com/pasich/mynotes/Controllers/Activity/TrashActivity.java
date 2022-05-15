@@ -11,10 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
 import com.pasich.mynotes.Utils.Check.CheckFolderUtils;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.TrashView;

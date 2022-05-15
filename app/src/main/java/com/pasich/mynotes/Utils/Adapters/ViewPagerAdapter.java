@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Adapters.VIewPage;
+package com.pasich.mynotes.Utils.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
