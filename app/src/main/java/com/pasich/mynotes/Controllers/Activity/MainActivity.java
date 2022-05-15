@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements AddTag {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     menu.findItem(R.id.setingsBut).setVisible(true);
     menu.findItem(R.id.searchBut).setVisible(true);
+    menu.findItem(R.id.trashButton).setVisible(true);
     return true;
   }
 

@@ -9,7 +9,12 @@
         android:icon="@drawable/ic_search"
         android:title="@string/settings"
         yourapp:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/trashButton"
+        android:visible="false"
+        android:icon="@drawable/ic_trash"
+        android:title="@string/trashN"
+        yourapp:showAsAction="ifRoom" />
     <item
         android:id="@+id/setingsBut"
         android:visible="false"

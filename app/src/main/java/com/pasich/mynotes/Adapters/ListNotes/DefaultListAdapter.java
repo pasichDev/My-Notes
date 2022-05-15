@@ -47,7 +47,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
 
 
     viewHolder.nameView.setText(getWithoutExtension(getItem(position).getNameList()));
-    //   viewHolder.dateView.setText(getItem(position).getDateList());
+
 
     return convertView;
   }
@@ -65,11 +65,10 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   }
 
   private static class ViewHolder {
-    final TextView nameView, dateView;
+    final TextView nameView;
 
     ViewHolder(View view) {
-      nameView = view.findViewById(R.id.nameNotesL);
-      dateView = view.findViewById(R.id.dateNotesL);
+      nameView = view.findViewById(R.id.nameNote);
     }
   }
 }

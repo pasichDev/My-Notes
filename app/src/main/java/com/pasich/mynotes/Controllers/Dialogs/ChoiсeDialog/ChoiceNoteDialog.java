@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.pasich.mynotes.Controllers.Dialogs.CopyNotesDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.File.CopyFileUtils;
 import com.pasich.mynotes.Utils.File.FileCore;
@@ -56,7 +55,7 @@ public class ChoiceNoteDialog extends DialogFragment {
                 Toast.makeText(
                         getContext(), getString(R.string.error_folders_exists), Toast.LENGTH_LONG)
                     .show();
-              else new CopyNotesDialog(arrayKey).show(getParentFragmentManager(), "Cope Notes");
+
               break;
           }
         });
