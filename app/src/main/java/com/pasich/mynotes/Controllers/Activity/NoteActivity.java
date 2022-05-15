@@ -29,6 +29,26 @@ public class NoteActivity extends AppCompatActivity {
     setSupportActionBar(findViewById(R.id.toolbar_actionbar));
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+    initializationActivity();
+
+    NoteVIew.activatedButton.setOnClickListener(view -> NoteVIew.activatedActivity());
+  }
+
+  private void initializationActivity() {
+    if (NoteModel.newNoteKey) {
+      NoteVIew.activatedActivity();
+    } else if (NoteModel.idKey >= 1) {
+      noteEdit();
+    }
+  }
+
+  private void noteEdit() {
+    NoteModel.queryNote();
+    NoteModel.cursorNote.moveToFirst();
+    NoteVIew.titleName.setText(NoteModel.cursorNote.getString(1));
+    NoteVIew.valueNote.setText(NoteModel.cursorNote.getString(2));
+    NoteVIew.editDate.setText(NoteModel.cursorNote.getString(3));
   }
 
   @Override

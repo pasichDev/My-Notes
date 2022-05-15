@@ -69,7 +69,9 @@ public class MainActivity extends AppCompatActivity implements AddTag {
 
     findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
     MainView.ListView.setOnItemClickListener(
-        (parent, v, position, id) -> openNote(defaultListAdapter.getItem(position).getId()));
+        (parent, v, position, id) -> {
+          openNote(defaultListAdapter.getItem(position).getId());
+        });
 
     while (MainModel.tags.moveToNext()) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));

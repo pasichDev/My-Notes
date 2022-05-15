@@ -3,6 +3,8 @@ package com.pasich.mynotes.View;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
@@ -12,14 +14,18 @@ import com.pasich.mynotes.R;
 public class NoteView {
   public final Toolbar toolbar;
   public final EditText titleName, valueNote;
+  public final TextView editDate;
   private final View view;
+  public final ImageButton activatedButton, spechStart;
 
   public NoteView(View rootView) {
     this.view = rootView;
     this.toolbar = rootView.findViewById(R.id.toolbar_actionbar);
     this.titleName = rootView.findViewById(R.id.notesTitle);
     this.valueNote = rootView.findViewById(R.id.valueNote);
-
+    this.editDate = rootView.findViewById(R.id.dataEditNote);
+    this.activatedButton = rootView.findViewById(R.id.editActive);
+    this.spechStart = rootView.findViewById(R.id.spechStart);
     initialization();
   }
 
@@ -36,7 +42,9 @@ public class NoteView {
     valueNote.setTextSize(sizeText);
   }
 
-  /** ethod that changes the text style of the note editing window Bold,Italic,Normal,Italic-Bold */
+  /**
+   * Method that changes the text style of the note editing window Bold,Italic,Normal,Italic-Bold
+   */
   private void setStyleText() {
     final String style =
         PreferenceManager.getDefaultSharedPreferences(view.getContext())
@@ -56,7 +64,16 @@ public class NoteView {
         styleSel = Typeface.NORMAL;
         break;
     }
-
     valueNote.setTypeface(null, styleSel);
+  }
+
+  public void activatedActivity() {
+    titleName.setFocusable(true);
+    titleName.setFocusableInTouchMode(true);
+    valueNote.setFocusable(true);
+    valueNote.setFocusableInTouchMode(true);
+    valueNote.requestFocus();
+    activatedButton.setVisibility(View.GONE);
+    spechStart.setVisibility(View.VISIBLE);
   }
 }

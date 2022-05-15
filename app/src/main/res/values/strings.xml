@@ -146,4 +146,6 @@
 
 
     <string name="more" translatable="false">Больше</string>
+    <string name="noteTitle" translatable="false">Заголовок заметки</string>
+
 </resources>

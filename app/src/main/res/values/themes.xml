@@ -23,11 +23,13 @@
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
         <item name="colorBackground">@color/white</item>
         <item name="colorLight">@color/darkLight</item>
-
         <item name="android:statusBarColor">?attr/colorPrimaryBackground</item>
         <item name="android:windowLightStatusBar">true</item>
+    </style>
 
-
+    <style name="editTextSet" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
     </style>
 
 
