@@ -14,21 +14,21 @@ import java.util.Objects;
 
 public class MainView {
 
-  private final View view;
   public final Toolbar toolbar;
   public final TabLayout TabLayout;
   public final GridView ListView;
   public final ImageButton sortButton, formatButton;
+  private final View view;
 
-    public MainView(View rootView){
-        this.view = rootView;
+  public MainView(View rootView) {
+    this.view = rootView;
     this.toolbar = rootView.findViewById(R.id.toolbar_actionbar);
     this.TabLayout = rootView.findViewById(R.id.Tags);
     this.ListView = rootView.findViewById(R.id.list_notes);
     this.sortButton = view.findViewById(R.id.sortButton);
     this.formatButton = view.findViewById(R.id.formatButton);
     initialization();
-    }
+  }
 
   private void initialization() {
     ListView.setNumColumns(

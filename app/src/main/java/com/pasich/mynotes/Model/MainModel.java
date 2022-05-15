@@ -7,22 +7,26 @@ import android.database.sqlite.SQLiteDatabase;
 import com.pasich.mynotes.Utils.Database.FeedReaderDbHelper;
 
 public class MainModel {
-  private final FeedReaderDbHelper databaseHelper;
   private final SQLiteDatabase db;
-  private Cursor tags;
+  public Cursor tags;
 
   public MainModel(Context context) {
-    this.databaseHelper = new FeedReaderDbHelper(context);
+    FeedReaderDbHelper databaseHelper = new FeedReaderDbHelper(context);
     this.db = databaseHelper.getReadableDatabase();
-
-    queryTags();
+    this.tags = queryTags();
   }
 
-  public Cursor getTags() {
-    return tags;
+  /** Method that queries all tags */
+  public Cursor queryTags() {
+    return db.rawQuery("SELECT * FROM tags ORDER BY name ASC;", null);
   }
 
-  public void queryTags() {
-    tags = db.rawQuery("SELECT * FROM tags;", null);
+  public void createTag(String nameTag) {
+    db.execSQL("INSERT INTO tags (name) VALUES ('" + nameTag + "');");
+  }
+
+  public void closeConnection() {
+    tags.close();
+    db.close();
   }
 }

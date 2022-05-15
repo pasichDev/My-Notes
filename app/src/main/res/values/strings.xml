@@ -128,15 +128,19 @@
     <string name="cd_format">Format notes</string>
 
 
+    <string name="cd_editTags" translatable="false">Редактировать метки</string>
     <string name="folders" translatable="false">Папки</string>
+    <string name="tags" translatable="false">Метки</string>
     <string name="namefolder" translatable="false">NameFolder</string>
     <string name="PreferencesFileName" translatable="false">com.pasich.mynotes_preferences</string>
 
     <string name="close" translatable="false">Закрыть</string>
-    <string name="addTag" translatable="false">Добавить тег</string>
-    <string name="nameTagInput" translatable="false">Введите название тега</string>
+    <string name="addTag" translatable="false">Добавить метку</string>
+    <string name="nameTagInput" translatable="false">Введите название метки</string>
     <string name="errorCountNameTag" translatable="false">Название тега не может состоять больше 10 символов</string>
 
     <string name="splashEnablePrefTitle" translatable="false">Показывать екран загрузки</string>
     <string name="splashEnablePrefSummary" translatable="false">Включить показ екрана загрузки при запуске приложения</string>
+
+    <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>
 </resources>

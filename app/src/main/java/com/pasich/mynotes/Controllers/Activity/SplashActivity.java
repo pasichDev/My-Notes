@@ -20,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
     } else {
       finish();
       startActivity(new Intent(SplashActivity.this, MainActivity.class));
+      overridePendingTransition(0, 0);
     }
   }
 

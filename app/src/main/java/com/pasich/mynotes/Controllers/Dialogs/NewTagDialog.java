@@ -14,7 +14,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.TextValidatorUtils;
+import com.pasich.mynotes.Utils.Interface.AddTag;
+import com.pasich.mynotes.Utils.Simplifications.TextValidatorUtils;
 import com.pasich.mynotes.View.DialogView.NewTagView;
 
 public class NewTagDialog extends DialogFragment {
@@ -24,9 +25,16 @@ public class NewTagDialog extends DialogFragment {
     setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle);
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final NewTagView NewTagView = new NewTagView(requireContext(), getLayoutInflater());
-
+    final AddTag AddTag = (AddTag) getContext();
     NewTagView.uiDialog.getCloseButton().setOnClickListener(view -> dismiss());
-    NewTagView.uiDialog.getSaveButton().setOnClickListener(view -> dismiss());
+    NewTagView.uiDialog
+        .getSaveButton()
+        .setOnClickListener(
+            view -> {
+              assert AddTag != null;
+              AddTag.addTagQuery(NewTagView.inputNameTag.getText().toString());
+              dismiss();
+            });
 
     builder.setContentView(NewTagView.uiDialog.getContainer());
 
@@ -37,11 +45,13 @@ public class NewTagDialog extends DialogFragment {
             if (text.length() == 11) {
               NewTagView.textMessageError.setVisibility(View.VISIBLE);
               NewTagView.uiDialog.getSaveButton().setEnabled(false);
-            } else if (text.length() == 10) NewTagView.textMessageError.setVisibility(View.GONE);
+            } else if (text.length() == 10) {
+              NewTagView.textMessageError.setVisibility(View.GONE);
+              NewTagView.uiDialog.getSaveButton().setEnabled(true);
+            }
           }
         });
 
-    /** Это для того чтобы клавиатура не перывала диалоговое окна и вызывал клавиатуру */
     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
         .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);

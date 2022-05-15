@@ -1,5 +1,4 @@
-package com.pasich.mynotes.Utils.SwitchButton;
-
+package com.pasich.mynotes.Utils.SwitchButtons;
 
 import android.content.Context;
 import android.widget.ImageButton;
@@ -17,6 +16,7 @@ public class SortSwitchUtils {
   public SortSwitchUtils(Context context, ImageButton buttonSort) {
     this.context = context;
     this.buttonSort = buttonSort;
+    getSortParam();
   }
 
   /**

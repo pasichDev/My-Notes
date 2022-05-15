@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Utils;
+package com.pasich.mynotes.Utils.Simplifications;
 
 import android.text.Editable;
 import android.text.TextWatcher;
