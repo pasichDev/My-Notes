@@ -1,7 +1,5 @@
 package com.pasich.mynotes.Model;
 
-import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
-
 import android.content.Context;
 
 import com.pasich.mynotes.Adapters.ListNotes.ListNotesModel;
@@ -33,8 +31,9 @@ public class TrashModel {
     if (fileListNames.length >= 1) {
       Arrays.sort(fileListNames, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
       for (File file : fileListNames) {
-        if (file.getName().endsWith(".txt"))
-          notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()), false, false));
+        //  if (file.getName().endsWith(".txt"))
+        //   notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()),
+        // false, false));
       }
     }
   }

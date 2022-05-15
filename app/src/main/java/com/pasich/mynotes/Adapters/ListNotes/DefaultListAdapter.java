@@ -47,7 +47,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
 
 
     viewHolder.nameView.setText(getWithoutExtension(getItem(position).getNameList()));
-    viewHolder.dateView.setText(getItem(position).getDateList());
+    //   viewHolder.dateView.setText(getItem(position).getDateList());
 
     return convertView;
   }
