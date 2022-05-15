@@ -44,10 +44,8 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
-
-
-    viewHolder.nameView.setText(getWithoutExtension(getItem(position).getNameList()));
-
+    viewHolder.nameView.setText(getItem(position).getTitle());
+    viewHolder.previewNote.setText(getItem(position).getPreview());
 
     return convertView;
   }
@@ -55,20 +53,12 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
 
 
 
-  /**
-   * A method that truncates the file format, and in this case removes the note extension
-   * @param fileName - File name before trimming -
-   * @return - Without Extension name file
-   */
-  private String getWithoutExtension(String fileName) {
-      return fileName.endsWith("txt") ? fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
-  }
-
   private static class ViewHolder {
-    final TextView nameView;
+    final TextView nameView, previewNote;
 
     ViewHolder(View view) {
       nameView = view.findViewById(R.id.nameNote);
+      previewNote = view.findViewById(R.id.previewNote);
     }
   }
 }

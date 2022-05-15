@@ -22,7 +22,7 @@ tools:context=".Controllers.Activity.SettingsActivity">
             android:id="@+id/settingsTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            style="@style/AppTabLayout"
             app:tabIndicatorAnimationDuration="200"
             app:tabMode="scrollable">
 

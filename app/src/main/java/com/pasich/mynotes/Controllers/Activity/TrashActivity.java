@@ -12,7 +12,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Adapters.ListNotes.DefaultListAdapter;
-import com.pasich.mynotes.Controllers.Dialogs.ChoiceTrashDialog;
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
@@ -87,9 +86,9 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
   private void createAdapterListView() {
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, TrashModel.notesArray);
     TrashView.trashNotesList.setAdapter(defaultListAdapter);
-    activateListener();
+    //  activateListener();
   }
-
+  /*
   private void activateListener() {
     TrashView.trashNotesList.setOnItemClickListener(
         (parent, v, position, id) ->
@@ -98,7 +97,7 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
                       String.valueOf(position), defaultListAdapter.getItem(position).getNameList()
                     })
                 .show(getSupportFragmentManager(), "choiceTrash"));
-  }
+  }*/
 
   @Override
   public void RestartListView() {

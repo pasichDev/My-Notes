@@ -15,7 +15,15 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
   /** Метод который вызиваеться если нет базы данных и создет таблицы */
   @Override
   public void onCreate(SQLiteDatabase db) {
-    db.execSQL("CREATE TABLE " + "tags" + "(name" + " TEXT);");
+    db.execSQL("CREATE TABLE tags (name TEXT);");
+    db.execSQL(
+        "CREATE TABLE notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, value TEXT, date TEXT, type TEXT, tag TEXT);");
+
+    /* db.execSQL(
+        "INSERT INTO notes (title, value, date, type, tag) VALUES ('Title Note 1', 'В методе onUpgrade() происходит обновление схемы БД. В данном случае для примера использован\n"
+            + "   * примитивный поход с удалением предыдущей базы данных с помощью sql-выражения DROP и последующим\n"
+            + "   * ее созданием. Но в реальности если вам будет необходимо сохранить данные, этот метод может', 1234567, 'Note', '');");
+    db.execSQL("INSERT INTO notes  (title, value, date, type, tag) VALUES ('Title Note 2', 'testPreview', 2343535, 'Note', '');");*/
   }
 
   /**

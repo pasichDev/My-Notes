@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements AddTag {
     setSupportActionBar(MainView.toolbar);
 
     MainView.sortButton.setOnClickListener(v -> {});
-
     MainView.formatButton.setOnClickListener(
         v -> {
           formatSwitch.formatNote();
@@ -66,17 +65,19 @@ public class MainActivity extends AppCompatActivity implements AddTag {
             }
           }
         });
+
+    while (MainModel.tags.moveToNext()) {
+      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));
+    }
+
+    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
+    MainView.ListView.setAdapter(defaultListAdapter);
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    while (MainModel.tags.moveToNext()) {
-      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));
-    }
 
-    // defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, notesArray);
-    //  MainView.ListView.setAdapter(defaultListAdapter);
   }
 
   @Override
