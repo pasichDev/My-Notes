@@ -19,16 +19,16 @@ import com.pasich.mynotes.Utils.Simplifications.TextValidatorUtils;
 import com.pasich.mynotes.View.DialogView.NewTagView;
 
 public class NewTagDialog extends DialogFragment {
+  public NewTagView NewTagView;
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle);
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final NewTagView NewTagView = new NewTagView(requireContext(), getLayoutInflater());
     final AddTag AddTag = (AddTag) getContext();
-    NewTagView.uiDialog.getCloseButton().setOnClickListener(view -> dismiss());
-    NewTagView.uiDialog
-        .getSaveButton()
+    NewTagView = new NewTagView(requireContext(), getLayoutInflater());
+    NewTagView.getCloseButton().setOnClickListener(view -> dismiss());
+    NewTagView.getSaveButton()
         .setOnClickListener(
             view -> {
               assert AddTag != null;
@@ -36,19 +36,13 @@ public class NewTagDialog extends DialogFragment {
               dismiss();
             });
 
-    builder.setContentView(NewTagView.uiDialog.getContainer());
+    builder.setContentView(NewTagView.getContainer());
 
     NewTagView.inputNameTag.addTextChangedListener(
         new TextValidatorUtils(NewTagView.inputNameTag) {
           @Override
           public void validate(TextView textView, String text) {
-            if (text.length() == 11) {
-              NewTagView.textMessageError.setVisibility(View.VISIBLE);
-              NewTagView.uiDialog.getSaveButton().setEnabled(false);
-            } else if (text.length() == 10) {
-              NewTagView.textMessageError.setVisibility(View.GONE);
-              NewTagView.uiDialog.getSaveButton().setEnabled(true);
-            }
+            validateText(text);
           }
         });
 
@@ -57,6 +51,18 @@ public class NewTagDialog extends DialogFragment {
         .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
 
     return builder;
+  }
+
+  private void validateText(String text) {
+    if (text.length() == 21) {
+      NewTagView.textMessageError.setVisibility(View.VISIBLE);
+      NewTagView.getSaveButton().setEnabled(false);
+      NewTagView.setInputError();
+    } else if (text.length() == 20) {
+      NewTagView.textMessageError.setVisibility(View.GONE);
+      NewTagView.getSaveButton().setEnabled(true);
+      NewTagView.setInputNormal();
+    }
   }
 
   @Override

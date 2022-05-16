@@ -16,7 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.Model.Adapter.SourceListModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.SourceListAdapter;
-import com.pasich.mynotes.View.CustomView.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -34,7 +34,7 @@ public class SourcesNoteDialog extends DialogFragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
     ListView listView = new ListView(getContext());
-    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
+    CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
 
     uiDialog.setHeadTextView(getString(R.string.investments));
     uiDialog.getContainer().addView(listView);

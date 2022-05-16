@@ -31,6 +31,7 @@ public class MoreNoteDialog extends DialogFragment {
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
     listView.setAdapter(adapter);
 
+    listView.setDivider(null);
     listView.setOnItemClickListener(
         (parent, v, position, id) -> {
           //  if(adapter.getItem(position).getAction().equals("Share"))

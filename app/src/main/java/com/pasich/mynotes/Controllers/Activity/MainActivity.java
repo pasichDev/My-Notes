@@ -2,6 +2,7 @@ package com.pasich.mynotes.Controllers.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +32,16 @@ public class MainActivity extends AppCompatActivity implements AddTag {
 
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {});
+      registerForActivityResult(
+          new ActivityResultContracts.StartActivityForResult(),
+          result -> {
+            Log.wtf("pasic", "requestOk");
+            Intent data = result.getData();
+            if (result.getResultCode() == 24 && result.getData() != null) {
+              Log.wtf("pasic", "codeOk");
+              if (data.getBooleanExtra("updateList", false)) restartListNotes();
+            }
+          });
 
   private MainView MainView;
   private MainUtils MainUtils;
@@ -53,7 +63,11 @@ public class MainActivity extends AppCompatActivity implements AddTag {
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
     MainView.ListView.setAdapter(defaultListAdapter);
 
-    MainView.sortButton.setOnClickListener(v -> {});
+    MainView.sortButton.setOnClickListener(
+        v -> {
+          restartListNotes();
+          sortSwitch.sortNote();
+        });
     MainView.formatButton.setOnClickListener(
         v -> {
           formatSwitch.formatNote();
@@ -98,6 +112,13 @@ public class MainActivity extends AppCompatActivity implements AddTag {
     while (MainModel.tags.moveToNext()) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));
     }
+  }
+
+  public void restartListNotes() {
+    defaultListAdapter.getData().clear();
+    MainModel.getUpdateCursor();
+    defaultListAdapter.notifyDataSetChanged();
+    Log.wtf("pasic", "restartOk");
   }
 
   private void selectedItemAction(ListNotesModel item) {

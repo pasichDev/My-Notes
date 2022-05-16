@@ -1,8 +1,10 @@
 package com.pasich.mynotes.Controllers.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,8 +24,8 @@ public class NoteActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_note);
-    NoteVIew = new NoteView(getWindow().getDecorView());
-    NoteModel = new NoteModel(this);
+
+    NoteModel = new NoteModel(this, NoteVIew = new NoteView(getWindow().getDecorView()));
 
     setSupportActionBar(findViewById(R.id.toolbar_actionbar));
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -34,6 +36,7 @@ public class NoteActivity extends AppCompatActivity {
     NoteVIew.activatedButton.setOnClickListener(view -> NoteVIew.activatedActivity());
   }
 
+  /** Метод который */
   private void initializationActivity() {
     if (NoteModel.newNoteKey) {
       NoteVIew.activatedActivity();
@@ -50,6 +53,12 @@ public class NoteActivity extends AppCompatActivity {
     NoteVIew.titleName.setText(NoteModel.cursorNote.getString(1));
     NoteVIew.valueNote.setText(NoteModel.cursorNote.getString(2));
     NoteVIew.editDate.setText(NoteModel.cursorNote.getString(3));
+  }
+
+  private void saveNote() {
+    if (NoteModel.newNoteKey) {
+      NoteModel.createNote();
+    }
   }
 
   @Override
@@ -86,11 +95,18 @@ public class NoteActivity extends AppCompatActivity {
   }
 
   @Override
-  protected void onDestroy() {
+  public void onDestroy() {
     super.onDestroy();
+    NoteModel.closeConnection();
   }
 
+
   private void closeNotesSave() {
+    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    Intent intent = new Intent();
+    saveNote();
+    intent.putExtra("updateList", true);
+    setResult(24, intent);
     finish();
   }
 }

@@ -10,36 +10,26 @@ import android.widget.TextView;
 
 import com.pasich.mynotes.R;
 
-/**
- * A class that simplifies working with dialogs CustomUIDialog uiDialog = new
- * CustomUIDialog(getContext(), getLayoutInflater());
- * uiDialog.setHeadTextView(getString(R.string.warning)); builder.setView(uiDialog.getContainer());
- */
-public class CustomUIDialog {
+/** A class that simplifies working with dialogs CustomHeadUIDialog uiDialog = new */
+public class CustomHeadUIDialog {
 
-  protected View convertView;
-  protected int headLayout = R.layout.dialog_head_bar,
-      layoutOrientation = LinearLayout.VERTICAL;
-  protected TextView headText;
-  protected LinearLayout container;
   private final Button closeButton;
   private final Button saveButton;
-
-  public LinearLayout.LayoutParams lp;
+  public LinearLayout.LayoutParams LP_DEFAULT;
   public int sizeTextMessage = 17;
+  protected View convertView;
+  protected int headLayout = R.layout.dialog_head_bar, layoutOrientation = LinearLayout.VERTICAL;
+  protected TextView headText;
+  protected LinearLayout container;
 
-  public CustomUIDialog(Context context, LayoutInflater inflater) {
+  public CustomHeadUIDialog(Context context, LayoutInflater inflater) {
     this.convertView = inflater.inflate(this.headLayout, null);
     this.headText = convertView.findViewById(R.id.HeadTextDialog);
     this.closeButton = convertView.findViewById(R.id.closeButtonDialog);
     this.saveButton = convertView.findViewById(R.id.saveButtonDialog);
-
     this.container = new LinearLayout(context);
-    this.lp =
-        new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    this.lp.setMargins(70, 50, 70, 50);
     this.setContainer();
+    this.setLayoutParam();
   }
 
   /** Method for setting up a class container */
@@ -48,12 +38,19 @@ public class CustomUIDialog {
     this.container.addView(convertView);
   }
 
+  public void setLayoutParam() {
+    this.LP_DEFAULT =
+        new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    this.LP_DEFAULT.setMargins(70, 50, 70, 50);
+  }
+
   /**
    * Method for setting header text uiDialog.setHeadTextView(string);
    *
    * @param headString - Dialog box title
    */
-  public void setHeadTextView(String headString) {
+  public final void setHeadTextView(String headString) {
     this.headText.setText(headString);
   }
 
@@ -62,7 +59,7 @@ public class CustomUIDialog {
    *
    * @return - closeBut
    */
-  public Button getCloseButton() {
+  public final Button getCloseButton() {
     return this.closeButton;
   }
 
@@ -71,7 +68,7 @@ public class CustomUIDialog {
    *
    * @return - save Button
    */
-  public Button getSaveButton() {
+  public final Button getSaveButton() {
     return this.saveButton;
   }
 
@@ -81,15 +78,12 @@ public class CustomUIDialog {
    *
    * @return - container
    */
-  public LinearLayout getContainer() {
+  public final LinearLayout getContainer() {
     return this.container;
   }
 
-  /**
-   * method to set font size for message
-   */
-  public void setTextSizeMessage(TextView textView){
+  /** method to set font size for message */
+  public final void setTextSizeMessage(TextView textView) {
     textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeTextMessage);
   }
-
 }

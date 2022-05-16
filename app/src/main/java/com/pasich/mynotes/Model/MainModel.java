@@ -12,9 +12,11 @@ import java.util.ArrayList;
 public class MainModel {
   private final SQLiteDatabase db;
   public Cursor tags;
-  public ArrayList<ListNotesModel> notesArray = new ArrayList<>();
+  public ArrayList<ListNotesModel> notesArray = new ArrayList<ListNotesModel>();
+  private final Context context;
 
   public MainModel(Context context) {
+    this.context = context;
     FeedReaderDbHelper databaseHelper = new FeedReaderDbHelper(context);
     this.db = databaseHelper.getReadableDatabase();
     this.tags = queryTags();
@@ -34,6 +36,12 @@ public class MainModel {
   public void closeConnection() {
     tags.close();
     db.close();
+  }
+
+  /** Method that clears an array and starts a new one */
+  public void getUpdateCursor() {
+    notesArray.clear();
+    searchNotes();
   }
 
   public void searchNotes() {

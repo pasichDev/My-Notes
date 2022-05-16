@@ -32,12 +32,12 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
     setContentView(R.layout.activity_trash);
 
     TrashView = new TrashView(getWindow().getDecorView());
-    TrashModel = new TrashModel(this);
+    // TrashModel = new TrashModel(this);
     setupActionBar();
 
-    if (TrashModel.getSizeArray() != 0) createAdapterListView();
-    else TrashView.createViewTrashEmpty();
-    countItems = TrashModel.getSizeArray();
+    //    if (TrashModel.getSizeArray() != 0) createAdapterListView();
+    // else TrashView.createViewTrashEmpty();
+    //  countItems = TrashModel.getSizeArray();
   }
 
   @Override

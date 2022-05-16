@@ -30,6 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
         android:layout_marginTop="@dimen/marginConstraintLayoutOnBothSides"
+        android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:tabGravity="fill"
@@ -44,7 +46,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All Notes" />
+            android:text="@string/allNotes" />
 
     </com.google.android.material.tabs.TabLayout>
 

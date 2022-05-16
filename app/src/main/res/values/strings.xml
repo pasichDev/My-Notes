@@ -137,14 +137,14 @@
     <string name="close" translatable="false">Закрыть</string>
     <string name="addTag" translatable="false">Добавить метку</string>
     <string name="nameTagInput" translatable="false">Введите название метки</string>
-    <string name="errorCountNameTag" translatable="false">Название тега не может состоять больше 10 символов</string>
+    <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше 20 символов</string>
 
     <string name="splashEnablePrefTitle" translatable="false">Показывать екран загрузки</string>
     <string name="splashEnablePrefSummary" translatable="false">Включить показ екрана загрузки при запуске приложения</string>
 
     <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>
 
-
+    <string name="allNotes" translatable="false">Все заметки</string>
     <string name="more" translatable="false">Больше</string>
     <string name="noteTitle" translatable="false">Заголовок заметки</string>
 

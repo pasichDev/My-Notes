@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.View.CustomView.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 import java.util.Objects;
 
@@ -22,13 +22,13 @@ public class WhatUpdateDialog extends DialogFragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     String versionName = BuildConfig.VERSION_NAME;
 
-    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
+    CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
     uiDialog.setHeadTextView(getString(R.string.app_name) + " " + versionName);
     TextView textMessage = new TextView(getContext());
 
     textMessage.setText(getString(R.string.updateNowM));
     uiDialog.setTextSizeMessage(textMessage);
-    uiDialog.getContainer().addView(textMessage, uiDialog.lp);
+    uiDialog.getContainer().addView(textMessage, uiDialog.LP_DEFAULT);
 
     uiDialog.getCloseButton().setVisibility(View.VISIBLE);
     uiDialog
