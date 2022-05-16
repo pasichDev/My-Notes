@@ -18,7 +18,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   private final int layout;
   private final List<ListNotesModel> listNotes;
   private ViewHolder viewHolder;
-
+  private View itemView;
 
   public DefaultListAdapter(Context context, int resource, List<ListNotesModel> list) {
     super(context, resource, list);
@@ -36,6 +36,20 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     return this.listNotes;
   }
 
+  public int getCountChecked() {
+    int count = 0;
+    for (int i = 0; i < listNotes.size(); i++) {
+      count = listNotes.get(i).getChecked() ? count + 1 : count;
+    }
+    return count;
+  }
+
+  public void setChekClean() {
+    for (int i = 0; i < listNotes.size(); i++) {
+      listNotes.get(i).setChecked(false);
+    }
+  }
+
   public View getView(int position, View convertView, ViewGroup parent) {
     if (convertView == null) {
       convertView = inflater.inflate(this.layout, parent, false);
@@ -48,18 +62,22 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     viewHolder.nameView.setText(getItem(position).getTitle());
     viewHolder.previewNote.setText(getItem(position).getPreview());
 
+    if (getItem(position).getTags() != null && getItem(position).getTags().length() >= 2) {
+      viewHolder.tagNote.setVisibility(View.VISIBLE);
+      viewHolder.tagNote.setText("#" + getItem(position).getTags());
+    }
+
+    getItem(position).setItemView(convertView);
     return convertView;
   }
 
-
-
-
   private static class ViewHolder {
-    final TextView nameView, previewNote;
+    final TextView nameView, previewNote, tagNote;
 
     ViewHolder(View view) {
       nameView = view.findViewById(R.id.nameNote);
       previewNote = view.findViewById(R.id.previewNote);
+      tagNote = view.findViewById(R.id.tagNote);
     }
   }
 }

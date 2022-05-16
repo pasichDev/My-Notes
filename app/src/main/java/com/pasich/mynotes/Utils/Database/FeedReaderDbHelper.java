@@ -18,13 +18,15 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
     db.execSQL("CREATE TABLE tags (name TEXT);");
     db.execSQL(
         "CREATE TABLE notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, value TEXT, date TEXT, type TEXT, tag TEXT);");
-
-    /* db.execSQL(
-        "INSERT INTO notes (title, value, date, type, tag) VALUES ('Title Note 1', 'В методе onUpgrade() происходит обновление схемы БД. В данном случае для примера использован\n"
-            + "   * примитивный поход с удалением предыдущей базы данных с помощью sql-выражения DROP и последующим\n"
-            + "   * ее созданием. Но в реальности если вам будет необходимо сохранить данные, этот метод может', 1234567, 'Note', '');");
-    db.execSQL("INSERT INTO notes  (title, value, date, type, tag) VALUES ('Title Note 2', 'testPreview', 2343535, 'Note', '');");*/
-  }
+    /*
+      db.execSQL(
+           "INSERT INTO notes (title, value, date, type, tag) VALUES ('Title Note 1', 'В методе onUpgrade() происходит обновление схемы БД. В данном случае для примера использован\n"
+               + "   * примитивный поход с удалением предыдущей базы данных с помощью sql-выражения DROP и последующим\n"
+               + "   * ее созданием. Но в реальности если вам будет необходимо сохранить данные, этот метод может', 1234567, 'Note', '');");
+       db.execSQL("INSERT INTO notes  (title, value, date, type, tag) VALUES ('Title Note 2', 'testPreview', 2343535, 'Note', '');");
+       db.execSQL("INSERT INTO notes  (title, value, date, type, tag) VALUES ('Title Note 3', 'Метод который вызиваеться если нет базы данных и создет таблицы', '22.02.22 16:18', 'Note', 'List');");
+       db.execSQL("INSERT INTO notes  (title, value, date, type, tag) VALUES ('Title Note 4', 'PAsichDEV app', '22.02.22 16:18', 'Note', 'Java');");
+    */ }
 
   /**
    * В методе onUpgrade() происходит обновление схемы БД. В данном случае для примера использован

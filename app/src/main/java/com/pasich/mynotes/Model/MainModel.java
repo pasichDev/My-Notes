@@ -45,7 +45,7 @@ public class MainModel {
               testCursor.getString(1),
               testCursor.getString(2),
               testCursor.getString(3),
-              testCursor.getString(4)));
+              testCursor.getString(5)));
     }
   }
 }

@@ -13,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
+import com.pasich.mynotes.Model.Adapter.ListNotesModel;
 import com.pasich.mynotes.Model.MainModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
 import com.pasich.mynotes.Utils.Interface.AddTag;
 import com.pasich.mynotes.Utils.MainUtils;
@@ -35,20 +37,22 @@ public class MainActivity extends AppCompatActivity implements AddTag {
   private MainUtils MainUtils;
   private DefaultListAdapter defaultListAdapter;
   private MainModel MainModel;
+  private ActionUtils ActionUtils;
+  private SortSwitchUtils sortSwitch;
+  private FormatSwitchUtils formatSwitch;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    MainView = new MainView(getWindow().getDecorView());
-    MainUtils = new MainUtils();
-    MainModel = new MainModel(this);
-    final SortSwitchUtils sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
-    final FormatSwitchUtils formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
-
+    initialization();
     setSupportActionBar(MainView.toolbar);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
+    Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+
+    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
+    MainView.ListView.setAdapter(defaultListAdapter);
+
     MainView.sortButton.setOnClickListener(v -> {});
     MainView.formatButton.setOnClickListener(
         v -> {
@@ -61,26 +65,64 @@ public class MainActivity extends AppCompatActivity implements AddTag {
           @Override
           public void listener(TabLayout.Tab Tab) {
             if (Tab.getPosition() == 0) {
-              new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
-              Objects.requireNonNull(MainView.TabLayout.getTabAt(1)).select();
+              if (MainView.TabLayout.getTabCount() <= 10) {
+                new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
+                Objects.requireNonNull(MainView.TabLayout.getTabAt(1)).select();
+              } else
+                Toast.makeText(
+                        getApplicationContext(),
+                        getString(R.string.countTagsError),
+                        Toast.LENGTH_LONG)
+                    .show();
             }
           }
         });
 
     findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
+
     MainView.ListView.setOnItemClickListener(
         (parent, v, position, id) -> {
-          openNote(defaultListAdapter.getItem(position).getId());
+          if (!ActionUtils.getAction()) openNote(defaultListAdapter.getItem(position).getId());
+          else selectedItemAction(defaultListAdapter.getItem(position));
+        });
+    MainView.ListView.setOnItemLongClickListener(
+        (arg0, arg1, position, id) -> {
+          if (!ActionUtils.getAction()) {
+            ActionUtils.setAction(true);
+            selectedItemAction(defaultListAdapter.getItem(position));
+            MainView.activateActionPanel();
+          }
+          return true;
         });
 
     while (MainModel.tags.moveToNext()) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));
     }
-
-    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
-    MainView.ListView.setAdapter(defaultListAdapter);
   }
 
+  private void selectedItemAction(ListNotesModel item) {
+    if (item.getChecked()) {
+      item.setChecked(false);
+      item.getView().setBackground(getDrawable(R.drawable.item_note_background));
+      if (defaultListAdapter.getCountChecked() == 0) {
+        MainView.deactivationActionPanel();
+        ActionUtils.setAction(false);
+        defaultListAdapter.setChekClean();
+      }
+    } else {
+      item.setChecked(true);
+      item.getView().setBackground(getDrawable(R.drawable.item_note_background_selected));
+    }
+  }
+
+  private void initialization() {
+    MainView = new MainView(getWindow().getDecorView());
+    MainUtils = new MainUtils();
+    MainModel = new MainModel(this);
+    ActionUtils = new ActionUtils();
+    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
+    formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
+  }
 
   @Override
   public void onResume() {
@@ -110,10 +152,8 @@ public class MainActivity extends AppCompatActivity implements AddTag {
 
   @Override
   public void addTagQuery(String tagName) {
-    if (MainView.TabLayout.getTabCount() <= 10) {
       MainModel.createTag(tagName);
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
-    } else Toast.makeText(this, getString(R.string.countTagsError), Toast.LENGTH_LONG).show();
   }
 
   @Override
