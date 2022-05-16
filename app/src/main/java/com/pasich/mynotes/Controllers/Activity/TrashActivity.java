@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
@@ -70,10 +69,8 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
   /** Method that sets up the Activity's ActionBar */
   private void setupActionBar() {
     setSupportActionBar(TrashView.toolbar);
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setDisplayHomeAsUpEnabled(true);
-    }
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
   }
 
   /** The method that implements the response to the activity with which the arrival was */

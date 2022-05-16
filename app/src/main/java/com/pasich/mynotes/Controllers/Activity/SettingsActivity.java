@@ -30,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     SettingsView = new SettingsView(getWindow().getDecorView());
     setSupportActionBar(SettingsView.toolbar);
-
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);

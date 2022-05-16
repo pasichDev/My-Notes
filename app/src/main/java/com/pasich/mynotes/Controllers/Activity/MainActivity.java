@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements AddTag {
     final FormatSwitchUtils formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
 
     setSupportActionBar(MainView.toolbar);
-
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
     MainView.sortButton.setOnClickListener(v -> {});
     MainView.formatButton.setOnClickListener(
         v -> {
@@ -81,15 +81,6 @@ public class MainActivity extends AppCompatActivity implements AddTag {
     MainView.ListView.setAdapter(defaultListAdapter);
   }
 
-  private void createNotesButton(View view) {
-    if (view.getId() == R.id.newNotesButton)
-      startActivity.launch(new Intent(this, NoteActivity.class).putExtra("NewNote", true));
-  }
-
-  private void openNote(int id) {
-    startActivity.launch(
-        new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", id));
-  }
 
   @Override
   public void onResume() {
@@ -113,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements AddTag {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.setingsBut) openSettings();
+    if (item.getItemId() == R.id.trashButton) openTrash();
     return false;
   }
 
@@ -132,5 +124,20 @@ public class MainActivity extends AppCompatActivity implements AddTag {
 
   private void openSettings() {
     startActivity.launch(new Intent(this, SettingsActivity.class));
+  }
+
+  /** Start Trash.activity */
+  private void openTrash() {
+    startActivity.launch(new Intent(this, TrashActivity.class));
+  }
+
+  private void createNotesButton(View view) {
+    if (view.getId() == R.id.newNotesButton)
+      startActivity.launch(new Intent(this, NoteActivity.class).putExtra("NewNote", true));
+  }
+
+  private void openNote(int id) {
+    startActivity.launch(
+        new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", id));
   }
 }

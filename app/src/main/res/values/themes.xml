@@ -9,6 +9,7 @@
         <item name="colorLight">@color/darkLight</item>
 
         <item name="colorAccent">@color/colorPrimaryBackground</item>
+        <item name="colorControlNormal">@color/black</item>
 
         <!-- Status bar set. -->
         <item name="android:statusBarColor">?attr/colorBackground</item>
@@ -42,7 +43,6 @@
         <item name="tabBackground">@drawable/tab_background</item>
         <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
         <item name="tabSelectedTextColor">@color/white</item>
-
     </style>
 
     <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">

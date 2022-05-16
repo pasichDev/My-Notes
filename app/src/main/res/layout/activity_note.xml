@@ -31,6 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/notesTitle" />
 
+
         <EditText
             android:id="@+id/notesTitle"
             style="@style/editTextSet"
