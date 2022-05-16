@@ -104,7 +104,7 @@ public class NoteActivity extends AppCompatActivity {
   private void closeNotesSave() {
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     Intent intent = new Intent();
-    saveNote();
+    if (NoteVIew.valueNote.length() >= 2) saveNote();
     intent.putExtra("updateList", true);
     setResult(24, intent);
     finish();

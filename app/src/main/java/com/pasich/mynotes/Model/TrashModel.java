@@ -4,13 +4,8 @@ import android.content.Context;
 
 import com.pasich.mynotes.Model.Adapter.ListNotesModel;
 
-import org.apache.commons.io.comparator.LastModifiedFileComparator;
-import org.apache.commons.io.filefilter.FileFileFilter;
-
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TrashModel {
 
@@ -25,17 +20,14 @@ public class TrashModel {
   /** A method that finds all the notes in the trash folder and appends them to an array */
   public void searchNotes() {
     File dirFiles = new File(context.getFilesDir() + "/trash");
-    File[] fileListNames = dirFiles.listFiles((FileFilter) FileFileFilter.FILE);
+    //   File[] fileListNames = dirFiles.listFiles((FileFilter) FileFileFilter.FILE);
 
-    assert fileListNames != null;
-    if (fileListNames.length >= 1) {
-      Arrays.sort(fileListNames, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-      for (File file : fileListNames) {
-        //  if (file.getName().endsWith(".txt"))
-        //   notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()),
-        // false, false));
-      }
-    }
+    //    Arrays.sort(fileListNames, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+
+    //  if (file.getName().endsWith(".txt"))
+    //   notesArray.add(new ListNotesModel(file.getName(), returnDateFile(file.lastModified()),
+    // false, false));
+
   }
 
   /**

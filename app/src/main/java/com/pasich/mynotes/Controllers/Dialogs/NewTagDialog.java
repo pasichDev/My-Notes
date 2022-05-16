@@ -53,6 +53,12 @@ public class NewTagDialog extends DialogFragment {
     return builder;
   }
 
+  /**
+   * Метод который реализовует валидацию названия метки которую вводит пользователь Одно правило, не
+   * больше 20 символов
+   *
+   * @param text - названия метки
+   */
   private void validateText(String text) {
     if (text.length() == 21) {
       NewTagView.textMessageError.setVisibility(View.VISIBLE);
@@ -62,6 +68,10 @@ public class NewTagDialog extends DialogFragment {
       NewTagView.textMessageError.setVisibility(View.GONE);
       NewTagView.getSaveButton().setEnabled(true);
       NewTagView.setInputNormal();
+    } else if (text.length() < 3) NewTagView.getSaveButton().setEnabled(false);
+    else {
+      text.length();
+      NewTagView.getSaveButton().setEnabled(true);
     }
   }
 

@@ -5,6 +5,8 @@ import com.google.android.material.tabs.TabLayout;
 /** A class that makes it easy to use TabLayout.OnTabSelectedListener */
 public abstract class TabLayoutListenerUtils implements TabLayout.OnTabSelectedListener {
 
+  public int unselectedPosition;
+
   public abstract void listener(TabLayout.Tab TabLayout);
 
   @Override
@@ -13,7 +15,9 @@ public abstract class TabLayoutListenerUtils implements TabLayout.OnTabSelectedL
   }
 
   @Override
-  public void onTabUnselected(TabLayout.Tab tab) {}
+  public void onTabUnselected(TabLayout.Tab tab) {
+    unselectedPosition = tab.getPosition();
+  }
 
   @Override
   public void onTabReselected(TabLayout.Tab tab) {}

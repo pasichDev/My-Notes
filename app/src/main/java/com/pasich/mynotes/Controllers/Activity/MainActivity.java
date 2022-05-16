@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements AddTag {
             if (Tab.getPosition() == 0) {
               if (MainView.TabLayout.getTabCount() <= 10) {
                 new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
-                Objects.requireNonNull(MainView.TabLayout.getTabAt(1)).select();
+                Objects.requireNonNull(MainView.TabLayout.getTabAt(unselectedPosition)).select();
+
               } else
                 Toast.makeText(
                         getApplicationContext(),
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements AddTag {
         });
 
     findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
+
 
     MainView.ListView.setOnItemClickListener(
         (parent, v, position, id) -> {

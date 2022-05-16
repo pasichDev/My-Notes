@@ -30,7 +30,8 @@ public class MainModel {
   }
 
   public void createTag(String nameTag) {
-    db.execSQL("INSERT INTO tags (name) VALUES ('" + nameTag + "');");
+    if (nameTag.trim().length() >= 2)
+      db.execSQL("INSERT INTO tags (name) VALUES ('" + nameTag + "');");
   }
 
   public void closeConnection() {
@@ -45,7 +46,7 @@ public class MainModel {
   }
 
   public void searchNotes() {
-    Cursor testCursor = db.rawQuery("SELECT * FROM notes ORDER BY title ASC;", null);
+    Cursor testCursor = db.rawQuery("SELECT * FROM notes ORDER BY date DESC;", null);
     while (testCursor.moveToNext()) {
       notesArray.add(
           new ListNotesModel(

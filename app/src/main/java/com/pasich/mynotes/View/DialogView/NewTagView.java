@@ -37,6 +37,7 @@ public class NewTagView extends CustomHeadUIDialog {
     setHeadTextView(context.getString(R.string.addTag));
     setInputNameTag();
     setTextMessageError();
+    getSaveButton().setEnabled(false);
   }
 
   private void setTextMessageError() {

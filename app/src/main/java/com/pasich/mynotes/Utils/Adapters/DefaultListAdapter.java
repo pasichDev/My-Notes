@@ -17,8 +17,6 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   private final LayoutInflater inflater;
   private final int layout;
   private final List<ListNotesModel> listNotes;
-  private ViewHolder viewHolder;
-  private View itemView;
 
   public DefaultListAdapter(Context context, int resource, List<ListNotesModel> list) {
     super(context, resource, list);
@@ -51,6 +49,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   }
 
   public View getView(int position, View convertView, ViewGroup parent) {
+    ViewHolder viewHolder;
     if (convertView == null) {
       convertView = inflater.inflate(this.layout, parent, false);
       viewHolder = new ViewHolder(convertView);
@@ -59,13 +58,20 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
-    viewHolder.nameView.setText(getItem(position).getTitle());
-    viewHolder.previewNote.setText(getItem(position).getPreview());
+    String noteTitle = getItem(position).getTitle();
 
+    if (noteTitle.length() >= 2) {
+      viewHolder.nameView.setVisibility(View.VISIBLE);
+      viewHolder.nameView.setText(noteTitle);
+    }
+    viewHolder.previewNote.setText(getItem(position).getPreview());
+    /*
     if (getItem(position).getTags() != null && getItem(position).getTags().length() >= 2) {
       viewHolder.tagNote.setVisibility(View.VISIBLE);
       viewHolder.tagNote.setText("#" + getItem(position).getTags());
-    }
+    }else {
+      viewHolder.tagNote.setVisibility(View.GONE);
+    }*/
 
     getItem(position).setItemView(convertView);
     return convertView;

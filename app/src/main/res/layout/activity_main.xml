@@ -31,11 +31,10 @@
         android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
         android:layout_marginTop="@dimen/marginConstraintLayoutOnBothSides"
         android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
+        android:stateListAnimator="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:tabGravity="fill"
-        app:tabMode="scrollable">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
         <com.google.android.material.tabs.TabItem
@@ -118,6 +117,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
             android:layout_marginBottom="5dp"
+            android:hapticFeedbackEnabled="false"
             android:horizontalSpacing="10dp"
             android:numColumns="1"
             android:scrollbars="none"
