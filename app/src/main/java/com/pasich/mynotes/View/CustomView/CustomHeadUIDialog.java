@@ -83,7 +83,8 @@ public class CustomHeadUIDialog {
   }
 
   /** method to set font size for message */
-  public final void setTextSizeMessage(TextView textView) {
+  public void setTextSizeMessage(TextView textView) {
     textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeTextMessage);
   }
+
 }

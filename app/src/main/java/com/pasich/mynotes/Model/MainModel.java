@@ -3,6 +3,7 @@ package com.pasich.mynotes.Model;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
@@ -33,8 +34,14 @@ public class MainModel {
   }
 
   public void createTag(String nameTag) {
-    if (nameTag.trim().length() >= 2)
-      db.execSQL("INSERT INTO tags (name) VALUES ('" + nameTag + "');");
+    if (nameTag.trim().length() >= 1)
+      db.execSQL("INSERT INTO tags (name) VALUES (?);", new String[] {nameTag});
+  }
+
+  public void deleteTag(String nameTag) {
+    Log.wtf("pasic", nameTag);
+    if (nameTag.trim().length() >= 1)
+      db.execSQL("DELETE FROM tags WHERE name = '" + nameTag + "';");
   }
 
   public void closeConnection() {

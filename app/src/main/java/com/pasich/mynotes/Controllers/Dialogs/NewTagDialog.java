@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Interface.AddTag;
+import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.Utils.Simplifications.TextValidatorUtils;
 import com.pasich.mynotes.View.DialogView.NewTagView;
 
@@ -25,14 +25,14 @@ public class NewTagDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle);
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final AddTag AddTag = (AddTag) getContext();
+    final ManageTag ManageTag = (ManageTag) getContext();
     NewTagView = new NewTagView(requireContext(), getLayoutInflater());
     NewTagView.getCloseButton().setOnClickListener(view -> dismiss());
     NewTagView.getSaveButton()
         .setOnClickListener(
             view -> {
-              assert AddTag != null;
-              AddTag.addTagQuery(NewTagView.inputNameTag.getText().toString());
+              assert ManageTag != null;
+              ManageTag.addTag(NewTagView.inputNameTag.getText().toString());
               dismiss();
             });
 

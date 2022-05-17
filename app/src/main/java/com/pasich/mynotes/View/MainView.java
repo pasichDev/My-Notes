@@ -23,7 +23,7 @@ public class MainView extends MainActivity {
   private final View view;
   public final ConstraintLayout actionPanel;
   public final ImageButton actButtonDelete, actButtonClose, actButtonMore, actButtonTag;
-  public final ImageButton newNotesButton;
+  public final ImageButton newNotesButton, deleteTag;
 
   public MainView(View rootView) {
     this.view = rootView;
@@ -34,6 +34,7 @@ public class MainView extends MainActivity {
     this.sortButton = rootView.findViewById(R.id.sortButton);
     this.formatButton = rootView.findViewById(R.id.formatButton);
     this.actionPanel = rootView.findViewById(R.id.actionPanel);
+    this.deleteTag = rootView.findViewById(R.id.deleteTag);
     this.actButtonDelete = actionPanel.findViewById(R.id.actPanelDelete);
     this.actButtonClose = actionPanel.findViewById(R.id.actPanelClose);
     this.actButtonMore = actionPanel.findViewById(R.id.actPanelMore);

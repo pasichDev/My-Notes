@@ -136,6 +136,7 @@
 
     <string name="close" translatable="false">Закрыть</string>
     <string name="addTag" translatable="false">Добавить метку</string>
+    <string name="deleteTag" translatable="false">Удалить метку</string>
     <string name="nameTagInput" translatable="false">Введите название метки</string>
     <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше 20 символов</string>
 
@@ -147,5 +148,9 @@
     <string name="allNotes" translatable="false">Все заметки</string>
     <string name="more" translatable="false">Больше</string>
     <string name="noteTitle" translatable="false">Заголовок заметки</string>
+    <string name="errorDeleteTag" translatable="false">Можно удалять только те метки которые создал пользователь</string>
+    <string name="deleteSelectTag" translatable="false">Удаление метки</string>
+    <string name="deleteSelectTagTextMassage" translatable="false">Вы действительно хотите удалить данную метку? Данная метка пропадет у всех отмеченных заметках.</string>
+
 
 </resources>
