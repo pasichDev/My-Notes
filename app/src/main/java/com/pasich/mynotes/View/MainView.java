@@ -23,20 +23,24 @@ public class MainView extends MainActivity {
   private final View view;
   public final ConstraintLayout actionPanel;
   public final ImageButton actButtonDelete, actButtonClose, actButtonMore, actButtonTag;
+  public final ImageButton newNotesButton;
 
   public MainView(View rootView) {
     this.view = rootView;
     this.toolbar = rootView.findViewById(R.id.toolbar_actionbar);
     this.TabLayout = rootView.findViewById(R.id.Tags);
     this.ListView = rootView.findViewById(R.id.list_notes);
-    this.sortButton = view.findViewById(R.id.sortButton);
-    this.formatButton = view.findViewById(R.id.formatButton);
-    this.actionPanel = view.findViewById(R.id.actionPanel);
+    this.newNotesButton = rootView.findViewById(R.id.newNotesButton);
+    this.sortButton = rootView.findViewById(R.id.sortButton);
+    this.formatButton = rootView.findViewById(R.id.formatButton);
+    this.actionPanel = rootView.findViewById(R.id.actionPanel);
     this.actButtonDelete = actionPanel.findViewById(R.id.actPanelDelete);
     this.actButtonClose = actionPanel.findViewById(R.id.actPanelClose);
     this.actButtonMore = actionPanel.findViewById(R.id.actPanelMore);
     this.actButtonTag = actionPanel.findViewById(R.id.actPanelTag);
+
     initialization();
+
   }
 
   private void initialization() {

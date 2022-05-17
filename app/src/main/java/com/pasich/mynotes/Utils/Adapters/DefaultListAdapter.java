@@ -63,7 +63,11 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     if (noteTitle.length() >= 2) {
       viewHolder.nameView.setVisibility(View.VISIBLE);
       viewHolder.nameView.setText(noteTitle);
+    } else {
+      viewHolder.nameView.setVisibility(View.GONE);
+      viewHolder.nameView.setText("");
     }
+
     viewHolder.previewNote.setText(getItem(position).getPreview());
     /*
     if (getItem(position).getTags() != null && getItem(position).getTags().length() >= 2) {

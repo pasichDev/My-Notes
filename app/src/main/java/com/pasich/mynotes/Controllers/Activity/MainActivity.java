@@ -28,17 +28,16 @@ import com.pasich.mynotes.View.MainView;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements AddTag {
+public class MainActivity extends AppCompatActivity implements AddTag, View.OnClickListener {
 
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
       registerForActivityResult(
           new ActivityResultContracts.StartActivityForResult(),
           result -> {
-            Log.wtf("pasic", "requestOk");
+            ;
             Intent data = result.getData();
             if (result.getResultCode() == 24 && result.getData() != null) {
-              Log.wtf("pasic", "codeOk");
               if (data.getBooleanExtra("updateList", false)) restartListNotes();
             }
           });
@@ -58,21 +57,13 @@ public class MainActivity extends AppCompatActivity implements AddTag {
 
     initialization();
     setSupportActionBar(MainView.toolbar);
-    Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
     MainView.ListView.setAdapter(defaultListAdapter);
 
-    MainView.sortButton.setOnClickListener(
-        v -> {
-          restartListNotes();
-          sortSwitch.sortNote();
-        });
-    MainView.formatButton.setOnClickListener(
-        v -> {
-          formatSwitch.formatNote();
-          MainView.setNotesListCountColumns();
-        });
+    MainView.sortButton.setOnClickListener(this);
+    MainView.formatButton.setOnClickListener(this);
+    MainView.newNotesButton.setOnClickListener(this);
 
     MainView.TabLayout.addOnTabSelectedListener(
         new TabLayoutListenerUtils() {
@@ -93,9 +84,7 @@ public class MainActivity extends AppCompatActivity implements AddTag {
           }
         });
 
-    findViewById(R.id.newNotesButton).setOnClickListener(this::createNotesButton);
-
-
+    // Utils
     MainView.ListView.setOnItemClickListener(
         (parent, v, position, id) -> {
           if (!ActionUtils.getAction()) openNote(defaultListAdapter.getItem(position).getId());
@@ -113,6 +102,24 @@ public class MainActivity extends AppCompatActivity implements AddTag {
 
     while (MainModel.tags.moveToNext()) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));
+    }
+  }
+
+  @Override
+  public void onClick(View v) {
+    switch (v.getId()) {
+      case R.id.sortButton:
+        sortSwitch.sortNote();
+        restartListNotes();
+        break;
+      case R.id.formatButton:
+        formatSwitch.formatNote();
+        MainView.setNotesListCountColumns();
+        break;
+
+      case R.id.newNotesButton:
+        createNotesButton();
+        break;
     }
   }
 
@@ -194,8 +201,7 @@ public class MainActivity extends AppCompatActivity implements AddTag {
     startActivity.launch(new Intent(this, TrashActivity.class));
   }
 
-  private void createNotesButton(View view) {
-    if (view.getId() == R.id.newNotesButton)
+  private void createNotesButton() {
       startActivity.launch(new Intent(this, NoteActivity.class).putExtra("NewNote", true));
   }
 

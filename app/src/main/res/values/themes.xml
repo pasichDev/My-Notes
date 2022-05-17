@@ -52,11 +52,6 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:background">?attr/colorBackground</item>
-    </style>
-
 
     <!-- Style HeadText Category -->
     <style name="headTextCategory">
