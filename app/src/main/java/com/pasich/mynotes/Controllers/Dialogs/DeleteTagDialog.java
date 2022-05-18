@@ -35,7 +35,10 @@ public class DeleteTagDialog extends DialogFragment {
     DeleteTagView.listView.setDivider(null);
     DeleteTagView.listView.setOnItemClickListener(
         (parent, v, position, id) -> {
-          if (adapter.getItem(position).getAction().equals("Delete")) ManageTag.deleteTag();
+          if (adapter.getItem(position).getAction().equals("Delete")) {
+            assert ManageTag != null;
+            ManageTag.deleteTag();
+          }
 
           dismiss();
         });

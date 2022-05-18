@@ -11,8 +11,10 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Controllers.Activity.MainActivity;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
 
 import java.util.Objects;
+
 
 public class MainView extends MainActivity {
 
@@ -48,6 +50,7 @@ public class MainView extends MainActivity {
     ListView.setNumColumns(
         PreferenceManager.getDefaultSharedPreferences(view.getContext()).getInt("formatParam", 1));
     Objects.requireNonNull(TabLayout.getTabAt(1)).select();
+    new ListViewAnimation().setListviewAnimation(ListView);
   }
 
   /** Method that changes the number of GridView columns */

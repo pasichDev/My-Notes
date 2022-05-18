@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
@@ -43,7 +41,7 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
-    if (TrashModel.getSizeArray() >= 1) menu.findItem(R.id.trashClean).setVisible(true);
+
     return true;
   }
 
@@ -54,15 +52,7 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == android.R.id.home) {
-      closeActivity();
-    } else if (item.getItemId() == R.id.trashClean) {
-      if (!(defaultListAdapter.getCount() == 0)) {
-        new CleanTrashDialog().show(getSupportFragmentManager(), "CleanTrashDialog");
-      } else {
-        Toast.makeText(getApplicationContext(), R.string.trashNull, Toast.LENGTH_SHORT).show();
-      }
-    }
+
     return true;
   }
 

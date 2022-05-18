@@ -21,6 +21,7 @@ import com.pasich.mynotes.Model.MainModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
+import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
 import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
           new ActivityResultContracts.StartActivityForResult(),
           result -> {
             if (result.getResultCode() == 24 && result.getData() != null) {
-              if (result.getData().getBooleanExtra("updateList", false)) restartListNotes();
+              if (result.getData().getBooleanExtra("updateList", false)) restartListNotes("");
             }
           });
 
@@ -83,8 +84,10 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
               createTagItem(unselectedPosition);
             } else {
               if (Tab.getPosition() != 1) {
+                restartListNotes(requireNonNull(Tab.getText()).toString());
                 MainView.deleteTag.setVisibility(View.VISIBLE);
               } else {
+                restartListNotes("");
                 MainView.deleteTag.setVisibility(View.GONE);
               }
             }
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
   public void onClick(View v) {
     if (v.getId() == R.id.sortButton) {
         sortSwitch.sortNote();
-        restartListNotes();
+      restartListNotes("");
     }
     if (v.getId() == R.id.formatButton) {
         formatSwitch.formatNote();
@@ -144,17 +147,17 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
     if (MainView.TabLayout.getTabCount() > 2 && tagPosition > 1) {
       MainModel.deleteTag(MainView.TabLayout.getTabAt(tagPosition).getText().toString());
       MainView.TabLayout.removeTab(requireNonNull(MainView.TabLayout.getTabAt(tagPosition)));
-
       requireNonNull(MainView.TabLayout.getTabAt(1)).select();
     } else {
       Toast.makeText(this, getString(R.string.errorDeleteTag), Toast.LENGTH_LONG).show();
     }
   }
 
-  public void restartListNotes() {
+  public void restartListNotes(String tag) {
     defaultListAdapter.getData().clear();
-    MainModel.getUpdateCursor();
+    MainModel.getUpdateCursor(tag);
     defaultListAdapter.notifyDataSetChanged();
+    new ListViewAnimation().setListviewAnimation(MainView.ListView);
   }
 
   private void selectedItemAction(ListNotesModel item) {

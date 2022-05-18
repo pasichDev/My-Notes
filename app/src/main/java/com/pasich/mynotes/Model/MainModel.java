@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class MainModel {
   private final SQLiteDatabase db;
-  public Cursor tags;
-  public ArrayList<ListNotesModel> notesArray = new ArrayList<ListNotesModel>();
   private final Context context;
+  public Cursor tags;
+  public ArrayList<ListNotesModel> notesArray = new ArrayList<>();
 
   public MainModel(Context context) {
     this.context = context;
@@ -24,8 +24,7 @@ public class MainModel {
     this.db = databaseHelper.getReadableDatabase();
     this.tags = queryTags();
 
-    searchNotes();
-
+    searchNotes("");
   }
 
   /** Method that queries all tags */
@@ -50,9 +49,9 @@ public class MainModel {
   }
 
   /** Method that clears an array and starts a new one */
-  public void getUpdateCursor() {
+  public void getUpdateCursor(String tag) {
     notesArray.clear();
-    searchNotes();
+    searchNotes(tag);
   }
 
   public String getSort() {
@@ -67,8 +66,9 @@ public class MainModel {
     return SORT_MODE;
   }
 
-  public void searchNotes() {
-    Cursor testCursor = db.rawQuery("SELECT * FROM notes " + getSort() + ";", null);
+  public void searchNotes(String tag) {
+    String where = tag.length() >= 2 ? "WHERE tag = '" + tag + "' " : "";
+    Cursor testCursor = db.rawQuery("SELECT * FROM notes " + where + getSort() + ";", null);
     while (testCursor.moveToNext()) {
       notesArray.add(
           new ListNotesModel(
@@ -78,5 +78,6 @@ public class MainModel {
               testCursor.getString(3),
               testCursor.getString(5)));
     }
+    testCursor.close();
   }
 }

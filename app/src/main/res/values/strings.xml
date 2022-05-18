@@ -127,7 +127,7 @@
     <string name="cd_sort">Sort notes</string>
     <string name="cd_format">Format notes</string>
 
-
+    <string name="search" translatable="false">Поиск</string>
     <string name="cd_editTags" translatable="false">Редактировать метки</string>
     <string name="folders" translatable="false">Папки</string>
     <string name="tags" translatable="false">Метки</string>
@@ -150,7 +150,7 @@
     <string name="noteTitle" translatable="false">Заголовок заметки</string>
     <string name="errorDeleteTag" translatable="false">Можно удалять только те метки которые создал пользователь</string>
     <string name="deleteSelectTag" translatable="false">Удаление метки</string>
-    <string name="deleteSelectTagTextMassage" translatable="false">Вы действительно хотите удалить данную метку? Данная метка пропадет у всех отмеченных заметках.</string>
+    <string name="deleteSelectTagTextMassage" translatable="false">Вы действительно хотите удалить метку? После удаления метка пропадет у всех отмеченных заметках.</string>
 
 
 </resources>

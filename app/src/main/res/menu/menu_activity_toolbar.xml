@@ -7,12 +7,12 @@
         android:id="@+id/searchBut"
         android:visible="false"
         android:icon="@drawable/ic_search"
-        android:title="@string/settings"
+        android:title="@string/search"
         yourapp:showAsAction="ifRoom" />
     <item
         android:id="@+id/trashButton"
         android:visible="false"
-        android:icon="@drawable/ic_trash"
+        android:icon="@drawable/ic_trash_menu"
         android:title="@string/trashN"
         yourapp:showAsAction="ifRoom" />
     <item
@@ -27,12 +27,6 @@
         android:visible="false"
         android:icon="@drawable/ic_more"
         android:title="@string/more"
-        yourapp:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/trashClean"
-        android:visible="false"
-        android:icon="@drawable/ic_trash_clean"
-        android:title="@string/trashClean"
         yourapp:showAsAction="ifRoom" />
 
 
