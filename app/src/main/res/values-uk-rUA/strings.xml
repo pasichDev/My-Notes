@@ -7,7 +7,7 @@
     <string name = "settings"> Налаштування </string>
     <string name = "sizeText"> Розмір тексту </string>
     <string name = "ThemeToolbar_title"> Основний колiр </string>
-    <string name = "trashNotes">Видалити</string>
+    <string name="trashNotes">Перемістити до корзини</string>
     <string name = "trashN"> Кошик </string>
     <string name="trashClean" >Очистити корзину</string>
     <string name="saveNotes" >Зберегти нотатку</string>

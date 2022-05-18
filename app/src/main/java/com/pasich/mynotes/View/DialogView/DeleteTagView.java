@@ -25,7 +25,7 @@ public class DeleteTagView extends CustomHeadUIDialog {
     this.listView = new ListView(context);
     this.context = context;
     this.textMessage = new TextView(context);
-    new ListViewAnimation().setListviewAnimation(listView);
+    ListViewAnimation.setListviewAnimationLeftToShow(listView);
     this.LP_TEXT_MESSAGE.setMargins(70, 30, 70, 30);
     initialization();
   }

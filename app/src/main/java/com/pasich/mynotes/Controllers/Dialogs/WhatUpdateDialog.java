@@ -6,36 +6,31 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
-import java.util.Objects;
 
 public class WhatUpdateDialog extends DialogFragment {
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    String versionName = BuildConfig.VERSION_NAME;
-
+    BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
     CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
-    uiDialog.setHeadTextView(getString(R.string.app_name) + " " + versionName);
+    uiDialog.setHeadTextView(BuildConfig.VERSION_NAME);
     TextView textMessage = new TextView(getContext());
 
     textMessage.setText(getString(R.string.updateNowM));
     uiDialog.setTextSizeMessage(textMessage);
     uiDialog.getContainer().addView(textMessage, uiDialog.LP_DEFAULT);
 
-    uiDialog.getCloseButton().setVisibility(View.VISIBLE);
-    uiDialog
-        .getCloseButton()
-        .setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
-    builder.setView(uiDialog.getContainer());
+    uiDialog.getSaveButton().setVisibility(View.GONE);
+    uiDialog.getCloseButton().setVisibility(View.GONE);
+    builder.setContentView(uiDialog.getContainer());
 
-    return builder.create();
+    return builder;
   }
 }

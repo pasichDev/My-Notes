@@ -50,7 +50,8 @@ public class MainView extends MainActivity {
     ListView.setNumColumns(
         PreferenceManager.getDefaultSharedPreferences(view.getContext()).getInt("formatParam", 1));
     Objects.requireNonNull(TabLayout.getTabAt(1)).select();
-    new ListViewAnimation().setListviewAnimation(ListView);
+    ListViewAnimation.setListviewAnimAlphaTranslate(ListView);
+    // new ListViewAnimation().setListviewAnimation(ListView);
   }
 
   /** Method that changes the number of GridView columns */

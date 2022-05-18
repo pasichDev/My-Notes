@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiceNoteDialog;
 import com.pasich.mynotes.Controllers.Dialogs.DeleteTagDialog;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
 import com.pasich.mynotes.Model.Adapter.ListNotesModel;
@@ -101,11 +102,7 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
         });
     MainView.ListView.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
-          if (!ActionUtils.getAction()) {
-            ActionUtils.setAction(true);
-            selectedItemAction(defaultListAdapter.getItem(position));
-            MainView.activateActionPanel();
-          }
+          new ChoiceNoteDialog().show(getSupportFragmentManager(), "ChoiceDialog");
           return true;
         });
   }
@@ -157,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
     defaultListAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
     defaultListAdapter.notifyDataSetChanged();
-    new ListViewAnimation().setListviewAnimation(MainView.ListView);
+    ListViewAnimation.setListviewAnimAlphaTranslate(MainView.ListView);
   }
 
   private void selectedItemAction(ListNotesModel item) {

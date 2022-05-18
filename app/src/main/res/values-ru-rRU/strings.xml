@@ -7,7 +7,7 @@
     <string name="settings">Настройки</string>
     <string name="sizeText">Размер текста</string>
     <string name="ThemeToolbar_title">Цветовая схема</string>
-    <string name="trashNotes">Удалить</string>
+    <string name="trashNotes">Переместить в корзину</string>
     <string name="trashN">Корзина</string>
     <string name="trashClean" >Очистить корзину</string>
     <string name="saveNotes" >Сохранить заметку</string>
