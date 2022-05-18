@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:contentDescription="@string/cd_sort"
-            android:src="@drawable/ic_delete"
+            android:src="@drawable/ic_delete_tag"
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/sortButton"
             app:layout_constraintTop_toTopOf="parent"

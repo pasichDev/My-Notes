@@ -69,13 +69,13 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     }
 
     viewHolder.previewNote.setText(getItem(position).getPreview());
-    /*
+
     if (getItem(position).getTags() != null && getItem(position).getTags().length() >= 2) {
       viewHolder.tagNote.setVisibility(View.VISIBLE);
       viewHolder.tagNote.setText("#" + getItem(position).getTags());
     }else {
       viewHolder.tagNote.setVisibility(View.GONE);
-    }*/
+    }
 
     getItem(position).setItemView(convertView);
     return convertView;
