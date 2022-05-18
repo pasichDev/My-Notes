@@ -81,16 +81,15 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
         new TabLayoutListenerUtils() {
           @Override
           public void listener(TabLayout.Tab Tab) {
-            if (Tab.getPosition() == 0) {
+
+            if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
+              restartListNotes(requireNonNull(Tab.getText()).toString());
+              MainView.deleteTag.setVisibility(View.VISIBLE);
+            } else if (Tab.getPosition() == 1) {
+              restartListNotes("");
+              MainView.deleteTag.setVisibility(View.GONE);
+            } else if (Tab.getPosition() == 0) {
               createTagItem(unselectedPosition);
-            } else {
-              if (Tab.getPosition() != 1) {
-                restartListNotes(requireNonNull(Tab.getText()).toString());
-                MainView.deleteTag.setVisibility(View.VISIBLE);
-              } else {
-                restartListNotes("");
-                MainView.deleteTag.setVisibility(View.GONE);
-              }
             }
           }
         });
