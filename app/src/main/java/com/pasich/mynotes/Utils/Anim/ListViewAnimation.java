@@ -15,14 +15,6 @@ public class ListViewAnimation {
     listView.setLayoutAnimation(animateLeftToShow());
   }
 
-  public static void setListviewAnimationLeftToShow(GridView listView) {
-    listView.setLayoutAnimation(animateLeftToShow());
-  }
-
-  public static void setListviewAnimAlphaTranslate(ListView listView) {
-    listView.setAnimation(animAlphaTranslate());
-  }
-
   public static void setListviewAnimAlphaTranslate(GridView listView) {
     listView.setAnimation(animAlphaTranslate());
   }

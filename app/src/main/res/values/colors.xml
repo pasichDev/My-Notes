@@ -2,11 +2,11 @@
 <resources>
 
     <color name="white">#FFFFFFFF</color>
-    <color name="hiden">#FAFAFA</color>
+    <color name="hidden">#FAFAFA</color>
 
     <color name="EditViewDark">#1C1B1B</color>
     <color name="EditViewWhite">#FAFAFA</color>
-    <color name="textHidenColor">#C6C4C4</color>
+    <color name="textHiddenColor">#C6C4C4</color>
 
 
     <color name="colorLightDark">#6C6868</color>

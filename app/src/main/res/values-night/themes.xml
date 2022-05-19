@@ -1,12 +1,5 @@
 <resources>
 
 
-    <style name="textItemColor" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
-        <item name="android:textColor">@color/EditViewWhite</item>
-    </style>
 
-
-    <style name="textColorDateList">
-        <item name="android:textColor">@color/textHidenColor</item>
-    </style>
 </resources>

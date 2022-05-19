@@ -1,12 +1,11 @@
 package com.pasich.mynotes.Model;
 
-import static com.pasich.mynotes.Utils.Utils.ListNotesUtils.returnDateFile;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.pasich.mynotes.Utils.Database.FeedReaderDbHelper;
+import com.pasich.mynotes.Utils.Utils.ListNotesUtils;
 import com.pasich.mynotes.View.NoteView;
 
 import java.util.Calendar;
@@ -50,7 +49,7 @@ public class NoteModel {
             + "','"
             + NoteView.valueNote.getText()
             + "','"
-            + returnDateFile(Calendar.getInstance().getTime())
+            + ListNotesUtils.returnDateFile(Calendar.getInstance().getTime())
             + "', 'Note', '');");
   }
 

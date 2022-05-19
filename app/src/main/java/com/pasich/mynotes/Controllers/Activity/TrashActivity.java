@@ -2,7 +2,6 @@ package com.pasich.mynotes.Controllers.Activity;
 
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +13,8 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
 import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.TrashView;
+
+import java.util.Objects;
 
 public class TrashActivity extends AppCompatActivity implements UpdateListInterface {
 
@@ -30,12 +31,9 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
     setContentView(R.layout.activity_trash);
 
     TrashView = new TrashView(getWindow().getDecorView());
-    // TrashModel = new TrashModel(this);
     setupActionBar();
 
-    //    if (TrashModel.getSizeArray() != 0) createAdapterListView();
-    // else TrashView.createViewTrashEmpty();
-    //  countItems = TrashModel.getSizeArray();
+
   }
 
   @Override
@@ -52,6 +50,9 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      closeActivity();
+    }
 
     return true;
   }
@@ -59,34 +60,25 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
   /** Method that sets up the Activity's ActionBar */
   private void setupActionBar() {
     setSupportActionBar(TrashView.toolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
   }
 
   /** The method that implements the response to the activity with which the arrival was */
   private void closeActivity() {
-    setResult(24, new Intent().putExtra("updateList", countItems != TrashModel.getSizeArray()));
     finish();
   }
 
-  private void createAdapterListView() {
-    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, TrashModel.notesArray);
-    TrashView.trashNotesList.setAdapter(defaultListAdapter);
-    //  activateListener();
-  }
+
 
 
   @Override
   public void RestartListView() {
-    defaultListAdapter.getData().clear();
-    defaultListAdapter.notifyDataSetChanged();
-    TrashView.createViewTrashEmpty();
+
   }
 
   @Override
   public void RemoveItem(int position) {
-    defaultListAdapter.getData().remove(position);
-    defaultListAdapter.notifyDataSetChanged();
-    if (defaultListAdapter.getCount() == 0) TrashView.createViewTrashEmpty();
+
   }
 }

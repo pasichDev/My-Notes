@@ -75,7 +75,6 @@ public class MainModel {
               testCursor.getInt(0),
               testCursor.getString(1),
               testCursor.getString(2),
-              testCursor.getString(3),
               testCursor.getString(5)));
     }
     testCursor.close();

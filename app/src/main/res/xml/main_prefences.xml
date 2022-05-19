@@ -1,15 +1,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <PreferenceCategory android:title="@string/mainPrefences">
+        <PreferenceCategory
+            android:title="@string/mainPrefences"
+            app:allowDividerAbove="false">
 
                 <Preference
                     app:useSimpleSummaryProvider="true"
                     android:key="themeColor"
                     android:summary="@string/ThemeToolbar_summary"
                     android:title="@string/ThemeToolbar_title"
-                    android:icon="@drawable/ic_theme_edit"
-                    />
+                    android:icon="@drawable/ic_theme_edit" />
 
                 <ListPreference
                     android:icon="@drawable/ic_font_style"

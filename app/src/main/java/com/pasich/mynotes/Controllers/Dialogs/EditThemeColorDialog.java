@@ -11,7 +11,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Adapters.ColorsAdapter;
 import com.pasich.mynotes.Utils.Constants.SystemConstant;
 import com.pasich.mynotes.View.DialogView.EditThemeColorView;
 
@@ -23,7 +22,7 @@ public class EditThemeColorDialog extends DialogFragment {
 
     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
     EditThemeColorView editThemeColorView = new EditThemeColorView(getContext(), getLayoutInflater());
-    editThemeColorView.GridView.setAdapter(new ColorsAdapter(getContext()));
+
     builder.setView(editThemeColorView.uiDialog.getContainer());
     builder.setNegativeButton(getString(R.string.cancel), null);
     editThemeColorView.GridView.setOnItemClickListener(gridviewOnItemClickListener);

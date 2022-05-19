@@ -51,7 +51,6 @@ public class MainView extends MainActivity {
         PreferenceManager.getDefaultSharedPreferences(view.getContext()).getInt("formatParam", 1));
     Objects.requireNonNull(TabLayout.getTabAt(1)).select();
     ListViewAnimation.setListviewAnimAlphaTranslate(ListView);
-    // new ListViewAnimation().setListviewAnimation(ListView);
   }
 
   /** Method that changes the number of GridView columns */

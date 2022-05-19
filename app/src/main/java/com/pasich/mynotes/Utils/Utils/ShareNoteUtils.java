@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.pasich.mynotes.R;
 
-public class ShareNotesMethodUtils {
+public class ShareNoteUtils {
 
   /**
    * Method for calling the share note window
