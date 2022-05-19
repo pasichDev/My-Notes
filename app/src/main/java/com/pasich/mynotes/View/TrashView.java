@@ -17,16 +17,8 @@ public class TrashView {
     this.view = rootView;
     this.toolbar = view.findViewById(R.id.toolbar_actionbar);
     this.trashNotesList = view.findViewById(R.id.ListTrash);
-    setToolbar();
   }
 
-  private void setToolbar() {
-    toolbar.setTitle(R.string.trashN);
-  }
 
-  /** Method that handles displaying a message about an empty note */
-  public void createViewTrashEmpty() {
-    view.findViewById(R.id.emptyTrash).setVisibility(View.VISIBLE);
-    view.findViewById(R.id.imageEmptyTrash).setVisibility(View.VISIBLE);
-  }
+
 }

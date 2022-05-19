@@ -13,19 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.pasich.mynotes.Adapters.SourceNoteList.SourceListAdapter;
-import com.pasich.mynotes.Adapters.SourceNoteList.SourceListContent;
+import com.pasich.mynotes.Model.Adapter.SourceListModel;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.View.CustomView.CustomUIDialog;
+import com.pasich.mynotes.Utils.Adapters.SourceListAdapter;
+import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class SourcesNoteDialog extends DialogFragment {
 
-  private final ArrayList<SourceListContent> ListSoc;
+  private final ArrayList<SourceListModel> ListSoc;
 
-  public SourcesNoteDialog(ArrayList<SourceListContent> ListSoc) {
+  public SourcesNoteDialog(ArrayList<SourceListModel> ListSoc) {
     this.ListSoc = ListSoc;
   }
 
@@ -34,7 +34,7 @@ public class SourcesNoteDialog extends DialogFragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
     ListView listView = new ListView(getContext());
-    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
+    CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
 
     uiDialog.setHeadTextView(getString(R.string.investments));
     uiDialog.getContainer().addView(listView);
@@ -46,12 +46,12 @@ public class SourcesNoteDialog extends DialogFragment {
     builder.setView(uiDialog.getContainer());
 
     SourceListAdapter souceListAdapter =
-        new SourceListAdapter(getContext(), R.layout.list_source_note, ListSoc);
+        new SourceListAdapter(getContext(), R.layout.item_icon_text_simple, ListSoc);
     listView.setAdapter(souceListAdapter);
 
     listView.setOnItemClickListener(
         (parent, v, position, id) -> {
-          SourceListContent listItem = ListSoc.get(position);
+          SourceListModel listItem = ListSoc.get(position);
           String selectedItem = listItem.getSource();
 
           ClipboardManager clipboard =

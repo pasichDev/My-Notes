@@ -4,21 +4,15 @@
 
 
     <item
-        android:id="@+id/addFolder"
+        android:id="@+id/searchBut"
         android:visible="false"
-        android:icon="@drawable/ic_add_folder"
-        android:title="@string/addFolder"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
         yourapp:showAsAction="ifRoom" />
     <item
-        android:id="@+id/cleanFolderBut"
+        android:id="@+id/trashButton"
         android:visible="false"
-        android:icon="@drawable/ic_clean_folder"
-        android:title="@string/cleanFolder"
-        yourapp:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/trashBut"
-        android:visible="false"
-        android:icon="@drawable/ic_trash"
+        android:icon="@drawable/ic_trash_menu"
         android:title="@string/trashN"
         yourapp:showAsAction="ifRoom" />
     <item
@@ -29,23 +23,10 @@
         yourapp:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/moreBut"
         android:visible="false"
-        android:id="@+id/applyBut"
-        android:icon="@drawable/ic_check"
-        android:title="@string/saveNotes"
-        yourapp:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/noSave"
-        android:visible="false"
-        android:icon="@drawable/ic_close"
-        android:title="@string/noSave"
-        yourapp:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/trashClean"
-        android:visible="false"
-        android:icon="@drawable/ic_trash_clean"
-        android:title="@string/trashClean"
+        android:icon="@drawable/ic_more"
+        android:title="@string/more"
         yourapp:showAsAction="ifRoom" />
 
 

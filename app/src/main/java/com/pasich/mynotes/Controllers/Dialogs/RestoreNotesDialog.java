@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.View.CustomView.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 public class RestoreNotesDialog extends DialogFragment {
 
@@ -22,13 +22,13 @@ public class RestoreNotesDialog extends DialogFragment {
 
     continueImport listen = (continueImport) getTargetFragment();
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
+    CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
     uiDialog.setHeadTextView(getString(R.string.warning));
 
     TextView textMessage = new TextView(getContext());
     textMessage.setText(getString(R.string.restoreDialogMessage));
     uiDialog.setTextSizeMessage(textMessage);
-    uiDialog.getContainer().addView(textMessage, uiDialog.lp);
+    uiDialog.getContainer().addView(textMessage, uiDialog.LP_DEFAULT);
     builder.setView(uiDialog.getContainer());
 
     return builder

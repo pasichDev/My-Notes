@@ -6,19 +6,19 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.View.CustomView.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 public class EditThemeColorView {
 
   public final GridView GridView;
   public final TextView textMessage;
   private final Context context;
-  public CustomUIDialog uiDialog;
+  public CustomHeadUIDialog uiDialog;
 
   public EditThemeColorView(Context context, LayoutInflater inflater) {
     this.context = context;
     this.textMessage = new TextView(context);
-    this.uiDialog = new CustomUIDialog(context, inflater);
+    this.uiDialog = new CustomHeadUIDialog(context, inflater);
     this.GridView = new GridView(context);
 
     setGridView();
@@ -38,6 +38,6 @@ public class EditThemeColorView {
    */
   private void setUiDialog() {
     uiDialog.setHeadTextView(context.getString(R.string.selectColorPrimaryApp));
-    uiDialog.getContainer().addView(GridView, uiDialog.lp);
+    uiDialog.getContainer().addView(GridView, uiDialog.LP_DEFAULT);
   }
 }

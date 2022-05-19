@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.View.CustomView.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 public class PermissionErrorDialog extends DialogFragment {
   String mode;
@@ -24,13 +24,13 @@ public class PermissionErrorDialog extends DialogFragment {
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
+    CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
     TextView textMessage = new TextView(getContext());
 
     uiDialog.setHeadTextView(getString(R.string.errorPermisions));
     textMessage.setText(getString(R.string.errorPermisions_Message));
     uiDialog.setTextSizeMessage(textMessage);
-    uiDialog.getContainer().addView(textMessage, uiDialog.lp);
+    uiDialog.getContainer().addView(textMessage, uiDialog.LP_DEFAULT);
     builder.setView(uiDialog.getContainer());
     return builder
         .setPositiveButton(

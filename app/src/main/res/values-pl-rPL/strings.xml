@@ -7,7 +7,7 @@
     <string name = "settings"> Ustawienia </string>
     <string name = "sizeText"> Rozmiar tekstu </string>
     <string name = "ThemeToolbar_title"> Kolor podstawowy </string>
-    <string name = "trashNotes"> Usuń </string>
+    <string name="trashNotes">Przenieś do koszyka</string>
     <string name = "trashN"> Kosz </string>
     <string name = "trashClean"> Wyczyść kosz </string>
     <string name = "saveNotes"> Zapisz notatkę </string>

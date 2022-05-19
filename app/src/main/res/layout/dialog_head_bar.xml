@@ -3,33 +3,58 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="35dp"
-    android:background="?attr/colorPrimary">
+    android:layout_height="wrap_content"
+    android:background="?attr/colorBackground"
+    android:elevation="1dp">
 
-    <TextView
-        android:id="@+id/textViewHead"
+
+    <Button
+        android:id="@+id/closeButtonDialog"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/hiden"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:backgroundTint="?attr/colorBackground"
+        android:text="@string/close"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/closeDialog"
-        style="?android:attr/actionButtonStyle"
+    <Button
+        android:id="@+id/saveButtonDialog"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="?attr/colorPrimaryBackground"
+        android:text="@string/save"
+        android:textColor="?attr/colorPrimaryBackground"
+        android:textSize="14sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_close" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/HeadTextDialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"
+        android:text="test"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveButtonDialog"
+        app:layout_constraintStart_toEndOf="@+id/closeButtonDialog"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

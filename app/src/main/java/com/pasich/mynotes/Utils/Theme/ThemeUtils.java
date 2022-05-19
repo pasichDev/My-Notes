@@ -36,15 +36,10 @@ public class ThemeUtils {
     if (themeValue == null) {
       assert false;
       if (themeValue.trim().isEmpty()) {
-        theme = R.style.ThemeDark;
+        theme = R.style.ThemeBlue;
       }
     }
-    if (themeValue.equals("Red")) theme = R.style.ThemeRed;
-    if (themeValue.equals("Purple")) theme = R.style.ThemePurple;
-    if (themeValue.equals("Green")) theme = R.style.ThemeGreen;
-    if (themeValue.equals("Dark")) theme = R.style.ThemeDark;
-    if (themeValue.equals("Orange")) theme = R.style.ThemeOrange;
-    if (themeValue.equals("Indigo")) theme = R.style.ThemeIndigo;
+    if (themeValue.equals("Dark")) theme = R.style.ThemeBlue;
     return theme;
   }
 }

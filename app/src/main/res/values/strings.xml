@@ -9,7 +9,7 @@
     <string name="author" translatable="false"> Andrii Pasichnik (pasichDev) </string>
     <string name="sizeText"> Text size </string>
     <string name="ThemeToolbar_title"> Color scheme </string>
-    <string name="trashNotes">Delete</string>
+    <string name="trashNotes">Move to trash</string>
     <string name="trashN"> Trash </string>
     <string name="trashClean">Trash Clean</string>
     <string name="saveNotes">Save notes</string>
@@ -127,8 +127,32 @@
     <string name="cd_sort">Sort notes</string>
     <string name="cd_format">Format notes</string>
 
-
+    <string name="search" translatable="false">Поиск</string>
+    <string name="cd_editTags" translatable="false">Редактировать метки</string>
     <string name="folders" translatable="false">Папки</string>
+    <string name="tags" translatable="false">Метки</string>
     <string name="namefolder" translatable="false">NameFolder</string>
     <string name="PreferencesFileName" translatable="false">com.pasich.mynotes_preferences</string>
+
+    <string name="close" translatable="false">Закрыть</string>
+    <string name="addTag" translatable="false">Добавить метку</string>
+    <string name="deleteTag" translatable="false">Удалить метку</string>
+    <string name="nameTagInput" translatable="false">Введите название метки</string>
+    <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше 20 символов</string>
+
+    <string name="splashEnablePrefTitle" translatable="false">Показывать екран загрузки</string>
+    <string name="splashEnablePrefSummary" translatable="false">Включить показ екрана загрузки при запуске приложения</string>
+
+    <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>
+
+    <string name="allNotes" translatable="false">Все заметки</string>
+    <string name="more" translatable="false">Больше</string>
+    <string name="noteTitle" translatable="false">Заголовок заметки</string>
+    <string name="errorDeleteTag" translatable="false">Можно удалять только те метки которые создал пользователь</string>
+    <string name="deleteSelectTag" translatable="false">Удаление метки</string>
+    <string name="deleteSelectTagTextMassage" translatable="false">Вы действительно хотите удалить метку? После удаления метка пропадет у всех отмеченных заметках.</string>
+
+    <string name="selectChoice" translatable="false">Выберите действие</string>
+    <string name="tag" translatable="false">Метка</string>
+    <string name="selectAll" translatable="false">Выбрать несколько элементов</string>
 </resources>

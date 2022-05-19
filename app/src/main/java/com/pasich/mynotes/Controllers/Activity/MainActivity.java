@@ -1,176 +1,233 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
+import static java.util.Objects.requireNonNull;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.Adapters.VIewPage.ViewPagerAdapter;
-import com.pasich.mynotes.Controllers.Dialogs.FolderEditAndCreateDialog;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.ListNotesFragment;
-import com.pasich.mynotes.Controllers.Fragments.ViewPagerMain.VoiceListNotesFragment;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiceNoteDialog;
+import com.pasich.mynotes.Controllers.Dialogs.DeleteTagDialog;
+import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
+import com.pasich.mynotes.Model.Adapter.ListNotesModel;
+import com.pasich.mynotes.Model.MainModel;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Interface.IOnBackPressed;
-import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
+import com.pasich.mynotes.Utils.ActionUtils;
+import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
+import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
+import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.Utils.MainUtils;
-import com.pasich.mynotes.Utils.SwitchButton.FormatSwitchUtils;
-import com.pasich.mynotes.Utils.SwitchButton.SortSwitchUtils;
+import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
+import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
+import com.pasich.mynotes.Utils.SwitchButtons.SortSwitchUtils;
 import com.pasich.mynotes.View.MainView;
 
-public class MainActivity extends AppCompatActivity implements UpdateListInterface {
+public class MainActivity extends AppCompatActivity implements ManageTag, View.OnClickListener {
 
-  private ListNotesFragment FragmentListNotes;
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
       registerForActivityResult(
           new ActivityResultContracts.StartActivityForResult(),
           result -> {
-            Intent data = result.getData();
             if (result.getResultCode() == 24 && result.getData() != null) {
-              if (data.getBooleanExtra("updateList", false)) FragmentListNotes.restartListNotes();
+              if (result.getData().getBooleanExtra("updateList", false)) restartListNotes("");
             }
-
           });
 
-  private SortSwitchUtils sortSwitch;
-  private FormatSwitchUtils formatSwitch;
   private MainView MainView;
   private MainUtils MainUtils;
+  private DefaultListAdapter defaultListAdapter;
+  private MainModel MainModel;
+  private ActionUtils ActionUtils;
+  private SortSwitchUtils sortSwitch;
+  private FormatSwitchUtils formatSwitch;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    initResourece();
+    setToolbar();
 
+    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
+    MainView.ListView.setAdapter(defaultListAdapter);
 
-    MainView = new MainView(getWindow().getDecorView());
-    MainUtils = new MainUtils();
-    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
-    formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
-
-    setSupportActionBar(MainView.toolbar);
-    startButtonList();
-    setupViewPager();
-
-    findViewById(R.id.sortButton)
-        .setOnClickListener(
-            v -> {
-              sortSwitch.sortNote();
-              FragmentListNotes.restartListNotes();
-            });
-    findViewById(R.id.formatButton)
-        .setOnClickListener(
-            v -> {
-              formatSwitch.formatNote();
-              FragmentListNotes.formatListView();
-            });
-
-    MainView.viewPager.registerOnPageChangeCallback(
-        new ViewPager2.OnPageChangeCallback() {
-          @Override
-          public void onPageSelected(int position) {
-            MainView.tabLayout.selectTab(MainView.tabLayout.getTabAt(position));
-          }
-        });
-
+    initListener();
   }
 
-  /** The method that sets up the ViewPager */
-  private void setupViewPager() {
-    this.FragmentListNotes = new ListNotesFragment();
-    ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
-    adapter.addFragment(FragmentListNotes);
-    adapter.addFragment(new VoiceListNotesFragment());
-    MainView.viewPager.setAdapter(adapter);
-    MainView.tabLayout.addOnTabSelectedListener(
-        new TabLayout.OnTabSelectedListener() {
+  /** The method that sets up the toolbar */
+  private void setToolbar() {
+    setSupportActionBar(MainView.toolbar);
+    requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+  }
+
+  /** Method to manage listeners */
+  private void initListener() {
+    MainView.sortButton.setOnClickListener(this);
+    MainView.formatButton.setOnClickListener(this);
+    MainView.newNotesButton.setOnClickListener(this);
+    MainView.deleteTag.setOnClickListener(this);
+
+    MainView.TabLayout.addOnTabSelectedListener(
+        new TabLayoutListenerUtils() {
           @Override
-          public void onTabSelected(TabLayout.Tab tab) {
-            MainView.viewPager.setCurrentItem(tab.getPosition());
+          public void listener(TabLayout.Tab Tab) {
+
+            if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
+              restartListNotes(requireNonNull(Tab.getText()).toString());
+              MainView.deleteTag.setVisibility(View.VISIBLE);
+            } else if (Tab.getPosition() == 1) {
+              restartListNotes("");
+              MainView.deleteTag.setVisibility(View.GONE);
+            } else if (Tab.getPosition() == 0) {
+              createTagItem(unselectedPosition);
+            }
           }
-
-          @Override
-          public void onTabUnselected(TabLayout.Tab tab) {}
-
-          @Override
-          public void onTabReselected(TabLayout.Tab tab) {}
         });
+
+    MainView.ListView.setOnItemClickListener(
+        (parent, v, position, id) -> {
+          if (!ActionUtils.getAction()) openNote(defaultListAdapter.getItem(position).getId());
+          else selectedItemAction(defaultListAdapter.getItem(position));
+        });
+    MainView.ListView.setOnItemLongClickListener(
+        (arg0, arg1, position, id) -> {
+          new ChoiceNoteDialog().show(getSupportFragmentManager(), "ChoiceDialog");
+          return true;
+        });
+  }
+
+  /**
+   * The method that implements the creation of a tag
+   *
+   * @param unselectedPosition - last selected item
+   */
+  private void createTagItem(int unselectedPosition) {
+    if (MainView.TabLayout.getTabCount() <= 10) {
+      new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
+      requireNonNull(MainView.TabLayout.getTabAt(unselectedPosition)).select();
+
+    } else Toast.makeText(this, getString(R.string.countTagsError), Toast.LENGTH_LONG).show();
+  }
+
+  @Override
+  public void onClick(View v) {
+    if (v.getId() == R.id.sortButton) {
+        sortSwitch.sortNote();
+      restartListNotes("");
+    }
+    if (v.getId() == R.id.formatButton) {
+        formatSwitch.formatNote();
+        MainView.setNotesListCountColumns();
+    }
+    if (v.getId() == R.id.newNotesButton) {
+      startActivity.launch(new Intent(this, NoteActivity.class).putExtra("NewNote", true));
+    }
+    if (v.getId() == R.id.deleteTag) {
+      new DeleteTagDialog().show(getSupportFragmentManager(), "Delete Tag");
+    }
+  }
+
+  @Override
+  public void deleteTag() {
+    int tagPosition = MainView.TabLayout.getSelectedTabPosition();
+    if (MainView.TabLayout.getTabCount() > 2 && tagPosition > 1) {
+      MainModel.deleteTag(MainView.TabLayout.getTabAt(tagPosition).getText().toString());
+      MainView.TabLayout.removeTab(requireNonNull(MainView.TabLayout.getTabAt(tagPosition)));
+      requireNonNull(MainView.TabLayout.getTabAt(1)).select();
+    } else {
+      Toast.makeText(this, getString(R.string.errorDeleteTag), Toast.LENGTH_LONG).show();
+    }
+  }
+
+  public void restartListNotes(String tag) {
+    defaultListAdapter.getData().clear();
+    MainModel.getUpdateCursor(tag);
+    defaultListAdapter.notifyDataSetChanged();
+    ListViewAnimation.setListviewAnimAlphaTranslate(MainView.ListView);
+  }
+
+  private void selectedItemAction(ListNotesModel item) {
+    if (item.getChecked()) {
+      item.setChecked(false);
+      item.getView().setBackground(getDrawable(R.drawable.item_note_background));
+      if (defaultListAdapter.getCountChecked() == 0) {
+        MainView.deactivationActionPanel();
+        ActionUtils.setAction(false);
+        defaultListAdapter.setChekClean();
+      }
+    } else {
+      item.setChecked(true);
+      item.getView().setBackground(getDrawable(R.drawable.item_note_background_selected));
+    }
+  }
+
+  private void initResourece() {
+    MainView = new MainView(getWindow().getDecorView());
+    MainUtils = new MainUtils();
+    MainModel = new MainModel(this);
+    ActionUtils = new ActionUtils();
+    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
+    formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    while (MainModel.tags.moveToNext()) {
+      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));
+    }
   }
 
   @Override
   public void onBackPressed() {
-    if (FragmentListNotes == null || !((IOnBackPressed) FragmentListNotes).onBackPressed())
-      MainUtils.CloseApp(MainActivity.this);
+    MainUtils.CloseApp(MainActivity.this);
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     menu.findItem(R.id.setingsBut).setVisible(true);
-    menu.findItem(R.id.trashBut).setVisible(true);
-    menu.findItem(R.id.addFolder).setVisible(true);
+    menu.findItem(R.id.searchBut).setVisible(true);
+    menu.findItem(R.id.trashButton).setVisible(true);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.setingsBut) openSettings();
-    else if (item.getItemId() == R.id.trashBut) openTrash();
-    else if (item.getItemId() == R.id.addFolder) openFolderOption();
-
+    if (item.getItemId() == R.id.setingsBut)
+      startActivity.launch(new Intent(this, SettingsActivity.class));
+    if (item.getItemId() == R.id.trashButton)
+      startActivity.launch(new Intent(this, TrashActivity.class));
     return false;
   }
 
-  /** Start FolderOption.Dialog */
-  private void openFolderOption() {
-    new FolderEditAndCreateDialog("").show(getSupportFragmentManager(), "newFolder");
-  }
-
-  /** Start Trash.activity */
-  private void openTrash() {
-    startActivity.launch(new Intent(this, TrashActivity.class));
-  }
-
-  /** Start Settings.activity */
-  private void openSettings() {
-    startActivity.launch(new Intent(this, SettingsActivity.class));
-  }
-
-  /** Create Button List to TabPanel */
-  private void startButtonList() {
-    sortSwitch.getSortParam();
-    formatSwitch.getFormatParam();
-  }
-
-  /**
-   * Тоже очень интересная реализация Позже желательно выпилить
-   * Нужно любой ценой  реализовать обновления ListView после onPause()
-   * */
   @Override
-  public void onStart() {
-    super.onStart();
-
+  public void addTag(String tagName) {
+    MainModel.createTag(tagName);
+    MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
   }
-
-  @Override
-  public void RestartListView() {
-    FragmentListNotes.restartListNotes();
-  }
-
 
 
   @Override
-  public void RemoveItem(int position) {
-    FragmentListNotes.removeItems(position);
+  public void onDestroy() {
+    super.onDestroy();
+    MainModel.closeConnection();
+  }
+
+
+
+  private void openNote(int id) {
+    startActivity.launch(
+        new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", id));
   }
 }

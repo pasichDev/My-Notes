@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.View.CustomView.CustomUIDialog;
+import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 import java.util.Objects;
 
@@ -23,7 +23,7 @@ public class TtsErrorDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-    CustomUIDialog uiDialog = new CustomUIDialog(getContext(), getLayoutInflater());
+    CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
     uiDialog.setHeadTextView(getString(R.string.error));
     TextView textMessage1 = new TextView(getContext());
     TextView textMessage2 = new TextView(getContext());
@@ -33,8 +33,8 @@ public class TtsErrorDialog extends DialogFragment {
     textMessage1.setTypeface(null, Typeface.BOLD);
     uiDialog.setTextSizeMessage(textMessage1);
     uiDialog.setTextSizeMessage(textMessage2);
-    uiDialog.getContainer().addView(textMessage1, uiDialog.lp);
-    uiDialog.getContainer().addView(textMessage2, uiDialog.lp);
+    uiDialog.getContainer().addView(textMessage1, uiDialog.LP_DEFAULT);
+    uiDialog.getContainer().addView(textMessage2, uiDialog.LP_DEFAULT);
 
     uiDialog.getCloseButton().setVisibility(View.VISIBLE);
     uiDialog
