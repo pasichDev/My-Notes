@@ -13,11 +13,18 @@ import com.pasich.mynotes.Model.Adapter.MoreChoiceModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
+import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 import java.util.ArrayList;
 
 public class ChoiceNoteDialog extends DialogFragment {
+
+  private int Item;
+
+  public ChoiceNoteDialog(int item) {
+    this.Item = item;
+  }
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -25,6 +32,7 @@ public class ChoiceNoteDialog extends DialogFragment {
     final CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
     final ListView listView = new ListView(getContext());
     final ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
+    final ChoiceNoteInterface ChoiceNoteInterface = (ChoiceNoteInterface) getContext();
 
     uiDialog.setHeadTextView(getString(R.string.selectChoice));
 
@@ -42,8 +50,8 @@ public class ChoiceNoteDialog extends DialogFragment {
     listView.setDivider(null);
     listView.setOnItemClickListener(
         (parent, v, position, id) -> {
-          //  if(adapter.getItem(position).getAction().equals("Share"))
-          //   shareNotes(getActivity(), );
+          if (adapter.getItem(position).getAction().equals("Share"))
+            ChoiceNoteInterface.shareNote(Item);
         });
     // builder.setContentView(listView);
 

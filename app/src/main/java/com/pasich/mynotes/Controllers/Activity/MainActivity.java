@@ -23,6 +23,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
 import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
+import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
@@ -30,7 +31,8 @@ import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButtons.SortSwitchUtils;
 import com.pasich.mynotes.View.MainView;
 
-public class MainActivity extends AppCompatActivity implements ManageTag, View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+    implements ManageTag, View.OnClickListener, ChoiceNoteInterface {
 
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
         });
     MainView.ListView.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
-          new ChoiceNoteDialog().show(getSupportFragmentManager(), "ChoiceDialog");
+          new ChoiceNoteDialog(position).show(getSupportFragmentManager(), "ChoiceDialog");
           return true;
         });
   }
@@ -229,5 +231,14 @@ public class MainActivity extends AppCompatActivity implements ManageTag, View.O
   private void openNote(int id) {
     startActivity.launch(
         new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", id));
+  }
+
+  @Override
+  public void shareNote(int item) {
+    /**
+     * а тут у нас ошибка, в первю выводиться весь текст для адаптера это важко нужно как-то
+     * реализовать получение всего текста а превюху обрезать
+     */
+    // ShareNoteUtils.shareNotes(this, defaultListAdapter.getItem(item).);
   }
 }

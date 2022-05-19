@@ -20,13 +20,9 @@ public class SettingsView {
         this.toolbar = view.findViewById(R.id.toolbar_actionbar);
         this.viewPager = view.findViewById(R.id.settingsViewPager);
         this.tabLayout = view.findViewById(R.id.settingsTabLayout);
-        setToolbar();
     }
 
-    private void setToolbar(){
-        toolbar.setTitle(R.string.settings);
 
-    }
 
 
 
