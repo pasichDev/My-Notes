@@ -115,17 +115,13 @@
 
         <GridView
             android:id="@+id/list_notes"
+            style="@style/GridViewStyle"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
             android:layout_marginBottom="10dp"
-            android:hapticFeedbackEnabled="false"
-            android:horizontalSpacing="10dp"
-            android:numColumns="1"
-            android:scrollbars="none"
-            android:verticalSpacing="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

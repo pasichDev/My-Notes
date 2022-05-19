@@ -2,18 +2,15 @@ package com.pasich.mynotes.Model;
 
 import android.app.Activity;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.pasich.mynotes.Utils.Database.FeedReaderDbHelper;
 import com.pasich.mynotes.Utils.Utils.ListNotesUtils;
 import com.pasich.mynotes.View.NoteView;
 
 import java.util.Calendar;
 
-public class NoteModel {
+public class NoteModel extends ModelBase {
 
   protected final Activity activity;
-  private final SQLiteDatabase db;
   public boolean newNoteKey;
   public int idKey;
   public String shareText;
@@ -21,10 +18,9 @@ public class NoteModel {
   private final NoteView NoteView;
 
   public NoteModel(Activity activity, NoteView NoteView) {
+    super(activity);
     this.activity = activity;
     this.NoteView = NoteView;
-    FeedReaderDbHelper databaseHelper = new FeedReaderDbHelper(activity);
-    this.db = databaseHelper.getReadableDatabase();
 
     loadingKey();
   }

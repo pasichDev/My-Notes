@@ -2,28 +2,24 @@ package com.pasich.mynotes.Model;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.Model.Adapter.ListNotesModel;
-import com.pasich.mynotes.Utils.Database.FeedReaderDbHelper;
 
 import java.util.ArrayList;
 
-public class MainModel {
-  private final SQLiteDatabase db;
+public class MainModel extends ModelBase {
+
   private final Context context;
   public Cursor tags;
   public ArrayList<ListNotesModel> notesArray = new ArrayList<>();
 
   public MainModel(Context context) {
+    super(context);
     this.context = context;
-    FeedReaderDbHelper databaseHelper = new FeedReaderDbHelper(context);
-    this.db = databaseHelper.getReadableDatabase();
     this.tags = queryTags();
-
     searchNotes("");
   }
 

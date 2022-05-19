@@ -1,7 +1,7 @@
 package com.pasich.mynotes.View;
 
 import android.view.View;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -11,7 +11,7 @@ public class TrashView {
 
   public final Toolbar toolbar;
   protected final View view;
-  public ListView trashNotesList;
+  public GridView trashNotesList;
 
   public TrashView(View rootView) {
     this.view = rootView;

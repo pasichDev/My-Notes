@@ -31,15 +31,17 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
     setContentView(R.layout.activity_trash);
 
     TrashView = new TrashView(getWindow().getDecorView());
+    TrashModel = new TrashModel(this);
     setupActionBar();
 
-
+    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, TrashModel.notesArray);
+    TrashView.trashNotesList.setAdapter(defaultListAdapter);
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
-
+    menu.findItem(R.id.trashCleanButton).setVisible(true);
     return true;
   }
 

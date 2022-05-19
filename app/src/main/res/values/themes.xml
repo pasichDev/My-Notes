@@ -15,11 +15,10 @@
         <item name="android:statusBarColor">?attr/colorBackground</item>
         <item name="android:windowLightStatusBar">true</item>
 
-
     </style>
 
 
-    <!-- Blue color theme. -->
+    <!-- SplashStyle-->
     <style name="ThemeBlueSplash" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
         <item name="colorBackground">@color/white</item>
@@ -28,12 +27,13 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <!-- EditText set NoteActivity-->
     <style name="editTextSet" parent="@style/Widget.AppCompat.EditText">
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>
     </style>
 
-
+    <!-- Tag tab set -->
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">?attr/colorAccent</item>
         <item name="tabIndicatorHeight">0dp</item>
@@ -77,5 +77,14 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
+
+    <style name="GridViewStyle">
+        <item name="android:hapticFeedbackEnabled">false</item>
+        <item name="android:horizontalSpacing">10dp</item>
+        <item name="android:numColumns">1</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:verticalSpacing">10dp</item>
+    </style>
+
 
 </resources>

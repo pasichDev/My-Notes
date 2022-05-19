@@ -21,7 +21,12 @@
         android:icon="@drawable/ic_settings"
         android:title="@string/settings"
         yourapp:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/trashCleanButton"
+        android:visible="false"
+        android:icon="@drawable/ic_trash_menu"
+        android:title="@string/trashClean"
+        yourapp:showAsAction="ifRoom" />
     <item
         android:id="@+id/moreBut"
         android:visible="false"
