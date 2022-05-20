@@ -122,6 +122,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
             android:layout_marginBottom="10dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,6 +142,39 @@
             app:layout_constraintEnd_toStartOf="@+id/sortButton"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="?attr/colorPrimaryVariant" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/emptyListVIew"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="547dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headNotes">
+
+            <ImageView
+                android:id="@+id/emptyListImage"
+                android:layout_width="152dp"
+                android:layout_height="152dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_notes_empty" />
+
+            <TextView
+                android:id="@+id/emptyListText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Здесь будуть ваши заметки."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emptyListImage" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

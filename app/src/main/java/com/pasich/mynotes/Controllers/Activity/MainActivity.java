@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
 
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
     MainView.ListView.setAdapter(defaultListAdapter);
+    emptyListViewUtil();
 
     initListener();
   }
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity
               restartListNotes(requireNonNull(Tab.getText()).toString());
               MainView.deleteTag.setVisibility(View.VISIBLE);
             } else if (Tab.getPosition() == 1 && unselectedPosition != 0) {
-
+              restartListNotes("");
               MainView.deleteTag.setVisibility(View.GONE);
             }
           }
@@ -150,7 +151,9 @@ public class MainActivity extends AppCompatActivity
     defaultListAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
     defaultListAdapter.notifyDataSetChanged();
-    ListViewAnimation.setListviewAnimAlphaTranslate(MainView.ListView);
+    if (defaultListAdapter.getCount() > 0)
+      ListViewAnimation.setListviewAnimAlphaTranslate(MainView.ListView);
+    emptyListViewUtil();
   }
 
   private void selectedItemAction(ListNotesModel item) {
@@ -243,6 +246,16 @@ public class MainActivity extends AppCompatActivity
   private String getNameTagUtil() {
     int position = MainView.TabLayout.getSelectedTabPosition();
     return position > 1 ? MainView.TabLayout.getTabAt(position).getText().toString() : "";
+  }
+
+  private void emptyListViewUtil() {
+    if (defaultListAdapter.getCount() == 0) {
+      MainView.ListView.setVisibility(View.GONE);
+      findViewById(R.id.emptyListVIew).setVisibility(View.VISIBLE);
+    } else {
+      MainView.ListView.setVisibility(View.VISIBLE);
+      findViewById(R.id.emptyListVIew).setVisibility(View.GONE);
+    }
   }
 
   @Override
