@@ -87,11 +87,13 @@ public class MainActivity extends AppCompatActivity
 
             if (Tab.getPosition() == 0) {
               createTagItem(unselectedPosition);
+
             } else if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
+
               restartListNotes(requireNonNull(Tab.getText()).toString());
               MainView.deleteTag.setVisibility(View.VISIBLE);
-            } else if (Tab.getPosition() == 1) {
-              restartListNotes("");
+            } else if (Tab.getPosition() == 1 && unselectedPosition != 0) {
+
               MainView.deleteTag.setVisibility(View.GONE);
             }
           }
@@ -136,10 +138,7 @@ public class MainActivity extends AppCompatActivity
       startActivity.launch(
           new Intent(this, NoteActivity.class)
               .putExtra("NewNote", true)
-              .putExtra(
-                  "tagNote",
-                  MainView.TabLayout.getTabAt(MainView.TabLayout.getSelectedTabPosition())
-                      .getText()));
+              .putExtra("tagNote", getNameTagUtil()));
     }
     if (v.getId() == R.id.deleteTag) {
       new DeleteTagDialog(defaultListAdapter.getCount())
@@ -238,7 +237,7 @@ public class MainActivity extends AppCompatActivity
         new Intent(this, NoteActivity.class)
             .putExtra("NewNote", false)
             .putExtra("idNote", id)
-            .putExtra("tagNote", getNameTagUtil()));
+            .putExtra("tagNote", ""));
   }
 
   private String getNameTagUtil() {
