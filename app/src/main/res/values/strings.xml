@@ -137,6 +137,8 @@
     <string name="close" translatable="false">Закрыть</string>
     <string name="addTag" translatable="false">Добавить метку</string>
     <string name="deleteTag" translatable="false">Удалить метку</string>
+    <string name="deleteTagAndNotes" translatable="false">Удалить метку и отмеченные заметки</string>
+
     <string name="nameTagInput" translatable="false">Введите название метки</string>
     <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше 20 символов</string>
 

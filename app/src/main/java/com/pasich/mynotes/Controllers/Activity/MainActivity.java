@@ -135,21 +135,14 @@ public class MainActivity extends AppCompatActivity
       startActivity.launch(new Intent(this, NoteActivity.class).putExtra("NewNote", true));
     }
     if (v.getId() == R.id.deleteTag) {
-      new DeleteTagDialog().show(getSupportFragmentManager(), "Delete Tag");
+      new DeleteTagDialog(defaultListAdapter.getCount())
+          .show(getSupportFragmentManager(), "Delete Tag");
     }
   }
 
-  @Override
-  public void deleteTag() {
-    int tagPosition = MainView.TabLayout.getSelectedTabPosition();
-    if (MainView.TabLayout.getTabCount() > 2 && tagPosition > 1) {
-      MainModel.deleteTag(MainView.TabLayout.getTabAt(tagPosition).getText().toString());
-      MainView.TabLayout.removeTab(requireNonNull(MainView.TabLayout.getTabAt(tagPosition)));
-      requireNonNull(MainView.TabLayout.getTabAt(1)).select();
-    } else {
-      Toast.makeText(this, getString(R.string.errorDeleteTag), Toast.LENGTH_LONG).show();
-    }
-  }
+
+
+
 
   public void restartListNotes(String tag) {
     defaultListAdapter.getData().clear();
@@ -219,12 +212,26 @@ public class MainActivity extends AppCompatActivity
     MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
   }
 
+  @Override
+  public void deleteTag(boolean deleteNotes) {
+    int tagPosition = MainView.TabLayout.getSelectedTabPosition();
+    if (MainView.TabLayout.getTabCount() > 2 && tagPosition > 1) {
+      MainModel.deleteTag(
+          MainView.TabLayout.getTabAt(tagPosition).getText().toString(), deleteNotes);
+      MainView.TabLayout.removeTab(requireNonNull(MainView.TabLayout.getTabAt(tagPosition)));
+      requireNonNull(MainView.TabLayout.getTabAt(1)).select();
+    } else {
+      Toast.makeText(this, getString(R.string.errorDeleteTag), Toast.LENGTH_LONG).show();
+    }
+  }
 
   @Override
   public void onDestroy() {
     super.onDestroy();
     MainModel.closeConnection();
   }
+
+
 
 
 

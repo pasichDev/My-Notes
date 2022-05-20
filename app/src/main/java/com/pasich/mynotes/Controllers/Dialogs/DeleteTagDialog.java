@@ -17,6 +17,12 @@ import java.util.ArrayList;
 
 public class DeleteTagDialog extends DialogFragment {
 
+  private final int countNotesToTag;
+
+  public DeleteTagDialog(int countNotesToTag) {
+    this.countNotesToTag = countNotesToTag;
+  }
+
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -27,6 +33,12 @@ public class DeleteTagDialog extends DialogFragment {
     ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
         new MoreChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "Delete"));
+    if (countNotesToTag != 0)
+      arrayChoice.add(
+          new MoreChoiceModel(
+              getString(R.string.deleteTagAndNotes),
+              R.drawable.ic_delete_notes_tag,
+              "DeleteAndNotes"));
     arrayChoice.add(new MoreChoiceModel(getString(R.string.cancel), R.drawable.ic_close, "Close"));
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
@@ -35,11 +47,11 @@ public class DeleteTagDialog extends DialogFragment {
     DeleteTagView.listView.setDivider(null);
     DeleteTagView.listView.setOnItemClickListener(
         (parent, v, position, id) -> {
-          if (adapter.getItem(position).getAction().equals("Delete")) {
+          String action = adapter.getItem(position).getAction();
+          if (!action.equals("Close")) {
             assert ManageTag != null;
-            ManageTag.deleteTag();
+            ManageTag.deleteTag(action.equals("DeleteAndNotes"));
           }
-
           dismiss();
         });
     builder.setContentView(DeleteTagView.getContainer());

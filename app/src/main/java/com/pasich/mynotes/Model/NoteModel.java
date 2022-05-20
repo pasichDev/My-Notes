@@ -46,7 +46,7 @@ public class NoteModel extends ModelBase {
             + NoteView.valueNote.getText()
             + "','"
             + ListNotesUtils.returnDateFile(Calendar.getInstance().getTime())
-            + "', 'Note', '');");
+            + "', 'Note', 'test');");
   }
 
   public void closeConnection() {
