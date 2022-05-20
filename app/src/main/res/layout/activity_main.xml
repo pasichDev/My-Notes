@@ -42,6 +42,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="lol"
             android:icon="@drawable/ic_add" />
 
         <com.google.android.material.tabs.TabItem
@@ -78,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Tags">
 
         <TextView
-            android:id="@+id/countNotes"
+            android:id="@+id/headNotes"
             style="@style/headTextCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,7 +125,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headText2">
+            app:layout_constraintTop_toBottomOf="@+id/headNotes">
 
         </GridView>
 

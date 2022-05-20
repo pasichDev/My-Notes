@@ -34,20 +34,21 @@ import com.pasich.mynotes.View.MainView;
 public class MainActivity extends AppCompatActivity
     implements ManageTag, View.OnClickListener, ChoiceNoteInterface {
 
+  private MainView MainView;
+  private MainUtils MainUtils;
+  private DefaultListAdapter defaultListAdapter;
+  private MainModel MainModel;
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
       registerForActivityResult(
           new ActivityResultContracts.StartActivityForResult(),
           result -> {
             if (result.getResultCode() == 24 && result.getData() != null) {
-              if (result.getData().getBooleanExtra("updateList", false)) restartListNotes("");
+              if (result.getData().getBooleanExtra("RestartListView", false))
+                restartListNotes(result.getData().getStringExtra("tagNote"));
             }
           });
 
-  private MainView MainView;
-  private MainUtils MainUtils;
-  private DefaultListAdapter defaultListAdapter;
-  private MainModel MainModel;
   private ActionUtils ActionUtils;
   private SortSwitchUtils sortSwitch;
   private FormatSwitchUtils formatSwitch;
@@ -84,14 +85,14 @@ public class MainActivity extends AppCompatActivity
           @Override
           public void listener(TabLayout.Tab Tab) {
 
-            if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
+            if (Tab.getPosition() == 0) {
+              createTagItem(unselectedPosition);
+            } else if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
               restartListNotes(requireNonNull(Tab.getText()).toString());
               MainView.deleteTag.setVisibility(View.VISIBLE);
             } else if (Tab.getPosition() == 1) {
               restartListNotes("");
               MainView.deleteTag.setVisibility(View.GONE);
-            } else if (Tab.getPosition() == 0) {
-              createTagItem(unselectedPosition);
             }
           }
         });
@@ -124,25 +125,27 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.sortButton) {
-        sortSwitch.sortNote();
+      sortSwitch.sortNote();
       restartListNotes("");
     }
     if (v.getId() == R.id.formatButton) {
-        formatSwitch.formatNote();
-        MainView.setNotesListCountColumns();
+      formatSwitch.formatNote();
+      MainView.setNotesListCountColumns();
     }
     if (v.getId() == R.id.newNotesButton) {
-      startActivity.launch(new Intent(this, NoteActivity.class).putExtra("NewNote", true));
+      startActivity.launch(
+          new Intent(this, NoteActivity.class)
+              .putExtra("NewNote", true)
+              .putExtra(
+                  "tagNote",
+                  MainView.TabLayout.getTabAt(MainView.TabLayout.getSelectedTabPosition())
+                      .getText()));
     }
     if (v.getId() == R.id.deleteTag) {
       new DeleteTagDialog(defaultListAdapter.getCount())
           .show(getSupportFragmentManager(), "Delete Tag");
     }
   }
-
-
-
-
 
   public void restartListNotes(String tag) {
     defaultListAdapter.getData().clear();
@@ -216,8 +219,7 @@ public class MainActivity extends AppCompatActivity
   public void deleteTag(boolean deleteNotes) {
     int tagPosition = MainView.TabLayout.getSelectedTabPosition();
     if (MainView.TabLayout.getTabCount() > 2 && tagPosition > 1) {
-      MainModel.deleteTag(
-          MainView.TabLayout.getTabAt(tagPosition).getText().toString(), deleteNotes);
+      MainModel.deleteTag(getNameTagUtil(), deleteNotes);
       MainView.TabLayout.removeTab(requireNonNull(MainView.TabLayout.getTabAt(tagPosition)));
       requireNonNull(MainView.TabLayout.getTabAt(1)).select();
     } else {
@@ -231,13 +233,17 @@ public class MainActivity extends AppCompatActivity
     MainModel.closeConnection();
   }
 
-
-
-
-
   private void openNote(int id) {
     startActivity.launch(
-        new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", id));
+        new Intent(this, NoteActivity.class)
+            .putExtra("NewNote", false)
+            .putExtra("idNote", id)
+            .putExtra("tagNote", getNameTagUtil()));
+  }
+
+  private String getNameTagUtil() {
+    int position = MainView.TabLayout.getSelectedTabPosition();
+    return position > 1 ? MainView.TabLayout.getTabAt(position).getText().toString() : "";
   }
 
   @Override

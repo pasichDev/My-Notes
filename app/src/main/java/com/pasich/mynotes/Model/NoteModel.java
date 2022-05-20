@@ -2,6 +2,7 @@ package com.pasich.mynotes.Model;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.pasich.mynotes.Utils.Utils.ListNotesUtils;
 import com.pasich.mynotes.View.NoteView;
@@ -11,11 +12,11 @@ import java.util.Calendar;
 public class NoteModel extends ModelBase {
 
   protected final Activity activity;
+  private final NoteView NoteView;
   public boolean newNoteKey;
   public int idKey;
-  public String shareText;
+  public String shareText, tagNote;
   public Cursor cursorNote;
-  private final NoteView NoteView;
 
   public NoteModel(Activity activity, NoteView NoteView) {
     super(activity);
@@ -27,9 +28,10 @@ public class NoteModel extends ModelBase {
 
   /** Method that implements getting activity control keys */
   private void loadingKey() {
-    newNoteKey = activity.getIntent().getBooleanExtra("NewNote", true);
-    idKey = activity.getIntent().getIntExtra("idNote", 0);
-    shareText = activity.getIntent().getStringExtra("shareText");
+    this.newNoteKey = activity.getIntent().getBooleanExtra("NewNote", true);
+    this.idKey = activity.getIntent().getIntExtra("idNote", 0);
+    this.tagNote = activity.getIntent().getStringExtra("tagNote");
+    this.shareText = activity.getIntent().getStringExtra("shareText");
   }
 
   /** Метод который загружает курсор с данними заметки */
@@ -39,6 +41,7 @@ public class NoteModel extends ModelBase {
   }
 
   public void createNote() {
+    Log.wtf("pasich", tagNote);
     db.execSQL(
         "INSERT INTO notes  (title, value, date, type, tag) VALUES ('"
             + NoteView.titleName.getText()
@@ -46,7 +49,9 @@ public class NoteModel extends ModelBase {
             + NoteView.valueNote.getText()
             + "','"
             + ListNotesUtils.returnDateFile(Calendar.getInstance().getTime())
-            + "', 'Note', 'test');");
+            + "', 'Note', '"
+            + this.tagNote
+            + "');");
   }
 
   public void closeConnection() {

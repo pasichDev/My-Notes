@@ -6,7 +6,7 @@
         android:width="1dp"
         android:color="?attr/colorLight" />
     <padding
-        android:left="15dp"
+        android:left="10dp"
         android:top="15dp"
         android:right="15dp"
         android:bottom="15dp" />

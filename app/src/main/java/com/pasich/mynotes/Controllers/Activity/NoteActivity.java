@@ -26,7 +26,6 @@ public class NoteActivity extends AppCompatActivity {
     setContentView(R.layout.activity_note);
 
     NoteModel = new NoteModel(this, NoteVIew = new NoteView(getWindow().getDecorView()));
-
     setSupportActionBar(findViewById(R.id.toolbar_actionbar));
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -104,8 +103,11 @@ public class NoteActivity extends AppCompatActivity {
   private void closeNotesSave() {
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     Intent intent = new Intent();
-    if (NoteVIew.valueNote.length() >= 2) saveNote();
-    intent.putExtra("updateList", true);
+    if (NoteVIew.valueNote.length() >= 2) {
+      saveNote();
+      intent.putExtra("RestartListView", true);
+    }
+    intent.putExtra("tagNote", NoteModel.tagNote);
     setResult(24, intent);
     finish();
   }

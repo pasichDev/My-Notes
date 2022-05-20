@@ -11,12 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
-import com.pasich.mynotes.Utils.Interface.UpdateListInterface;
 import com.pasich.mynotes.View.TrashView;
 
 import java.util.Objects;
 
-public class TrashActivity extends AppCompatActivity implements UpdateListInterface {
+public class TrashActivity extends AppCompatActivity {
 
   protected TrashView TrashView;
   protected TrashModel TrashModel;
@@ -74,13 +73,5 @@ public class TrashActivity extends AppCompatActivity implements UpdateListInterf
 
 
 
-  @Override
-  public void RestartListView() {
 
-  }
-
-  @Override
-  public void RemoveItem(int position) {
-
-  }
 }
