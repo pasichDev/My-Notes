@@ -74,7 +74,9 @@ public class MainModel extends ModelBase {
           new ListNotesModel(
               testCursor.getInt(0),
               testCursor.getString(1),
-              testCursor.getString(2),
+              testCursor.getString(2).length() > 200
+                  ? testCursor.getString(2).substring(0, 200)
+                  : testCursor.getString(2),
               testCursor.getString(5)));
     }
     testCursor.close();

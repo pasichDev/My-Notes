@@ -80,8 +80,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   }
 
   private void setPreviewNote(String previewNote) {
-    viewHolder.previewNote.setText(
-        previewNote.length() > 200 ? previewNote.substring(0, 200) : previewNote);
+    viewHolder.previewNote.setText(previewNote);
   }
 
   private void setTagNote(String tagNote) {
