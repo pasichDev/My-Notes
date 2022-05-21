@@ -37,13 +37,17 @@ public class NoteModel extends ModelBase {
   /** Метод который загружает курсор с данними заметки */
   public void queryNote() {
     cursorNote =
-        db.rawQuery("SELECT * FROM notes where id = ?", new String[] {String.valueOf(idKey)});
+        db.rawQuery(
+            "SELECT * FROM " + DbHelper.COLUMN_NOTES + " where id = ?",
+            new String[] {String.valueOf(idKey)});
   }
 
   public void createNote() {
     Log.wtf("pasich", tagNote);
     db.execSQL(
-        "INSERT INTO notes  (title, value, date, type, tag) VALUES ('"
+        "INSERT INTO "
+            + DbHelper.COLUMN_NOTES
+            + "  (title, value, date, type, tag) VALUES ('"
             + NoteView.titleName.getText()
             + "','"
             + NoteView.valueNote.getText()

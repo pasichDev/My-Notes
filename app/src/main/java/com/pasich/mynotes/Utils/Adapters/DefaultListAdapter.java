@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.pasich.mynotes.Model.Adapter.ListNotesModel;
+import com.pasich.mynotes.Model.Adapter.NoteModel;
 import com.pasich.mynotes.R;
 
 import java.util.List;
 
-public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
+public class DefaultListAdapter extends ArrayAdapter<NoteModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
-  private final List<ListNotesModel> listNotes;
+  private final List<NoteModel> listNotes;
   private ViewHolder viewHolder;
 
-  public DefaultListAdapter(Context context, int resource, List<ListNotesModel> list) {
+  public DefaultListAdapter(Context context, int resource, List<NoteModel> list) {
     super(context, resource, list);
     this.listNotes = list;
     this.layout = resource;
@@ -46,12 +46,11 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   }
 
   @Override
-  public ListNotesModel getItem(int i) {
+  public NoteModel getItem(int i) {
     return listNotes != null ? listNotes.get(i) : null;
   }
 
-
-  public List<ListNotesModel> getData() {
+  public List<NoteModel> getData() {
     return this.listNotes;
   }
 
@@ -80,14 +79,15 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   }
 
   private void setPreviewNote(String previewNote) {
-    viewHolder.previewNote.setText(previewNote);
+    viewHolder.previewNote.setText(
+        previewNote.length() > 200 ? previewNote.substring(0, 200) : previewNote);
   }
 
   private void setTagNote(String tagNote) {
     if (tagNote != null && tagNote.length() >= 2) {
       viewHolder.tagNote.setVisibility(View.VISIBLE);
       viewHolder.tagNote.setText("#" + tagNote);
-    }else {
+    } else {
       viewHolder.tagNote.setVisibility(View.GONE);
     }
   }

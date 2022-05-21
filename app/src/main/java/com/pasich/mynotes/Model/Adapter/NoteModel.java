@@ -2,19 +2,23 @@ package com.pasich.mynotes.Model.Adapter;
 
 import android.view.View;
 
-public class ListNotesModel {
+public class NoteModel {
   private final String title;
   private final int id;
   private final String preview;
   private final String tags;
+  private final String date;
+  private final String type;
   private boolean Checked;
   private View itemView;
 
-  public ListNotesModel(int id, String title, String preview, String tags) {
+  public NoteModel(int id, String title, String preview, String date, String type, String tags) {
     this.id = id;
     this.title = title;
     this.tags = tags;
     this.preview = preview;
+    this.date = date;
+    this.type = type;
     this.Checked = false;
   }
 
@@ -44,6 +48,14 @@ public class ListNotesModel {
 
   public View getView() {
     return itemView;
+  }
+
+  public String getDate() {
+    return this.date;
+  }
+
+  public String getType() {
+    return this.type;
   }
 
   public void setItemView(View v) {
