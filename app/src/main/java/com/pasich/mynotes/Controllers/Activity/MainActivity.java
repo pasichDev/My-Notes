@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         });
     MainView.ListView.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
+
           new ChoiceNoteDialog(position).show(getSupportFragmentManager(), "ChoiceDialog");
           return true;
         });
