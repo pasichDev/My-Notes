@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.pasich.mynotes.Model.Adapter.NoteModel;
+import com.pasich.mynotes.Model.Adapter.NoteItemModel;
 import com.pasich.mynotes.R;
 
 import java.util.List;
 
-public class DefaultListAdapter extends ArrayAdapter<NoteModel> {
+public class DefaultListAdapter extends ArrayAdapter<NoteItemModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
-  private final List<NoteModel> listNotes;
+  private final List<NoteItemModel> listNotes;
   private ViewHolder viewHolder;
 
-  public DefaultListAdapter(Context context, int resource, List<NoteModel> list) {
+  public DefaultListAdapter(Context context, int resource, List<NoteItemModel> list) {
     super(context, resource, list);
     this.listNotes = list;
     this.layout = resource;
@@ -38,7 +38,7 @@ public class DefaultListAdapter extends ArrayAdapter<NoteModel> {
     }
 
     setNameNote(getItem(position).getTitle());
-    setPreviewNote(getItem(position).getPreview());
+    setPreviewNote(getItem(position).getValue());
     setTagNote(getItem(position).getTags());
     getItem(position).setItemView(convertView);
 
@@ -46,11 +46,11 @@ public class DefaultListAdapter extends ArrayAdapter<NoteModel> {
   }
 
   @Override
-  public NoteModel getItem(int i) {
+  public NoteItemModel getItem(int i) {
     return listNotes != null ? listNotes.get(i) : null;
   }
 
-  public List<NoteModel> getData() {
+  public List<NoteItemModel> getData() {
     return this.listNotes;
   }
 

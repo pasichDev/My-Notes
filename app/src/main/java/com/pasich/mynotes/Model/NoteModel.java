@@ -2,7 +2,6 @@ package com.pasich.mynotes.Model;
 
 import android.app.Activity;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.pasich.mynotes.Utils.Utils.ListNotesUtils;
 import com.pasich.mynotes.View.NoteView;
@@ -43,7 +42,6 @@ public class NoteModel extends ModelBase {
   }
 
   public void createNote() {
-    Log.wtf("pasich", tagNote);
     db.execSQL(
         "INSERT INTO "
             + DbHelper.COLUMN_NOTES

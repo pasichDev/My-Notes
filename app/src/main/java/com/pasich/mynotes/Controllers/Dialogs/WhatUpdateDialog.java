@@ -2,7 +2,6 @@ package com.pasich.mynotes.Controllers.Dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,8 +26,6 @@ public class WhatUpdateDialog extends DialogFragment {
     uiDialog.setTextSizeMessage(textMessage);
     uiDialog.getContainer().addView(textMessage, uiDialog.LP_DEFAULT);
 
-    uiDialog.getSaveButton().setVisibility(View.GONE);
-    uiDialog.getCloseButton().setVisibility(View.GONE);
     builder.setContentView(uiDialog.getContainer());
 
     return builder;

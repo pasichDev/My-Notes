@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,8 +12,6 @@ import com.pasich.mynotes.R;
 /** A class that simplifies working with dialogs CustomHeadUIDialog uiDialog = new */
 public class CustomHeadUIDialog {
 
-  private final Button closeButton;
-  private final Button saveButton;
   public LinearLayout.LayoutParams LP_DEFAULT;
   public int sizeTextMessage = 17;
   protected View convertView;
@@ -25,8 +22,6 @@ public class CustomHeadUIDialog {
   public CustomHeadUIDialog(Context context, LayoutInflater inflater) {
     this.convertView = inflater.inflate(this.headLayout, null);
     this.headText = convertView.findViewById(R.id.HeadTextDialog);
-    this.closeButton = convertView.findViewById(R.id.closeButtonDialog);
-    this.saveButton = convertView.findViewById(R.id.saveButtonDialog);
     this.container = new LinearLayout(context);
     this.setContainer();
     this.setLayoutParam();
@@ -54,23 +49,6 @@ public class CustomHeadUIDialog {
     this.headText.setText(headString);
   }
 
-  /**
-   * The method that returns closeBut
-   *
-   * @return - closeBut
-   */
-  public final Button getCloseButton() {
-    return this.closeButton;
-  }
-
-  /**
-   * The method that returns save Button
-   *
-   * @return - save Button
-   */
-  public final Button getSaveButton() {
-    return this.saveButton;
-  }
 
   /**
    * The method that returns container Here you need to add container filling

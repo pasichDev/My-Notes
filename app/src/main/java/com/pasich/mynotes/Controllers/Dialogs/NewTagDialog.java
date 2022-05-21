@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -27,52 +26,29 @@ public class NewTagDialog extends DialogFragment {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ManageTag ManageTag = (ManageTag) getContext();
     NewTagView = new NewTagView(requireContext(), getLayoutInflater());
-    NewTagView.getCloseButton().setOnClickListener(view -> dismiss());
-    NewTagView.getSaveButton()
+    NewTagView.NewTagVIewUi.getSaveButton()
         .setOnClickListener(
             view -> {
               assert ManageTag != null;
-              ManageTag.addTag(NewTagView.inputNameTag.getText().toString());
+              ManageTag.addTag(NewTagView.NewTagVIewUi.getInputTag().getText().toString());
               dismiss();
             });
 
     builder.setContentView(NewTagView.getContainer());
 
-    NewTagView.inputNameTag.addTextChangedListener(
-        new TextValidatorUtils(NewTagView.inputNameTag) {
-          @Override
-          public void validate(TextView textView, String text) {
-            validateText(text);
-          }
-        });
-
+    NewTagView.NewTagVIewUi.getInputTag()
+        .addTextChangedListener(
+            new TextValidatorUtils(NewTagView.NewTagVIewUi.getInputTag()) {
+              @Override
+              public void validate(TextView textView, String text) {
+                NewTagView.NewTagVIewUi.validateText(text.length());
+              }
+            });
     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
         .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
 
     return builder;
-  }
-
-  /**
-   * Метод который реализовует валидацию названия метки которую вводит пользователь Одно правило, не
-   * больше 20 символов
-   *
-   * @param text - названия метки
-   */
-  private void validateText(String text) {
-    if (text.length() == 21) {
-      NewTagView.textMessageError.setVisibility(View.VISIBLE);
-      NewTagView.getSaveButton().setEnabled(false);
-      NewTagView.setInputError();
-    } else if (text.length() == 20) {
-      NewTagView.textMessageError.setVisibility(View.GONE);
-      NewTagView.getSaveButton().setEnabled(true);
-      NewTagView.setInputNormal();
-    } else if (text.length() < 3) NewTagView.getSaveButton().setEnabled(false);
-    else {
-      text.length();
-      NewTagView.getSaveButton().setEnabled(true);
-    }
   }
 
   @Override

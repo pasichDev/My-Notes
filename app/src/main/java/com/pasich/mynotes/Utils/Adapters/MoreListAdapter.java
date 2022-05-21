@@ -11,15 +11,15 @@ import android.widget.TextView;
 import com.pasich.mynotes.Model.Adapter.MoreChoiceModel;
 import com.pasich.mynotes.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MoreListAdapter extends ArrayAdapter<MoreChoiceModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
-  private final List<MoreChoiceModel> listNotes;
+  private final ArrayList<MoreChoiceModel> listNotes;
 
-  public MoreListAdapter(Context context, int resource, List<MoreChoiceModel> list) {
+  public MoreListAdapter(Context context, int resource, ArrayList<MoreChoiceModel> list) {
     super(context, resource, list);
     this.listNotes = list;
     this.layout = resource;
@@ -41,9 +41,20 @@ public class MoreListAdapter extends ArrayAdapter<MoreChoiceModel> {
       viewHolder = (ViewHolder) convertView.getTag();
     }
 
+
     viewHolder.nameView.setText(getItem(position).getName());
     viewHolder.iconVIew.setImageResource(getItem(position).getIcon());
+
+    // if(getItem(position).getName().equals("Mail"))
+    // convertView.setBackground(parent.getContext().getDrawable(R.drawable.item_note_background_selected));
+
+    // Log.wtf("pasic", "view ->" + convertView );
+    getItem(position).setItemView(convertView);
     return convertView;
+  }
+
+  public ArrayList<MoreChoiceModel> getData() {
+    return this.listNotes;
   }
 
   private static class ViewHolder {

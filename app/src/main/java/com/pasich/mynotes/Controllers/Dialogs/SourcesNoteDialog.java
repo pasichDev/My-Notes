@@ -5,7 +5,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,10 +37,6 @@ public class SourcesNoteDialog extends DialogFragment {
 
     uiDialog.setHeadTextView(getString(R.string.investments));
     uiDialog.getContainer().addView(listView);
-    uiDialog.getCloseButton().setVisibility(View.VISIBLE);
-    uiDialog
-        .getCloseButton()
-        .setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
 
     builder.setView(uiDialog.getContainer());
 

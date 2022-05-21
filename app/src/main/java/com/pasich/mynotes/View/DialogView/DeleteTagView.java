@@ -2,7 +2,6 @@ package com.pasich.mynotes.View.DialogView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,8 +31,6 @@ public class DeleteTagView extends CustomHeadUIDialog {
 
   private void initialization() {
     setHeadTextView(context.getString(R.string.deleteSelectTag));
-    getSaveButton().setVisibility(View.GONE);
-    getCloseButton().setVisibility(View.GONE);
     setTextMessage();
     getContainer().addView(listView);
   }

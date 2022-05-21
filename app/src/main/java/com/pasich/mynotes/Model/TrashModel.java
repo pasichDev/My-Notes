@@ -3,13 +3,13 @@ package com.pasich.mynotes.Model;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.pasich.mynotes.Model.Adapter.NoteModel;
+import com.pasich.mynotes.Model.Adapter.NoteItemModel;
 
 import java.util.ArrayList;
 
 public class TrashModel extends ModelBase {
 
-  public ArrayList<NoteModel> notesArray = new ArrayList<>();
+  public ArrayList<NoteItemModel> notesArray = new ArrayList<>();
 
   public TrashModel(Context context) {
     super(context);
@@ -21,7 +21,7 @@ public class TrashModel extends ModelBase {
         db.rawQuery("SELECT * FROM " + DbHelper.COLUMN_TRASH + " ORDER BY date DESC;", null);
     while (testCursor.moveToNext()) {
       notesArray.add(
-          new NoteModel(
+          new NoteItemModel(
               testCursor.getInt(0),
               testCursor.getString(1),
               testCursor.getString(2),

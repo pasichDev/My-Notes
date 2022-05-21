@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,8 +13,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
-
-import java.util.Objects;
 
 public class TtsErrorDialog extends DialogFragment {
 
@@ -36,10 +33,6 @@ public class TtsErrorDialog extends DialogFragment {
     uiDialog.getContainer().addView(textMessage1, uiDialog.LP_DEFAULT);
     uiDialog.getContainer().addView(textMessage2, uiDialog.LP_DEFAULT);
 
-    uiDialog.getCloseButton().setVisibility(View.VISIBLE);
-    uiDialog
-        .getCloseButton()
-        .setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
     builder.setView(uiDialog.getContainer());
 
     return builder

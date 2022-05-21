@@ -140,7 +140,7 @@
     <string name="deleteTagAndNotes" translatable="false">Удалить метку и отмеченные заметки</string>
 
     <string name="nameTagInput" translatable="false">Введите название метки</string>
-    <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше 20 символов</string>
+    <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше чем из 20-ти символов</string>
 
     <string name="splashEnablePrefTitle" translatable="false">Показывать екран загрузки</string>
     <string name="splashEnablePrefSummary" translatable="false">Включить показ екрана загрузки при запуске приложения</string>
@@ -157,4 +157,10 @@
     <string name="selectChoice" translatable="false">Выберите действие</string>
     <string name="tag" translatable="false">Метка</string>
     <string name="selectAll" translatable="false">Выбрать несколько элементов</string>
+    <string name="selectTagForNote" translatable="false">Добавить метку</string>
+    <string name="editSelectTagForNote" translatable="false">Изменить метку</string>
+
+    <string name="noTag" translatable="false">Без метки</string>
+    <string name="createNewTag" translatable="false">Создать новую метку</string>
+
 </resources>

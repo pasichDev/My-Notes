@@ -2,7 +2,6 @@ package com.pasich.mynotes.Controllers.Dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -14,27 +13,25 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
 import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
-import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 import java.util.ArrayList;
 
 public class ChoiceNoteDialog extends DialogFragment {
 
-  private int Item;
+  private final int Item;
+  private final int noteID;
 
-  public ChoiceNoteDialog(int item) {
+  public ChoiceNoteDialog(int item, int noteID) {
     this.Item = item;
+    this.noteID = noteID;
   }
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
-    final CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
     final ListView listView = new ListView(getContext());
     final ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
     final ChoiceNoteInterface ChoiceNoteInterface = (ChoiceNoteInterface) getContext();
-
-    uiDialog.setHeadTextView(getString(R.string.selectChoice));
 
     arrayChoice.add(
         new MoreChoiceModel(getString(R.string.selectAll), R.drawable.ic_check_box, "SelectAll"));
@@ -50,17 +47,21 @@ public class ChoiceNoteDialog extends DialogFragment {
     listView.setDivider(null);
     listView.setOnItemClickListener(
         (parent, v, position, id) -> {
-          if (adapter.getItem(position).getAction().equals("Share"))
+          if (adapter.getItem(position).getAction().equals("Share")) {
+            assert ChoiceNoteInterface != null;
             ChoiceNoteInterface.shareNote(Item);
+          }
+          if (adapter.getItem(position).getAction().equals("Delete")) {
+            assert ChoiceNoteInterface != null;
+            ChoiceNoteInterface.deleteNote(Item);
+          }
+          if (adapter.getItem(position).getAction().equals("Tag")) {
+            new ChooseTagDialog(position, noteID).show(getParentFragmentManager(), "EditDIalog");
+          }
+          dismiss();
         });
-    // builder.setContentView(listView);
 
-    uiDialog.getContainer().addView(listView);
-
-    uiDialog.getSaveButton().setVisibility(View.GONE);
-    uiDialog.getCloseButton().setVisibility(View.GONE);
-
-    builder.setContentView(uiDialog.getContainer());
+    builder.setContentView(listView);
 
     return builder;
   }

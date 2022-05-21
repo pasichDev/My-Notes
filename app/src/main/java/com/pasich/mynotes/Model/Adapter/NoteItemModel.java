@@ -2,21 +2,21 @@ package com.pasich.mynotes.Model.Adapter;
 
 import android.view.View;
 
-public class NoteModel {
+public class NoteItemModel {
   private final String title;
   private final int id;
-  private final String preview;
+  private final String value;
   private final String tags;
   private final String date;
   private final String type;
   private boolean Checked;
   private View itemView;
 
-  public NoteModel(int id, String title, String preview, String date, String type, String tags) {
+  public NoteItemModel(int id, String title, String value, String date, String type, String tags) {
     this.id = id;
     this.title = title;
     this.tags = tags;
-    this.preview = preview;
+    this.value = value;
     this.date = date;
     this.type = type;
     this.Checked = false;
@@ -34,8 +34,8 @@ public class NoteModel {
     return this.id;
   }
 
-  public String getPreview() {
-    return this.preview;
+  public String getValue() {
+    return this.value;
   }
 
   public boolean getChecked() {

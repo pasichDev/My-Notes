@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiceNoteDialog;
 import com.pasich.mynotes.Controllers.Dialogs.DeleteTagDialog;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
-import com.pasich.mynotes.Model.Adapter.ListNotesModel;
+import com.pasich.mynotes.Model.Adapter.NoteItemModel;
 import com.pasich.mynotes.Model.MainModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.ActionUtils;
@@ -29,6 +29,7 @@ import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
 import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.SwitchButtons.SortSwitchUtils;
+import com.pasich.mynotes.Utils.Utils.ShareNoteUtils;
 import com.pasich.mynotes.View.MainView;
 
 public class MainActivity extends AppCompatActivity
@@ -107,8 +108,8 @@ public class MainActivity extends AppCompatActivity
         });
     MainView.ListView.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
-
-          new ChoiceNoteDialog(position).show(getSupportFragmentManager(), "ChoiceDialog");
+          new ChoiceNoteDialog(position, defaultListAdapter.getItem(position).getId())
+              .show(getSupportFragmentManager(), "ChoiceDialog");
           return true;
         });
   }
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity
     emptyListViewUtil();
   }
 
-  private void selectedItemAction(ListNotesModel item) {
+  private void selectedItemAction(NoteItemModel item) {
     if (item.getChecked()) {
       item.setChecked(false);
       item.getView().setBackground(getDrawable(R.drawable.item_note_background));
@@ -261,10 +262,12 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void shareNote(int item) {
-    /**
-     * а тут у нас ошибка, в первю выводиться весь текст для адаптера это важко нужно как-то
-     * реализовать получение всего текста а превюху обрезать
-     */
-    // ShareNoteUtils.shareNotes(this, defaultListAdapter.getItem(item).);
+    new ShareNoteUtils(this, defaultListAdapter.getItem(item).getId()).shareNotes();
+  }
+
+  @Override
+  public void deleteNote(int item) {
+    MainModel.moveToTrash(item);
+    defaultListAdapter.remove(defaultListAdapter.getItem(item));
   }
 }
