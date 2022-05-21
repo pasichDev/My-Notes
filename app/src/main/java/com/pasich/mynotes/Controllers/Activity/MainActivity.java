@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity
       if (defaultListAdapter.getCountChecked() == 0) {
         MainView.deactivationActionPanel();
         ActionUtils.setAction(false);
-        defaultListAdapter.setChekClean();
+        defaultListAdapter.setCheckClean();
       }
     } else {
       item.setChecked(true);

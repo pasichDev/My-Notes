@@ -17,6 +17,7 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   private final LayoutInflater inflater;
   private final int layout;
   private final List<ListNotesModel> listNotes;
+  private ViewHolder viewHolder;
 
   public DefaultListAdapter(Context context, int resource, List<ListNotesModel> list) {
     super(context, resource, list);
@@ -26,9 +27,29 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
   }
 
   @Override
+  public View getView(int position, View convertView, ViewGroup parent) {
+
+    if (convertView == null) {
+      convertView = inflater.inflate(this.layout, parent, false);
+      viewHolder = new ViewHolder(convertView);
+      convertView.setTag(viewHolder);
+    } else {
+      viewHolder = (ViewHolder) convertView.getTag();
+    }
+
+    setNameNote(getItem(position).getTitle());
+    setPreviewNote(getItem(position).getPreview());
+    setTagNote(getItem(position).getTags());
+    getItem(position).setItemView(convertView);
+
+    return convertView;
+  }
+
+  @Override
   public ListNotesModel getItem(int i) {
     return listNotes != null ? listNotes.get(i) : null;
   }
+
 
   public List<ListNotesModel> getData() {
     return this.listNotes;
@@ -42,24 +63,13 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
     return count;
   }
 
-  public void setChekClean() {
+  public void setCheckClean() {
     for (int i = 0; i < listNotes.size(); i++) {
       listNotes.get(i).setChecked(false);
     }
   }
 
-  public View getView(int position, View convertView, ViewGroup parent) {
-    ViewHolder viewHolder;
-    if (convertView == null) {
-      convertView = inflater.inflate(this.layout, parent, false);
-      viewHolder = new ViewHolder(convertView);
-      convertView.setTag(viewHolder);
-    } else {
-      viewHolder = (ViewHolder) convertView.getTag();
-    }
-
-    String noteTitle = getItem(position).getTitle();
-
+  private void setNameNote(String noteTitle) {
     if (noteTitle.length() >= 2) {
       viewHolder.nameView.setVisibility(View.VISIBLE);
       viewHolder.nameView.setText(noteTitle);
@@ -67,18 +77,20 @@ public class DefaultListAdapter extends ArrayAdapter<ListNotesModel> {
       viewHolder.nameView.setVisibility(View.GONE);
       viewHolder.nameView.setText("");
     }
+  }
 
-    viewHolder.previewNote.setText(getItem(position).getPreview());
+  private void setPreviewNote(String previewNote) {
+    viewHolder.previewNote.setText(
+        previewNote.length() > 200 ? previewNote.substring(0, 200) : previewNote);
+  }
 
-    if (getItem(position).getTags() != null && getItem(position).getTags().length() >= 2) {
+  private void setTagNote(String tagNote) {
+    if (tagNote != null && tagNote.length() >= 2) {
       viewHolder.tagNote.setVisibility(View.VISIBLE);
-      viewHolder.tagNote.setText("#" + getItem(position).getTags());
+      viewHolder.tagNote.setText("#" + tagNote);
     }else {
       viewHolder.tagNote.setVisibility(View.GONE);
     }
-
-    getItem(position).setItemView(convertView);
-    return convertView;
   }
 
   private static class ViewHolder {

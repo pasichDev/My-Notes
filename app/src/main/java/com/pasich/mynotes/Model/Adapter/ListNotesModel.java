@@ -5,16 +5,16 @@ import android.view.View;
 public class ListNotesModel {
   private final String title;
   private final int id;
-  private final String preview;
+  private final String value;
   private final String tags;
   private boolean Checked;
   private View itemView;
 
-  public ListNotesModel(int id, String title, String preview, String tags) {
+  public ListNotesModel(int id, String title, String value, String tags) {
     this.id = id;
     this.title = title;
     this.tags = tags;
-    this.preview = preview;
+    this.value = value;
     this.Checked = false;
   }
 
@@ -31,7 +31,7 @@ public class ListNotesModel {
   }
 
   public String getPreview() {
-    return this.preview;
+    return this.value;
   }
 
   public boolean getChecked() {
