@@ -14,7 +14,7 @@ public class ModelBase {
     this.db = DbHelper.getReadableDatabase();
   }
 
-  protected void closeDB() {
+  public void closeDB() {
     db.close();
   }
 }

@@ -1,5 +1,7 @@
 package com.pasich.mynotes.View.CustomView;
 
+import static com.pasich.mynotes.Utils.Constants.TagSettingsConst.MAX_NAME_TAG;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,11 +25,7 @@ public class NewTagVIewUi {
     this.inputTag = inputLayoutUI.findViewById(R.id.inputNameTag);
   }
 
-  /**
-   * The method that returns save Button
-   *
-   * @return - save Button
-   */
+
   public final Button getSaveButton() {
     return this.saveButton;
   }
@@ -54,24 +52,17 @@ public class NewTagVIewUi {
     inputTag.setPadding(20, 20, 20, 20);
   }
 
-  /**
-   * Метод который реализовует валидацию названия метки которую вводит пользователь Одно правило, не
-   * больше 20 символов
-   *
-   * @param lenght - названия метки
-   */
-  public void validateText(int lenght) {
-    if (lenght == 21) {
+  public void validateText(int length) {
+    if (length == MAX_NAME_TAG + 1) {
       getErrorMessage().setVisibility(View.VISIBLE);
       getSaveButton().setEnabled(false);
       setInputError();
-    } else if (lenght == 20) {
-      getErrorMessage().setVisibility(View.GONE);
+    } else if (length == MAX_NAME_TAG) {
+      getErrorMessage().setVisibility(View.INVISIBLE);
       getSaveButton().setEnabled(true);
       setInputNormal();
-    } else if (lenght < 3) getSaveButton().setEnabled(false);
-    else {
-      getSaveButton().setEnabled(true);
     }
+    if (length < 1) getSaveButton().setEnabled(false);
+    else if (length < MAX_NAME_TAG - 1) getSaveButton().setEnabled(true);
   }
 }

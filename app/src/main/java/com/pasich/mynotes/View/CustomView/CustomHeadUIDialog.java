@@ -37,7 +37,7 @@ public class CustomHeadUIDialog {
     this.LP_DEFAULT =
         new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    this.LP_DEFAULT.setMargins(70, 50, 70, 50);
+    this.LP_DEFAULT.setMargins(60, 10, 60, 20);
   }
 
   /**

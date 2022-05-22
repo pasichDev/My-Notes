@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity
     MainView.ListView.setAdapter(defaultListAdapter);
     emptyListViewUtil();
 
+    for (String nameTag : MainModel.tags) {
+      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(nameTag));
+    }
+
     initListener();
   }
 
@@ -185,9 +189,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onResume() {
     super.onResume();
-    while (MainModel.tags.moveToNext()) {
-      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(MainModel.tags.getString(0)));
-    }
+
   }
 
   @Override
@@ -234,7 +236,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onDestroy() {
     super.onDestroy();
-    MainModel.closeConnection();
+    MainModel.closeDB();
   }
 
   private void openNote(int id) {

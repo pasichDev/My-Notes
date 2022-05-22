@@ -32,7 +32,8 @@ public class DeleteTagDialog extends DialogFragment {
 
     ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "Delete"));
+        new MoreChoiceModel(
+            getString(R.string.deleteTag), R.drawable.ic_delete_notes_tag, "Delete"));
     if (countNotesToTag != 0)
       arrayChoice.add(
           new MoreChoiceModel(

@@ -2,7 +2,6 @@ package com.pasich.mynotes.View.DialogView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,9 +14,6 @@ public class DeleteTagView extends CustomHeadUIDialog {
   private final Context context;
   public final ListView listView;
   private final TextView textMessage;
-  private final LinearLayout.LayoutParams LP_TEXT_MESSAGE =
-      new LinearLayout.LayoutParams(
-          LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
   public DeleteTagView(Context context, LayoutInflater inflater) {
     super(context, inflater);
@@ -25,7 +21,6 @@ public class DeleteTagView extends CustomHeadUIDialog {
     this.context = context;
     this.textMessage = new TextView(context);
     ListViewAnimation.setListviewAnimationLeftToShow(listView);
-    this.LP_TEXT_MESSAGE.setMargins(70, 30, 70, 30);
     initialization();
   }
 
@@ -38,6 +33,6 @@ public class DeleteTagView extends CustomHeadUIDialog {
   private void setTextMessage() {
     textMessage.setText(context.getString(R.string.deleteSelectTagTextMassage));
     setTextSizeMessage(textMessage);
-    getContainer().addView(textMessage, LP_TEXT_MESSAGE);
+    getContainer().addView(textMessage, LP_DEFAULT);
   }
 }

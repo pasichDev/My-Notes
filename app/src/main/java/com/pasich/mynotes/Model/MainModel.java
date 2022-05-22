@@ -1,5 +1,9 @@
 package com.pasich.mynotes.Model;
 
+import static com.pasich.mynotes.Utils.Constants.TagSettingsConst.MAX_NAME_TAG;
+import static com.pasich.mynotes.Utils.Constants.TagSettingsConst.MIN_NAME_TAG;
+
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,13 +17,14 @@ import java.util.ArrayList;
 public class MainModel extends ModelBase {
 
   private final Context context;
-  public Cursor tags;
+
+  public ArrayList<String> tags = new ArrayList<>();
   public ArrayList<NoteItemModel> notesArray = new ArrayList<>();
 
   public MainModel(Context context) {
     super(context);
     this.context = context;
-    this.tags = queryTags();
+    queryTags();
     searchNotes("");
   }
 
@@ -44,18 +49,22 @@ public class MainModel extends ModelBase {
             + "';");
   }
 
-  public Cursor queryTags() {
-    return db.rawQuery("SELECT * FROM " + DbHelper.COLUMN_TAGS + " ORDER BY name ASC;", null);
+  @SuppressLint("Recycle")
+  public void queryTags() {
+    Cursor cursorTag =
+        db.rawQuery("SELECT * FROM " + DbHelper.COLUMN_TAGS + " ORDER BY name ASC;", null);
+    while (cursorTag.moveToNext()) tags.add(cursorTag.getString(0));
   }
 
   public void createTag(String nameTag) {
-    if (nameTag.trim().length() >= 1)
+    if (nameTag.trim().length() >= MIN_NAME_TAG)
       db.execSQL(
-          "INSERT INTO " + DbHelper.COLUMN_TAGS + " (name) VALUES (?);", new String[] {nameTag});
+          "INSERT INTO " + DbHelper.COLUMN_TAGS + " (name) VALUES (?);",
+          new String[] {nameTag.substring(0, MAX_NAME_TAG)});
   }
 
   public void deleteTag(String nameTag, boolean deleteNotes) {
-    if (nameTag.trim().length() >= 1) {
+    if (nameTag.trim().length() >= MIN_NAME_TAG) {
       db.execSQL(
           "DELETE FROM " + DbHelper.COLUMN_TAGS + " WHERE name = ?;", new String[] {nameTag});
       if (deleteNotes)
@@ -67,11 +76,6 @@ public class MainModel extends ModelBase {
         db.update(DbHelper.COLUMN_NOTES, cv, "tag = ?", new String[] {nameTag});
       }
     }
-  }
-
-  public void closeConnection() {
-    tags.close();
-    db.close();
   }
 
   public void getUpdateCursor(String tag) {
