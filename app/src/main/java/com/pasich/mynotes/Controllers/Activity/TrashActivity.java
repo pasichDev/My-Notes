@@ -1,10 +1,9 @@
 package com.pasich.mynotes.Controllers.Activity;
 
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,8 +22,6 @@ public class TrashActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-
-    setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_trash);
 
@@ -34,6 +31,7 @@ public class TrashActivity extends AppCompatActivity {
 
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, TrashModel.notesArray);
     TrashView.trashNotesList.setAdapter(defaultListAdapter);
+    emptyListViewUtil();
   }
 
   @Override
@@ -54,7 +52,10 @@ public class TrashActivity extends AppCompatActivity {
       closeActivity();
     }
     if (item.getItemId() == R.id.trashCleanButton) {
-      closeActivity();
+      TrashModel.cleanTrash();
+      defaultListAdapter.getData().clear();
+      defaultListAdapter.notifyDataSetChanged();
+      emptyListViewUtil();
     }
     return true;
   }
@@ -71,8 +72,13 @@ public class TrashActivity extends AppCompatActivity {
     finish();
   }
 
-
-
-
-
+  private void emptyListViewUtil() {
+    if (defaultListAdapter.getCount() == 0) {
+      TrashView.trashNotesList.setVisibility(View.GONE);
+      findViewById(R.id.emptyListVIew).setVisibility(View.VISIBLE);
+    } else {
+      TrashView.trashNotesList.setVisibility(View.VISIBLE);
+      findViewById(R.id.emptyListVIew).setVisibility(View.GONE);
+    }
+  }
 }

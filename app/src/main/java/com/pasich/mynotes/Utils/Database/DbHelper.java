@@ -23,6 +23,14 @@ public class DbHelper extends SQLiteOpenHelper {
         "CREATE TABLE "
             + COLUMN_NOTES
             + " (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, value TEXT, date TEXT, type TEXT, tag TEXT);");
+    createTableTrash(db);
+  }
+
+  public void createTableTrash(SQLiteDatabase db) {
+    db.execSQL(
+        "CREATE TABLE "
+            + COLUMN_TRASH
+            + " (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, value TEXT, date TEXT, type TEXT, tag TEXT);");
   }
 
   @Override

@@ -31,4 +31,9 @@ public class TrashModel extends ModelBase {
     }
     testCursor.close();
   }
+
+  public void cleanTrash() {
+    db.execSQL("DROP TABLE " + DbHelper.COLUMN_TRASH);
+    DbHelper.createTableTrash(db);
+  }
 }
