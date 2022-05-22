@@ -64,11 +64,16 @@ public class MainModel extends ModelBase {
     while (cursorTag.moveToNext()) tags.add(cursorTag.getString(0));
   }
 
-  public void createTag(String nameTag) {
-    if (nameTag.trim().length() >= MIN_NAME_TAG)
+  public boolean createTag(String nameTag) {
+    boolean tagCreate = false;
+    if (nameTag.trim().length() >= MIN_NAME_TAG && !tags.contains(nameTag)) {
       db.execSQL(
           "INSERT INTO " + DbHelper.COLUMN_TAGS + " (name) VALUES (?);",
           new String[] {setNameTagSize(nameTag)});
+      queryTags();
+      tagCreate = true;
+    }
+    return tagCreate;
   }
 
   private String setNameTagSize(String nameTag) {

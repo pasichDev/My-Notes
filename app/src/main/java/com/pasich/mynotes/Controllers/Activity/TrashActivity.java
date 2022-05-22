@@ -20,7 +20,6 @@ public class TrashActivity extends AppCompatActivity {
   protected TrashView TrashView;
   protected TrashModel TrashModel;
   private DefaultListAdapter defaultListAdapter;
-  private int countItems;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,9 @@ public class TrashActivity extends AppCompatActivity {
     if (item.getItemId() == android.R.id.home) {
       closeActivity();
     }
-
+    if (item.getItemId() == R.id.trashCleanButton) {
+      closeActivity();
+    }
     return true;
   }
 

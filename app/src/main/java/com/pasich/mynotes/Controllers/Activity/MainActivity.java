@@ -216,8 +216,8 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void addTag(String tagName, int noteId) {
-    MainModel.createTag(tagName);
-    MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
+    if (MainModel.createTag(tagName))
+      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
     addTagForNote(tagName, noteId);
   }
 
