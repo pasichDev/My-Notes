@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.Simplifications.TextValidatorUtils;
 
 public class NewTagVIewUi {
 
@@ -23,6 +24,7 @@ public class NewTagVIewUi {
     this.saveButton = inputLayoutUI.findViewById(R.id.saveTag);
     this.errorMessage = inputLayoutUI.findViewById(R.id.errorText);
     this.inputTag = inputLayoutUI.findViewById(R.id.inputNameTag);
+    validateNameActivate();
   }
 
 
@@ -40,6 +42,17 @@ public class NewTagVIewUi {
 
   public final View getInputLayoutUI() {
     return this.inputLayoutUI;
+  }
+
+  private void validateNameActivate() {
+    getInputTag()
+        .addTextChangedListener(
+            new TextValidatorUtils(getInputTag()) {
+              @Override
+              public void validate(TextView textView, String text) {
+                validateText(text.length());
+              }
+            });
   }
 
   public void setInputNormal() {

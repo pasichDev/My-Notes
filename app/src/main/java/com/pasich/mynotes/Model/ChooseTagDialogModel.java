@@ -4,35 +4,34 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.pasich.mynotes.Model.Adapter.MoreChoiceModel;
+import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
 
-import java.util.ArrayList;
 
 public class ChooseTagDialogModel extends ModelBase {
 
   public final String tagNote;
   private final int noteID;
-  public ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
-  public String NO_TAG_CONSTANT = "noTag";
+  private final Context context;
+  public int selectedPosition;
 
   public ChooseTagDialogModel(Context context, int noteID) {
     super(context);
+    this.context = context;
     this.noteID = noteID;
-    this.arrayChoice.add(
-        new MoreChoiceModel(
-            context.getString(R.string.noTag), R.drawable.ic_null, NO_TAG_CONSTANT));
-    queryTags();
     this.tagNote = getTagNote();
   }
 
   @SuppressLint("Recycle")
-  public void queryTags() {
+  public void queryTags(TabLayout tabLayout) {
+    tabLayout.addTab(tabLayout.newTab().setText(context.getString(R.string.noTag)));
+    int i = 0;
     Cursor cursorTags =
         db.rawQuery("SELECT * FROM " + DbHelper.COLUMN_TAGS + " ORDER BY name ASC;", null);
     while (cursorTags.moveToNext()) {
-      arrayChoice.add(
-          new MoreChoiceModel(cursorTags.getString(0), R.drawable.ic_tag, cursorTags.getString(0)));
+      i = i + 1;
+      if (cursorTags.getString(0).equals(tagNote)) selectedPosition = i;
+      tabLayout.addTab(tabLayout.newTab().setText(cursorTags.getString(0)));
     }
   }
 

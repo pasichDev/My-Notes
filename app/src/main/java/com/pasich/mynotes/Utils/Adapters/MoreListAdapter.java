@@ -44,12 +44,6 @@ public class MoreListAdapter extends ArrayAdapter<MoreChoiceModel> {
 
     viewHolder.nameView.setText(getItem(position).getName());
     viewHolder.iconVIew.setImageResource(getItem(position).getIcon());
-
-    // if(getItem(position).getName().equals("Mail"))
-    // convertView.setBackground(parent.getContext().getDrawable(R.drawable.item_note_background_selected));
-
-    // Log.wtf("pasic", "view ->" + convertView );
-    getItem(position).setItemView(convertView);
     return convertView;
   }
 

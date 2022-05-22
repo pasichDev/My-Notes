@@ -30,7 +30,6 @@ public class NewTagView extends CustomHeadUIDialog {
 
   private void setInputNameTag() {
     getContainer().addView(NewTagVIewUi.getInputLayoutUI());
-
     NewTagVIewUi.getInputTag().setHint(context.getString(R.string.nameTagInput));
     NewTagVIewUi.getInputTag().requestFocus();
   }

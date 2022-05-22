@@ -1,13 +1,10 @@
 package com.pasich.mynotes.Model.Adapter;
 
-import android.util.Log;
-import android.view.View;
 
 public class MoreChoiceModel {
   private final String name;
   private final String action;
   private final int icon;
-  private View itemView;
 
   public MoreChoiceModel(String name, int icon, String action) {
     this.name = name;
@@ -25,16 +22,5 @@ public class MoreChoiceModel {
 
   public int getIcon() {
     return this.icon;
-  }
-
-  public void setItemView(View v) {
-    Log.wtf("pasic", "setItemView ->" + v);
-    itemView = v;
-  }
-
-  public View getView() {
-    Log.wtf("pasic", "getView ->" + itemView);
-
-    return itemView;
   }
 }
