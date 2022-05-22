@@ -13,17 +13,17 @@ import com.pasich.mynotes.Model.ChooseTagDialogModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
+import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.View.DialogView.ChooseTagDialogView;
 
 import java.util.ArrayList;
 
 public class ChooseTagDialog extends DialogFragment {
 
-  private final int position;
   private final int noteID;
+  private ManageTag ManageTag;
 
-  public ChooseTagDialog(int position, int noteID) {
-    this.position = position;
+  public ChooseTagDialog(int noteID) {
     this.noteID = noteID;
   }
 
@@ -33,6 +33,7 @@ public class ChooseTagDialog extends DialogFragment {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ChooseTagDialogModel model = new ChooseTagDialogModel(getContext(), noteID);
     final ChooseTagDialogView view = new ChooseTagDialogView(requireContext(), getLayoutInflater());
+    ManageTag = (ManageTag) getContext();
 
     view.setHeadTextView(
         model.tagNote.length() == 0
@@ -46,6 +47,23 @@ public class ChooseTagDialog extends DialogFragment {
 
     ListViewAnimation.setListviewAnimationLeftToShow(view.listView);
     view.listView.setOnItemClickListener((parent, v, position, id) -> {});
+
+    view.NewTagVIewUi.getSaveButton()
+        .setOnClickListener(
+            view1 -> {
+              ManageTag.addTag(view.NewTagVIewUi.getInputTag().getText().toString(), noteID);
+              dismiss();
+            });
+
+    view.listView.setOnItemClickListener(
+        (parent, v, position, id) -> {
+          ManageTag.addTagForNote(
+              adapter.getItem(position).getAction().equals("noTag")
+                  ? ""
+                  : adapter.getItem(position).getAction(),
+              noteID);
+          dismiss();
+        });
 
     builder.setContentView(view.getContainer());
     return builder;

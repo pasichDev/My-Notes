@@ -18,7 +18,9 @@ public class MainModel extends ModelBase {
 
   private final Context context;
 
+  /** List of tag names */
   public ArrayList<String> tags = new ArrayList<>();
+  /** Note Data List */
   public ArrayList<NoteItemModel> notesArray = new ArrayList<>();
 
   public MainModel(Context context) {
@@ -28,6 +30,11 @@ public class MainModel extends ModelBase {
     searchNotes("");
   }
 
+  /**
+   * The method that implements the transfer of notes to the trash
+   *
+   * @param position - note item position
+   */
   public void moveToTrash(int position) {
     db.execSQL(
         "INSERT INTO "
@@ -49,6 +56,7 @@ public class MainModel extends ModelBase {
             + "';");
   }
 
+  /** Method that implements filling the list with the names of existing tags */
   @SuppressLint("Recycle")
   public void queryTags() {
     Cursor cursorTag =
@@ -60,7 +68,11 @@ public class MainModel extends ModelBase {
     if (nameTag.trim().length() >= MIN_NAME_TAG)
       db.execSQL(
           "INSERT INTO " + DbHelper.COLUMN_TAGS + " (name) VALUES (?);",
-          new String[] {nameTag.substring(0, MAX_NAME_TAG)});
+          new String[] {setNameTagSize(nameTag)});
+  }
+
+  private String setNameTagSize(String nameTag) {
+    return nameTag.length() > MAX_NAME_TAG ? nameTag.substring(0, MAX_NAME_TAG) : nameTag;
   }
 
   public void deleteTag(String nameTag, boolean deleteNotes) {
@@ -78,10 +90,14 @@ public class MainModel extends ModelBase {
     }
   }
 
-  public void getUpdateCursor(String tag) {
-    notesArray.clear();
-    searchNotes(tag);
+  public void setNoteTagQuery(int noteID, String nameTag) {
+    ContentValues cv = new ContentValues();
+    cv.put("tag", setNameTagSize(nameTag));
+    db.update(DbHelper.COLUMN_NOTES, cv, "id = ?", new String[] {String.valueOf(noteID)});
   }
+
+
+
 
   public String getSort() {
     String SORT_MODE;
@@ -112,5 +128,10 @@ public class MainModel extends ModelBase {
               cursorNote.getString(5)));
     }
     cursorNote.close();
+  }
+
+  public void getUpdateCursor(String tag) {
+    notesArray.clear();
+    searchNotes(tag);
   }
 }

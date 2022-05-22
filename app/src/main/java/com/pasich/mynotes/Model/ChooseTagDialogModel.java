@@ -11,15 +11,17 @@ import java.util.ArrayList;
 
 public class ChooseTagDialogModel extends ModelBase {
 
-  public ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
-  private final int noteID;
   public final String tagNote;
+  private final int noteID;
+  public ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
+  public String NO_TAG_CONSTANT = "noTag";
 
   public ChooseTagDialogModel(Context context, int noteID) {
     super(context);
     this.noteID = noteID;
     this.arrayChoice.add(
-        new MoreChoiceModel(context.getString(R.string.noTag), R.drawable.ic_null, "noTag"));
+        new MoreChoiceModel(
+            context.getString(R.string.noTag), R.drawable.ic_null, NO_TAG_CONSTANT));
     queryTags();
     this.tagNote = getTagNote();
   }

@@ -126,9 +126,8 @@ public class MainActivity extends AppCompatActivity
   private void createTagItem(int unselectedPosition) {
     if (MainView.TabLayout.getTabCount() <= 10) {
       new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
-      requireNonNull(MainView.TabLayout.getTabAt(unselectedPosition)).select();
-
     } else Toast.makeText(this, getString(R.string.countTagsError), Toast.LENGTH_LONG).show();
+    requireNonNull(MainView.TabLayout.getTabAt(unselectedPosition)).select();
   }
 
   @Override
@@ -216,9 +215,18 @@ public class MainActivity extends AppCompatActivity
   }
 
   @Override
-  public void addTag(String tagName) {
+  public void addTag(String tagName, int noteId) {
     MainModel.createTag(tagName);
     MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
+    addTagForNote(tagName, noteId);
+  }
+
+  @Override
+  public void addTagForNote(String tagName, int noteId) {
+    if (noteId != 0) {
+      MainModel.setNoteTagQuery(noteId, tagName);
+      restartListNotes(getNameTagUtil());
+    }
   }
 
   @Override
