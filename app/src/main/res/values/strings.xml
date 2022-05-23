@@ -153,6 +153,7 @@
     <string name="errorDeleteTag" translatable="false">Можно удалять только те метки которые создал пользователь</string>
     <string name="deleteSelectTag" translatable="false">Удаление метки</string>
     <string name="deleteSelectTagTextMassage" translatable="false">Вы действительно хотите удалить метку? После удаления метка пропадет у всех отмеченных заметках.</string>
+    <string name="cleanTrashMessage" translatable="false">Вы действительно хотите очистить корзину? Все заметки будут навсегда удаленны.</string>
 
     <string name="selectChoice" translatable="false">Выберите действие</string>
     <string name="tag" translatable="false">Метка</string>

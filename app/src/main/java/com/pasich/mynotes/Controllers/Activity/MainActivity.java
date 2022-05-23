@@ -93,9 +93,7 @@ public class MainActivity extends AppCompatActivity
 
             if (Tab.getPosition() == 0) {
               createTagItem(unselectedPosition);
-
             } else if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
-
               restartListNotes(requireNonNull(Tab.getText()).toString());
               MainView.deleteTag.setVisibility(View.VISIBLE);
             } else if (Tab.getPosition() == 1 && unselectedPosition != 0) {
@@ -216,8 +214,10 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void addTag(String tagName, int noteId) {
-    if (MainModel.createTag(tagName))
+    if (MainModel.createTag(tagName)) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
+      MainView.TabLayout.selectTab(MainView.TabLayout.getTabAt(2));
+    }
     addTagForNote(tagName, noteId);
   }
 

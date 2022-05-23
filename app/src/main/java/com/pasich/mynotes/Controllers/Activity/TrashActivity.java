@@ -7,14 +7,16 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Model.TrashModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
+import com.pasich.mynotes.Utils.Interface.ManageTrash;
 import com.pasich.mynotes.View.TrashView;
 
 import java.util.Objects;
 
-public class TrashActivity extends AppCompatActivity {
+public class TrashActivity extends AppCompatActivity implements ManageTrash {
 
   protected TrashView TrashView;
   protected TrashModel TrashModel;
@@ -52,10 +54,7 @@ public class TrashActivity extends AppCompatActivity {
       closeActivity();
     }
     if (item.getItemId() == R.id.trashCleanButton) {
-      TrashModel.cleanTrash();
-      defaultListAdapter.getData().clear();
-      defaultListAdapter.notifyDataSetChanged();
-      emptyListViewUtil();
+      new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
     }
     return true;
   }
@@ -80,5 +79,13 @@ public class TrashActivity extends AppCompatActivity {
       TrashView.trashNotesList.setVisibility(View.VISIBLE);
       findViewById(R.id.emptyListVIew).setVisibility(View.GONE);
     }
+  }
+
+  @Override
+  public void cleanTrash() {
+    TrashModel.cleanTrash();
+    defaultListAdapter.getData().clear();
+    defaultListAdapter.notifyDataSetChanged();
+    emptyListViewUtil();
   }
 }

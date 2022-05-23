@@ -10,51 +10,39 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.Model.Adapter.MoreChoiceModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
-import com.pasich.mynotes.Utils.Interface.ManageTag;
-import com.pasich.mynotes.View.DialogView.DeleteTagView;
+import com.pasich.mynotes.Utils.Interface.ManageTrash;
+import com.pasich.mynotes.View.DialogView.CleanTrashView;
 
 import java.util.ArrayList;
 
-public class DeleteTagDialog extends DialogFragment {
-
-  private final int countNotesToTag;
-
-  public DeleteTagDialog(int countNotesToTag) {
-    this.countNotesToTag = countNotesToTag;
-  }
+public class CleanTrashDialog extends DialogFragment {
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
 
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final ManageTag ManageTag = (ManageTag) getContext();
-    final DeleteTagView DeleteTagView = new DeleteTagView(requireContext(), getLayoutInflater());
+    final ManageTrash ManageTrash = (ManageTrash) getContext();
+    final CleanTrashView CleanTrashView = new CleanTrashView(requireContext(), getLayoutInflater());
 
     ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "Delete"));
-    if (countNotesToTag != 0)
-      arrayChoice.add(
-          new MoreChoiceModel(
-              getString(R.string.deleteTagAndNotes),
-              R.drawable.ic_delete_notes_tag,
-              "DeleteAndNotes"));
+        new MoreChoiceModel(getString(R.string.yesCleanTrash), R.drawable.ic_delete, "Delete"));
+
     arrayChoice.add(new MoreChoiceModel(getString(R.string.cancel), R.drawable.ic_close, "Close"));
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
-    DeleteTagView.listView.setAdapter(adapter);
+    CleanTrashView.listView.setAdapter(adapter);
 
-    DeleteTagView.listView.setDivider(null);
-    DeleteTagView.listView.setOnItemClickListener(
+    CleanTrashView.listView.setOnItemClickListener(
         (parent, v, position, id) -> {
           String action = adapter.getItem(position).getAction();
           if (!action.equals("Close")) {
-            assert ManageTag != null;
-            ManageTag.deleteTag(action.equals("DeleteAndNotes"));
+            assert ManageTrash != null;
+            ManageTrash.cleanTrash();
           }
           dismiss();
         });
-    builder.setContentView(DeleteTagView.getContainer());
+    builder.setContentView(CleanTrashView.getContainer());
     return builder;
   }
 }
