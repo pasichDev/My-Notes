@@ -5,7 +5,6 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -23,8 +22,7 @@ public class MainView extends MainActivity {
   public final GridView ListView;
   public final ImageButton sortButton, formatButton;
   private final View view;
-  public final ConstraintLayout actionPanel;
-  public final ImageButton actButtonDelete, actButtonClose, actButtonMore, actButtonTag;
+
   public final ImageButton newNotesButton, deleteTag;
 
   public MainView(View rootView) {
@@ -35,12 +33,8 @@ public class MainView extends MainActivity {
     this.newNotesButton = rootView.findViewById(R.id.newNotesButton);
     this.sortButton = rootView.findViewById(R.id.sortButton);
     this.formatButton = rootView.findViewById(R.id.formatButton);
-    this.actionPanel = rootView.findViewById(R.id.actionPanel);
     this.deleteTag = rootView.findViewById(R.id.deleteTag);
-    this.actButtonDelete = actionPanel.findViewById(R.id.actPanelDelete);
-    this.actButtonClose = actionPanel.findViewById(R.id.actPanelClose);
-    this.actButtonMore = actionPanel.findViewById(R.id.actPanelMore);
-    this.actButtonTag = actionPanel.findViewById(R.id.actPanelTag);
+
 
     initialization();
 
@@ -50,7 +44,7 @@ public class MainView extends MainActivity {
     ListView.setNumColumns(
         PreferenceManager.getDefaultSharedPreferences(view.getContext()).getInt("formatParam", 1));
     Objects.requireNonNull(TabLayout.getTabAt(1)).select();
-    ListViewAnimation.setListviewAnimAlphaTranslate(ListView);
+    ListViewAnimation.setListviewAnimationLeftToShow(ListView);
   }
 
   /** Method that changes the number of GridView columns */
@@ -59,11 +53,4 @@ public class MainView extends MainActivity {
         PreferenceManager.getDefaultSharedPreferences(view.getContext()).getInt("formatParam", 1));
   }
 
-  public void activateActionPanel() {
-    actionPanel.setVisibility(View.VISIBLE);
-  }
-
-  public void deactivationActionPanel() {
-    actionPanel.setVisibility(View.GONE);
-  }
 }

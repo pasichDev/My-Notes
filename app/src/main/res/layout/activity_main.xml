@@ -198,32 +198,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/actPanelTag"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete"
-            app:tint="?attr/colorPrimaryVariant" />
-
-        <ImageButton
-            android:id="@+id/actPanelMore"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/actPanelDelete"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_more"
-            app:tint="?attr/colorPrimaryVariant" />
-
-        <ImageButton
-            android:id="@+id/actPanelTag"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/actPanelClose"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_tag"
             app:tint="?attr/colorPrimaryVariant" />
 
         <ImageButton
@@ -232,6 +209,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/actPanelDelete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_close"

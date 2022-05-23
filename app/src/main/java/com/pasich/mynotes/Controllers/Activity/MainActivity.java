@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    initResourece();
+    initResource();
     setToolbar();
 
     defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
     MainView.ListView.setAdapter(defaultListAdapter);
     emptyListViewUtil();
-
+    ActionUtils = new ActionUtils(getWindow().getDecorView(), defaultListAdapter);
     for (String nameTag : MainModel.tags) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(nameTag));
     }
@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity
     MainView.formatButton.setOnClickListener(this);
     MainView.newNotesButton.setOnClickListener(this);
     MainView.deleteTag.setOnClickListener(this);
+    ActionUtils.actButtonClose.setOnClickListener(this);
 
     MainView.TabLayout.addOnTabSelectedListener(
         new TabLayoutListenerUtils() {
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity
     MainView.ListView.setOnItemClickListener(
         (parent, v, position, id) -> {
           if (!ActionUtils.getAction()) openNote(defaultListAdapter.getItem(position).getId());
-          else selectedItemAction(defaultListAdapter.getItem(position));
+          else selectedItemAction(position);
         });
     MainView.ListView.setOnItemLongClickListener(
         (arg0, arg1, position, id) -> {
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity
               .show(getSupportFragmentManager(), "ChoiceDialog");
           return true;
         });
+
   }
 
   /**
@@ -148,6 +150,10 @@ public class MainActivity extends AppCompatActivity
       new DeleteTagDialog(defaultListAdapter.getCount())
           .show(getSupportFragmentManager(), "Delete Tag");
     }
+
+    if (v.getId() == ActionUtils.ID_CLOSE_BUTTON) {
+      ActionUtils.closeActionPanel();
+    }
   }
 
   public void restartListNotes(String tag) {
@@ -155,30 +161,27 @@ public class MainActivity extends AppCompatActivity
     MainModel.getUpdateCursor(tag);
     defaultListAdapter.notifyDataSetChanged();
     if (defaultListAdapter.getCount() > 0)
-      ListViewAnimation.setListviewAnimAlphaTranslate(MainView.ListView);
+      ListViewAnimation.setListviewAnimationLeftToShow(MainView.ListView);
     emptyListViewUtil();
   }
 
-  private void selectedItemAction(NoteItemModel item) {
-    if (item.getChecked()) {
-      item.setChecked(false);
-      item.getView().setBackground(getDrawable(R.drawable.item_note_background));
-      if (defaultListAdapter.getCountChecked() == 0) {
-        MainView.deactivationActionPanel();
-        ActionUtils.setAction(false);
-        defaultListAdapter.setCheckClean();
-      }
+  private void selectedItemAction(int item) {
+    NoteItemModel noteItem = defaultListAdapter.getItem(item);
+    if (noteItem.getChecked()) {
+      noteItem.setChecked(false);
+      ActionUtils.isCheckedItemFalse();
     } else {
-      item.setChecked(true);
-      item.getView().setBackground(getDrawable(R.drawable.item_note_background_selected));
+      ActionUtils.isCheckedItem();
+      noteItem.setChecked(true);
     }
+    ActionUtils.manageActionPanel();
+    defaultListAdapter.notifyDataSetChanged();
   }
 
-  private void initResourece() {
+  private void initResource() {
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
     MainModel = new MainModel(this);
-    ActionUtils = new ActionUtils();
     sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
     formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
   }
@@ -186,7 +189,6 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onResume() {
     super.onResume();
-
   }
 
   @Override
@@ -213,19 +215,20 @@ public class MainActivity extends AppCompatActivity
   }
 
   @Override
-  public void addTag(String tagName, int noteId) {
+  public void addTag(String tagName, int noteId, int position) {
     if (MainModel.createTag(tagName)) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
       MainView.TabLayout.selectTab(MainView.TabLayout.getTabAt(2));
     }
-    addTagForNote(tagName, noteId);
+    if (noteId != 0) addTagForNote(tagName, noteId, position);
   }
 
   @Override
-  public void addTagForNote(String tagName, int noteId) {
+  public void addTagForNote(String tagName, int noteId, int position) {
     if (noteId != 0) {
       MainModel.setNoteTagQuery(noteId, tagName);
-      restartListNotes(getNameTagUtil());
+      defaultListAdapter.getItem(position).setTag(tagName);
+      defaultListAdapter.notifyDataSetChanged();
     }
   }
 
@@ -279,5 +282,10 @@ public class MainActivity extends AppCompatActivity
   public void deleteNote(int item) {
     MainModel.moveToTrash(item);
     defaultListAdapter.remove(defaultListAdapter.getItem(item));
+  }
+
+  @Override
+  public void actionNote(int item) {
+    selectedItemAction(item);
   }
 }

@@ -40,8 +40,9 @@ public class DefaultListAdapter extends ArrayAdapter<NoteItemModel> {
     setNameNote(getItem(position).getTitle());
     setPreviewNote(getItem(position).getValue());
     setTagNote(getItem(position).getTags());
-    getItem(position).setItemView(convertView);
-
+    if (getItem(position).getChecked())
+      convertView.setBackground(getContext().getDrawable(R.drawable.item_note_background_selected));
+    else convertView.setBackground(getContext().getDrawable(R.drawable.item_note_background));
     return convertView;
   }
 
@@ -54,19 +55,6 @@ public class DefaultListAdapter extends ArrayAdapter<NoteItemModel> {
     return this.listNotes;
   }
 
-  public int getCountChecked() {
-    int count = 0;
-    for (int i = 0; i < listNotes.size(); i++) {
-      count = listNotes.get(i).getChecked() ? count + 1 : count;
-    }
-    return count;
-  }
-
-  public void setCheckClean() {
-    for (int i = 0; i < listNotes.size(); i++) {
-      listNotes.get(i).setChecked(false);
-    }
-  }
 
   private void setNameNote(String noteTitle) {
     if (noteTitle.length() >= 2) {

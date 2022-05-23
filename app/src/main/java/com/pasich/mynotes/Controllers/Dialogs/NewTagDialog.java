@@ -27,7 +27,7 @@ public class NewTagDialog extends BottomSheetDialogFragment {
         .setOnClickListener(
             view -> {
               assert ManageTag != null;
-              ManageTag.addTag(NewTagView.NewTagVIewUi.getInputTag().getText().toString(), 0);
+              ManageTag.addTag(NewTagView.NewTagVIewUi.getInputTag().getText().toString(), 0, 0);
               dismiss();
             });
 

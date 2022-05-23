@@ -1,16 +1,14 @@
 package com.pasich.mynotes.Model.Adapter;
 
-import android.view.View;
 
 public class NoteItemModel {
   private final String title;
   private final int id;
   private final String value;
-  private final String tags;
+  private String tags;
   private final String date;
   private final String type;
   private boolean Checked;
-  private View itemView;
 
   public NoteItemModel(int id, String title, String value, String date, String type, String tags) {
     this.id = id;
@@ -46,19 +44,17 @@ public class NoteItemModel {
     this.Checked = arg;
   }
 
-  public View getView() {
-    return itemView;
-  }
-
   public String getDate() {
     return this.date;
+  }
+
+  public String setTag(String tag) {
+    return this.tags = tag;
   }
 
   public String getType() {
     return this.type;
   }
 
-  public void setItemView(View v) {
-    itemView = v;
-  }
+
 }
