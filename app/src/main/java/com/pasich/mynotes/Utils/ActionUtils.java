@@ -9,6 +9,7 @@ import com.pasich.mynotes.Model.Adapter.NoteItemModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActionUtils {
@@ -17,14 +18,15 @@ public class ActionUtils {
   public final ConstraintLayout actionPanel;
   private final DefaultListAdapter adapter;
   /** Panel close button indicator */
-  public final int ID_CLOSE_BUTTON = R.id.actPanelDelete;
+  public final int ID_CLOSE_BUTTON = R.id.actPanelClose;
 
+  public final int ID_DELETE_BUTTON = R.id.actPanelDelete;
   private boolean ACTION_ON = false;
 
   public ActionUtils(View view, DefaultListAdapter adapter) {
     this.actionPanel = view.findViewById(R.id.actionPanel);
-    this.actButtonDelete = actionPanel.findViewById(ID_CLOSE_BUTTON);
-    this.actButtonClose = actionPanel.findViewById(R.id.actPanelClose);
+    this.actButtonDelete = actionPanel.findViewById(ID_DELETE_BUTTON);
+    this.actButtonClose = actionPanel.findViewById(ID_CLOSE_BUTTON);
     this.adapter = adapter;
   }
 
@@ -93,9 +95,7 @@ public class ActionUtils {
   /** Action panel control when unchecked */
   public void isCheckedItemFalse() {
     if (getCountCheckedItem() == 0) {
-      setAction(false);
-      checkedClean();
-      deactivationActionPanel();
+      closeActionPanel();
     }
   }
 
@@ -109,5 +109,20 @@ public class ActionUtils {
     checkedClean();
     deactivationActionPanel();
     setAction(false);
+    adapter.notifyDataSetChanged();
+  }
+
+  /**
+   * Method that returns all checked elements in an array
+   *
+   * @return - checked elements array
+   */
+  public ArrayList<Integer> getArrayChecked() {
+    List<NoteItemModel> data = getDataAdapter();
+    ArrayList<Integer> ArrayChecked = new ArrayList<>();
+    for (int i = 0; i < data.size(); i++) {
+      if (data.get(i).getChecked()) ArrayChecked.add(i);
+    }
+    return ArrayChecked;
   }
 }

@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity
     MainView.newNotesButton.setOnClickListener(this);
     MainView.deleteTag.setOnClickListener(this);
     ActionUtils.actButtonClose.setOnClickListener(this);
+    ActionUtils.actButtonDelete.setOnClickListener(this);
 
     MainView.TabLayout.addOnTabSelectedListener(
         new TabLayoutListenerUtils() {
@@ -152,6 +153,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     if (v.getId() == ActionUtils.ID_CLOSE_BUTTON) {
+      ActionUtils.closeActionPanel();
+    }
+    if (v.getId() == ActionUtils.ID_DELETE_BUTTON) {
+      for (int item : ActionUtils.getArrayChecked()) {
+        moveToTrashNotes(item);
+      }
+
+      defaultListAdapter.notifyDataSetChanged();
       ActionUtils.closeActionPanel();
     }
   }
@@ -273,6 +282,11 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
+  private void moveToTrashNotes(int item) {
+    MainModel.moveToTrash(item);
+    defaultListAdapter.getData().remove(item);
+  }
+
   @Override
   public void shareNote(int item) {
     new ShareNoteUtils(this, defaultListAdapter.getItem(item).getId()).shareNotes();
@@ -280,8 +294,8 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void deleteNote(int item) {
-    MainModel.moveToTrash(item);
-    defaultListAdapter.remove(defaultListAdapter.getItem(item));
+    moveToTrashNotes(item);
+    defaultListAdapter.notifyDataSetChanged();
   }
 
   @Override
