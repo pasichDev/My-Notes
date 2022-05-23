@@ -16,8 +16,10 @@ public class ActionUtils {
   public final ImageButton actButtonDelete, actButtonClose;
   public final ConstraintLayout actionPanel;
   private final DefaultListAdapter adapter;
-  private boolean ACTION_ON = false;
+  /** Panel close button indicator */
   public final int ID_CLOSE_BUTTON = R.id.actPanelDelete;
+
+  private boolean ACTION_ON = false;
 
   public ActionUtils(View view, DefaultListAdapter adapter) {
     this.actionPanel = view.findViewById(R.id.actionPanel);
@@ -26,18 +28,34 @@ public class ActionUtils {
     this.adapter = adapter;
   }
 
+  /**
+   * @return - Returns the value of ACTION_ON
+   */
   public boolean getAction() {
     return this.ACTION_ON;
   }
 
+  /**
+   * Set value to ACTION_ON
+   *
+   * @param arg - (boolean) true/false
+   */
   public void setAction(boolean arg) {
     this.ACTION_ON = arg;
   }
 
+  /**
+   * Returns an array of data from the adapter
+   *
+   * @return - data adapter
+   */
   private List<NoteItemModel> getDataAdapter() {
     return adapter.getData();
   }
 
+  /**
+   * @return - Number of marked items (int)
+   */
   private int getCountCheckedItem() {
     List<NoteItemModel> data = getDataAdapter();
     int count = 0;
@@ -47,6 +65,7 @@ public class ActionUtils {
     return count;
   }
 
+  /** Clear all marks */
   private void checkedClean() {
     List<NoteItemModel> data = getDataAdapter();
     for (int i = 0; i < data.size(); i++) {
@@ -54,19 +73,24 @@ public class ActionUtils {
     }
   }
 
+  /** Activate the visibility of the action panel */
   private void activateActionPanel() {
     actionPanel.setVisibility(View.VISIBLE);
   }
 
+  /** Deactivate the visibility of the action panel */
   private void deactivationActionPanel() {
     actionPanel.setVisibility(View.GONE);
   }
 
+  /** The method that controls the visibility of the action panel */
   public void manageActionPanel() {
-    if (getCountCheckedItem() == 0) deactivationActionPanel();
-    else if (!getAction()) activateActionPanel();
+    int countChecked = getCountCheckedItem();
+    if (countChecked == 0) deactivationActionPanel();
+    else if (!getAction() || countChecked == 1) activateActionPanel();
   }
 
+  /** Action panel control when unchecked */
   public void isCheckedItemFalse() {
     if (getCountCheckedItem() == 0) {
       setAction(false);
@@ -75,13 +99,15 @@ public class ActionUtils {
     }
   }
 
+  /** Action panel control when adding checkmark */
   public void isCheckedItem() {
     if (!(getAction())) setAction(true);
-    activateActionPanel();
   }
 
+  /** The method that disables the actionPanel when manually accessed from under the key */
   public void closeActionPanel() {
     checkedClean();
     deactivationActionPanel();
+    setAction(false);
   }
 }
