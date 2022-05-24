@@ -28,6 +28,7 @@ public class ShareActivity extends AppCompatActivity {
       startActivity.launch(
           new Intent(this, NoteActivity.class)
               .putExtra("NewNote", true)
+              .putExtra("tagNote", "")
               .putExtra("shareText", handleSendText()));
     } else {
       Toast.makeText(this, getString(R.string.notSupportedShare), Toast.LENGTH_LONG).show();
