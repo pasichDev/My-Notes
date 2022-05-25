@@ -27,12 +27,6 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     this.inflater = LayoutInflater.from(context);
   }
 
-  public interface OnItemClickListener {
-    void onClick(int position);
-
-    void onLongClick(int position);
-  }
-
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
     this.mOnItemClickListener = onItemClickListener;
   }
@@ -78,19 +72,6 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     return listNotes != null ? listNotes.get(i) : null;
   }
 
-  public static class ViewHolder extends RecyclerView.ViewHolder {
-    final TextView nameView, previewNote, tagNote;
-    final View viewH;
-
-    ViewHolder(View view) {
-      super(view);
-      viewH = view;
-      nameView = view.findViewById(R.id.nameNote);
-      previewNote = view.findViewById(R.id.previewNote);
-      tagNote = view.findViewById(R.id.tagNote);
-    }
-  }
-
   private void setNameNote(String noteTitle, ListNotesAdapter.ViewHolder holder) {
     if (noteTitle.length() >= 2) {
       holder.nameView.setVisibility(View.VISIBLE);
@@ -112,6 +93,25 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
       holder.tagNote.setText("#" + tagNote);
     } else {
       holder.tagNote.setVisibility(View.GONE);
+    }
+  }
+
+  public interface OnItemClickListener {
+    void onClick(int position);
+
+    void onLongClick(int position);
+  }
+
+  public static class ViewHolder extends RecyclerView.ViewHolder {
+    final TextView nameView, previewNote, tagNote;
+    final View viewH;
+
+    ViewHolder(View view) {
+      super(view);
+      viewH = view;
+      nameView = view.findViewById(R.id.nameNote);
+      previewNote = view.findViewById(R.id.previewNote);
+      tagNote = view.findViewById(R.id.tagNote);
     }
   }
 }

@@ -52,34 +52,20 @@ public class MainActivity extends AppCompatActivity
   private ActionUtils ActionUtils;
   private SortSwitchUtils sortSwitch;
   private FormatSwitchUtils formatSwitch;
-
-
-
-
-
-
-
-
-
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    initResource();
+    MainView = new MainView(getWindow().getDecorView());
+    MainUtils = new MainUtils();
+    MainModel = new MainModel(this);
+    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
+    formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
+
     setToolbar();
-
-    ListNotesAdapter = new ListNotesAdapter(this, MainModel.notesArray);
-    MainView.ListView.setAdapter(ListNotesAdapter);
-
-    emptyListViewUtil();
-
-    ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
-    for (String nameTag : MainModel.tags) {
-      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(nameTag));
-    }
-    MainView.TabLayout.getTabAt(1).select();
+    createListVew();
+    loadDataTabLayout();
 
     initListener();
   }
@@ -88,6 +74,22 @@ public class MainActivity extends AppCompatActivity
   private void setToolbar() {
     setSupportActionBar(MainView.toolbar);
     requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+  }
+
+  /** Method that creates and populates a ListVIew */
+  private void createListVew() {
+    ListNotesAdapter = new ListNotesAdapter(this, MainModel.notesArray);
+    MainView.ListView.setAdapter(ListNotesAdapter);
+    emptyListViewUtil();
+    ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
+  }
+
+  /** Method that loads layouts in TabLayout */
+  private void loadDataTabLayout() {
+    for (String nameTag : MainModel.tags) {
+      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(nameTag));
+    }
+    MainView.TabLayout.getTabAt(1).select();
   }
 
   /** Method to manage listeners */
@@ -103,7 +105,6 @@ public class MainActivity extends AppCompatActivity
         new TabLayoutListenerUtils() {
           @Override
           public void listener(TabLayout.Tab Tab) {
-
             if (Tab.getPosition() == 0) {
               createTagItem(unselectedPosition);
             } else if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
@@ -131,6 +132,11 @@ public class MainActivity extends AppCompatActivity
           }
         });
   }
+
+
+
+
+
 
   /**
    * The method that implements the creation of a tag
@@ -182,8 +188,7 @@ public class MainActivity extends AppCompatActivity
     ListNotesAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
     ListNotesAdapter.notifyDataSetChanged();
-    //  if (defaultListAdapter.getCount() > 0)
-    //    ListViewAnimation.setListviewAnimationLeftToShow(MainView.ListView);
+
     emptyListViewUtil();
   }
 
@@ -200,13 +205,7 @@ public class MainActivity extends AppCompatActivity
     ListNotesAdapter.notifyDataSetChanged();
   }
 
-  private void initResource() {
-    MainView = new MainView(getWindow().getDecorView());
-    MainUtils = new MainUtils();
-    MainModel = new MainModel(this);
-    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
-    formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
-  }
+
 
   @Override
   public void onResume() {
