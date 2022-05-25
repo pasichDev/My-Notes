@@ -10,7 +10,7 @@
 
 
     <color name="colorLightDark">#6C6868</color>
-
+    <color name="colorClick">#E4E4E4</color>
 
     <color name="backgroundActivity">#EFEDED</color>
     <color name="black">#000000</color>

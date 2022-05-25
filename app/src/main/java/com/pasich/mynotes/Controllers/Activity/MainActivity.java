@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
+import com.pasich.mynotes.Controllers.Dialogs.ChoiceNoteDialog;
 import com.pasich.mynotes.Controllers.Dialogs.DeleteTagDialog;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
@@ -51,6 +52,15 @@ public class MainActivity extends AppCompatActivity
   private ActionUtils ActionUtils;
   private SortSwitchUtils sortSwitch;
   private FormatSwitchUtils formatSwitch;
+
+
+
+
+
+
+
+
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -105,19 +115,21 @@ public class MainActivity extends AppCompatActivity
             }
           }
         });
+    ListNotesAdapter.setOnItemClickListener(
+        new com.pasich.mynotes.Utils.Adapters.ListNotesAdapter.OnItemClickListener() {
 
-    /*  MainView.ListView.setOnItemClickListener(
-            (parent, v, position, id) -> {
-              if (!ActionUtils.getAction()) openNote(defaultListAdapter.getItem(position).getId());
-              else selectedItemAction(position);
-            });
-        MainView.ListView.setOnItemLongClickListener(
-            (arg0, arg1, position, id) -> {
-              new ChoiceNoteDialog(position, defaultListAdapter.getItem(position).getId())
-                  .show(getSupportFragmentManager(), "ChoiceDialog");
-              return true;
-            });
-    */
+          @Override
+          public void onClick(int position) {
+            if (!ActionUtils.getAction()) openNote(ListNotesAdapter.getItem(position).getId());
+            else selectedItemAction(position);
+          }
+
+          @Override
+          public void onLongClick(int position) {
+            new ChoiceNoteDialog(position, ListNotesAdapter.getItem(position).getId())
+                .show(getSupportFragmentManager(), "ChoiceDialog");
+          }
+        });
   }
 
   /**
@@ -303,4 +315,5 @@ public class MainActivity extends AppCompatActivity
   public void actionNote(int item) {
     selectedItemAction(item);
   }
+
 }

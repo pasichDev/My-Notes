@@ -19,11 +19,22 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
   private final LayoutInflater inflater;
   private final List<NoteItemModel> listNotes;
   private final Context context;
+  private OnItemClickListener mOnItemClickListener;
 
   public ListNotesAdapter(Context context, List<NoteItemModel> listNotes) {
     this.listNotes = listNotes;
     this.context = context;
     this.inflater = LayoutInflater.from(context);
+  }
+
+  public interface OnItemClickListener {
+    void onClick(int position);
+
+    void onLongClick(int position);
+  }
+
+  public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    this.mOnItemClickListener = onItemClickListener;
   }
 
   @NonNull
@@ -41,7 +52,17 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     setTagNote(note.getTags(), holder);
     if (note.getChecked())
       holder.viewH.setBackground(context.getDrawable(R.drawable.item_note_background_selected));
-    else holder.viewH.setBackground(context.getDrawable(R.drawable.item_note_background));
+    else holder.viewH.setBackground(context.getDrawable(R.drawable.item_selected));
+
+    if (mOnItemClickListener != null) {
+      holder.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(position));
+
+      holder.itemView.setOnLongClickListener(
+          v -> {
+            mOnItemClickListener.onLongClick(position);
+            return false;
+          });
+    }
   }
 
   @Override
