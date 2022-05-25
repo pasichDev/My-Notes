@@ -26,7 +26,6 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/Tags"
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
@@ -43,12 +42,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_add"
-            android:tag="lol" />
+            />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="lol"
+
             android:text="@string/allNotes" />
 
     </com.google.android.material.tabs.TabLayout>
