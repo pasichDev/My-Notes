@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity
                 restartListNotes(result.getData().getStringExtra("tagNote"));
             }
           });
-
   private ActionUtils ActionUtils;
   private FormatSwitchUtils formatSwitch;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity
           }
         });
     ListNotesAdapter.setOnItemClickListener(
-        new com.pasich.mynotes.Utils.Adapters.ListNotesAdapter.OnItemClickListener() {
+        new ListNotesAdapter.OnItemClickListener() {
 
           @Override
           public void onClick(int position) {
@@ -131,11 +131,6 @@ public class MainActivity extends AppCompatActivity
           }
         });
   }
-
-
-
-
-
 
   /**
    * The method that implements the creation of a tag
@@ -173,18 +168,18 @@ public class MainActivity extends AppCompatActivity
       ActionUtils.closeActionPanel();
     }
     if (v.getId() == ActionUtils.ID_DELETE_BUTTON) {
-      for (int item : ActionUtils.getArrayChecked()) {
-        moveToTrashNotesArray(item);
-      }
-
-      ActionUtils.closeActionPanel();
+      deleteNotesArray();
     }
   }
 
+  /**
+   * Method that implements adapter updates with new data
+   *
+   * @param tag - selected tag
+   */
   public void restartListNotes(String tag) {
     ListNotesAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
-    MainModel.arraySort();
     ListNotesAdapter.notifyDataSetChanged();
     emptyListViewUtil();
   }
@@ -199,14 +194,20 @@ public class MainActivity extends AppCompatActivity
       noteItem.setChecked(true);
     }
     ActionUtils.manageActionPanel();
+    manageActionPanelActivity();
     ListNotesAdapter.notifyDataSetChanged();
   }
 
+  private void manageActionPanelActivity() {
+    int countChecked = ActionUtils.getCountCheckedItem();
 
-
-  @Override
-  public void onResume() {
-    super.onResume();
+    if (countChecked == 0) {
+      MainView.formatButton.setVisibility(View.VISIBLE);
+      MainView.sortButton.setVisibility(View.VISIBLE);
+    } else if (!ActionUtils.getAction() || countChecked == 1) {
+      MainView.formatButton.setVisibility(View.GONE);
+      MainView.sortButton.setVisibility(View.GONE);
+    }
   }
 
   @Override
@@ -234,12 +235,12 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void addTag(String tagName, int noteId, int position) {
-    if (noteId != 0) addTagForNote(tagName, noteId, position);
+
     if (MainModel.createTag(tagName)) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
-      MainView.TabLayout.selectTab(MainView.TabLayout.getTabAt(2));
+      if (noteId == 0) MainView.TabLayout.selectTab(MainView.TabLayout.getTabAt(2));
     }
-
+    if (noteId != 0) addTagForNote(tagName, noteId, position);
   }
 
   @Override
@@ -247,6 +248,7 @@ public class MainActivity extends AppCompatActivity
     if (noteId != 0 && tagName.length() >= 2) {
       MainModel.setNoteTagQuery(noteId, tagName);
       ListNotesAdapter.getItem(position).setTag(tagName);
+      ListNotesAdapter.notifyItemChanged(position);
     }
   }
 
@@ -278,7 +280,9 @@ public class MainActivity extends AppCompatActivity
 
   private String getNameTagUtil() {
     int position = MainView.TabLayout.getSelectedTabPosition();
-    return position > 1 ? MainView.TabLayout.getTabAt(position).getText().toString() : "";
+    return position > 1
+        ? requireNonNull(MainView.TabLayout.getTabAt(position)).getText().toString()
+        : "";
   }
 
   private void emptyListViewUtil() {
@@ -291,9 +295,12 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-  private void moveToTrashNotesArray(int item) {
-    MainModel.moveToTrash(item);
-    ListNotesAdapter.notifyDataSetChanged();
+  public void deleteNotesArray() {
+    for (int noteID : ActionUtils.getArrayChecked()) {
+      MainModel.moveToTrash(noteID);
+    }
+    restartListNotes(getNameTagUtil());
+    ActionUtils.closeActionPanel();
   }
 
   @Override

@@ -3,8 +3,6 @@ package com.pasich.mynotes.Utils;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
@@ -15,7 +13,6 @@ import java.util.List;
 public class ActionUtils {
 
   public final ImageButton actButtonDelete, actButtonClose;
-  public final ConstraintLayout actionPanel;
   private final ListNotesAdapter adapter;
   /** Panel close button indicator */
   public final int ID_CLOSE_BUTTON = R.id.actPanelClose;
@@ -24,9 +21,8 @@ public class ActionUtils {
   private boolean ACTION_ON = false;
 
   public ActionUtils(View view, ListNotesAdapter adapter) {
-    this.actionPanel = view.findViewById(R.id.actionPanel);
-    this.actButtonDelete = actionPanel.findViewById(ID_DELETE_BUTTON);
-    this.actButtonClose = actionPanel.findViewById(ID_CLOSE_BUTTON);
+    this.actButtonDelete = view.findViewById(ID_DELETE_BUTTON);
+    this.actButtonClose = view.findViewById(ID_CLOSE_BUTTON);
     this.adapter = adapter;
   }
 
@@ -58,7 +54,7 @@ public class ActionUtils {
   /**
    * @return - Number of marked items (int)
    */
-  private int getCountCheckedItem() {
+  public int getCountCheckedItem() {
     List<NoteItemModel> data = getDataAdapter();
     int count = 0;
     for (int i = 0; i < data.size(); i++) {
@@ -77,12 +73,15 @@ public class ActionUtils {
 
   /** Activate the visibility of the action panel */
   private void activateActionPanel() {
-    actionPanel.setVisibility(View.VISIBLE);
+    actButtonDelete.setVisibility(View.VISIBLE);
+    actButtonClose.setVisibility(View.VISIBLE);
   }
 
   /** Deactivate the visibility of the action panel */
   private void deactivationActionPanel() {
-    actionPanel.setVisibility(View.GONE);
+
+    actButtonDelete.setVisibility(View.GONE);
+    actButtonClose.setVisibility(View.GONE);
   }
 
   /** The method that controls the visibility of the action panel */

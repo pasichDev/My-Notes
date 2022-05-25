@@ -136,5 +136,6 @@ public class MainModel extends ModelBase {
   public void getUpdateCursor(String tag) {
     notesArray.clear();
     searchNotes(tag);
+    arraySort();
   }
 }

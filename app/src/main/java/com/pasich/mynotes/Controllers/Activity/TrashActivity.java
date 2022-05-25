@@ -8,8 +8,10 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
+import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.Models.TrashModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.Utils.Interface.ManageTrash;
 import com.pasich.mynotes.View.TrashView;
@@ -21,6 +23,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
   protected TrashView TrashView;
   protected TrashModel TrashModel;
   private ListNotesAdapter ListNotesAdapter;
+  private ActionUtils ActionUtils;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,36 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
 
     ListNotesAdapter = new ListNotesAdapter(this, TrashModel.notesArray);
     TrashView.trashNotesList.setAdapter(ListNotesAdapter);
+    ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
     emptyListViewUtil();
+    setListener();
+  }
+
+  private void setListener() {
+    ListNotesAdapter.setOnItemClickListener(
+        new ListNotesAdapter.OnItemClickListener() {
+
+          @Override
+          public void onClick(int position) {
+            selectedItemAction(position);
+          }
+
+          @Override
+          public void onLongClick(int position) {}
+        });
+  }
+
+  private void selectedItemAction(int item) {
+    NoteItemModel noteItem = ListNotesAdapter.getItem(item);
+    if (noteItem.getChecked()) {
+      noteItem.setChecked(false);
+      ActionUtils.isCheckedItemFalse();
+    } else {
+      ActionUtils.isCheckedItem();
+      noteItem.setChecked(true);
+    }
+    ActionUtils.manageActionPanel();
+    ListNotesAdapter.notifyDataSetChanged();
   }
 
   @Override
