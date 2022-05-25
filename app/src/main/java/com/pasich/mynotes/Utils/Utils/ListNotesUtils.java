@@ -13,7 +13,7 @@ public class ListNotesUtils {
    * @return - date (string)
    */
   public static String returnDateFile(Date date) {
-    return new SimpleDateFormat("dd.MM.yyyy  HH:mm", Locale.getDefault()).format(date);
+    return new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss", Locale.getDefault()).format(date);
   }
 
 }
