@@ -39,27 +39,18 @@ public class MainModel extends ModelBase {
   /**
    * The method that implements the transfer of notes to the trash
    *
-   * @param position - note item position
+   * @param noteID - note item position
    */
-  public void moveToTrash(int position) {
+  public void moveToTrash(int noteID) {
     db.execSQL(
         "INSERT INTO "
             + DbHelper.COLUMN_TRASH
-            + "  (title, value, date, type, tag) VALUES ('"
-            + notesArray.get(position).getTitle()
-            + "','"
-            + notesArray.get(position).getValue()
-            + "','"
-            + notesArray.get(position).getDate()
-            + "', 'Note', '"
-            + notesArray.get(position).getTags()
-            + "');");
-    db.execSQL(
-        "DELETE FROM "
+            + " SELECT * FROM "
             + DbHelper.COLUMN_NOTES
-            + " WHERE id = '"
-            + notesArray.get(position).getId()
-            + "';");
+            + " WHERE id=?;",
+        new String[] {String.valueOf(noteID)});
+
+    db.execSQL("DELETE FROM " + DbHelper.COLUMN_NOTES + " WHERE id = '" + noteID + "';");
   }
 
   /** Method that implements filling the list with the names of existing tags */
@@ -124,8 +115,11 @@ public class MainModel extends ModelBase {
   }
 
   public void searchNotes(String tag) {
+    String where = tag.length() >= 2 ? "WHERE tag = ? " : "";
     Cursor cursorNote =
-        db.query(DbHelper.COLUMN_NOTES, null, "tag = ?", new String[] {tag}, null, null, null);
+        db.rawQuery(
+            "SELECT * FROM " + DbHelper.COLUMN_NOTES + " " + where + ";",
+            tag.length() >= 2 ? new String[] {tag} : null);
     while (cursorNote.moveToNext()) {
       notesArray.add(
           new NoteItemModel(

@@ -7,7 +7,6 @@ import android.database.Cursor;
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
 
-
 public class ChooseTagDialogModel extends ModelBase {
 
   public final String tagNote;
@@ -26,8 +25,7 @@ public class ChooseTagDialogModel extends ModelBase {
   public void queryTags(TabLayout tabLayout) {
     tabLayout.addTab(tabLayout.newTab().setText(context.getString(R.string.noTag)));
     int i = 0;
-    Cursor cursorTags =
-        db.rawQuery("SELECT * FROM " + DbHelper.COLUMN_TAGS + " ORDER BY name ASC;", null);
+    Cursor cursorTags = db.query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
     while (cursorTags.moveToNext()) {
       i = i + 1;
       if (cursorTags.getString(0).equals(tagNote)) selectedPosition = i;
@@ -38,9 +36,8 @@ public class ChooseTagDialogModel extends ModelBase {
   @SuppressLint("Recycle")
   public String getTagNote() {
     Cursor cursorNote =
-        db.rawQuery(
-            "SELECT tag FROM " + DbHelper.COLUMN_NOTES + " WHERE id = ?;",
-            new String[] {String.valueOf(noteID)});
+        db.query(
+            DbHelper.COLUMN_NOTES, new String[] {"tag"}, "id =" + noteID, null, null, null, null);
     cursorNote.moveToNext();
     return cursorNote.getString(0);
   }

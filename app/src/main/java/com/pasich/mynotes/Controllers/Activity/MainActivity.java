@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
     for (String nameTag : MainModel.tags) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(nameTag));
     }
-    MainView.TabLayout.getTabAt(1).select();
+    requireNonNull(MainView.TabLayout.getTabAt(1)).select();
   }
 
   /** Method to manage listeners */
@@ -174,10 +174,9 @@ public class MainActivity extends AppCompatActivity
     }
     if (v.getId() == ActionUtils.ID_DELETE_BUTTON) {
       for (int item : ActionUtils.getArrayChecked()) {
-        moveToTrashNotes(item);
+        moveToTrashNotesArray(item);
       }
 
-      ListNotesAdapter.notifyDataSetChanged();
       ActionUtils.closeActionPanel();
     }
   }
@@ -235,19 +234,19 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void addTag(String tagName, int noteId, int position) {
+    if (noteId != 0) addTagForNote(tagName, noteId, position);
     if (MainModel.createTag(tagName)) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
       MainView.TabLayout.selectTab(MainView.TabLayout.getTabAt(2));
     }
-    if (noteId != 0) addTagForNote(tagName, noteId, position);
+
   }
 
   @Override
   public void addTagForNote(String tagName, int noteId, int position) {
-    if (noteId != 0) {
+    if (noteId != 0 && tagName.length() >= 2) {
       MainModel.setNoteTagQuery(noteId, tagName);
       ListNotesAdapter.getItem(position).setTag(tagName);
-      ListNotesAdapter.notifyDataSetChanged();
     }
   }
 
@@ -292,9 +291,9 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-  private void moveToTrashNotes(int item) {
+  private void moveToTrashNotesArray(int item) {
     MainModel.moveToTrash(item);
-    ListNotesAdapter.getData().remove(item);
+    ListNotesAdapter.notifyDataSetChanged();
   }
 
   @Override
@@ -303,9 +302,10 @@ public class MainActivity extends AppCompatActivity
   }
 
   @Override
-  public void deleteNote(int item) {
-    moveToTrashNotes(item);
-    ListNotesAdapter.notifyDataSetChanged();
+  public void deleteNote(int noteID, int position) {
+    ListNotesAdapter.getData().remove(position);
+    MainModel.moveToTrash(noteID);
+    ListNotesAdapter.notifyItemRemoved(position);
   }
 
   @Override

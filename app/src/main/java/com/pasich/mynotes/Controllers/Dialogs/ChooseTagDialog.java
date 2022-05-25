@@ -15,6 +15,8 @@ import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
 import com.pasich.mynotes.View.DialogView.ChooseTagDialogView;
 
+import java.util.Objects;
+
 public class ChooseTagDialog extends DialogFragment {
 
   private final int noteID;
@@ -42,6 +44,7 @@ public class ChooseTagDialog extends DialogFragment {
     model.queryTags(view.TabLayoutTags);
 
     view.TabLayoutTags.selectTab(view.TabLayoutTags.getTabAt(model.selectedPosition));
+
     view.NewTagVIewUi.getSaveButton()
         .setOnClickListener(
             view1 -> {
@@ -55,7 +58,9 @@ public class ChooseTagDialog extends DialogFragment {
           @Override
           public void listener(TabLayout.Tab Tab) {
             ManageTag.addTagForNote(
-                Tab.getPosition() == 0 ? "" : (String) Tab.getText(), noteID, position);
+                Tab.getPosition() == 0 ? "" : Objects.requireNonNull(Tab.getText()).toString(),
+                noteID,
+                position);
             dismiss();
           }
         });

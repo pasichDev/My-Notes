@@ -55,12 +55,13 @@ public class ChoiceNoteDialog extends DialogFragment {
           }
           if (adapter.getItem(position).getAction().equals("Delete")) {
             assert ChoiceNoteInterface != null;
-            ChoiceNoteInterface.deleteNote(Item);
+            ChoiceNoteInterface.deleteNote(noteID, Item);
           }
           if (adapter.getItem(position).getAction().equals("Tag")) {
             new ChooseTagDialog(noteID, Item).show(getParentFragmentManager(), "EditDIalog");
           }
           if (adapter.getItem(position).getAction().equals("SelectAll")) {
+            assert ChoiceNoteInterface != null;
             ChoiceNoteInterface.actionNote(Item);
           }
           dismiss();

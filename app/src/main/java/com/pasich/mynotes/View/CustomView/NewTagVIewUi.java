@@ -66,12 +66,14 @@ public class NewTagVIewUi {
   }
 
   public void validateText(int length) {
-    if (length == MAX_NAME_TAG + 1) {
-      getErrorMessage().setVisibility(View.VISIBLE);
+    if (length >= MAX_NAME_TAG + 1) {
+      if (getErrorMessage().getVisibility() != View.VISIBLE)
+        getErrorMessage().setVisibility(View.VISIBLE);
       getSaveButton().setEnabled(false);
       setInputError();
     } else if (length == MAX_NAME_TAG) {
-      getErrorMessage().setVisibility(View.INVISIBLE);
+      if (getErrorMessage().getVisibility() != View.INVISIBLE)
+        getErrorMessage().setVisibility(View.INVISIBLE);
       getSaveButton().setEnabled(true);
       setInputNormal();
     }
