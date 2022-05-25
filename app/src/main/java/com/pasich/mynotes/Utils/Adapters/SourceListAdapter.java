@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pasich.mynotes.Model.Adapter.SourceListModel;
+import com.pasich.mynotes.Models.Adapter.SourceListModel;
 import com.pasich.mynotes.R;
 
 import java.util.List;

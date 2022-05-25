@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Controllers.Dialogs.MoreNoteDialog;
-import com.pasich.mynotes.Model.NoteModel;
+import com.pasich.mynotes.Models.NoteModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.NoteView;
 

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Model.Adapter;
+package com.pasich.mynotes.Models.Adapter;
 
 public class SourceListModel {
 

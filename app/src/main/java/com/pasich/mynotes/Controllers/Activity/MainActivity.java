@@ -14,15 +14,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.Controllers.Dialogs.ChoiceNoteDialog;
 import com.pasich.mynotes.Controllers.Dialogs.DeleteTagDialog;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
-import com.pasich.mynotes.Model.Adapter.NoteItemModel;
-import com.pasich.mynotes.Model.MainModel;
+import com.pasich.mynotes.Models.Adapter.NoteItemModel;
+import com.pasich.mynotes.Models.MainModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.ActionUtils;
-import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
-import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
+import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.Utils.MainUtils;
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
   private MainView MainView;
   private MainUtils MainUtils;
-  private DefaultListAdapter defaultListAdapter;
+  private ListNotesAdapter ListNotesAdapter;
   private MainModel MainModel;
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
@@ -62,13 +60,16 @@ public class MainActivity extends AppCompatActivity
     initResource();
     setToolbar();
 
-    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, MainModel.notesArray);
-    MainView.ListView.setAdapter(defaultListAdapter);
+    ListNotesAdapter = new ListNotesAdapter(this, MainModel.notesArray);
+    MainView.ListView.setAdapter(ListNotesAdapter);
+
     emptyListViewUtil();
-    ActionUtils = new ActionUtils(getWindow().getDecorView(), defaultListAdapter);
+
+    ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
     for (String nameTag : MainModel.tags) {
       MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(nameTag));
     }
+    MainView.TabLayout.getTabAt(1).select();
 
     initListener();
   }
@@ -105,18 +106,18 @@ public class MainActivity extends AppCompatActivity
           }
         });
 
-    MainView.ListView.setOnItemClickListener(
-        (parent, v, position, id) -> {
-          if (!ActionUtils.getAction()) openNote(defaultListAdapter.getItem(position).getId());
-          else selectedItemAction(position);
-        });
-    MainView.ListView.setOnItemLongClickListener(
-        (arg0, arg1, position, id) -> {
-          new ChoiceNoteDialog(position, defaultListAdapter.getItem(position).getId())
-              .show(getSupportFragmentManager(), "ChoiceDialog");
-          return true;
-        });
-
+    /*  MainView.ListView.setOnItemClickListener(
+            (parent, v, position, id) -> {
+              if (!ActionUtils.getAction()) openNote(defaultListAdapter.getItem(position).getId());
+              else selectedItemAction(position);
+            });
+        MainView.ListView.setOnItemLongClickListener(
+            (arg0, arg1, position, id) -> {
+              new ChoiceNoteDialog(position, defaultListAdapter.getItem(position).getId())
+                  .show(getSupportFragmentManager(), "ChoiceDialog");
+              return true;
+            });
+    */
   }
 
   /**
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity
               .putExtra("tagNote", getNameTagUtil()));
     }
     if (v.getId() == R.id.deleteTag) {
-      new DeleteTagDialog(defaultListAdapter.getCount())
+      new DeleteTagDialog(ListNotesAdapter.getItemCount())
           .show(getSupportFragmentManager(), "Delete Tag");
     }
 
@@ -160,22 +161,22 @@ public class MainActivity extends AppCompatActivity
         moveToTrashNotes(item);
       }
 
-      defaultListAdapter.notifyDataSetChanged();
+      ListNotesAdapter.notifyDataSetChanged();
       ActionUtils.closeActionPanel();
     }
   }
 
   public void restartListNotes(String tag) {
-    defaultListAdapter.getData().clear();
+    ListNotesAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
-    defaultListAdapter.notifyDataSetChanged();
-    if (defaultListAdapter.getCount() > 0)
-      ListViewAnimation.setListviewAnimationLeftToShow(MainView.ListView);
+    ListNotesAdapter.notifyDataSetChanged();
+    //  if (defaultListAdapter.getCount() > 0)
+    //    ListViewAnimation.setListviewAnimationLeftToShow(MainView.ListView);
     emptyListViewUtil();
   }
 
   private void selectedItemAction(int item) {
-    NoteItemModel noteItem = defaultListAdapter.getItem(item);
+    NoteItemModel noteItem = ListNotesAdapter.getItem(item);
     if (noteItem.getChecked()) {
       noteItem.setChecked(false);
       ActionUtils.isCheckedItemFalse();
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity
       noteItem.setChecked(true);
     }
     ActionUtils.manageActionPanel();
-    defaultListAdapter.notifyDataSetChanged();
+    ListNotesAdapter.notifyDataSetChanged();
   }
 
   private void initResource() {
@@ -236,8 +237,8 @@ public class MainActivity extends AppCompatActivity
   public void addTagForNote(String tagName, int noteId, int position) {
     if (noteId != 0) {
       MainModel.setNoteTagQuery(noteId, tagName);
-      defaultListAdapter.getItem(position).setTag(tagName);
-      defaultListAdapter.notifyDataSetChanged();
+      ListNotesAdapter.getItem(position).setTag(tagName);
+      ListNotesAdapter.notifyDataSetChanged();
     }
   }
 
@@ -273,7 +274,7 @@ public class MainActivity extends AppCompatActivity
   }
 
   private void emptyListViewUtil() {
-    if (defaultListAdapter.getCount() == 0) {
+    if (ListNotesAdapter.getItemCount() == 0) {
       MainView.ListView.setVisibility(View.GONE);
       findViewById(R.id.emptyListVIew).setVisibility(View.VISIBLE);
     } else {
@@ -284,18 +285,18 @@ public class MainActivity extends AppCompatActivity
 
   private void moveToTrashNotes(int item) {
     MainModel.moveToTrash(item);
-    defaultListAdapter.getData().remove(item);
+    ListNotesAdapter.getData().remove(item);
   }
 
   @Override
   public void shareNote(int item) {
-    new ShareNoteUtils(this, defaultListAdapter.getItem(item).getId()).shareNotes();
+    new ShareNoteUtils(this, ListNotesAdapter.getItem(item).getId()).shareNotes();
   }
 
   @Override
   public void deleteNote(int item) {
     moveToTrashNotes(item);
-    defaultListAdapter.notifyDataSetChanged();
+    ListNotesAdapter.notifyDataSetChanged();
   }
 
   @Override

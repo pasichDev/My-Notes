@@ -1,5 +1,4 @@
-package com.pasich.mynotes.Model.Adapter;
-
+package com.pasich.mynotes.Models.Adapter;
 
 public class NoteItemModel {
   private final String title;

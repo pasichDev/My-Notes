@@ -5,9 +5,9 @@ import android.widget.ImageButton;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.pasich.mynotes.Model.Adapter.NoteItemModel;
+import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
+import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +16,14 @@ public class ActionUtils {
 
   public final ImageButton actButtonDelete, actButtonClose;
   public final ConstraintLayout actionPanel;
-  private final DefaultListAdapter adapter;
+  private final ListNotesAdapter adapter;
   /** Panel close button indicator */
   public final int ID_CLOSE_BUTTON = R.id.actPanelClose;
 
   public final int ID_DELETE_BUTTON = R.id.actPanelDelete;
   private boolean ACTION_ON = false;
 
-  public ActionUtils(View view, DefaultListAdapter adapter) {
+  public ActionUtils(View view, ListNotesAdapter adapter) {
     this.actionPanel = view.findViewById(R.id.actionPanel);
     this.actButtonDelete = actionPanel.findViewById(ID_DELETE_BUTTON);
     this.actButtonClose = actionPanel.findViewById(ID_CLOSE_BUTTON);

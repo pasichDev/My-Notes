@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.pasich.mynotes.Model.Adapter.MoreChoiceModel;
+import com.pasich.mynotes.Models.Adapter.MoreChoiceModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Interface.ManageTag;

@@ -22,9 +22,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar" />
 
-    <GridView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ListTrash"
-        style="@style/GridViewStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="gone"

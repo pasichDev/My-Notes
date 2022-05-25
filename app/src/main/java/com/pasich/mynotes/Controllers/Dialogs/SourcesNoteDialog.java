@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.pasich.mynotes.Model.Adapter.SourceListModel;
+import com.pasich.mynotes.Models.Adapter.SourceListModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.SourceListAdapter;
 import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;

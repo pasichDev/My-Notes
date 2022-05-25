@@ -1,9 +1,9 @@
-package com.pasich.mynotes.Model;
+package com.pasich.mynotes.Models;
 
 import android.content.Context;
 import android.database.Cursor;
 
-import com.pasich.mynotes.Model.Adapter.NoteItemModel;
+import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 
 import java.util.ArrayList;
 

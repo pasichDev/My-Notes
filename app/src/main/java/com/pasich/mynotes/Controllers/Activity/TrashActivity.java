@@ -8,9 +8,9 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
-import com.pasich.mynotes.Model.TrashModel;
+import com.pasich.mynotes.Models.TrashModel;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Adapters.DefaultListAdapter;
+import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.Utils.Interface.ManageTrash;
 import com.pasich.mynotes.View.TrashView;
 
@@ -20,7 +20,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
 
   protected TrashView TrashView;
   protected TrashModel TrashModel;
-  private DefaultListAdapter defaultListAdapter;
+  private ListNotesAdapter ListNotesAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +31,8 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
     TrashModel = new TrashModel(this);
     setupActionBar();
 
-    defaultListAdapter = new DefaultListAdapter(this, R.layout.list_notes, TrashModel.notesArray);
-    TrashView.trashNotesList.setAdapter(defaultListAdapter);
+    ListNotesAdapter = new ListNotesAdapter(this, TrashModel.notesArray);
+    TrashView.trashNotesList.setAdapter(ListNotesAdapter);
     emptyListViewUtil();
   }
 
@@ -72,7 +72,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
   }
 
   private void emptyListViewUtil() {
-    if (defaultListAdapter.getCount() == 0) {
+    if (ListNotesAdapter.getItemCount() == 0) {
       TrashView.trashNotesList.setVisibility(View.GONE);
       findViewById(R.id.emptyListVIew).setVisibility(View.VISIBLE);
     } else {
@@ -84,8 +84,8 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
   @Override
   public void cleanTrash() {
     TrashModel.cleanTrash();
-    defaultListAdapter.getData().clear();
-    defaultListAdapter.notifyDataSetChanged();
+    ListNotesAdapter.getData().clear();
+    ListNotesAdapter.notifyDataSetChanged();
     emptyListViewUtil();
   }
 }

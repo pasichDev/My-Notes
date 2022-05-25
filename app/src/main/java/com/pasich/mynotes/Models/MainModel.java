@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Model;
+package com.pasich.mynotes.Models;
 
 import static com.pasich.mynotes.Utils.Constants.TagSettingsConst.MAX_NAME_TAG;
 import static com.pasich.mynotes.Utils.Constants.TagSettingsConst.MIN_NAME_TAG;
@@ -10,7 +10,7 @@ import android.database.Cursor;
 
 import androidx.preference.PreferenceManager;
 
-import com.pasich.mynotes.Model.Adapter.NoteItemModel;
+import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 
 import java.util.ArrayList;
 

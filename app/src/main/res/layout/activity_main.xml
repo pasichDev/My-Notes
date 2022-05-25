@@ -47,7 +47,6 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="@string/allNotes" />
 
     </com.google.android.material.tabs.TabLayout>
@@ -112,12 +111,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <GridView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_notes"
-            style="@style/GridViewStyle"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
             android:layout_marginBottom="10dp"
@@ -127,7 +124,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headNotes">
 
-        </GridView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <ImageButton
             android:id="@+id/deleteTag"

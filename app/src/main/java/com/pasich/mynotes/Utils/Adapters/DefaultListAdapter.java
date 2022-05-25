@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.pasich.mynotes.Model.Adapter.NoteItemModel;
+import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.R;
 
 import java.util.List;

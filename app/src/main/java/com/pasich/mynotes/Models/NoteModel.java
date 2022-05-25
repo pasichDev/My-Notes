@@ -1,4 +1,4 @@
-package com.pasich.mynotes.Model;
+package com.pasich.mynotes.Models;
 
 import android.app.Activity;
 import android.database.Cursor;
