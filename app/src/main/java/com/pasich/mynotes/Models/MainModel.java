@@ -13,6 +13,7 @@ import androidx.preference.PreferenceManager;
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainModel extends ModelBase {
 
@@ -26,8 +27,13 @@ public class MainModel extends ModelBase {
   public MainModel(Context context) {
     super(context);
     this.context = context;
+    initialization();
+  }
+
+  private void initialization() {
     queryTags();
     searchNotes("");
+    arraySort();
   }
 
   /**
@@ -101,26 +107,32 @@ public class MainModel extends ModelBase {
     db.update(DbHelper.COLUMN_NOTES, cv, "id = ?", new String[] {String.valueOf(noteID)});
   }
 
+  public void arraySort() {
+    String sortParam =
+        PreferenceManager.getDefaultSharedPreferences(context).getString("sortPref", "DataReserve");
 
-
-
-  public String getSort() {
-    String SORT_MODE;
-    if (PreferenceManager.getDefaultSharedPreferences(context)
-        .getString("sortPref", "date")
-        .equals("name")) {
-      SORT_MODE = "ORDER BY title ASC";
-    } else {
-      SORT_MODE = "ORDER BY date DESC";
+    switch (sortParam) {
+      case "DataSort":
+        Collections.sort(notesArray, NoteItemModel.COMPARE_BY_DATE_SORT);
+        break;
+      case "TitleSort":
+        Collections.sort(notesArray, NoteItemModel.COMPARE_BY_TITLE_SORT);
+        break;
+      case "TitleReserve":
+        Collections.sort(notesArray, NoteItemModel.COMPARE_BY_TITLE_REVERSE);
+        break;
+      default:
+        Collections.sort(notesArray, NoteItemModel.COMPARE_BY_DATE_REVERSE);
+        break;
     }
-    return SORT_MODE;
   }
+
 
   public void searchNotes(String tag) {
     String where = tag.length() >= 2 ? "WHERE tag = ? " : "";
     Cursor cursorNote =
         db.rawQuery(
-            "SELECT * FROM " + DbHelper.COLUMN_NOTES + " " + where + getSort() + ";",
+            "SELECT * FROM " + DbHelper.COLUMN_NOTES + " " + where + ";",
             tag.length() >= 2 ? new String[] {tag} : null);
     while (cursorNote.moveToNext()) {
       notesArray.add(

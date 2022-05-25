@@ -167,5 +167,8 @@
     <string name="emptyListMain" translatable="false">Здесь будуть ваши заметки.</string>
     <string name="emptyListTrash" translatable="false">Корзина пустая.</string>
 
-
+    <string name="sort_Date_Increase" translatable="false">Дата изменения: по возрастанию</string>
+    <string name="sort_Date_Decrease" translatable="false">Дата изменения: по убыванию</string>
+    <string name="sort_Title_Increase" translatable="false">Название: по возрастанию</string>
+    <string name="sort_Title_Decrease" translatable="false">Название: по убыванию</string>
 </resources>

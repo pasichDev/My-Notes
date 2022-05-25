@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:contentDescription="@string/cd_sort"
-            android:src="@drawable/ic_sort_letters"
+            android:src="@drawable/ic_sort"
             app:layout_constraintEnd_toStartOf="@+id/formatButton"
             app:layout_constraintTop_toTopOf="parent" />
 

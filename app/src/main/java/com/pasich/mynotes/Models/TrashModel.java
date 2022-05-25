@@ -6,6 +6,7 @@ import android.database.Cursor;
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TrashModel extends ModelBase {
 
@@ -13,12 +14,16 @@ public class TrashModel extends ModelBase {
 
   public TrashModel(Context context) {
     super(context);
+    initialization();
+  }
+
+  private void initialization() {
     searchNotes();
+    Collections.sort(notesArray, NoteItemModel.COMPARE_BY_DATE_REVERSE);
   }
 
   public void searchNotes() {
-    Cursor testCursor =
-        db.rawQuery("SELECT * FROM " + DbHelper.COLUMN_TRASH + " ORDER BY date DESC;", null);
+    Cursor testCursor = db.rawQuery("SELECT * FROM " + DbHelper.COLUMN_TRASH + ";", null);
     while (testCursor.moveToNext()) {
       notesArray.add(
           new NoteItemModel(

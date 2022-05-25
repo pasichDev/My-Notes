@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiceNoteDialog;
+import com.pasich.mynotes.Controllers.Dialogs.ChooseSortDialog;
 import com.pasich.mynotes.Controllers.Dialogs.DeleteTagDialog;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
@@ -24,15 +25,15 @@ import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.Utils.Interface.ManageTag;
+import com.pasich.mynotes.Utils.Interface.SortInterface;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
 import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
-import com.pasich.mynotes.Utils.SwitchButtons.SortSwitchUtils;
 import com.pasich.mynotes.Utils.Utils.ShareNoteUtils;
 import com.pasich.mynotes.View.MainView;
 
 public class MainActivity extends AppCompatActivity
-    implements ManageTag, View.OnClickListener, ChoiceNoteInterface {
+    implements ManageTag, View.OnClickListener, ChoiceNoteInterface, SortInterface {
 
   private MainView MainView;
   private MainUtils MainUtils;
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity
           });
 
   private ActionUtils ActionUtils;
-  private SortSwitchUtils sortSwitch;
   private FormatSwitchUtils formatSwitch;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity
     MainView = new MainView(getWindow().getDecorView());
     MainUtils = new MainUtils();
     MainModel = new MainModel(this);
-    sortSwitch = new SortSwitchUtils(this, MainView.sortButton);
     formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
 
     setToolbar();
@@ -153,8 +152,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.sortButton) {
-      sortSwitch.sortNote();
-      restartListNotes("");
+      new ChooseSortDialog().show(getSupportFragmentManager(), "Sort Dialog");
     }
     if (v.getId() == R.id.formatButton) {
       formatSwitch.formatNote();
@@ -187,8 +185,8 @@ public class MainActivity extends AppCompatActivity
   public void restartListNotes(String tag) {
     ListNotesAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
+    MainModel.arraySort();
     ListNotesAdapter.notifyDataSetChanged();
-
     emptyListViewUtil();
   }
 
@@ -315,4 +313,9 @@ public class MainActivity extends AppCompatActivity
     selectedItemAction(item);
   }
 
+  @Override
+  public void sortList(String sortParam) {
+    MainModel.arraySort();
+    ListNotesAdapter.notifyDataSetChanged();
+  }
 }
