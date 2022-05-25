@@ -24,11 +24,13 @@ public class MoreNoteDialog extends DialogFragment {
     ListView listView = new ListView(getContext());
 
     ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
-    arrayChoice.add(new MoreChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share"));
-    arrayChoice.add(new MoreChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag"));
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete"));
-    arrayChoice.add(new MoreChoiceModel(getString(R.string.noSave), R.drawable.ic_close, "Close"));
+        new MoreChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
+    arrayChoice.add(new MoreChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
+    arrayChoice.add(
+        new MoreChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
+    arrayChoice.add(
+        new MoreChoiceModel(getString(R.string.noSave), R.drawable.ic_close, "Close", false));
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
     listView.setAdapter(adapter);

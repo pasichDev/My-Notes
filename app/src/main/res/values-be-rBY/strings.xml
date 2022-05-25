@@ -116,6 +116,6 @@
     <string name="newFolder">Стварыць новую тэчку</string>
     <string name="copyNotesTo">Перамяшчэнне нататкі</string>
     <string name="cd_remind">Напамін</string>
-    <string name="cd_sort">Сартаваць нататкі</string>
+    <string name="cd_sort">Сартаваць</string>
     <string name="cd_format">Фарматаваць нататкі</string>
 </resources>

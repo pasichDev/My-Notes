@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.Models.Adapter.MoreChoiceModel;
@@ -26,22 +27,36 @@ public class ChooseSortDialog extends DialogFragment {
         new ChooseSortDialogView(requireContext(), getLayoutInflater());
     final SortInterface SortInterface = (SortInterface) getContext();
     final ArrayList<MoreChoiceModel> arraySortOption = new ArrayList<>();
-
+    final String sortParam =
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
+            .getString("sortPref", "DataReserve");
     view.setHeadTextView(getString(R.string.cd_sort));
 
     arraySortOption.add(
         new MoreChoiceModel(
-            getString(R.string.sort_Date_Increase), R.drawable.ic_sort, "DataSort"));
+            getString(R.string.sort_Date_Increase),
+            R.drawable.ic_sort,
+            "DataSort",
+            sortParam.equals("DataSort")));
     arraySortOption.add(
         new MoreChoiceModel(
-            getString(R.string.sort_Date_Decrease), R.drawable.ic_sort, "DataReserve"));
+            getString(R.string.sort_Date_Decrease),
+            R.drawable.ic_sort,
+            "DataReserve",
+            sortParam.equals("DataReserve")));
 
     arraySortOption.add(
         new MoreChoiceModel(
-            getString(R.string.sort_Title_Increase), R.drawable.ic_sort, "TitleSort"));
+            getString(R.string.sort_Title_Increase),
+            R.drawable.ic_sort,
+            "TitleSort",
+            sortParam.equals("TitleSort")));
     arraySortOption.add(
         new MoreChoiceModel(
-            getString(R.string.sort_Title_Decrease), R.drawable.ic_sort, "TitleReserve"));
+            getString(R.string.sort_Title_Decrease),
+            R.drawable.ic_sort,
+            "TitleReserve",
+            sortParam.equals("TitleReserve")));
 
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arraySortOption);
@@ -49,15 +64,15 @@ public class ChooseSortDialog extends DialogFragment {
 
     view.listView.setOnItemClickListener(
         (parent, v, position, id) -> {
-          String sortParam = arraySortOption.get(position).getAction();
+          String sortPar = arraySortOption.get(position).getAction();
           requireContext()
               .getSharedPreferences(
                   requireContext().getString(R.string.PreferencesFileName), Context.MODE_PRIVATE)
               .edit()
-              .putString("sortPref", sortParam)
+              .putString("sortPref", sortPar)
               .apply();
           assert SortInterface != null;
-          SortInterface.sortList(sortParam);
+          SortInterface.sortList(sortPar);
           dismiss();
         });
     builder.setContentView(view.getContainer());

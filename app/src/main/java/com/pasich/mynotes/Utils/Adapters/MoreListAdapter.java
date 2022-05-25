@@ -44,6 +44,14 @@ public class MoreListAdapter extends ArrayAdapter<MoreChoiceModel> {
 
     viewHolder.nameView.setText(getItem(position).getName());
     viewHolder.iconVIew.setImageResource(getItem(position).getIcon());
+    /** Желательно реализовать другой вариант, Этот немного тупой */
+    if (getItem(position).getSelected()) {
+      viewHolder.nameView.setTextAppearance(R.style.selectedText);
+      convertView.setBackground(getContext().getDrawable(R.drawable.item_list_selected));
+    } else {
+      viewHolder.nameView.setTextAppearance(R.style.nullText);
+      convertView.setBackground(getContext().getDrawable(R.drawable.item_list_selected_false));
+    }
     return convertView;
   }
 

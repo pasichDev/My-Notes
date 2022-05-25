@@ -115,6 +115,6 @@
     <string name="newFolder">Жаңа қалта жасаңыз</string>
     <string name="copyNotesTo">Жазбаны жылжыту</string>
     <string name="cd_remind">Еске салғыш</string>
-    <string name="cd_sort">Жазбаларды сұрыптау</string>
+    <string name="cd_sort">Жазбаларды</string>
     <string name="cd_format">Жазбаларды пішімдеу</string>
 </resources>

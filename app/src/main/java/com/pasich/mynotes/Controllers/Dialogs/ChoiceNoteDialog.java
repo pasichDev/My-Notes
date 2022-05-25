@@ -34,11 +34,13 @@ public class ChoiceNoteDialog extends DialogFragment {
     final ChoiceNoteInterface ChoiceNoteInterface = (ChoiceNoteInterface) getContext();
 
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.selectAll), R.drawable.ic_check_box, "SelectAll"));
-    arrayChoice.add(new MoreChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share"));
-    arrayChoice.add(new MoreChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag"));
+        new MoreChoiceModel(
+            getString(R.string.selectAll), R.drawable.ic_check_box, "SelectAll", false));
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete"));
+        new MoreChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
+    arrayChoice.add(new MoreChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
+    arrayChoice.add(
+        new MoreChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
 
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);

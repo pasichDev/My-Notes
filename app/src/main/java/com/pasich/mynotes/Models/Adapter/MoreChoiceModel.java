@@ -4,11 +4,13 @@ public class MoreChoiceModel {
   private final String name;
   private final String action;
   private final int icon;
+  private boolean selected;
 
-  public MoreChoiceModel(String name, int icon, String action) {
+  public MoreChoiceModel(String name, int icon, String action, boolean selected) {
     this.name = name;
     this.action = action;
     this.icon = icon;
+    this.selected = selected;
   }
 
   public String getName() {
@@ -21,5 +23,9 @@ public class MoreChoiceModel {
 
   public int getIcon() {
     return this.icon;
+  }
+
+  public boolean getSelected() {
+    return this.selected;
   }
 }

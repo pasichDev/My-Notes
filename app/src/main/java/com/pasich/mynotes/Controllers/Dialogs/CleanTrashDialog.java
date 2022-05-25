@@ -26,9 +26,11 @@ public class CleanTrashDialog extends DialogFragment {
 
     ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.yesCleanTrash), R.drawable.ic_delete, "Delete"));
+        new MoreChoiceModel(
+            getString(R.string.yesCleanTrash), R.drawable.ic_delete, "Delete", false));
 
-    arrayChoice.add(new MoreChoiceModel(getString(R.string.cancel), R.drawable.ic_close, "Close"));
+    arrayChoice.add(
+        new MoreChoiceModel(getString(R.string.cancel), R.drawable.ic_close, "Close", false));
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
     CleanTrashView.listView.setAdapter(adapter);

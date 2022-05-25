@@ -124,7 +124,7 @@
     <string name="newFolder">Create a new folder</string>
     <string name="copyNotesTo">Moving a note</string>
     <string name="cd_remind">Reminder</string>
-    <string name="cd_sort">Sort notes</string>
+    <string name="cd_sort">Sort</string>
     <string name="cd_format">Format notes</string>
 
     <string name="search" translatable="false">Поиск</string>

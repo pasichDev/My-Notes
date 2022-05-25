@@ -99,13 +99,13 @@
     </style>
 
 
-    <style name="GridViewStyle">
-        <item name="android:hapticFeedbackEnabled">false</item>
-        <item name="android:horizontalSpacing">10dp</item>
-        <item name="android:numColumns">1</item>
-        <item name="android:scrollbars">none</item>
-        <item name="android:verticalSpacing">10dp</item>
+    <style name="selectedText">
+        <item name="android:textColor">?attr/colorPrimaryVariant</item>
     </style>
 
+
+    <style name="nullText">
+        <item name="android:textColor">@color/colorLightDark</item>
+    </style>
 
 </resources>

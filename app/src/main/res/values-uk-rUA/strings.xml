@@ -116,6 +116,6 @@
     <string name="newFolder">Створити нову теку</string>
     <string name="copyNotesTo">Переміщення нотатки</string>
     <string name="cd_remind">Нагадування</string>
-    <string name="cd_sort">Сортувати нотатки</string>
+    <string name="cd_sort">Сортувати</string>
     <string name="cd_format">Форматувати нотатки</string>
 </resources>

@@ -119,7 +119,7 @@
     <string name="newFolder">"Создать новую папку "</string>
     <string name="copyNotesTo">Перемещение заметки</string>
     <string name="cd_remind">Напоминание</string>
-    <string name="cd_sort">Сортировать заметки</string>
+    <string name="cd_sort">Сортировать</string>
     <string name="cd_format">Форматировать заметки</string>
     <string name="error_folder_system">Папку с данным именем создавать нельзя!</string>
 </resources>
