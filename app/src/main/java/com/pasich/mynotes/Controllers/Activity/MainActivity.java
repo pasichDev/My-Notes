@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -31,6 +32,8 @@ import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
 import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.Utils.ShareNoteUtils;
 import com.pasich.mynotes.View.MainView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
     implements ManageTag, View.OnClickListener, ChoiceNoteInterface, SortInterface {
@@ -219,9 +222,54 @@ public class MainActivity extends AppCompatActivity
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     menu.findItem(R.id.setingsBut).setVisible(true);
-    menu.findItem(R.id.searchBut).setVisible(true);
     menu.findItem(R.id.trashButton).setVisible(true);
+
+    MenuItem searchItem = menu.findItem(R.id.actionSearch);
+    SearchView searchView = (SearchView) searchItem.getActionView();
+
+    searchView.setBackground(getDrawable(R.drawable.tab_background_unselected));
+    // below line is to call set on query text listener method.
+    searchView.setOnQueryTextListener(
+        new SearchView.OnQueryTextListener() {
+          @Override
+          public boolean onQueryTextSubmit(String query) {
+            return false;
+          }
+
+          @Override
+          public boolean onQueryTextChange(String newText) {
+            // inside on query text change method we are
+            // calling a method to filter our recycler view.
+            filter(newText);
+            return false;
+          }
+        });
+
     return true;
+  }
+
+  private void filter(String text) {
+    // creating a new array list to filter our data.
+    ArrayList<NoteItemModel> filteredlist = new ArrayList<>();
+
+    // running a for loop to compare elements.
+    for (NoteItemModel item : MainModel.notesArray) {
+      // checking if the entered string matched with any item of our recycler view.
+      if (item.getTitle().toLowerCase().contains(text.toLowerCase())) {
+        // if the item is matched we are
+        // adding it to our filtered list.
+        filteredlist.add(item);
+      }
+    }
+    if (filteredlist.isEmpty()) {
+      // if no item is added in filtered list we are
+      // displaying a toast message as no data found.
+      Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
+    } else {
+      // at last we are passing that filtered
+      // list to our adapter class.
+      ListNotesAdapter.filterList(filteredlist);
+    }
   }
 
   @Override
@@ -230,6 +278,7 @@ public class MainActivity extends AppCompatActivity
       startActivity.launch(new Intent(this, SettingsActivity.class));
     if (item.getItemId() == R.id.trashButton)
       startActivity.launch(new Intent(this, TrashActivity.class));
+
     return false;
   }
 

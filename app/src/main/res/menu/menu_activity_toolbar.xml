@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:yourapp="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:yourapp="http://schemas.android.com/tools">
 
 
     <item
-        android:id="@+id/searchBut"
-        android:visible="false"
+        android:id="@+id/actionSearch"
         android:icon="@drawable/ic_search"
         android:title="@string/search"
-        yourapp:showAsAction="ifRoom" />
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/trashButton"
         android:visible="false"

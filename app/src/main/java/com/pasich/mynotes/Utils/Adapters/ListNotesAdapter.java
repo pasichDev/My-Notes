@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.ViewHolder> {
 
   private final LayoutInflater inflater;
-  private final List<NoteItemModel> listNotes;
+  private List<NoteItemModel> listNotes;
   private final Context context;
   private OnItemClickListener mOnItemClickListener;
 
@@ -57,6 +58,16 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
             return false;
           });
     }
+  }
+
+  // method for filtering our recyclerview items.
+  public void filterList(ArrayList<NoteItemModel> filterllist) {
+    // below line is to add our filtered
+    // list in our course array list.
+    listNotes = filterllist;
+    // below line is to notify our adapter
+    // as change in recycler view data.
+    notifyDataSetChanged();
   }
 
   @Override

@@ -16,8 +16,22 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
         <item name="tabStyle">@style/AppTabLayout</item>
+        <item name="searchViewStyle">@style/SearchViewCustom</item>
     </style>
 
+    <style name="SearchViewCustom">
+        <item name="layout">@layout/abc_search_view</item>
+        <item name="queryBackground">@drawable/abc_textfield_search_material</item>
+        <item name="submitBackground">@drawable/abc_textfield_search_material</item>
+        <item name="closeIcon">@drawable/ic_close</item>
+        <item name="background">@color/colorPrimaryBackground</item>
+        <item name="android:background">@color/colorPrimaryBackground</item>
+        <item name="goIcon">@drawable/ic_close</item>
+        <item name="voiceIcon">@drawable/ic_close</item>
+        <item name="commitIcon">@drawable/abc_ic_commit_search_api_mtrl_alpha</item>
+        <item name="suggestionRowLayout">@layout/abc_search_dropdown_item_icons_2line</item>
+        <item name="searchIcon">@drawable/ic_close</item>
+    </style>
 
     <!-- SplashStyle-->
     <style name="ThemeBlueSplash" parent="Theme.MaterialComponents.Light.NoActionBar">
