@@ -107,8 +107,7 @@ public class MainActivity extends AppCompatActivity
     ListNotesAdapter = new ListNotesAdapter(this, MainModel.notesArray);
     binding.listNotes.setAdapter(ListNotesAdapter);
     emptyListViewUtil();
-    ActionUtils =
-        new ActionUtils(binding.getRoot(), ListNotesAdapter, binding.newNotesButton.getId());
+    initActionUtils();
   }
 
   /** Method that loads layouts in TabLayout */
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity
           @Override
           public void onClick(int position) {
             if (!ActionUtils.getAction()) openNote(ListNotesAdapter.getItem(position).getId());
-            else selectedItemAction(position);
+            else ActionUtils.selectItemAction(position);
           }
 
           @Override
@@ -188,12 +187,9 @@ public class MainActivity extends AppCompatActivity
               .putExtra("tagNote", getNameTagUtil()));
     }
 
-    /* if (v.getId() == ActionUtils.ID_CLOSE_BUTTON) {
-      ActionUtils.closeActionPanel();
-    }
-    if (v.getId() == ActionUtils.ID_DELETE_BUTTON) {
+    if (v.getId() == ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).getId()) {
       deleteNotesArray();
-    }*/
+    }
   }
 
   /**
@@ -208,31 +204,20 @@ public class MainActivity extends AppCompatActivity
     emptyListViewUtil();
   }
 
-  private void selectedItemAction(int item) {
-    NoteItemModel noteItem = ListNotesAdapter.getItem(item);
-    if (noteItem.getChecked()) {
-      noteItem.setChecked(false);
-      ActionUtils.isCheckedItemFalse();
-    } else {
-      ActionUtils.isCheckedItem();
-      noteItem.setChecked(true);
-    }
-    ActionUtils.manageActionPanel();
-    manageActionPanelActivity();
-    ListNotesAdapter.notifyDataSetChanged();
+  private void initActionUtils() {
+    ActionUtils =
+        new ActionUtils(
+            binding.getRoot(),
+            ListNotesAdapter,
+            binding.newNotesButton.getId(),
+            R.id.activity_main);
+    ActionUtils.addButtonToActionPanel(R.drawable.ic_delete, R.id.deleteNotesArray);
+    ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).setOnClickListener(this);
   }
 
-  private void manageActionPanelActivity() {
-    int countChecked = ActionUtils.getCountCheckedItem();
 
-    if (countChecked == 0) {
-      MainView.formatButton.setVisibility(View.VISIBLE);
-      MainView.sortButton.setVisibility(View.VISIBLE);
-    } else if (!ActionUtils.getAction() || countChecked == 1) {
-      MainView.formatButton.setVisibility(View.GONE);
-      MainView.sortButton.setVisibility(View.GONE);
-    }
-  }
+
+
 
   @Override
   public void onBackPressed() {
@@ -354,7 +339,7 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void actionNote(int item) {
-    selectedItemAction(item);
+    ActionUtils.selectItemAction(item);
   }
 
   /*  @Override

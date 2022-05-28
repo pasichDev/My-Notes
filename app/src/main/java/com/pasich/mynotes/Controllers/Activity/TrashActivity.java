@@ -9,13 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
-import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.Models.TrashModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.Utils.Interface.ManageTrash;
 import com.pasich.mynotes.View.TrashView;
+import com.pasich.mynotes.databinding.ActivityTrashBinding;
 
 import java.util.Objects;
 
@@ -25,34 +25,35 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   protected TrashModel TrashModel;
   private ListNotesAdapter ListNotesAdapter;
   private ActionUtils ActionUtils;
+  private ActivityTrashBinding binding;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_trash);
+    binding = ActivityTrashBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
 
-    TrashView = new TrashView(getWindow().getDecorView());
+    TrashView = new TrashView(binding);
     TrashModel = new TrashModel(this);
-    ActionUtils =
-        new ActionUtils(getWindow().getDecorView(), ListNotesAdapter, ConstraintSet.PARENT_ID);
     setupActionBar();
     initAdapter();
     initListener();
   }
 
   private void initListener() {
-    TrashView.cleanTrash.setOnClickListener(this);
+    binding.cleanTrash.setOnClickListener(this);
   }
 
   private void initAdapter() {
     ListNotesAdapter = new ListNotesAdapter(this, TrashModel.notesArray);
-    TrashView.trashNotesList.setAdapter(ListNotesAdapter);
+    binding.ListTrash.setAdapter(ListNotesAdapter);
+    initActionUtils();
     ListNotesAdapter.setOnItemClickListener(
         new ListNotesAdapter.OnItemClickListener() {
 
           @Override
           public void onClick(int position) {
-            selectedItemAction(position);
+            ActionUtils.selectItemAction(position);
           }
 
           @Override
@@ -61,17 +62,12 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
     emptyListViewUtil();
   }
 
-  private void selectedItemAction(int item) {
-    NoteItemModel noteItem = ListNotesAdapter.getItem(item);
-    if (noteItem.getChecked()) {
-      noteItem.setChecked(false);
-      ActionUtils.isCheckedItemFalse();
-    } else {
-      ActionUtils.isCheckedItem();
-      noteItem.setChecked(true);
-    }
-    ActionUtils.manageActionPanel();
-    ListNotesAdapter.notifyDataSetChanged();
+  private void initActionUtils() {
+    ActionUtils =
+        new ActionUtils(
+            binding.getRoot(), ListNotesAdapter, ConstraintSet.PARENT_ID, R.id.activity_trash);
+    ActionUtils.addButtonToActionPanel(R.drawable.ic_restore, R.id.removeNotesArray);
+    ActionUtils.getActionPanel().findViewById(R.id.removeNotesArray).setOnClickListener(this);
   }
 
   @Override
@@ -95,7 +91,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
 
   /** Method that sets up the Activity's ActionBar */
   private void setupActionBar() {
-    setSupportActionBar(TrashView.toolbar);
+    setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
   }
@@ -107,13 +103,13 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
 
   private void emptyListViewUtil() {
     if (ListNotesAdapter.getItemCount() == 0) {
-      TrashView.trashNotesList.setVisibility(View.GONE);
-      TrashView.cleanTrash.setVisibility(View.GONE);
-      findViewById(R.id.emptyListVIew).setVisibility(View.VISIBLE);
+      binding.ListTrash.setVisibility(View.GONE);
+      binding.cleanTrash.setVisibility(View.GONE);
+      binding.emptyListVIew.setVisibility(View.VISIBLE);
     } else {
-      TrashView.trashNotesList.setVisibility(View.VISIBLE);
-      TrashView.cleanTrash.setVisibility(View.VISIBLE);
-      findViewById(R.id.emptyListVIew).setVisibility(View.GONE);
+      binding.ListTrash.setVisibility(View.VISIBLE);
+      binding.cleanTrash.setVisibility(View.VISIBLE);
+      binding.emptyListVIew.setVisibility(View.GONE);
     }
   }
 
@@ -127,7 +123,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
 
   @Override
   public void onClick(View v) {
-    if (v.getId() == TrashView.TRASH_MORE_ID) {
+    if (v.getId() == binding.cleanTrash.getId()) {
       new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
     }
   }

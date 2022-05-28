@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
@@ -46,8 +47,9 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     setPreviewNote(note.getValue(), holder);
     setTagNote(note.getTags(), holder);
     if (note.getChecked())
-      holder.viewH.setBackground(context.getDrawable(R.drawable.item_note_background_selected));
-    else holder.viewH.setBackground(context.getDrawable(R.drawable.item_selected));
+      holder.viewH.setBackground(
+          ContextCompat.getDrawable(context, R.drawable.item_note_background_selected));
+    else holder.viewH.setBackground(ContextCompat.getDrawable(context, R.drawable.item_selected));
 
     if (mOnItemClickListener != null) {
       holder.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(position));

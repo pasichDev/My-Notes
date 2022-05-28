@@ -15,8 +15,8 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
 
-  public ActionUtils(View view, ListNotesAdapter adapter, int objectBind) {
-    super(view, objectBind);
+  public ActionUtils(View view, ListNotesAdapter adapter, int objectBind, int objectActivity) {
+    super(view, objectBind, objectActivity);
     this.adapter = adapter;
     getActionPanel().setVisibility(View.GONE);
     getClosePanelButton().setOnClickListener(this);
@@ -116,6 +116,19 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
       if (data.get(i).getChecked()) ArrayChecked.add(data.get(i).getId());
     }
     return ArrayChecked;
+  }
+
+  public void selectItemAction(int item) {
+    NoteItemModel noteItem = getDataAdapter().get(item);
+    if (noteItem.getChecked()) {
+      noteItem.setChecked(false);
+      isCheckedItemFalse();
+    } else {
+      isCheckedItem();
+      noteItem.setChecked(true);
+    }
+    manageActionPanel();
+    adapter.notifyDataSetChanged();
   }
 
   @Override

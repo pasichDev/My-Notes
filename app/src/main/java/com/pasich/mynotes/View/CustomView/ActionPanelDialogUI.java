@@ -22,8 +22,8 @@ public class ActionPanelDialogUI {
   /** The activity view to which the panel will be added */
   private final ConstraintLayout rootConstraintLayout;
 
-  public ActionPanelDialogUI(View rootView, int objectBind) {
-    this.rootConstraintLayout = rootView.findViewById(R.id.activity_main);
+  public ActionPanelDialogUI(View rootView, int objectBind, int objectActivity) {
+    this.rootConstraintLayout = rootView.findViewById(objectActivity);
     this.objectBind = objectBind;
     this.rootView = rootView;
     this.actionPanel = createActionPanel();
