@@ -30,7 +30,7 @@ public class ChooseSortDialog extends DialogFragment {
     final String sortParam =
         PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getString("sortPref", "DataReserve");
-    view.setHeadTextView(getString(R.string.cd_sort));
+    view.setHeadTextView(getString(R.string.sortHead));
 
     arraySortOption.add(
         new MoreChoiceModel(

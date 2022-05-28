@@ -1,40 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:yourapp="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <item
-        android:id="@+id/actionSearch"
-        android:icon="@drawable/ic_search"
-        android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/trashButton"
-        android:visible="false"
-        android:icon="@drawable/ic_trash_menu"
-        android:title="@string/trashN"
-        yourapp:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/setingsBut"
-        android:visible="false"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/settings"
-        yourapp:showAsAction="ifRoom" />
     <item
         android:id="@+id/trashCleanButton"
         android:visible="false"
         android:icon="@drawable/ic_trash_menu"
         android:title="@string/trashClean"
-        yourapp:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/moreBut"
         android:visible="false"
         android:icon="@drawable/ic_more"
         android:title="@string/more"
-        yourapp:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" />
 
 
 </menu>

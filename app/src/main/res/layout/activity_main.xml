@@ -15,34 +15,52 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/headActivityText"
+        android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
+        android:layout_marginTop="10dp"
+        android:text="@string/notes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar" />
 
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/Tags"
-        android:layout_width="0dp"
+    <SearchView
+        android:id="@+id/actionSearch"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
-        android:animateLayoutChanges="true"
-        android:stateListAnimator="@null"
+        android:background="@drawable/background_search_view"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@null"
+        android:queryHint="@string/search"
+        android:searchHintIcon="@drawable/ic_search"
+        android:closeIcon="@drawable/ic_close"
+        android:searchIcon="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
+    </SearchView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/Tags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
+        android:animateLayoutChanges="true"
+        android:stateListAnimator="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actionSearch">
+
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_add"
-            />
+            android:icon="@drawable/ic_add" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -55,8 +73,8 @@
         android:id="@+id/newNotesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:contentDescription="@string/NewNote"
         android:visibility="visible"
         app:backgroundTint="?attr/colorPrimaryBackground"
@@ -70,30 +88,18 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Tags">
 
-        <TextView
-            android:id="@+id/headNotes"
-            style="@style/headTextCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
-            android:layout_marginTop="15dp"
-            android:text="@string/notes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageButton
             android:id="@+id/actPanelClose"
-            android:visibility="gone"
             style="?android:attr/actionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/actPanelDelete"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_close"
@@ -101,15 +107,16 @@
 
         <ImageButton
             android:id="@+id/actPanelDelete"
-            android:visibility="gone"
             style="?android:attr/actionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/sortButton"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete"
             app:tint="?attr/colorPrimaryVariant" />
+
 
         <ImageButton
             android:id="@+id/sortButton"
@@ -119,35 +126,24 @@
             android:layout_marginTop="3dp"
             android:contentDescription="@string/cd_sort"
             android:src="@drawable/ic_sort"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/formatButton"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="?attr/colorPrimaryVariant" />
-
-        <ImageButton
-            android:id="@+id/formatButton"
-            style="?android:attr/actionButtonStyle"
-            app:tint="?attr/colorPrimaryVariant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
-            android:contentDescription="@string/cd_format"
-            android:src="@drawable/ic_edit_format_tiles"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_notes"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headNotes">
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -167,14 +163,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/emptyListVIew"
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="547dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headNotes">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/emptyListImage"
@@ -197,10 +192,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/emptyListImage" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+        <ImageButton
+            android:id="@+id/formatButton"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/cd_format"
+            android:src="@drawable/ic_edit_format_tiles"
+            android:visibility="gone"
+            app:tint="?attr/colorPrimaryVariant"
+            tools:layout_editor_absoluteX="300dp"
+            tools:layout_editor_absoluteY="149dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/moreActivity"
+        style="?android:attr/actionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
+        app:srcCompat="@drawable/ic_out_more" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiceNoteDialog;
+import com.pasich.mynotes.Controllers.Dialogs.ChooseMoreActivityDialog;
 import com.pasich.mynotes.Controllers.Dialogs.ChooseSortDialog;
 import com.pasich.mynotes.Controllers.Dialogs.DeleteTagDialog;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
@@ -26,6 +26,7 @@ import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.Utils.Interface.ManageTag;
+import com.pasich.mynotes.Utils.Interface.MoreActivInterface;
 import com.pasich.mynotes.Utils.Interface.SortInterface;
 import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
@@ -36,7 +37,11 @@ import com.pasich.mynotes.View.MainView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-    implements ManageTag, View.OnClickListener, ChoiceNoteInterface, SortInterface {
+    implements ManageTag,
+        View.OnClickListener,
+        ChoiceNoteInterface,
+        SortInterface,
+        MoreActivInterface {
 
   private MainView MainView;
   private MainUtils MainUtils;
@@ -70,12 +75,33 @@ public class MainActivity extends AppCompatActivity
     loadDataTabLayout();
 
     initListener();
+
+    SearchView searchView = findViewById(R.id.actionSearch);
+
+    // searchView.setBackground(getDrawable(R.drawable.tab_background_unselected));
+    // below line is to call set on query text listener method.
+    searchView.setOnQueryTextListener(
+        new SearchView.OnQueryTextListener() {
+          @Override
+          public boolean onQueryTextSubmit(String query) {
+            return false;
+          }
+
+          @Override
+          public boolean onQueryTextChange(String newText) {
+            // inside on query text change method we are
+            // calling a method to filter our recycler view.
+            filter(newText);
+            return false;
+          }
+        });
   }
 
   /** The method that sets up the toolbar */
   private void setToolbar() {
     setSupportActionBar(MainView.toolbar);
     requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+
   }
 
   /** Method that creates and populates a ListVIew */
@@ -97,11 +123,12 @@ public class MainActivity extends AppCompatActivity
   /** Method to manage listeners */
   private void initListener() {
     MainView.sortButton.setOnClickListener(this);
-    MainView.formatButton.setOnClickListener(this);
+    //    MainView.formatButton.setOnClickListener(this);
     MainView.newNotesButton.setOnClickListener(this);
     MainView.deleteTag.setOnClickListener(this);
     ActionUtils.actButtonClose.setOnClickListener(this);
     ActionUtils.actButtonDelete.setOnClickListener(this);
+    MainView.moreActivityButton.setOnClickListener(this);
 
     MainView.TabLayout.addOnTabSelectedListener(
         new TabLayoutListenerUtils() {
@@ -149,6 +176,10 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void onClick(View v) {
+    if (v.getId() == R.id.moreActivity) {
+      new ChooseMoreActivityDialog().show(getSupportFragmentManager(), "more activity");
+    }
+
     if (v.getId() == R.id.sortButton) {
       new ChooseSortDialog().show(getSupportFragmentManager(), "Sort Dialog");
     }
@@ -221,29 +252,6 @@ public class MainActivity extends AppCompatActivity
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
-    menu.findItem(R.id.setingsBut).setVisible(true);
-    menu.findItem(R.id.trashButton).setVisible(true);
-
-    MenuItem searchItem = menu.findItem(R.id.actionSearch);
-    SearchView searchView = (SearchView) searchItem.getActionView();
-
-    searchView.setBackground(getDrawable(R.drawable.tab_background_unselected));
-    // below line is to call set on query text listener method.
-    searchView.setOnQueryTextListener(
-        new SearchView.OnQueryTextListener() {
-          @Override
-          public boolean onQueryTextSubmit(String query) {
-            return false;
-          }
-
-          @Override
-          public boolean onQueryTextChange(String newText) {
-            // inside on query text change method we are
-            // calling a method to filter our recycler view.
-            filter(newText);
-            return false;
-          }
-        });
 
     return true;
   }
@@ -272,15 +280,7 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.setingsBut)
-      startActivity.launch(new Intent(this, SettingsActivity.class));
-    if (item.getItemId() == R.id.trashButton)
-      startActivity.launch(new Intent(this, TrashActivity.class));
 
-    return false;
-  }
 
   @Override
   public void addTag(String tagName, int noteId, int position) {
@@ -373,5 +373,15 @@ public class MainActivity extends AppCompatActivity
   public void sortList(String sortParam) {
     MainModel.arraySort();
     ListNotesAdapter.notifyDataSetChanged();
+  }
+
+  @Override
+  public void startTrashActivity() {
+    startActivity.launch(new Intent(this, TrashActivity.class));
+  }
+
+  @Override
+  public void startSettingsActivity() {
+    startActivity.launch(new Intent(this, SettingsActivity.class));
   }
 }

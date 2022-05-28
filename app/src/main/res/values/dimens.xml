@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="marginConstraintLayoutOnBothSides">10dp</dimen>
+    <dimen name="marginConstraintLayoutOnBothSides">20dp</dimen>
 </resources>

@@ -127,7 +127,7 @@
     <string name="cd_sort">Sort</string>
     <string name="cd_format">Format notes</string>
 
-    <string name="search" translatable="false">Поиск</string>
+    <string name="search" translatable="false">Поиск в заметках </string>
     <string name="cd_editTags" translatable="false">Редактировать метки</string>
     <string name="folders" translatable="false">Папки</string>
     <string name="tags" translatable="false">Метки</string>
@@ -171,4 +171,6 @@
     <string name="sort_Date_Decrease" translatable="false">Дата изменения: по убыванию</string>
     <string name="sort_Title_Increase" translatable="false">Название: по возрастанию</string>
     <string name="sort_Title_Decrease" translatable="false">Название: по убыванию</string>
+
+    <string name="sortHead" translatable="false">Сортировка</string>
 </resources>

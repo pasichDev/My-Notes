@@ -19,7 +19,7 @@ public class MainView extends MainActivity {
   public final Toolbar toolbar;
   public final TabLayout TabLayout;
   public final RecyclerView ListView;
-  public final ImageButton sortButton, formatButton;
+  public final ImageButton sortButton, formatButton, moreActivityButton;
   public final ImageButton newNotesButton, deleteTag;
   private final View view;
 
@@ -32,12 +32,12 @@ public class MainView extends MainActivity {
     this.sortButton = rootView.findViewById(R.id.sortButton);
     this.formatButton = rootView.findViewById(R.id.formatButton);
     this.deleteTag = rootView.findViewById(R.id.deleteTag);
-
+    this.moreActivityButton = rootView.findViewById(R.id.moreActivity);
     initialization();
   }
 
   private void initialization() {
-    ListView.addItemDecoration(new SpacesItemDecoration(25));
+    ListView.addItemDecoration(new SpacesItemDecoration(15));
     setNotesListCountColumns();
   }
 
