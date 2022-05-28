@@ -113,24 +113,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/sortButton"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete"
             app:tint="?attr/colorPrimaryVariant" />
 
-
-        <ImageButton
-            android:id="@+id/sortButton"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:contentDescription="@string/cd_sort"
-            android:src="@drawable/ic_sort"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/formatButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="?attr/colorPrimaryVariant" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_notes"
@@ -159,7 +145,6 @@
             android:contentDescription="@string/cd_sort"
             android:src="@drawable/ic_delete_tag"
             android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/sortButton"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="?attr/colorPrimaryVariant" />
 
@@ -194,19 +179,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emptyListImage" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageButton
-            android:id="@+id/formatButton"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/cd_format"
-            android:src="@drawable/ic_edit_format_tiles"
-            android:visibility="gone"
-            app:tint="?attr/colorPrimaryVariant"
-            tools:layout_editor_absoluteX="300dp"
-            tools:layout_editor_absoluteY="149dp" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

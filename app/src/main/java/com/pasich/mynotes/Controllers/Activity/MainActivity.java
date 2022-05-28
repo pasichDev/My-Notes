@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
     MainUtils = new MainUtils();
     MainModel = new MainModel(this);
     formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
+    ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
 
     setToolbar();
     createListVew();
@@ -75,10 +76,7 @@ public class MainActivity extends AppCompatActivity
 
     initListener();
 
-    SearchView searchView = findViewById(R.id.actionSearch);
-
-    // below line is to call set on query text listener method.
-    searchView.setOnQueryTextListener(
+    MainView.searchView.setOnQueryTextListener(
         new SearchView.OnQueryTextListener() {
           @Override
           public boolean onQueryTextSubmit(String query) {
@@ -87,8 +85,7 @@ public class MainActivity extends AppCompatActivity
 
           @Override
           public boolean onQueryTextChange(String newText) {
-            // inside on query text change method we are
-            // calling a method to filter our recycler view.
+
             filter(newText);
             return false;
           }
@@ -107,7 +104,6 @@ public class MainActivity extends AppCompatActivity
     ListNotesAdapter = new ListNotesAdapter(this, MainModel.notesArray);
     MainView.ListView.setAdapter(ListNotesAdapter);
     emptyListViewUtil();
-    ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
   }
 
   /** Method that loads layouts in TabLayout */

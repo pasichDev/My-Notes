@@ -16,6 +16,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
         <item name="tabStyle">@style/AppTabLayout</item>
+        <item name="android:imageButtonStyle">?android:attr/actionButtonStyle</item>
     </style>
 
 
