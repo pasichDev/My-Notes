@@ -1,6 +1,7 @@
 package com.pasich.mynotes.View;
 
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,11 +16,14 @@ public class TrashView {
   public final Toolbar toolbar;
   protected final View view;
   public final RecyclerView trashNotesList;
+  public final ImageButton cleanTrash;
+  public final int TRASH_MORE_ID = R.id.cleanTrash;
 
   public TrashView(View rootView) {
     this.view = rootView;
     this.toolbar = view.findViewById(R.id.toolbar_actionbar);
     this.trashNotesList = view.findViewById(R.id.ListTrash);
+    this.cleanTrash = view.findViewById(TRASH_MORE_ID);
     initialization();
   }
 

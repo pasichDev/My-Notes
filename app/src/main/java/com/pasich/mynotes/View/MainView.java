@@ -20,7 +20,7 @@ public class MainView extends MainActivity {
   public final TabLayout TabLayout;
   public final RecyclerView ListView;
   public final ImageButton sortButton, formatButton, moreActivityButton;
-  public final ImageButton newNotesButton, deleteTag;
+  public final ImageButton newNotesButton;
   private final View view;
 
   public MainView(View rootView) {
@@ -31,7 +31,6 @@ public class MainView extends MainActivity {
     this.newNotesButton = rootView.findViewById(R.id.newNotesButton);
     this.sortButton = rootView.findViewById(R.id.sortButton);
     this.formatButton = rootView.findViewById(R.id.formatButton);
-    this.deleteTag = rootView.findViewById(R.id.deleteTag);
     this.moreActivityButton = rootView.findViewById(R.id.moreActivity);
     initialization();
   }

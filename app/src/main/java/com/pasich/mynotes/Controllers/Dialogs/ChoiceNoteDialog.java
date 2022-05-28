@@ -64,6 +64,7 @@ public class ChoiceNoteDialog extends DialogFragment {
             assert ChoiceNoteInterface != null;
             ChoiceNoteInterface.actionNote(Item);
           }
+
           dismiss();
         });
 

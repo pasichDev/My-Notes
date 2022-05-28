@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <item
-        android:id="@+id/trashCleanButton"
-        android:visible="false"
-        android:icon="@drawable/ic_trash_menu"
-        android:title="@string/trashClean"
-        app:showAsAction="ifRoom" />
-    <item
+<item
         android:id="@+id/moreBut"
         android:visible="false"
         android:icon="@drawable/ic_more"

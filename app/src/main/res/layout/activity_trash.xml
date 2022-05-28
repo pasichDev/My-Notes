@@ -6,12 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".Controllers.Activity.TrashActivity">
 
+    <ImageButton
+        android:id="@+id/cleanTrash"
+        style="?android:attr/actionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
+        app:srcCompat="@drawable/ic_trash_menu" />
+
     <include
         android:id="@+id/toolbar_actionbar"
         layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/headTextTitle"
+        style="@style/headActivityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -24,38 +35,15 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar" />
 
 
-    <ImageButton
-        android:id="@+id/actPanelClose"
-        style="?android:attr/actionButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/actPanelDelete"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
-        app:srcCompat="@drawable/ic_close" />
-
-    <ImageButton
-        android:id="@+id/actPanelDelete"
-        style="?android:attr/actionButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
-        app:srcCompat="@drawable/ic_restore" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ListTrash"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:visibility="gone"
+        android:layout_marginStart="@dimen/listViewMargin"
+        android:layout_marginTop="@dimen/listViewMargin"
+        android:layout_marginEnd="@dimen/listViewMargin"
+        android:layout_marginBottom="@dimen/listViewMargin"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,11 +53,11 @@
         android:id="@+id/emptyListVIew"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="15dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

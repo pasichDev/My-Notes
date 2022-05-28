@@ -18,7 +18,7 @@ import com.pasich.mynotes.View.TrashView;
 
 import java.util.Objects;
 
-public class TrashActivity extends AppCompatActivity implements ManageTrash {
+public class TrashActivity extends AppCompatActivity implements ManageTrash, View.OnClickListener {
 
   protected TrashView TrashView;
   protected TrashModel TrashModel;
@@ -32,16 +32,19 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
 
     TrashView = new TrashView(getWindow().getDecorView());
     TrashModel = new TrashModel(this);
-    setupActionBar();
-
-    ListNotesAdapter = new ListNotesAdapter(this, TrashModel.notesArray);
-    TrashView.trashNotesList.setAdapter(ListNotesAdapter);
     ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
-    emptyListViewUtil();
-    setListener();
+    setupActionBar();
+    initAdapter();
+    initListener();
   }
 
-  private void setListener() {
+  private void initListener() {
+    TrashView.cleanTrash.setOnClickListener(this);
+  }
+
+  private void initAdapter() {
+    ListNotesAdapter = new ListNotesAdapter(this, TrashModel.notesArray);
+    TrashView.trashNotesList.setAdapter(ListNotesAdapter);
     ListNotesAdapter.setOnItemClickListener(
         new ListNotesAdapter.OnItemClickListener() {
 
@@ -53,6 +56,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
           @Override
           public void onLongClick(int position) {}
         });
+    emptyListViewUtil();
   }
 
   private void selectedItemAction(int item) {
@@ -71,7 +75,6 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
-    menu.findItem(R.id.trashCleanButton).setVisible(true);
     return true;
   }
 
@@ -84,9 +87,6 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
       closeActivity();
-    }
-    if (item.getItemId() == R.id.trashCleanButton) {
-      new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
     }
     return true;
   }
@@ -106,9 +106,11 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
   private void emptyListViewUtil() {
     if (ListNotesAdapter.getItemCount() == 0) {
       TrashView.trashNotesList.setVisibility(View.GONE);
+      TrashView.cleanTrash.setVisibility(View.GONE);
       findViewById(R.id.emptyListVIew).setVisibility(View.VISIBLE);
     } else {
       TrashView.trashNotesList.setVisibility(View.VISIBLE);
+      TrashView.cleanTrash.setVisibility(View.VISIBLE);
       findViewById(R.id.emptyListVIew).setVisibility(View.GONE);
     }
   }
@@ -119,5 +121,12 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash {
     ListNotesAdapter.getData().clear();
     ListNotesAdapter.notifyDataSetChanged();
     emptyListViewUtil();
+  }
+
+  @Override
+  public void onClick(View v) {
+    if (v.getId() == TrashView.TRASH_MORE_ID) {
+      new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
+    }
   }
 }

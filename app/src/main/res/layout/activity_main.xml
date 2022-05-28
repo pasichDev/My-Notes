@@ -27,14 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/marginConstraintLayoutOnBothSides"
         android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
         android:background="@drawable/background_search_view"
         android:iconifiedByDefault="false"
         android:queryBackground="@null"
         android:queryHint="@string/search"
         android:searchHintIcon="@drawable/ic_search"
-        android:closeIcon="@drawable/ic_close"
+        android:closeIcon="@drawable/ic_close_search_view"
         android:searchIcon="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +88,7 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +103,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/actPanelDelete"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_close"
+            app:srcCompat="@drawable/ic_close_search_view"
             app:tint="?attr/colorPrimaryVariant" />
 
         <ImageButton
@@ -135,15 +136,17 @@
             android:id="@+id/list_notes"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
+            android:layout_marginStart="@dimen/listViewMargin"
+            android:layout_marginTop="@dimen/listViewMargin"
+            android:layout_marginEnd="@dimen/listViewMargin"
+            android:layout_marginBottom="@dimen/listViewMargin"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
         </androidx.recyclerview.widget.RecyclerView>
 

@@ -30,7 +30,8 @@ public class MoreNoteDialog extends DialogFragment {
     arrayChoice.add(
         new MoreChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.noSave), R.drawable.ic_close, "Close", false));
+        new MoreChoiceModel(
+            getString(R.string.noSave), R.drawable.ic_close_search_view, "Close", false));
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
     listView.setAdapter(adapter);

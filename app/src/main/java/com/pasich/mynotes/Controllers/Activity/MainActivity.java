@@ -17,7 +17,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.Controllers.Dialogs.ChoiceNoteDialog;
 import com.pasich.mynotes.Controllers.Dialogs.ChooseMoreActivityDialog;
 import com.pasich.mynotes.Controllers.Dialogs.ChooseSortDialog;
-import com.pasich.mynotes.Controllers.Dialogs.DeleteTagDialog;
 import com.pasich.mynotes.Controllers.Dialogs.NewTagDialog;
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.Models.MainModel;
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity
 
     SearchView searchView = findViewById(R.id.actionSearch);
 
-    // searchView.setBackground(getDrawable(R.drawable.tab_background_unselected));
     // below line is to call set on query text listener method.
     searchView.setOnQueryTextListener(
         new SearchView.OnQueryTextListener() {
@@ -123,9 +121,8 @@ public class MainActivity extends AppCompatActivity
   /** Method to manage listeners */
   private void initListener() {
     MainView.sortButton.setOnClickListener(this);
-    //    MainView.formatButton.setOnClickListener(this);
+    MainView.formatButton.setOnClickListener(this);
     MainView.newNotesButton.setOnClickListener(this);
-    MainView.deleteTag.setOnClickListener(this);
     ActionUtils.actButtonClose.setOnClickListener(this);
     ActionUtils.actButtonDelete.setOnClickListener(this);
     MainView.moreActivityButton.setOnClickListener(this);
@@ -138,10 +135,8 @@ public class MainActivity extends AppCompatActivity
               createTagItem(unselectedPosition);
             } else if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
               restartListNotes(requireNonNull(Tab.getText()).toString());
-              MainView.deleteTag.setVisibility(View.VISIBLE);
             } else if (Tab.getPosition() == 1 && unselectedPosition != 0) {
               restartListNotes("");
-              MainView.deleteTag.setVisibility(View.GONE);
             }
           }
         });
@@ -192,10 +187,6 @@ public class MainActivity extends AppCompatActivity
           new Intent(this, NoteActivity.class)
               .putExtra("NewNote", true)
               .putExtra("tagNote", getNameTagUtil()));
-    }
-    if (v.getId() == R.id.deleteTag) {
-      new DeleteTagDialog(ListNotesAdapter.getItemCount())
-          .show(getSupportFragmentManager(), "Delete Tag");
     }
 
     if (v.getId() == ActionUtils.ID_CLOSE_BUTTON) {
@@ -368,6 +359,12 @@ public class MainActivity extends AppCompatActivity
   public void actionNote(int item) {
     selectedItemAction(item);
   }
+
+  /*  @Override
+  public void deleteTagActivity() {
+    new DeleteTagDialog(ListNotesAdapter.getItemCount())
+            .show(getSupportFragmentManager(), "Delete Tag");
+  }*/
 
   @Override
   public void sortList(String sortParam) {

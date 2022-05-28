@@ -6,4 +6,5 @@ public interface ChoiceNoteInterface {
   void deleteNote(int noteID, int position);
 
   void actionNote(int item);
+
 }
