@@ -209,7 +209,6 @@ public class MainActivity extends AppCompatActivity
         new ActionUtils(
             binding.getRoot(),
             ListNotesAdapter,
-            binding.newNotesButton.getId(),
             R.id.activity_main);
     ActionUtils.addButtonToActionPanel(R.drawable.ic_delete, R.id.deleteNotesArray);
     ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).setOnClickListener(this);

@@ -1,12 +1,12 @@
 package com.pasich.mynotes.Controllers.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Models.TrashModel;
@@ -63,9 +63,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   }
 
   private void initActionUtils() {
-    ActionUtils =
-        new ActionUtils(
-            binding.getRoot(), ListNotesAdapter, ConstraintSet.PARENT_ID, R.id.activity_trash);
+    ActionUtils = new ActionUtils(binding.getRoot(), ListNotesAdapter, R.id.activity_trash);
     ActionUtils.addButtonToActionPanel(R.drawable.ic_restore, R.id.removeNotesArray);
     ActionUtils.getActionPanel().findViewById(R.id.removeNotesArray).setOnClickListener(this);
   }
@@ -113,6 +111,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
     }
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   @Override
   public void cleanTrash() {
     TrashModel.cleanTrash();

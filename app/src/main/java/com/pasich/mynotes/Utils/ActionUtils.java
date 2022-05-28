@@ -15,8 +15,8 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
 
-  public ActionUtils(View view, ListNotesAdapter adapter, int objectBind, int objectActivity) {
-    super(view, objectBind, objectActivity);
+  public ActionUtils(View view, ListNotesAdapter adapter, int objectActivity) {
+    super(view, objectActivity);
     this.adapter = adapter;
     getActionPanel().setVisibility(View.GONE);
     getClosePanelButton().setOnClickListener(this);

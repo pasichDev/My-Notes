@@ -17,14 +17,11 @@ public class ActionPanelDialogUI {
   private final ConstraintLayout actionPanel;
   private final LinearLayout linearLayoutButtons;
   private final ImageButton closePanelButton;
-  /** Identifier of the object to which we will bind the action Panel */
-  private final int objectBind;
   /** The activity view to which the panel will be added */
   private final ConstraintLayout rootConstraintLayout;
 
-  public ActionPanelDialogUI(View rootView, int objectBind, int objectActivity) {
+  public ActionPanelDialogUI(View rootView, int objectActivity) {
     this.rootConstraintLayout = rootView.findViewById(objectActivity);
-    this.objectBind = objectBind;
     this.rootView = rootView;
     this.actionPanel = createActionPanel();
     this.linearLayoutButtons = createLinearLayoutsButtons();
@@ -79,17 +76,9 @@ public class ActionPanelDialogUI {
     return this.linearLayoutButtons;
   }
 
-  public LinearLayout.LayoutParams getLayoutsParamsDefault() {
-    LinearLayout.LayoutParams lp =
-        new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    lp.setMargins(12, 12, 12, 12);
-    return lp;
-  }
-
   private ImageButton createClosePanelButton() {
     ImageButton closePanel = new ImageButton(rootView.getContext());
-    closePanel.setImageResource(R.drawable.ic_close);
+    closePanel.setImageResource(R.drawable.ic_close_search_view);
     closePanel.setBackground(null);
     closePanel.setImageTintList(
         ColorStateList.valueOf(rootView.getResources().getColor(R.color.white, null)));
@@ -112,8 +101,14 @@ public class ActionPanelDialogUI {
     set.constrainHeight(actionPanel.getId(), ConstraintSet.WRAP_CONTENT);
     set.constrainWidth(actionPanel.getId(), ConstraintSet.WRAP_CONTENT);
 
-    set.connect(actionPanel.getId(), ConstraintSet.RIGHT, objectBind, ConstraintSet.LEFT, 30);
-    set.connect(actionPanel.getId(), ConstraintSet.BOTTOM, objectBind, ConstraintSet.BOTTOM, 0);
+    set.connect(
+        actionPanel.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 50);
+    set.connect(
+        actionPanel.getId(),
+        ConstraintSet.BOTTOM,
+        ConstraintSet.PARENT_ID,
+        ConstraintSet.BOTTOM,
+        50);
 
     set.applyTo(rootConstraintLayout);
   }
@@ -124,7 +119,7 @@ public class ActionPanelDialogUI {
    * @param buttonView - button to add
    */
   private void addButtonToLinearLayout(View buttonView) {
-    getLinearLayoutButtons().addView(buttonView, getLayoutsParamsDefault());
+    getLinearLayoutButtons().addView(buttonView);
   }
 
   /**
