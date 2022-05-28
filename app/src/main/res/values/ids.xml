@@ -2,4 +2,6 @@
 <resources>
     <item name="sortButton" type="id" />
     <item name="formatButton" type="id" />
+    <item name="actionPanel" type="id" />
+    <item name="closeButtonPanel" type="id" />
 </resources>

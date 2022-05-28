@@ -1,29 +1,25 @@
 package com.pasich.mynotes.Utils;
 
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
+import com.pasich.mynotes.View.CustomView.ActionPanelDialogUI;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionUtils {
+public class ActionUtils extends ActionPanelDialogUI implements View.OnClickListener {
 
-  public final ImageButton actButtonDelete, actButtonClose;
   private final ListNotesAdapter adapter;
   /** Panel close button indicator */
-  public final int ID_CLOSE_BUTTON = R.id.actPanelClose;
-
-  public final int ID_DELETE_BUTTON = R.id.actPanelDelete;
   private boolean ACTION_ON = false;
 
-  public ActionUtils(View view, ListNotesAdapter adapter) {
-    this.actButtonDelete = view.findViewById(ID_DELETE_BUTTON);
-    this.actButtonClose = view.findViewById(ID_CLOSE_BUTTON);
+  public ActionUtils(View view, ListNotesAdapter adapter, int objectBind) {
+    super(view, objectBind);
     this.adapter = adapter;
+    getActionPanel().setVisibility(View.GONE);
+    getClosePanelButton().setOnClickListener(this);
   }
 
   /**
@@ -73,15 +69,12 @@ public class ActionUtils {
 
   /** Activate the visibility of the action panel */
   private void activateActionPanel() {
-    actButtonDelete.setVisibility(View.VISIBLE);
-    actButtonClose.setVisibility(View.VISIBLE);
+    getActionPanel().setVisibility(View.VISIBLE);
   }
 
   /** Deactivate the visibility of the action panel */
   private void deactivationActionPanel() {
-
-    actButtonDelete.setVisibility(View.GONE);
-    actButtonClose.setVisibility(View.GONE);
+    getActionPanel().setVisibility(View.GONE);
   }
 
   /** The method that controls the visibility of the action panel */
@@ -123,5 +116,12 @@ public class ActionUtils {
       if (data.get(i).getChecked()) ArrayChecked.add(data.get(i).getId());
     }
     return ArrayChecked;
+  }
+
+  @Override
+  public void onClick(View v) {
+    if (v.getId() == getClosePanelButton().getId()) {
+      closeActionPanel();
+    }
   }
 }

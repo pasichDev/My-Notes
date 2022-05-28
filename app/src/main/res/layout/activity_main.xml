@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Controllers.Activity.MainActivity">
@@ -21,6 +22,16 @@
         android:text="@string/notes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar" />
+
+    <ImageButton
+        android:id="@+id/moreActivity"
+        style="?android:attr/actionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
+        app:srcCompat="@drawable/ic_out_more" />
 
     <SearchView
         android:id="@+id/actionSearch"
@@ -85,112 +96,55 @@
         app:tint="@color/white" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/emptyListVIew"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="@dimen/listViewMargin"
+        android:layout_marginTop="@dimen/listViewMargin"
+        android:layout_marginEnd="@dimen/listViewMargin"
+        android:layout_marginBottom="@dimen/listViewMargin"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Tags">
 
-        <ImageButton
-            android:id="@+id/actPanelClose"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/actPanelDelete"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_close_search_view"
-            app:tint="?attr/colorPrimaryVariant" />
-
-        <ImageButton
-            android:id="@+id/actPanelDelete"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_delete"
-            app:tint="?attr/colorPrimaryVariant" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_notes"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/listViewMargin"
-            android:layout_marginTop="@dimen/listViewMargin"
-            android:layout_marginEnd="@dimen/listViewMargin"
-            android:layout_marginBottom="@dimen/listViewMargin"
-            android:visibility="visible"
+        <ImageView
+            android:id="@+id/emptyListImage"
+            android:layout_width="152dp"
+            android:layout_height="152dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
+            app:srcCompat="@drawable/ic_notes_empty" />
 
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <ImageButton
-            android:id="@+id/deleteTag"
-            style="?android:attr/actionButtonStyle"
+        <TextView
+            android:id="@+id/emptyListText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:contentDescription="@string/cd_sort"
-            android:src="@drawable/ic_delete_tag"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="?attr/colorPrimaryVariant" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/emptyListVIew"
-            android:layout_width="match_parent"
-            android:layout_height="547dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:text="@string/emptyListMain"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/emptyListImage"
-                android:layout_width="152dp"
-                android:layout_height="152dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_notes_empty" />
-
-            <TextView
-                android:id="@+id/emptyListText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/emptyListMain"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emptyListImage" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:layout_constraintTop_toBottomOf="@+id/emptyListImage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
-        android:id="@+id/moreActivity"
-        style="?android:attr/actionButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_notes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/listViewMargin"
+        android:layout_marginTop="@dimen/listViewMargin"
+        android:layout_marginEnd="@dimen/listViewMargin"
+        android:layout_marginBottom="@dimen/listViewMargin"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
-        app:srcCompat="@drawable/ic_out_more" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Tags">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
