@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.pasich.mynotes.Controllers.Dialogs.CleanTrashDialog;
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
@@ -32,7 +33,8 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
 
     TrashView = new TrashView(getWindow().getDecorView());
     TrashModel = new TrashModel(this);
-    ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
+    ActionUtils =
+        new ActionUtils(getWindow().getDecorView(), ListNotesAdapter, ConstraintSet.PARENT_ID);
     setupActionBar();
     initAdapter();
     initListener();

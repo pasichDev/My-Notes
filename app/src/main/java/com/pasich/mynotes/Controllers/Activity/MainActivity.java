@@ -32,6 +32,7 @@ import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
 import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.Utils.ShareNoteUtils;
 import com.pasich.mynotes.View.MainView;
+import com.pasich.mynotes.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 
@@ -58,17 +59,18 @@ public class MainActivity extends AppCompatActivity
           });
   private ActionUtils ActionUtils;
   private FormatSwitchUtils formatSwitch;
+  private ActivityMainBinding binding;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    binding = ActivityMainBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
 
-    MainView = new MainView(getWindow().getDecorView());
+    MainView = new MainView(binding);
     MainUtils = new MainUtils();
     MainModel = new MainModel(this);
     formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
-    ActionUtils = new ActionUtils(getWindow().getDecorView(), ListNotesAdapter);
 
     setToolbar();
     createListVew();
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity
 
     initListener();
 
-    MainView.searchView.setOnQueryTextListener(
+    binding.actionSearch.setOnQueryTextListener(
         new SearchView.OnQueryTextListener() {
           @Override
           public boolean onQueryTextSubmit(String query) {
@@ -92,9 +94,10 @@ public class MainActivity extends AppCompatActivity
         });
   }
 
+
   /** The method that sets up the toolbar */
   private void setToolbar() {
-    setSupportActionBar(MainView.toolbar);
+    setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
     requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
   }
@@ -102,28 +105,28 @@ public class MainActivity extends AppCompatActivity
   /** Method that creates and populates a ListVIew */
   private void createListVew() {
     ListNotesAdapter = new ListNotesAdapter(this, MainModel.notesArray);
-    MainView.ListView.setAdapter(ListNotesAdapter);
+    binding.listNotes.setAdapter(ListNotesAdapter);
     emptyListViewUtil();
+    ActionUtils =
+        new ActionUtils(binding.getRoot(), ListNotesAdapter, binding.newNotesButton.getId());
   }
 
   /** Method that loads layouts in TabLayout */
   private void loadDataTabLayout() {
     for (String nameTag : MainModel.tags) {
-      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(nameTag));
+      binding.Tags.addTab(binding.Tags.newTab().setText(nameTag));
     }
-    requireNonNull(MainView.TabLayout.getTabAt(1)).select();
+    requireNonNull(binding.Tags.getTabAt(1)).select();
   }
 
   /** Method to manage listeners */
   private void initListener() {
     MainView.sortButton.setOnClickListener(this);
     MainView.formatButton.setOnClickListener(this);
-    MainView.newNotesButton.setOnClickListener(this);
-    ActionUtils.actButtonClose.setOnClickListener(this);
-    ActionUtils.actButtonDelete.setOnClickListener(this);
-    MainView.moreActivityButton.setOnClickListener(this);
+    binding.newNotesButton.setOnClickListener(this);
+    binding.moreActivity.setOnClickListener(this);
 
-    MainView.TabLayout.addOnTabSelectedListener(
+    binding.Tags.addOnTabSelectedListener(
         new TabLayoutListenerUtils() {
           @Override
           public void listener(TabLayout.Tab Tab) {
@@ -159,10 +162,10 @@ public class MainActivity extends AppCompatActivity
    * @param unselectedPosition - last selected item
    */
   private void createTagItem(int unselectedPosition) {
-    if (MainView.TabLayout.getTabCount() <= 10) {
+    if (binding.Tags.getTabCount() <= 10) {
       new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
     } else Toast.makeText(this, getString(R.string.countTagsError), Toast.LENGTH_LONG).show();
-    requireNonNull(MainView.TabLayout.getTabAt(unselectedPosition)).select();
+    requireNonNull(binding.Tags.getTabAt(unselectedPosition)).select();
   }
 
   @Override
@@ -185,12 +188,12 @@ public class MainActivity extends AppCompatActivity
               .putExtra("tagNote", getNameTagUtil()));
     }
 
-    if (v.getId() == ActionUtils.ID_CLOSE_BUTTON) {
+    /* if (v.getId() == ActionUtils.ID_CLOSE_BUTTON) {
       ActionUtils.closeActionPanel();
     }
     if (v.getId() == ActionUtils.ID_DELETE_BUTTON) {
       deleteNotesArray();
-    }
+    }*/
   }
 
   /**
@@ -273,8 +276,8 @@ public class MainActivity extends AppCompatActivity
   public void addTag(String tagName, int noteId, int position) {
 
     if (MainModel.createTag(tagName)) {
-      MainView.TabLayout.addTab(MainView.TabLayout.newTab().setText(tagName), 2);
-      if (noteId == 0) MainView.TabLayout.selectTab(MainView.TabLayout.getTabAt(2));
+      binding.Tags.addTab(binding.Tags.newTab().setText(tagName), 2);
+      if (noteId == 0) binding.Tags.selectTab(binding.Tags.getTabAt(2));
     }
     if (noteId != 0) addTagForNote(tagName, noteId, position);
   }
@@ -290,11 +293,11 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void deleteTag(boolean deleteNotes) {
-    int tagPosition = MainView.TabLayout.getSelectedTabPosition();
-    if (MainView.TabLayout.getTabCount() > 2 && tagPosition > 1) {
+    int tagPosition = binding.Tags.getSelectedTabPosition();
+    if (binding.Tags.getTabCount() > 2 && tagPosition > 1) {
       MainModel.deleteTag(getNameTagUtil(), deleteNotes);
-      MainView.TabLayout.removeTab(requireNonNull(MainView.TabLayout.getTabAt(tagPosition)));
-      requireNonNull(MainView.TabLayout.getTabAt(1)).select();
+      binding.Tags.removeTab(requireNonNull(binding.Tags.getTabAt(tagPosition)));
+      requireNonNull(binding.Tags.getTabAt(1)).select();
     } else {
       Toast.makeText(this, getString(R.string.errorDeleteTag), Toast.LENGTH_LONG).show();
     }
@@ -315,18 +318,16 @@ public class MainActivity extends AppCompatActivity
   }
 
   private String getNameTagUtil() {
-    int position = MainView.TabLayout.getSelectedTabPosition();
-    return position > 1
-        ? requireNonNull(MainView.TabLayout.getTabAt(position)).getText().toString()
-        : "";
+    int position = binding.Tags.getSelectedTabPosition();
+    return position > 1 ? requireNonNull(binding.Tags.getTabAt(position)).getText().toString() : "";
   }
 
   private void emptyListViewUtil() {
     if (ListNotesAdapter.getItemCount() == 0) {
-      MainView.ListView.setVisibility(View.GONE);
+      binding.listNotes.setVisibility(View.GONE);
       findViewById(R.id.emptyListVIew).setVisibility(View.VISIBLE);
     } else {
-      MainView.ListView.setVisibility(View.VISIBLE);
+      binding.listNotes.setVisibility(View.VISIBLE);
       findViewById(R.id.emptyListVIew).setVisibility(View.GONE);
     }
   }
