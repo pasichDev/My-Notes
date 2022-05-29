@@ -2,6 +2,7 @@ package com.pasich.mynotes.Controllers.Activity;
 
 import static java.util.Objects.requireNonNull;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,19 +51,13 @@ public class MainActivity extends AppCompatActivity
   private MainUtils MainUtils;
   private ListNotesAdapter ListNotesAdapter;
   private MainModel MainModel;
-  /** Processing the received response from running activities */
-  protected ActivityResultLauncher<Intent> startActivity =
-      registerForActivityResult(
-          new ActivityResultContracts.StartActivityForResult(),
-          result -> {
-            if (result.getResultCode() == 24 && result.getData() != null) {
-              if (result.getData().getBooleanExtra("RestartListView", false))
-                restartListNotes(result.getData().getStringExtra("tagNote"));
-            }
-          });
   private ActionUtils ActionUtils;
   private FormatSwitchUtils formatSwitch;
   private ActivityMainBinding binding;
+  /** Processing the received response from running activities */
+  protected ActivityResultLauncher<Intent> startActivity =
+      registerForActivityResult(
+          new ActivityResultContracts.StartActivityForResult(), this::onActivityResult);
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -96,12 +92,10 @@ public class MainActivity extends AppCompatActivity
         });
   }
 
-
   /** The method that sets up the toolbar */
   private void setToolbar() {
     setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
     requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-
   }
 
   /** Method that creates and populates a ListVIew */
@@ -199,10 +193,10 @@ public class MainActivity extends AppCompatActivity
    *
    * @param tag - selected tag
    */
+  @SuppressLint("NotifyDataSetChanged")
   public void restartListNotes(String tag) {
     final LayoutAnimationController controller =
         AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation);
-
     binding.listNotes.setLayoutAnimation(controller);
     ListNotesAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
@@ -212,18 +206,10 @@ public class MainActivity extends AppCompatActivity
   }
 
   private void initActionUtils() {
-    ActionUtils =
-        new ActionUtils(
-            binding.getRoot(),
-            ListNotesAdapter,
-            R.id.activity_main);
+    ActionUtils = new ActionUtils(binding.getRoot(), ListNotesAdapter, R.id.activity_main);
     ActionUtils.addButtonToActionPanel(R.drawable.ic_delete, R.id.deleteNotesArray);
     ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).setOnClickListener(this);
   }
-
-
-
-
 
   @Override
   public void onBackPressed() {
@@ -260,8 +246,6 @@ public class MainActivity extends AppCompatActivity
       ListNotesAdapter.filterList(filteredlist);
     }
   }
-
-
 
   @Override
   public void addTag(String tagName, int noteId, int position) {
@@ -310,7 +294,9 @@ public class MainActivity extends AppCompatActivity
 
   private String getNameTagUtil() {
     int position = binding.Tags.getSelectedTabPosition();
-    return position > 1 ? requireNonNull(binding.Tags.getTabAt(position)).getText().toString() : "";
+    return position > 1
+        ? requireNonNull(requireNonNull(binding.Tags.getTabAt(position)).getText()).toString()
+        : "";
   }
 
   private void emptyListViewUtil() {
@@ -325,7 +311,7 @@ public class MainActivity extends AppCompatActivity
 
   public void deleteNotesArray() {
     for (int noteID : ActionUtils.getArrayChecked()) {
-      MainModel.moveToTrash(noteID);
+      MainModel.notesMove(noteID, MainModel.DbHelper.COLUMN_TRASH, MainModel.DbHelper.COLUMN_NOTES);
     }
     restartListNotes(getNameTagUtil());
     ActionUtils.closeActionPanel();
@@ -339,8 +325,9 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void deleteNote(int noteID, int position) {
     ListNotesAdapter.getData().remove(position);
-    MainModel.moveToTrash(noteID);
+    MainModel.notesMove(noteID, MainModel.DbHelper.COLUMN_TRASH, MainModel.DbHelper.COLUMN_NOTES);
     ListNotesAdapter.notifyItemRemoved(position);
+    emptyListViewUtil();
   }
 
   @Override
@@ -354,6 +341,7 @@ public class MainActivity extends AppCompatActivity
             .show(getSupportFragmentManager(), "Delete Tag");
   }*/
 
+  @SuppressLint("NotifyDataSetChanged")
   @Override
   public void sortList(String sortParam) {
     MainModel.arraySort();
@@ -368,5 +356,13 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void startSettingsActivity() {
     startActivity.launch(new Intent(this, SettingsActivity.class));
+  }
+
+  private void onActivityResult(ActivityResult result) {
+    if (result.getResultCode() == 24 && result.getData() != null
+        || result.getResultCode() == 44 && result.getData() != null) {
+      if (result.getData().getBooleanExtra("RestartListView", false))
+        restartListNotes(result.getData().getStringExtra("tagNote"));
+    }
   }
 }

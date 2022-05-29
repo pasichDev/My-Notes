@@ -36,23 +36,6 @@ public class MainModel extends ModelBase {
     arraySort();
   }
 
-  /**
-   * The method that implements the transfer of notes to the trash
-   *
-   * @param noteID - note item position
-   */
-  public void moveToTrash(int noteID) {
-    db.execSQL(
-        "INSERT INTO "
-            + DbHelper.COLUMN_TRASH
-            + " SELECT * FROM "
-            + DbHelper.COLUMN_NOTES
-            + " WHERE id=?;",
-        new String[] {String.valueOf(noteID)});
-
-    db.execSQL("DELETE FROM " + DbHelper.COLUMN_NOTES + " WHERE id = '" + noteID + "';");
-  }
-
   /** Method that implements filling the list with the names of existing tags */
   @SuppressLint("Recycle")
   public void queryTags() {
