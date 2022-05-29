@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -198,9 +200,14 @@ public class MainActivity extends AppCompatActivity
    * @param tag - selected tag
    */
   public void restartListNotes(String tag) {
+    final LayoutAnimationController controller =
+        AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation);
+
+    binding.listNotes.setLayoutAnimation(controller);
     ListNotesAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
     ListNotesAdapter.notifyDataSetChanged();
+    binding.listNotes.scheduleLayoutAnimation();
     emptyListViewUtil();
   }
 
