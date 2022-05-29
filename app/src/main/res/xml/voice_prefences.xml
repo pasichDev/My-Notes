@@ -1,14 +1,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <PreferenceCategory  android:title="@string/spechPrefences">
+        <PreferenceCategory app:iconSpaceReserved="false">
                 <ListPreference
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:defaultValue="default"
                     app:entries="@array/spechMain_enteries"
                     app:entryValues="@array/spechMain_values"
-                    app:icon="@drawable/ic_voice_languagle"
+                    app:iconSpaceReserved="false"
                     app:key="speechLanguage"
                     app:title="@string/spechLaunguage"
                     app:useSimpleSummaryProvider="true" />
@@ -18,13 +18,13 @@
                     app:defaultValue="line"
                     app:entries="@array/spechOutputSettings_name"
                     app:entryValues="@array/spechOutputSettings_value"
-                    app:icon="@drawable/ic_output_spech"
+                    app:iconSpaceReserved="false"
                     app:key="setSpechOutputText"
                     app:title="@string/setSpechOutputText"
                     app:useSimpleSummaryProvider="true" />
 
                 <Preference
-                    android:icon="@drawable/ic_error"
+                    app:iconSpaceReserved="false"
                     app:key="errorSpechService"
                     app:isPreferenceVisible="false"
                     android:title="@string/Function_not_available"

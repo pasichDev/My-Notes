@@ -78,8 +78,6 @@
     <string name = "setSpechOutputText">Қабылданған мәтін үшін жазу режимі</string>
     <string name = "autoSave">Ескертпелерді автоматты сақтау</string>
     <string name = "autoSaveSumarry">Қоңырау шалғанда немесе қолданбадан кездейсоқ шыққанда ескертпе сақтаңыз</string>
-    <string name="swipeToExit">Шығуды растау</string>
-    <string name = "swipeToExitSymmary">Қолданбаның кездейсоқ шығуын болдырмайды</string>
     <string name = "interaction">Өзара әрекеттесу</string>
     <string name = "emptySpeec">Қайталап көргеніңізді есту мүмкін емес</string>
     <string name = "spechToListen">Сөйле, мен тыңдап жатырмын..</string>

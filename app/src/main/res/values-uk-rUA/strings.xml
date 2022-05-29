@@ -78,8 +78,6 @@
     <string name="setSpechOutputText">Режим запису для отриманого тексту</string>
     <string name="autoSave">Автоматичне збереження нотатки</string>
     <string name="autoSaveSumarry">Зберігаємо нотатку під час дзвінка, або випадковому виході з додатка</string>
-    <string name="swipeToExit">Підтвердити вихід</string>
-    <string name="swipeToExitSymmary">Запобігає випадковому, завершеню додатка</string>
     <string name="interaction">Взаємодія</string>
     <string name="emptySpeec">Вас не чути, спробуйте ще раз..</string>
     <string name="spechToListen">Говоріть, я вас слухаю..</string>

@@ -83,8 +83,6 @@
     <string name="setSpechOutputText"> Write mode for received text </string>
     <string name="autoSave"> Auto save notes </string>
     <string name="autoSaveSumarry"> Save the note when you call or accidentally exit the application </string>
-    <string name="swipeToExit"> Confirm exit </string>
-    <string name="swipeToExitSymmary"> Prevents accidental application closing </string>
     <string name="interaction"> Interaction </string>
     <string name="emptySpeec"> Can\'t hear you please try again </string>
     <string name="spechToListen"> Speak, I\'m listening .. </string>
@@ -142,7 +140,7 @@
     <string name="nameTagInput" translatable="false">Введите название метки</string>
     <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше чем из 20-ти символов</string>
 
-    <string name="splashEnablePrefTitle" translatable="false">Показывать екран загрузки</string>
+    <string name="splashEnablePrefTitle" translatable="false">Показывать заставку прри загрузке приложения</string>
     <string name="splashEnablePrefSummary" translatable="false">Включить показ екрана загрузки при запуске приложения</string>
 
     <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>

@@ -79,8 +79,6 @@
     <string name="setSpechOutputText">Режим записи для полученного  текста</string>
     <string name="autoSave">Автоматическое сохранение заметок</string>
     <string name="autoSaveSumarry">Сохраняем заметку при звонке, или случайном выходе с приложения</string>
-    <string name="swipeToExit">Подтверждать выход</string>
-    <string name="swipeToExitSymmary">Предотвращает случайное закрытие приложения</string>
     <string name="interaction">Взаимодействие</string>
     <string name="emptySpeec">Вас не слышно повторите попытку</string>
     <string name="spechToListen">Говорите, я вас слушаю..</string>

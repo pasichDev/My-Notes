@@ -78,8 +78,6 @@
     <string name = "setSpechOutputText"> Tryb nagrywania otrzymanego tekstu </string>
     <string name = "autoSave"> Automatycznie zapisz notatkę </string>
     <string name = "autoSaveSumarry"> Zapisz notatkę podczas rozmowy lub przypadkowo wyjdź z aplikacji </string>
-    <string name = "swipeToExit"> Potwierdź wyjście </string>
-    <string name = "swipeToExitSymmary"> Zapobiega przypadkowemu, zakończonemu zamknięciu aplikacji </string>
     <string name = "interaction"> Interakcja </string>
     <string name = "emptySpeec"> Nie słyszę, proszę spróbuj ponownie .. </string>
     <string name = "spechToListen"> Powiedz, że cię słucham .. </string>

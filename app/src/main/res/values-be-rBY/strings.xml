@@ -78,8 +78,6 @@
     <string name="setSpechOutputText">Рэжым запісу для атрыманага тэксту</string>
     <string name="autoSave">Аўтаматычнае захаванне нататак</string>
     <string name="autoSaveSumarry">Захоўваем нататку пры званку, або выпадковым выхадзе з прыкладання</string>
-    <string name="swipeToExit">Пацвярджаць выхад</string>
-    <string name="swipeToExitSymmary">Прадухіляе выпадковае закрыццё прыкладання</string>
     <string name="interaction">Узаемадзеянне</string>
     <string name="emptySpeec">Вас не чуваць, паспрабуйце яшчэ раз</string>
     <string name="spechToListen">Гаварыце, я вас слухаю..</string>

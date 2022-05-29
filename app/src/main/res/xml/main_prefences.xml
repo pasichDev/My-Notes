@@ -2,55 +2,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <PreferenceCategory
-            android:title="@string/mainPrefences"
-            app:allowDividerAbove="false">
+
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:iconSpaceReserved="false">
 
                 <Preference
-                    app:useSimpleSummaryProvider="true"
+
                     android:key="themeColor"
                     android:summary="@string/ThemeToolbar_summary"
                     android:title="@string/ThemeToolbar_title"
-                    android:icon="@drawable/ic_theme_edit" />
+                    app:iconSpaceReserved="false"
+                    app:useSimpleSummaryProvider="true" />
 
                 <ListPreference
-                    android:icon="@drawable/ic_font_style"
-                    android:key="textStyle"
                     android:defaultValue="normal"
-                    android:entryValues="@array/textStyle_value"
                     android:entries="@array/textStyle_name"
+                    android:entryValues="@array/textStyle_value"
+                    android:key="textStyle"
                     android:title="@string/textStyleTitle"
-                    app:useSimpleSummaryProvider="true"
-                    />
+                    app:iconSpaceReserved="false"
+                    app:useSimpleSummaryProvider="true" />
                 <SeekBarPreference
-                    app:useSimpleSummaryProvider="true"
                     android:defaultValue="16"
-                    app:showSeekBarValue="true"
                     android:key="textSize"
-                    app:icon="@drawable/ic_sizetext"
-                    android:title="@string/sizeText"
                     android:max="34"
-                    app:min="12"/>
-        </PreferenceCategory>
+                    android:title="@string/sizeText"
+                    app:iconSpaceReserved="false"
+                    app:min="12"
+                    app:showSeekBarValue="true"
+                    app:useSimpleSummaryProvider="true" />
 
-        <PreferenceCategory android:title="@string/interaction">
-                <SwitchPreference
-                    android:defaultValue="true"
-                    android:key="swipeToExit"
-                    app:icon="@drawable/ic_dialog_exitapp"
-                    android:summary="@string/swipeToExitSymmary"
-                    android:title="@string/swipeToExit" />
+
                 <SwitchPreference
                     android:defaultValue="true"
                     android:key="autoSave"
                     android:summary="@string/autoSaveSumarry"
                     android:title="@string/autoSave"
-                    app:icon="@drawable/ic_autosave" />
+                    app:iconSpaceReserved="false" />
+
                 <SwitchPreference
                     android:defaultValue="true"
                     android:key="splashEnable"
-                    android:summary="@string/splashEnablePrefSummary"
                     android:title="@string/splashEnablePrefTitle"
-                    app:icon="@drawable/ic_splash" />
+                    app:iconSpaceReserved="false" />
         </PreferenceCategory>
 </PreferenceScreen>
 
