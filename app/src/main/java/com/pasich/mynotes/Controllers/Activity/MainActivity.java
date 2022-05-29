@@ -132,8 +132,13 @@ public class MainActivity extends AppCompatActivity
 
           @Override
           public void onLongClick(int position) {
-            new ChoiceNoteDialog(position, ListNotesAdapter.getItem(position).getId())
-                .show(getSupportFragmentManager(), "ChoiceDialog");
+            String[] keysNote = {
+              String.valueOf(position),
+              String.valueOf(ListNotesAdapter.getItem(position).getId()),
+              ListNotesAdapter.getItem(position).getDate(),
+              String.valueOf(ListNotesAdapter.getItem(position).getValue().length())
+            };
+            new ChoiceNoteDialog(keysNote).show(getSupportFragmentManager(), "ChoiceDialog");
           }
         });
   }

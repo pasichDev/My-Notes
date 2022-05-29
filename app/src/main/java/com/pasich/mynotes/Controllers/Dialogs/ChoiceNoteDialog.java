@@ -2,9 +2,6 @@ package com.pasich.mynotes.Controllers.Dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -14,25 +11,27 @@ import com.pasich.mynotes.Models.Adapter.MoreChoiceModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
+import com.pasich.mynotes.View.DialogView.ChoiceNoteDialogView;
 
 import java.util.ArrayList;
 
 public class ChoiceNoteDialog extends DialogFragment {
 
-  private final int Item;
-  private final int noteID;
+  private final String[] keysNoteInfo;
 
-  public ChoiceNoteDialog(int item, int noteID) {
-    this.Item = item;
-    this.noteID = noteID;
+  public ChoiceNoteDialog(String[] keysNoteInfo) {
+    this.keysNoteInfo = keysNoteInfo;
   }
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
-    final ListView listView = new ListView(getContext());
     final ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
+    final ChoiceNoteDialogView view =
+        new ChoiceNoteDialogView(requireContext(), getLayoutInflater());
     final ChoiceNoteInterface ChoiceNoteInterface = (ChoiceNoteInterface) getContext();
+
+    view.initializeInfoLayout(keysNoteInfo[2], keysNoteInfo[3]);
 
     arrayChoice.add(
         new MoreChoiceModel(
@@ -45,33 +44,33 @@ public class ChoiceNoteDialog extends DialogFragment {
 
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
-    listView.setAdapter(adapter);
-    listView.setLayoutAnimation(
-        new LayoutAnimationController(
-            AnimationUtils.loadAnimation(listView.getContext(), R.anim.item_animation_dialog)));
-    listView.setDivider(null);
-    listView.setOnItemClickListener(
+    view.listView.setAdapter(adapter);
+
+    view.listView.setOnItemClickListener(
         (parent, v, position, id) -> {
           if (adapter.getItem(position).getAction().equals("Share")) {
             assert ChoiceNoteInterface != null;
-            ChoiceNoteInterface.shareNote(Item);
+            ChoiceNoteInterface.shareNote(Integer.parseInt(keysNoteInfo[0]));
           }
           if (adapter.getItem(position).getAction().equals("Delete")) {
             assert ChoiceNoteInterface != null;
-            ChoiceNoteInterface.deleteNote(noteID, Item);
+            ChoiceNoteInterface.deleteNote(
+                Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]));
           }
           if (adapter.getItem(position).getAction().equals("Tag")) {
-            new ChooseTagDialog(noteID, Item).show(getParentFragmentManager(), "EditDIalog");
+            new ChooseTagDialog(
+                    Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]))
+                .show(getParentFragmentManager(), "EditDIalog");
           }
           if (adapter.getItem(position).getAction().equals("SelectAll")) {
             assert ChoiceNoteInterface != null;
-            ChoiceNoteInterface.actionNote(Item);
+            ChoiceNoteInterface.actionNote(Integer.parseInt(keysNoteInfo[0]));
           }
 
           dismiss();
         });
 
-    builder.setContentView(listView);
+    builder.setContentView(view.getLinearLayout());
 
     return builder;
   }
