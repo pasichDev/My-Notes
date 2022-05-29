@@ -17,6 +17,13 @@ import com.pasich.mynotes.Utils.Interface.MoreActivInterface;
 import java.util.ArrayList;
 
 public class ChooseMoreActivityDialog extends DialogFragment {
+  private final int itemCount;
+  private final int tabPosition;
+
+  public ChooseMoreActivityDialog(int itemCount, int tabPosition) {
+    this.itemCount = itemCount;
+    this.tabPosition = tabPosition;
+  }
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -26,6 +33,11 @@ public class ChooseMoreActivityDialog extends DialogFragment {
     final MoreActivInterface MoreActivInterface = (MoreActivInterface) getContext();
     ListViewAnimation.setListviewAnimationLeftToShow(listView);
     listView.setDivider(null);
+    if (tabPosition > 1)
+      arraySortOption.add(
+          new MoreChoiceModel(
+              getString(R.string.deleteTag), R.drawable.ic_tag, "DeleteTag", false));
+
     arraySortOption.add(
         new MoreChoiceModel(
             getString(R.string.trashN), R.drawable.ic_trash_menu, "TrashActivity", false));
@@ -46,6 +58,9 @@ public class ChooseMoreActivityDialog extends DialogFragment {
           if (arraySortOption.get(position).getAction().equals("SettingsActivity")) {
             assert MoreActivInterface != null;
             MoreActivInterface.startSettingsActivity();
+          }
+          if (arraySortOption.get(position).getAction().equals("DeleteTag")) {
+            new DeleteTagDialog(itemCount).show(getParentFragmentManager(), "Delete Tag");
           }
           dismiss();
         });

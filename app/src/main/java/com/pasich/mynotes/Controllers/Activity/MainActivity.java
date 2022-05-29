@@ -166,7 +166,9 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.moreActivity) {
-      new ChooseMoreActivityDialog().show(getSupportFragmentManager(), "more activity");
+      new ChooseMoreActivityDialog(
+              ListNotesAdapter.getItemCount(), binding.Tags.getSelectedTabPosition())
+          .show(getSupportFragmentManager(), "more activity");
     }
 
     if (v.getId() == R.id.sortButton) {
@@ -334,12 +336,6 @@ public class MainActivity extends AppCompatActivity
   public void actionNote(int item) {
     ActionUtils.selectItemAction(item);
   }
-
-  /*  @Override
-  public void deleteTagActivity() {
-    new DeleteTagDialog(ListNotesAdapter.getItemCount())
-            .show(getSupportFragmentManager(), "Delete Tag");
-  }*/
 
   @SuppressLint("NotifyDataSetChanged")
   @Override
