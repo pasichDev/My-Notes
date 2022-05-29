@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -75,21 +76,7 @@ public class MainActivity extends AppCompatActivity
     loadDataTabLayout();
 
     initListener();
-
-    binding.actionSearch.setOnQueryTextListener(
-        new SearchView.OnQueryTextListener() {
-          @Override
-          public boolean onQueryTextSubmit(String query) {
-            return false;
-          }
-
-          @Override
-          public boolean onQueryTextChange(String newText) {
-
-            filter(newText);
-            return false;
-          }
-        });
+    initActionSearch();
   }
 
   /** The method that sets up the toolbar */
@@ -147,6 +134,47 @@ public class MainActivity extends AppCompatActivity
           public void onLongClick(int position) {
             new ChoiceNoteDialog(position, ListNotesAdapter.getItem(position).getId())
                 .show(getSupportFragmentManager(), "ChoiceDialog");
+          }
+        });
+  }
+
+  private void initActionSearch() {
+
+    /* binding.actionSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+      @Override
+      public void onFocusChange(View v, boolean hasFocus) {
+        Log.wtf("pasic", "focus  " + hasFocus);
+
+      }
+    });*/
+    binding.actionSearch.setOnQueryTextFocusChangeListener(
+        (v, hasFocus) -> {
+          Log.wtf("pasic", "focus  " + hasFocus);
+          MainView.sortButton.setVisibility(View.GONE);
+          MainView.formatButton.setVisibility(View.GONE);
+        });
+    binding.actionSearch.setOnCloseListener(
+        () -> {
+          Log.wtf("pasic", "close  ");
+          MainView.sortButton.setVisibility(View.VISIBLE);
+          MainView.formatButton.setVisibility(View.VISIBLE);
+          binding.actionSearch.setFocusable(false);
+          return false;
+        });
+
+    binding.actionSearch.setOnQueryTextListener(
+        new SearchView.OnQueryTextListener() {
+          @Override
+          public boolean onQueryTextSubmit(String query) {
+            return false;
+          }
+
+          @Override
+          public boolean onQueryTextChange(String newText) {
+
+            filter(newText);
+            return false;
           }
         });
   }
