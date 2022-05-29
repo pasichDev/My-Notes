@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity
   @SuppressLint("NotifyDataSetChanged")
   public void restartListNotes(String tag) {
     final LayoutAnimationController controller =
-        AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation);
+        AnimationUtils.loadLayoutAnimation(this, R.anim.recycle_view_animation);
     binding.listNotes.setLayoutAnimation(controller);
     ListNotesAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);

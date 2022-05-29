@@ -2,9 +2,11 @@ package com.pasich.mynotes.View.DialogView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
 
-import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
 
 public class ChooseSortDialogView extends CustomHeadUIDialog {
@@ -18,7 +20,9 @@ public class ChooseSortDialogView extends CustomHeadUIDialog {
   }
 
   private void initialization() {
-    ListViewAnimation.setListviewAnimationLeftToShow(listView);
+    listView.setLayoutAnimation(
+        new LayoutAnimationController(
+            AnimationUtils.loadAnimation(listView.getContext(), R.anim.item_animation_dialog)));
     listView.setDivider(null);
     getContainer().addView(listView);
   }

@@ -150,7 +150,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   @SuppressLint("NotifyDataSetChanged")
   public void restartListNotes() {
     final LayoutAnimationController controller =
-        AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation);
+        AnimationUtils.loadLayoutAnimation(this, R.anim.recycle_view_animation);
     binding.ListTrash.setLayoutAnimation(controller);
     ListNotesAdapter.getData().clear();
     TrashModel.getUpdateCursor();

@@ -2,6 +2,8 @@ package com.pasich.mynotes.Controllers.Dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -11,7 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.Models.Adapter.MoreChoiceModel;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
-import com.pasich.mynotes.Utils.Anim.ListViewAnimation;
 import com.pasich.mynotes.Utils.Interface.MoreActivInterface;
 
 import java.util.ArrayList;
@@ -31,7 +32,9 @@ public class ChooseMoreActivityDialog extends DialogFragment {
     final ListView listView = new ListView(requireContext());
     final ArrayList<MoreChoiceModel> arraySortOption = new ArrayList<>();
     final MoreActivInterface MoreActivInterface = (MoreActivInterface) getContext();
-    ListViewAnimation.setListviewAnimationLeftToShow(listView);
+    listView.setLayoutAnimation(
+        new LayoutAnimationController(
+            AnimationUtils.loadAnimation(listView.getContext(), R.anim.item_animation_dialog)));
     listView.setDivider(null);
     if (tabPosition > 1)
       arraySortOption.add(

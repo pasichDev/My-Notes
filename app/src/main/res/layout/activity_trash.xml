@@ -47,7 +47,7 @@
         android:layout_marginEnd="@dimen/listViewMargin"
         android:layout_marginBottom="@dimen/listViewMargin"
         android:visibility="visible"
-        android:layoutAnimation="@anim/layout_animation"
+        android:layoutAnimation="@anim/recycle_view_animation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
