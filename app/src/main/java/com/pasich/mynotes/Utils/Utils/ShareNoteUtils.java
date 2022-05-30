@@ -22,7 +22,7 @@ public class ShareNoteUtils extends ModelBase {
 
   private String queryValueNote() {
     @SuppressLint("Recycle")
-    Cursor cursor = db.rawQuery("SELECT value FROM notes WHERE id = " + noteID + " ;", null);
+    Cursor cursor = getDb().rawQuery("SELECT value FROM notes WHERE id = " + noteID + " ;", null);
     cursor.moveToNext();
     return cursor.getString(0);
   }

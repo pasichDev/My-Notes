@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.pasich.mynotes.Utils.Database.DbHelper;
 
 public class ModelBase {
-  protected final SQLiteDatabase db;
+  private SQLiteDatabase db;
   public final DbHelper DbHelper;
 
   public ModelBase(Context context) {
@@ -15,7 +15,15 @@ public class ModelBase {
   }
 
   public void closeDB() {
-    db.close();
+    this.db.close();
+  }
+
+  public SQLiteDatabase getDb() {
+    return this.db;
+  }
+
+  public void getRecreateDb() {
+    this.db = DbHelper.getReadableDatabase();
   }
 
   /**

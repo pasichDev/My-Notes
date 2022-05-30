@@ -39,7 +39,7 @@ public class MainModel extends ModelBase {
   /** Method that implements filling the list with the names of existing tags */
   @SuppressLint("Recycle")
   public void queryTags() {
-    Cursor cursorTag = db.query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
+    Cursor cursorTag = getDb().query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
     while (cursorTag.moveToNext()) tags.add(cursorTag.getString(0));
   }
 
@@ -48,7 +48,7 @@ public class MainModel extends ModelBase {
     if (nameTag.trim().length() >= MIN_NAME_TAG && !tags.contains(nameTag)) {
       ContentValues cv = new ContentValues();
       cv.put("name", nameTag);
-      db.insert(DbHelper.COLUMN_TAGS, null, cv);
+      getDb().insert(DbHelper.COLUMN_TAGS, null, cv);
       queryTags();
       tagCreate = true;
     }
@@ -61,12 +61,12 @@ public class MainModel extends ModelBase {
 
   public void deleteTag(String nameTag, boolean deleteNotes) {
     if (nameTag.trim().length() >= MIN_NAME_TAG) {
-      db.delete(DbHelper.COLUMN_TAGS, "name = ?", new String[] {nameTag});
-      if (deleteNotes) db.delete(DbHelper.COLUMN_NOTES, "tag = ?", new String[] {nameTag});
+      getDb().delete(DbHelper.COLUMN_TAGS, "name = ?", new String[] {nameTag});
+      if (deleteNotes) getDb().delete(DbHelper.COLUMN_NOTES, "tag = ?", new String[] {nameTag});
       else {
         ContentValues cv = new ContentValues();
         cv.put("tag", "");
-        db.update(DbHelper.COLUMN_NOTES, cv, "tag = ?", new String[] {nameTag});
+        getDb().update(DbHelper.COLUMN_NOTES, cv, "tag = ?", new String[] {nameTag});
       }
     }
   }
@@ -74,7 +74,7 @@ public class MainModel extends ModelBase {
   public void setNoteTagQuery(int noteID, String nameTag) {
     ContentValues cv = new ContentValues();
     cv.put("tag", setNameTagSize(nameTag));
-    db.update(DbHelper.COLUMN_NOTES, cv, "id = ?", new String[] {String.valueOf(noteID)});
+    getDb().update(DbHelper.COLUMN_NOTES, cv, "id = ?", new String[] {String.valueOf(noteID)});
   }
 
   public void arraySort() {
@@ -100,9 +100,10 @@ public class MainModel extends ModelBase {
   public void searchNotes(String tag) {
     String where = tag.length() >= 2 ? "WHERE tag = ? " : "";
     Cursor cursorNote =
-        db.rawQuery(
-            "SELECT * FROM " + DbHelper.COLUMN_NOTES + " " + where + ";",
-            tag.length() >= 2 ? new String[] {tag} : null);
+        getDb()
+            .rawQuery(
+                "SELECT * FROM " + DbHelper.COLUMN_NOTES + " " + where + ";",
+                tag.length() >= 2 ? new String[] {tag} : null);
     while (cursorNote.moveToNext()) {
       notesArray.add(
           new NoteItemModel(

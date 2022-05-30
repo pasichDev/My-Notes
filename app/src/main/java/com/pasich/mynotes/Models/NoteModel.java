@@ -36,28 +36,30 @@ public class NoteModel extends ModelBase {
   /** Метод который загружает курсор с данними заметки */
   public void queryNote() {
     cursorNote =
-        db.rawQuery(
-            "SELECT * FROM " + DbHelper.COLUMN_NOTES + " where id = ?",
-            new String[] {String.valueOf(idKey)});
+        getDb()
+            .rawQuery(
+                "SELECT * FROM " + DbHelper.COLUMN_NOTES + " where id = ?",
+                new String[] {String.valueOf(idKey)});
   }
 
   public void createNote() {
-    db.execSQL(
-        "INSERT INTO "
-            + DbHelper.COLUMN_NOTES
-            + "  (title, value, date, type, tag) VALUES ('"
-            + NoteView.titleName.getText()
-            + "','"
-            + NoteView.valueNote.getText()
-            + "','"
-            + ListNotesUtils.returnDateFile(Calendar.getInstance().getTime())
-            + "', 'Note', '"
-            + this.tagNote
-            + "');");
+    getDb()
+        .execSQL(
+            "INSERT INTO "
+                + DbHelper.COLUMN_NOTES
+                + "  (title, value, date, type, tag) VALUES ('"
+                + NoteView.titleName.getText()
+                + "','"
+                + NoteView.valueNote.getText()
+                + "','"
+                + ListNotesUtils.returnDateFile(Calendar.getInstance().getTime())
+                + "', 'Note', '"
+                + this.tagNote
+                + "');");
   }
 
   public void closeConnection() {
     if (cursorNote != null) cursorNote.close();
-    db.close();
+    getDb().close();
   }
 }

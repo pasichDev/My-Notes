@@ -60,6 +60,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   }
 
   /** Clear all marks */
+  @Deprecated
   private void checkedClean() {
     List<NoteItemModel> data = getDataAdapter();
     for (int i = 0; i < data.size(); i++) {
@@ -113,10 +114,12 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
     List<NoteItemModel> data = getDataAdapter();
     ArrayList<Integer> ArrayChecked = new ArrayList<>();
     for (int i = 0; i < data.size(); i++) {
-      if (data.get(i).getChecked()) ArrayChecked.add(data.get(i).getId());
+      if (data.get(i).getChecked()) ArrayChecked.add(i);
     }
+
     return ArrayChecked;
   }
+
 
   public void selectItemAction(int item) {
     NoteItemModel noteItem = getDataAdapter().get(item);
@@ -128,8 +131,12 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
       noteItem.setChecked(true);
     }
     manageActionPanel();
-    adapter.notifyDataSetChanged();
+    adapter.notifyItemChanged(item);
   }
+
+
+
+
 
   @Override
   public void onClick(View v) {
