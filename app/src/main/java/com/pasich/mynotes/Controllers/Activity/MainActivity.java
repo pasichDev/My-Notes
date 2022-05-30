@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -145,14 +143,6 @@ public class MainActivity extends AppCompatActivity
 
   private void initActionSearch() {
 
-    /* binding.actionSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-      @Override
-      public void onFocusChange(View v, boolean hasFocus) {
-        Log.wtf("pasic", "focus  " + hasFocus);
-
-      }
-    });*/
     binding.actionSearch.setOnQueryTextFocusChangeListener(
         (v, hasFocus) -> {
           Log.wtf("pasic", "focus  " + hasFocus);
@@ -230,10 +220,6 @@ public class MainActivity extends AppCompatActivity
    */
   @SuppressLint("NotifyDataSetChanged")
   public void restartListNotes(String tag) {
-    final LayoutAnimationController controller =
-        AnimationUtils.loadLayoutAnimation(this, R.anim.recycle_view_animation);
-    binding.listNotes.setLayoutAnimation(controller);
-    ListNotesAdapter.getData().clear();
     MainModel.getUpdateCursor(tag);
     ListNotesAdapter.notifyDataSetChanged();
     binding.listNotes.scheduleLayoutAnimation();
@@ -346,9 +332,16 @@ public class MainActivity extends AppCompatActivity
 
   public void deleteNotesArray() {
     for (int noteID : ActionUtils.getArrayChecked()) {
-      MainModel.notesMove(noteID, MainModel.DbHelper.COLUMN_TRASH, MainModel.DbHelper.COLUMN_NOTES);
+      Log.wtf("pasic", "positionNote: " + noteID);
+      MainModel.notesMove(
+          MainModel.notesArray.get(noteID).getId(),
+          MainModel.DbHelper.COLUMN_TRASH,
+          MainModel.DbHelper.COLUMN_NOTES);
     }
-    restartListNotes(getNameTagUtil());
+
+    MainModel.notesArray.remove(ActionUtils.getArrayChecked());
+    ListNotesAdapter.notifyDataSetChanged();
+    // restartListNotes(getNameTagUtil());
     ActionUtils.closeActionPanel();
   }
 
@@ -359,9 +352,11 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void deleteNote(int noteID, int position) {
-    ListNotesAdapter.getData().remove(position);
+    //   ListNotesAdapter.getData().remove(position);
+    MainModel.notesArray.remove(ListNotesAdapter.getItem(position));
     MainModel.notesMove(noteID, MainModel.DbHelper.COLUMN_TRASH, MainModel.DbHelper.COLUMN_NOTES);
     ListNotesAdapter.notifyItemRemoved(position);
+
     emptyListViewUtil();
   }
 

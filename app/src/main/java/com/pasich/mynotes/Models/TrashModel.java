@@ -23,7 +23,7 @@ public class TrashModel extends ModelBase {
   }
 
   private void searchNotes() {
-    Cursor testCursor = db.query(DbHelper.COLUMN_TRASH, null, null, null, null, null, null);
+    Cursor testCursor = getDb().query(DbHelper.COLUMN_TRASH, null, null, null, null, null, null);
     while (testCursor.moveToNext()) {
       notesArray.add(
           new NoteItemModel(
@@ -39,8 +39,9 @@ public class TrashModel extends ModelBase {
   }
 
   public void cleanTrash() {
-    db.execSQL("DROP TABLE " + DbHelper.COLUMN_TRASH);
-    DbHelper.createTableTrash(db);
+    getDb().execSQL("DROP TABLE " + DbHelper.COLUMN_TRASH);
+    DbHelper.createTableTrash(getDb());
+    notesArray.clear();
   }
 
   public void getUpdateCursor() {

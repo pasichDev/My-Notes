@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -12,21 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.databinding.ListNotesBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.ViewHolder> {
 
-  private final LayoutInflater inflater;
-  private List<NoteItemModel> listNotes;
   private final Context context;
+  private List<NoteItemModel> listNotes;
   private OnItemClickListener mOnItemClickListener;
 
   public ListNotesAdapter(Context context, List<NoteItemModel> listNotes) {
     this.listNotes = listNotes;
     this.context = context;
-    this.inflater = LayoutInflater.from(context);
   }
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -36,30 +34,32 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
   @NonNull
   @Override
   public ListNotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = inflater.inflate(R.layout.list_notes, parent, false);
-    return new ViewHolder(view);
+    ViewHolder view =
+        new ViewHolder(
+            ListNotesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+
+    /** Возможная ошибка без позиции && view.getAdapterPosition() != RecyclerView.NO_POSITION */
+    if (mOnItemClickListener != null) {
+      view.itemView.setOnClickListener(
+          v -> mOnItemClickListener.onClick(view.getAdapterPosition()));
+
+      view.itemView.setOnLongClickListener(
+          v -> {
+            mOnItemClickListener.onLongClick(view.getAdapterPosition());
+            return false;
+          });
+    }
+
+    return view;
   }
 
   @Override
   public void onBindViewHolder(@NonNull ListNotesAdapter.ViewHolder holder, int position) {
     NoteItemModel note = getItem(position);
-    setNameNote(note.getTitle(), holder);
-    setPreviewNote(note.getValue(), holder);
-    setTagNote(note.getTags(), holder);
-    if (note.getChecked())
-      holder.viewH.setBackground(
-          ContextCompat.getDrawable(context, R.drawable.item_note_background_selected));
-    else holder.viewH.setBackground(ContextCompat.getDrawable(context, R.drawable.item_selected));
-
-    if (mOnItemClickListener != null) {
-      holder.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(position));
-
-      holder.itemView.setOnLongClickListener(
-          v -> {
-            mOnItemClickListener.onLongClick(position);
-            return false;
-          });
-    }
+    setNameNote(note.getTitle(), holder.ItemBinding);
+    setPreviewNote(note.getValue(), holder.ItemBinding);
+    setTagNote(note.getTags(), holder.ItemBinding);
+    setCheckedItem(note.getChecked(), holder.ItemBinding);
   }
 
   // method for filtering our recyclerview items.
@@ -77,6 +77,16 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     return listNotes.size();
   }
 
+  private void setCheckedItem(boolean checked, ListNotesBinding ItemBinding) {
+    if (checked)
+      ItemBinding.getRoot()
+          .setBackground(
+              ContextCompat.getDrawable(context, R.drawable.item_note_background_selected));
+    else
+      ItemBinding.getRoot()
+          .setBackground(ContextCompat.getDrawable(context, R.drawable.item_selected));
+  }
+
   public List<NoteItemModel> getData() {
     return this.listNotes;
   }
@@ -85,27 +95,27 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     return listNotes != null ? listNotes.get(i) : null;
   }
 
-  private void setNameNote(String noteTitle, ListNotesAdapter.ViewHolder holder) {
+  private void setNameNote(String noteTitle, ListNotesBinding ItemBinding) {
     if (noteTitle.length() >= 2) {
-      holder.nameView.setVisibility(View.VISIBLE);
-      holder.nameView.setText(noteTitle);
+      ItemBinding.nameNote.setVisibility(View.VISIBLE);
+      ItemBinding.nameNote.setText(noteTitle);
     } else {
-      holder.nameView.setVisibility(View.GONE);
-      holder.nameView.setText("");
+      ItemBinding.nameNote.setVisibility(View.GONE);
+      ItemBinding.nameNote.setText("");
     }
   }
 
-  private void setPreviewNote(String previewNote, ListNotesAdapter.ViewHolder holder) {
-    holder.previewNote.setText(
+  private void setPreviewNote(String previewNote, ListNotesBinding ItemBinding) {
+    ItemBinding.previewNote.setText(
         previewNote.length() > 200 ? previewNote.substring(0, 200) : previewNote);
   }
 
-  private void setTagNote(String tagNote, ListNotesAdapter.ViewHolder holder) {
+  private void setTagNote(String tagNote, ListNotesBinding ItemBinding) {
     if (tagNote != null && tagNote.length() >= 2) {
-      holder.tagNote.setVisibility(View.VISIBLE);
-      holder.tagNote.setText("#" + tagNote);
+      ItemBinding.tagNote.setVisibility(View.VISIBLE);
+      ItemBinding.tagNote.setText(context.getString(R.string.tagNameListNote, tagNote));
     } else {
-      holder.tagNote.setVisibility(View.GONE);
+      ItemBinding.tagNote.setVisibility(View.GONE);
     }
   }
 
@@ -116,15 +126,11 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    final TextView nameView, previewNote, tagNote;
-    final View viewH;
+    ListNotesBinding ItemBinding;
 
-    ViewHolder(View view) {
-      super(view);
-      viewH = view;
-      nameView = view.findViewById(R.id.nameNote);
-      previewNote = view.findViewById(R.id.previewNote);
-      tagNote = view.findViewById(R.id.tagNote);
+    ViewHolder(ListNotesBinding binding) {
+      super(binding.getRoot());
+      ItemBinding = binding;
     }
   }
 }

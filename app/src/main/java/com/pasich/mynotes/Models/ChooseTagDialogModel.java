@@ -25,7 +25,7 @@ public class ChooseTagDialogModel extends ModelBase {
   public void queryTags(TabLayout tabLayout) {
     tabLayout.addTab(tabLayout.newTab().setText(context.getString(R.string.noTag)));
     int i = 0;
-    Cursor cursorTags = db.query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
+    Cursor cursorTags = getDb().query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
     while (cursorTags.moveToNext()) {
       i = i + 1;
       if (cursorTags.getString(0).equals(tagNote)) selectedPosition = i;
@@ -36,8 +36,15 @@ public class ChooseTagDialogModel extends ModelBase {
   @SuppressLint("Recycle")
   public String getTagNote() {
     Cursor cursorNote =
-        db.query(
-            DbHelper.COLUMN_NOTES, new String[] {"tag"}, "id =" + noteID, null, null, null, null);
+        getDb()
+            .query(
+                DbHelper.COLUMN_NOTES,
+                new String[] {"tag"},
+                "id =" + noteID,
+                null,
+                null,
+                null,
+                null);
     cursorNote.moveToNext();
     return cursorNote.getString(0);
   }
