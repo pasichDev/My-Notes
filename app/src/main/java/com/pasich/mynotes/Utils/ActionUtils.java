@@ -114,7 +114,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
     List<NoteItemModel> data = getDataAdapter();
     ArrayList<Integer> ArrayChecked = new ArrayList<>();
     for (int i = 0; i < data.size(); i++) {
-      if (data.get(i).getChecked()) ArrayChecked.add(i);
+      if (data.get(i).getChecked()) ArrayChecked.add(data.get(i).getPosition());
     }
 
     return ArrayChecked;

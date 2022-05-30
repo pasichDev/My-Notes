@@ -332,15 +332,19 @@ public class MainActivity extends AppCompatActivity
 
   public void deleteNotesArray() {
     for (int noteID : ActionUtils.getArrayChecked()) {
-      Log.wtf("pasic", "positionNote: " + noteID);
+      Log.wtf("pasic", MainModel.notesArray.get(noteID).getValue());
       MainModel.notesMove(
           MainModel.notesArray.get(noteID).getId(),
           MainModel.DbHelper.COLUMN_TRASH,
           MainModel.DbHelper.COLUMN_NOTES);
-    }
 
-    MainModel.notesArray.remove(ActionUtils.getArrayChecked());
-    ListNotesAdapter.notifyDataSetChanged();
+
+    }
+    //  ListNotesAdapter.getData().remove( ActionUtils.getArrayChecked());
+    ListNotesAdapter.notifyItemRemovedArray(ActionUtils.getArrayChecked());
+
+    // MainModel.notesArray.remove(ActionUtils.getArrayChecked());
+    //  ListNotesAdapter.notifyDataSetChanged();
     // restartListNotes(getNameTagUtil());
     ActionUtils.closeActionPanel();
   }
@@ -352,11 +356,9 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void deleteNote(int noteID, int position) {
-    //   ListNotesAdapter.getData().remove(position);
     MainModel.notesArray.remove(ListNotesAdapter.getItem(position));
     MainModel.notesMove(noteID, MainModel.DbHelper.COLUMN_TRASH, MainModel.DbHelper.COLUMN_NOTES);
     ListNotesAdapter.notifyItemRemoved(position);
-
     emptyListViewUtil();
   }
 

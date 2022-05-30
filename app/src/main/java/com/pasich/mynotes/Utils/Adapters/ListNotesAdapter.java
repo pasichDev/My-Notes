@@ -60,6 +60,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     setPreviewNote(note.getValue(), holder.ItemBinding);
     setTagNote(note.getTags(), holder.ItemBinding);
     setCheckedItem(note.getChecked(), holder.ItemBinding);
+    listNotes.get(position).setPosition(holder.getAdapterPosition());
   }
 
   // method for filtering our recyclerview items.
@@ -116,6 +117,13 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
       ItemBinding.tagNote.setText(context.getString(R.string.tagNameListNote, tagNote));
     } else {
       ItemBinding.tagNote.setVisibility(View.GONE);
+    }
+  }
+
+  public void notifyItemRemovedArray(ArrayList<Integer> arrayChecked) {
+    for (int position : arrayChecked) {
+      listNotes.remove(position);
+      notifyDataSetChanged();
     }
   }
 

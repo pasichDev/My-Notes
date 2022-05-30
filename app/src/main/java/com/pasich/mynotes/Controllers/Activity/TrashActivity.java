@@ -140,8 +140,11 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   public void restoreNotesArray() {
     for (int noteID : ActionUtils.getArrayChecked()) {
       TrashModel.notesMove(
-          noteID, TrashModel.DbHelper.COLUMN_NOTES, TrashModel.DbHelper.COLUMN_TRASH);
+          TrashModel.notesArray.get(noteID).getId(),
+          TrashModel.DbHelper.COLUMN_NOTES,
+          TrashModel.DbHelper.COLUMN_TRASH);
     }
+    ListNotesAdapter.notifyItemRemovedArray(ActionUtils.getArrayChecked());
     ActionUtils.closeActionPanel();
     //  restartListNotes();
   }
