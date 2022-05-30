@@ -331,6 +331,10 @@ public class MainActivity extends AppCompatActivity
   }
 
   public void deleteNotesArray() {
+    /**
+     * Вообщем весь абсурд єтой ситуации это то что все определенные заметки удаляються из базы
+     * данных но они не удаляються из адапатера а точнее удаляються но как попало
+     */
     for (int noteID : ActionUtils.getArrayChecked()) {
       Log.wtf("pasic", MainModel.notesArray.get(noteID).getValue());
       MainModel.notesMove(
