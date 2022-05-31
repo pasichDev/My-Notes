@@ -342,11 +342,8 @@ public class MainActivity extends AppCompatActivity
     for (long noteID : ActionUtils.getArrayChecked()) {
       Log.wtf("pasic", String.valueOf(Math.toIntExact(noteID)));
       testFunctionCleanList((int) noteID);
-      /*    MainModel.notesMove(
-          MainModel.notesArray.get((int) noteID).getId(),
-          MainModel.DbHelper.COLUMN_TRASH,
-          MainModel.DbHelper.COLUMN_NOTES);
-      ListNotesAdapter.notifyItemRemoved((int) noteID);*/
+      MainModel.notesMove(
+          (int) noteID, MainModel.DbHelper.COLUMN_TRASH, MainModel.DbHelper.COLUMN_NOTES);
     }
 
     ListNotesAdapter.notifyDataSetChanged();
@@ -359,7 +356,7 @@ public class MainActivity extends AppCompatActivity
   private void testFunctionCleanList(int noteID) {
     List<NoteItemModel> data = ListNotesAdapter.getData();
     for (int i = 0; i < data.size(); i++) {
-      if (data.get(i).getId() == noteID) ListNotesAdapter.getData().remove(i);
+      if (data.get(i).getId() == noteID) data.remove(i);
     }
   }
 

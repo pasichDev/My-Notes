@@ -15,7 +15,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
 
-  private ArrayList<Long> ArrayChecked = new ArrayList<>();
+  private final ArrayList<Long> ArrayChecked = new ArrayList<>();
 
   public ActionUtils(View view, ListNotesAdapter adapter, int objectActivity) {
     super(view, objectActivity);
@@ -98,8 +98,9 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   }
 
   /** Action panel control when adding checkmark */
-  public void isCheckedItem(int NoteID) {
-    getArrayChecked().add((long) NoteID);
+  public void isCheckedItem(int noteID) {
+    if (!getArrayChecked().contains(noteID)) getArrayChecked().add((long) noteID);
+    else getArrayChecked().remove((long) noteID);
     if (!(getAction())) setAction(true);
   }
 
