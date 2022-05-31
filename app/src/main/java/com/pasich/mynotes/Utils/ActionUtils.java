@@ -88,14 +88,18 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   }
 
   /** Action panel control when unchecked */
-  public void isCheckedItemFalse() {
+  public void isCheckedItemFalse(int NoteID) {
     if (getCountCheckedItem() == 0) {
+      getArrayChecked().clear();
       closeActionPanel();
+    } else {
+      getArrayChecked().remove((long) NoteID);
     }
   }
 
   /** Action panel control when adding checkmark */
-  public void isCheckedItem() {
+  public void isCheckedItem(int NoteID) {
+    getArrayChecked().add((long) NoteID);
     if (!(getAction())) setAction(true);
   }
 
@@ -104,41 +108,26 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
     checkedClean();
     deactivationActionPanel();
     setAction(false);
+    getArrayChecked().clear();
     adapter.notifyDataSetChanged();
   }
 
-  /**
-   * Method that returns all checked elements in an array
-   *
-   * @return - checked elements array
-   */
   public ArrayList<Long> getArrayChecked() {
-    List<NoteItemModel> data = getDataAdapter();
-    ArrayList<Long> ArrayChecked = new ArrayList<>();
-    for (int i = 0; i < data.size(); i++) {
-      if (data.get(i).getChecked()) ArrayChecked.add(adapter.getItemId(i));
-    }
-
-    return ArrayChecked;
+    return this.ArrayChecked;
   }
-
 
   public void selectItemAction(int item) {
     NoteItemModel noteItem = getDataAdapter().get(item);
     if (noteItem.getChecked()) {
       noteItem.setChecked(false);
-      isCheckedItemFalse();
+      isCheckedItemFalse(noteItem.getId());
     } else {
-      isCheckedItem();
+      isCheckedItem(noteItem.getId());
       noteItem.setChecked(true);
     }
     manageActionPanel();
     adapter.notifyItemChanged(item);
   }
-
-
-
-
 
   @Override
   public void onClick(View v) {

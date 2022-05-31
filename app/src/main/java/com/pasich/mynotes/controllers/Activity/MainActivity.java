@@ -38,6 +38,7 @@ import com.pasich.mynotes.models.MainModel;
 import com.pasich.mynotes.models.adapter.NoteItemModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
     implements ManageTag,
@@ -86,7 +87,6 @@ public class MainActivity extends AppCompatActivity
   /** Method that creates and populates a ListVIew */
   private void createListVew() {
     ListNotesAdapter = new ListNotesAdapter(MainModel.notesArray);
-    ListNotesAdapter.setHasStableIds(true);
     binding.listNotes.setAdapter(ListNotesAdapter);
 
     emptyListViewUtil();
@@ -129,9 +129,7 @@ public class MainActivity extends AppCompatActivity
             if (!ActionUtils.getAction()) openNote(ListNotesAdapter.getItem(position).getId());
             else ActionUtils.selectItemAction(position);
 
-            Log.wtf(
-                "pasich",
-                "test clisck ids" + ListNotesAdapter.getItemId(position) + "//" + position);
+
           }
 
           @Override
@@ -342,21 +340,27 @@ public class MainActivity extends AppCompatActivity
      * данных но они не удаляються из адапатера а точнее удаляються но как попало
      */
     for (long noteID : ActionUtils.getArrayChecked()) {
-      //  Log.wtf("pasic", MainModel.notesArray.get(noteID).getValue());
-      MainModel.notesMove(
+      Log.wtf("pasic", String.valueOf(Math.toIntExact(noteID)));
+      testFunctionCleanList((int) noteID);
+      /*    MainModel.notesMove(
           MainModel.notesArray.get((int) noteID).getId(),
           MainModel.DbHelper.COLUMN_TRASH,
           MainModel.DbHelper.COLUMN_NOTES);
-      ListNotesAdapter.notifyItemRemoved((int) noteID);
+      ListNotesAdapter.notifyItemRemoved((int) noteID);*/
     }
-    //  ListNotesAdapter.getData().remove( ActionUtils.getArrayChecked());
-    //   ListNotesAdapter.ids(ActionUtils.getArrayChecked());
+
     ListNotesAdapter.notifyDataSetChanged();
 
-    // MainModel.notesArray.remove(ActionUtils.getArrayChecked());
-    //  ListNotesAdapter.notifyDataSetChanged();
-    // restartListNotes(getNameTagUtil());
     ActionUtils.closeActionPanel();
+  }
+
+  @Deprecated
+  /** Это простой пример реалазаци удаления нескольких елементов из списка Нужно его использовать */
+  private void testFunctionCleanList(int noteID) {
+    List<NoteItemModel> data = ListNotesAdapter.getData();
+    for (int i = 0; i < data.size(); i++) {
+      if (data.get(i).getId() == noteID) ListNotesAdapter.getData().remove(i);
+    }
   }
 
   @Override

@@ -25,10 +25,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     this.mOnItemClickListener = onItemClickListener;
   }
 
-  @Override
-  public long getItemId(int position) {
-    return listNotes.get(position).getId();
-  }
+
 
   @Override
   public int getItemCount() {
