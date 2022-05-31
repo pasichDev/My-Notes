@@ -138,13 +138,13 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   /** Реализовать пропадение только тех заметок которые выбрпно но не рестарт адаптера */
   @Deprecated
   public void restoreNotesArray() {
-    for (int noteID : ActionUtils.getArrayChecked()) {
+    for (Long noteID : ActionUtils.getArrayChecked()) {
       TrashModel.notesMove(
-          TrashModel.notesArray.get(noteID).getId(),
+          TrashModel.notesArray.get(Math.toIntExact(noteID)).getId(),
           TrashModel.DbHelper.COLUMN_NOTES,
           TrashModel.DbHelper.COLUMN_TRASH);
     }
-    ListNotesAdapter.notifyItemRemovedArray(ActionUtils.getArrayChecked());
+    //   ListNotesAdapter.notifyItemRemovedArray(ActionUtils.getArrayChecked());
     ActionUtils.closeActionPanel();
     //  restartListNotes();
   }

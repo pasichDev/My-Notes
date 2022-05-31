@@ -31,6 +31,24 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     this.mOnItemClickListener = onItemClickListener;
   }
 
+  @Override
+  public long getItemId(int position) {
+    return listNotes.get(position).getId();
+  }
+
+  @Override
+  public int getItemCount() {
+    return (null != listNotes ? listNotes.size() : 0);
+  }
+
+  public List<NoteItemModel> getData() {
+    return this.listNotes;
+  }
+
+  public NoteItemModel getItem(int i) {
+    return listNotes != null ? listNotes.get(i) : null;
+  }
+
   @NonNull
   @Override
   public ListNotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,7 +78,6 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     setPreviewNote(note.getValue(), holder.ItemBinding);
     setTagNote(note.getTags(), holder.ItemBinding);
     setCheckedItem(note.getChecked(), holder.ItemBinding);
-    listNotes.get(position).setPosition(holder.getAdapterPosition());
   }
 
   // method for filtering our recyclerview items.
@@ -73,11 +90,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     notifyDataSetChanged();
   }
 
-  @Override
-  public int getItemCount() {
-    return listNotes.size();
-  }
-
+  @Deprecated
   private void setCheckedItem(boolean checked, ListNotesBinding ItemBinding) {
     if (checked)
       ItemBinding.getRoot()
@@ -88,14 +101,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
           .setBackground(ContextCompat.getDrawable(context, R.drawable.item_selected));
   }
 
-  public List<NoteItemModel> getData() {
-    return this.listNotes;
-  }
-
-  public NoteItemModel getItem(int i) {
-    return listNotes != null ? listNotes.get(i) : null;
-  }
-
+  @Deprecated
   private void setNameNote(String noteTitle, ListNotesBinding ItemBinding) {
     if (noteTitle.length() >= 2) {
       ItemBinding.nameNote.setVisibility(View.VISIBLE);
@@ -106,11 +112,13 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     }
   }
 
+  @Deprecated
   private void setPreviewNote(String previewNote, ListNotesBinding ItemBinding) {
     ItemBinding.previewNote.setText(
         previewNote.length() > 200 ? previewNote.substring(0, 200) : previewNote);
   }
 
+  @Deprecated
   private void setTagNote(String tagNote, ListNotesBinding ItemBinding) {
     if (tagNote != null && tagNote.length() >= 2) {
       ItemBinding.tagNote.setVisibility(View.VISIBLE);
@@ -120,12 +128,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     }
   }
 
-  public void notifyItemRemovedArray(ArrayList<Integer> arrayChecked) {
-    for (int position : arrayChecked) {
-      listNotes.remove(position);
-      notifyDataSetChanged();
-    }
-  }
+
 
   public interface OnItemClickListener {
     void onClick(int position);

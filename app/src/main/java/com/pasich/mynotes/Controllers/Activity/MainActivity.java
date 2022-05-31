@@ -86,7 +86,9 @@ public class MainActivity extends AppCompatActivity
   /** Method that creates and populates a ListVIew */
   private void createListVew() {
     ListNotesAdapter = new ListNotesAdapter(this, MainModel.notesArray);
+    ListNotesAdapter.setHasStableIds(true);
     binding.listNotes.setAdapter(ListNotesAdapter);
+
     emptyListViewUtil();
     initActionUtils();
   }
@@ -126,6 +128,10 @@ public class MainActivity extends AppCompatActivity
           public void onClick(int position) {
             if (!ActionUtils.getAction()) openNote(ListNotesAdapter.getItem(position).getId());
             else ActionUtils.selectItemAction(position);
+
+            Log.wtf(
+                "pasich",
+                "test clisck ids" + ListNotesAdapter.getItemId(position) + "//" + position);
           }
 
           @Override
@@ -335,17 +341,17 @@ public class MainActivity extends AppCompatActivity
      * Вообщем весь абсурд єтой ситуации это то что все определенные заметки удаляються из базы
      * данных но они не удаляються из адапатера а точнее удаляються но как попало
      */
-    for (int noteID : ActionUtils.getArrayChecked()) {
-      Log.wtf("pasic", MainModel.notesArray.get(noteID).getValue());
+    for (long noteID : ActionUtils.getArrayChecked()) {
+      //  Log.wtf("pasic", MainModel.notesArray.get(noteID).getValue());
       MainModel.notesMove(
-          MainModel.notesArray.get(noteID).getId(),
+          MainModel.notesArray.get((int) noteID).getId(),
           MainModel.DbHelper.COLUMN_TRASH,
           MainModel.DbHelper.COLUMN_NOTES);
-
-
+      ListNotesAdapter.notifyItemRemoved((int) noteID);
     }
     //  ListNotesAdapter.getData().remove( ActionUtils.getArrayChecked());
-    ListNotesAdapter.notifyItemRemovedArray(ActionUtils.getArrayChecked());
+    //   ListNotesAdapter.ids(ActionUtils.getArrayChecked());
+    ListNotesAdapter.notifyDataSetChanged();
 
     // MainModel.notesArray.remove(ActionUtils.getArrayChecked());
     //  ListNotesAdapter.notifyDataSetChanged();

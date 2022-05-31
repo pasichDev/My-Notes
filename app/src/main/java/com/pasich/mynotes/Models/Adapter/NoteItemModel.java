@@ -19,7 +19,6 @@ public class NoteItemModel {
   private final String type;
   private String tags;
   private boolean Checked;
-  private int position;
 
   public NoteItemModel(int id, String title, String value, String date, String type, String tags) {
     this.id = id;
@@ -61,14 +60,6 @@ public class NoteItemModel {
 
   public String setTag(String tag) {
     return this.tags = tag;
-  }
-
-  public void setPosition(int position) {
-    this.position = position;
-  }
-
-  public int getPosition() {
-    return this.position = position;
   }
 
   public String getType() {
