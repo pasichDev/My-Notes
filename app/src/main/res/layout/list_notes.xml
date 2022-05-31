@@ -6,6 +6,7 @@
 
         <import type="android.view.View" />
 
+
         <variable
             name="noteItem"
             type="com.pasich.mynotes.models.adapter.NoteItemModel" />
@@ -14,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_selected">
+        android:background="@{noteItem.checked ? @drawable/item_note_background_selected :  @drawable/item_selected}">
 
 
         <TextView
