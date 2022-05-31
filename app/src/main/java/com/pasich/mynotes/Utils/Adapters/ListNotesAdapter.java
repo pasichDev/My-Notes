@@ -1,30 +1,24 @@
 package com.pasich.mynotes.Utils.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.Models.Adapter.NoteItemModel;
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ListNotesBinding;
+import com.pasich.mynotes.models.adapter.NoteItemModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.ViewHolder> {
 
-  private final Context context;
   private List<NoteItemModel> listNotes;
   private OnItemClickListener mOnItemClickListener;
 
-  public ListNotesAdapter(Context context, List<NoteItemModel> listNotes) {
+  public ListNotesAdapter(List<NoteItemModel> listNotes) {
     this.listNotes = listNotes;
-    this.context = context;
   }
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -73,11 +67,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
 
   @Override
   public void onBindViewHolder(@NonNull ListNotesAdapter.ViewHolder holder, int position) {
-    NoteItemModel note = getItem(position);
-    setNameNote(note.getTitle(), holder.ItemBinding);
-    setPreviewNote(note.getValue(), holder.ItemBinding);
-    setTagNote(note.getTags(), holder.ItemBinding);
-    setCheckedItem(note.getChecked(), holder.ItemBinding);
+    holder.ItemBinding.setNoteItem(getItem(position));
   }
 
   // method for filtering our recyclerview items.
@@ -89,46 +79,6 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     // as change in recycler view data.
     notifyDataSetChanged();
   }
-
-  @Deprecated
-  private void setCheckedItem(boolean checked, ListNotesBinding ItemBinding) {
-    if (checked)
-      ItemBinding.getRoot()
-          .setBackground(
-              ContextCompat.getDrawable(context, R.drawable.item_note_background_selected));
-    else
-      ItemBinding.getRoot()
-          .setBackground(ContextCompat.getDrawable(context, R.drawable.item_selected));
-  }
-
-  @Deprecated
-  private void setNameNote(String noteTitle, ListNotesBinding ItemBinding) {
-    if (noteTitle.length() >= 2) {
-      ItemBinding.nameNote.setVisibility(View.VISIBLE);
-      ItemBinding.nameNote.setText(noteTitle);
-    } else {
-      ItemBinding.nameNote.setVisibility(View.GONE);
-      ItemBinding.nameNote.setText("");
-    }
-  }
-
-  @Deprecated
-  private void setPreviewNote(String previewNote, ListNotesBinding ItemBinding) {
-    ItemBinding.previewNote.setText(
-        previewNote.length() > 200 ? previewNote.substring(0, 200) : previewNote);
-  }
-
-  @Deprecated
-  private void setTagNote(String tagNote, ListNotesBinding ItemBinding) {
-    if (tagNote != null && tagNote.length() >= 2) {
-      ItemBinding.tagNote.setVisibility(View.VISIBLE);
-      ItemBinding.tagNote.setText(context.getString(R.string.tagNameListNote, tagNote));
-    } else {
-      ItemBinding.tagNote.setVisibility(View.GONE);
-    }
-  }
-
-
 
   public interface OnItemClickListener {
     void onClick(int position);

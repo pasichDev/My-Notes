@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pasich.mynotes.Models.Adapter.MoreChoiceModel;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.models.adapter.MoreChoiceModel;
 
 import java.util.ArrayList;
 

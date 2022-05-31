@@ -2,9 +2,9 @@ package com.pasich.mynotes.Utils;
 
 import android.view.View;
 
-import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.View.CustomView.ActionPanelDialogUI;
+import com.pasich.mynotes.models.adapter.NoteItemModel;
 
 import java.util.ArrayList;
 import java.util.List;
