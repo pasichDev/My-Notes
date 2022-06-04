@@ -6,4 +6,5 @@ public interface ManageTag {
   void addTagForNote(String tagName, int noteId, int position);
 
   void deleteTag(boolean deleteNotes, int position);
+
 }

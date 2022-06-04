@@ -140,7 +140,7 @@
     <string name="nameTagInput" translatable="false">Введите название метки</string>
     <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше чем из 20-ти символов</string>
 
-    <string name="splashEnablePrefTitle" translatable="false">Показывать заставку прри загрузке приложения</string>
+    <string name="splashEnablePrefTitle" translatable="false">Показывать заставку при загрузке приложения</string>
     <string name="splashEnablePrefSummary" translatable="false">Включить показ екрана загрузки при запуске приложения</string>
 
     <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>
@@ -171,9 +171,12 @@
     <string name="sort_Title_Decrease" translatable="false">Название: по убыванию</string>
 
     <string name="sortHead" translatable="false">Сортировка</string>
+    <string name="visibilityNotesToTag" translatable="false">Не показывать со всеми заметками</string>
+
 
     <string name="layoutStringInfo" translatable="false">%1$s | %2$s символов</string>
-
     <string name="layoutStringInfoTags" translatable="false">Отмечено %1$s заметок</string>
     <string name="tagNameListNote" translatable="false"># %1$s</string>
+
+
 </resources>

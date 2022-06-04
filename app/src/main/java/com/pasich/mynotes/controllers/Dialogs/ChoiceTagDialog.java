@@ -11,6 +11,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.View.DialogView.ChoiceTagDialogView;
+import com.pasich.mynotes.models.ChoiceTagDialogModel;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
@@ -29,9 +30,11 @@ public class ChoiceTagDialog extends DialogFragment {
     final ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     final ChoiceTagDialogView view = new ChoiceTagDialogView(requireContext(), getLayoutInflater());
     final ManageTag ManageTag = (ManageTag) getContext();
+    final ChoiceTagDialogModel model = new ChoiceTagDialogModel(getContext(), keysNoteInfo[1]);
 
     view.setHeadTextView(keysNoteInfo[1]);
     view.initializeInfoLayout(keysNoteInfo[2]);
+    view.getSwitchVisibilityNotes().setChecked(model.getSwitchVisibilityValue() == 1);
 
     arrayChoice.add(
         new ChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "deleteTag", false));
@@ -39,6 +42,10 @@ public class ChoiceTagDialog extends DialogFragment {
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
     view.listView.setAdapter(adapter);
+
+    view.getSwitchVisibilityNotes()
+        .setOnCheckedChangeListener(
+            (buttonView, isChecked) -> model.updateVisibilityTag(isChecked));
 
     view.listView.setOnItemClickListener(
         (parent, v, position, id) -> {
