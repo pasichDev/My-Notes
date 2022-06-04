@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -317,6 +315,7 @@ public class MainActivity extends AppCompatActivity
     MainModel.deleteTag(MainModel.tagsArray.get(position).getNameTag(), deleteNotes);
     MainModel.tagsArray.remove(position);
     TagListAdapter.notifyItemRemoved(position);
+    chooseAllTag();
   }
 
 
@@ -406,5 +405,10 @@ public class MainActivity extends AppCompatActivity
       if (result.getData().getBooleanExtra("RestartListView", false))
         restartListNotes(result.getData().getStringExtra("tagNote"));
     }
+  }
+
+  private void chooseAllTag() {
+    TagListAdapter.chooseTag(1);
+    restartListNotes("");
   }
 }

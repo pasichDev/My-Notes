@@ -39,7 +39,7 @@ public class DeleteTagDialog extends DialogFragment {
       arrayChoice.add(
           new ChoiceModel(
               getString(R.string.deleteTagAndNotes),
-              R.drawable.ic_delete_notes_tag,
+              R.drawable.ic_delete,
               "DeleteAndNotes",
               false));
     arrayChoice.add(
