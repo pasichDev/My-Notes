@@ -23,29 +23,41 @@ public class MainModel extends ModelBase {
   private final Context context;
 
   /** List of tag names */
-  public ArrayList<TagsModel> tagsArray = new ArrayList<>();
+  public ArrayList<TagsModel> tagsArray;
   /** Note Data List */
   public ArrayList<NoteModel> notesArray = new ArrayList<>();
+
+  private final ArrayList<String> tagsIgnore = new ArrayList<>();
 
   public MainModel(Context context) {
     super(context);
     this.context = context;
+    this.tagsArray = queryTags();
     initialization();
   }
 
   private void initialization() {
-    queryTags();
+    queryTagsIgnore();
     searchNotes("");
     arraySort();
   }
 
   /** Method that implements filling the list with the names of existing tags */
   @SuppressLint("Recycle")
-  public void queryTags() {
+  public ArrayList<TagsModel> queryTags() {
+    tagsArray = new ArrayList<>();
     Cursor cursorTag = getDb().query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
     tagsArray.add(new TagsModel("", 1, false));
     tagsArray.add(new TagsModel(context.getString(R.string.allNotes), 2, true));
     while (cursorTag.moveToNext()) tagsArray.add(new TagsModel(cursorTag.getString(0), 0, false));
+    return tagsArray;
+  }
+
+  @SuppressLint("Recycle")
+  public void queryTagsIgnore() {
+    Cursor cursorTag = getDb().query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
+    while (cursorTag.moveToNext())
+      if (cursorTag.getInt(1) == 1) tagsIgnore.add(cursorTag.getString(0));
   }
 
   public boolean createTag(String nameTag) {
@@ -108,6 +120,8 @@ public class MainModel extends ModelBase {
   }
 
   public void searchNotes(String tag) {
+    tagsIgnore.clear();
+    queryTagsIgnore();
     String where = tag.length() >= 2 ? "WHERE tag = ? " : "";
     Cursor cursorNote =
         getDb()
@@ -115,14 +129,15 @@ public class MainModel extends ModelBase {
                 "SELECT * FROM " + DbHelper.COLUMN_NOTES + " " + where + ";",
                 tag.length() >= 2 ? new String[] {tag} : null);
     while (cursorNote.moveToNext()) {
-      notesArray.add(
-          new NoteModel(
-              cursorNote.getInt(0),
-              cursorNote.getString(1),
-              cursorNote.getString(2),
-              cursorNote.getString(3),
-              cursorNote.getString(4),
-              cursorNote.getString(5)));
+      if (!tagsIgnore.contains(cursorNote.getString(5)) || cursorNote.getString(5).equals(tag))
+        notesArray.add(
+            new NoteModel(
+                cursorNote.getInt(0),
+                cursorNote.getString(1),
+                cursorNote.getString(2),
+                cursorNote.getString(3),
+                cursorNote.getString(4),
+                cursorNote.getString(5)));
     }
     cursorNote.close();
   }

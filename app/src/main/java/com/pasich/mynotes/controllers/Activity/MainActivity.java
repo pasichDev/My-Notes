@@ -56,13 +56,10 @@ public class MainActivity extends AppCompatActivity
   private FormatSwitchUtils formatSwitch;
   private ActivityMainBinding binding;
 
-
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
       registerForActivityResult(
           new ActivityResultContracts.StartActivityForResult(), this::onActivityResult);
-
-
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +79,6 @@ public class MainActivity extends AppCompatActivity
     initListener();
     initActionSearch();
   }
-
-
-
-
-
-
 
   /** The method that sets up the toolbar */
   private void setToolbar() {
@@ -154,8 +145,6 @@ public class MainActivity extends AppCompatActivity
           public void onClick(int position) {
             if (!ActionUtils.getAction()) openNote(ListNotesAdapter.getItem(position).getId());
             else ActionUtils.selectItemAction(position);
-
-
           }
 
           @Override
@@ -188,7 +177,11 @@ public class MainActivity extends AppCompatActivity
       startActivity.launch(
           new Intent(this, NoteActivity.class)
               .putExtra("NewNote", true)
-              .putExtra("tagNote", getNameTagUtil()));
+              .putExtra(
+                  "tagNote",
+                  TagListAdapter.getCheckedPosition() == 1
+                      ? ""
+                      : MainModel.tagsArray.get(TagListAdapter.getCheckedPosition()).getNameTag()));
     }
 
     if (v.getId() == ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).getId()) {
@@ -235,10 +228,7 @@ public class MainActivity extends AppCompatActivity
     if (TagListAdapter.getItemCount() <= 10) {
       new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
     } else Toast.makeText(this, getString(R.string.countTagsError), Toast.LENGTH_LONG).show();
-
-
   }
-
 
   /**
    * Method that implements adapter updates with new data
@@ -318,8 +308,6 @@ public class MainActivity extends AppCompatActivity
     chooseAllTag();
   }
 
-
-
   @Override
   public void onDestroy() {
     super.onDestroy();
@@ -332,11 +320,6 @@ public class MainActivity extends AppCompatActivity
             .putExtra("NewNote", false)
             .putExtra("idNote", id)
             .putExtra("tagNote", ""));
-  }
-
-  private String getNameTagUtil() {
-
-    return "";
   }
 
   public void deleteNotesArray() {

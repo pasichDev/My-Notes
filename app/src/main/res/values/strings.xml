@@ -171,7 +171,7 @@
     <string name="sort_Title_Decrease" translatable="false">Название: по убыванию</string>
 
     <string name="sortHead" translatable="false">Сортировка</string>
-    <string name="visibilityNotesToTag" translatable="false">Не показывать со всеми заметками</string>
+    <string name="visibilityNotesToTag" translatable="false">Скрыть метку</string>
 
 
     <string name="layoutStringInfo" translatable="false">%1$s | %2$s символов</string>
