@@ -13,11 +13,11 @@ import java.util.List;
 
 public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHolder> {
 
-  private final List<TagsModel> listNotes;
+  private final List<TagsModel> listTags;
   private OnItemClickListener mOnItemClickListener;
 
-  public TagListAdapter(List<TagsModel> listNotes) {
-    this.listNotes = listNotes;
+  public TagListAdapter(List<TagsModel> listTags) {
+    this.listTags = listTags;
   }
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -26,11 +26,31 @@ public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHold
 
   @Override
   public int getItemCount() {
-    return (null != listNotes ? listNotes.size() : 0);
+    return (null != listTags ? listTags.size() : 0);
   }
 
-  public TagsModel getItem(int i) {
-    return listNotes != null ? listNotes.get(i) : null;
+  /**
+   * Метод который возвращет позицию отмеченого тэга
+   *
+   * @return - позция тэга
+   */
+  public int getCheckedPosition() {
+    int retCount = 0;
+    for (int i = 0; i < listTags.size(); i++) {
+      if (listTags.get(i).getSelected()) {
+        retCount = i;
+        break;
+      }
+    }
+    return retCount;
+  }
+
+  public void chooseTag(int position) {
+    int positionSelected = getCheckedPosition();
+    listTags.get(positionSelected).setSelected(false);
+    notifyItemChanged(positionSelected);
+    listTags.get(position).setSelected(true);
+    notifyItemChanged(position);
   }
 
   @NonNull
@@ -56,7 +76,7 @@ public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHold
 
   @Override
   public void onBindViewHolder(@NonNull TagListAdapter.ViewHolder holder, int position) {
-    holder.ItemBinding.setTagsModel(listNotes.get(position));
+    holder.ItemBinding.setTagsModel(listTags.get(position));
   }
 
   public interface OnItemClickListener {

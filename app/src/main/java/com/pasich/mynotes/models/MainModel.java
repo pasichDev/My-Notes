@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 
 import androidx.preference.PreferenceManager;
 
@@ -22,7 +23,7 @@ public class MainModel extends ModelBase {
   private final Context context;
 
   /** List of tag names */
-  public ArrayList<TagsModel> tags = new ArrayList<>();
+  public ArrayList<TagsModel> tagsArray = new ArrayList<>();
   /** Note Data List */
   public ArrayList<NoteModel> notesArray = new ArrayList<>();
 
@@ -42,29 +43,28 @@ public class MainModel extends ModelBase {
   @SuppressLint("Recycle")
   public void queryTags() {
     Cursor cursorTag = getDb().query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
-    tags.add(new TagsModel("", 1, false));
-    tags.add(new TagsModel(context.getString(R.string.allNotes), 2, true));
-    while (cursorTag.moveToNext()) tags.add(new TagsModel(cursorTag.getString(0), 0, false));
+    tagsArray.add(new TagsModel("", 1, false));
+    tagsArray.add(new TagsModel(context.getString(R.string.allNotes), 2, true));
+    while (cursorTag.moveToNext()) tagsArray.add(new TagsModel(cursorTag.getString(0), 0, false));
   }
 
   public boolean createTag(String nameTag) {
     boolean tagCreate = false;
-    if (nameTag.trim().length() >= MIN_NAME_TAG && !tags.contains(nameTag)) {
+    if (nameTag.trim().length() >= MIN_NAME_TAG && !tagsArray.contains(nameTag)) {
       ContentValues cv = new ContentValues();
       cv.put("name", nameTag);
       getDb().insert(DbHelper.COLUMN_TAGS, null, cv);
       tagCreate = true;
+      tagsArray.add(new TagsModel(nameTag, 0, false));
     }
-    tags.add(new TagsModel(nameTag, 0, false));
     return tagCreate;
   }
 
   @SuppressLint("Recycle")
   public int getCountNotesTag(String nameTag) {
-    return getDb()
-        .rawQuery(
-            "SELECT * FROM " + DbHelper.COLUMN_NOTES + " WHERE 'tag' = ?;", new String[] {nameTag})
-        .getCount();
+    return (int)
+        DatabaseUtils.queryNumEntries(
+            getDb(), DbHelper.COLUMN_NOTES, "tag = ?", new String[] {String.valueOf(nameTag)});
   }
 
   private String setNameTagSize(String nameTag) {
@@ -72,14 +72,13 @@ public class MainModel extends ModelBase {
   }
 
   public void deleteTag(String nameTag, boolean deleteNotes) {
-      getDb().delete(DbHelper.COLUMN_TAGS, "name = ?", new String[] {nameTag});
-      if (deleteNotes) getDb().delete(DbHelper.COLUMN_NOTES, "tag = ?", new String[] {nameTag});
-      else {
-        ContentValues cv = new ContentValues();
-        cv.put("tag", "");
-        getDb().update(DbHelper.COLUMN_NOTES, cv, "tag = ?", new String[] {nameTag});
-      }
-
+    getDb().delete(DbHelper.COLUMN_TAGS, "name = ?", new String[] {nameTag});
+    if (deleteNotes) getDb().delete(DbHelper.COLUMN_NOTES, "tag = ?", new String[] {nameTag});
+    else {
+      ContentValues cv = new ContentValues();
+      cv.put("tag", "");
+      getDb().update(DbHelper.COLUMN_NOTES, cv, "tag = ?", new String[] {nameTag});
+    }
   }
 
   public void setNoteTagQuery(int noteID, String nameTag) {
@@ -127,9 +126,6 @@ public class MainModel extends ModelBase {
     }
     cursorNote.close();
   }
-
-
-
 
   public void getUpdateCursor(String tag) {
     notesArray.clear();

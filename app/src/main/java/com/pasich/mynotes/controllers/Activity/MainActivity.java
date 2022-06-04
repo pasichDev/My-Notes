@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity
 
     initListener();
     initActionSearch();
-
   }
 
 
@@ -103,58 +102,47 @@ public class MainActivity extends AppCompatActivity
     ListNotesAdapter = new ListNotesAdapter(MainModel.notesArray);
     binding.listNotes.setAdapter(ListNotesAdapter);
 
-    emptyListViewUtil();
+    binding.setEmptyNotes(ListNotesAdapter.getData().isEmpty());
     initActionUtils();
   }
 
   private void createListTags() {
-    TagListAdapter = new TagListAdapter(MainModel.tags);
+    TagListAdapter = new TagListAdapter(MainModel.tagsArray);
     binding.listTags.setAdapter(TagListAdapter);
   }
 
   /** Method to manage listeners */
-  @Deprecated
   private void initListener() {
     MainView.sortButton.setOnClickListener(this);
     MainView.formatButton.setOnClickListener(this);
     binding.newNotesButton.setOnClickListener(this);
     binding.moreActivity.setOnClickListener(this);
 
-    /* binding.Tags.addOnTabSelectedListener(
-    new TabLayoutListenerUtils() {
-      @Override
-      public void listener(TabLayout.Tab Tab) {
-        if (Tab.getPosition() == 0) {
-          createTagItem(unselectedPosition);
-        } else if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
-          restartListNotes(requireNonNull(Tab.getText()).toString());
-        } else if (Tab.getPosition() == 1 && unselectedPosition != 0) {
-          restartListNotes("");
-        }
-      }
-    });*/
-
     TagListAdapter.setOnItemClickListener(
         new TagListAdapter.OnItemClickListener() {
 
           @Override
           public void onClick(int position) {
-            int SystemAction = MainModel.tags.get(position).getSystemAction();
+            int SystemAction = MainModel.tagsArray.get(position).getSystemAction();
             if (SystemAction == 1) {
               createTagItem();
             } else {
-
+              TagListAdapter.chooseTag(position);
+              restartListNotes(
+                  TagListAdapter.getCheckedPosition() == 1
+                      ? ""
+                      : MainModel.tagsArray.get(TagListAdapter.getCheckedPosition()).getNameTag());
             }
           }
 
           @Override
           public void onLongClick(int position) {
-            if (MainModel.tags.get(position).getSystemAction() == 0) {
+            if (MainModel.tagsArray.get(position).getSystemAction() == 0) {
               String[] keysNote = {
                 String.valueOf(position),
-                String.valueOf(TagListAdapter.getItem(position).getNameTag()),
+                String.valueOf(MainModel.tagsArray.get(position).getNameTag()),
                 String.valueOf(
-                    MainModel.getCountNotesTag(MainModel.tags.get(position).getNameTag()))
+                    MainModel.getCountNotesTag(MainModel.tagsArray.get(position).getNameTag()))
               };
               new ChoiceTagDialog(keysNote).show(getSupportFragmentManager(), "ChoiceDialog");
             }
@@ -183,6 +171,31 @@ public class MainActivity extends AppCompatActivity
             new ChoiceNoteDialog(keysNote).show(getSupportFragmentManager(), "ChoiceDialog");
           }
         });
+  }
+
+  @Override
+  public void onClick(View v) {
+    if (v.getId() == R.id.moreActivity) {
+      new ChooseMoreActivityDialog().show(getSupportFragmentManager(), "more activity");
+    }
+
+    if (v.getId() == R.id.sortButton) {
+      new ChooseSortDialog().show(getSupportFragmentManager(), "Sort Dialog");
+    }
+    if (v.getId() == R.id.formatButton) {
+      formatSwitch.formatNote();
+      MainView.setNotesListCountColumns();
+    }
+    if (v.getId() == R.id.newNotesButton) {
+      startActivity.launch(
+          new Intent(this, NoteActivity.class)
+              .putExtra("NewNote", true)
+              .putExtra("tagNote", getNameTagUtil()));
+    }
+
+    if (v.getId() == ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).getId()) {
+      deleteNotesArray();
+    }
   }
 
   @Deprecated
@@ -228,30 +241,6 @@ public class MainActivity extends AppCompatActivity
 
   }
 
-  @Override
-  public void onClick(View v) {
-    if (v.getId() == R.id.moreActivity) {
-      new ChooseMoreActivityDialog().show(getSupportFragmentManager(), "more activity");
-    }
-
-    if (v.getId() == R.id.sortButton) {
-      new ChooseSortDialog().show(getSupportFragmentManager(), "Sort Dialog");
-    }
-    if (v.getId() == R.id.formatButton) {
-      formatSwitch.formatNote();
-      MainView.setNotesListCountColumns();
-    }
-    if (v.getId() == R.id.newNotesButton) {
-      startActivity.launch(
-          new Intent(this, NoteActivity.class)
-              .putExtra("NewNote", true)
-              .putExtra("tagNote", getNameTagUtil()));
-    }
-
-    if (v.getId() == ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).getId()) {
-      deleteNotesArray();
-    }
-  }
 
   /**
    * Method that implements adapter updates with new data
@@ -263,7 +252,7 @@ public class MainActivity extends AppCompatActivity
     MainModel.getUpdateCursor(tag);
     ListNotesAdapter.notifyDataSetChanged();
     binding.listNotes.scheduleLayoutAnimation();
-    emptyListViewUtil();
+    binding.setEmptyNotes(ListNotesAdapter.getData().isEmpty());
   }
 
   private void initActionUtils() {
@@ -316,7 +305,7 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void addTagForNote(String tagName, int noteId, int position) {
-    if (noteId != 0 && tagName.length() >= 2) {
+    if (noteId != 0) {
       MainModel.setNoteTagQuery(noteId, tagName);
       ListNotesAdapter.getItem(position).setTag(tagName);
       ListNotesAdapter.notifyItemChanged(position);
@@ -325,8 +314,8 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void deleteTag(boolean deleteNotes, int position) {
-    MainModel.deleteTag(MainModel.tags.get(position).getNameTag(), deleteNotes);
-    MainModel.tags.remove(position);
+    MainModel.deleteTag(MainModel.tagsArray.get(position).getNameTag(), deleteNotes);
+    MainModel.tagsArray.remove(position);
     TagListAdapter.notifyItemRemoved(position);
   }
 
@@ -334,7 +323,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onDestroy() {
     super.onDestroy();
-    MainModel.closeDB();
+    // MainModel.closeDB();
   }
 
   private void openNote(int id) {
@@ -346,21 +335,8 @@ public class MainActivity extends AppCompatActivity
   }
 
   private String getNameTagUtil() {
-    /* int position = binding.Tags.getSelectedTabPosition();
-    return position > 1
-        ? requireNonNull(requireNonNull(binding.Tags.getTabAt(position)).getText()).toString()
-        : "";*/
-    return "";
-  }
 
-  private void emptyListViewUtil() {
-    if (ListNotesAdapter.getItemCount() == 0) {
-      binding.listNotes.setVisibility(View.GONE);
-      findViewById(R.id.emptyListVIew).setVisibility(View.VISIBLE);
-    } else {
-      binding.listNotes.setVisibility(View.VISIBLE);
-      findViewById(R.id.emptyListVIew).setVisibility(View.GONE);
-    }
+    return "";
   }
 
   public void deleteNotesArray() {
@@ -399,7 +375,7 @@ public class MainActivity extends AppCompatActivity
     MainModel.notesArray.remove(ListNotesAdapter.getItem(position));
     MainModel.notesMove(noteID, MainModel.DbHelper.COLUMN_TRASH, MainModel.DbHelper.COLUMN_NOTES);
     ListNotesAdapter.notifyItemRemoved(position);
-    emptyListViewUtil();
+    binding.setEmptyNotes(ListNotesAdapter.getData().isEmpty());
   }
 
   @Override

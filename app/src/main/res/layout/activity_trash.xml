@@ -7,11 +7,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="visibleNotes"
-            type="boolean" />
-
-        <variable
-            name="visibleEmptyTrashView"
+            name="emptyNotesTrash"
             type="boolean" />
     </data>
 
@@ -28,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:contentDescription="@string/trashClean"
-            android:visibility="@{visibleNotes ? View.VISIBLE : View.GONE}"
+            android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
             app:srcCompat="@drawable/ic_trash_menu"
@@ -62,7 +58,7 @@
             android:layout_marginEnd="@dimen/listViewMargin"
             android:layout_marginBottom="@dimen/listViewMargin"
             android:layoutAnimation="@anim/recycle_view_animation"
-            android:visibility="@{visibleNotes ? View.VISIBLE : View.GONE}"
+            android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +73,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="15dp"
-            android:visibility="@{visibleEmptyTrashView ? View.VISIBLE : View.GONE}"
+            android:visibility="@{emptyNotesTrash ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

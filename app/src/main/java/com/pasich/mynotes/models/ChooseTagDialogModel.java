@@ -46,6 +46,6 @@ public class ChooseTagDialogModel extends ModelBase {
                 null,
                 null);
     cursorNote.moveToNext();
-    return cursorNote.getString(0);
+    return cursorNote.getString(0) == null ? "" : cursorNote.getString(0);
   }
 }

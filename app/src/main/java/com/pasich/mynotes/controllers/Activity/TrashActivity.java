@@ -75,7 +75,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
           @Override
           public void onLongClick(int position) {}
         });
-    emptyListViewUtil();
+    binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
     initActionUtils();
   }
 
@@ -104,22 +104,14 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
     return true;
   }
 
-  private void emptyListViewUtil() {
-    if (ListNotesAdapter.getItemCount() == 0) {
-      binding.setVisibleNotes(false);
-      binding.setVisibleEmptyTrashView(true);
-    } else {
-      binding.setVisibleNotes(true);
-      binding.setVisibleEmptyTrashView(false);
-    }
-  }
+
 
   @SuppressLint("NotifyDataSetChanged")
   @Override
   public void cleanTrash() {
     TrashModel.cleanTrash();
     ListNotesAdapter.notifyDataSetChanged();
-    emptyListViewUtil();
+    binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
   }
 
 
@@ -155,7 +147,8 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
     TrashModel.getUpdateCursor();
     ListNotesAdapter.notifyDataSetChanged();
     binding.ListTrash.scheduleLayoutAnimation();
-    emptyListViewUtil();
+
+    binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
   }
 
   /** The method that implements the response to the activity with which the arrival was */

@@ -36,7 +36,6 @@ public class ChooseTagDialog extends DialogFragment {
     final ChooseTagDialogView view = new ChooseTagDialogView(requireContext(), getLayoutInflater());
     ManageTag = (ManageTag) getContext();
 
-    /** Тут непонятный косяк если нет заметки вылетает */
     view.setHeadTextView(
         model.tagNote.length() == 0
             ? getString(R.string.selectTagForNote)

@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="2dp"
+        android:padding="1dp"
         android:background="@{TagsModel.selected ? @drawable/tab_background_selected : @drawable/tab_background_unselected}">
 
         <ImageView
