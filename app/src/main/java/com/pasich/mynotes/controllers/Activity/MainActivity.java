@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity
 
   private void createListTags() {
     TagListAdapter = new TagListAdapter(MainModel.tagsArray);
+
     binding.listTags.setAdapter(TagListAdapter);
   }
 
@@ -245,6 +246,7 @@ public class MainActivity extends AppCompatActivity
     ActionUtils = new ActionUtils(binding.getRoot(), ListNotesAdapter, R.id.activity_main);
     ActionUtils.addButtonToActionPanel(R.drawable.ic_delete, R.id.deleteNotesArray);
     ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).setOnClickListener(this);
+
   }
 
   @Override

@@ -1,5 +1,6 @@
 package com.pasich.mynotes.Utils.Adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -56,10 +57,9 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
   @Override
   public ListNotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ViewHolder view =
-        new ViewHolder(
+        new ListNotesAdapter.ViewHolder(
             ListNotesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
-    /** Возможная ошибка без позиции && view.getAdapterPosition() != RecyclerView.NO_POSITION */
     if (mOnItemClickListener != null) {
       view.itemView.setOnClickListener(
           v -> mOnItemClickListener.onClick(view.getAdapterPosition()));
@@ -76,10 +76,11 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
 
   @Override
   public void onBindViewHolder(@NonNull ListNotesAdapter.ViewHolder holder, int position) {
-    holder.ItemBinding.setNoteItem(getItem(position));
+    holder.ItemBinding.setNoteItem(listNotes.get(position));
   }
 
   // method for filtering our recyclerview items.
+  @SuppressLint("NotifyDataSetChanged")
   public void filterList(ArrayList<NoteModel> filterllist) {
     // below line is to add our filtered
     // list in our course array list.

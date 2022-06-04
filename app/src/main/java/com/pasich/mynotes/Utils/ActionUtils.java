@@ -1,5 +1,6 @@
 package com.pasich.mynotes.Utils;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
@@ -14,7 +15,6 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   private final ListNotesAdapter adapter;
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
-
   private final ArrayList<Long> ArrayChecked = new ArrayList<>();
 
   public ActionUtils(View view, ListNotesAdapter adapter, int objectActivity) {
@@ -62,7 +62,6 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   }
 
   /** Clear all marks */
-  @Deprecated
   private void checkedClean() {
     List<NoteModel> data = getDataAdapter();
     for (int i = 0; i < data.size(); i++) {
@@ -105,6 +104,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   }
 
   /** The method that disables the actionPanel when manually accessed from under the key */
+  @SuppressLint("NotifyDataSetChanged")
   public void closeActionPanel() {
     checkedClean();
     deactivationActionPanel();
