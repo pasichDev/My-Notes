@@ -173,5 +173,7 @@
     <string name="sortHead" translatable="false">Сортировка</string>
 
     <string name="layoutStringInfo" translatable="false">%1$s | %2$s символов</string>
+
+    <string name="layoutStringInfoTags" translatable="false">Отмечено %1$s заметок</string>
     <string name="tagNameListNote" translatable="false"># %1$s</string>
 </resources>

@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
@@ -23,12 +24,21 @@ public class MainView {
   }
 
   protected void initialization() {
-    initListView();
+    initNoteListView();
+    initTagsListView();
+
     initSearchView();
   }
 
-  public void initListView() {
+  public void initNoteListView() {
     binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
+    this.setNotesListCountColumns();
+  }
+
+  public void initTagsListView() {
+    binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
+    binding.listTags.setLayoutManager(
+        new LinearLayoutManager(binding.getRoot().getContext(), RecyclerView.HORIZONTAL, false));
     this.setNotesListCountColumns();
   }
 

@@ -13,7 +13,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Interface.SortInterface;
 import com.pasich.mynotes.View.DialogView.ChooseSortDialogView;
-import com.pasich.mynotes.models.adapter.MoreChoiceModel;
+import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
@@ -26,33 +26,33 @@ public class ChooseSortDialog extends DialogFragment {
     final ChooseSortDialogView view =
         new ChooseSortDialogView(requireContext(), getLayoutInflater());
     final SortInterface SortInterface = (SortInterface) getContext();
-    final ArrayList<MoreChoiceModel> arraySortOption = new ArrayList<>();
+    final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
     final String sortParam =
         PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getString("sortPref", "DataReserve");
     view.setHeadTextView(getString(R.string.sortHead));
 
     arraySortOption.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.sort_Date_Increase),
             R.drawable.ic_sort,
             "DataSort",
             sortParam.equals("DataSort")));
     arraySortOption.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.sort_Date_Decrease),
             R.drawable.ic_sort,
             "DataReserve",
             sortParam.equals("DataReserve")));
 
     arraySortOption.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.sort_Title_Increase),
             R.drawable.ic_sort,
             "TitleSort",
             sortParam.equals("TitleSort")));
     arraySortOption.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.sort_Title_Decrease),
             R.drawable.ic_sort,
             "TitleReserve",

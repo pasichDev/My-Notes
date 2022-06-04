@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
-import com.pasich.mynotes.models.adapter.MoreChoiceModel;
+import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
@@ -24,14 +24,14 @@ public class MoreNoteDialog extends DialogFragment {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     ListView listView = new ListView(getContext());
 
-    ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
+    ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
-    arrayChoice.add(new MoreChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
+        new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
+    arrayChoice.add(new ChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
+        new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
     arrayChoice.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.noSave), R.drawable.ic_close_search_view, "Close", false));
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);

@@ -9,7 +9,7 @@
 
         <variable
             name="noteItem"
-            type="com.pasich.mynotes.models.adapter.NoteItemModel" />
+            type="com.pasich.mynotes.models.adapter.NoteModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

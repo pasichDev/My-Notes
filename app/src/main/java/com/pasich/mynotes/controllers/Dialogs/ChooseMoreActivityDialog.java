@@ -13,40 +13,30 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Interface.MoreActivInterface;
-import com.pasich.mynotes.models.adapter.MoreChoiceModel;
+import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
 public class ChooseMoreActivityDialog extends DialogFragment {
-  private final int itemCount;
-  private final int tabPosition;
 
-  public ChooseMoreActivityDialog(int itemCount, int tabPosition) {
-    this.itemCount = itemCount;
-    this.tabPosition = tabPosition;
-  }
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ListView listView = new ListView(requireContext());
-    final ArrayList<MoreChoiceModel> arraySortOption = new ArrayList<>();
+    final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
     final MoreActivInterface MoreActivInterface = (MoreActivInterface) getContext();
     listView.setLayoutAnimation(
         new LayoutAnimationController(
             AnimationUtils.loadAnimation(listView.getContext(), R.anim.item_animation_dialog)));
     listView.setDivider(null);
-    if (tabPosition > 1)
-      arraySortOption.add(
-          new MoreChoiceModel(
-              getString(R.string.deleteTag), R.drawable.ic_tag, "DeleteTag", false));
 
     arraySortOption.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.trashN), R.drawable.ic_trash_menu, "TrashActivity", false));
 
     arraySortOption.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.settings), R.drawable.ic_settings, "SettingsActivity", false));
 
     MoreListAdapter adapter =
@@ -62,9 +52,7 @@ public class ChooseMoreActivityDialog extends DialogFragment {
             assert MoreActivInterface != null;
             MoreActivInterface.startSettingsActivity();
           }
-          if (arraySortOption.get(position).getAction().equals("DeleteTag")) {
-            new DeleteTagDialog(itemCount).show(getParentFragmentManager(), "Delete Tag");
-          }
+
           dismiss();
         });
     builder.setContentView(listView);

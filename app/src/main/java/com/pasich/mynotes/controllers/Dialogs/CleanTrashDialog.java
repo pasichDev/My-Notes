@@ -11,7 +11,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Interface.ManageTrash;
 import com.pasich.mynotes.View.DialogView.CleanTrashView;
-import com.pasich.mynotes.models.adapter.MoreChoiceModel;
+import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
@@ -24,13 +24,12 @@ public class CleanTrashDialog extends DialogFragment {
     final ManageTrash ManageTrash = (ManageTrash) getContext();
     final CleanTrashView CleanTrashView = new CleanTrashView(requireContext(), getLayoutInflater());
 
-    ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
+    ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
-        new MoreChoiceModel(
-            getString(R.string.yesCleanTrash), R.drawable.ic_delete, "Delete", false));
+        new ChoiceModel(getString(R.string.yesCleanTrash), R.drawable.ic_delete, "Delete", false));
 
     arrayChoice.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.cancel), R.drawable.ic_close_search_view, "Close", false));
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);

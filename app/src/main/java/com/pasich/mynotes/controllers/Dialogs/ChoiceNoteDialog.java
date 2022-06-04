@@ -11,7 +11,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.View.DialogView.ChoiceNoteDialogView;
-import com.pasich.mynotes.models.adapter.MoreChoiceModel;
+import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class ChoiceNoteDialog extends DialogFragment {
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
-    final ArrayList<MoreChoiceModel> arrayChoice = new ArrayList<>();
+    final ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     final ChoiceNoteDialogView view =
         new ChoiceNoteDialogView(requireContext(), getLayoutInflater());
     final ChoiceNoteInterface ChoiceNoteInterface = (ChoiceNoteInterface) getContext();
@@ -34,13 +34,13 @@ public class ChoiceNoteDialog extends DialogFragment {
     view.initializeInfoLayout(keysNoteInfo[2], keysNoteInfo[3]);
 
     arrayChoice.add(
-        new MoreChoiceModel(
+        new ChoiceModel(
             getString(R.string.selectAll), R.drawable.ic_check_box, "SelectAll", false));
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
-    arrayChoice.add(new MoreChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
+        new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
+    arrayChoice.add(new ChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
     arrayChoice.add(
-        new MoreChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
+        new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
 
     MoreListAdapter adapter =
         new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);

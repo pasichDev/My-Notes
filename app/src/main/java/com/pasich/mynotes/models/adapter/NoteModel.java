@@ -2,14 +2,14 @@ package com.pasich.mynotes.models.adapter;
 
 import java.util.Comparator;
 
-public class NoteItemModel {
-  public static Comparator<NoteItemModel> COMPARE_BY_TITLE_REVERSE =
+public class NoteModel {
+  public static Comparator<NoteModel> COMPARE_BY_TITLE_REVERSE =
       (one, other) -> other.getTitle().compareTo(one.getTitle());
-  public static Comparator<NoteItemModel> COMPARE_BY_TITLE_SORT =
+  public static Comparator<NoteModel> COMPARE_BY_TITLE_SORT =
       (one, other) -> one.getTitle().compareTo(other.getTitle());
-  public static Comparator<NoteItemModel> COMPARE_BY_DATE_REVERSE =
+  public static Comparator<NoteModel> COMPARE_BY_DATE_REVERSE =
       (one, other) -> other.getDate().compareTo(one.getDate());
-  public static Comparator<NoteItemModel> COMPARE_BY_DATE_SORT =
+  public static Comparator<NoteModel> COMPARE_BY_DATE_SORT =
       (one, other) -> one.getDate().compareTo(other.getDate());
 
   private final String title;
@@ -20,7 +20,7 @@ public class NoteItemModel {
   private String tags;
   private boolean Checked;
 
-  public NoteItemModel(int id, String title, String value, String date, String type, String tags) {
+  public NoteModel(int id, String title, String value, String date, String type, String tags) {
     this.id = id;
     this.title = title;
     this.tags = tags;

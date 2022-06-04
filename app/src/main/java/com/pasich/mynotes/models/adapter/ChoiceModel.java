@@ -1,12 +1,12 @@
 package com.pasich.mynotes.models.adapter;
 
-public class MoreChoiceModel {
+public class ChoiceModel {
   private final String name;
   private final String action;
   private final int icon;
   private boolean selected;
 
-  public MoreChoiceModel(String name, int icon, String action, boolean selected) {
+  public ChoiceModel(String name, int icon, String action, boolean selected) {
     this.name = name;
     this.action = action;
     this.icon = icon;

@@ -16,26 +16,26 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
+import com.pasich.mynotes.Utils.Adapters.TagListAdapter;
 import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.Utils.Interface.MoreActivInterface;
 import com.pasich.mynotes.Utils.Interface.SortInterface;
 import com.pasich.mynotes.Utils.MainUtils;
-import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
 import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.Utils.ShareNoteUtils;
 import com.pasich.mynotes.View.MainView;
 import com.pasich.mynotes.controllers.Dialogs.ChoiceNoteDialog;
+import com.pasich.mynotes.controllers.Dialogs.ChoiceTagDialog;
 import com.pasich.mynotes.controllers.Dialogs.ChooseMoreActivityDialog;
 import com.pasich.mynotes.controllers.Dialogs.ChooseSortDialog;
 import com.pasich.mynotes.controllers.Dialogs.NewTagDialog;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.models.MainModel;
-import com.pasich.mynotes.models.adapter.NoteItemModel;
+import com.pasich.mynotes.models.adapter.NoteModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,14 +50,21 @@ public class MainActivity extends AppCompatActivity
   private MainView MainView;
   private MainUtils MainUtils;
   private ListNotesAdapter ListNotesAdapter;
+  private TagListAdapter TagListAdapter;
   private MainModel MainModel;
   private ActionUtils ActionUtils;
   private FormatSwitchUtils formatSwitch;
   private ActivityMainBinding binding;
+
+
   /** Processing the received response from running activities */
   protected ActivityResultLauncher<Intent> startActivity =
       registerForActivityResult(
           new ActivityResultContracts.StartActivityForResult(), this::onActivityResult);
+
+
+
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +78,19 @@ public class MainActivity extends AppCompatActivity
     formatSwitch = new FormatSwitchUtils(this, MainView.formatButton);
 
     setToolbar();
-    createListVew();
-    loadDataTabLayout();
+    createListNotes();
+    createListTags();
 
     initListener();
     initActionSearch();
+
   }
+
+
+
+
+
+
 
   /** The method that sets up the toolbar */
   private void setToolbar() {
@@ -85,7 +99,7 @@ public class MainActivity extends AppCompatActivity
   }
 
   /** Method that creates and populates a ListVIew */
-  private void createListVew() {
+  private void createListNotes() {
     ListNotesAdapter = new ListNotesAdapter(MainModel.notesArray);
     binding.listNotes.setAdapter(ListNotesAdapter);
 
@@ -93,34 +107,60 @@ public class MainActivity extends AppCompatActivity
     initActionUtils();
   }
 
-  /** Method that loads layouts in TabLayout */
-  private void loadDataTabLayout() {
-    for (String nameTag : MainModel.tags) {
-      binding.Tags.addTab(binding.Tags.newTab().setText(nameTag));
-    }
-    requireNonNull(binding.Tags.getTabAt(1)).select();
+  private void createListTags() {
+    TagListAdapter = new TagListAdapter(MainModel.tags);
+    binding.listTags.setAdapter(TagListAdapter);
   }
 
   /** Method to manage listeners */
+  @Deprecated
   private void initListener() {
     MainView.sortButton.setOnClickListener(this);
     MainView.formatButton.setOnClickListener(this);
     binding.newNotesButton.setOnClickListener(this);
     binding.moreActivity.setOnClickListener(this);
 
-    binding.Tags.addOnTabSelectedListener(
-        new TabLayoutListenerUtils() {
+    /* binding.Tags.addOnTabSelectedListener(
+    new TabLayoutListenerUtils() {
+      @Override
+      public void listener(TabLayout.Tab Tab) {
+        if (Tab.getPosition() == 0) {
+          createTagItem(unselectedPosition);
+        } else if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
+          restartListNotes(requireNonNull(Tab.getText()).toString());
+        } else if (Tab.getPosition() == 1 && unselectedPosition != 0) {
+          restartListNotes("");
+        }
+      }
+    });*/
+
+    TagListAdapter.setOnItemClickListener(
+        new TagListAdapter.OnItemClickListener() {
+
           @Override
-          public void listener(TabLayout.Tab Tab) {
-            if (Tab.getPosition() == 0) {
-              createTagItem(unselectedPosition);
-            } else if (Tab.getPosition() != 1 && Tab.getPosition() != 0) {
-              restartListNotes(requireNonNull(Tab.getText()).toString());
-            } else if (Tab.getPosition() == 1 && unselectedPosition != 0) {
-              restartListNotes("");
+          public void onClick(int position) {
+            int SystemAction = MainModel.tags.get(position).getSystemAction();
+            if (SystemAction == 1) {
+              createTagItem();
+            } else {
+
+            }
+          }
+
+          @Override
+          public void onLongClick(int position) {
+            if (MainModel.tags.get(position).getSystemAction() == 0) {
+              String[] keysNote = {
+                String.valueOf(position),
+                String.valueOf(TagListAdapter.getItem(position).getNameTag()),
+                String.valueOf(
+                    MainModel.getCountNotesTag(MainModel.tags.get(position).getNameTag()))
+              };
+              new ChoiceTagDialog(keysNote).show(getSupportFragmentManager(), "ChoiceDialog");
             }
           }
         });
+
     ListNotesAdapter.setOnItemClickListener(
         new ListNotesAdapter.OnItemClickListener() {
 
@@ -145,23 +185,24 @@ public class MainActivity extends AppCompatActivity
         });
   }
 
+  @Deprecated
   private void initActionSearch() {
-
-    binding.actionSearch.setOnQueryTextFocusChangeListener(
-        (v, hasFocus) -> {
-          Log.wtf("pasic", "focus  " + hasFocus);
-          MainView.sortButton.setVisibility(View.GONE);
-          MainView.formatButton.setVisibility(View.GONE);
-        });
-    binding.actionSearch.setOnCloseListener(
-        () -> {
-          Log.wtf("pasic", "close  ");
-          MainView.sortButton.setVisibility(View.VISIBLE);
-          MainView.formatButton.setVisibility(View.VISIBLE);
-          binding.actionSearch.setFocusable(false);
-          return false;
-        });
-
+    /*
+        binding.actionSearch.setOnQueryTextFocusChangeListener(
+            (v, hasFocus) -> {
+              Log.wtf("pasic", "focus  " + hasFocus);
+              MainView.sortButton.setVisibility(View.GONE);
+              MainView.formatButton.setVisibility(View.GONE);
+            });
+        binding.actionSearch.setOnCloseListener(
+            () -> {
+              Log.wtf("pasic", "close  ");
+              MainView.sortButton.setVisibility(View.VISIBLE);
+              MainView.formatButton.setVisibility(View.VISIBLE);
+              binding.actionSearch.setFocusable(false);
+              return false;
+            });
+    */
     binding.actionSearch.setOnQueryTextListener(
         new SearchView.OnQueryTextListener() {
           @Override
@@ -178,24 +219,19 @@ public class MainActivity extends AppCompatActivity
         });
   }
 
-  /**
-   * The method that implements the creation of a tag
-   *
-   * @param unselectedPosition - last selected item
-   */
-  private void createTagItem(int unselectedPosition) {
-    if (binding.Tags.getTabCount() <= 10) {
+  /** The method that implements the creation of a tag */
+  private void createTagItem() {
+    if (TagListAdapter.getItemCount() <= 10) {
       new NewTagDialog().show(getSupportFragmentManager(), "New Tab");
     } else Toast.makeText(this, getString(R.string.countTagsError), Toast.LENGTH_LONG).show();
-    requireNonNull(binding.Tags.getTabAt(unselectedPosition)).select();
+
+
   }
 
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.moreActivity) {
-      new ChooseMoreActivityDialog(
-              ListNotesAdapter.getItemCount(), binding.Tags.getSelectedTabPosition())
-          .show(getSupportFragmentManager(), "more activity");
+      new ChooseMoreActivityDialog().show(getSupportFragmentManager(), "more activity");
     }
 
     if (v.getId() == R.id.sortButton) {
@@ -250,10 +286,10 @@ public class MainActivity extends AppCompatActivity
 
   private void filter(String text) {
     // creating a new array list to filter our data.
-    ArrayList<NoteItemModel> filteredlist = new ArrayList<>();
+    ArrayList<NoteModel> filteredlist = new ArrayList<>();
 
     // running a for loop to compare elements.
-    for (NoteItemModel item : MainModel.notesArray) {
+    for (NoteModel item : MainModel.notesArray) {
       // checking if the entered string matched with any item of our recycler view.
       if (item.getTitle().toLowerCase().contains(text.toLowerCase())) {
         // if the item is matched we are
@@ -274,12 +310,8 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void addTag(String tagName, int noteId, int position) {
-
-    if (MainModel.createTag(tagName)) {
-      binding.Tags.addTab(binding.Tags.newTab().setText(tagName), 2);
-      if (noteId == 0) binding.Tags.selectTab(binding.Tags.getTabAt(2));
-    }
-    if (noteId != 0) addTagForNote(tagName, noteId, position);
+    boolean createTag = MainModel.createTag(tagName);
+    if (noteId != 0 && createTag) addTagForNote(tagName, noteId, position);
   }
 
   @Override
@@ -292,16 +324,12 @@ public class MainActivity extends AppCompatActivity
   }
 
   @Override
-  public void deleteTag(boolean deleteNotes) {
-    int tagPosition = binding.Tags.getSelectedTabPosition();
-    if (binding.Tags.getTabCount() > 2 && tagPosition > 1) {
-      MainModel.deleteTag(getNameTagUtil(), deleteNotes);
-      binding.Tags.removeTab(requireNonNull(binding.Tags.getTabAt(tagPosition)));
-      requireNonNull(binding.Tags.getTabAt(1)).select();
-    } else {
-      Toast.makeText(this, getString(R.string.errorDeleteTag), Toast.LENGTH_LONG).show();
-    }
+  public void deleteTag(boolean deleteNotes, int position) {
+    MainModel.deleteTag(MainModel.tags.get(position).getNameTag(), deleteNotes);
+    MainModel.tags.remove(position);
+    TagListAdapter.notifyItemRemoved(position);
   }
+
 
   @Override
   public void onDestroy() {
@@ -318,10 +346,11 @@ public class MainActivity extends AppCompatActivity
   }
 
   private String getNameTagUtil() {
-    int position = binding.Tags.getSelectedTabPosition();
+    /* int position = binding.Tags.getSelectedTabPosition();
     return position > 1
         ? requireNonNull(requireNonNull(binding.Tags.getTabAt(position)).getText()).toString()
-        : "";
+        : "";*/
+    return "";
   }
 
   private void emptyListViewUtil() {
@@ -354,7 +383,7 @@ public class MainActivity extends AppCompatActivity
   @Deprecated
   /** Это простой пример реалазаци удаления нескольких елементов из списка Нужно его использовать */
   private void testFunctionCleanList(int noteID) {
-    List<NoteItemModel> data = ListNotesAdapter.getData();
+    List<NoteModel> data = ListNotesAdapter.getData();
     for (int i = 0; i < data.size(); i++) {
       if (data.get(i).getId() == noteID) data.remove(i);
     }

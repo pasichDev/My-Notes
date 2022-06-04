@@ -6,18 +6,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.databinding.ListNotesBinding;
-import com.pasich.mynotes.models.adapter.NoteModel;
+import com.pasich.mynotes.databinding.ListTagsBinding;
+import com.pasich.mynotes.models.adapter.TagsModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.ViewHolder> {
+public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHolder> {
 
-  private List<NoteModel> listNotes;
+  private final List<TagsModel> listNotes;
   private OnItemClickListener mOnItemClickListener;
 
-  public ListNotesAdapter(List<NoteModel> listNotes) {
+  public TagListAdapter(List<TagsModel> listNotes) {
     this.listNotes = listNotes;
   }
 
@@ -25,29 +24,22 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     this.mOnItemClickListener = onItemClickListener;
   }
 
-
-
   @Override
   public int getItemCount() {
     return (null != listNotes ? listNotes.size() : 0);
   }
 
-  public List<NoteModel> getData() {
-    return this.listNotes;
-  }
-
-  public NoteModel getItem(int i) {
+  public TagsModel getItem(int i) {
     return listNotes != null ? listNotes.get(i) : null;
   }
 
   @NonNull
   @Override
-  public ListNotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public TagListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ViewHolder view =
         new ViewHolder(
-            ListNotesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+            ListTagsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
-    /** Возможная ошибка без позиции && view.getAdapterPosition() != RecyclerView.NO_POSITION */
     if (mOnItemClickListener != null) {
       view.itemView.setOnClickListener(
           v -> mOnItemClickListener.onClick(view.getAdapterPosition()));
@@ -63,18 +55,8 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
   }
 
   @Override
-  public void onBindViewHolder(@NonNull ListNotesAdapter.ViewHolder holder, int position) {
-    holder.ItemBinding.setNoteItem(getItem(position));
-  }
-
-  // method for filtering our recyclerview items.
-  public void filterList(ArrayList<NoteModel> filterllist) {
-    // below line is to add our filtered
-    // list in our course array list.
-    listNotes = filterllist;
-    // below line is to notify our adapter
-    // as change in recycler view data.
-    notifyDataSetChanged();
+  public void onBindViewHolder(@NonNull TagListAdapter.ViewHolder holder, int position) {
+    holder.ItemBinding.setTagsModel(listNotes.get(position));
   }
 
   public interface OnItemClickListener {
@@ -84,9 +66,9 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    ListNotesBinding ItemBinding;
+    ListTagsBinding ItemBinding;
 
-    ViewHolder(ListNotesBinding binding) {
+    ViewHolder(ListTagsBinding binding) {
       super(binding.getRoot());
       ItemBinding = binding;
     }

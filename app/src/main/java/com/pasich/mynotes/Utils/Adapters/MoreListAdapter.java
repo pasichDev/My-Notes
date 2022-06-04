@@ -9,17 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.models.adapter.MoreChoiceModel;
+import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
-public class MoreListAdapter extends ArrayAdapter<MoreChoiceModel> {
+public class MoreListAdapter extends ArrayAdapter<ChoiceModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
-  private final ArrayList<MoreChoiceModel> listNotes;
+  private final ArrayList<ChoiceModel> listNotes;
 
-  public MoreListAdapter(Context context, int resource, ArrayList<MoreChoiceModel> list) {
+  public MoreListAdapter(Context context, int resource, ArrayList<ChoiceModel> list) {
     super(context, resource, list);
     this.listNotes = list;
     this.layout = resource;
@@ -27,7 +27,7 @@ public class MoreListAdapter extends ArrayAdapter<MoreChoiceModel> {
   }
 
   @Override
-  public MoreChoiceModel getItem(int i) {
+  public ChoiceModel getItem(int i) {
     return listNotes != null ? listNotes.get(i) : null;
   }
 
@@ -55,7 +55,7 @@ public class MoreListAdapter extends ArrayAdapter<MoreChoiceModel> {
     return convertView;
   }
 
-  public ArrayList<MoreChoiceModel> getData() {
+  public ArrayList<ChoiceModel> getData() {
     return this.listNotes;
   }
 

@@ -55,32 +55,6 @@
 
     </SearchView>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/Tags"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="@dimen/marginConstraintLayoutOnBothSides"
-        android:animateLayoutChanges="true"
-        android:stateListAnimator="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionSearch">
-
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_add" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/allNotes" />
-
-    </com.google.android.material.tabs.TabLayout>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newNotesButton"
         android:layout_width="wrap_content"
@@ -101,25 +75,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/listViewMargin"
-        android:layout_marginTop="@dimen/listViewMargin"
         android:layout_marginEnd="@dimen/listViewMargin"
         android:layout_marginBottom="@dimen/listViewMargin"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Tags">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/emptyListImage"
             android:layout_width="152dp"
             android:layout_height="152dp"
+            android:contentDescription="@string/emptyListMain"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_notes_empty"
-            android:contentDescription="@string/emptyListMain" />
+            app:srcCompat="@drawable/ic_notes_empty" />
 
         <TextView
             android:id="@+id/emptyListText"
@@ -137,17 +109,29 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/listViewMargin"
-        android:layout_marginTop="@dimen/listViewMargin"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/listViewMargin"
         android:layout_marginBottom="@dimen/listViewMargin"
+        android:layoutAnimation="@anim/recycle_view_animation"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layoutAnimation="@anim/recycle_view_animation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Tags">
+        app:layout_constraintTop_toBottomOf="@+id/list_tags">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_tags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actionSearch" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
