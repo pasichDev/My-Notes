@@ -18,7 +18,8 @@ public class DbHelper extends SQLiteOpenHelper {
   /** Метод который вызиваеться если нет базы данных и создет таблицы */
   @Override
   public void onCreate(SQLiteDatabase db) {
-    db.execSQL("CREATE TABLE " + COLUMN_TAGS + " (name TEXT);");
+
+    db.execSQL("CREATE TABLE " + COLUMN_TAGS + " (name TEXT, visibility INTEGER);");
     db.execSQL(
         "CREATE TABLE "
             + COLUMN_NOTES

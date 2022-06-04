@@ -1,10 +1,11 @@
 package com.pasich.mynotes.Utils;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
-import com.pasich.mynotes.Models.Adapter.NoteItemModel;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.View.CustomView.ActionPanelDialogUI;
+import com.pasich.mynotes.models.adapter.NoteModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   private final ListNotesAdapter adapter;
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
+  private final ArrayList<Long> ArrayChecked = new ArrayList<>();
 
   public ActionUtils(View view, ListNotesAdapter adapter, int objectActivity) {
     super(view, objectActivity);
@@ -43,7 +45,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
    *
    * @return - data adapter
    */
-  private List<NoteItemModel> getDataAdapter() {
+  private List<NoteModel> getDataAdapter() {
     return adapter.getData();
   }
 
@@ -51,7 +53,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
    * @return - Number of marked items (int)
    */
   public int getCountCheckedItem() {
-    List<NoteItemModel> data = getDataAdapter();
+    List<NoteModel> data = getDataAdapter();
     int count = 0;
     for (int i = 0; i < data.size(); i++) {
       count = data.get(i).getChecked() ? count + 1 : count;
@@ -61,7 +63,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
 
   /** Clear all marks */
   private void checkedClean() {
-    List<NoteItemModel> data = getDataAdapter();
+    List<NoteModel> data = getDataAdapter();
     for (int i = 0; i < data.size(); i++) {
       if (data.get(i).getChecked()) data.get(i).setChecked(false);
     }
@@ -85,50 +87,47 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   }
 
   /** Action panel control when unchecked */
-  public void isCheckedItemFalse() {
+  public void isCheckedItemFalse(int NoteID) {
     if (getCountCheckedItem() == 0) {
+      getArrayChecked().clear();
       closeActionPanel();
+    } else {
+      getArrayChecked().remove((long) NoteID);
     }
   }
 
   /** Action panel control when adding checkmark */
-  public void isCheckedItem() {
+  public void isCheckedItem(int noteID) {
+    if (!getArrayChecked().contains(noteID)) getArrayChecked().add((long) noteID);
+    else getArrayChecked().remove((long) noteID);
     if (!(getAction())) setAction(true);
   }
 
   /** The method that disables the actionPanel when manually accessed from under the key */
+  @SuppressLint("NotifyDataSetChanged")
   public void closeActionPanel() {
     checkedClean();
     deactivationActionPanel();
     setAction(false);
+    getArrayChecked().clear();
     adapter.notifyDataSetChanged();
   }
 
-  /**
-   * Method that returns all checked elements in an array
-   *
-   * @return - checked elements array
-   */
-  public ArrayList<Integer> getArrayChecked() {
-    List<NoteItemModel> data = getDataAdapter();
-    ArrayList<Integer> ArrayChecked = new ArrayList<>();
-    for (int i = 0; i < data.size(); i++) {
-      if (data.get(i).getChecked()) ArrayChecked.add(data.get(i).getId());
-    }
-    return ArrayChecked;
+  public ArrayList<Long> getArrayChecked() {
+    return this.ArrayChecked;
   }
 
   public void selectItemAction(int item) {
-    NoteItemModel noteItem = getDataAdapter().get(item);
+    NoteModel noteItem = getDataAdapter().get(item);
     if (noteItem.getChecked()) {
       noteItem.setChecked(false);
-      isCheckedItemFalse();
+      isCheckedItemFalse(noteItem.getId());
     } else {
-      isCheckedItem();
+      isCheckedItem(noteItem.getId());
       noteItem.setChecked(true);
     }
     manageActionPanel();
-    adapter.notifyDataSetChanged();
+    adapter.notifyItemChanged(item);
   }
 
   @Override

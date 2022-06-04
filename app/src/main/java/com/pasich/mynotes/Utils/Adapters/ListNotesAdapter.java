@@ -1,112 +1,93 @@
 package com.pasich.mynotes.Utils.Adapters;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.Models.Adapter.NoteItemModel;
-import com.pasich.mynotes.R;
+import com.pasich.mynotes.databinding.ListNotesBinding;
+import com.pasich.mynotes.models.adapter.NoteModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.ViewHolder> {
 
-  private final LayoutInflater inflater;
-  private List<NoteItemModel> listNotes;
-  private final Context context;
+  private List<NoteModel> listNotes;
   private OnItemClickListener mOnItemClickListener;
 
-  public ListNotesAdapter(Context context, List<NoteItemModel> listNotes) {
+  public ListNotesAdapter(List<NoteModel> listNotes) {
     this.listNotes = listNotes;
-    this.context = context;
-    this.inflater = LayoutInflater.from(context);
   }
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
     this.mOnItemClickListener = onItemClickListener;
   }
 
+  /**
+   * Метод который находит елемент в массиве и удаляет из него
+   *
+   * @param noteID - id заметки которую нужно убрать
+   */
+  public void removeItemsArray(int noteID) {
+    for (int i = 0; i < listNotes.size(); i++) {
+      if (listNotes.get(i).getId() == noteID) {
+        listNotes.remove(i);
+        notifyItemRemoved(i);
+      }
+    }
+  }
+
+  @Override
+  public int getItemCount() {
+    return (null != listNotes ? listNotes.size() : 0);
+  }
+
+  public List<NoteModel> getData() {
+    return this.listNotes;
+  }
+
+  public NoteModel getItem(int i) {
+    return listNotes != null ? listNotes.get(i) : null;
+  }
+
   @NonNull
   @Override
   public ListNotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = inflater.inflate(R.layout.list_notes, parent, false);
-    return new ViewHolder(view);
+    ViewHolder view =
+        new ListNotesAdapter.ViewHolder(
+            ListNotesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+
+    if (mOnItemClickListener != null) {
+      view.itemView.setOnClickListener(
+          v -> mOnItemClickListener.onClick(view.getAdapterPosition()));
+
+      view.itemView.setOnLongClickListener(
+          v -> {
+            mOnItemClickListener.onLongClick(view.getAdapterPosition());
+            return false;
+          });
+    }
+
+    return view;
   }
 
   @Override
   public void onBindViewHolder(@NonNull ListNotesAdapter.ViewHolder holder, int position) {
-    NoteItemModel note = getItem(position);
-    setNameNote(note.getTitle(), holder);
-    setPreviewNote(note.getValue(), holder);
-    setTagNote(note.getTags(), holder);
-    if (note.getChecked())
-      holder.viewH.setBackground(
-          ContextCompat.getDrawable(context, R.drawable.item_note_background_selected));
-    else holder.viewH.setBackground(ContextCompat.getDrawable(context, R.drawable.item_selected));
-
-    if (mOnItemClickListener != null) {
-      holder.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(position));
-
-      holder.itemView.setOnLongClickListener(
-          v -> {
-            mOnItemClickListener.onLongClick(position);
-            return false;
-          });
-    }
+    holder.ItemBinding.setNoteItem(listNotes.get(position));
   }
 
   // method for filtering our recyclerview items.
-  public void filterList(ArrayList<NoteItemModel> filterllist) {
+  @SuppressLint("NotifyDataSetChanged")
+  public void filterList(ArrayList<NoteModel> filterllist) {
     // below line is to add our filtered
     // list in our course array list.
     listNotes = filterllist;
     // below line is to notify our adapter
     // as change in recycler view data.
     notifyDataSetChanged();
-  }
-
-  @Override
-  public int getItemCount() {
-    return listNotes.size();
-  }
-
-  public List<NoteItemModel> getData() {
-    return this.listNotes;
-  }
-
-  public NoteItemModel getItem(int i) {
-    return listNotes != null ? listNotes.get(i) : null;
-  }
-
-  private void setNameNote(String noteTitle, ListNotesAdapter.ViewHolder holder) {
-    if (noteTitle.length() >= 2) {
-      holder.nameView.setVisibility(View.VISIBLE);
-      holder.nameView.setText(noteTitle);
-    } else {
-      holder.nameView.setVisibility(View.GONE);
-      holder.nameView.setText("");
-    }
-  }
-
-  private void setPreviewNote(String previewNote, ListNotesAdapter.ViewHolder holder) {
-    holder.previewNote.setText(
-        previewNote.length() > 200 ? previewNote.substring(0, 200) : previewNote);
-  }
-
-  private void setTagNote(String tagNote, ListNotesAdapter.ViewHolder holder) {
-    if (tagNote != null && tagNote.length() >= 2) {
-      holder.tagNote.setVisibility(View.VISIBLE);
-      holder.tagNote.setText("#" + tagNote);
-    } else {
-      holder.tagNote.setVisibility(View.GONE);
-    }
   }
 
   public interface OnItemClickListener {
@@ -116,15 +97,11 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    final TextView nameView, previewNote, tagNote;
-    final View viewH;
+    ListNotesBinding ItemBinding;
 
-    ViewHolder(View view) {
-      super(view);
-      viewH = view;
-      nameView = view.findViewById(R.id.nameNote);
-      previewNote = view.findViewById(R.id.previewNote);
-      tagNote = view.findViewById(R.id.tagNote);
+    ViewHolder(ListNotesBinding binding) {
+      super(binding.getRoot());
+      ItemBinding = binding;
     }
   }
 }
