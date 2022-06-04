@@ -7,6 +7,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="checkedItem"
+            type="boolean" />
+
+        <variable
             name="TagsModel"
             type="com.pasich.mynotes.models.adapter.TagsModel" />
 
@@ -16,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="1dp"
-        android:background="@{TagsModel.selected ? @drawable/tab_background_selected : @drawable/tab_background_unselected}">
+        android:background="@{checkedItem ? @drawable/tab_background_selected : @drawable/tab_background_unselected}">
 
         <ImageView
             android:id="@+id/imageView"
@@ -37,17 +41,17 @@
 
         <TextView
             android:id="@+id/nameTag"
-            android:textStyle="bold"
-            android:textColor="@{TagsModel.selected ? @color/white : @color/colorPrimaryVariant}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:textSize="16sp"
-            android:textAllCaps="false"
             android:text="@{TagsModel.nameTag}"
+            android:textAllCaps="false"
+            android:textColor="@{checkedItem ? @color/white : @color/colorPrimaryVariant}"
+            android:textSize="14sp"
+            android:textStyle="bold"
             android:visibility="@{TagsModel.systemAction != 1 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

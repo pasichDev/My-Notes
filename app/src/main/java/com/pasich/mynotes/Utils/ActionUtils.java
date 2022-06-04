@@ -1,6 +1,5 @@
 package com.pasich.mynotes.Utils;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
@@ -13,9 +12,10 @@ import java.util.List;
 public class ActionUtils extends ActionPanelDialogUI implements View.OnClickListener {
 
   private final ListNotesAdapter adapter;
+  private final int PAYLOAD_BACKGROUND = 22;
+  private final ArrayList<Long> ArrayChecked = new ArrayList<>();
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
-  private final ArrayList<Long> ArrayChecked = new ArrayList<>();
 
   public ActionUtils(View view, ListNotesAdapter adapter, int objectActivity) {
     super(view, objectActivity);
@@ -66,6 +66,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
     List<NoteModel> data = getDataAdapter();
     for (int i = 0; i < data.size(); i++) {
       if (data.get(i).getChecked()) data.get(i).setChecked(false);
+      adapter.notifyItemChanged(i, PAYLOAD_BACKGROUND);
     }
   }
 
@@ -104,13 +105,11 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
   }
 
   /** The method that disables the actionPanel when manually accessed from under the key */
-  @SuppressLint("NotifyDataSetChanged")
   public void closeActionPanel() {
     checkedClean();
     deactivationActionPanel();
     setAction(false);
     getArrayChecked().clear();
-    adapter.notifyDataSetChanged();
   }
 
   public ArrayList<Long> getArrayChecked() {
@@ -127,7 +126,7 @@ public class ActionUtils extends ActionPanelDialogUI implements View.OnClickList
       noteItem.setChecked(true);
     }
     manageActionPanel();
-    adapter.notifyItemChanged(item);
+    adapter.notifyItemChanged(item, PAYLOAD_BACKGROUND);
   }
 
   @Override

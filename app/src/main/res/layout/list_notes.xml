@@ -6,6 +6,9 @@
 
         <import type="android.view.View" />
 
+        <variable
+            name="checkedItem"
+            type="boolean" />
 
         <variable
             name="noteItem"
@@ -15,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{noteItem.checked ? @drawable/item_note_background_selected :  @drawable/item_selected}">
+        android:background="@{checkedItem ? @drawable/item_note_background_selected :  @drawable/item_selected}">
 
 
         <TextView

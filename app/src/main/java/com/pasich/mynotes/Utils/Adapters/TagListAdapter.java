@@ -14,6 +14,7 @@ import java.util.List;
 public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHolder> {
 
   private final List<TagsModel> listTags;
+  private final int PAYLOAD_BACKGROUND = 22;
   private OnItemClickListener mOnItemClickListener;
 
   public TagListAdapter(List<TagsModel> listTags) {
@@ -46,11 +47,12 @@ public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHold
   }
 
   public void chooseTag(int position) {
+
     int positionSelected = getCheckedPosition();
     listTags.get(positionSelected).setSelected(false);
-    notifyItemChanged(positionSelected);
+    notifyItemChanged(positionSelected, PAYLOAD_BACKGROUND);
     listTags.get(position).setSelected(true);
-    notifyItemChanged(position);
+    notifyItemChanged(position, PAYLOAD_BACKGROUND);
   }
 
   @NonNull
@@ -75,8 +77,23 @@ public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHold
   }
 
   @Override
-  public void onBindViewHolder(@NonNull TagListAdapter.ViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     holder.ItemBinding.setTagsModel(listTags.get(position));
+    holder.ItemBinding.setCheckedItem(listTags.get(position).getSelected());
+  }
+
+  @Override
+  public void onBindViewHolder(
+      @NonNull TagListAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+    if (payloads.isEmpty()) {
+      super.onBindViewHolder(holder, position, payloads);
+    } else {
+      for (Object payload : payloads) {
+        if (payload.equals(PAYLOAD_BACKGROUND)) {
+          holder.ItemBinding.setCheckedItem(listTags.get(position).getSelected());
+        }
+      }
+    }
   }
 
   public interface OnItemClickListener {

@@ -17,6 +17,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
 
   private List<NoteModel> listNotes;
   private OnItemClickListener mOnItemClickListener;
+  private final int PAYLOAD_BACKGROUND = 22;
 
   public ListNotesAdapter(List<NoteModel> listNotes) {
     this.listNotes = listNotes;
@@ -75,8 +76,22 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
   }
 
   @Override
-  public void onBindViewHolder(@NonNull ListNotesAdapter.ViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     holder.ItemBinding.setNoteItem(listNotes.get(position));
+  }
+
+  @Override
+  public void onBindViewHolder(
+      @NonNull ListNotesAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+    if (payloads.isEmpty()) {
+      super.onBindViewHolder(holder, position, payloads);
+    } else {
+      for (Object payload : payloads) {
+        if (payload.equals(PAYLOAD_BACKGROUND)) {
+          holder.ItemBinding.setCheckedItem(listNotes.get(position).getChecked());
+        }
+      }
+    }
   }
 
   // method for filtering our recyclerview items.
