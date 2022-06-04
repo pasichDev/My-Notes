@@ -104,8 +104,6 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
     return true;
   }
 
-
-
   @SuppressLint("NotifyDataSetChanged")
   @Override
   public void cleanTrash() {
@@ -113,8 +111,6 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
     ListNotesAdapter.notifyDataSetChanged();
     binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
   }
-
-
 
   @Override
   public void onClick(View v) {
@@ -127,27 +123,13 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
     }
   }
 
-  /** Реализовать пропадение только тех заметок которые выбрпно но не рестарт адаптера */
-  @Deprecated
-  public void restoreNotesArray() {
-    /* for (Long noteID : ActionUtils.getArrayChecked()) {
-        TrashModel.notesMove(
-            TrashModel.notesArray.get(Math.toIntExact(noteID)).getId(),
-            TrashModel.DbHelper.COLUMN_NOTES,
-            TrashModel.DbHelper.COLUMN_TRASH);
-      }
-      //   ListNotesAdapter.notifyItemRemovedArray(ActionUtils.getArrayChecked());
-      ActionUtils.closeActionPanel();
-      //  restartListNotes();
-    */ }
-
-  @SuppressLint("NotifyDataSetChanged")
-  @Deprecated
-  public void restartListNotes() {
-    TrashModel.getUpdateCursor();
-    ListNotesAdapter.notifyDataSetChanged();
-    binding.ListTrash.scheduleLayoutAnimation();
-
+  private void restoreNotesArray() {
+    for (long noteID : ActionUtils.getArrayChecked()) {
+      ListNotesAdapter.removeItemsArray((int) noteID);
+      TrashModel.notesMove(
+          (int) noteID, TrashModel.DbHelper.COLUMN_NOTES, TrashModel.DbHelper.COLUMN_TRASH);
+    }
+    ActionUtils.closeActionPanel();
     binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
   }
 

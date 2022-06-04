@@ -25,7 +25,19 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     this.mOnItemClickListener = onItemClickListener;
   }
 
-
+  /**
+   * Метод который находит елемент в массиве и удаляет из него
+   *
+   * @param noteID - id заметки которую нужно убрать
+   */
+  public void removeItemsArray(int noteID) {
+    for (int i = 0; i < listNotes.size(); i++) {
+      if (listNotes.get(i).getId() == noteID) {
+        listNotes.remove(i);
+        notifyItemRemoved(i);
+      }
+    }
+  }
 
   @Override
   public int getItemCount() {

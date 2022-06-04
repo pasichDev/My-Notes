@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.SearchView;
@@ -38,7 +37,6 @@ import com.pasich.mynotes.models.MainModel;
 import com.pasich.mynotes.models.adapter.NoteModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
     implements ManageTag,
@@ -322,31 +320,18 @@ public class MainActivity extends AppCompatActivity
             .putExtra("tagNote", ""));
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void deleteNotesArray() {
-    /**
-     * Вообщем весь абсурд єтой ситуации это то что все определенные заметки удаляються из базы
-     * данных но они не удаляються из адапатера а точнее удаляються но как попало
-     */
     for (long noteID : ActionUtils.getArrayChecked()) {
-      Log.wtf("pasic", String.valueOf(Math.toIntExact(noteID)));
-      testFunctionCleanList((int) noteID);
+      ListNotesAdapter.removeItemsArray((int) noteID);
       MainModel.notesMove(
           (int) noteID, MainModel.DbHelper.COLUMN_TRASH, MainModel.DbHelper.COLUMN_NOTES);
     }
-
-    ListNotesAdapter.notifyDataSetChanged();
-
     ActionUtils.closeActionPanel();
+    binding.setEmptyNotes(ListNotesAdapter.getData().isEmpty());
   }
 
-  @Deprecated
-  /** Это простой пример реалазаци удаления нескольких елементов из списка Нужно его использовать */
-  private void testFunctionCleanList(int noteID) {
-    List<NoteModel> data = ListNotesAdapter.getData();
-    for (int i = 0; i < data.size(); i++) {
-      if (data.get(i).getId() == noteID) data.remove(i);
-    }
-  }
+
 
   @Override
   public void shareNote(int item) {
