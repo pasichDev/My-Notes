@@ -12,6 +12,7 @@ import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.view.customView.TitleDialog;
 
+
 public class WhatUpdateDialog extends DialogFragment {
 
   @NonNull

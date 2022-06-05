@@ -3,25 +3,20 @@ package com.pasich.mynotes.view.customView;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pasich.mynotes.R;
+import com.pasich.mynotes.databinding.HeadViewBinding;
 
 /** A class that simplifies working with dialogs TitleDialog uiDialog = new */
 public class TitleDialog {
 
+  private final HeadViewBinding binding;
   public LinearLayout.LayoutParams LP_DEFAULT;
-  public int sizeTextMessage = 17;
-  protected View convertView;
-  protected int headLayout = R.layout.dialog_head_bar, layoutOrientation = LinearLayout.VERTICAL;
-  protected TextView headText;
   protected LinearLayout container;
 
   public TitleDialog(Context context, LayoutInflater inflater) {
-    this.convertView = inflater.inflate(this.headLayout, null);
-    this.headText = convertView.findViewById(R.id.HeadTextDialog);
+    this.binding = HeadViewBinding.inflate(inflater);
     this.container = new LinearLayout(context);
     this.setContainer();
     this.setLayoutParam();
@@ -29,8 +24,8 @@ public class TitleDialog {
 
   /** Method for setting up a class container */
   private void setContainer() {
-    this.container.setOrientation(layoutOrientation);
-    this.container.addView(convertView);
+    this.container.setOrientation(LinearLayout.VERTICAL);
+    this.container.addView(binding.getRoot());
   }
 
   public void setLayoutParam() {
@@ -46,9 +41,8 @@ public class TitleDialog {
    * @param headString - Dialog box title
    */
   public final void setHeadTextView(String headString) {
-    this.headText.setText(headString);
+    this.binding.HeadTextDialog.setText(headString);
   }
-
 
   /**
    * The method that returns container Here you need to add container filling
@@ -62,7 +56,6 @@ public class TitleDialog {
 
   /** method to set font size for message */
   public void setTextSizeMessage(TextView textView) {
-    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeTextMessage);
+    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
   }
-
 }
