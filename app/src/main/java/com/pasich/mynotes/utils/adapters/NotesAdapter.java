@@ -17,7 +17,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
   private List<NoteModel> listNotes;
   private OnItemClickListener mOnItemClickListener;
-  private final int PAYLOAD_BACKGROUND = 22;
 
   public NotesAdapter(List<NoteModel> listNotes) {
     this.listNotes = listNotes;
@@ -87,6 +86,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
       super.onBindViewHolder(holder, position, payloads);
     } else {
       for (Object payload : payloads) {
+        int PAYLOAD_BACKGROUND = 22;
         if (payload.equals(PAYLOAD_BACKGROUND)) {
           holder.ItemBinding.setCheckedItem(listNotes.get(position).getChecked());
         }

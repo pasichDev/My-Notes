@@ -45,8 +45,7 @@ public class DeleteTagDialog extends DialogFragment {
     arrayChoice.add(
         new ChoiceModel(
             getString(R.string.cancel), R.drawable.ic_close_search_view, "Close", false));
-    DialogListAdapter adapter =
-        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
+    DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
     DeleteTagView.listView.setAdapter(adapter);
 
     DeleteTagView.listView.setDivider(null);

@@ -43,8 +43,7 @@ public class ChoiceNoteDialog extends DialogFragment {
     arrayChoice.add(
         new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
 
-    DialogListAdapter adapter =
-        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
+    DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
     view.listView.setAdapter(adapter);
 
     view.listView.setOnItemClickListener(

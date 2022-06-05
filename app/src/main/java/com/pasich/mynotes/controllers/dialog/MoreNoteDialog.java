@@ -33,8 +33,7 @@ public class MoreNoteDialog extends DialogFragment {
     arrayChoice.add(
         new ChoiceModel(
             getString(R.string.noSave), R.drawable.ic_close_search_view, "Close", false));
-    DialogListAdapter adapter =
-        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
+    DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
     listView.setAdapter(adapter);
     listView.setLayoutAnimation(
         new LayoutAnimationController(

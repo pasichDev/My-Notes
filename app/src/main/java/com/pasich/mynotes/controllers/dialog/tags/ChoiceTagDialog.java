@@ -39,8 +39,7 @@ public class ChoiceTagDialog extends DialogFragment {
     arrayChoice.add(
         new ChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "deleteTag", false));
 
-    DialogListAdapter adapter =
-        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
+    DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
     view.listView.setAdapter(adapter);
 
     view.getSwitchVisibilityNotes()

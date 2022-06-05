@@ -4,26 +4,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.BaseAdapter;
 
-import com.pasich.mynotes.R;
+import com.pasich.mynotes.databinding.ListDialogBinding;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
-public class DialogListAdapter extends ArrayAdapter<ChoiceModel> {
+public class DialogListAdapter extends BaseAdapter {
 
-  private final LayoutInflater inflater;
-  private final int layout;
   private final ArrayList<ChoiceModel> listNotes;
+  private LayoutInflater LayoutInflater;
 
-  public DialogListAdapter(Context context, int resource, ArrayList<ChoiceModel> list) {
-    super(context, resource, list);
+  public DialogListAdapter(ArrayList<ChoiceModel> list) {
     this.listNotes = list;
-    this.layout = resource;
-    this.inflater = LayoutInflater.from(getContext());
+  }
+
+  @Override
+  public int getCount() {
+    return listNotes.size();
   }
 
   @Override
@@ -31,41 +30,27 @@ public class DialogListAdapter extends ArrayAdapter<ChoiceModel> {
     return listNotes != null ? listNotes.get(i) : null;
   }
 
+  @Override
+  public long getItemId(int i) {
+    return 0;
+  }
+
   public View getView(int position, View convertView, ViewGroup parent) {
-    ViewHolder viewHolder;
-    if (convertView == null) {
-      convertView = inflater.inflate(this.layout, parent, false);
-      viewHolder = new ViewHolder(convertView);
-      convertView.setTag(viewHolder);
+    View result = convertView;
+    ListDialogBinding binding;
+    if (result == null) {
+      if (LayoutInflater == null) {
+        LayoutInflater =
+            (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      }
+      binding = ListDialogBinding.inflate(LayoutInflater, parent, false);
+      result = binding.getRoot();
+      result.setTag(binding);
     } else {
-      viewHolder = (ViewHolder) convertView.getTag();
+      binding = (ListDialogBinding) result.getTag();
     }
 
-
-    viewHolder.nameView.setText(getItem(position).getName());
-    viewHolder.iconVIew.setImageResource(getItem(position).getIcon());
-    /** Желательно реализовать другой вариант, Этот немного тупой */
-    if (getItem(position).getSelected()) {
-      viewHolder.nameView.setTextAppearance(R.style.selectedText);
-      convertView.setBackground(getContext().getDrawable(R.drawable.item_list_selected));
-    } else {
-      viewHolder.nameView.setTextAppearance(R.style.nullText);
-      convertView.setBackground(getContext().getDrawable(R.drawable.item_list_selected_false));
-    }
-    return convertView;
-  }
-
-  public ArrayList<ChoiceModel> getData() {
-    return this.listNotes;
-  }
-
-  private static class ViewHolder {
-    final TextView nameView;
-    final ImageView iconVIew;
-
-    ViewHolder(View view) {
-      nameView = view.findViewById(R.id.nameSource);
-      iconVIew = view.findViewById(R.id.imageSource);
-    }
+    binding.setChoiceModel(getItem(position));
+    return result;
   }
 }

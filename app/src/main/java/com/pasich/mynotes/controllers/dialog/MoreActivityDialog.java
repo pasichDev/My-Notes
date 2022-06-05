@@ -38,8 +38,7 @@ public class MoreActivityDialog extends DialogFragment {
         new ChoiceModel(
             getString(R.string.settings), R.drawable.ic_settings, "SettingsActivity", false));
 
-    DialogListAdapter adapter =
-        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arraySortOption);
+    DialogListAdapter adapter = new DialogListAdapter(arraySortOption);
     listView.setAdapter(adapter);
     listView.setOnItemClickListener(
         (parent, v, position, id) -> {

@@ -58,8 +58,7 @@ public class ChooseSortDialog extends DialogFragment {
             "TitleReserve",
             sortParam.equals("TitleReserve")));
 
-    DialogListAdapter adapter =
-        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arraySortOption);
+    DialogListAdapter adapter = new DialogListAdapter(arraySortOption);
     view.listView.setAdapter(adapter);
 
     view.listView.setOnItemClickListener(
