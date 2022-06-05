@@ -11,18 +11,19 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.utils.Interface.ManageTag;
 import com.pasich.mynotes.view.DialogView.NewTagView;
 
 public class NewTagDialog extends BottomSheetDialogFragment {
-  public NewTagView NewTagView;
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
+    final NewTagView NewTagView = new NewTagView(requireContext(), getLayoutInflater());
     final ManageTag ManageTag = (ManageTag) getContext();
 
-    NewTagView = new NewTagView(requireContext(), getLayoutInflater());
+    NewTagView.setHeadTextView(getString(R.string.addTag));
     NewTagView.NewTagVIewUi.getSaveButton()
         .setOnClickListener(
             view -> {

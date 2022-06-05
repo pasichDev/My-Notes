@@ -1,6 +1,6 @@
 package com.pasich.mynotes.view.customView;
 
-import static com.pasich.mynotes.utils.Constants.TagSettingsConst.MAX_NAME_TAG;
+import static com.pasich.mynotes.utils.Constants.TagSettings.MAX_NAME_TAG;
 
 import android.view.LayoutInflater;
 import android.view.View;

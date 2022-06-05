@@ -6,7 +6,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.controllers.dialog.EditThemeColorDialog;
 
 public class FragmentMain extends PreferenceFragmentCompat {
   @Override
@@ -15,10 +14,6 @@ public class FragmentMain extends PreferenceFragmentCompat {
     final Preference themeColorEdit = findPreference("themeColor");
 
     assert themeColorEdit != null;
-    themeColorEdit.setOnPreferenceClickListener(
-        preference -> {
-          new EditThemeColorDialog().show(getParentFragmentManager(), "EditColorTheme");
-          return true;
-        });
+    themeColorEdit.setOnPreferenceClickListener(preference -> true);
   }
 }

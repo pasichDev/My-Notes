@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils;
 import android.view.View;
 
 import com.pasich.mynotes.models.adapter.NoteModel;
-import com.pasich.mynotes.utils.Adapters.ListNotesAdapter;
+import com.pasich.mynotes.utils.Adapters.NotesAdapter;
 import com.pasich.mynotes.view.customView.ActionPanel;
 
 import java.util.ArrayList;
@@ -11,13 +11,13 @@ import java.util.List;
 
 public class ActionUtils extends ActionPanel implements View.OnClickListener {
 
-  private final ListNotesAdapter adapter;
+  private final NotesAdapter adapter;
   private final int PAYLOAD_BACKGROUND = 22;
   private final ArrayList<Long> ArrayChecked = new ArrayList<>();
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
 
-  public ActionUtils(View view, ListNotesAdapter adapter, int objectActivity) {
+  public ActionUtils(View view, NotesAdapter adapter, int objectActivity) {
     super(view, objectActivity);
     this.adapter = adapter;
     getActionPanel().setVisibility(View.GONE);

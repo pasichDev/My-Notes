@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.utils.recyclerView;
 
 import android.graphics.Rect;
 import android.view.View;

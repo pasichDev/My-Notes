@@ -1,6 +1,6 @@
 package com.pasich.mynotes.utils.Constants;
 
-public class TagSettingsConst {
+public class TagSettings {
 
   /** Maximum number of characters in label names */
   public static final int MAX_NAME_TAG = 30;

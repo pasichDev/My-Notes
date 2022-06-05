@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
 import com.pasich.mynotes.models.dialog.ChoiceTagDialogModel;
-import com.pasich.mynotes.utils.Adapters.MoreListAdapter;
+import com.pasich.mynotes.utils.Adapters.DialogListAdapter;
 import com.pasich.mynotes.utils.Interface.ManageTag;
 import com.pasich.mynotes.view.DialogView.ChoiceTagDialogView;
 
@@ -39,8 +39,8 @@ public class ChoiceTagDialog extends DialogFragment {
     arrayChoice.add(
         new ChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "deleteTag", false));
 
-    MoreListAdapter adapter =
-        new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
+    DialogListAdapter adapter =
+        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
     view.listView.setAdapter(adapter);
 
     view.getSwitchVisibilityNotes()

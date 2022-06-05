@@ -13,13 +13,13 @@ import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
-public class MoreListAdapter extends ArrayAdapter<ChoiceModel> {
+public class DialogListAdapter extends ArrayAdapter<ChoiceModel> {
 
   private final LayoutInflater inflater;
   private final int layout;
   private final ArrayList<ChoiceModel> listNotes;
 
-  public MoreListAdapter(Context context, int resource, ArrayList<ChoiceModel> list) {
+  public DialogListAdapter(Context context, int resource, ArrayList<ChoiceModel> list) {
     super(context, resource, list);
     this.listNotes = list;
     this.layout = resource;

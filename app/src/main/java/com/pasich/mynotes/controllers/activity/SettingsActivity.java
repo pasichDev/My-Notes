@@ -1,6 +1,5 @@
 package com.pasich.mynotes.controllers.activity;
 
-import static com.pasich.mynotes.utils.Theme.ThemeUtils.applyTheme;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,7 +23,6 @@ public class SettingsActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    setTheme(applyTheme(this));
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
 

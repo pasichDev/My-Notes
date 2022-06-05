@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
-import com.pasich.mynotes.utils.SpacesItemDecoration;
+import com.pasich.mynotes.utils.recyclerView.SpacesItemDecoration;
 
 public class MainView {
   private final ActivityMainBinding binding;

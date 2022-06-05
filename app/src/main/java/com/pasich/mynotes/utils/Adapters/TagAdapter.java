@@ -11,13 +11,13 @@ import com.pasich.mynotes.models.adapter.TagsModel;
 
 import java.util.List;
 
-public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHolder> {
+public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
 
   private final List<TagsModel> listTags;
   private final int PAYLOAD_BACKGROUND = 22;
   private OnItemClickListener mOnItemClickListener;
 
-  public TagListAdapter(List<TagsModel> listTags) {
+  public TagAdapter(List<TagsModel> listTags) {
     this.listTags = listTags;
   }
 
@@ -57,7 +57,7 @@ public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHold
 
   @NonNull
   @Override
-  public TagListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public TagAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ViewHolder view =
         new ViewHolder(
             ListTagsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
@@ -84,7 +84,7 @@ public class TagListAdapter extends RecyclerView.Adapter<TagListAdapter.ViewHold
 
   @Override
   public void onBindViewHolder(
-      @NonNull TagListAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+      @NonNull TagAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
     if (payloads.isEmpty()) {
       super.onBindViewHolder(holder, position, payloads);
     } else {

@@ -11,7 +11,7 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
-import com.pasich.mynotes.utils.Adapters.MoreListAdapter;
+import com.pasich.mynotes.utils.Adapters.DialogListAdapter;
 import com.pasich.mynotes.utils.Interface.SortInterface;
 import com.pasich.mynotes.view.DialogView.ChooseSortDialogView;
 
@@ -58,8 +58,8 @@ public class ChooseSortDialog extends DialogFragment {
             "TitleReserve",
             sortParam.equals("TitleReserve")));
 
-    MoreListAdapter adapter =
-        new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arraySortOption);
+    DialogListAdapter adapter =
+        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arraySortOption);
     view.listView.setAdapter(adapter);
 
     view.listView.setOnItemClickListener(

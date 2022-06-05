@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
-import com.pasich.mynotes.utils.Adapters.MoreListAdapter;
+import com.pasich.mynotes.utils.Adapters.DialogListAdapter;
 import com.pasich.mynotes.utils.Interface.MoreActivInterface;
 
 import java.util.ArrayList;
@@ -38,8 +38,8 @@ public class MoreActivityDialog extends DialogFragment {
         new ChoiceModel(
             getString(R.string.settings), R.drawable.ic_settings, "SettingsActivity", false));
 
-    MoreListAdapter adapter =
-        new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arraySortOption);
+    DialogListAdapter adapter =
+        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arraySortOption);
     listView.setAdapter(adapter);
     listView.setOnItemClickListener(
         (parent, v, position, id) -> {

@@ -14,16 +14,16 @@ import com.pasich.mynotes.controllers.dialog.CleanTrashDialog;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.models.TrashModel;
 import com.pasich.mynotes.utils.ActionUtils;
-import com.pasich.mynotes.utils.Adapters.ListNotesAdapter;
+import com.pasich.mynotes.utils.Adapters.NotesAdapter;
 import com.pasich.mynotes.utils.Interface.ManageTrash;
-import com.pasich.mynotes.utils.SpacesItemDecoration;
+import com.pasich.mynotes.utils.recyclerView.SpacesItemDecoration;
 
 import java.util.Objects;
 
 public class TrashActivity extends AppCompatActivity implements ManageTrash, View.OnClickListener {
 
   protected TrashModel TrashModel;
-  private ListNotesAdapter ListNotesAdapter;
+  private NotesAdapter ListNotesAdapter;
   private ActionUtils ActionUtils;
   private ActivityTrashBinding binding;
   private int countDataObject;
@@ -60,11 +60,11 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   }
 
   private void initAdapter() {
-    ListNotesAdapter = new ListNotesAdapter(TrashModel.notesArray);
+    ListNotesAdapter = new NotesAdapter(TrashModel.notesArray);
     binding.ListTrash.setAdapter(ListNotesAdapter);
     countDataObject = ListNotesAdapter.getItemCount();
     ListNotesAdapter.setOnItemClickListener(
-        new ListNotesAdapter.OnItemClickListener() {
+        new NotesAdapter.OnItemClickListener() {
 
           @Override
           public void onClick(int position) {

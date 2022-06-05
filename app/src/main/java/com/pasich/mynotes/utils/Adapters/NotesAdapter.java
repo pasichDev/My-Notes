@@ -13,13 +13,13 @@ import com.pasich.mynotes.models.adapter.NoteModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.ViewHolder> {
+public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
   private List<NoteModel> listNotes;
   private OnItemClickListener mOnItemClickListener;
   private final int PAYLOAD_BACKGROUND = 22;
 
-  public ListNotesAdapter(List<NoteModel> listNotes) {
+  public NotesAdapter(List<NoteModel> listNotes) {
     this.listNotes = listNotes;
   }
 
@@ -56,9 +56,9 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
 
   @NonNull
   @Override
-  public ListNotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ViewHolder view =
-        new ListNotesAdapter.ViewHolder(
+        new NotesAdapter.ViewHolder(
             ListNotesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     if (mOnItemClickListener != null) {
@@ -82,7 +82,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
 
   @Override
   public void onBindViewHolder(
-      @NonNull ListNotesAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+      @NonNull NotesAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
     if (payloads.isEmpty()) {
       super.onBindViewHolder(holder, position, payloads);
     } else {

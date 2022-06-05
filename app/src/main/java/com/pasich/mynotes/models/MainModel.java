@@ -1,7 +1,7 @@
 package com.pasich.mynotes.models;
 
-import static com.pasich.mynotes.utils.Constants.TagSettingsConst.MAX_NAME_TAG;
-import static com.pasich.mynotes.utils.Constants.TagSettingsConst.MIN_NAME_TAG;
+import static com.pasich.mynotes.utils.Constants.TagSettings.MAX_NAME_TAG;
+import static com.pasich.mynotes.utils.Constants.TagSettings.MIN_NAME_TAG;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;

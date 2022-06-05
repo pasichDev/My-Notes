@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
-import com.pasich.mynotes.utils.Adapters.MoreListAdapter;
+import com.pasich.mynotes.utils.Adapters.DialogListAdapter;
 import com.pasich.mynotes.utils.Interface.ManageTrash;
 import com.pasich.mynotes.view.DialogView.CleanTrashView;
 
@@ -31,8 +31,8 @@ public class CleanTrashDialog extends DialogFragment {
     arrayChoice.add(
         new ChoiceModel(
             getString(R.string.cancel), R.drawable.ic_close_search_view, "Close", false));
-    MoreListAdapter adapter =
-        new MoreListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
+    DialogListAdapter adapter =
+        new DialogListAdapter(getContext(), R.layout.item_icon_text_simple, arrayChoice);
     CleanTrashView.listView.setAdapter(adapter);
 
     CleanTrashView.listView.setOnItemClickListener(

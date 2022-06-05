@@ -25,8 +25,8 @@ import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.models.MainModel;
 import com.pasich.mynotes.models.adapter.NoteModel;
 import com.pasich.mynotes.utils.ActionUtils;
-import com.pasich.mynotes.utils.Adapters.ListNotesAdapter;
-import com.pasich.mynotes.utils.Adapters.TagListAdapter;
+import com.pasich.mynotes.utils.Adapters.NotesAdapter;
+import com.pasich.mynotes.utils.Adapters.TagAdapter;
 import com.pasich.mynotes.utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.utils.Interface.ManageTag;
 import com.pasich.mynotes.utils.Interface.MoreActivInterface;
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity
 
   private MainView MainView;
   private MainUtils MainUtils;
-  private ListNotesAdapter ListNotesAdapter;
-  private TagListAdapter TagListAdapter;
+  private NotesAdapter ListNotesAdapter;
+  private TagAdapter TagListAdapter;
   private MainModel MainModel;
   private ActionUtils ActionUtils;
   private FormatSwitchUtils formatSwitch;
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
 
   /** Method that creates and populates a ListVIew */
   private void createListNotes() {
-    ListNotesAdapter = new ListNotesAdapter(MainModel.notesArray);
+    ListNotesAdapter = new NotesAdapter(MainModel.notesArray);
     binding.listNotes.setAdapter(ListNotesAdapter);
 
     binding.setEmptyNotes(ListNotesAdapter.getData().isEmpty());
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
   }
 
   private void createListTags() {
-    TagListAdapter = new TagListAdapter(MainModel.tagsArray);
+    TagListAdapter = new TagAdapter(MainModel.tagsArray);
 
     binding.listTags.setAdapter(TagListAdapter);
   }
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity
     binding.moreActivity.setOnClickListener(this);
 
     TagListAdapter.setOnItemClickListener(
-        new TagListAdapter.OnItemClickListener() {
+        new TagAdapter.OnItemClickListener() {
 
           @Override
           public void onClick(int position) {
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity
         });
 
     ListNotesAdapter.setOnItemClickListener(
-        new ListNotesAdapter.OnItemClickListener() {
+        new NotesAdapter.OnItemClickListener() {
 
           @Override
           public void onClick(int position) {
