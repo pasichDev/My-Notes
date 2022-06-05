@@ -7,7 +7,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.CustomView.TitleDialog;
+import com.pasich.mynotes.view.customView.TitleDialog;
 
 public class ChooseSortDialogView extends TitleDialog {
 

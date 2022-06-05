@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.CustomView.TitleDialog;
+import com.pasich.mynotes.view.customView.TitleDialog;
 
 public class CleanTrashView extends TitleDialog {
 

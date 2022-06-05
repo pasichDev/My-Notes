@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.CustomView.TitleDialog;
+import com.pasich.mynotes.view.customView.TitleDialog;
 
 public class PermissionErrorDialog extends DialogFragment {
   String mode;

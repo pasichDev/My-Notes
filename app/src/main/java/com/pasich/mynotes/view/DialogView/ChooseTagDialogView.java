@@ -9,8 +9,8 @@ import android.widget.ListView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.CustomView.NewTagView;
-import com.pasich.mynotes.view.CustomView.TitleDialog;
+import com.pasich.mynotes.view.customView.NewTagView;
+import com.pasich.mynotes.view.customView.TitleDialog;
 
 public class ChooseTagDialogView extends TitleDialog {
 
@@ -30,7 +30,6 @@ public class ChooseTagDialogView extends TitleDialog {
 
     initialization();
     setTabLayoutTags();
-    setErrorMessage(context);
   }
 
   private void setTabLayoutTags() {}
@@ -38,10 +37,7 @@ public class ChooseTagDialogView extends TitleDialog {
   private void initialization() {
     NewTagVIewUi.getSaveButton().setEnabled(false);
     getContainer().addView(TabLayoutTags, LP_DEFAULT);
-    getContainer().addView(NewTagVIewUi.getInputLayoutUI());
+    getContainer().addView(NewTagVIewUi.getInputLayout());
   }
 
-  private void setErrorMessage(Context context) {
-    NewTagVIewUi.getErrorMessage().setText(context.getString(R.string.errorCountNameTag));
-  }
 }

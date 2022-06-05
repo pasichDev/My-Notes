@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.pasich.mynotes.models.adapter.NoteModel;
 import com.pasich.mynotes.utils.Adapters.ListNotesAdapter;
-import com.pasich.mynotes.view.CustomView.ActionPanel;
+import com.pasich.mynotes.view.customView.ActionPanel;
 
 import java.util.ArrayList;
 import java.util.List;

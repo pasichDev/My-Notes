@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.adapter.SourceListModel;
 import com.pasich.mynotes.utils.Adapters.SourceListAdapter;
-import com.pasich.mynotes.view.CustomView.TitleDialog;
+import com.pasich.mynotes.view.customView.TitleDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;

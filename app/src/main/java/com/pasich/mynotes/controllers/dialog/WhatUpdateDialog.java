@@ -10,8 +10,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.CustomView.TitleDialog;
-
+import com.pasich.mynotes.view.customView.TitleDialog;
 
 public class WhatUpdateDialog extends DialogFragment {
 

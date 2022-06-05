@@ -1,52 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    app:elevation="5dp"
-    android:layout_height="90dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditText
-        android:id="@+id/inputNameTag"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/background_normal_input"
-        android:enabled="true"
-        android:hint="@string/createNewTag"
-        android:inputType="textCapSentences|textImeMultiLine"
-        android:maxLines="1"
-        app:layout_constraintEnd_toStartOf="@+id/saveTag"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <Button
-        android:id="@+id/saveTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/colorPrimaryBackground"
-        android:enabled="true"
-        android:textColor="@color/white"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <import type="android.view.View" />
 
-    <TextView
-        android:id="@+id/errorText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5dp"
-        android:textColor="@color/red"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputNameTag" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="errorText"
+            type="boolean" />
+
+        <variable
+            name="enableButtonSave"
+            type="boolean" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        app:elevation="5dp">
+
+        <EditText
+            android:id="@+id/inputNameTag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:autofillHints="@string/createNewTag"
+            android:background="@{errorText ? @drawable/background_normal_error : @drawable/background_normal_input}"
+            android:enabled="true"
+            android:hint="@string/createNewTag"
+            android:inputType="textCapSentences|textImeMultiLine"
+            android:maxLines="1"
+            android:padding="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/saveTag"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/saveTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/colorPrimaryBackground"
+            android:enabled="@{enableButtonSave ? true : false }"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/errorCountNameTag"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:visibility="@{errorText ? View.VISIBLE : View.INVISIBLE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputNameTag" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.CustomView.TitleDialog;
+import com.pasich.mynotes.view.customView.TitleDialog;
 
 public class ChoiceTagDialogView extends TitleDialog {
 

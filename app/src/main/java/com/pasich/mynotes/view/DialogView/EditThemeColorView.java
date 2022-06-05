@@ -6,7 +6,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.CustomView.TitleDialog;
+import com.pasich.mynotes.view.customView.TitleDialog;
 
 public class EditThemeColorView {
 

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.view.CustomView;
+package com.pasich.mynotes.view.customView;
 
 import android.content.res.ColorStateList;
 import android.view.View;
