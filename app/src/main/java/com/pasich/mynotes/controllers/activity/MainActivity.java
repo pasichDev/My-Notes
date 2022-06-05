@@ -16,17 +16,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.ActionUtils;
-import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
-import com.pasich.mynotes.Utils.Adapters.TagListAdapter;
-import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
-import com.pasich.mynotes.Utils.Interface.ManageTag;
-import com.pasich.mynotes.Utils.Interface.MoreActivInterface;
-import com.pasich.mynotes.Utils.Interface.SortInterface;
-import com.pasich.mynotes.Utils.MainUtils;
-import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
-import com.pasich.mynotes.Utils.Utils.ShareNoteUtils;
-import com.pasich.mynotes.View.MainView;
 import com.pasich.mynotes.controllers.dialog.ChoiceNoteDialog;
 import com.pasich.mynotes.controllers.dialog.ChooseSortDialog;
 import com.pasich.mynotes.controllers.dialog.MoreActivityDialog;
@@ -35,6 +24,17 @@ import com.pasich.mynotes.controllers.dialog.tags.NewTagDialog;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.models.MainModel;
 import com.pasich.mynotes.models.adapter.NoteModel;
+import com.pasich.mynotes.utils.ActionUtils;
+import com.pasich.mynotes.utils.Adapters.ListNotesAdapter;
+import com.pasich.mynotes.utils.Adapters.TagListAdapter;
+import com.pasich.mynotes.utils.Interface.ChoiceNoteInterface;
+import com.pasich.mynotes.utils.Interface.ManageTag;
+import com.pasich.mynotes.utils.Interface.MoreActivInterface;
+import com.pasich.mynotes.utils.Interface.SortInterface;
+import com.pasich.mynotes.utils.MainUtils;
+import com.pasich.mynotes.utils.SwitchButtons.FormatSwitchUtils;
+import com.pasich.mynotes.utils.Utils.ShareNoteUtils;
+import com.pasich.mynotes.view.MainView;
 
 import java.util.ArrayList;
 

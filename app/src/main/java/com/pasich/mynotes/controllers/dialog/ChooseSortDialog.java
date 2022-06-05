@@ -10,10 +10,10 @@ import androidx.preference.PreferenceManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
-import com.pasich.mynotes.Utils.Interface.SortInterface;
-import com.pasich.mynotes.View.DialogView.ChooseSortDialogView;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
+import com.pasich.mynotes.utils.Adapters.MoreListAdapter;
+import com.pasich.mynotes.utils.Interface.SortInterface;
+import com.pasich.mynotes.view.DialogView.ChooseSortDialogView;
 
 import java.util.ArrayList;
 

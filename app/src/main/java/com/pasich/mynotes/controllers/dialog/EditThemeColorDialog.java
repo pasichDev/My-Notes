@@ -11,8 +11,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Constants.SystemConstant;
-import com.pasich.mynotes.View.DialogView.EditThemeColorView;
+import com.pasich.mynotes.utils.Constants.SystemConstant;
+import com.pasich.mynotes.view.DialogView.EditThemeColorView;
 
 public class EditThemeColorDialog extends DialogFragment {
 

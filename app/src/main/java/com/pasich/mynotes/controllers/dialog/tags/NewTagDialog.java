@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.pasich.mynotes.Utils.Interface.ManageTag;
-import com.pasich.mynotes.View.DialogView.NewTagView;
+import com.pasich.mynotes.utils.Interface.ManageTag;
+import com.pasich.mynotes.view.DialogView.NewTagView;
 
 public class NewTagDialog extends BottomSheetDialogFragment {
   public NewTagView NewTagView;

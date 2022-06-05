@@ -3,8 +3,8 @@ package com.pasich.mynotes.models;
 import android.app.Activity;
 import android.database.Cursor;
 
-import com.pasich.mynotes.Utils.Utils.ListNotesUtils;
-import com.pasich.mynotes.View.NoteView;
+import com.pasich.mynotes.utils.Utils.ListNotesUtils;
+import com.pasich.mynotes.view.NoteView;
 
 import java.util.Calendar;
 

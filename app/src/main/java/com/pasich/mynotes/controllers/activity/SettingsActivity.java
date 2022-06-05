@@ -1,6 +1,6 @@
 package com.pasich.mynotes.controllers.activity;
 
-import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
+import static com.pasich.mynotes.utils.Theme.ThemeUtils.applyTheme;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,12 +12,12 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Adapters.ViewPagerAdapter;
-import com.pasich.mynotes.View.SettingsView;
 import com.pasich.mynotes.controllers.fragments.FragmentAppInfo;
 import com.pasich.mynotes.controllers.fragments.FragmentBackup;
 import com.pasich.mynotes.controllers.fragments.FragmentMain;
 import com.pasich.mynotes.controllers.fragments.FragmentVoice;
+import com.pasich.mynotes.utils.Adapters.ViewPagerAdapter;
+import com.pasich.mynotes.view.SettingsView;
 
 public class SettingsActivity extends AppCompatActivity {
   private SettingsView SettingsView;

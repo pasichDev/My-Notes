@@ -10,13 +10,13 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.ActionUtils;
-import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
-import com.pasich.mynotes.Utils.Interface.ManageTrash;
-import com.pasich.mynotes.Utils.SpacesItemDecoration;
 import com.pasich.mynotes.controllers.dialog.CleanTrashDialog;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.models.TrashModel;
+import com.pasich.mynotes.utils.ActionUtils;
+import com.pasich.mynotes.utils.Adapters.ListNotesAdapter;
+import com.pasich.mynotes.utils.Interface.ManageTrash;
+import com.pasich.mynotes.utils.SpacesItemDecoration;
 
 import java.util.Objects;
 

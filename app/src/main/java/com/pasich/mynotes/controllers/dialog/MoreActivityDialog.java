@@ -11,9 +11,9 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
-import com.pasich.mynotes.Utils.Interface.MoreActivInterface;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
+import com.pasich.mynotes.utils.Adapters.MoreListAdapter;
+import com.pasich.mynotes.utils.Interface.MoreActivInterface;
 
 import java.util.ArrayList;
 

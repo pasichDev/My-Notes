@@ -2,17 +2,11 @@
 <resources>
 
     <color name="white">#FFFFFFFF</color>
-    <color name="hidden">#FAFAFA</color>
-
-    <color name="EditViewDark">#1C1B1B</color>
-    <color name="EditViewWhite">#FAFAFA</color>
-    <color name="textHiddenColor">#C6C4C4</color>
 
 
     <color name="colorLightDark">#6C6868</color>
     <color name="colorClick">#E4E4E4</color>
 
-    <color name="backgroundActivity">#EFEDED</color>
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
 

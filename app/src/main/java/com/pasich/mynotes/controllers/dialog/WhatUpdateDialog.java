@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.View.CustomView.CustomHeadUIDialog;
+import com.pasich.mynotes.view.CustomView.TitleDialog;
 
 
 public class WhatUpdateDialog extends DialogFragment {
@@ -18,7 +18,7 @@ public class WhatUpdateDialog extends DialogFragment {
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
-    CustomHeadUIDialog uiDialog = new CustomHeadUIDialog(getContext(), getLayoutInflater());
+    TitleDialog uiDialog = new TitleDialog(getContext(), getLayoutInflater());
     uiDialog.setHeadTextView(BuildConfig.VERSION_NAME);
     TextView textMessage = new TextView(getContext());
 
