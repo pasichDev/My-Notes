@@ -28,8 +28,7 @@ public class ChoiceNoteDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
     final ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
-    final ChoiceNoteDialogView view =
-        new ChoiceNoteDialogView(requireContext(), getLayoutInflater());
+    final ChoiceNoteDialogView view = new ChoiceNoteDialogView(getLayoutInflater());
     final ChoiceNoteInterface ChoiceNoteInterface = (ChoiceNoteInterface) getContext();
 
     view.initializeInfoLayout(keysNoteInfo[2], keysNoteInfo[3]);
@@ -44,32 +43,33 @@ public class ChoiceNoteDialog extends DialogFragment {
         new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
 
     DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
-    view.listView.setAdapter(adapter);
+    view.getItemsView().setAdapter(adapter);
 
-    view.listView.setOnItemClickListener(
-        (parent, v, position, id) -> {
-          if (adapter.getItem(position).getAction().equals("Share")) {
-            assert ChoiceNoteInterface != null;
-            ChoiceNoteInterface.shareNote(Integer.parseInt(keysNoteInfo[0]));
-          }
-          if (adapter.getItem(position).getAction().equals("Delete")) {
-            assert ChoiceNoteInterface != null;
-            ChoiceNoteInterface.deleteNote(
-                Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]));
-          }
-          if (adapter.getItem(position).getAction().equals("Tag")) {
-            new TagDialog(Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]))
-                .show(getParentFragmentManager(), "EditDIalog");
-          }
-          if (adapter.getItem(position).getAction().equals("SelectAll")) {
-            assert ChoiceNoteInterface != null;
-            ChoiceNoteInterface.actionNote(Integer.parseInt(keysNoteInfo[0]));
-          }
+    view.getItemsView()
+        .setOnItemClickListener(
+            (parent, v, position, id) -> {
+              if (adapter.getItem(position).getAction().equals("Share")) {
+                assert ChoiceNoteInterface != null;
+                ChoiceNoteInterface.shareNote(Integer.parseInt(keysNoteInfo[0]));
+              }
+              if (adapter.getItem(position).getAction().equals("Delete")) {
+                assert ChoiceNoteInterface != null;
+                ChoiceNoteInterface.deleteNote(
+                    Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]));
+              }
+              if (adapter.getItem(position).getAction().equals("Tag")) {
+                new TagDialog(Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]))
+                    .show(getParentFragmentManager(), "EditDIalog");
+              }
+              if (adapter.getItem(position).getAction().equals("SelectAll")) {
+                assert ChoiceNoteInterface != null;
+                ChoiceNoteInterface.actionNote(Integer.parseInt(keysNoteInfo[0]));
+              }
 
-          dismiss();
-        });
+              dismiss();
+            });
 
-    builder.setContentView(view.getLinearLayout());
+    builder.setContentView(view.getRootContainer());
 
     return builder;
   }

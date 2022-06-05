@@ -3,7 +3,6 @@ package com.pasich.mynotes.view.custom;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,10 +31,6 @@ public class NewTagView {
 
   public final EditText getInputTag() {
     return binding.inputNameTag;
-  }
-
-  public final View getInputLayout() {
-    return this.binding.getRoot();
   }
 
   private void validateNameActivate() {

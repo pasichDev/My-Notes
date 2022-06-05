@@ -8,7 +8,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.controllers.dialog.TtsErrorDialog;
 
 public class FragmentVoice extends PreferenceFragmentCompat {
   @Override
@@ -30,7 +29,6 @@ public class FragmentVoice extends PreferenceFragmentCompat {
     assert errorSpechService != null;
     errorSpechService.setOnPreferenceClickListener(
         preference -> {
-          new TtsErrorDialog().show(getParentFragmentManager(), "Error Service Spech");
           return true;
         });
   }

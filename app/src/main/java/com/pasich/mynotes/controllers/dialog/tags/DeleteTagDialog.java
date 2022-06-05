@@ -30,8 +30,9 @@ public class DeleteTagDialog extends DialogFragment {
 
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ManageTag ManageTag = (ManageTag) getContext();
-    final DeleteTagView DeleteTagView = new DeleteTagView(requireContext(), getLayoutInflater());
+    final DeleteTagView view = new DeleteTagView(getLayoutInflater());
 
+    view.setTitle(getString(R.string.deleteTag));
     ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
         new ChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "Delete", false));
@@ -46,19 +47,20 @@ public class DeleteTagDialog extends DialogFragment {
         new ChoiceModel(
             getString(R.string.cancel), R.drawable.ic_close_search_view, "Close", false));
     DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
-    DeleteTagView.listView.setAdapter(adapter);
+    view.getItemsView().setAdapter(adapter);
 
-    DeleteTagView.listView.setDivider(null);
-    DeleteTagView.listView.setOnItemClickListener(
-        (parent, v, position, id) -> {
-          String action = adapter.getItem(position).getAction();
-          if (!action.equals("Close")) {
-            assert ManageTag != null;
-            ManageTag.deleteTag(action.equals("DeleteAndNotes"), positionTag);
-          }
-          dismiss();
-        });
-    builder.setContentView(DeleteTagView.getContainer());
+    view.getItemsView().setDivider(null);
+    view.getItemsView()
+        .setOnItemClickListener(
+            (parent, v, position, id) -> {
+              String action = adapter.getItem(position).getAction();
+              if (!action.equals("Close")) {
+                assert ManageTag != null;
+                ManageTag.deleteTag(action.equals("DeleteAndNotes"), positionTag);
+              }
+              dismiss();
+            });
+    builder.setContentView(view.getRootContainer());
     return builder;
   }
 }

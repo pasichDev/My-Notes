@@ -20,7 +20,7 @@ public class ChooseTagDialogView extends TitleDialog {
 
   @SuppressLint("InflateParams")
   public ChooseTagDialogView(Context context, LayoutInflater inflater) {
-    super(context, inflater);
+    super(inflater);
     this.listView = new ListView(context);
     this.NewTagVIewUi = new NewTagView(inflater);
     this.TabLayoutTags = new TabLayout(context);
@@ -36,8 +36,7 @@ public class ChooseTagDialogView extends TitleDialog {
 
   private void initialization() {
     NewTagVIewUi.getSaveButton().setEnabled(false);
-    getContainer().addView(TabLayoutTags, LP_DEFAULT);
-    getContainer().addView(NewTagVIewUi.getInputLayout());
+    // getContainer().addView(TabLayoutTags, LP_DEFAULT);
+    // getContainer().addView(NewTagVIewUi.getInputLayout());
   }
-
 }

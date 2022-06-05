@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.utils.interfaces.ManageTag;
 import com.pasich.mynotes.view.dialog.NewTagView;
 
@@ -20,10 +19,10 @@ public class NewTagDialog extends BottomSheetDialogFragment {
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final NewTagView NewTagView = new NewTagView(requireContext(), getLayoutInflater());
+    final NewTagView NewTagView = new NewTagView(getLayoutInflater());
     final ManageTag ManageTag = (ManageTag) getContext();
 
-    NewTagView.setHeadTextView(getString(R.string.addTag));
+    // NewTagView.setHeadTextView(getString(R.string.addTag));
     NewTagView.NewTagVIewUi.getSaveButton()
         .setOnClickListener(
             view -> {
@@ -32,7 +31,7 @@ public class NewTagDialog extends BottomSheetDialogFragment {
               dismiss();
             });
 
-    builder.setContentView(NewTagView.getContainer());
+    //   builder.setContentView(NewTagView.getContainer());
 
     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))

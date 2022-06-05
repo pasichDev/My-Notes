@@ -1,9 +1,8 @@
 package com.pasich.mynotes.view.custom;
 
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pasich.mynotes.databinding.HeadViewBinding;
@@ -12,50 +11,49 @@ import com.pasich.mynotes.databinding.HeadViewBinding;
 public class TitleDialog {
 
   private final HeadViewBinding binding;
-  public LinearLayout.LayoutParams LP_DEFAULT;
-  protected LinearLayout container;
+  private final Context context;
 
-  public TitleDialog(Context context, LayoutInflater inflater) {
-    this.binding = HeadViewBinding.inflate(inflater);
-    this.container = new LinearLayout(context);
-    this.setContainer();
-    this.setLayoutParam();
+  public TitleDialog(LayoutInflater inflater) {
+    this.binding = HeadViewBinding.inflate(inflater, null, false);
+    this.context = binding.getRoot().getContext();
   }
 
-  /** Method for setting up a class container */
-  private void setContainer() {
-    this.container.setOrientation(LinearLayout.VERTICAL);
-    this.container.addView(binding.getRoot());
-  }
-
-  public void setLayoutParam() {
-    this.LP_DEFAULT =
-        new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    this.LP_DEFAULT.setMargins(60, 10, 60, 20);
+  /**
+   * Контекст который мы получим из раздутого макета binding
+   *
+   * @return - context
+   */
+  public Context getContextRoot() {
+    return this.context;
   }
 
   /**
    * Method for setting header text uiDialog.setHeadTextView(string);
    *
-   * @param headString - Dialog box title
+   * @param text - Dialog title
    */
-  public final void setHeadTextView(String headString) {
-    this.binding.HeadTextDialog.setText(headString);
+  protected void addTitle(String text) {
+    if (binding.HeadTextDialog.getParent() != null) {
+      ((ViewGroup) binding.HeadTextDialog.getParent()).removeView(binding.HeadTextDialog);
+    }
+    this.binding.HeadTextDialog.setText(text);
   }
 
   /**
-   * The method that returns container Here you need to add container filling
-   * builder.setView(uiDialog.getContainer());
+   * Метод который изменяет заголовок
    *
-   * @return - container
+   * @param text - Dialog title
    */
-  public final LinearLayout getContainer() {
-    return this.container;
+  protected void setTitle(String text) {
+    binding.HeadTextDialog.setText(text);
   }
 
-  /** method to set font size for message */
-  public void setTextSizeMessage(TextView textView) {
-    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+  /**
+   * Метод который возвращает заголовок
+   *
+   * @return - editText
+   */
+  protected TextView getTitleView() {
+    return binding.HeadTextDialog;
   }
 }

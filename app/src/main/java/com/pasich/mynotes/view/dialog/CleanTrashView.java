@@ -17,7 +17,7 @@ public class CleanTrashView extends TitleDialog {
   private final TextView textMessage;
 
   public CleanTrashView(Context context, LayoutInflater inflater) {
-    super(context, inflater);
+    super(inflater);
     this.listView = new ListView(context);
     this.context = context;
     this.textMessage = new TextView(context);
@@ -28,15 +28,15 @@ public class CleanTrashView extends TitleDialog {
   }
 
   private void initialization() {
-    setHeadTextView(context.getString(R.string.trashClean));
+    // setHeadTextView(context.getString(R.string.trashClean));
     setTextMessage();
-    getContainer().addView(listView);
+    // getContainer().addView(listView);
     listView.setDivider(null);
   }
 
   private void setTextMessage() {
     textMessage.setText(context.getString(R.string.cleanTrashMessage));
-    setTextSizeMessage(textMessage);
-    getContainer().addView(textMessage, LP_DEFAULT);
+    // setTextSizeMessage(textMessage);
+    // getContainer().addView(textMessage, LP_DEFAULT);
   }
 }

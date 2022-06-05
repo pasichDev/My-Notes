@@ -9,7 +9,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.dialog.ChooseTagDialogModel;
 import com.pasich.mynotes.utils.interfaces.ManageTag;
 import com.pasich.mynotes.utils.simplifications.TabLayoutListenerUtils;
@@ -36,10 +35,10 @@ public class TagDialog extends DialogFragment {
     final ChooseTagDialogView view = new ChooseTagDialogView(requireContext(), getLayoutInflater());
     ManageTag = (ManageTag) getContext();
 
-    view.setHeadTextView(
-        model.tagNote.length() == 0
-            ? getString(R.string.selectTagForNote)
-            : getString(R.string.editSelectTagForNote));
+    /*view.setHeadTextView(
+    model.tagNote.length() == 0
+        ? getString(R.string.selectTagForNote)
+        : getString(R.string.editSelectTagForNote));*/
 
     model.queryTags(view.TabLayoutTags);
 
@@ -65,7 +64,7 @@ public class TagDialog extends DialogFragment {
           }
         });
 
-    builder.setContentView(view.getContainer());
+    //    builder.setContentView(view.getContainer());
     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     return builder;
   }

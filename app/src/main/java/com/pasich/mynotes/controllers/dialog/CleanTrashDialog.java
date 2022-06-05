@@ -43,7 +43,7 @@ public class CleanTrashDialog extends DialogFragment {
           }
           dismiss();
         });
-    builder.setContentView(CleanTrashView.getContainer());
+    // builder.setContentView(CleanTrashView.getContainer());
     return builder;
   }
 }
