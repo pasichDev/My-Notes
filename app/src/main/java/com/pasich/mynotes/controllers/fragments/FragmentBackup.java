@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Fragments;
+package com.pasich.mynotes.controllers.fragments;
 
 import android.os.Bundle;
 

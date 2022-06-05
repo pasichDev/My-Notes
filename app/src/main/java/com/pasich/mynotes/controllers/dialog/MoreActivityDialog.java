@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Dialogs;
+package com.pasich.mynotes.controllers.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -17,8 +17,7 @@ import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
 
-public class ChooseMoreActivityDialog extends DialogFragment {
-
+public class MoreActivityDialog extends DialogFragment {
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {

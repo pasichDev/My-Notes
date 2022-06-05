@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Dialogs;
+package com.pasich.mynotes.controllers.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.MoreListAdapter;
 import com.pasich.mynotes.Utils.Interface.ChoiceNoteInterface;
 import com.pasich.mynotes.View.DialogView.ChoiceNoteDialogView;
+import com.pasich.mynotes.controllers.dialog.tags.TagDialog;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
@@ -58,8 +59,7 @@ public class ChoiceNoteDialog extends DialogFragment {
                 Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]));
           }
           if (adapter.getItem(position).getAction().equals("Tag")) {
-            new ChooseTagDialog(
-                    Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]))
+            new TagDialog(Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]))
                 .show(getParentFragmentManager(), "EditDIalog");
           }
           if (adapter.getItem(position).getAction().equals("SelectAll")) {

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Dialogs;
+package com.pasich.mynotes.controllers.dialog.tags;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -13,17 +13,17 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Interface.ManageTag;
 import com.pasich.mynotes.Utils.Simplifications.TabLayoutListenerUtils;
 import com.pasich.mynotes.View.DialogView.ChooseTagDialogView;
-import com.pasich.mynotes.models.ChooseTagDialogModel;
+import com.pasich.mynotes.models.dialog.ChooseTagDialogModel;
 
 import java.util.Objects;
 
-public class ChooseTagDialog extends DialogFragment {
+public class TagDialog extends DialogFragment {
 
   private final int noteID;
   private final int position;
   private ManageTag ManageTag;
 
-  public ChooseTagDialog(int noteID, int postion) {
+  public TagDialog(int noteID, int postion) {
     this.position = postion;
     this.noteID = noteID;
   }

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Activity;
+package com.pasich.mynotes.controllers.activity;
 
 import static com.pasich.mynotes.Utils.Theme.ThemeUtils.applyTheme;
 
@@ -14,10 +14,10 @@ import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.Utils.Adapters.ViewPagerAdapter;
 import com.pasich.mynotes.View.SettingsView;
-import com.pasich.mynotes.controllers.Fragments.FragmentAppInfo;
-import com.pasich.mynotes.controllers.Fragments.FragmentBackup;
-import com.pasich.mynotes.controllers.Fragments.FragmentMain;
-import com.pasich.mynotes.controllers.Fragments.FragmentVoice;
+import com.pasich.mynotes.controllers.fragments.FragmentAppInfo;
+import com.pasich.mynotes.controllers.fragments.FragmentBackup;
+import com.pasich.mynotes.controllers.fragments.FragmentMain;
+import com.pasich.mynotes.controllers.fragments.FragmentVoice;
 
 public class SettingsActivity extends AppCompatActivity {
   private SettingsView SettingsView;

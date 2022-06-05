@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Dialogs;
+package com.pasich.mynotes.controllers.dialog;
 
 import android.app.Dialog;
 import android.content.ClipData;

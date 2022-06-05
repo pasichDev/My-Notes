@@ -1,9 +1,11 @@
-package com.pasich.mynotes.models;
+package com.pasich.mynotes.models.dialog;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+
+import com.pasich.mynotes.models.ModelBase;
 
 public class ChoiceTagDialogModel extends ModelBase {
 

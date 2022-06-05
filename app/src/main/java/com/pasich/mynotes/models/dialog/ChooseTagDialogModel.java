@@ -1,4 +1,4 @@
-package com.pasich.mynotes.models;
+package com.pasich.mynotes.models.dialog;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.database.Cursor;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.models.ModelBase;
 
 public class ChooseTagDialogModel extends ModelBase {
 

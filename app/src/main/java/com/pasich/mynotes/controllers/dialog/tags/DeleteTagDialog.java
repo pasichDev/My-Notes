@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Dialogs;
+package com.pasich.mynotes.controllers.dialog.tags;
 
 import android.app.Dialog;
 import android.os.Bundle;

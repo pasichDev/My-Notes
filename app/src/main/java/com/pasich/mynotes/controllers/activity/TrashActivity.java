@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Activity;
+package com.pasich.mynotes.controllers.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import com.pasich.mynotes.Utils.ActionUtils;
 import com.pasich.mynotes.Utils.Adapters.ListNotesAdapter;
 import com.pasich.mynotes.Utils.Interface.ManageTrash;
 import com.pasich.mynotes.Utils.SpacesItemDecoration;
-import com.pasich.mynotes.controllers.Dialogs.CleanTrashDialog;
+import com.pasich.mynotes.controllers.dialog.CleanTrashDialog;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.models.TrashModel;
 

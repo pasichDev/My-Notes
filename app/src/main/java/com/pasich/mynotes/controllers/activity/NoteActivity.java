@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Activity;
+package com.pasich.mynotes.controllers.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.View.NoteView;
-import com.pasich.mynotes.controllers.Dialogs.MoreNoteDialog;
+import com.pasich.mynotes.controllers.dialog.MoreNoteDialog;
 import com.pasich.mynotes.models.NoteModel;
 
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Fragments;
+package com.pasich.mynotes.controllers.fragments;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 
@@ -8,7 +8,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.controllers.Dialogs.TtsErrorDialog;
+import com.pasich.mynotes.controllers.dialog.TtsErrorDialog;
 
 public class FragmentVoice extends PreferenceFragmentCompat {
   @Override

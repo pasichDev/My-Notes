@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Activity;
+package com.pasich.mynotes.controllers.activity;
 
 import static java.util.Objects.requireNonNull;
 
@@ -27,11 +27,11 @@ import com.pasich.mynotes.Utils.MainUtils;
 import com.pasich.mynotes.Utils.SwitchButtons.FormatSwitchUtils;
 import com.pasich.mynotes.Utils.Utils.ShareNoteUtils;
 import com.pasich.mynotes.View.MainView;
-import com.pasich.mynotes.controllers.Dialogs.ChoiceNoteDialog;
-import com.pasich.mynotes.controllers.Dialogs.ChoiceTagDialog;
-import com.pasich.mynotes.controllers.Dialogs.ChooseMoreActivityDialog;
-import com.pasich.mynotes.controllers.Dialogs.ChooseSortDialog;
-import com.pasich.mynotes.controllers.Dialogs.NewTagDialog;
+import com.pasich.mynotes.controllers.dialog.ChoiceNoteDialog;
+import com.pasich.mynotes.controllers.dialog.ChooseSortDialog;
+import com.pasich.mynotes.controllers.dialog.MoreActivityDialog;
+import com.pasich.mynotes.controllers.dialog.tags.ChoiceTagDialog;
+import com.pasich.mynotes.controllers.dialog.tags.NewTagDialog;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.models.MainModel;
 import com.pasich.mynotes.models.adapter.NoteModel;
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.moreActivity) {
-      new ChooseMoreActivityDialog().show(getSupportFragmentManager(), "more activity");
+      new MoreActivityDialog().show(getSupportFragmentManager(), "more activity");
     }
 
     if (v.getId() == R.id.sortButton) {

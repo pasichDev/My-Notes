@@ -1,4 +1,4 @@
-package com.pasich.mynotes.controllers.Fragments;
+package com.pasich.mynotes.controllers.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +10,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.controllers.Dialogs.WhatUpdateDialog;
+import com.pasich.mynotes.controllers.dialog.WhatUpdateDialog;
 
 public class FragmentAppInfo extends PreferenceFragmentCompat {
   @Override
