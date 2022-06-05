@@ -50,7 +50,7 @@
             android:text="@{TagsModel.nameTag}"
             android:textAllCaps="false"
             android:textColor="@{checkedItem ? @color/white : @color/colorPrimaryVariant}"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="@{TagsModel.systemAction != 1 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
