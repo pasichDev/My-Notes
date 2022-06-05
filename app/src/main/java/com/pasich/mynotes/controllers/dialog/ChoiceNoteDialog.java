@@ -10,9 +10,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.controllers.dialog.tags.TagDialog;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
-import com.pasich.mynotes.utils.Adapters.DialogListAdapter;
-import com.pasich.mynotes.utils.Interface.ChoiceNoteInterface;
-import com.pasich.mynotes.view.DialogView.ChoiceNoteDialogView;
+import com.pasich.mynotes.utils.adapters.DialogListAdapter;
+import com.pasich.mynotes.utils.interfaces.ChoiceNoteInterface;
+import com.pasich.mynotes.view.dialog.ChoiceNoteDialogView;
 
 import java.util.ArrayList;
 

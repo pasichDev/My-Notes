@@ -15,7 +15,7 @@ import com.pasich.mynotes.controllers.fragments.FragmentAppInfo;
 import com.pasich.mynotes.controllers.fragments.FragmentBackup;
 import com.pasich.mynotes.controllers.fragments.FragmentMain;
 import com.pasich.mynotes.controllers.fragments.FragmentVoice;
-import com.pasich.mynotes.utils.Adapters.ViewPagerAdapter;
+import com.pasich.mynotes.utils.adapters.ViewPagerAdapter;
 import com.pasich.mynotes.view.SettingsView;
 
 public class SettingsActivity extends AppCompatActivity {

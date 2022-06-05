@@ -11,9 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.dialog.ChooseTagDialogModel;
-import com.pasich.mynotes.utils.Interface.ManageTag;
-import com.pasich.mynotes.utils.Simplifications.TabLayoutListenerUtils;
-import com.pasich.mynotes.view.DialogView.ChooseTagDialogView;
+import com.pasich.mynotes.utils.interfaces.ManageTag;
+import com.pasich.mynotes.utils.simplifications.TabLayoutListenerUtils;
+import com.pasich.mynotes.view.dialog.ChooseTagDialogView;
 
 import java.util.Objects;
 

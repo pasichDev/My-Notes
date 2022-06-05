@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.customView.TitleDialog;
+import com.pasich.mynotes.view.custom.TitleDialog;
 
 public class TtsErrorDialog extends DialogFragment {
 

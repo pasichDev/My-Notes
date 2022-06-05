@@ -3,7 +3,7 @@ package com.pasich.mynotes.models;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.pasich.mynotes.utils.Database.DbHelper;
+import com.pasich.mynotes.utils.database.DbHelper;
 
 public class ModelBase {
   private SQLiteDatabase db;

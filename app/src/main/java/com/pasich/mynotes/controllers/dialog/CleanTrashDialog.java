@@ -9,9 +9,9 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
-import com.pasich.mynotes.utils.Adapters.DialogListAdapter;
-import com.pasich.mynotes.utils.Interface.ManageTrash;
-import com.pasich.mynotes.view.DialogView.CleanTrashView;
+import com.pasich.mynotes.utils.adapters.DialogListAdapter;
+import com.pasich.mynotes.utils.interfaces.ManageTrash;
+import com.pasich.mynotes.view.dialog.CleanTrashView;
 
 import java.util.ArrayList;
 
