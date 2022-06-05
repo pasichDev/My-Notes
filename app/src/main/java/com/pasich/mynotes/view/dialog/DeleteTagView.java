@@ -5,25 +5,25 @@ import android.view.LayoutInflater;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.ListDialogView;
+import com.pasich.mynotes.view.base.ListDialogView;
 
 public class DeleteTagView extends ListDialogView {
 
   public DeleteTagView(LayoutInflater inflater) {
     super(inflater);
-    addTitle("");
+    addTitle(getContextRoot().getString(R.string.deleteTag));
     initialization();
   }
 
   private void initialization() {
     setTextMessage();
-    getRootContainer().addView(getItemsView());
+    addView(getItemsView());
   }
 
   private void setTextMessage() {
     TextView textMessage = new TextView(getContextRoot());
     textMessage.setText(getContextRoot().getString(R.string.deleteSelectTagTextMassage));
-    textMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
-    getRootContainer().addView(textMessage, getLayoutParamDefault());
+    textMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, TEXT_MESSAGE_SIZE);
+    addView(textMessage, LP_DEFAULT);
   }
 }

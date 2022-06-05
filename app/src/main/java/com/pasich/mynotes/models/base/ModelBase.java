@@ -1,4 +1,4 @@
-package com.pasich.mynotes.models;
+package com.pasich.mynotes.models.base;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

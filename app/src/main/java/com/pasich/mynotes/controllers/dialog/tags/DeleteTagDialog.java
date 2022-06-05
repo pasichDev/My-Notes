@@ -31,8 +31,6 @@ public class DeleteTagDialog extends DialogFragment {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ManageTag ManageTag = (ManageTag) getContext();
     final DeleteTagView view = new DeleteTagView(getLayoutInflater());
-
-    view.setTitle(getString(R.string.deleteTag));
     ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
         new ChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "Delete", false));

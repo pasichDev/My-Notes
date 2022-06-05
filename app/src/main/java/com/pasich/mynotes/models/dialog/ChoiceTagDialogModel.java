@@ -5,7 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.pasich.mynotes.models.ModelBase;
+import com.pasich.mynotes.models.base.ModelBase;
 
 public class ChoiceTagDialogModel extends ModelBase {
 

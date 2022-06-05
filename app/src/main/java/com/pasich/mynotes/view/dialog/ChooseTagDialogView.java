@@ -9,10 +9,10 @@ import android.widget.ListView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.view.base.TitleDialogView;
 import com.pasich.mynotes.view.custom.NewTagView;
-import com.pasich.mynotes.view.custom.TitleDialog;
 
-public class ChooseTagDialogView extends TitleDialog {
+public class ChooseTagDialogView extends TitleDialogView {
 
   public final ListView listView;
   public final NewTagView NewTagVIewUi;

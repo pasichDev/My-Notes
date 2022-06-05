@@ -7,7 +7,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ViewInfoItemBinding;
 import com.pasich.mynotes.databinding.ViewVisibilityTagBinding;
-import com.pasich.mynotes.view.ListDialogView;
+import com.pasich.mynotes.view.base.ListDialogView;
 
 public class ChoiceTagDialogView extends ListDialogView {
 
@@ -20,14 +20,14 @@ public class ChoiceTagDialogView extends ListDialogView {
     this.ViewInfoItem = ViewInfoItemBinding.inflate(Inflater);
 
     addTitle("");
-    getRootContainer().addView(ViewVisibilitySwitch.getRoot());
-    getRootContainer().addView(getItemsView());
+    addView(ViewVisibilitySwitch.getRoot());
+    addView(getItemsView());
   }
 
   public void initializeInfoLayout(String countNotesToTag) {
     ViewInfoItem.infoTextView.setText(
         getContextRoot().getString(R.string.layoutStringInfoTags, countNotesToTag));
-    getRootContainer().addView(ViewInfoItem.getRoot());
+    addView(ViewInfoItem.getRoot());
   }
 
   public SwitchCompat getSwitchVisibility() {

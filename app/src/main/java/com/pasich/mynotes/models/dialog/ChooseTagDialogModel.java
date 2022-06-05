@@ -6,7 +6,7 @@ import android.database.Cursor;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.models.ModelBase;
+import com.pasich.mynotes.models.base.ModelBase;
 
 public class ChooseTagDialogModel extends ModelBase {
 

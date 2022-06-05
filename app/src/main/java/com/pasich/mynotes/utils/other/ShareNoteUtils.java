@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.widget.Toast;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.models.ModelBase;
+import com.pasich.mynotes.models.base.ModelBase;
 
 public class ShareNoteUtils extends ModelBase {
 

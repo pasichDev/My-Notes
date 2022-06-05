@@ -13,7 +13,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 import com.pasich.mynotes.utils.interfaces.SortInterface;
-import com.pasich.mynotes.view.dialog.ChooseSortView;
+import com.pasich.mynotes.view.base.ListDialogView;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,15 @@ public class ChooseSortDialog extends DialogFragment {
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final ChooseSortView view = new ChooseSortView(getLayoutInflater());
+    final ListDialogView view = new ListDialogView(getLayoutInflater());
     final SortInterface SortInterface = (SortInterface) getContext();
     final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
     final String sortParam =
         PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getString("sortPref", "DataReserve");
+
+    view.addTitle(getString(R.string.sortHead));
+    view.addView(view.getItemsView());
 
     arraySortOption.add(
         new ChoiceModel(

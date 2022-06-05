@@ -1,4 +1,4 @@
-package com.pasich.mynotes.view.custom;
+package com.pasich.mynotes.view.base;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 import com.pasich.mynotes.databinding.HeadViewBinding;
 
-/** A class that simplifies working with dialogs TitleDialog uiDialog = new */
-public class TitleDialog {
+/** A class that simplifies working with dialogs TitleDialogView uiDialog = new */
+public class TitleDialogView {
 
   private final HeadViewBinding binding;
   private final Context context;
 
-  public TitleDialog(LayoutInflater inflater) {
+  public TitleDialogView(LayoutInflater inflater) {
     this.binding = HeadViewBinding.inflate(inflater, null, false);
     this.context = binding.getRoot().getContext();
   }

@@ -22,7 +22,7 @@ public class CleanTrashDialog extends DialogFragment {
 
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ManageTrash ManageTrash = (ManageTrash) getContext();
-    final CleanTrashView CleanTrashView = new CleanTrashView(requireContext(), getLayoutInflater());
+    final CleanTrashView view = new CleanTrashView(getLayoutInflater());
 
     ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
@@ -32,18 +32,19 @@ public class CleanTrashDialog extends DialogFragment {
         new ChoiceModel(
             getString(R.string.cancel), R.drawable.ic_close_search_view, "Close", false));
     DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
-    CleanTrashView.listView.setAdapter(adapter);
+    view.getItemsView().setAdapter(adapter);
 
-    CleanTrashView.listView.setOnItemClickListener(
-        (parent, v, position, id) -> {
-          String action = adapter.getItem(position).getAction();
-          if (!action.equals("Close")) {
-            assert ManageTrash != null;
-            ManageTrash.cleanTrash();
-          }
-          dismiss();
-        });
-    // builder.setContentView(CleanTrashView.getContainer());
+    view.getItemsView()
+        .setOnItemClickListener(
+            (parent, v, position, id) -> {
+              String action = adapter.getItem(position).getAction();
+              if (!action.equals("Close")) {
+                assert ManageTrash != null;
+                ManageTrash.cleanTrash();
+              }
+              dismiss();
+            });
+    builder.setContentView(view.getRootContainer());
     return builder;
   }
 }

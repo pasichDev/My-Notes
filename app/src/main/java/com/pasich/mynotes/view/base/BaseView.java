@@ -1,12 +1,13 @@
-package com.pasich.mynotes.view;
+package com.pasich.mynotes.view.base;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 
-import com.pasich.mynotes.view.custom.TitleDialog;
+public class BaseView extends TitleDialogView {
 
-public class BaseView extends TitleDialog {
-
+  public LinearLayout.LayoutParams LP_DEFAULT = getLayoutParamDefault();
+  public int TEXT_MESSAGE_SIZE = 17;
   protected LinearLayout rootContainer;
 
   public BaseView(LayoutInflater inflater) {
@@ -30,6 +31,18 @@ public class BaseView extends TitleDialog {
   }
 
   /**
+   * Метод который добавляет View в rootContainer
+   *
+   * @param view - view add
+   */
+  public void addView(View view) {
+    getRootContainer().addView(view);
+  }
+
+  public void addView(View view, LinearLayout.LayoutParams lp) {
+    getRootContainer().addView(view, lp);
+  }
+  /**
    * Метод который реализовует добавления заголовка в диалог
    *
    * @param text - Dialog title
@@ -50,7 +63,7 @@ public class BaseView extends TitleDialog {
    *
    * @return - LayoutParam
    */
-  public LinearLayout.LayoutParams getLayoutParamDefault() {
+  private LinearLayout.LayoutParams getLayoutParamDefault() {
     LinearLayout.LayoutParams LP_DEFAULT;
     LP_DEFAULT =
         new LinearLayout.LayoutParams(

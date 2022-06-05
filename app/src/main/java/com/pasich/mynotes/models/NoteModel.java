@@ -3,6 +3,7 @@ package com.pasich.mynotes.models;
 import android.app.Activity;
 import android.database.Cursor;
 
+import com.pasich.mynotes.models.base.ModelBase;
 import com.pasich.mynotes.utils.other.ListNotesUtils;
 import com.pasich.mynotes.view.NoteView;
 

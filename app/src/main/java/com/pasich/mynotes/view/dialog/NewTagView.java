@@ -2,7 +2,7 @@ package com.pasich.mynotes.view.dialog;
 
 import android.view.LayoutInflater;
 
-import com.pasich.mynotes.view.BaseView;
+import com.pasich.mynotes.view.base.BaseView;
 
 public class NewTagView extends BaseView {
 
