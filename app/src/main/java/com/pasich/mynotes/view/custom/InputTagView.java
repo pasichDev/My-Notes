@@ -8,17 +8,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.pasich.mynotes.databinding.NewTagViewBinding;
+import com.pasich.mynotes.databinding.ViewNewTagInputBinding;
 import com.pasich.mynotes.utils.simplifications.TextValidatorUtils;
 import com.pasich.mynotes.view.base.BaseView;
 
 public class InputTagView extends BaseView {
 
-  private final NewTagViewBinding binding;
+  private final ViewNewTagInputBinding binding;
 
   public InputTagView(LayoutInflater inflater) {
     super(inflater);
-    this.binding = NewTagViewBinding.inflate(inflater);
+    this.binding = ViewNewTagInputBinding.inflate(inflater);
     this.initialization();
   }
 

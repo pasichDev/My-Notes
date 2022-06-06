@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.databinding.ListTagsBinding;
+import com.pasich.mynotes.databinding.ItemTagBinding;
 import com.pasich.mynotes.models.adapter.TagsModel;
 
 import java.util.List;
@@ -60,7 +60,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
   public TagAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ViewHolder view =
         new ViewHolder(
-            ListTagsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+            ItemTagBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     if (mOnItemClickListener != null) {
       view.itemView.setOnClickListener(
@@ -103,9 +103,9 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    ListTagsBinding ItemBinding;
+    ItemTagBinding ItemBinding;
 
-    ViewHolder(ListTagsBinding binding) {
+    ViewHolder(ItemTagBinding binding) {
       super(binding.getRoot());
       ItemBinding = binding;
     }

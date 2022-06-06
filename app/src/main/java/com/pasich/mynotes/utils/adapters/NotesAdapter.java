@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.databinding.ListNotesBinding;
+import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.models.adapter.NoteModel;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
   public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ViewHolder view =
         new NotesAdapter.ViewHolder(
-            ListNotesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+            ItemNoteBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     if (mOnItemClickListener != null) {
       view.itemView.setOnClickListener(
@@ -112,9 +112,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    ListNotesBinding ItemBinding;
+    ItemNoteBinding ItemBinding;
 
-    ViewHolder(ListNotesBinding binding) {
+    ViewHolder(ItemNoteBinding binding) {
       super(binding.getRoot());
       ItemBinding = binding;
     }

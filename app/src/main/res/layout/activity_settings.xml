@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/toolbar_actionbar"
-        layout="@layout/toolbar"
+        layout="@layout/view_toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

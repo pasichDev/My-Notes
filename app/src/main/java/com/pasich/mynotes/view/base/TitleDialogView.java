@@ -5,16 +5,16 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.pasich.mynotes.databinding.HeadViewBinding;
+import com.pasich.mynotes.databinding.ViewHeadDialogBinding;
 
 /** A class that simplifies working with dialogs TitleDialogView uiDialog = new */
 public class TitleDialogView {
 
-  private final HeadViewBinding binding;
+  private final ViewHeadDialogBinding binding;
   private final Context context;
 
   public TitleDialogView(LayoutInflater inflater) {
-    this.binding = HeadViewBinding.inflate(inflater, null, false);
+    this.binding = ViewHeadDialogBinding.inflate(inflater, null, false);
     this.context = binding.getRoot().getContext();
   }
 

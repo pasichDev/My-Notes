@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.pasich.mynotes.databinding.ListDialogBinding;
+import com.pasich.mynotes.databinding.ItemsDialogChoiceBinding;
 import com.pasich.mynotes.models.adapter.ChoiceModel;
 
 import java.util.ArrayList;
@@ -37,17 +37,17 @@ public class DialogListAdapter extends BaseAdapter {
 
   public View getView(int position, View convertView, ViewGroup parent) {
     View result = convertView;
-    ListDialogBinding binding;
+    ItemsDialogChoiceBinding binding;
     if (result == null) {
       if (LayoutInflater == null) {
         LayoutInflater =
             (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       }
-      binding = ListDialogBinding.inflate(LayoutInflater, parent, false);
+      binding = ItemsDialogChoiceBinding.inflate(LayoutInflater, parent, false);
       result = binding.getRoot();
       result.setTag(binding);
     } else {
-      binding = (ListDialogBinding) result.getTag();
+      binding = (ItemsDialogChoiceBinding) result.getTag();
     }
 
     binding.setChoiceModel(getItem(position));

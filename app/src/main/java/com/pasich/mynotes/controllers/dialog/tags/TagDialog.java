@@ -23,8 +23,8 @@ public class TagDialog extends DialogFragment {
   private final int position;
   private ManageTag ManageTag;
 
-  public TagDialog(int noteID, int postion) {
-    this.position = postion;
+  public TagDialog(int noteID, int position) {
+    this.position = position;
     this.noteID = noteID;
   }
 
