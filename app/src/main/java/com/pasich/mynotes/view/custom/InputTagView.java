@@ -3,18 +3,21 @@ package com.pasich.mynotes.view.custom;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pasich.mynotes.databinding.NewTagViewBinding;
 import com.pasich.mynotes.utils.simplifications.TextValidatorUtils;
+import com.pasich.mynotes.view.base.BaseView;
 
-public class NewTagView {
+public class InputTagView extends BaseView {
 
   private final NewTagViewBinding binding;
 
-  public NewTagView(LayoutInflater inflater) {
+  public InputTagView(LayoutInflater inflater) {
+    super(inflater);
     this.binding = NewTagViewBinding.inflate(inflater);
     this.initialization();
   }
@@ -23,6 +26,7 @@ public class NewTagView {
     binding.setErrorText(false);
     binding.setEnableButtonSave(false);
     validateNameActivate();
+    getInputTag().requestFocus();
   }
 
   public final Button getSaveButton() {
@@ -31,6 +35,10 @@ public class NewTagView {
 
   public final EditText getInputTag() {
     return binding.inputNameTag;
+  }
+
+  public final View getNewTagView() {
+    return binding.getRoot();
   }
 
   private void validateNameActivate() {

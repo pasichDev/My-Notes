@@ -9,10 +9,11 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.models.dialog.ChooseTagDialogModel;
 import com.pasich.mynotes.utils.interfaces.ManageTag;
 import com.pasich.mynotes.utils.simplifications.TabLayoutListenerUtils;
-import com.pasich.mynotes.view.dialog.ChooseTagDialogView;
+import com.pasich.mynotes.view.dialog.TagDialogView;
 
 import java.util.Objects;
 
@@ -32,27 +33,27 @@ public class TagDialog extends DialogFragment {
 
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ChooseTagDialogModel model = new ChooseTagDialogModel(getContext(), noteID);
-    final ChooseTagDialogView view = new ChooseTagDialogView(requireContext(), getLayoutInflater());
+    final TagDialogView mView = new TagDialogView(getLayoutInflater());
     ManageTag = (ManageTag) getContext();
 
-    /*view.setHeadTextView(
-    model.tagNote.length() == 0
-        ? getString(R.string.selectTagForNote)
-        : getString(R.string.editSelectTagForNote));*/
+    mView.setTitle(
+        model.tagNote.length() == 0
+            ? getString(R.string.selectTagForNote)
+            : getString(R.string.editSelectTagForNote));
 
-    model.queryTags(view.TabLayoutTags);
+    model.queryTags(mView.TabLayoutTags);
 
-    view.TabLayoutTags.selectTab(view.TabLayoutTags.getTabAt(model.selectedPosition));
+    mView.TabLayoutTags.selectTab(mView.TabLayoutTags.getTabAt(model.selectedPosition));
 
-    view.NewTagVIewUi.getSaveButton()
+    mView
+        .getSaveButton()
         .setOnClickListener(
             view1 -> {
-              ManageTag.addTag(
-                  view.NewTagVIewUi.getInputTag().getText().toString(), noteID, position);
+              ManageTag.addTag(mView.getInputTag().getText().toString(), noteID, position);
               dismiss();
             });
 
-    view.TabLayoutTags.addOnTabSelectedListener(
+    mView.TabLayoutTags.addOnTabSelectedListener(
         new TabLayoutListenerUtils() {
           @Override
           public void listener(TabLayout.Tab Tab) {
@@ -64,7 +65,7 @@ public class TagDialog extends DialogFragment {
           }
         });
 
-    //    builder.setContentView(view.getContainer());
+    builder.setContentView(mView.getRootContainer());
     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     return builder;
   }

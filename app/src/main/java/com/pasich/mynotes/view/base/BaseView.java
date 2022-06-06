@@ -6,8 +6,8 @@ import android.widget.LinearLayout;
 
 public class BaseView extends TitleDialogView {
 
-  public LinearLayout.LayoutParams LP_DEFAULT = getLayoutParamDefault();
   public int TEXT_MESSAGE_SIZE = 17;
+  public LinearLayout.LayoutParams LP_DEFAULT = getLayoutParamDefault();
   protected LinearLayout rootContainer;
 
   public BaseView(LayoutInflater inflater) {
@@ -36,6 +36,7 @@ public class BaseView extends TitleDialogView {
    * @param view - view add
    */
   public void addView(View view) {
+
     getRootContainer().addView(view);
   }
 

@@ -11,27 +11,30 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.utils.interfaces.ManageTag;
-import com.pasich.mynotes.view.dialog.NewTagView;
+import com.pasich.mynotes.view.custom.InputTagView;
 
 public class NewTagDialog extends BottomSheetDialogFragment {
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final NewTagView NewTagView = new NewTagView(getLayoutInflater());
+    final InputTagView mView = new InputTagView(getLayoutInflater());
     final ManageTag ManageTag = (ManageTag) getContext();
 
-    // NewTagView.setHeadTextView(getString(R.string.addTag));
-    NewTagView.NewTagVIewUi.getSaveButton()
+    mView.addTitle(getString(R.string.addTag));
+    mView.addView(mView.getNewTagView());
+    mView
+        .getSaveButton()
         .setOnClickListener(
             view -> {
               assert ManageTag != null;
-              ManageTag.addTag(NewTagView.NewTagVIewUi.getInputTag().getText().toString(), 0, 0);
+              ManageTag.addTag(mView.getInputTag().getText().toString(), 0, 0);
               dismiss();
             });
 
-    //   builder.setContentView(NewTagView.getContainer());
+    builder.setContentView(mView.getRootContainer());
 
     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
