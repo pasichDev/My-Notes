@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.pasich.mynotes.models.adapter.NoteModel;
+import com.pasich.mynotes.models.base.ModelBase;
 
 import java.util.ArrayList;
 import java.util.Collections;

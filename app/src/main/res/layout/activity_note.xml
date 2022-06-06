@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.Activity.NoteActivity">
+    tools:context=".controllers.activity.NoteActivity">
 
     <include
         android:id="@+id/toolbar_actionbar"
-        layout="@layout/toolbar" />
+        layout="@layout/view_toolbar" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +68,6 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -103,7 +102,6 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/sourceButton"
             style="?android:attr/actionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
