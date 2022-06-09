@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.activity.SettingsActivity">
+    tools:context=".otherClasses.controllers.activity.SettingsActivity">
 
     <include
         android:id="@+id/toolbar_actionbar"
