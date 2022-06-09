@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+
 }
 
 android {
@@ -38,6 +39,7 @@ android {
     }
     namespace 'com.pasich.mynotes'
 }
+
 
 dependencies {
 
