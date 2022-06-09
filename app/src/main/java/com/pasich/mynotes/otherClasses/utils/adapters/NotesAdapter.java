@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.databinding.ItemNoteBinding;
-import com.pasich.mynotes.otherClasses.models.adapter.NoteModel;
+import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +101,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     // list in our course array list.
     listNotes = filterllist;
     // below line is to notify our adapter
-    // as change in recycler view data.
+    // as change in recycler MyView data.
     notifyDataSetChanged();
   }
 

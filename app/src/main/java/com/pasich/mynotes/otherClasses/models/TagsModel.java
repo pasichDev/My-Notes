@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.models.adapter;
+package com.pasich.mynotes.otherClasses.models;
 
 public class TagsModel {
 

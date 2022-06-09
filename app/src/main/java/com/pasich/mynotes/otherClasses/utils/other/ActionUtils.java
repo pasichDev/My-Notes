@@ -2,7 +2,7 @@ package com.pasich.mynotes.otherClasses.utils.other;
 
 import android.view.View;
 
-import com.pasich.mynotes.otherClasses.models.adapter.NoteModel;
+import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
 import com.pasich.mynotes.otherClasses.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.otherClasses.view.custom.ActionPanel;
 

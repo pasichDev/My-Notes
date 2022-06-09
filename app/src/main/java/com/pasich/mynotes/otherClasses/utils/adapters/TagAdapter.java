@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.databinding.ItemTagBinding;
-import com.pasich.mynotes.otherClasses.models.adapter.TagsModel;
+import com.pasich.mynotes.otherClasses.models.TagsModel;
 
 import java.util.List;
 

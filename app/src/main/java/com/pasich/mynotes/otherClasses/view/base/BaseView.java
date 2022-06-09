@@ -1,7 +1,6 @@
 package com.pasich.mynotes.otherClasses.view.base;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 
 public class BaseView extends TitleDialogView {
@@ -22,7 +21,8 @@ public class BaseView extends TitleDialogView {
   }
 
   /**
-   * Метод который возвращает родительський контейнер в него мы и будем добавлять все следующие View
+   * Метод который возвращает родительський контейнер в него мы и будем добавлять все следующие
+   * MyView
    *
    * @return - container
    */
@@ -31,16 +31,16 @@ public class BaseView extends TitleDialogView {
   }
 
   /**
-   * Метод который добавляет View в rootContainer
+   * Метод который добавляет MyView в rootContainer
    *
-   * @param view - view add
+   * @param view - MyView add
    */
-  public void addView(View view) {
+  public void addView(android.view.View view) {
 
     getRootContainer().addView(view);
   }
 
-  public void addView(View view, LinearLayout.LayoutParams lp) {
+  public void addView(android.view.View view, LinearLayout.LayoutParams lp) {
     getRootContainer().addView(view, lp);
   }
   /**

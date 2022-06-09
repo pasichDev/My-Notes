@@ -1,7 +1,6 @@
 package com.pasich.mynotes.otherClasses.view.custom;
 
 import android.content.res.ColorStateList;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -13,14 +12,14 @@ import com.pasich.mynotes.R;
 
 public class ActionPanel {
 
-  private final View rootView;
+  private final android.view.View rootView;
   private final ConstraintLayout actionPanel;
   private final LinearLayout linearLayoutButtons;
   private final ImageButton closePanelButton;
-  /** The activity view to which the panel will be added */
+  /** The activity MyView to which the panel will be added */
   private final ConstraintLayout rootConstraintLayout;
 
-  public ActionPanel(View rootView, int objectActivity) {
+  public ActionPanel(android.view.View rootView, int objectActivity) {
     this.rootConstraintLayout = rootView.findViewById(objectActivity);
     this.rootView = rootView;
     this.actionPanel = createActionPanel();
@@ -118,7 +117,7 @@ public class ActionPanel {
    *
    * @param buttonView - button to add
    */
-  private void addButtonToLinearLayout(View buttonView) {
+  private void addButtonToLinearLayout(android.view.View buttonView) {
     getLinearLayoutButtons().addView(buttonView);
   }
 

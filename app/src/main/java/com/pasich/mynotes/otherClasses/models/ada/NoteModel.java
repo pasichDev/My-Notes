@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.models.adapter;
+package com.pasich.mynotes.otherClasses.models.ada;
 
 import java.util.Comparator;
 

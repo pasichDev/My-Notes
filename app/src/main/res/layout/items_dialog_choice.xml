@@ -8,7 +8,7 @@
 
         <variable
             name="ChoiceModel"
-            type="com.pasich.mynotes.models.adapter.ChoiceModel" />
+            type="com.pasich.mynotes.otherClasses.models.ada.ChoiceModel" />
     </data>
 
 

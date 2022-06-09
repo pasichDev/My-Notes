@@ -12,8 +12,7 @@ import android.database.DatabaseUtils;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.otherClasses.models.adapter.NoteModel;
-import com.pasich.mynotes.otherClasses.models.adapter.TagsModel;
+import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
 import com.pasich.mynotes.otherClasses.models.base.ModelBase;
 
 import java.util.ArrayList;

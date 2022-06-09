@@ -12,7 +12,7 @@
 
         <variable
             name="TagsModel"
-            type="com.pasich.mynotes.models.adapter.TagsModel" />
+            type="com.pasich.mynotes.otherClasses.models.TagsModel" />
 
     </data>
 

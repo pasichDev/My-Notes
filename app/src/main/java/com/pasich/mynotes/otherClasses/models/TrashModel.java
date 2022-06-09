@@ -3,7 +3,7 @@ package com.pasich.mynotes.otherClasses.models;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.pasich.mynotes.otherClasses.models.adapter.NoteModel;
+import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
 import com.pasich.mynotes.otherClasses.models.base.ModelBase;
 
 import java.util.ArrayList;
