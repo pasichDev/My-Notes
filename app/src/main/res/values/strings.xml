@@ -96,7 +96,6 @@
     <string name="cd_format">Format notes</string>
 
     <string name="search" translatable="false">Поиск в заметках </string>
-    <string name="PreferencesFileName" translatable="false">com.pasich.mynotes_preferences</string>
 
     <string name="close" translatable="false">Закрыть</string>
     <string name="addTag" translatable="false">Добавить метку</string>

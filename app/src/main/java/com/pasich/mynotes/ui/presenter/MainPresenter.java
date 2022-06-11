@@ -13,6 +13,9 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     getView().settingsSearchView();
     getView().settingsTagsList();
     getView().setEmptyListNotes();
+
+    // Здесь нужно использовать powerPrefences получения данных
+    getView().settingsNotesList(1);
   }
 
   @Override
@@ -30,12 +33,10 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   }
 
   @Override
-  public void longClickTag() {
-
+  public void newNotes() {
+    if (isViewAttached()) getView().newNotesButton();
   }
 
   @Override
-  public void loadingDataTagList() {
-
-  }
+  public void longClickTag() {}
 }

@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
@@ -7,15 +8,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.app.App;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
+import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
+import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.main.dagger.MainActivityModule;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagAdapter;
+import com.pasich.mynotes.utils.other.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Inject public MainContract.presenter mainPresenter;
   @Inject public MainUtils utils;
+  @Inject public FormatListUtils formatList;
 
   private ActivityMainBinding binding;
 
@@ -33,15 +39,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
+    init();
 
+    mainPresenter.attachView(this);
+    mainPresenter.viewIsReady();
+  }
+
+  @Override
+  public void init() {
     // inject activity
     App.getApp(this)
         .getComponentsHolder()
         .getActivityComponent(getClass(), new MainActivityModule())
         .inject(this);
-
-    mainPresenter.attachView(this);
-    mainPresenter.viewIsReady();
+    binding.setPresenter((MainPresenter) mainPresenter);
   }
 
   @Override
@@ -57,15 +68,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   @Override
   public void settingsSearchView() {
     binding.actionSearch.setSubmitButtonEnabled(false);
-    addButtonSearchView();
-  }
-
-  @Override
-  public void addButtonSearchView() {
     LinearLayout llSearchView = (LinearLayout) binding.actionSearch.getChildAt(0);
     llSearchView.addView(utils.addButtonSearchView(this, R.drawable.ic_sort, R.id.sortButton));
     llSearchView.addView(
         utils.addButtonSearchView(this, R.drawable.ic_edit_format_list, R.id.formatButton));
+    formatList.init(findViewById(R.id.formatButton));
   }
 
   @Override
@@ -88,6 +95,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   public void setEmptyListNotes() {
     // Здесь нужно реализовать проверку на количество елементов в адаптере заметок
     binding.setEmptyNotes(true);
+  }
+
+  /** Method that changes the number of GridView columns */
+  @Override
+  public void settingsNotesList(int countColumn) {
+    binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
+    binding.listNotes.setLayoutManager(
+        new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
+  }
+
+  @Override
+  public void newNotesButton() {
+    startActivity(new Intent(this, NoteActivity.class));
   }
 
   @Override

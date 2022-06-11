@@ -1,3 +1,5 @@
 package com.pasich.mynotes.base;
 
-public interface MyView {}
+public interface MyView {
+  void init();
+}

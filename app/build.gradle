@@ -42,16 +42,18 @@ android {
 
 
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.2.0'
 
+    //Dagger 2
     annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
     implementation 'com.google.dagger:dagger:2.38.1'
     compileOnly 'javax.annotation:jsr250-api:1.0'
+
+
 
 
 }

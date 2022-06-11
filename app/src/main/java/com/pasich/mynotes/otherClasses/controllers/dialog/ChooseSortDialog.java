@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class ChooseSortDialog extends DialogFragment {
 
   @NonNull
+  @Deprecated
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ListDialogView view = new ListDialogView(getLayoutInflater());
@@ -66,9 +67,7 @@ public class ChooseSortDialog extends DialogFragment {
             (parent, v, position, id) -> {
               String sortPar = arraySortOption.get(position).getAction();
               requireContext()
-                  .getSharedPreferences(
-                      requireContext().getString(R.string.PreferencesFileName),
-                      Context.MODE_PRIVATE)
+                  .getSharedPreferences("com.pasich.mynotes_preferences", Context.MODE_PRIVATE)
                   .edit()
                   .putString("sortPref", sortPar)
                   .apply();
