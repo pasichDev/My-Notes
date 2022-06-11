@@ -1,6 +1,6 @@
-package com.pasich.mynotes.injection.dagger;
+package com.pasich.mynotes.app.dagger;
 
-import com.pasich.mynotes.injection.ComponentsHolder;
+import com.pasich.mynotes.app.ComponentsHolder;
 
 import dagger.Component;
 

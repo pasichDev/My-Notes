@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.view.main.MainActivity;
+import com.pasich.mynotes.ui.view.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

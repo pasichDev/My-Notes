@@ -6,18 +6,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
-import com.pasich.mynotes.otherClasses.models.TagsModel;
 
 import java.util.List;
 
 public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
 
-  private final List<TagsModel> listTags;
+  private final List<Tag> listTags;
   private final int PAYLOAD_BACKGROUND = 22;
   private OnItemClickListener mOnItemClickListener;
 
-  public TagAdapter(List<TagsModel> listTags) {
+  public TagAdapter(List<Tag> listTags) {
     this.listTags = listTags;
   }
 

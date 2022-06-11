@@ -1,4 +1,4 @@
-package com.pasich.mynotes.base.interfaces;
+package com.pasich.mynotes.base;
 
 public interface MyPresenter<V extends MyView> {
 

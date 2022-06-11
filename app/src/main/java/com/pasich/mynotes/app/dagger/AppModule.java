@@ -1,4 +1,4 @@
-package com.pasich.mynotes.injection.dagger;
+package com.pasich.mynotes.app.dagger;
 
 import android.content.Context;
 

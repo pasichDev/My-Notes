@@ -1,9 +1,7 @@
-package com.pasich.mynotes.presenter;
-
-import android.util.Log;
+package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.PresenterBase;
-import com.pasich.mynotes.contract.TagsContract;
+import com.pasich.mynotes.ui.contract.TagsContract;
 
 public class TagsPresenter extends PresenterBase<TagsContract.view>
     implements TagsContract.presenter {
@@ -12,7 +10,8 @@ public class TagsPresenter extends PresenterBase<TagsContract.view>
 
   @Override
   public void viewIsReady() {
-    Log.wtf("pasic", "viewIsReady: okayReaddy");
+    getView().settingsTagsList();
+    getView().setEmptyListNotes();
   }
 
   @Override
@@ -26,4 +25,7 @@ public class TagsPresenter extends PresenterBase<TagsContract.view>
 
   @Override
   public void longClickTag() {}
+
+  @Override
+  public void loadingDataTagList() {}
 }

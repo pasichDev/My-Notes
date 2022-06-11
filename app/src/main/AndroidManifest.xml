@@ -11,7 +11,7 @@
     </queries>
 
     <application
-        android:name=".injection.App"
+        android:name=".app.App"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
@@ -43,7 +43,7 @@
             android:name=".otherClasses.controllers.activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".ui.view.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
         <activity

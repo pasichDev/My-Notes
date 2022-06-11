@@ -1,6 +1,9 @@
-package com.pasich.mynotes.otherClasses.models;
+package com.pasich.mynotes.data.tags;
 
-public class TagsModel {
+import android.arch.persistence.room.Entity;
+
+@Entity(tableName = "movies")
+public class Tag {
 
   private String nameTag;
   private final int SystemAction;
@@ -12,7 +15,7 @@ public class TagsModel {
    * @param SystemAction - тип Системной метки (1) - добавить метку (2) - все заметки (0) -
    *     пользовательский тэг
    */
-  public TagsModel(String nameTag, int SystemAction, boolean selected) {
+  public Tag(String nameTag, int SystemAction, boolean selected) {
     this.nameTag = nameTag;
     this.SystemAction = SystemAction;
     this.selected = selected;

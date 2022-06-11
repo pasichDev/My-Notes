@@ -1,8 +1,8 @@
-package com.pasich.mynotes.injection.dagger;
+package com.pasich.mynotes.app.dagger;
 
 import com.pasich.mynotes.base.dagger.ActivityComponentBuilder;
-import com.pasich.mynotes.view.main.MainActivity;
-import com.pasich.mynotes.view.main.dagger.MainActivityComponent;
+import com.pasich.mynotes.ui.view.main.MainActivity;
+import com.pasich.mynotes.ui.view.main.dagger.MainActivityComponent;
 
 import dagger.Module;
 import dagger.Provides;

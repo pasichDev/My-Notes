@@ -1,4 +1,4 @@
-package com.pasich.mynotes.injection;
+package com.pasich.mynotes.app;
 
 import android.app.Application;
 import android.content.Context;

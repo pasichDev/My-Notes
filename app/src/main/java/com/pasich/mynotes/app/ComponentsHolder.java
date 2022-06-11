@@ -1,13 +1,13 @@
-package com.pasich.mynotes.injection;
+package com.pasich.mynotes.app;
 
 import android.content.Context;
 
+import com.pasich.mynotes.app.dagger.AppComponent;
+import com.pasich.mynotes.app.dagger.AppModule;
+import com.pasich.mynotes.app.dagger.DaggerAppComponent;
 import com.pasich.mynotes.base.dagger.ActivityComponent;
 import com.pasich.mynotes.base.dagger.ActivityComponentBuilder;
 import com.pasich.mynotes.base.dagger.ActivityModule;
-import com.pasich.mynotes.injection.dagger.AppComponent;
-import com.pasich.mynotes.injection.dagger.AppModule;
-import com.pasich.mynotes.injection.dagger.DaggerAppComponent;
 
 import java.util.HashMap;
 import java.util.Map;

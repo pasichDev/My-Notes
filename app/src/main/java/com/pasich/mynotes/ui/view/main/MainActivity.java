@@ -1,21 +1,27 @@
-package com.pasich.mynotes.view.main;
+package com.pasich.mynotes.ui.view.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.contract.TagsContract;
+import com.pasich.mynotes.app.App;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
-import com.pasich.mynotes.injection.App;
-import com.pasich.mynotes.view.main.dagger.MainActivityModule;
+import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
+import com.pasich.mynotes.otherClasses.utils.recycler.SpacesItemDecoration;
+import com.pasich.mynotes.ui.contract.TagsContract;
+import com.pasich.mynotes.ui.view.main.dagger.MainActivityModule;
 
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements TagsContract.view {
 
   @Inject public TagsContract.presenter tagsPresenter;
+
 
   private ActivityMainBinding binding;
 
@@ -42,5 +48,23 @@ public class MainActivity extends AppCompatActivity implements TagsContract.view
       tagsPresenter.destroy();
       App.getApp(this).getComponentsHolder().releaseActivityComponent(getClass());
     }
+  }
+
+  @Override
+  public void settingsTagsList() {
+    binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
+    binding.listTags.setLayoutManager(
+        new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+    tagsPresenter.loadingDataTagList();
+  }
+
+  @Override
+  public void setEmptyListNotes() {
+    // Здесь нужно реализовать проверку на количество елементов в адаптере заметок
+    binding.setEmptyNotes(true);
+  }
+
+  public void createNoteButton() {
+    startActivity(new Intent(this, NoteActivity.class));
   }
 }

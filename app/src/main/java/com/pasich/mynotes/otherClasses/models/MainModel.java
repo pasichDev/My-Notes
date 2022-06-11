@@ -12,6 +12,7 @@ import android.database.DatabaseUtils;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
 import com.pasich.mynotes.otherClasses.models.base.ModelBase;
 
@@ -23,7 +24,7 @@ public class MainModel extends ModelBase {
   private final Context context;
 
   /** List of tag names */
-  public ArrayList<TagsModel> tagsArray;
+  public ArrayList<Tag> tagsArray;
   /** Note Data List */
   public ArrayList<NoteModel> notesArray = new ArrayList<>();
 
@@ -44,12 +45,12 @@ public class MainModel extends ModelBase {
 
   /** Method that implements filling the list with the names of existing tags */
   @SuppressLint("Recycle")
-  public ArrayList<TagsModel> queryTags() {
+  public ArrayList<Tag> queryTags() {
     tagsArray = new ArrayList<>();
     Cursor cursorTag = getDb().query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
-    tagsArray.add(new TagsModel("", 1, false));
-    tagsArray.add(new TagsModel(context.getString(R.string.allNotes), 2, true));
-    while (cursorTag.moveToNext()) tagsArray.add(new TagsModel(cursorTag.getString(0), 0, false));
+    tagsArray.add(new Tag("", 1, false));
+    tagsArray.add(new Tag(context.getString(R.string.allNotes), 2, true));
+    while (cursorTag.moveToNext()) tagsArray.add(new Tag(cursorTag.getString(0), 0, false));
     return tagsArray;
   }
 
@@ -67,7 +68,7 @@ public class MainModel extends ModelBase {
       cv.put("name", nameTag);
       getDb().insert(DbHelper.COLUMN_TAGS, null, cv);
       tagCreate = true;
-      tagsArray.add(new TagsModel(nameTag, 0, false));
+      tagsArray.add(new Tag(nameTag, 0, false));
     }
     return tagCreate;
   }
