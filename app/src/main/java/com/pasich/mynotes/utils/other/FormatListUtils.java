@@ -3,6 +3,7 @@ package com.pasich.mynotes.utils.other;
 import android.widget.ImageButton;
 
 import com.pasich.mynotes.R;
+import com.preference.PowerPreference;
 
 public class FormatListUtils {
   private ImageButton buttonFormat;
@@ -10,33 +11,26 @@ public class FormatListUtils {
   public void init(ImageButton button) {
     this.buttonFormat = button;
     getFormatParam();
-
+    this.buttonFormat.setOnClickListener(view -> formatNote());
   }
 
+  private int getParamFormatValue() {
+    return PowerPreference.getDefaultFile().getInt("formatParam", 1);
+  }
   /** Method that sets the icon of the button depending on the parameter getSettingsParam() */
   public void getFormatParam() {
-    buttonFormat.setImageResource(getParamIco(1));
+    buttonFormat.setImageResource(getParamIco(getParamFormatValue()));
   }
 
   /** The switch itself, which switches the operating mode depending on the selected parameter */
   public void formatNote() {
-    switch (1) {
+    switch (getParamFormatValue()) {
       case 1:
-        /*  context
-        .getSharedPreferences(
-            context.getString(R.string.PreferencesFileName), Context.MODE_PRIVATE)
-        .edit()
-        .putInt("formatParam", 2)
-        .apply();*/
+        PowerPreference.getDefaultFile().setInt("formatParam", 2);
         buttonFormat.setImageResource(getParamIco(2));
         break;
       case 2:
-        /*    context
-        .getSharedPreferences(
-            context.getString(R.string.PreferencesFileName), Context.MODE_PRIVATE)
-        .edit()
-        .putInt("formatParam", 1)
-        .apply();*/
+        PowerPreference.getDefaultFile().setInt("formatParam", 1);
         buttonFormat.setImageResource(getParamIco(1));
         break;
     }

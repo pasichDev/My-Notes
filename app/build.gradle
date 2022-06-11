@@ -18,7 +18,11 @@ android {
         targetSdkVersion 32
         versionCode 10
         versionName '1.4.10'
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -31,7 +35,6 @@ android {
 
 
     }
-
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -53,8 +56,10 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.38.1'
     compileOnly 'javax.annotation:jsr250-api:1.0'
 
+    implementation "androidx.room:room-runtime:2.4.2"
+    annotationProcessor "androidx.room:room-compiler:2.4.2"
 
-
+    implementation "com.github.AliAsadi:PowerPreference:2.1.0"
 
 }
 

@@ -1,5 +1,7 @@
 package com.pasich.mynotes.ui.view.main;
 
+import static com.pasich.mynotes.app.App.getApp;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -11,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.app.App;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
@@ -43,12 +44,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     mainPresenter.attachView(this);
     mainPresenter.viewIsReady();
+
+
+
   }
 
   @Override
   public void init() {
     // inject activity
-    App.getApp(this)
+    getApp(this)
         .getComponentsHolder()
         .getActivityComponent(getClass(), new MainActivityModule())
         .inject(this);
@@ -56,12 +60,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
+  public void initListeners() {}
+
+  @Override
   protected void onDestroy() {
     super.onDestroy();
     mainPresenter.detachView();
     if (isFinishing()) {
       mainPresenter.destroy();
-      App.getApp(this).getComponentsHolder().releaseActivityComponent(getClass());
+      getApp(this).getComponentsHolder().releaseActivityComponent(getClass());
     }
   }
 
