@@ -41,6 +41,11 @@ android {
 }
 
 
+ext {
+    roomVersion = '1.1.1'
+
+}
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -53,6 +58,8 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.38.1'
     compileOnly 'javax.annotation:jsr250-api:1.0'
 
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
 
 }
 
