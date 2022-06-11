@@ -1,23 +1,29 @@
 package com.pasich.mynotes.presenter;
 
+import android.util.Log;
+
+import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.contract.TagsContract;
 
-import javax.inject.Inject;
+public class TagsPresenter extends PresenterBase<TagsContract.view>
+    implements TagsContract.presenter {
 
-public class TagsPresenter implements TagsContract.presenter, TagsContract<TagsContract.view> {
-
-  @Inject
   public TagsPresenter() {}
 
   @Override
-  public void attachView(view mVIew) {}
-
-  @Override
-  public void viewIsReady() {}
+  public void viewIsReady() {
+    Log.wtf("pasic", "viewIsReady: okayReaddy");
+  }
 
   @Override
   public void detachView() {}
 
   @Override
   public void destroy() {}
+
+  @Override
+  public void clickTag() {}
+
+  @Override
+  public void longClickTag() {}
 }
