@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.utils.interfaces;
+package com.pasich.mynotes.base.interfaces;
 
 public interface ChoiceNoteInterface {
   void shareNote(int item);

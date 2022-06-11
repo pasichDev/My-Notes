@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.utils.simplifications;
+package com.pasich.mynotes.utils.simplifications;
 
 import com.google.android.material.tabs.TabLayout;
 

@@ -1,8 +1,9 @@
 package com.pasich.mynotes.ui.view.main.dagger;
 
 import com.pasich.mynotes.base.dagger.ActivityModule;
-import com.pasich.mynotes.ui.contract.TagsContract;
-import com.pasich.mynotes.ui.presenter.TagsPresenter;
+import com.pasich.mynotes.ui.contract.MainContract;
+import com.pasich.mynotes.ui.presenter.MainPresenter;
+import com.pasich.mynotes.utils.MainUtils;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,9 +13,16 @@ public class MainActivityModule implements ActivityModule {
 
   public MainActivityModule() {}
 
+
   @MainActivityScope
   @Provides
-  TagsContract.presenter providerTagsPresenter() {
-    return new TagsPresenter();
+  MainContract.presenter providerMainPresenter() {
+    return new MainPresenter();
+  }
+
+  @MainActivityScope
+  @Provides
+  MainUtils providerMainUtils() {
+    return new MainUtils();
   }
 }

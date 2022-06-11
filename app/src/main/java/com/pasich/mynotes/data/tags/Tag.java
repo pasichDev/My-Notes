@@ -1,8 +1,5 @@
 package com.pasich.mynotes.data.tags;
 
-import android.arch.persistence.room.Entity;
-
-@Entity(tableName = "movies")
 public class Tag {
 
   private String nameTag;

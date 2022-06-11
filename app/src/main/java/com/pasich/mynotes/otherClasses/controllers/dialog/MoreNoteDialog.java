@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.otherClasses.models.ada.ChoiceModel;
-import com.pasich.mynotes.otherClasses.utils.adapters.DialogListAdapter;
+import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,9 @@
-package com.pasich.mynotes.otherClasses.utils;
+package com.pasich.mynotes.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.pasich.mynotes.R;
@@ -8,6 +11,14 @@ import com.pasich.mynotes.R;
 public class MainUtils {
 
   private int Swipe = 0;
+
+  public View addButtonSearchView(Context context, int drawable, int id) {
+    ImageButton button = new ImageButton(context);
+    button.setImageResource(drawable);
+    button.setBackground(null);
+    button.setId(id);
+    return button;
+  }
 
   /**
    * Method The method that implements the closing of the application

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.utils.other;
+package com.pasich.mynotes.utils.other;
 
 import android.content.Context;
 import android.widget.ImageButton;

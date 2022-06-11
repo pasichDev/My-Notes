@@ -10,10 +10,10 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.interfaces.ManageTag;
 import com.pasich.mynotes.otherClasses.models.dialog.ChooseTagDialogModel;
-import com.pasich.mynotes.otherClasses.utils.interfaces.ManageTag;
-import com.pasich.mynotes.otherClasses.utils.simplifications.TabLayoutListenerUtils;
 import com.pasich.mynotes.otherClasses.view.dialog.TagDialogView;
+import com.pasich.mynotes.utils.simplifications.TabLayoutListenerUtils;
 
 import java.util.Objects;
 

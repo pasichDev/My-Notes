@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.utils.constants;
+package com.pasich.mynotes.utils.constants;
 
 public class TagSettings {
 

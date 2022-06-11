@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.database.Cursor;
 
 import com.pasich.mynotes.otherClasses.models.base.ModelBase;
-import com.pasich.mynotes.otherClasses.utils.other.ListNotesUtils;
 import com.pasich.mynotes.otherClasses.view.NoteView;
+import com.pasich.mynotes.utils.other.ListNotesUtils;
 
 import java.util.Calendar;
 

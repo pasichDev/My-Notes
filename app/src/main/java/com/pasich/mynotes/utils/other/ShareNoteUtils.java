@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.utils.other;
+package com.pasich.mynotes.utils.other;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
