@@ -1,10 +1,21 @@
 package com.pasich.mynotes.data.tags;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+
+@Entity(tableName = "tags")
 public class Tag {
 
+  @ColumnInfo(name = "name")
   private String nameTag;
-  private final int SystemAction;
-  private boolean selected;
+
+  @ColumnInfo(name = "visibility")
+  private int visibility;
+
+  @Ignore private final int SystemAction;
+  @Ignore private boolean selected;
+
   /**
    * Конструктор данных метки
    *

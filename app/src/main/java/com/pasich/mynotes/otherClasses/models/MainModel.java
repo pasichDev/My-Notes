@@ -1,7 +1,6 @@
 package com.pasich.mynotes.otherClasses.models;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
-import static com.pasich.mynotes.utils.constants.TagSettings.MIN_NAME_TAG;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -11,8 +10,6 @@ import android.database.DatabaseUtils;
 
 import androidx.preference.PreferenceManager;
 
-import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
 import com.pasich.mynotes.otherClasses.models.base.ModelBase;
 
@@ -24,7 +21,7 @@ public class MainModel extends ModelBase {
   private final Context context;
 
   /** List of tag names */
-  public ArrayList<Tag> tagsArray;
+  // public ArrayList<Tag> tagsArray;
   /** Note Data List */
   public ArrayList<NoteModel> notesArray = new ArrayList<>();
 
@@ -33,7 +30,7 @@ public class MainModel extends ModelBase {
   public MainModel(Context context) {
     super(context);
     this.context = context;
-    this.tagsArray = queryTags();
+    // this.tagsArray = queryTags();
     initialization();
   }
 
@@ -45,16 +42,15 @@ public class MainModel extends ModelBase {
 
   /** Method that implements filling the list with the names of existing tags */
   @SuppressLint("Recycle")
-  public ArrayList<Tag> queryTags() {
-    tagsArray = new ArrayList<>();
+  /* public ArrayList<Tag> queryTags() {
+   // tagsArray = new ArrayList<>();
     Cursor cursorTag = getDb().query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
     tagsArray.add(new Tag("", 1, false));
     tagsArray.add(new Tag(context.getString(R.string.allNotes), 2, true));
     while (cursorTag.moveToNext()) tagsArray.add(new Tag(cursorTag.getString(0), 0, false));
     return tagsArray;
-  }
+  }*/
 
-  @SuppressLint("Recycle")
   public void queryTagsIgnore() {
     Cursor cursorTag = getDb().query(DbHelper.COLUMN_TAGS, null, null, null, null, null, "name");
     while (cursorTag.moveToNext())
@@ -63,13 +59,13 @@ public class MainModel extends ModelBase {
 
   public boolean createTag(String nameTag) {
     boolean tagCreate = false;
-    if (nameTag.trim().length() >= MIN_NAME_TAG && !tagsArray.contains(nameTag)) {
+    /* if (nameTag.trim().length() >= MIN_NAME_TAG && !tagsArray.contains(nameTag)) {
       ContentValues cv = new ContentValues();
       cv.put("name", nameTag);
       getDb().insert(DbHelper.COLUMN_TAGS, null, cv);
       tagCreate = true;
       tagsArray.add(new Tag(nameTag, 0, false));
-    }
+    }*/
     return tagCreate;
   }
 

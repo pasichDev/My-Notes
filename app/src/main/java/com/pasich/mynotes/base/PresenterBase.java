@@ -23,5 +23,7 @@ public abstract class PresenterBase<T extends MyView> implements MyPresenter<T> 
   }
 
   @Override
-  public void destroy() {}
+  public void destroy() {
+    view = null;
+  }
 }
