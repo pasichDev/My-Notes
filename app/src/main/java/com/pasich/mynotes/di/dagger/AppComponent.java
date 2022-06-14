@@ -1,6 +1,6 @@
-package com.pasich.mynotes.app.dagger;
+package com.pasich.mynotes.di.dagger;
 
-import com.pasich.mynotes.app.ComponentsHolder;
+import com.pasich.mynotes.di.ComponentsHolder;
 
 import dagger.Component;
 

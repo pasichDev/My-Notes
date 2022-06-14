@@ -1,6 +1,7 @@
-package com.pasich.mynotes.otherClasses.controllers.dialog;
+package com.pasich.mynotes.ui.view.dialogs;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -11,7 +12,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.interfaces.MoreActivInterface;
+import com.pasich.mynotes.otherClasses.controllers.activity.SettingsActivity;
+import com.pasich.mynotes.otherClasses.controllers.activity.TrashActivity;
 import com.pasich.mynotes.otherClasses.models.ada.ChoiceModel;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
@@ -24,7 +26,6 @@ public class MoreActivityDialog extends DialogFragment {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ListView listView = new ListView(requireContext());
     final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
-    final MoreActivInterface MoreActivInterface = (MoreActivInterface) getContext();
     listView.setLayoutAnimation(
         new LayoutAnimationController(
             AnimationUtils.loadAnimation(listView.getContext(), R.anim.item_animation_dialog)));
@@ -43,12 +44,10 @@ public class MoreActivityDialog extends DialogFragment {
     listView.setOnItemClickListener(
         (parent, v, position, id) -> {
           if (arraySortOption.get(position).getAction().equals("TrashActivity")) {
-            assert MoreActivInterface != null;
-            MoreActivInterface.startTrashActivity();
+            startActivity(new Intent(getActivity(), TrashActivity.class));
           }
           if (arraySortOption.get(position).getAction().equals("SettingsActivity")) {
-            assert MoreActivInterface != null;
-            MoreActivInterface.startSettingsActivity();
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
           }
 
           dismiss();

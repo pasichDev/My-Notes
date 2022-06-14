@@ -1,6 +1,6 @@
-package com.pasich.mynotes.ui.view.main;
+package com.pasich.mynotes.ui.view.activity;
 
-import static com.pasich.mynotes.app.App.getApp;
+import static com.pasich.mynotes.di.App.getApp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
+import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
-import com.pasich.mynotes.ui.view.main.dagger.MainActivityModule;
+import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagAdapter;
 import com.pasich.mynotes.utils.other.FormatListUtils;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   @Inject public MainContract.presenter mainPresenter;
   @Inject public MainUtils utils;
   @Inject public FormatListUtils formatList;
+  @Inject public DataManager dataManager;
 
   private ActivityMainBinding binding;
 
@@ -51,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void init() {
-    // inject activity
     getApp(this)
         .getComponentsHolder()
         .getActivityComponent(getClass(), new MainActivityModule())
@@ -90,10 +92,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     ArrayList<Tag> tags = new ArrayList<>();
 
-    tags.add(new Tag("", 1, false));
-    tags.add(new Tag(getString(R.string.allNotes), 2, true));
-    tags.add(new Tag("test", 0, false));
-
     TagAdapter adapter = new TagAdapter(tags);
     binding.listTags.setAdapter(adapter);
   }
@@ -115,6 +113,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   @Override
   public void newNotesButton() {
     startActivity(new Intent(this, NoteActivity.class));
+  }
+
+  @Override
+  public void moreActivity() {
+    new MoreActivityDialog().show(getSupportFragmentManager(), "more activity");
+  }
+
+  @Override
+  public DataManager getDataManager() {
+    return dataManager;
   }
 
   @Override

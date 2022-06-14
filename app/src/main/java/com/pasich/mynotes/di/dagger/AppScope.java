@@ -1,4 +1,4 @@
-package com.pasich.mynotes.app.dagger;
+package com.pasich.mynotes.di.dagger;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

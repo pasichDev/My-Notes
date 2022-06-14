@@ -17,7 +17,7 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.view.main.MainActivity">
+        tools:context=".ui.view.activity.MainActivity">
 
         <include
             android:id="@+id/toolbar_actionbar"
@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="@{(view) -> presenter.moreActivityClick()}"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
         app:srcCompat="@drawable/ic_out_more"
         android:contentDescription="@string/more" />
@@ -77,7 +78,7 @@
         android:visibility="visible"
         app:backgroundTint="?attr/colorPrimaryBackground"
         app:elevation="7dp"
-        android:onClick="@{(view) -> presenter.newNotes()}"
+        android:onClick="@{(view) -> presenter.newNotesClick()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add"

@@ -10,7 +10,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.otherClasses.controllers.dialog.WhatUpdateDialog;
+import com.pasich.mynotes.ui.view.dialogs.WhatUpdateDialog;
 
 public class FragmentAppInfo extends PreferenceFragmentCompat {
   @Override

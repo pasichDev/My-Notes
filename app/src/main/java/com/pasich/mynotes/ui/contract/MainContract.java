@@ -2,6 +2,7 @@ package com.pasich.mynotes.ui.contract;
 
 import com.pasich.mynotes.base.MyPresenter;
 import com.pasich.mynotes.base.MyView;
+import com.pasich.mynotes.data.DataManager;
 
 public interface MainContract<V extends MyView> {
 
@@ -14,12 +15,16 @@ public interface MainContract<V extends MyView> {
     void setEmptyListNotes();
 
     void newNotesButton();
+
+    void moreActivity();
+
+    DataManager getDataManager();
   }
 
   interface presenter extends MyPresenter<view> {
-    void clickTag();
-    void longClickTag();
 
-    void newNotes();
+    void newNotesClick();
+
+    void moreActivityClick();
   }
 }

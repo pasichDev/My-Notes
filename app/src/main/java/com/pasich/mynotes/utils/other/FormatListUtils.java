@@ -8,10 +8,12 @@ import com.preference.PowerPreference;
 public class FormatListUtils {
   private ImageButton buttonFormat;
 
+  public void restartData() {}
+
   public void init(ImageButton button) {
     this.buttonFormat = button;
-    getFormatParam();
     this.buttonFormat.setOnClickListener(view -> formatNote());
+    getFormatParam();
   }
 
   private int getParamFormatValue() {
