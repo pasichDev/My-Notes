@@ -3,12 +3,16 @@ package com.pasich.mynotes.ui.contract;
 import com.pasich.mynotes.base.MyPresenter;
 import com.pasich.mynotes.base.MyView;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.tags.Tag;
+
+import java.util.List;
 
 public interface MainContract<V extends MyView> {
 
   interface view extends MyView {
     void settingsSearchView();
-    void settingsTagsList();
+
+    void settingsTagsList(List<Tag> tagList);
 
     void settingsNotesList(int countColumn);
 

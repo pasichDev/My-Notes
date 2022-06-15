@@ -9,7 +9,7 @@ import com.pasich.mynotes.data.tags.source.dao.TagsDao;
 import com.pasich.mynotes.di.App;
 
 @Database(
-    version = 2,
+    version = 1,
     entities = {Tag.class})
 public abstract class DatabaseApp extends RoomDatabase {
 

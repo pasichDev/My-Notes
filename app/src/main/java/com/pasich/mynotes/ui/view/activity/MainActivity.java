@@ -26,7 +26,7 @@ import com.pasich.mynotes.utils.adapters.TagAdapter;
 import com.pasich.mynotes.utils.other.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public void settingsTagsList() {
+  public void settingsTagsList(List<Tag> tagList) {
     binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
     binding.listTags.setLayoutManager(
         new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
-    ArrayList<Tag> tags = new ArrayList<>();
+    // ArrayList<Tag> tags = new ArrayList<>();
 
-    TagAdapter adapter = new TagAdapter(tags);
+    TagAdapter adapter = new TagAdapter(tagList);
     binding.listTags.setAdapter(adapter);
   }
 

@@ -14,5 +14,5 @@ public interface TagsDao {
   List<Tag> getTags();
 
   @Insert
-  void addTag(List<Tag> tag);
+  void addTag(Tag tag);
 }

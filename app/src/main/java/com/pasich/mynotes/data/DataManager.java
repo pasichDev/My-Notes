@@ -25,9 +25,7 @@ public class DataManager {
   }
 
   public TagsRepository getTagsRepository() {
-
     TagsDao tagsDao = DatabaseApp.getInstance().getTagsDao();
-
-    return TagsRepository.getInstance();
+    return TagsRepository.getInstance(tagsDao);
   }
 }
