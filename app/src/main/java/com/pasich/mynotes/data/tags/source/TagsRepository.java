@@ -1,23 +1,19 @@
 package com.pasich.mynotes.data.tags.source;
 
-import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.data.tags.source.dao.TagsDao;
-
-import java.util.List;
 
 public class TagsRepository implements TagsDataSource {
 
   private static TagsRepository instance;
 
-  private TagsDao tagsDao;
+  private final TagsDataSource dataSource;
 
-  private TagsRepository(TagsDao tagsDao) {
-    this.tagsDao = tagsDao;
+  private TagsRepository(TagsDataSource dataSource) {
+    this.dataSource = dataSource;
   }
 
-  public static TagsRepository getInstance(TagsDao tagsDao) {
+  public static TagsRepository getInstance(TagsDataSource dataSource) {
     if (instance == null) {
-      instance = new TagsRepository(tagsDao);
+      instance = new TagsRepository(dataSource);
     }
     return instance;
   }
@@ -25,7 +21,15 @@ public class TagsRepository implements TagsDataSource {
   public void destroyInstance() {
     instance = null;
   }
+
+  @Override
+  public void getTags(LoadTagsCallback callback) {
+    if (callback == null) return;
+    dataSource.getTags(callback);
+  }
+
   /*
+
   public void addTag(String nameTag, int visibility) {
     Tag tag = new Tag();
     tag.setNameTag(nameTag);
@@ -46,9 +50,4 @@ public class TagsRepository implements TagsDataSource {
 
   }*/
 
-  @Override
-  public void getTags(LoadTagsCallback callback) {}
-
-  @Override
-  public void saveTags(List<Tag> movies) {}
 }

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   @Inject public DataManager dataManager;
 
   private ActivityMainBinding binding;
+  private TagAdapter tagsAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public void initListeners() {}
+  public void initListeners() {
+    tagsAdapter.setOnItemClickListener(
+        new TagAdapter.OnItemClickListener() {
+
+          @Override
+          public void onClick(int position) {}
+
+          @Override
+          public void onLongClick(int position) {}
+        });
+  }
 
   @Override
   protected void onDestroy() {
@@ -90,10 +101,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     binding.listTags.setLayoutManager(
         new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
-    // ArrayList<Tag> tags = new ArrayList<>();
-
-    TagAdapter adapter = new TagAdapter(tagList);
-    binding.listTags.setAdapter(adapter);
+    tagsAdapter = new TagAdapter(tagList);
+    binding.listTags.setAdapter(tagsAdapter);
   }
 
   @Override

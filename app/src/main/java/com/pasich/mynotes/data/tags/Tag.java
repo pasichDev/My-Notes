@@ -10,17 +10,29 @@ public class Tag {
   @PrimaryKey public int id;
 
   @ColumnInfo(name = "name")
-  public String nameTag;
+  private String nameTag;
 
   @ColumnInfo(name = "visibility")
-  public int visibility;
+  private int visibility;
   /**
-   * @param SystemAction - тип Системной метки (1) - добавить метку (2) - все заметки (0) -
-   *     пользовательский тэг
+   * SystemAction - тип Системной метки (1) - добавить метку (2) - все заметки (0) -
+   * пользовательский тэг
    */
-  @Ignore public int systemAction = 0;
+  @Ignore private int systemAction = 0;
 
-  @Ignore public boolean selected = false;
+  @Ignore private boolean selected = false;
+
+  public Tag create(String nameTag, int systemAction, boolean selected) {
+    this.nameTag = nameTag;
+    this.systemAction = systemAction;
+    this.selected = selected;
+
+    return this;
+  }
+
+  public void create(String nameTag) {
+    this.nameTag = nameTag;
+  }
 
   public String getNameTag() {
     return this.nameTag;

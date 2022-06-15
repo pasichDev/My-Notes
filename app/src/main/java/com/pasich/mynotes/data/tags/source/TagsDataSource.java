@@ -8,13 +8,14 @@ public interface TagsDataSource {
 
   interface LoadTagsCallback {
     void onTagsLoaded(List<Tag> tags);
+  }
 
-    void onDataNotAvailable();
+  interface OptionTagCallback {
+    void addTag(Tag tag);
 
-    void onError();
+    void deleteTag(Tag tag);
   }
 
   void getTags(LoadTagsCallback callback);
 
-  void saveTags(List<Tag> movies);
 }
