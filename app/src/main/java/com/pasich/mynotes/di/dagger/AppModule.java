@@ -2,6 +2,8 @@ package com.pasich.mynotes.di.dagger;
 
 import android.content.Context;
 
+import com.pasich.mynotes.data.DataManager;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -18,5 +20,11 @@ public class AppModule {
   @Provides
   Context provideContext() {
     return context;
+  }
+
+  @AppScope
+  @Provides
+  DataManager providerDataManager() {
+    return new DataManager();
   }
 }
