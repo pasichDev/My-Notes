@@ -1,6 +1,7 @@
 package com.pasich.mynotes.di.main;
 
 import com.pasich.mynotes.base.dagger.ActivityModule;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.utils.MainUtils;
@@ -33,5 +34,9 @@ public class MainActivityModule implements ActivityModule {
     return new FormatListUtils();
   }
 
-
+  @MainActivityScope
+  @Provides
+  DataManager providerDataManager() {
+    return new DataManager();
+  }
 }

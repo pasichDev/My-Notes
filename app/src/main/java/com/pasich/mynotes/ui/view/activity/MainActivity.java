@@ -4,6 +4,7 @@ import static com.pasich.mynotes.di.App.getApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +22,10 @@ import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
+import com.pasich.mynotes.ui.view.dialogs.tags.NewTagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagAdapter;
+import com.pasich.mynotes.utils.interfaces.ManageTag;
 import com.pasich.mynotes.utils.other.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
@@ -30,7 +33,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainContract.view {
+public class MainActivity extends AppCompatActivity implements MainContract.view, ManageTag {
 
   @Inject public MainContract.presenter mainPresenter;
   @Inject public MainUtils utils;
@@ -68,7 +71,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         new TagAdapter.OnItemClickListener() {
 
           @Override
-          public void onClick(int position) {}
+          public void onClick(int position) {
+            mainPresenter.clickTag(tagsAdapter.getItem(position));
+            Log.wtf("pasic", "testttttttt");
+          }
 
           @Override
           public void onLongClick(int position) {}
@@ -105,11 +111,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     binding.listTags.setAdapter(tagsAdapter);
   }
 
-  @Override
-  public void setEmptyListNotes() {
-    // Здесь нужно реализовать проверку на количество елементов в адаптере заметок
-    binding.setEmptyNotes(true);
-  }
+
 
   /** Method that changes the number of GridView columns */
   @Override
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
     binding.listNotes.setLayoutManager(
         new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
+    binding.setEmptyNotes(true);
   }
 
   @Override
@@ -130,6 +133,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
+  public void startCreateTagDialog() {
+    new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
+  }
+
+  @Override
   public DataManager getDataManager() {
     return dataManager;
   }
@@ -138,4 +146,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   public void onBackPressed() {
     utils.CloseApp(MainActivity.this);
   }
+
+  @Override
+  public void addTag(String tagName, int noteId, int position) {}
+
+  @Override
+  public void addTagForNote(String tagName, int noteId, int position) {}
+
+  @Override
+  public void deleteTag(boolean deleteNotes, int position) {}
 }

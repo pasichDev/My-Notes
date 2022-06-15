@@ -14,20 +14,19 @@ public interface MainContract<V extends MyView> {
     void settingsTagsList(List<Tag> tagList);
 
     void settingsNotesList(int countColumn);
-
-    void setEmptyListNotes();
-
     void newNotesButton();
 
     void moreActivity();
+
+    void startCreateTagDialog();
 
     DataManager getDataManager();
   }
 
   interface presenter extends MyPresenter<view> {
-
     void newNotesClick();
-
     void moreActivityClick();
+
+    void clickTag(Tag tag);
   }
 }

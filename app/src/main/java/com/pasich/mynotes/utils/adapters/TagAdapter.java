@@ -17,6 +17,10 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
   private final int PAYLOAD_BACKGROUND = 22;
   private OnItemClickListener mOnItemClickListener;
 
+  public Tag getItem(int i) {
+    return listTags != null ? listTags.get(i) : null;
+  }
+
   public TagAdapter(List<Tag> listTags) {
     this.listTags = listTags;
   }
