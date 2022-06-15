@@ -1,53 +1,59 @@
 package com.pasich.mynotes.data.tags.source;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
-public class TagsRepository implements TagsDataSource {
+import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.tags.source.dao.TagsDao;
+import com.pasich.mynotes.utils.DiskExecutor;
+
+import java.util.List;
+import java.util.concurrent.Executor;
+
+public class TagsRepository {
 
   private static TagsRepository instance;
+  private final Executor executor;
+  private final TagsDao tagsDao;
+  private LiveData<List<Tag>> mTags = new MutableLiveData<>();
 
-  private final TagsDataSource dataSource;
-
-  private TagsRepository(TagsDataSource dataSource) {
-    this.dataSource = dataSource;
+  private TagsRepository(Executor executor, TagsDao tagsDao) {
+    this.executor = executor;
+    this.tagsDao = tagsDao;
+    loadingTags();
   }
 
-  public static TagsRepository getInstance(TagsDataSource dataSource) {
+  public static TagsRepository getInstance(TagsDao tagsDao) {
     if (instance == null) {
-      instance = new TagsRepository(dataSource);
+      instance = new TagsRepository(new DiskExecutor(), tagsDao);
     }
+
     return instance;
+  }
+
+  private void loadingTags() {
+    Runnable runnable =
+        () -> {
+          mTags = tagsDao.getTags();
+        };
+    executor.execute(runnable);
+  }
+
+  public LiveData<List<Tag>> getTags() {
+
+    return mTags;
+  }
+
+  public void insert(Tag tag) {
+
+    Runnable runnable =
+        () -> {
+          tagsDao.addTag(tag);
+        };
+    executor.execute(runnable);
   }
 
   public void destroyInstance() {
     instance = null;
   }
-
-  @Override
-  public void getTags(LoadTagsCallback callback) {
-    if (callback == null) return;
-    dataSource.getTags(callback);
-  }
-
-  /*
-
-  public void addTag(String nameTag, int visibility) {
-    Tag tag = new Tag();
-    tag.setNameTag(nameTag);
-    tag.setVisibility(visibility);
-
-    tagsDao.addTag(tag);
-  }
-
-  public List<Tag> getsTags() {
-    Runnable runnable = new Runnable() {
-      @Override
-      public void run() {
-        List<Tag> tags = tagsDao.getTags();
-
-    };
-      }
-    executor.execute(runnable);
-
-  }*/
-
 }

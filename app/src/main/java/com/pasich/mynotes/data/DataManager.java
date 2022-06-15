@@ -1,8 +1,6 @@
 package com.pasich.mynotes.data;
 
-import com.pasich.mynotes.data.tags.source.DataSourceTags;
 import com.pasich.mynotes.data.tags.source.TagsRepository;
-import com.pasich.mynotes.data.tags.source.dao.TagsDao;
 import com.preference.PowerPreference;
 import com.preference.Preference;
 
@@ -25,7 +23,6 @@ public class DataManager {
   }
 
   public TagsRepository getTagsRepository() {
-    TagsDao tagsDao = DatabaseApp.getInstance().getTagsDao();
-    return TagsRepository.getInstance(DataSourceTags.getInstance(tagsDao));
+    return TagsRepository.getInstance(DatabaseApp.getInstance().getTagsDao());
   }
 }

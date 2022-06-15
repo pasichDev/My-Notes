@@ -4,11 +4,11 @@ import static com.pasich.mynotes.di.App.getApp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
 
+
+
   }
 
   @Override
@@ -67,13 +69,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void initListeners() {
+
     tagsAdapter.setOnItemClickListener(
         new TagAdapter.OnItemClickListener() {
 
           @Override
           public void onClick(int position) {
-            mainPresenter.clickTag(tagsAdapter.getItem(position));
-            Log.wtf("pasic", "testttttttt");
+
+            NewTagDialog nw = new NewTagDialog(mainPresenter);
+            nw.show(getSupportFragmentManager(), "New Tag");
+            // mainPresenter.clickTag(tagsAdapter.get(position));
+            //  Log.wtf("pasic", "testttttttt");
           }
 
           @Override
@@ -102,13 +108,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public void settingsTagsList(List<Tag> tagList) {
+  public void settingsTagsList(LiveData<List<Tag>> tagList) {
     binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
     binding.listTags.setLayoutManager(
         new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
-    tagsAdapter = new TagAdapter(tagList);
+    tagsAdapter = new TagAdapter(new TagAdapter.tagDiff());
     binding.listTags.setAdapter(tagsAdapter);
+    tagList.observe(
+        this,
+        tags -> {
+          // Update the cached copy of the words in the adapter.
+          tagsAdapter.submitList(tags);
+        });
   }
 
 
@@ -134,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void startCreateTagDialog() {
-    new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
+    //  new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
   }
 
   @Override
@@ -149,10 +161,4 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void addTag(String tagName, int noteId, int position) {}
-
-  @Override
-  public void addTagForNote(String tagName, int noteId, int position) {}
-
-  @Override
-  public void deleteTag(boolean deleteNotes, int position) {}
 }

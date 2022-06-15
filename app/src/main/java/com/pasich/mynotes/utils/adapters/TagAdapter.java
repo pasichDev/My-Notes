@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.data.tags.Tag;
@@ -11,27 +13,17 @@ import com.pasich.mynotes.databinding.ItemTagBinding;
 
 import java.util.List;
 
-public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
+public class TagAdapter extends ListAdapter<Tag, TagAdapter.ViewHolder> {
 
-  private final List<Tag> listTags;
   private final int PAYLOAD_BACKGROUND = 22;
   private OnItemClickListener mOnItemClickListener;
 
-  public Tag getItem(int i) {
-    return listTags != null ? listTags.get(i) : null;
-  }
-
-  public TagAdapter(List<Tag> listTags) {
-    this.listTags = listTags;
+  public TagAdapter(@NonNull DiffUtil.ItemCallback<Tag> diffCallback) {
+    super(diffCallback);
   }
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
     this.mOnItemClickListener = onItemClickListener;
-  }
-
-  @Override
-  public int getItemCount() {
-    return (null != listTags ? listTags.size() : 0);
   }
 
   /**
@@ -41,8 +33,8 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
    */
   public int getCheckedPosition() {
     int retCount = 0;
-    for (int i = 0; i < listTags.size(); i++) {
-      if (listTags.get(i).getSelected()) {
+    for (int i = 0; i < getCurrentList().size(); i++) {
+      if (getItem(i).getSelected()) {
         retCount = i;
         break;
       }
@@ -53,9 +45,9 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
   public void chooseTag(int position) {
 
     int positionSelected = getCheckedPosition();
-    listTags.get(positionSelected).setSelected(false);
+    getItem(positionSelected).setSelected(false);
     notifyItemChanged(positionSelected, PAYLOAD_BACKGROUND);
-    listTags.get(position).setSelected(true);
+    getItem(position).setSelected(true);
     notifyItemChanged(position, PAYLOAD_BACKGROUND);
   }
 
@@ -82,8 +74,8 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
 
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    holder.ItemBinding.setTagsModel(listTags.get(position));
-    holder.ItemBinding.setCheckedItem(listTags.get(position).getSelected());
+    holder.ItemBinding.setTagsModel(getItem(position));
+    holder.ItemBinding.setCheckedItem(getItem(position).getSelected());
   }
 
   @Override
@@ -94,7 +86,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
     } else {
       for (Object payload : payloads) {
         if (payload.equals(PAYLOAD_BACKGROUND)) {
-          holder.ItemBinding.setCheckedItem(listTags.get(position).getSelected());
+          holder.ItemBinding.setCheckedItem(getItem(position).getSelected());
         }
       }
     }
@@ -112,6 +104,19 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
     ViewHolder(ItemTagBinding binding) {
       super(binding.getRoot());
       ItemBinding = binding;
+    }
+  }
+
+  public static class tagDiff extends DiffUtil.ItemCallback<Tag> {
+
+    @Override
+    public boolean areItemsTheSame(@NonNull Tag oldItem, @NonNull Tag newItem) {
+      return oldItem == newItem;
+    }
+
+    @Override
+    public boolean areContentsTheSame(@NonNull Tag oldItem, @NonNull Tag newItem) {
+      return oldItem.getNameTag().equals(newItem.getNameTag());
     }
   }
 }

@@ -1,13 +1,11 @@
 package com.pasich.mynotes.data.tags.source;
 
-import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.dao.TagsDao;
 import com.pasich.mynotes.utils.DiskExecutor;
 
-import java.util.List;
 import java.util.concurrent.Executor;
 
-public class DataSourceTags implements TagsDataSource {
+public class DataSourceTags {
 
   private final Executor executor;
   private final TagsDao tagsDao;
@@ -25,7 +23,7 @@ public class DataSourceTags implements TagsDataSource {
     }
     return instance;
   }
-
+  /*
   @Override
   public void getTags(LoadTagsCallback callback) {
     Runnable runnable =
@@ -36,5 +34,5 @@ public class DataSourceTags implements TagsDataSource {
           }
         };
     executor.execute(runnable);
-  }
+  }*/
 }

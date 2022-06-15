@@ -1,5 +1,7 @@
 package com.pasich.mynotes.ui.contract;
 
+import androidx.lifecycle.LiveData;
+
 import com.pasich.mynotes.base.MyPresenter;
 import com.pasich.mynotes.base.MyView;
 import com.pasich.mynotes.data.DataManager;
@@ -11,7 +13,8 @@ public interface MainContract<V extends MyView> {
 
   interface view extends MyView {
     void settingsSearchView();
-    void settingsTagsList(List<Tag> tagList);
+
+    void settingsTagsList(LiveData<List<Tag>> tagList);
 
     void settingsNotesList(int countColumn);
     void newNotesButton();
@@ -26,6 +29,8 @@ public interface MainContract<V extends MyView> {
   interface presenter extends MyPresenter<view> {
     void newNotesClick();
     void moreActivityClick();
+
+    void addTag(String nameTag);
 
     void clickTag(Tag tag);
   }

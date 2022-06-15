@@ -3,11 +3,7 @@ package com.pasich.mynotes.ui.presenter;
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.data.tags.source.TagsDataSource;
 import com.pasich.mynotes.ui.contract.MainContract;
-
-import java.util.List;
-
 
 public class MainPresenter extends PresenterBase<MainContract.view>
     implements MainContract.presenter {
@@ -20,8 +16,8 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   public void viewIsReady() {
     dataManager = getView().getDataManager();
     getView().settingsSearchView();
-
-    dataManager.getTagsRepository().getTags(new TagsCallListener());
+    getView().settingsTagsList(dataManager.getTagsRepository().getTags());
+    getView().initListeners();
     getView().settingsNotesList(getFormatParam());
   }
 
@@ -50,6 +46,14 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   @Override
   public void moreActivityClick() {
     if (isViewAttached()) getView().moreActivity();
+
+  }
+
+  @Override
+  public void addTag(String nameTag) {
+    Tag tag = new Tag();
+    tag.create(nameTag);
+    dataManager.getTagsRepository().insert(tag);
   }
 
   @Override
@@ -62,20 +66,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
               TagListAdapter.getCheckedPosition() == 1
                       ? ""
                       : MainModel.tagsArray.get(TagListAdapter.getCheckedPosition()).getNameTag());*/
-    }
-  }
-
-  private class TagsCallListener implements TagsDataSource.LoadTagsCallback {
-
-    @Override
-    public void onTagsLoaded(List<Tag> tags) {
-      if (getView() == null) return;
-      Tag tagNewTag = new Tag().create("", 1, false);
-      //  Tag tagAllTags = new Tag().create(getString(R.string.allNotes), 0, true);
-
-      tags.add(0, tagNewTag);
-      getView().settingsTagsList(tags);
-      getView().initListeners();
     }
   }
 }
