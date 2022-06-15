@@ -11,7 +11,6 @@ public interface MainContract<V extends MyView> {
 
   interface view extends MyView {
     void settingsSearchView();
-
     void settingsTagsList(List<Tag> tagList);
 
     void settingsNotesList(int countColumn);
