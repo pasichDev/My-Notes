@@ -8,21 +8,26 @@ import com.pasich.mynotes.ui.contract.MainContract;
 public class MainPresenter extends PresenterBase<MainContract.view>
     implements MainContract.presenter {
 
-  private DataManager dataManager;
+  private DataManager data;
+
   public MainPresenter() {}
 
   @Override
+  public void setDataManager(DataManager dataManager) {
+    data = dataManager;
+  }
+
+  @Override
   public void viewIsReady() {
-    dataManager = getView().getDataManager();
     getView().settingsSearchView();
-    getView().settingsTagsList(dataManager.getTagsRepository().getTags());
+    getView().settingsTagsList(data.getTagsRepository().getTags());
     getView().initListeners();
     getView().settingsNotesList(getFormatParam());
 
   }
 
   private int getFormatParam() {
-    return dataManager.getDefaultPreference().getInt("formatParam", 1);
+    return data.getDefaultPreference().getInt("formatParam", 1);
   }
 
   @Override
@@ -31,8 +36,8 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   @Override
   public void destroy() {
 
-    dataManager.getTagsRepository().destroyInstance();
-    dataManager = null;
+    data.getTagsRepository().destroyInstance();
+    data = null;
   }
 
   @Override
@@ -48,9 +53,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void addTag(String nameTag) {
-    Tag tag = new Tag();
-    tag.create(nameTag);
-    dataManager.getTagsRepository().insert(tag);
+    if (isViewAttached()) data.getTagsRepository().insert(new Tag().create(nameTag));
   }
 
   @Override
@@ -64,5 +67,19 @@ public class MainPresenter extends PresenterBase<MainContract.view>
                       ? ""
                       : MainModel.tagsArray.get(TagListAdapter.getCheckedPosition()).getNameTag());*/
     }
+  }
+
+  @Override
+  public void clickLongTag(Tag tag) {
+    String[] keysNote = {
+      String.valueOf(0),
+      tag.getNameTag(),
+      /*  Здесь вместо 1 нужно прописать количество заметок с данным тегом
+      data.getTagsRepository.getCountNotesTags(tag.getNameTag());
+      String.valueOf(
+                MainModel.getCountNotesTag(tag.getNameTag()))*/
+      String.valueOf(1)
+    };
+    getView().choiceTagDialog(keysNote);
   }
 }

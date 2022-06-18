@@ -20,9 +20,10 @@ public interface TagsDao {
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   void addTag(Tag tag);
 
-  @Query("SELECT COUNT(name) FROM tags")
-  int getNumberOfRows();
-
+  /**
+   * @Query("SELECT COUNT(name) FROM notes WHERE tag = nameTag") int getCountNotesTags(String
+   * nameTAg);
+   */
   @Update
   void updateTag(Tag tag);
 

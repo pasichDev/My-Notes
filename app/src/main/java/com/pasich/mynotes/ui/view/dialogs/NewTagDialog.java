@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.tags;
+package com.pasich.mynotes.ui.view.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,22 +12,16 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.TagView;
 import com.pasich.mynotes.otherClasses.view.custom.InputTagView;
-import com.pasich.mynotes.ui.contract.MainContract;
 
 public class NewTagDialog extends BottomSheetDialogFragment {
-
-  MainContract.presenter mainPresenter;
-
-  /*  public NewTagDialog(MainContract.presenter mainPresenter) {
-    this.mainPresenter = mainPresenter;
-  }*/
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final InputTagView mView = new InputTagView(getLayoutInflater());
-    //    final ManageTag ManageTag = (ManageTag) getContext();
+    final TagView tagView = (TagView) getContext();
 
     mView.addTitle(getString(R.string.addTag));
     mView.addView(mView.getNewTagView());
@@ -35,9 +29,8 @@ public class NewTagDialog extends BottomSheetDialogFragment {
         .getSaveButton()
         .setOnClickListener(
             view -> {
-              //   assert ManageTag != null;
-              //    ManageTag.addTag(mView.getInputTag().getText().toString(), 0, 0);
-              mainPresenter.addTag(mView.getInputTag().getText().toString());
+              assert tagView != null;
+              tagView.addTag(mView.getInputTag().getText().toString());
 
               dismiss();
             });

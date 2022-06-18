@@ -21,8 +21,9 @@ import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
+import com.pasich.mynotes.ui.view.dialogs.ChoiceTagDialog.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
-import com.pasich.mynotes.ui.view.dialogs.tags.NewTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.NewTagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagAdapter;
 import com.pasich.mynotes.utils.interfaces.ManageTag;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     init();
 
     mainPresenter.attachView(this);
+    mainPresenter.setDataManager(dataManager);
     mainPresenter.viewIsReady();
   }
 
@@ -67,14 +69,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     tagsAdapter.setOnItemClickListener(
         new TagAdapter.OnItemClickListener() {
-
           @Override
           public void onClick(int position) {
             mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position));
           }
 
           @Override
-          public void onLongClick(int position) {}
+          public void onLongClick(int position) {
+            mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
+          }
         });
   }
 
@@ -109,6 +112,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     tagList.observe(this, tags -> tagsAdapter.submitList(tags));
   }
 
+  @Override
+  public void addTag(String nameTag) {
+    mainPresenter.addTag(nameTag);
+  }
+
   /** Method that changes the number of GridView columns */
   @Override
   public void settingsNotesList(int countColumn) {
@@ -134,9 +142,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public DataManager getDataManager() {
-    return dataManager;
+  public void choiceTagDialog(String[] arg) {
+    new ChoiceTagDialog(arg).show(getSupportFragmentManager(), "ChoiceDialog");
   }
+
 
   @Override
   public void onBackPressed() {

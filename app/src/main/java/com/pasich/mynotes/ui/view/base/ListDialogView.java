@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.view.base;
+package com.pasich.mynotes.ui.view.base;
 
 import android.view.LayoutInflater;
 import android.view.animation.AnimationUtils;

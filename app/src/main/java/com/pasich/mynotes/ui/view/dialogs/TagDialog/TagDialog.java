@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.tags;
+package com.pasich.mynotes.ui.view.dialogs.TagDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.interfaces.ManageTag;
 import com.pasich.mynotes.otherClasses.models.dialog.ChooseTagDialogModel;
-import com.pasich.mynotes.otherClasses.view.dialog.TagDialogView;
 import com.pasich.mynotes.utils.simplifications.TabLayoutListenerUtils;
 
 import java.util.Objects;

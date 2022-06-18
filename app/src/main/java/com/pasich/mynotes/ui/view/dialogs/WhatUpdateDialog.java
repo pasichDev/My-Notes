@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.otherClasses.view.base.ListDialogView;
+import com.pasich.mynotes.ui.view.base.ListDialogView;
 
 public class WhatUpdateDialog extends BottomSheetDialogFragment {
 

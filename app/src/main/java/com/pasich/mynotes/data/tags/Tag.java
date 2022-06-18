@@ -42,8 +42,9 @@ public class Tag {
     return this;
   }
 
-  public void create(String nameTag) {
+  public Tag create(String nameTag) {
     this.nameTag = nameTag;
+    return this;
   }
 
   @NonNull

@@ -1,37 +1,34 @@
 package com.pasich.mynotes.ui.contract;
 
-import androidx.lifecycle.LiveData;
-
 import com.pasich.mynotes.base.MyPresenter;
 import com.pasich.mynotes.base.MyView;
-import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.base.NotesListView;
+import com.pasich.mynotes.base.TagView;
 import com.pasich.mynotes.data.tags.Tag;
 
-import java.util.List;
+public interface MainContract {
 
-public interface MainContract<V extends MyView> {
-
-  interface view extends MyView {
+  interface view extends MyView, TagView, NotesListView {
     void settingsSearchView();
 
-    void settingsTagsList(LiveData<List<Tag>> tagList);
-
-    void settingsNotesList(int countColumn);
     void newNotesButton();
 
     void moreActivity();
 
     void startCreateTagDialog();
 
-    DataManager getDataManager();
+    void choiceTagDialog(String[] arg);
   }
 
   interface presenter extends MyPresenter<view> {
     void newNotesClick();
+
     void moreActivityClick();
 
     void addTag(String nameTag);
 
     void clickTag(Tag tag);
+
+    void clickLongTag(Tag tag);
   }
 }

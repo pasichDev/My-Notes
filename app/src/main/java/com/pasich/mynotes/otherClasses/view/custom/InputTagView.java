@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pasich.mynotes.databinding.ViewNewTagInputBinding;
-import com.pasich.mynotes.otherClasses.view.base.BaseView;
+import com.pasich.mynotes.ui.view.base.BaseView;
 import com.pasich.mynotes.utils.simplifications.TextValidatorUtils;
 
 public class InputTagView extends BaseView {

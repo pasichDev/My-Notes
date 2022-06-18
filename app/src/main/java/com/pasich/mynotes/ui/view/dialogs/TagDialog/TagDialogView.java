@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.view.dialog;
+package com.pasich.mynotes.ui.view.dialogs.TagDialog;
 
 import android.view.LayoutInflater;
 

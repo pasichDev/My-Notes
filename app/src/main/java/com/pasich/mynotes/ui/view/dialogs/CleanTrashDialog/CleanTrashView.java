@@ -1,11 +1,11 @@
-package com.pasich.mynotes.otherClasses.view.dialog;
+package com.pasich.mynotes.ui.view.dialogs.CleanTrashDialog;
 
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.otherClasses.view.base.ListDialogView;
+import com.pasich.mynotes.ui.view.base.ListDialogView;
 
 public class CleanTrashView extends ListDialogView {
 

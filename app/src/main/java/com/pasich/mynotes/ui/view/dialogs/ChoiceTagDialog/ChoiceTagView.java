@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.view.dialog;
+package com.pasich.mynotes.ui.view.dialogs.ChoiceTagDialog;
 
 import android.view.LayoutInflater;
 
@@ -7,14 +7,14 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ViewInfoItemBinding;
 import com.pasich.mynotes.databinding.ViewVisibilityTagBinding;
-import com.pasich.mynotes.otherClasses.view.base.ListDialogView;
+import com.pasich.mynotes.ui.view.base.ListDialogView;
 
-public class ChoiceTagDialogView extends ListDialogView {
+public class ChoiceTagView extends ListDialogView {
 
   private final ViewVisibilityTagBinding ViewVisibilitySwitch;
   private final ViewInfoItemBinding ViewInfoItem;
 
-  public ChoiceTagDialogView(LayoutInflater Inflater) {
+  public ChoiceTagView(LayoutInflater Inflater) {
     super(Inflater);
     this.ViewVisibilitySwitch = ViewVisibilityTagBinding.inflate(Inflater);
     this.ViewInfoItem = ViewInfoItemBinding.inflate(Inflater);
