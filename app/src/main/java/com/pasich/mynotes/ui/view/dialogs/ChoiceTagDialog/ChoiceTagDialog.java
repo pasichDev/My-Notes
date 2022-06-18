@@ -18,10 +18,10 @@ import java.util.ArrayList;
 
 public class ChoiceTagDialog extends BottomSheetDialogFragment {
 
-  private final String[] keysNoteInfo;
+  private final Integer[] keysNoteInfo;
   private final Tag tag;
 
-  public ChoiceTagDialog(Tag tag, String[] keysNoteInfo) {
+  public ChoiceTagDialog(Tag tag, Integer[] keysNoteInfo) {
     this.keysNoteInfo = keysNoteInfo;
     this.tag = tag;
   }
@@ -34,7 +34,7 @@ public class ChoiceTagDialog extends BottomSheetDialogFragment {
     final TagView tagView = (TagView) getContext();
 
     view.setTitle(tag.getNameTag());
-    view.initializeInfoLayout(keysNoteInfo[2]);
+    view.initializeInfoLayout(keysNoteInfo[0]);
     view.getSwitchVisibility().setChecked(tag.getVisibility() == 1);
 
     arrayChoice.add(
@@ -55,12 +55,11 @@ public class ChoiceTagDialog extends BottomSheetDialogFragment {
         .setOnItemClickListener(
             (parent, v, position, id) -> {
               if (adapter.getItem(position).getAction().equals("deleteTag")) {
-                if (Integer.parseInt(keysNoteInfo[2]) == 0) {
+                if (keysNoteInfo[0] == 0) {
                   assert tagView != null;
                   tagView.deleteTag(tag);
                 } else {
-                  new DeleteTagDialog(
-                          Integer.parseInt(keysNoteInfo[2]), Integer.parseInt(keysNoteInfo[0]))
+                  new DeleteTagDialog(keysNoteInfo[0], 1)
                       .show(getParentFragmentManager(), "deleteTag");
                 }
               }

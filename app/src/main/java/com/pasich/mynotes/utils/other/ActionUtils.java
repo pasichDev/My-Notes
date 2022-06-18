@@ -2,7 +2,7 @@ package com.pasich.mynotes.utils.other;
 
 import android.view.View;
 
-import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.otherClasses.view.custom.ActionPanel;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 
@@ -45,15 +45,15 @@ public class ActionUtils extends ActionPanel implements View.OnClickListener {
    *
    * @return - data adapter
    */
-  private List<NoteModel> getDataAdapter() {
-    return adapter.getData();
+  private List<Note> getDataAdapter() {
+    return adapter.getCurrentList();
   }
 
   /**
    * @return - Number of marked items (int)
    */
   public int getCountCheckedItem() {
-    List<NoteModel> data = getDataAdapter();
+    List<Note> data = getDataAdapter();
     int count = 0;
     for (int i = 0; i < data.size(); i++) {
       count = data.get(i).getChecked() ? count + 1 : count;
@@ -63,7 +63,7 @@ public class ActionUtils extends ActionPanel implements View.OnClickListener {
 
   /** Clear all marks */
   private void checkedClean() {
-    List<NoteModel> data = getDataAdapter();
+    List<Note> data = getDataAdapter();
     for (int i = 0; i < data.size(); i++) {
       if (data.get(i).getChecked()) data.get(i).setChecked(false);
       adapter.notifyItemChanged(i, PAYLOAD_BACKGROUND);
@@ -117,12 +117,12 @@ public class ActionUtils extends ActionPanel implements View.OnClickListener {
   }
 
   public void selectItemAction(int item) {
-    NoteModel noteItem = getDataAdapter().get(item);
+    Note noteItem = getDataAdapter().get(item);
     if (noteItem.getChecked()) {
       noteItem.setChecked(false);
-      isCheckedItemFalse(noteItem.getId());
+      // isCheckedItemFalse(noteItem.getId());
     } else {
-      isCheckedItem(noteItem.getId());
+      //  isCheckedItem(noteItem.getId());
       noteItem.setChecked(true);
     }
     manageActionPanel();

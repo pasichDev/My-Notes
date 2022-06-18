@@ -21,10 +21,9 @@ public interface MainContract {
 
     void startCreateTagDialog();
 
-    void choiceTagDialog(Tag tag, String[] arg);
+    void choiceTagDialog(Tag tag, Integer[] arg);
 
     void settingsTagsList(LiveData<List<Tag>> tagList);
-
     void selectTagUser(int position);
   }
 

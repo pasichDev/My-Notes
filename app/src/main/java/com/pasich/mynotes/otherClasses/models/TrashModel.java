@@ -1,41 +1,39 @@
 package com.pasich.mynotes.otherClasses.models;
 
 import android.content.Context;
-import android.database.Cursor;
 
-import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.otherClasses.models.base.ModelBase;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class TrashModel extends ModelBase {
 
   /** Массив с заметками которые находяться в таблице Trash */
-  public ArrayList<NoteModel> notesArray;
+  public ArrayList<Note> notesArray;
 
   public TrashModel(Context context) {
     super(context);
     this.notesArray = searchNotes();
-    initialization();
+    // initialization();
   }
 
   /** Инициализация модели */
-  private void initialization() {
-    Collections.sort(notesArray, NoteModel.COMPARE_BY_DATE_REVERSE);
-  }
+  /* private void initialization() {
+    Collections.sort(notesArray, Note.COMPARE_BY_DATE_REVERSE);
+  }*/
 
   /**
    * Найдем заметки в таблице Trash, и добавим в массив notesArray
    *
    * @return - возвразаем сформированный массив с заметками
    */
-  private ArrayList<NoteModel> searchNotes() {
+  private ArrayList<Note> searchNotes() {
     notesArray = new ArrayList<>();
-    Cursor testCursor = getDb().query(DbHelper.COLUMN_TRASH, null, null, null, null, null, null);
+    /*  Cursor testCursor = getDb().query(DbHelper.COLUMN_TRASH, null, null, null, null, null, null);
     while (testCursor.moveToNext()) {
       notesArray.add(
-          new NoteModel(
+          new Note(
               testCursor.getInt(0),
               testCursor.getString(1),
               testCursor.getString(2),
@@ -44,7 +42,7 @@ public class TrashModel extends ModelBase {
               testCursor.getString(5)));
     }
 
-    testCursor.close();
+    testCursor.close();*/
     return notesArray;
   }
 

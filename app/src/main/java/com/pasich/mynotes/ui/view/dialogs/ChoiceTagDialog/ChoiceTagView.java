@@ -24,9 +24,9 @@ public class ChoiceTagView extends ListDialogView {
     addView(getItemsView());
   }
 
-  public void initializeInfoLayout(String countNotesToTag) {
+  public void initializeInfoLayout(int countNotesToTag) {
     ViewInfoItem.infoTextView.setText(
-        getContextRoot().getString(R.string.layoutStringInfoTags, countNotesToTag));
+        getContextRoot().getString(R.string.layoutStringInfoTags, String.valueOf(countNotesToTag)));
     addView(ViewInfoItem.getRoot());
   }
 

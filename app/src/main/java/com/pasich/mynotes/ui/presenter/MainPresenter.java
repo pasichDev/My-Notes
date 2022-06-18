@@ -2,27 +2,33 @@ package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
     implements MainContract.presenter {
 
   private DataManager data;
+  private TagsRepository tagsRepository;
+  private NotesRepository notesRepository;
 
   public MainPresenter() {}
 
   @Override
   public void setDataManager(DataManager dataManager) {
     data = dataManager;
+    tagsRepository = data.getTagsRepository();
+    notesRepository = data.getNotesRepository();
   }
 
   @Override
   public void viewIsReady() {
     getView().settingsSearchView();
-    getView().settingsTagsList(data.getTagsRepository().getTags());
+    getView().settingsTagsList(tagsRepository.getTags());
     getView().initListeners();
-    getView().settingsNotesList(getFormatParam());
+    getView().settingsNotesList(getFormatParam(), notesRepository.getNotes());
   }
 
   private int getFormatParam() {
@@ -34,7 +40,8 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void destroy() {
-    data.getTagsRepository().destroyInstance();
+    tagsRepository.destroyInstance();
+    notesRepository.destroyInstance();
     data = null;
   }
 
@@ -50,17 +57,17 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void addTag(String nameTag) {
-    if (data != null) data.getTagsRepository().insert(new Tag().create(nameTag));
+    if (data != null) tagsRepository.insert(new Tag().create(nameTag));
   }
 
   @Override
   public void deleteTag(Tag tag) {
-    if (data != null) data.getTagsRepository().deleteTag(tag);
+    if (data != null) tagsRepository.deleteTag(tag);
   }
 
   @Override
   public void editVisibility(Tag tag) {
-    if (data != null) data.getTagsRepository().updateTag(tag);
+    if (data != null) tagsRepository.updateTag(tag);
   }
 
   @Override
@@ -74,16 +81,9 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void clickLongTag(Tag tag) {
-    String[] keysNote = {
-      String.valueOf(0),
-      tag.getNameTag(),
-      /*  Здесь вместо 1 нужно прописать количество заметок с данным тегом
-      data.getTagsRepository.getCountNotesTags(tag.getNameTag());
-      String.valueOf(
-                MainModel.getCountNotesTag(tag.getNameTag()))*/
-      String.valueOf(0),
-      String.valueOf(tag.getVisibility())
-    };
-    getView().choiceTagDialog(tag, keysNote);
+    if (tag.getSystemAction() == 0) {
+      Integer[] keysNote = {notesRepository.getCountNoteTag(tag.getNameTag())};
+      getView().choiceTagDialog(tag, keysNote);
+    }
   }
 }

@@ -8,13 +8,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 
-import androidx.preference.PreferenceManager;
-
-import com.pasich.mynotes.otherClasses.models.ada.NoteModel;
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.otherClasses.models.base.ModelBase;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class MainModel extends ModelBase {
 
@@ -23,7 +20,7 @@ public class MainModel extends ModelBase {
   /** List of tag names */
   // public ArrayList<Tag> tagsArray;
   /** Note Data List */
-  public ArrayList<NoteModel> notesArray = new ArrayList<>();
+  public ArrayList<Note> notesArray = new ArrayList<>();
 
   private final ArrayList<String> tagsIgnore = new ArrayList<>();
 
@@ -37,7 +34,7 @@ public class MainModel extends ModelBase {
   private void initialization() {
     queryTagsIgnore();
     searchNotes("");
-    arraySort();
+    // arraySort();
   }
 
   /** Method that implements filling the list with the names of existing tags */
@@ -95,30 +92,30 @@ public class MainModel extends ModelBase {
     cv.put("tag", setNameTagSize(nameTag));
     getDb().update(DbHelper.COLUMN_NOTES, cv, "id = ?", new String[] {String.valueOf(noteID)});
   }
-
+  /*
   public void arraySort() {
     String sortParam =
         PreferenceManager.getDefaultSharedPreferences(context).getString("sortPref", "DataReserve");
 
     switch (sortParam) {
       case "DataSort":
-        Collections.sort(notesArray, NoteModel.COMPARE_BY_DATE_SORT);
+        Collections.sort(notesArray, Note.COMPARE_BY_DATE_SORT);
         break;
       case "TitleSort":
-        Collections.sort(notesArray, NoteModel.COMPARE_BY_TITLE_SORT);
+        Collections.sort(notesArray, Note.COMPARE_BY_TITLE_SORT);
         break;
       case "TitleReserve":
-        Collections.sort(notesArray, NoteModel.COMPARE_BY_TITLE_REVERSE);
+        Collections.sort(notesArray, Note.COMPARE_BY_TITLE_REVERSE);
         break;
       default:
-        Collections.sort(notesArray, NoteModel.COMPARE_BY_DATE_REVERSE);
+        Collections.sort(notesArray, Note.COMPARE_BY_DATE_REVERSE);
         break;
     }
-  }
+  }*/
 
   public void searchNotes(String tag) {
     tagsIgnore.clear();
-    queryTagsIgnore();
+    /*  queryTagsIgnore();
     String where = tag.length() >= 2 ? "WHERE tag = ? " : "";
     Cursor cursorNote =
         getDb()
@@ -128,7 +125,7 @@ public class MainModel extends ModelBase {
     while (cursorNote.moveToNext()) {
       if (!tagsIgnore.contains(cursorNote.getString(5)) || cursorNote.getString(5).equals(tag))
         notesArray.add(
-            new NoteModel(
+            new Note(
                 cursorNote.getInt(0),
                 cursorNote.getString(1),
                 cursorNote.getString(2),
@@ -136,12 +133,12 @@ public class MainModel extends ModelBase {
                 cursorNote.getString(4),
                 cursorNote.getString(5)));
     }
-    cursorNote.close();
+    cursorNote.close();*/
   }
 
   public void getUpdateCursor(String tag) {
     notesArray.clear();
     searchNotes(tag);
-    arraySort();
+    // arraySort();
   }
 }

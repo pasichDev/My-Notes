@@ -17,13 +17,9 @@ public interface TagsDao {
   @Query("SELECT * FROM tags")
   LiveData<List<Tag>> getTags();
 
-  @Insert(onConflict = OnConflictStrategy.IGNORE)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   void addTag(Tag tag);
 
-  /**
-   * @Query("SELECT COUNT(name) FROM notes WHERE tag = nameTag") int getCountNotesTags(String
-   * nameTAg);
-   */
   @Update
   void updateTag(Tag tag);
 

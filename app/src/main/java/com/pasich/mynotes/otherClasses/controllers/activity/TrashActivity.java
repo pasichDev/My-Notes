@@ -14,7 +14,6 @@ import com.pasich.mynotes.base.interfaces.ManageTrash;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.otherClasses.models.TrashModel;
 import com.pasich.mynotes.ui.view.dialogs.CleanTrashDialog.CleanTrashDialog;
-import com.pasich.mynotes.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.utils.other.ActionUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
@@ -23,7 +22,7 @@ import java.util.Objects;
 public class TrashActivity extends AppCompatActivity implements ManageTrash, View.OnClickListener {
 
   protected TrashModel TrashModel;
-  private NotesAdapter ListNotesAdapter;
+  // private NotesAdapter ListNotesAdapter;
   private ActionUtils ActionUtils;
   private ActivityTrashBinding binding;
   private int countDataObject;
@@ -43,7 +42,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   public void onResume() {
     super.onResume();
     if (!TrashModel.getDb().isOpen()) TrashModel.getRecreateDb();
-    if (ListNotesAdapter == null) initAdapter();
+    // if (ListNotesAdapter == null) initAdapter();
   }
 
   @Override
@@ -60,7 +59,7 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   }
 
   private void initAdapter() {
-    ListNotesAdapter = new NotesAdapter(TrashModel.notesArray);
+    /*ListNotesAdapter = new NotesAdapter(TrashModel.notesArray);
     binding.ListTrash.setAdapter(ListNotesAdapter);
     countDataObject = ListNotesAdapter.getItemCount();
     ListNotesAdapter.setOnItemClickListener(
@@ -76,13 +75,13 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
           public void onLongClick(int position) {}
         });
     binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
-    initActionUtils();
+    initActionUtils();*/
   }
 
   private void initActionUtils() {
-    ActionUtils = new ActionUtils(binding.getRoot(), ListNotesAdapter, R.id.activity_trash);
+    /* ActionUtils = new ActionUtils(binding.getRoot(), ListNotesAdapter, R.id.activity_trash);
     ActionUtils.addButtonToActionPanel(R.drawable.ic_restore, R.id.removeNotesArray);
-    ActionUtils.getActionPanel().findViewById(R.id.removeNotesArray).setOnClickListener(this);
+    ActionUtils.getActionPanel().findViewById(R.id.removeNotesArray).setOnClickListener(this);*/
   }
 
   @Override
@@ -107,9 +106,9 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
   @SuppressLint("NotifyDataSetChanged")
   @Override
   public void cleanTrash() {
-    TrashModel.cleanTrash();
+    /* TrashModel.cleanTrash();
     ListNotesAdapter.notifyDataSetChanged();
-    binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
+    binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());*/
   }
 
   @Override
@@ -125,20 +124,20 @@ public class TrashActivity extends AppCompatActivity implements ManageTrash, Vie
 
   private void restoreNotesArray() {
     for (long noteID : ActionUtils.getArrayChecked()) {
-      ListNotesAdapter.removeItemsArray((int) noteID);
+      //  ListNotesAdapter.removeItemsArray((int) noteID);
       TrashModel.notesMove(
           (int) noteID, TrashModel.DbHelper.COLUMN_NOTES, TrashModel.DbHelper.COLUMN_TRASH);
     }
     ActionUtils.closeActionPanel();
-    binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
+    //  binding.setEmptyNotesTrash(ListNotesAdapter.getData().isEmpty());
   }
 
   /** The method that implements the response to the activity with which the arrival was */
   private void closeActivity() {
     Intent intent = new Intent();
-    if (countDataObject != ListNotesAdapter.getItemCount()) {
+    /*if (countDataObject != ListNotesAdapter.getItemCount()) {
       intent.putExtra("RestartListView", true);
-    }
+    }*/
     intent.putExtra("tagNote", "");
     setResult(44, intent);
     finish();

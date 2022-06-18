@@ -13,14 +13,13 @@ import com.pasich.mynotes.databinding.ItemTagBinding;
 
 import java.util.List;
 
-public class TagAdapter extends ListAdapter<Tag, TagAdapter.ViewHolder> {
+public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
   private final int PAYLOAD_BACKGROUND = 22;
   private OnItemClickListener mOnItemClickListener;
 
-  public TagAdapter(@NonNull DiffUtil.ItemCallback<Tag> diffCallback) {
+  public TagsAdapter(@NonNull DiffUtil.ItemCallback<Tag> diffCallback) {
     super(diffCallback);
-    // getCurrentList().add( new Tag().create("",2,false));
   }
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -30,7 +29,7 @@ public class TagAdapter extends ListAdapter<Tag, TagAdapter.ViewHolder> {
   /**
    * Метод который возвращет позицию отмеченого тэга
    *
-   * @return - позция тэга
+   * @return - позиция метки
    */
   public int getCheckedPosition() {
     int retCount = 0;
@@ -54,7 +53,7 @@ public class TagAdapter extends ListAdapter<Tag, TagAdapter.ViewHolder> {
 
   @NonNull
   @Override
-  public TagAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public TagsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ViewHolder view =
         new ViewHolder(
             ItemTagBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
@@ -81,7 +80,7 @@ public class TagAdapter extends ListAdapter<Tag, TagAdapter.ViewHolder> {
 
   @Override
   public void onBindViewHolder(
-      @NonNull TagAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+      @NonNull TagsAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
     if (payloads.isEmpty()) {
       super.onBindViewHolder(holder, position, payloads);
     } else {
@@ -112,7 +111,7 @@ public class TagAdapter extends ListAdapter<Tag, TagAdapter.ViewHolder> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Tag oldItem, @NonNull Tag newItem) {
-      return oldItem == newItem;
+      return oldItem.getNameTag().equals(newItem.getNameTag());
     }
 
     @Override

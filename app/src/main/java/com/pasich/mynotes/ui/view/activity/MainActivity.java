@@ -4,6 +4,7 @@ import static com.pasich.mynotes.di.App.getApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
@@ -25,7 +27,8 @@ import com.pasich.mynotes.ui.view.dialogs.ChoiceTagDialog.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.NewTagDialog;
 import com.pasich.mynotes.utils.MainUtils;
-import com.pasich.mynotes.utils.adapters.TagAdapter;
+import com.pasich.mynotes.utils.adapters.NotesAdapter;
+import com.pasich.mynotes.utils.adapters.TagsAdapter;
 import com.pasich.mynotes.utils.other.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
@@ -41,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   @Inject public DataManager dataManager;
 
   private ActivityMainBinding binding;
-  private TagAdapter tagsAdapter;
+  private TagsAdapter tagsAdapter;
+  private NotesAdapter notesAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   public void initListeners() {
 
     tagsAdapter.setOnItemClickListener(
-        new TagAdapter.OnItemClickListener() {
+        new TagsAdapter.OnItemClickListener() {
           @Override
           public void onClick(int position) {
             mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
@@ -106,9 +110,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     binding.listTags.setLayoutManager(
         new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
-    tagsAdapter = new TagAdapter(new TagAdapter.tagDiff());
+    tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
     binding.listTags.setAdapter(tagsAdapter);
-    tagList.observe(this, tags -> tagsAdapter.submitList(tags));
+    tagList.observe(
+        this,
+        tags -> {
+          Log.wtf("pasic", "observer check");
+          tagsAdapter.submitList(tags);
+        });
+  }
+
+  @Override
+  public void settingsNotesList(int countColumn, LiveData<List<Note>> noteList) {
+    binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
+    binding.listNotes.setLayoutManager(
+        new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
+    notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
+    binding.listNotes.setAdapter(notesAdapter);
+    noteList.observe(this, notes -> notesAdapter.submitList(notes));
   }
 
   @Override
@@ -132,13 +151,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
 
-  @Override
-  public void settingsNotesList(int countColumn) {
-    binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
-    binding.listNotes.setLayoutManager(
-        new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
-    binding.setEmptyNotes(true);
-  }
 
   @Override
   public void newNotesButton() {
@@ -156,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public void choiceTagDialog(Tag tag, String[] arg) {
+  public void choiceTagDialog(Tag tag, Integer[] arg) {
     new ChoiceTagDialog(tag, arg).show(getSupportFragmentManager(), "ChoiceDialog");
   }
 

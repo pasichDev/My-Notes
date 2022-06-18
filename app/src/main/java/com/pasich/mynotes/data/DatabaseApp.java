@@ -6,6 +6,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.notes.source.dao.NoteDao;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.dao.TagsDao;
 import com.pasich.mynotes.di.App;
@@ -15,7 +17,7 @@ import java.util.concurrent.Executor;
 
 @Database(
     version = 1,
-    entities = {Tag.class})
+    entities = {Tag.class, Note.class})
 public abstract class DatabaseApp extends RoomDatabase {
 
   private static DatabaseApp sInstance;
@@ -27,11 +29,18 @@ public abstract class DatabaseApp extends RoomDatabase {
           super.onCreate(db);
           Runnable runnable =
               () -> {
-                TagsDao dao = sInstance.TagsDao();
+                TagsDao dao = sInstance.tagsDao();
                 dao.deleteAll();
 
                 dao.addTag(new Tag().create("", 1, false));
                 dao.addTag(new Tag().create("allNotes", 2, true));
+
+                sInstance
+                    .noteDao()
+                    .addNote(new Note().create("allNotes", "myHistory classix", "22.33.55 224"));
+                sInstance
+                    .noteDao()
+                    .addNote(new Note().create("forNote", "myHistory classix", "22.33.55 224"));
               };
           executor.execute(runnable);
         }
@@ -48,5 +57,7 @@ public abstract class DatabaseApp extends RoomDatabase {
     return sInstance;
   }
 
-  public abstract TagsDao TagsDao();
+  public abstract TagsDao tagsDao();
+
+  public abstract NoteDao noteDao();
 }
