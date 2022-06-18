@@ -10,6 +10,7 @@ public class App extends Application {
   private ComponentsHolder componentsHolder;
 
   public static App getApp() {
+    assert context != null;
     return (App) context.getApplicationContext();
   }
 

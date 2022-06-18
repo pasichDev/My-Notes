@@ -22,6 +22,7 @@ import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
+import com.pasich.mynotes.ui.view.dialogs.tags.NewTagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagAdapter;
 import com.pasich.mynotes.utils.interfaces.ManageTag;
@@ -50,11 +51,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     mainPresenter.attachView(this);
     mainPresenter.viewIsReady();
-
-
-
-
-
   }
 
   @Override
@@ -110,16 +106,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     tagsAdapter = new TagAdapter(new TagAdapter.tagDiff());
     binding.listTags.setAdapter(tagsAdapter);
-    // Log.wtf("pasic", "emmm: a");
-    tagList.observe(
-        this,
-        tags -> {
-          //    Log.wtf("pasic", "sttigsTagsList: a"+ tags.size());
-          tagsAdapter.submitList(tags);
-        });
+    tagList.observe(this, tags -> tagsAdapter.submitList(tags));
   }
-
-
 
   /** Method that changes the number of GridView columns */
   @Override
@@ -142,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void startCreateTagDialog() {
-    // new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
+    new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
   }
 
   @Override

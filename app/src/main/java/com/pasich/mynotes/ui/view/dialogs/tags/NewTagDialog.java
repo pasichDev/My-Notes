@@ -19,9 +19,9 @@ public class NewTagDialog extends BottomSheetDialogFragment {
 
   MainContract.presenter mainPresenter;
 
-  public NewTagDialog(MainContract.presenter mainPresenter) {
+  /*  public NewTagDialog(MainContract.presenter mainPresenter) {
     this.mainPresenter = mainPresenter;
-  }
+  }*/
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {

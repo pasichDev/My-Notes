@@ -1,13 +1,11 @@
 package com.pasich.mynotes.data.tags.source;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.dao.TagsDao;
 import com.pasich.mynotes.utils.DiskExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -29,15 +27,6 @@ public class TagsRepository {
     return instance;
   }
 
-  private MutableLiveData<List<Tag>> getDefaultTags() {
-    ArrayList<Tag> defaultList = new ArrayList<Tag>();
-    defaultList.add(new Tag().create("", 1, false));
-
-    defaultList.add(new Tag().create("All notes", 2, true));
-    MutableLiveData<List<Tag>> liveData = new MutableLiveData<List<Tag>>();
-    liveData.setValue(defaultList);
-    return liveData;
-  }
 
   public LiveData<List<Tag>> getTags() {
     LiveData<List<Tag>> mTags;

@@ -18,6 +18,7 @@ public class Tag {
   @PrimaryKey(autoGenerate = true)
   public long id;
 
+  @NonNull
   @ColumnInfo(name = "name")
   private String nameTag;
 

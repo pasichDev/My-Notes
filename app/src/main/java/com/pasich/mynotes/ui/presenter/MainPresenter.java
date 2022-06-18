@@ -1,7 +1,5 @@
 package com.pasich.mynotes.ui.presenter;
 
-import android.util.Log;
-
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.tags.Tag;
@@ -57,14 +55,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void clickTag(Tag tag) {
-    Log.wtf("pasic", "clickTag: " + tag.getSystemAction());
-    /* Tag tagC = new Tag();
-        tagC.create("history1",1, true);
-        dataManager.getTagsRepository().insert(tagC);
-    */
-    //  dataManager.getTagsRepository().deleteTag(tag);
     if (tag.getSystemAction() == 1) {
-
       getView().startCreateTagDialog();
     } else {
       /*   TagListAdapter.chooseTag(position);

@@ -27,8 +27,6 @@ public abstract class DatabaseApp extends RoomDatabase {
           super.onCreate(db);
           Runnable runnable =
               () -> {
-
-                // If you want to start with more words, just add them.
                 TagsDao dao = sInstance.TagsDao();
                 dao.deleteAll();
 
@@ -39,7 +37,7 @@ public abstract class DatabaseApp extends RoomDatabase {
         }
       };
 
-  public static DatabaseApp getInstance() {
+  public static synchronized DatabaseApp getInstance() {
     if (sInstance == null) {
       executor = new DiskExecutor();
       sInstance =
