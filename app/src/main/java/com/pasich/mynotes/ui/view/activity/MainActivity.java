@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public void settingsTagsList(MediatorLiveData<List<Tag>> tagList) {
+  public void settingsTagsList(LiveData<List<Tag>> tagList) {
     binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
     binding.listTags.setLayoutManager(
         new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));

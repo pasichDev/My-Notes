@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
+import android.util.Log;
 
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
@@ -10,26 +11,18 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     implements MainContract.presenter {
 
   private DataManager dataManager;
-
   public MainPresenter() {}
 
   @Override
   public void viewIsReady() {
     dataManager = getView().getDataManager();
     getView().settingsSearchView();
-
-    //   dataManager.getTagsRepository().insert( new Tag().create("history2",1, true));
     getView().settingsTagsList(dataManager.getTagsRepository().getTags());
     getView().initListeners();
     getView().settingsNotesList(getFormatParam());
 
   }
 
-  /**
-   * Метод который возвращает параметр форматирования списка заметок
-   *
-   * @return 1 или 2
-   */
   private int getFormatParam() {
     return dataManager.getDefaultPreference().getInt("formatParam", 1);
   }
@@ -41,7 +34,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   public void destroy() {
 
     dataManager.getTagsRepository().destroyInstance();
-    // dataManager = null;
+    dataManager = null;
   }
 
   @Override
@@ -64,6 +57,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void clickTag(Tag tag) {
+    Log.wtf("pasic", "clickTag: " + tag.getSystemAction());
     /* Tag tagC = new Tag();
         tagC.create("history1",1, true);
         dataManager.getTagsRepository().insert(tagC);

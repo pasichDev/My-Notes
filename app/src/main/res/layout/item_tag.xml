@@ -47,7 +47,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:text="@{TagsModel.nameTag}"
+            android:text="@{TagsModel.systemAction == 2 ?  @string/allNotes : TagsModel.nameTag}"
             android:textAllCaps="false"
             android:textColor="@{checkedItem ? @color/white : @color/colorPrimaryVariant}"
             android:textSize="16sp"

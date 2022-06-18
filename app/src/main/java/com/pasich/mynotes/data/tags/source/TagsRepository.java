@@ -1,6 +1,6 @@
 package com.pasich.mynotes.data.tags.source;
 
-import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.pasich.mynotes.data.tags.Tag;
@@ -14,7 +14,7 @@ import java.util.concurrent.Executor;
 public class TagsRepository {
 
   private static TagsRepository instance;
-  private final Executor executor;
+  private Executor executor;
   private TagsDao tagsDao;
 
   private TagsRepository(Executor executor, TagsDao tagsDao) {
@@ -39,11 +39,9 @@ public class TagsRepository {
     return liveData;
   }
 
-  public MediatorLiveData<List<Tag>> getTags() {
-
-    MediatorLiveData<List<Tag>> mTags = new MediatorLiveData<>();
-    mTags.addSource(getDefaultTags(), mTags::setValue);
-    mTags.addSource(tagsDao.getTags(), mTags::setValue);
+  public LiveData<List<Tag>> getTags() {
+    LiveData<List<Tag>> mTags;
+    mTags = tagsDao.getTags();
 
     return mTags;
   }
@@ -63,5 +61,6 @@ public class TagsRepository {
   public void destroyInstance() {
     instance = null;
     tagsDao = null;
+    executor = null;
   }
 }

@@ -3,7 +3,6 @@ package com.pasich.mynotes.data.tags;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -19,7 +18,6 @@ public class Tag {
   @PrimaryKey(autoGenerate = true)
   public long id;
 
-  @NonNull
   @ColumnInfo(name = "name")
   private String nameTag;
 
@@ -29,11 +27,11 @@ public class Tag {
    * SystemAction - тип Системной метки (1) - добавить метку (2) - все заметки (0) -
    * пользовательский тэг
    */
-  @Ignore private int systemAction = 0;
+  @ColumnInfo(name = "systemAction")
+  private int systemAction = 0;
 
-  @Ignore private boolean selected = false;
-
-
+  @ColumnInfo(name = "selected")
+  private boolean selected = false;
 
   public Tag create(String nameTag, int systemAction, boolean selected) {
     this.nameTag = nameTag;
