@@ -23,6 +23,6 @@ public class DataManager {
   }
 
   public TagsRepository getTagsRepository() {
-    return TagsRepository.getInstance(DatabaseApp.getInstance().getTagsDao());
+    return TagsRepository.getInstance(DatabaseApp.getInstance().TagsDao());
   }
 }

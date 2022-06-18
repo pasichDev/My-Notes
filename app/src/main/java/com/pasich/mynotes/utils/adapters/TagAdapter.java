@@ -20,6 +20,7 @@ public class TagAdapter extends ListAdapter<Tag, TagAdapter.ViewHolder> {
 
   public TagAdapter(@NonNull DiffUtil.ItemCallback<Tag> diffCallback) {
     super(diffCallback);
+    // getCurrentList().add( new Tag().create("",2,false));
   }
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

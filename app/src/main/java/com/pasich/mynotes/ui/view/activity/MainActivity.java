@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -22,7 +22,6 @@ import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
-import com.pasich.mynotes.ui.view.dialogs.tags.NewTagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagAdapter;
 import com.pasich.mynotes.utils.interfaces.ManageTag;
@@ -60,10 +59,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void init() {
-    getApp(this)
+    getApp()
         .getComponentsHolder()
         .getActivityComponent(getClass(), new MainActivityModule())
-        .inject(this);
+        .inject(MainActivity.this);
     binding.setPresenter((MainPresenter) mainPresenter);
   }
 
@@ -75,11 +74,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
           @Override
           public void onClick(int position) {
-
-            NewTagDialog nw = new NewTagDialog(mainPresenter);
-            nw.show(getSupportFragmentManager(), "New Tag");
-            // mainPresenter.clickTag(tagsAdapter.get(position));
-            //  Log.wtf("pasic", "testttttttt");
+            mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position));
           }
 
           @Override
@@ -93,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     mainPresenter.detachView();
     if (isFinishing()) {
       mainPresenter.destroy();
-      getApp(this).getComponentsHolder().releaseActivityComponent(getClass());
+      getApp().getComponentsHolder().releaseActivityComponent(getClass());
     }
   }
 
@@ -108,17 +103,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public void settingsTagsList(LiveData<List<Tag>> tagList) {
+  public void settingsTagsList(MediatorLiveData<List<Tag>> tagList) {
     binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
     binding.listTags.setLayoutManager(
         new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
     tagsAdapter = new TagAdapter(new TagAdapter.tagDiff());
     binding.listTags.setAdapter(tagsAdapter);
+    // Log.wtf("pasic", "emmm: a");
     tagList.observe(
         this,
         tags -> {
-          // Update the cached copy of the words in the adapter.
+          //    Log.wtf("pasic", "sttigsTagsList: a"+ tags.size());
           tagsAdapter.submitList(tags);
         });
   }
@@ -146,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void startCreateTagDialog() {
-    //  new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
+    // new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
   }
 
   @Override

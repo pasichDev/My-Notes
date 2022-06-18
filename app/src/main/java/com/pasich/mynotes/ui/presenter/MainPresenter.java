@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
+
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.tags.Tag;
@@ -16,9 +17,12 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   public void viewIsReady() {
     dataManager = getView().getDataManager();
     getView().settingsSearchView();
+
+    //   dataManager.getTagsRepository().insert( new Tag().create("history2",1, true));
     getView().settingsTagsList(dataManager.getTagsRepository().getTags());
     getView().initListeners();
     getView().settingsNotesList(getFormatParam());
+
   }
 
   /**
@@ -35,7 +39,9 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void destroy() {
+
     dataManager.getTagsRepository().destroyInstance();
+    // dataManager = null;
   }
 
   @Override
@@ -58,7 +64,13 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void clickTag(Tag tag) {
+    /* Tag tagC = new Tag();
+        tagC.create("history1",1, true);
+        dataManager.getTagsRepository().insert(tagC);
+    */
+    //  dataManager.getTagsRepository().deleteTag(tag);
     if (tag.getSystemAction() == 1) {
+
       getView().startCreateTagDialog();
     } else {
       /*   TagListAdapter.chooseTag(position);

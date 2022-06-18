@@ -1,14 +1,15 @@
 package com.pasich.mynotes.di;
 
+import static com.preference.provider.PreferenceProvider.context;
+
 import android.app.Application;
-import android.content.Context;
 
 public class App extends Application {
 
   private static App sInstance;
   private ComponentsHolder componentsHolder;
 
-  public static App getApp(Context context) {
+  public static App getApp() {
     return (App) context.getApplicationContext();
   }
 

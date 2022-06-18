@@ -13,8 +13,6 @@ import com.pasich.mynotes.di.App;
     entities = {Tag.class})
 public abstract class DatabaseApp extends RoomDatabase {
 
-  public abstract TagsDao getTagsDao();
-
   private static DatabaseApp sInstance;
 
   public static DatabaseApp getInstance() {
@@ -23,4 +21,6 @@ public abstract class DatabaseApp extends RoomDatabase {
     }
     return sInstance;
   }
+
+  public abstract TagsDao TagsDao();
 }
