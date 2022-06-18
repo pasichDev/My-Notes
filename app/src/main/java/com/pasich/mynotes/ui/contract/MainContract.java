@@ -24,6 +24,8 @@ public interface MainContract {
     void choiceTagDialog(Tag tag, String[] arg);
 
     void settingsTagsList(LiveData<List<Tag>> tagList);
+
+    void selectTagUser(int position);
   }
 
   interface presenter extends MyPresenter<view> {
@@ -37,7 +39,7 @@ public interface MainContract {
 
     void editVisibility(Tag tag);
 
-    void clickTag(Tag tag);
+    void clickTag(Tag tag, int position);
 
     void clickLongTag(Tag tag);
 

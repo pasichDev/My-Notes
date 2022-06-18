@@ -64,15 +64,11 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   }
 
   @Override
-  public void clickTag(Tag tag) {
+  public void clickTag(Tag tag, int position) {
     if (tag.getSystemAction() == 1) {
       getView().startCreateTagDialog();
     } else {
-      /*   TagListAdapter.chooseTag(position);
-      restartListNotes(
-              TagListAdapter.getCheckedPosition() == 1
-                      ? ""
-                      : MainModel.tagsArray.get(TagListAdapter.getCheckedPosition()).getNameTag());*/
+      getView().selectTagUser(position);
     }
   }
 

@@ -26,7 +26,6 @@ import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.NewTagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagAdapter;
-import com.pasich.mynotes.utils.interfaces.ManageTag;
 import com.pasich.mynotes.utils.other.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
@@ -34,7 +33,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainContract.view, ManageTag {
+public class MainActivity extends AppCompatActivity implements MainContract.view {
 
   @Inject public MainContract.presenter mainPresenter;
   @Inject public MainUtils utils;
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         new TagAdapter.OnItemClickListener() {
           @Override
           public void onClick(int position) {
-            mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position));
+            mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
           }
 
           @Override
@@ -110,6 +109,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     tagsAdapter = new TagAdapter(new TagAdapter.tagDiff());
     binding.listTags.setAdapter(tagsAdapter);
     tagList.observe(this, tags -> tagsAdapter.submitList(tags));
+  }
+
+  @Override
+  public void selectTagUser(int position) {
+    tagsAdapter.chooseTag(position);
   }
 
   @Override
@@ -162,6 +166,4 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     utils.CloseApp(MainActivity.this);
   }
 
-  @Override
-  public void addTag(String tagName, int noteId, int position) {}
 }
