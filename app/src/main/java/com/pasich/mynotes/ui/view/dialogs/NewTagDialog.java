@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.TagView;
+import com.pasich.mynotes.base.view.TagView;
 import com.pasich.mynotes.otherClasses.view.custom.InputTagView;
 
 public class NewTagDialog extends BottomSheetDialogFragment {

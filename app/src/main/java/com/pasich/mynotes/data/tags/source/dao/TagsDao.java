@@ -27,6 +27,9 @@ public interface TagsDao {
   @Update
   void updateTag(Tag tag);
 
+  /* @Query("DELETE FROM tags WHERE name = :nameTag")
+  void deleteTag(String nameTag);*/
+
   @Delete
   void deleteTag(Tag tag);
 

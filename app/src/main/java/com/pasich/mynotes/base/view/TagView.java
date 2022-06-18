@@ -1,4 +1,4 @@
-package com.pasich.mynotes.base;
+package com.pasich.mynotes.base.view;
 
 import androidx.lifecycle.LiveData;
 
@@ -10,4 +10,8 @@ public interface TagView {
   void settingsTagsList(LiveData<List<Tag>> tagList);
 
   void addTag(String nameTag);
+
+  void deleteTag(Tag tag);
+
+  void editVisibility(Tag tag);
 }

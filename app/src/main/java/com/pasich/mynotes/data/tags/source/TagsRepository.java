@@ -27,7 +27,6 @@ public class TagsRepository {
     return instance;
   }
 
-
   public LiveData<List<Tag>> getTags() {
     LiveData<List<Tag>> mTags;
     mTags = tagsDao.getTags();
@@ -44,6 +43,12 @@ public class TagsRepository {
   public void deleteTag(Tag tag) {
 
     Runnable runnable = () -> tagsDao.deleteTag(tag);
+    executor.execute(runnable);
+  }
+
+  public void updateTag(Tag tag) {
+
+    Runnable runnable = () -> tagsDao.updateTag(tag);
     executor.execute(runnable);
   }
 

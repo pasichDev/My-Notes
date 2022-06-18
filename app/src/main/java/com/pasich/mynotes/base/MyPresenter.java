@@ -1,5 +1,6 @@
 package com.pasich.mynotes.base;
 
+import com.pasich.mynotes.base.view.MyView;
 import com.pasich.mynotes.data.DataManager;
 
 public interface MyPresenter<V extends MyView> {

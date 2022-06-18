@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ViewInfoItemBinding;
-import com.pasich.mynotes.ui.view.base.ListDialogView;
+import com.pasich.mynotes.ui.view.customView.ListDialogView;
 
 public class ChoiceNoteView extends ListDialogView {
 

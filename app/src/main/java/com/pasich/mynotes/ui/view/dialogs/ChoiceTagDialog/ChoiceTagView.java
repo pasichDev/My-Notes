@@ -7,7 +7,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ViewInfoItemBinding;
 import com.pasich.mynotes.databinding.ViewVisibilityTagBinding;
-import com.pasich.mynotes.ui.view.base.ListDialogView;
+import com.pasich.mynotes.ui.view.customView.ListDialogView;
 
 public class ChoiceTagView extends ListDialogView {
 

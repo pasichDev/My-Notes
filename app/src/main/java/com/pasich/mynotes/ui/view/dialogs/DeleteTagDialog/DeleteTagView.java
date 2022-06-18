@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.widget.TextView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.ui.view.base.ListDialogView;
+import com.pasich.mynotes.ui.view.customView.ListDialogView;
 
 public class DeleteTagView extends ListDialogView {
 

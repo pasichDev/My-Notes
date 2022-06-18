@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.interfaces.SortInterface;
 import com.pasich.mynotes.otherClasses.models.ada.ChoiceModel;
-import com.pasich.mynotes.ui.view.base.ListDialogView;
+import com.pasich.mynotes.ui.view.customView.ListDialogView;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
 import java.util.ArrayList;

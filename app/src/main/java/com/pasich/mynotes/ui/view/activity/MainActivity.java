@@ -117,7 +117,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     mainPresenter.addTag(nameTag);
   }
 
-  /** Method that changes the number of GridView columns */
+  @Override
+  public void deleteTag(Tag tag) {
+    mainPresenter.deleteTag(tag);
+  }
+
+  @Override
+  public void editVisibility(Tag tag) {
+    mainPresenter.editVisibility(tag);
+  }
+
+
   @Override
   public void settingsNotesList(int countColumn) {
     binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
@@ -142,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public void choiceTagDialog(String[] arg) {
-    new ChoiceTagDialog(arg).show(getSupportFragmentManager(), "ChoiceDialog");
+  public void choiceTagDialog(Tag tag, String[] arg) {
+    new ChoiceTagDialog(tag, arg).show(getSupportFragmentManager(), "ChoiceDialog");
   }
 
 

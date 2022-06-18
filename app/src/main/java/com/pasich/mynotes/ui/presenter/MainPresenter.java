@@ -23,7 +23,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     getView().settingsTagsList(data.getTagsRepository().getTags());
     getView().initListeners();
     getView().settingsNotesList(getFormatParam());
-
   }
 
   private int getFormatParam() {
@@ -35,7 +34,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
   @Override
   public void destroy() {
-
     data.getTagsRepository().destroyInstance();
     data = null;
   }
@@ -48,12 +46,21 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   @Override
   public void moreActivityClick() {
     if (isViewAttached()) getView().moreActivity();
-
   }
 
   @Override
   public void addTag(String nameTag) {
-    if (isViewAttached()) data.getTagsRepository().insert(new Tag().create(nameTag));
+    if (data != null) data.getTagsRepository().insert(new Tag().create(nameTag));
+  }
+
+  @Override
+  public void deleteTag(Tag tag) {
+    if (data != null) data.getTagsRepository().deleteTag(tag);
+  }
+
+  @Override
+  public void editVisibility(Tag tag) {
+    if (data != null) data.getTagsRepository().updateTag(tag);
   }
 
   @Override
@@ -78,8 +85,9 @@ public class MainPresenter extends PresenterBase<MainContract.view>
       data.getTagsRepository.getCountNotesTags(tag.getNameTag());
       String.valueOf(
                 MainModel.getCountNotesTag(tag.getNameTag()))*/
-      String.valueOf(1)
+      String.valueOf(0),
+      String.valueOf(tag.getVisibility())
     };
-    getView().choiceTagDialog(keysNote);
+    getView().choiceTagDialog(tag, keysNote);
   }
 }
