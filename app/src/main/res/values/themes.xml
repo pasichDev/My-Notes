@@ -12,8 +12,19 @@
         <item name="colorControlNormal">@color/black</item>
 
         <!-- Status bar set. -->
-        <item name="android:statusBarColor">?attr/colorBackground</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">
+            @android:color/transparent
+        </item>
+
+        <!-- Optional: set to transparent if your app is drawing behind the status bar. -->
+        <item name="android:statusBarColor">
+            @android:color/transparent
+        </item>
+
+        <!-- Optional: set the status bar light and content dark. -->
+        <item name="android:windowLightStatusBar">
+            true
+        </item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
         <item name="tabStyle">@style/AppTabLayout</item>
     </style>
