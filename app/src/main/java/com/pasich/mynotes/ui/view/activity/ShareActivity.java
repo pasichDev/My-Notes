@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.controllers.activity;
+package com.pasich.mynotes.ui.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 
 /** An activity that is a gateway to save a note via the save button */
 public class ShareActivity extends AppCompatActivity {

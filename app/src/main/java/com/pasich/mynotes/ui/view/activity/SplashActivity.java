@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.controllers.activity;
+package com.pasich.mynotes.ui.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.ui.view.activity.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

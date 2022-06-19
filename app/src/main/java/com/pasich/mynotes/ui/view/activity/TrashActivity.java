@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.controllers.activity;
+package com.pasich.mynotes.ui.view.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

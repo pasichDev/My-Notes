@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.customView;
+package com.pasich.mynotes.ui.view.customView.dialog;
 
 import android.content.Context;
 import android.view.LayoutInflater;

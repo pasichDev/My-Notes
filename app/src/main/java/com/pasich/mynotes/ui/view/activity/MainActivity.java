@@ -4,7 +4,6 @@ import static com.pasich.mynotes.di.App.getApp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +22,7 @@ import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
+import com.pasich.mynotes.ui.view.dialogs.ChoiceNoteDialog.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.ChoiceTagDialog.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.NewTagDialog;
@@ -82,6 +82,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
             mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
           }
         });
+
+    notesAdapter.setOnItemClickListener(
+        new NotesAdapter.OnItemClickListener() {
+
+          @Override
+          public void onClick(int position) {}
+
+          @Override
+          public void onLongClick(int position) {
+            mainPresenter.clickLongNote(notesAdapter.getCurrentList().get(position));
+          }
+        });
   }
 
   @Override
@@ -115,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     tagList.observe(
         this,
         tags -> {
-          Log.wtf("pasic", "observer check");
           tagsAdapter.submitList(tags);
         });
   }
@@ -127,7 +138,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
     notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
     binding.listNotes.setAdapter(notesAdapter);
-    noteList.observe(this, notes -> notesAdapter.submitList(notes));
+    noteList.observe(
+        this,
+        notes -> {
+          notesAdapter.submitList(notes);
+          /* binding.setEmptyNotes(notesAdapter.getCurrentList().size() == 0);*/
+        });
+  }
+
+  @Override
+  public void deleteNote(Note note) {
+    mainPresenter.deleteNote(note);
   }
 
   @Override
@@ -150,8 +171,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     mainPresenter.editVisibility(tag);
   }
 
-
-
   @Override
   public void newNotesButton() {
     startActivity(new Intent(this, NoteActivity.class));
@@ -172,10 +191,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     new ChoiceTagDialog(tag, arg).show(getSupportFragmentManager(), "ChoiceDialog");
   }
 
+  @Override
+  public void choiceNoteDialog(Note note) {
+    /* String[] keysNote = {
+            String.valueOf(position),
+            String.valueOf(ListNotesAdapter.getItem(position).getId()),
+            ListNotesAdapter.getItem(position).getDate(),
+            String.valueOf(ListNotesAdapter.getItem(position).getValue().length())
+    };*/
+
+    String[] keysNote = {};
+    new ChoiceNoteDialog(note).show(getSupportFragmentManager(), "ChoiceDialog");
+  }
 
   @Override
   public void onBackPressed() {
     utils.CloseApp(MainActivity.this);
   }
-
 }

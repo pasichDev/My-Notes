@@ -2,9 +2,11 @@ package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.TagsRepository;
+import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
@@ -13,6 +15,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
   private DataManager data;
   private TagsRepository tagsRepository;
   private NotesRepository notesRepository;
+  private TrashRepository trashRepository;
 
   public MainPresenter() {}
 
@@ -21,14 +24,15 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     data = dataManager;
     tagsRepository = data.getTagsRepository();
     notesRepository = data.getNotesRepository();
+    trashRepository = data.getTrashRepository();
   }
 
   @Override
   public void viewIsReady() {
     getView().settingsSearchView();
     getView().settingsTagsList(tagsRepository.getTags());
-    getView().initListeners();
     getView().settingsNotesList(getFormatParam(), notesRepository.getNotes());
+    getView().initListeners();
   }
 
   private int getFormatParam() {
@@ -85,5 +89,16 @@ public class MainPresenter extends PresenterBase<MainContract.view>
       Integer[] keysNote = {notesRepository.getCountNoteTag(tag.getNameTag())};
       getView().choiceTagDialog(tag, keysNote);
     }
+  }
+
+  @Override
+  public void clickLongNote(Note note) {
+    getView().choiceNoteDialog(note);
+  }
+
+  @Override
+  public void deleteNote(Note note) {
+    trashRepository.moveToTrash(note);
+    notesRepository.deleteNote(note);
   }
 }

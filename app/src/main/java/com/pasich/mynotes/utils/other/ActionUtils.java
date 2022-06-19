@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils.other;
 import android.view.View;
 
 import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.otherClasses.view.custom.ActionPanel;
+import com.pasich.mynotes.ui.view.customView.ActionPanel;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 
 import java.util.ArrayList;

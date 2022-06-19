@@ -54,7 +54,7 @@ public class NoteModel extends ModelBase {
                 + NoteView.valueNote.getText()
                 + "','"
                 + ListNotesUtils.returnDateFile(Calendar.getInstance().getTime())
-                + "', 'Note', '"
+                + "', 'TrashNote', '"
                 + this.tagNote
                 + "');");
   }

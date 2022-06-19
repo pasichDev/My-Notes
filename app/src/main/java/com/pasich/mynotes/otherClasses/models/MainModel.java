@@ -19,7 +19,7 @@ public class MainModel extends ModelBase {
 
   /** List of tag names */
   // public ArrayList<Tag> tagsArray;
-  /** Note Data List */
+  /** TrashNote Data List */
   public ArrayList<Note> notesArray = new ArrayList<>();
 
   private final ArrayList<String> tagsIgnore = new ArrayList<>();
@@ -99,16 +99,16 @@ public class MainModel extends ModelBase {
 
     switch (sortParam) {
       case "DataSort":
-        Collections.sort(notesArray, Note.COMPARE_BY_DATE_SORT);
+        Collections.sort(notesArray, TrashNote.COMPARE_BY_DATE_SORT);
         break;
       case "TitleSort":
-        Collections.sort(notesArray, Note.COMPARE_BY_TITLE_SORT);
+        Collections.sort(notesArray, TrashNote.COMPARE_BY_TITLE_SORT);
         break;
       case "TitleReserve":
-        Collections.sort(notesArray, Note.COMPARE_BY_TITLE_REVERSE);
+        Collections.sort(notesArray, TrashNote.COMPARE_BY_TITLE_REVERSE);
         break;
       default:
-        Collections.sort(notesArray, Note.COMPARE_BY_DATE_REVERSE);
+        Collections.sort(notesArray, TrashNote.COMPARE_BY_DATE_REVERSE);
         break;
     }
   }*/
@@ -125,7 +125,7 @@ public class MainModel extends ModelBase {
     while (cursorNote.moveToNext()) {
       if (!tagsIgnore.contains(cursorNote.getString(5)) || cursorNote.getString(5).equals(tag))
         notesArray.add(
-            new Note(
+            new TrashNote(
                 cursorNote.getInt(0),
                 cursorNote.getString(1),
                 cursorNote.getString(2),

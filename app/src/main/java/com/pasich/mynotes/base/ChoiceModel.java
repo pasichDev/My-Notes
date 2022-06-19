@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.models.ada;
+package com.pasich.mynotes.base;
 
 public class ChoiceModel {
   private final String name;

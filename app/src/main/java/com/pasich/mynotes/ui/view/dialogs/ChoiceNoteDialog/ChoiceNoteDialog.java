@@ -8,19 +8,20 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.interfaces.ChoiceNoteInterface;
-import com.pasich.mynotes.otherClasses.models.ada.ChoiceModel;
-import com.pasich.mynotes.ui.view.dialogs.TagDialog.TagDialog;
+import com.pasich.mynotes.base.ChoiceModel;
+import com.pasich.mynotes.base.view.NoteView;
+import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.utils.ShareNoteUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
 import java.util.ArrayList;
 
 public class ChoiceNoteDialog extends DialogFragment {
 
-  private final String[] keysNoteInfo;
+  private final Note note;
 
-  public ChoiceNoteDialog(String[] keysNoteInfo) {
-    this.keysNoteInfo = keysNoteInfo;
+  public ChoiceNoteDialog(Note note) {
+    this.note = note;
   }
 
   @NonNull
@@ -28,9 +29,9 @@ public class ChoiceNoteDialog extends DialogFragment {
     final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
     final ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     final ChoiceNoteView view = new ChoiceNoteView(getLayoutInflater());
-    final ChoiceNoteInterface ChoiceNoteInterface = (ChoiceNoteInterface) getContext();
+    final NoteView noteView = (NoteView) getContext();
 
-    view.initializeInfoLayout(keysNoteInfo[2], keysNoteInfo[3]);
+    view.initializeInfoLayout(note.getDate(), note.getValue().length());
 
     arrayChoice.add(
         new ChoiceModel(
@@ -47,22 +48,23 @@ public class ChoiceNoteDialog extends DialogFragment {
     view.getItemsView()
         .setOnItemClickListener(
             (parent, v, position, id) -> {
-              if (adapter.getItem(position).getAction().equals("Share")) {
-                assert ChoiceNoteInterface != null;
-                ChoiceNoteInterface.shareNote(Integer.parseInt(keysNoteInfo[0]));
-              }
-              if (adapter.getItem(position).getAction().equals("Delete")) {
-                assert ChoiceNoteInterface != null;
-                ChoiceNoteInterface.deleteNote(
-                    Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]));
-              }
-              if (adapter.getItem(position).getAction().equals("Tag")) {
-                new TagDialog(Integer.parseInt(keysNoteInfo[1]), Integer.parseInt(keysNoteInfo[0]))
-                    .show(getParentFragmentManager(), "EditDIalog");
-              }
               if (adapter.getItem(position).getAction().equals("SelectAll")) {
-                assert ChoiceNoteInterface != null;
-                ChoiceNoteInterface.actionNote(Integer.parseInt(keysNoteInfo[0]));
+                //        assert ChoiceNoteInterface != null;
+                //        ChoiceNoteInterface.actionNote(Integer.parseInt(keysNoteInfo[0]));
+              }
+              if (adapter.getItem(position).getAction().equals("Share")) {
+                new ShareNoteUtils(note, getActivity()).shareNotes();
+              }
+
+              if (adapter.getItem(position).getAction().equals("Tag")) {
+                //       new TagDialog(Integer.parseInt(keysNoteInfo[1]),
+                // Integer.parseInt(keysNoteInfo[0]))
+                //              .show(getParentFragmentManager(), "EditDIalog");
+              }
+
+              if (adapter.getItem(position).getAction().equals("Delete")) {
+                assert noteView != null;
+                noteView.deleteNote(note);
               }
 
               dismiss();

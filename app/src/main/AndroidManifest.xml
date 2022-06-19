@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_rounder"
         android:theme="@style/ThemeBlue">
         <activity
-            android:name=".otherClasses.controllers.activity.SplashActivity"
+            android:name=".ui.view.activity.SplashActivity"
             android:theme="@style/ThemeBlueSplash"
             android:exported="true">
             <intent-filter>
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".otherClasses.controllers.activity.TrashActivity"
+            android:name=".ui.view.activity.TrashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -40,14 +40,14 @@
             android:name=".otherClasses.controllers.activity.NoteActivity"
             android:exported="true" />
         <activity
-            android:name=".otherClasses.controllers.activity.SettingsActivity"
+            android:name=".ui.view.activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".otherClasses.controllers.activity.ShareActivity"
+            android:name=".ui.view.activity.ShareActivity"
             android:exported="true"
             android:label="@string/saveNotes">
             <intent-filter>

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class TrashModel extends ModelBase {
 
-  /** Массив с заметками которые находяться в таблице Trash */
+  /** Массив с заметками которые находяться в таблице TrashNote */
   public ArrayList<Note> notesArray;
 
   public TrashModel(Context context) {
@@ -20,11 +20,11 @@ public class TrashModel extends ModelBase {
 
   /** Инициализация модели */
   /* private void initialization() {
-    Collections.sort(notesArray, Note.COMPARE_BY_DATE_REVERSE);
+    Collections.sort(notesArray, TrashNote.COMPARE_BY_DATE_REVERSE);
   }*/
 
   /**
-   * Найдем заметки в таблице Trash, и добавим в массив notesArray
+   * Найдем заметки в таблице TrashNote, и добавим в массив notesArray
    *
    * @return - возвразаем сформированный массив с заметками
    */
@@ -33,7 +33,7 @@ public class TrashModel extends ModelBase {
     /*  Cursor testCursor = getDb().query(DbHelper.COLUMN_TRASH, null, null, null, null, null, null);
     while (testCursor.moveToNext()) {
       notesArray.add(
-          new Note(
+          new TrashNote(
               testCursor.getInt(0),
               testCursor.getString(1),
               testCursor.getString(2),
@@ -46,7 +46,7 @@ public class TrashModel extends ModelBase {
     return notesArray;
   }
 
-  /** Метод который реализовует очистку таблицы Trash */
+  /** Метод который реализовует очистку таблицы TrashNote */
   public void cleanTrash() {
     getDb().execSQL("DROP TABLE " + DbHelper.COLUMN_TRASH);
     DbHelper.createTableTrash(getDb());

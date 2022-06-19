@@ -9,9 +9,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.interfaces.ManageTag;
-import com.pasich.mynotes.otherClasses.models.dialog.ChooseTagDialogModel;
 import com.pasich.mynotes.utils.simplifications.TabLayoutListenerUtils;
 
 import java.util.Objects;
@@ -31,18 +29,18 @@ public class TagDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
 
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final ChooseTagDialogModel model = new ChooseTagDialogModel(getContext(), noteID);
+    // final ChooseTagDialogModel model = new ChooseTagDialogModel(getContext(), noteID);
     final TagDialogView mView = new TagDialogView(getLayoutInflater());
     ManageTag = (ManageTag) getContext();
 
-    mView.setTitle(
-        model.tagNote.length() == 0
-            ? getString(R.string.selectTagForNote)
-            : getString(R.string.editSelectTagForNote));
+    /*mView.setTitle(
+    model.tagNote.length() == 0
+        ? getString(R.string.selectTagForNote)
+        : getString(R.string.editSelectTagForNote));*/
 
-    model.queryTags(mView.TabLayoutTags);
+    // model.queryTags(mView.TabLayoutTags);
 
-    mView.TabLayoutTags.selectTab(mView.TabLayoutTags.getTabAt(model.selectedPosition));
+    //  mView.TabLayoutTags.selectTab(mView.TabLayoutTags.getTabAt(model.selectedPosition));
 
     mView
         .getSaveButton()

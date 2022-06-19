@@ -4,15 +4,16 @@ import androidx.lifecycle.LiveData;
 
 import com.pasich.mynotes.base.MyPresenter;
 import com.pasich.mynotes.base.view.MyView;
-import com.pasich.mynotes.base.view.NotesListView;
+import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.base.view.TagView;
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 
 import java.util.List;
 
 public interface MainContract {
 
-  interface view extends MyView, TagView, NotesListView {
+  interface view extends MyView, TagView, NoteView {
     void settingsSearchView();
 
     void newNotesButton();
@@ -23,8 +24,11 @@ public interface MainContract {
 
     void choiceTagDialog(Tag tag, Integer[] arg);
 
+    void choiceNoteDialog(Note note);
+
     void settingsTagsList(LiveData<List<Tag>> tagList);
     void selectTagUser(int position);
+
   }
 
   interface presenter extends MyPresenter<view> {
@@ -42,5 +46,8 @@ public interface MainContract {
 
     void clickLongTag(Tag tag);
 
+    void clickLongNote(Note note);
+
+    void deleteNote(Note note);
   }
 }

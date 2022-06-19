@@ -6,6 +6,8 @@ import com.pasich.mynotes.data.notes.Note;
 
 import java.util.List;
 
-public interface NotesListView {
+public interface NoteView {
   void settingsNotesList(int countColumn, LiveData<List<Note>> noteList);
+
+  void deleteNote(Note note);
 }

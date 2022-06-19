@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.view.custom;
+package com.pasich.mynotes.ui.view.customView;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
 
@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pasich.mynotes.databinding.ViewNewTagInputBinding;
-import com.pasich.mynotes.ui.view.customView.BaseView;
+import com.pasich.mynotes.ui.view.customView.dialog.BaseView;
 import com.pasich.mynotes.utils.simplifications.TextValidatorUtils;
 
 public class InputTagView extends BaseView {

@@ -3,7 +3,7 @@ package com.pasich.mynotes.ui.view.dialogs.TagDialog;
 import android.view.LayoutInflater;
 
 import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.otherClasses.view.custom.InputTagView;
+import com.pasich.mynotes.ui.view.customView.InputTagView;
 
 public class TagDialogView extends InputTagView {
 

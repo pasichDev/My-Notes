@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.view.custom;
+package com.pasich.mynotes.ui.view.customView;
 
 import android.content.res.ColorStateList;
 import android.widget.ImageButton;

@@ -10,6 +10,8 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.dao.NoteDao;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.dao.TagsDao;
+import com.pasich.mynotes.data.trash.TrashNote;
+import com.pasich.mynotes.data.trash.source.dao.TrashDao;
 import com.pasich.mynotes.di.App;
 import com.pasich.mynotes.utils.DiskExecutor;
 
@@ -17,7 +19,7 @@ import java.util.concurrent.Executor;
 
 @Database(
     version = 1,
-    entities = {Tag.class, Note.class})
+    entities = {Tag.class, Note.class, TrashNote.class})
 public abstract class DatabaseApp extends RoomDatabase {
 
   private static DatabaseApp sInstance;
@@ -60,4 +62,6 @@ public abstract class DatabaseApp extends RoomDatabase {
   public abstract TagsDao tagsDao();
 
   public abstract NoteDao noteDao();
+
+  public abstract TrashDao trashDao();
 }

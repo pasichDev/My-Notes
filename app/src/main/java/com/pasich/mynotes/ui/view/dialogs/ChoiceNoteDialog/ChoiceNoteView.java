@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ViewInfoItemBinding;
-import com.pasich.mynotes.ui.view.customView.ListDialogView;
+import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 
 public class ChoiceNoteView extends ListDialogView {
 
@@ -16,7 +16,7 @@ public class ChoiceNoteView extends ListDialogView {
     addView(getItemsView());
   }
 
-  public void initializeInfoLayout(String dateNote, String symbolsLength) {
+  public void initializeInfoLayout(String dateNote, int symbolsLength) {
     ViewInfoItemBinding binding = ViewInfoItemBinding.inflate(Inflater);
     binding.infoTextView.setText(
         getContextRoot().getString(R.string.layoutStringInfo, dateNote, symbolsLength));
