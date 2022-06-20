@@ -29,4 +29,6 @@ public class App extends Application {
   public ComponentsHolder getComponentsHolder() {
     return componentsHolder;
   }
+
+  
 }

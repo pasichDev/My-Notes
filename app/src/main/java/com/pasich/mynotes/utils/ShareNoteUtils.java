@@ -9,8 +9,8 @@ import com.pasich.mynotes.data.notes.Note;
 
 public class ShareNoteUtils {
 
-  private final Note note;
-  private final Activity activity;
+  private Note note;
+  private Activity activity;
 
   public ShareNoteUtils(Note note, Activity activity) {
     this.note = note;
@@ -31,5 +31,7 @@ public class ShareNoteUtils {
     } else {
       Toast.makeText(activity, R.string.shareNull, Toast.LENGTH_SHORT).show();
     }
+    note = null;
+    activity = null;
   }
 }
