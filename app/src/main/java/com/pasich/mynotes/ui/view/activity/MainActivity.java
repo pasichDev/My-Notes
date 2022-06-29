@@ -4,6 +4,8 @@ import static com.pasich.mynotes.di.App.getApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,7 @@ import com.pasich.mynotes.ui.view.dialogs.NewTagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
+import com.pasich.mynotes.utils.other.ActionUtils;
 import com.pasich.mynotes.utils.other.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
@@ -142,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         this,
         notes -> {
           notesAdapter.submitList(notes);
+          binding.listNotes.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.recycle_view_animation));
           /* binding.setEmptyNotes(notesAdapter.getCurrentList().size() == 0);*/
         });
   }
@@ -149,6 +153,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   @Override
   public void deleteNote(Note note) {
     mainPresenter.deleteNote(note);
+  }
+
+  @Override
+  public void actionStartNote() {
+
   }
 
   @Override

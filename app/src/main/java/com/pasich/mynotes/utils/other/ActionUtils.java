@@ -11,18 +11,23 @@ import java.util.List;
 
 public class ActionUtils extends ActionPanel implements View.OnClickListener {
 
-  private final NotesAdapter adapter;
-  private final int PAYLOAD_BACKGROUND = 22;
-  private final ArrayList<Long> ArrayChecked = new ArrayList<>();
+  private  NotesAdapter adapter;
+  private  int PAYLOAD_BACKGROUND = 22;
+  private  ArrayList<Long> ArrayChecked = new ArrayList<>();
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
 
-  public ActionUtils(View view, NotesAdapter adapter, int objectActivity) {
+  public ActionUtils(View rootView, int objectActivity) {
+    super(rootView, objectActivity);
+  }
+
+  /** public ActionUtils(View view, NotesAdapter adapter, int objectActivity) {
     super(view, objectActivity);
     this.adapter = adapter;
     getActionPanel().setVisibility(View.GONE);
     getClosePanelButton().setOnClickListener(this);
   }
+
 
   /**
    * @return - Returns the value of ACTION_ON

@@ -49,8 +49,8 @@ public class ChoiceNoteDialog extends DialogFragment {
         .setOnItemClickListener(
             (parent, v, position, id) -> {
               if (adapter.getItem(position).getAction().equals("SelectAll")) {
-                //        assert ChoiceNoteInterface != null;
-                //        ChoiceNoteInterface.actionNote(Integer.parseInt(keysNoteInfo[0]));
+                  assert noteView != null;
+                  noteView.actionStartNote();
               }
               if (adapter.getItem(position).getAction().equals("Share")) {
                 new ShareNoteUtils(note, getActivity()).shareNotes();

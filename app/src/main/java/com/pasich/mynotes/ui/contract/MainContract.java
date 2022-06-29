@@ -49,5 +49,7 @@ public interface MainContract {
     void clickLongNote(Note note);
 
     void deleteNote(Note note);
+
+    void actionClickNote();
   }
 }

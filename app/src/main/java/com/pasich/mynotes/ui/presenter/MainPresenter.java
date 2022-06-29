@@ -101,4 +101,9 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     trashRepository.moveToTrash(note);
     notesRepository.deleteNote(note);
   }
+
+  @Override
+  public void actionClickNote() {
+
+  }
 }

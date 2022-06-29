@@ -128,7 +128,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/listViewMargin"
         android:layout_marginBottom="@dimen/listViewMargin"
-        android:layoutAnimation="@anim/recycle_view_animation"
         android:visibility="@{emptyNotes ? View.GONE : View.VISIBLE}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
