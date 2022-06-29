@@ -9,10 +9,23 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="com.pasich.mynotes"
-            android:targetClass="com.pasich.mynotes.ui.view.activity.MainActivity" />
+            android:targetClass="com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity" />
 
         <categories android:name="android.shortcut.conversation" />
         <capability-binding android:key="actions.intent.CREATE_MESSAGE" />
     </shortcut>
+    <shortcut
+        android:shortcutId="static"
+        android:enabled="true"
+        android:icon="@drawable/ic_trash_menu"
+        android:shortcutShortLabel="@string/trashN"
+        android:shortcutLongLabel="@string/trashN">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.pasich.mynotes"
+            android:targetClass="com.pasich.mynotes.ui.view.activity.SettingsActivity" />
 
+        <categories android:name="android.shortcut.conversation" />
+        <capability-binding android:key="actions.intent.CREATE_MESSAGE" />
+    </shortcut>
 </shortcuts>
