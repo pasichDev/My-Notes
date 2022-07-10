@@ -16,36 +16,54 @@
         </PreferenceCategory>
 
 
-        <PreferenceCategory android:title="@string/app_name"
-            android:iconSpaceReserved="false">
-                <Preference
+        <PreferenceCategory
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:iconSpaceReserved="false">
+
+        <Preference
                     app:iconSpaceReserved="false"
                     android:title="@string/ratingApp"
                     android:summary="@string/open_PlayMarket"
                     app:enabled="true"
                     app:key="ratingApp"/>
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:summary="@string/telegram"
-                    android:title="@string/sendDev"
-                    app:enabled="true">
-                        <intent
-                            android:action="android.intent.action.VIEW"
-                            android:data="https://pasichdev.github.io/pasich/contact.html" />
-                </Preference>
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:title="@string/whatUpdate"
-                    app:enabled="true"
-                    app:key="whatsUpdate"
-                    android:key="@string/whatUpdate"/>
+
+
 
                 <Preference
                     app:iconSpaceReserved="false"
+                    android:icon="@drawable/ic_version"
                     android:summary="@string/author"
                     android:title="@string/verApp"
-                    app:enabled="false"
                     android:key="verPreference"/>
+        </PreferenceCategory>
+
+
+        <PreferenceCategory
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:iconSpaceReserved="false">
+
+
+
+        <Preference
+                    app:iconSpaceReserved="false"
+                    android:title="Telegram"
+                    app:enabled="true"
+                    android:icon="@drawable/ic_telegram"
+                    android:summary="@andriipasichnik">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="https://t.me/andriipasichnik" />
+        </Preference>
+
+
+                <Preference
+                    app:iconSpaceReserved="false"
+                    android:title="Email"
+                    android:icon="@drawable/ic_mail_set"
+                    android:summary="pasichDev@outlook.com"
+                   />
         </PreferenceCategory>
 </PreferenceScreen>
 

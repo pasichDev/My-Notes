@@ -29,8 +29,7 @@ public class FragmentSettings extends PreferenceFragmentCompat {
               openPlayMarket();
               return true;
             });
-    assert whatsUpdateKey != null;
-    whatsUpdateKey.setOnPreferenceClickListener(
+    verPreference.setOnPreferenceClickListener(
             preference -> {
               new WhatUpdateDialog().show(getParentFragmentManager(), "WhatUpdateDialog");
               return true;
