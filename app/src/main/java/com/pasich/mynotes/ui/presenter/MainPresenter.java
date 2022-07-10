@@ -10,100 +10,111 @@ import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
-    implements MainContract.presenter {
+        implements MainContract.presenter {
 
-  private DataManager data;
-  private TagsRepository tagsRepository;
-  private NotesRepository notesRepository;
-  private TrashRepository trashRepository;
+    private DataManager data;
+    private TagsRepository tagsRepository;
+    private NotesRepository notesRepository;
+    private TrashRepository trashRepository;
 
-  public MainPresenter() {}
-
-  @Override
-  public void setDataManager(DataManager dataManager) {
-    data = dataManager;
-    tagsRepository = data.getTagsRepository();
-    notesRepository = data.getNotesRepository();
-    trashRepository = data.getTrashRepository();
-  }
-
-  @Override
-  public void viewIsReady() {
-    getView().settingsSearchView();
-    getView().settingsTagsList(tagsRepository.getTags());
-    getView().settingsNotesList(getFormatParam(), notesRepository.getNotes());
-    getView().initListeners();
-  }
-
-  private int getFormatParam() {
-    return data.getDefaultPreference().getInt("formatParam", 1);
-  }
-
-  @Override
-  public void detachView() {}
-
-  @Override
-  public void destroy() {
-    tagsRepository.destroyInstance();
-    notesRepository.destroyInstance();
-    data = null;
-  }
-
-  @Override
-  public void newNotesClick() {
-    if (isViewAttached()) getView().newNotesButton();
-  }
-
-  @Override
-  public void moreActivityClick() {
-    if (isViewAttached()) getView().moreActivity();
-  }
-
-  @Override
-  public void addTag(String nameTag) {
-    if (data != null) tagsRepository.insert(new Tag().create(nameTag));
-  }
-
-  @Override
-  public void deleteTag(Tag tag) {
-    if (data != null) tagsRepository.deleteTag(tag);
-  }
-
-  @Override
-  public void editVisibility(Tag tag) {
-    if (data != null) tagsRepository.updateTag(tag);
-  }
-
-  @Override
-  public void clickTag(Tag tag, int position) {
-    if (tag.getSystemAction() == 1) {
-      getView().startCreateTagDialog();
-    } else {
-      getView().selectTagUser(position);
+    public MainPresenter() {
     }
-  }
 
-  @Override
-  public void clickLongTag(Tag tag) {
-    if (tag.getSystemAction() == 0) {
-      Integer[] keysNote = {notesRepository.getCountNoteTag(tag.getNameTag())};
-      getView().choiceTagDialog(tag, keysNote);
+    @Override
+    public void setDataManager(DataManager dataManager) {
+        data = dataManager;
+        tagsRepository = data.getTagsRepository();
+        notesRepository = data.getNotesRepository();
+        trashRepository = data.getTrashRepository();
     }
-  }
 
-  @Override
-  public void clickLongNote(Note note) {
-    getView().choiceNoteDialog(note);
-  }
+    @Override
+    public void viewIsReady() {
+        getView().settingsSearchView();
+        getView().settingsTagsList(tagsRepository.getTags());
+        getView().settingsNotesList(getFormatParam(), notesRepository.getNotes());
+        getView().initListeners();
+    }
 
-  @Override
-  public void deleteNote(Note note) {
-    trashRepository.moveToTrash(note);
-    notesRepository.deleteNote(note);
-  }
+    private int getFormatParam() {
+        return data.getDefaultPreference().getInt("formatParam", 1);
+    }
 
-  @Override
-  public void actionClickNote() {
+    @Override
+    public void detachView() {
+    }
 
-  }
+    @Override
+    public void destroy() {
+        tagsRepository.destroyInstance();
+        notesRepository.destroyInstance();
+        data = null;
+    }
+
+    @Override
+    public void newNotesClick() {
+        if (isViewAttached()) getView().newNotesButton();
+    }
+
+    @Override
+    public void moreActivityClick() {
+        if (isViewAttached()) getView().moreActivity();
+    }
+
+    @Override
+    public void addTag(String nameTag) {
+        if (data != null) tagsRepository.insert(new Tag().create(nameTag));
+    }
+
+    @Override
+    public void deleteTag(Tag tag) {
+        if (data != null) tagsRepository.deleteTag(tag);
+    }
+
+    @Override
+    public void editVisibility(Tag tag) {
+        if (data != null) tagsRepository.updateTag(tag);
+    }
+
+    @Override
+    public void clickTag(Tag tag, int position) {
+        if (tag.getSystemAction() == 1) {
+            getView().startCreateTagDialog();
+        } else {
+            getView().selectTagUser(position);
+        }
+    }
+
+    @Override
+    public void clickLongTag(Tag tag) {
+        if (tag.getSystemAction() == 0) {
+            Integer[] keysNote = {notesRepository.getCountNoteTag(tag.getNameTag())};
+            getView().choiceTagDialog(tag, keysNote);
+        }
+    }
+
+    @Override
+    public void clickLongNote(Note note) {
+        getView().choiceNoteDialog(note);
+    }
+
+    @Override
+    public void deleteNote(Note note) {
+        trashRepository.moveToTrash(note);
+        notesRepository.deleteNote(note);
+    }
+
+    @Override
+    public void actionClickNote() {
+
+    }
+
+    @Override
+    public void editTagNote(Tag tag, Note note) {
+        if (data != null) {
+            tagsRepository.insert(tag);
+            note.setTag(tag.getNameTag());
+            notesRepository.updateNote(note);
+        }
+    }
 }

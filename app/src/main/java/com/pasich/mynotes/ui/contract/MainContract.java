@@ -51,5 +51,7 @@ public interface MainContract {
     void deleteNote(Note note);
 
     void actionClickNote();
+
+    void editTagNote(Tag tag, Note note);
   }
 }

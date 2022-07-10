@@ -1,45 +1,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
         <PreferenceCategory android:title="@string/comunicateDev">
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:title="@string/ratingApp"
-                    android:summary="@string/open_PlayMarket"
-                    app:enabled="true"
-                    app:key="ratingApp"/>
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:summary="@string/telegram"
-                    android:title="@string/sendDev"
-                    app:enabled="true">
-                        <intent
-                            android:action="android.intent.action.VIEW"
-                            android:data="https://pasichdev.github.io/pasich/contact.html" />
-                </Preference>
+
 
         </PreferenceCategory>
-        <PreferenceCategory android:title="@string/app_name">
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:title="@string/whatUpdate"
-                    app:enabled="true"
-                    app:key="whatsUpdate"
-                    android:key="@string/whatUpdate"/>
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:title="@string/languageGitLinkTitle"
-                    app:enabled="true"
-                    android:key="languageGitLink">
-                        <intent
-                            android:action="android.intent.action.VIEW"
-                            android:data="https://github.com/pasichDev/My-Notes" />
-                </Preference>
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:summary="@string/author"
-                    android:title="@string/verApp"
-                    app:enabled="false"
-                    android:key="verPreference"/>
-        </PreferenceCategory>
+
 </PreferenceScreen>
 

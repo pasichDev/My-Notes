@@ -22,6 +22,8 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     super(diffCallback);
   }
 
+
+
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
     this.mOnItemClickListener = onItemClickListener;
   }

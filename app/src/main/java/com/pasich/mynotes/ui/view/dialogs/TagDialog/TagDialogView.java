@@ -2,23 +2,34 @@ package com.pasich.mynotes.ui.view.dialogs.TagDialog;
 
 import android.view.LayoutInflater;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.ui.view.customView.InputTagView;
+import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 public class TagDialogView extends InputTagView {
 
-  public final TabLayout TabLayoutTags;
+  public final RecyclerView listTags;
 
   public TagDialogView(LayoutInflater inflater) {
     super(inflater);
-    this.TabLayoutTags = new TabLayout(getContextRoot());
-
+    this.listTags = new RecyclerView(getContextRoot());
     initialization();
+
   }
 
   private void initialization() {
     addTitle("");
-    addView(TabLayoutTags, LP_DEFAULT);
+    initializeListTags();
     addView(getNewTagView());
+  }
+
+  private void initializeListTags(){
+    listTags.addItemDecoration(new SpacesItemDecoration(5));
+    listTags.setLayoutManager(
+            new LinearLayoutManager(getContextRoot(), RecyclerView.HORIZONTAL, false));
+    addView(listTags,LP_DEFAULT);
   }
 }

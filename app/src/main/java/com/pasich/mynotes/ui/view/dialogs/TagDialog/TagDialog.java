@@ -8,62 +8,56 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.tabs.TabLayout;
-import com.pasich.mynotes.base.interfaces.ManageTag;
-import com.pasich.mynotes.utils.simplifications.TabLayoutListenerUtils;
+import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.view.NoteView;
+import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.utils.adapters.TagsDialogAdapter;
 
-import java.util.Objects;
 
 public class TagDialog extends DialogFragment {
 
-  private final int noteID;
-  private final int position;
-  private ManageTag ManageTag;
+    private final Note note;
 
-  public TagDialog(int noteID, int position) {
-    this.position = position;
-    this.noteID = noteID;
-  }
 
-  @NonNull
-  public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public TagDialog(Note note) {
+        this.note = note;
+    }
 
-    final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    // final ChooseTagDialogModel model = new ChooseTagDialogModel(getContext(), noteID);
-    final TagDialogView mView = new TagDialogView(getLayoutInflater());
-    ManageTag = (ManageTag) getContext();
+    @NonNull
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
+        final TagDialogView mView = new TagDialogView(getLayoutInflater());
+        final DataManager dataManager = new DataManager();
+        final NoteView noteView = (NoteView) getContext();
 
-    /*mView.setTitle(
-    model.tagNote.length() == 0
-        ? getString(R.string.selectTagForNote)
-        : getString(R.string.editSelectTagForNote));*/
 
-    // model.queryTags(mView.TabLayoutTags);
 
-    //  mView.TabLayoutTags.selectTab(mView.TabLayoutTags.getTabAt(model.selectedPosition));
+        /*
+        Тут весь трабла в тому що данні підгружаються пізніше ніж потрібно!
+         */
 
-    mView
-        .getSaveButton()
-        .setOnClickListener(
-            view1 -> {
-              ManageTag.addTag(mView.getInputTag().getText().toString(), noteID, position);
-              dismiss();
-            });
+        TagsDialogAdapter tagsAdapter = new TagsDialogAdapter(dataManager.getTagsRepository().getTagsList());
+        mView.listTags.setAdapter(tagsAdapter);
 
-    mView.TabLayoutTags.addOnTabSelectedListener(
-        new TabLayoutListenerUtils() {
-          @Override
-          public void listener(TabLayout.Tab Tab) {
-            ManageTag.addTagForNote(
-                Tab.getPosition() == 0 ? "" : Objects.requireNonNull(Tab.getText()).toString(),
-                noteID,
-                position);
-            dismiss();
-          }
-        });
 
-    builder.setContentView(mView.getRootContainer());
-    builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-    return builder;
-  }
+        mView.setTitle(
+                note.getTag().length() == 0
+                        ? getString(R.string.selectTagForNote)
+                        : getString(R.string.editSelectTagForNote));
+
+        mView
+                .getSaveButton()
+                .setOnClickListener(
+                        view1 -> {
+                            noteView.editTagForNote(new Tag().create(mView.getInputTag().getText().toString()), note);
+                            //           tagView.addTag(mView.getInputTag().getText().toString());
+                            dismiss();
+                        });
+
+        builder.setContentView(mView.getRootContainer());
+        builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        return builder;
+    }
 }

@@ -2,6 +2,7 @@ package com.pasich.mynotes.ui.view.dialogs.ChoiceNoteDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -10,15 +11,19 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.ChoiceModel;
 import com.pasich.mynotes.base.view.NoteView;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.ui.view.dialogs.TagDialog.TagDialog;
 import com.pasich.mynotes.utils.ShareNoteUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
+import com.pasich.mynotes.utils.adapters.TagsDialogAdapter;
 
 import java.util.ArrayList;
 
 public class ChoiceNoteDialog extends DialogFragment {
 
   private final Note note;
+
 
   public ChoiceNoteDialog(Note note) {
     this.note = note;
@@ -30,6 +35,7 @@ public class ChoiceNoteDialog extends DialogFragment {
     final ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     final ChoiceNoteView view = new ChoiceNoteView(getLayoutInflater());
     final NoteView noteView = (NoteView) getContext();
+
 
     view.initializeInfoLayout(note.getDate(), note.getValue().length());
 
@@ -45,6 +51,8 @@ public class ChoiceNoteDialog extends DialogFragment {
     DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
     view.getItemsView().setAdapter(adapter);
 
+
+
     view.getItemsView()
         .setOnItemClickListener(
             (parent, v, position, id) -> {
@@ -57,9 +65,7 @@ public class ChoiceNoteDialog extends DialogFragment {
               }
 
               if (adapter.getItem(position).getAction().equals("Tag")) {
-                //       new TagDialog(Integer.parseInt(keysNoteInfo[1]),
-                // Integer.parseInt(keysNoteInfo[0]))
-                //              .show(getParentFragmentManager(), "EditDIalog");
+               new TagDialog(note).show(getParentFragmentManager(), "EditDIalog");
               }
 
               if (adapter.getItem(position).getAction().equals("Delete")) {

@@ -97,7 +97,7 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-      return oldItem.getValue().equals(newItem.getValue());
+      return oldItem.getTag().equals(newItem.getTag());
     }
 
     /**
@@ -109,7 +109,7 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
      */
     @Override
     public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-      return oldItem.getValue().equals(newItem.getValue());
+      return oldItem.getValue().equals(newItem.getValue()) ||  oldItem.getTag().equals(newItem.getTag()) ;
     }
   }
 }

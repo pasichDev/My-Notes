@@ -17,14 +17,14 @@ public interface TagsDao {
   @Query("SELECT * FROM tags")
   LiveData<List<Tag>> getTags();
 
+  @Query("SELECT * FROM tags WHERE visibility = 0")
+  List<Tag> getTagsList();
+
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void addTag(Tag tag);
 
   @Update
   void updateTag(Tag tag);
-
-  /* @Query("DELETE FROM tags WHERE name = :nameTag")
-  void deleteTag(String nameTag);*/
 
   @Delete
   void deleteTag(Tag tag);

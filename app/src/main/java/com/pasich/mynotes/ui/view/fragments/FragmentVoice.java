@@ -1,4 +1,4 @@
-package com.pasich.mynotes.otherClasses.controllers.fragments;
+package com.pasich.mynotes.ui.view.fragments;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 

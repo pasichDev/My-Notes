@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     mainPresenter.attachView(this);
     mainPresenter.setDataManager(dataManager);
     mainPresenter.viewIsReady();
+
+    startActivity(new Intent(this, SettingsActivity.class));
   }
 
   @Override
@@ -158,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   @Override
   public void actionStartNote() {
 
+  }
+
+  @Override
+  public void editTagForNote(Tag tag, Note note) {
+    mainPresenter.editTagNote(tag,note);
   }
 
   @Override
