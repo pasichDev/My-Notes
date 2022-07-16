@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.CleanTrashDialog;
+package com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -7,11 +7,11 @@ import android.widget.TextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 
-public class CleanTrashView extends ListDialogView {
+public class DeleteTagView extends ListDialogView {
 
-  public CleanTrashView(LayoutInflater inflater) {
+  public DeleteTagView(LayoutInflater inflater) {
     super(inflater);
-    addTitle(getContextRoot().getString(R.string.trashClean));
+    addTitle(getContextRoot().getString(R.string.deleteTag));
     initialization();
   }
 
@@ -22,7 +22,7 @@ public class CleanTrashView extends ListDialogView {
 
   private void setTextMessage() {
     TextView textMessage = new TextView(getContextRoot());
-    textMessage.setText(getContextRoot().getString(R.string.cleanTrashMessage));
+    textMessage.setText(getContextRoot().getString(R.string.deleteSelectTagTextMassage));
     textMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, TEXT_MESSAGE_SIZE);
     addView(textMessage, LP_DEFAULT);
   }

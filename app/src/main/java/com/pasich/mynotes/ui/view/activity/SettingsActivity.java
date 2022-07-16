@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.pasich.mynotes.R;
 
+import java.util.Objects;
+
 public class SettingsActivity extends AppCompatActivity {
 
     public  Toolbar toolbar;
@@ -19,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     toolbar = findViewById(R.id.toolbar_actionbar);
     setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
+    Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);

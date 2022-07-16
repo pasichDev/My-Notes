@@ -5,7 +5,6 @@ import static com.pasich.mynotes.di.App.getApp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,14 +23,13 @@ import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
-import com.pasich.mynotes.ui.view.dialogs.ChoiceNoteDialog.ChoiceNoteDialog;
-import com.pasich.mynotes.ui.view.dialogs.ChoiceTagDialog.ChoiceTagDialog;
-import com.pasich.mynotes.ui.view.dialogs.MoreActivityDialog;
-import com.pasich.mynotes.ui.view.dialogs.NewTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog.ChoiceNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog.ChoiceTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.MoreActivityDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
-import com.pasich.mynotes.utils.other.ActionUtils;
 import com.pasich.mynotes.utils.other.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 

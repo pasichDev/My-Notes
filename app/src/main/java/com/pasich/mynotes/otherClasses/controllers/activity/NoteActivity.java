@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.otherClasses.models.NoteModel;
 import com.pasich.mynotes.otherClasses.view.NoteView;
-import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 
 import java.util.Objects;
 

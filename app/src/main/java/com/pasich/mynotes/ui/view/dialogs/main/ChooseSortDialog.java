@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs;
+package com.pasich.mynotes.ui.view.dialogs.main;
 
 import android.app.Dialog;
 import android.content.Context;

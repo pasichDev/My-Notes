@@ -1,11 +1,10 @@
-package com.pasich.mynotes.ui.view.dialogs.TagDialog;
+package com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 
 import android.view.LayoutInflater;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.tabs.TabLayout;
 import com.pasich.mynotes.ui.view.customView.InputTagView;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 

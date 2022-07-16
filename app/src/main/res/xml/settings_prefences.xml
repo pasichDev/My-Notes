@@ -1,69 +1,50 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <PreferenceCategory
-            app:allowDividerAbove="false"
-            app:allowDividerBelow="false"
-            app:iconSpaceReserved="false">
-
-                <Preference
-                    android:icon="@drawable/ic_settings"
-                    android:title="lool"
-                    android:summary="lox">
-
-
-                </Preference>
-        </PreferenceCategory>
-
-
-        <PreferenceCategory
-            app:allowDividerAbove="false"
-            app:allowDividerBelow="false"
-            app:iconSpaceReserved="false">
+    <PreferenceCategory
+        android:title="@string/settingsTitle"
+        app:iconSpaceReserved="false">
 
         <Preference
-                    app:iconSpaceReserved="false"
-                    android:title="@string/ratingApp"
-                    android:summary="@string/open_PlayMarket"
-                    app:enabled="true"
-                    app:key="ratingApp"/>
+            android:icon="@drawable/ic_app_settings"
+            android:key="settingsApp"
+            android:title="@string/settingsApp"
+            app:iconSpaceReserved="false" />
+        <Preference
+            android:icon="@drawable/ic_icon_voice"
+            android:key="settingsVoice"
+            android:title="@string/settingsVoice"
+            app:iconSpaceReserved="false" />
+        <Preference
+            android:icon="@drawable/ic_about"
+            android:key="aboutApp"
+            android:title="@string/aboutApp"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
 
 
-
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:icon="@drawable/ic_version"
-                    android:summary="@string/author"
-                    android:title="@string/verApp"
-                    android:key="verPreference"/>
-        </PreferenceCategory>
-
-
-        <PreferenceCategory
-            app:allowDividerAbove="false"
-            app:allowDividerBelow="false"
-            app:iconSpaceReserved="false">
-
+    <PreferenceCategory
+        android:title="@string/settingsTitleContacts"
+        app:iconSpaceReserved="false">
 
 
         <Preference
-                    app:iconSpaceReserved="false"
-                    android:title="Telegram"
-                    app:enabled="true"
-                    android:icon="@drawable/ic_telegram"
-                    android:summary="@andriipasichnik">
-                <intent
-                    android:action="android.intent.action.VIEW"
-                    android:data="https://t.me/andriipasichnik" />
+            android:icon="@drawable/ic_telegram"
+            android:summary="@andriipasichnik"
+            android:title="Telegram"
+            app:enabled="true"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://t.me/andriipasichnik" />
         </Preference>
 
 
-                <Preference
-                    app:iconSpaceReserved="false"
-                    android:title="Email"
-                    android:icon="@drawable/ic_mail_set"
-                    android:summary="pasichDev@outlook.com"
-                   />
-        </PreferenceCategory>
+        <Preference
+            android:icon="@drawable/ic_mail_set"
+            android:summary="pasichDev@outlook.com"
+            android:title="Email"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
 </PreferenceScreen>
 

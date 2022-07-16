@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.ChoiceTagDialog;
+package com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.ChoiceModel;
 import com.pasich.mynotes.base.view.TagView;
 import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.ui.view.dialogs.DeleteTagDialog.DeleteTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog.DeleteTagDialog;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs;
+package com.pasich.mynotes.ui.view.dialogs.note;
 
 import android.app.Dialog;
 import android.os.Bundle;

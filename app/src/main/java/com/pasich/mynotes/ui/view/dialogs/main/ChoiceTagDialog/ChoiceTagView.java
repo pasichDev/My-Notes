@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.ChoiceTagDialog;
+package com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 
 import android.view.LayoutInflater;
 

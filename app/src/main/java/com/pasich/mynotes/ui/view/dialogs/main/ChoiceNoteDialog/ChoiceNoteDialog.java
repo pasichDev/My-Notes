@@ -1,8 +1,7 @@
-package com.pasich.mynotes.ui.view.dialogs.ChoiceNoteDialog;
+package com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -11,12 +10,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.ChoiceModel;
 import com.pasich.mynotes.base.view.NoteView;
-import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.ui.view.dialogs.TagDialog.TagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.TagDialog.TagDialog;
 import com.pasich.mynotes.utils.ShareNoteUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
-import com.pasich.mynotes.utils.adapters.TagsDialogAdapter;
 
 import java.util.ArrayList;
 

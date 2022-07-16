@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.DeleteTagDialog;
+package com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;

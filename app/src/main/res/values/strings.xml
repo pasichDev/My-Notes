@@ -140,4 +140,9 @@
     <string name="layoutStringInfoTags" translatable="false">Отмечено %1$s заметок</string>
 
 
+    <string name="aboutApp" translatable="false">О приложении</string>
+    <string name="settingsApp" translatable="false">Настройки приложения</string>
+    <string name="settingsVoice" translatable="false">Настройки голосового ввода</string>
+    <string name="settingsTitle" translatable="false"> Общие настройки</string>
+    <string name="settingsTitleContacts" translatable="false">Обратная связь</string>
 </resources>

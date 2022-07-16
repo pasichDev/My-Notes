@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.CleanTrashDialog;
+package com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
