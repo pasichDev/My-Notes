@@ -11,6 +11,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.ChoiceModel;
 import com.pasich.mynotes.base.view.TagView;
 import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog.ChoiceTagView;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog.DeleteTagDialog;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 

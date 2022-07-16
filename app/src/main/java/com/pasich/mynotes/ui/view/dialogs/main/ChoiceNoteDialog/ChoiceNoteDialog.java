@@ -12,7 +12,7 @@ import com.pasich.mynotes.base.ChoiceModel;
 import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog.TagDialog;
-import com.pasich.mynotes.utils.ShareNoteUtils;
+import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class ChoiceNoteDialog extends DialogFragment {
                   noteView.actionStartNote();
               }
               if (adapter.getItem(position).getAction().equals("Share")) {
-                new ShareNoteUtils(note, getActivity()).shareNotes();
+                new ShareUtils(note, getActivity()).shareNotes();
               }
 
               if (adapter.getItem(position).getAction().equals("Tag")) {

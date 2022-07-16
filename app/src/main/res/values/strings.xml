@@ -144,5 +144,13 @@
     <string name="settingsApp" translatable="false">Настройки приложения</string>
     <string name="settingsVoice" translatable="false">Настройки голосового ввода</string>
     <string name="settingsTitle" translatable="false"> Общие настройки</string>
+    <string name="information" translatable="false">Информация</string>
     <string name="settingsTitleContacts" translatable="false">Обратная связь</string>
+
+    <string name="shareApp" translatable="false">Поделиться приложением</string>
+    <string name="privacyApp" translatable="false">Политика Конфиденциальности</string>
+
+    <string name="shareAppText" translatable="false"> Рекомендую "Мои Заметки" /n
+    https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
+
 </resources>
