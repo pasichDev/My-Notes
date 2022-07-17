@@ -105,7 +105,8 @@
     <string name="nameTagInput" translatable="false">Введите название метки</string>
     <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше чем из 20-ти символов</string>
 
-    <string name="splashEnablePrefTitle" translatable="false">Показывать заставку при загрузке приложения</string>
+    <string name="splashEnablePrefTitle" translatable="false">Заставка при запуске</string>
+    <string name="splashEnablePrefSummary" translatable="false">Показывать заставку при открытии приложения</string>
 
     <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>
 
@@ -152,5 +153,8 @@
 
     <string name="shareAppText" translatable="false"> Рекомендую "Мои Заметки" /n
     https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
+
+    <string name="settingsEditNote" translatable="false">Настройки редактирования заметки</string>
+    <string name="settingsParticipation" translatable="false">Насйтроки взаимодействия</string>
 
 </resources>

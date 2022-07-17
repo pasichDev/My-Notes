@@ -8,8 +8,9 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.ui.view.activity.SettingsActivity;
 
-public class FragmentVoice extends PreferenceFragmentCompat {
+public class FragmentVoice extends PreferenceFragmentCompat implements SettingsActivity.IOnBackPressed {
   @Override
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     setPreferencesFromResource(R.xml.voice_prefences, rootKey);
@@ -32,4 +33,11 @@ public class FragmentVoice extends PreferenceFragmentCompat {
           return true;
         });
   }
+
+
+  @Override
+  public boolean onBackPressed() {
+    return true;
+  }
+
 }

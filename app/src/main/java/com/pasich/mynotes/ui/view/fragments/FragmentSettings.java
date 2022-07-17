@@ -1,15 +1,15 @@
 package com.pasich.mynotes.ui.view.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.view.dialogs.settings.aboutAppDialog.AboutAppDialog;
-import com.pasich.mynotes.ui.view.dialogs.settings.settingsAppDialog.aboutAppDialog.SettingsAppDialog;
 
 public class FragmentSettings extends PreferenceFragmentCompat {
     @Override
@@ -17,6 +17,7 @@ public class FragmentSettings extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.settings_prefences, rootKey);
         final Preference aboutApp = findPreference("aboutApp");
         final Preference settingsApp = findPreference("settingsApp");
+        final Preference settingsVoice = findPreference("settingsVoice");
 
         assert aboutApp != null;
         aboutApp.setSummary("My Notes (v" + BuildConfig.VERSION_NAME + ")");
@@ -26,9 +27,26 @@ public class FragmentSettings extends PreferenceFragmentCompat {
         });
         assert settingsApp != null;
         settingsApp.setOnPreferenceClickListener(preference -> {
-            new SettingsAppDialog().show(getParentFragmentManager(), "SettingsApp");
+            changeFragment(new FragmentMain(), R.string.settingsApp);
+            return true;
+        });
+        assert settingsVoice != null;
+        settingsVoice.setOnPreferenceClickListener(preference -> {
+            changeFragment(new FragmentVoice(), R.string.settingsVoice);
             return true;
         });
     }
+
+    private void changeFragment(Fragment fragment, int textTitle) {
+        TextView textTitleActivity = requireActivity().findViewById(R.id.titleActivity);
+        textTitleActivity.setText(textTitle);
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainerView, fragment)
+                .commit();
+    }
+
+
+
+
 
 }

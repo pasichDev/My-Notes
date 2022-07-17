@@ -56,7 +56,7 @@
 
 
         <Preference
-            android:icon="@drawable/ic_mail_set"
+            android:icon="@drawable/ic_email_two"
             android:summary="pasichDev@outlook.com"
             android:title="Email"
             app:iconSpaceReserved="false" />

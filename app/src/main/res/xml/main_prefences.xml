@@ -2,18 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <PreferenceCategory
-
+            android:title="@string/settingsEditNote"
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             app:iconSpaceReserved="false">
 
-                <Preference
-
-                    android:key="themeColor"
-                    android:summary="@string/ThemeToolbar_summary"
-                    android:title="@string/ThemeToolbar_title"
-                    app:iconSpaceReserved="false"
-                    app:useSimpleSummaryProvider="true" />
 
                 <ListPreference
                     android:defaultValue="normal"
@@ -32,7 +25,12 @@
                     app:min="12"
                     app:showSeekBarValue="true"
                     app:useSimpleSummaryProvider="true" />
-
+        </PreferenceCategory>
+        <PreferenceCategory
+            android:title="@string/settingsParticipation"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:iconSpaceReserved="false">
 
                 <SwitchPreference
                     android:defaultValue="true"
@@ -45,6 +43,7 @@
                     android:defaultValue="true"
                     android:key="splashEnable"
                     android:title="@string/splashEnablePrefTitle"
+                    android:summary="@string/splashEnablePrefSummary"
                     app:iconSpaceReserved="false" />
         </PreferenceCategory>
 </PreferenceScreen>
