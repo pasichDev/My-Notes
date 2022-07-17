@@ -110,7 +110,7 @@
 
     <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>
 
-    <string name="allNotes" translatable="false">Все заметки</string>
+    <string name="allNotes" translatable="false">Все заметки </string>
     <string name="more" translatable="false">Больше</string>
     <string name="noteTitle" translatable="false">Заголовок заметки</string>
     <string name="deleteSelectTag" translatable="false">Удаление метки</string>

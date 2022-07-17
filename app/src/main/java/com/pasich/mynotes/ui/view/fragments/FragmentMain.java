@@ -2,6 +2,7 @@ package com.pasich.mynotes.ui.view.fragments;
 
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -12,6 +13,8 @@ public class FragmentMain extends PreferenceFragmentCompat implements SettingsAc
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.main_prefences, rootKey);
+        TextView textTitleActivity = requireActivity().findViewById(R.id.titleActivity);
+        textTitleActivity.setText(R.string.settingsApp);
     }
 
 

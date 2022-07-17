@@ -27,26 +27,21 @@ public class FragmentSettings extends PreferenceFragmentCompat {
         });
         assert settingsApp != null;
         settingsApp.setOnPreferenceClickListener(preference -> {
-            changeFragment(new FragmentMain(), R.string.settingsApp);
+            changeFragment(new FragmentMain());
             return true;
         });
         assert settingsVoice != null;
         settingsVoice.setOnPreferenceClickListener(preference -> {
-            changeFragment(new FragmentVoice(), R.string.settingsVoice);
+            changeFragment(new FragmentVoice());
             return true;
         });
     }
 
-    private void changeFragment(Fragment fragment, int textTitle) {
-        TextView textTitleActivity = requireActivity().findViewById(R.id.titleActivity);
-        textTitleActivity.setText(textTitle);
+    private void changeFragment(Fragment fragment) {
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainerView, fragment)
                 .commit();
     }
-
-
-
 
 
 }
