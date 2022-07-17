@@ -30,6 +30,7 @@ public class FragmentVoice extends PreferenceFragmentCompat implements SettingsA
     assert errorSpechService != null;
     errorSpechService.setOnPreferenceClickListener(
         preference -> {
+
           return true;
         });
   }

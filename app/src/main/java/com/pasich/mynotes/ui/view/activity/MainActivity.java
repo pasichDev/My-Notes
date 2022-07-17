@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     mainPresenter.setDataManager(dataManager);
     mainPresenter.viewIsReady();
 
-    startActivity(new Intent(this, SettingsActivity.class));
   }
 
   @Override
