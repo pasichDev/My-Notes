@@ -2,4 +2,6 @@
 <resources>
     <dimen name="marginConstraintLayoutOnBothSides">20dp</dimen>
     <dimen name="listViewMargin">10dp</dimen>
+    <dimen name="addTagTextCustom">16dp</dimen>
+    <dimen name="addTagTextStandart">13dp</dimen>
 </resources>

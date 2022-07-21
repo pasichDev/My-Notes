@@ -22,37 +22,18 @@
         android:padding="1dp"
         android:background="@{checkedItem ? @drawable/tab_background_selected : @drawable/tab_background_unselected}">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="12dp"
-            android:src="@drawable/ic_add"
-            android:visibility="@{TagsModel.systemAction == 1 ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/addTag" />
-
 
         <TextView
             android:id="@+id/nameTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            android:text="@{TagsModel.systemAction == 2 ?  @string/allNotes : TagsModel.nameTag}"
-            android:textAllCaps="false"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="@{TagsModel.systemAction == 1 ? @dimen/addTagTextCustom : @dimen/addTagTextStandart , default=@dimen/addTagTextStandart }"
+            android:text="@{TagsModel.systemAction == 2 ?  @string/allNotes : TagsModel.systemAction == 1 ?  @string/plusAdd : TagsModel.nameTag}"
             android:textColor="@{checkedItem ? @color/white : @color/colorPrimaryVariant}"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:visibility="@{TagsModel.systemAction != 1 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

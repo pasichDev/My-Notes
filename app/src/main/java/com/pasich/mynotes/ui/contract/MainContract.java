@@ -53,5 +53,7 @@ public interface MainContract {
     void actionClickNote();
 
     void editTagNote(Tag tag, Note note);
+
+      LiveData<List<Tag>> getTagsArray();
   }
 }

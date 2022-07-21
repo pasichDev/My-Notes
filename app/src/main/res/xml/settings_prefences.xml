@@ -19,22 +19,6 @@
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/information"
-        app:allowDividerAbove="false"
-
-        app:allowDividerBelow="false"
-        app:iconSpaceReserved="false">
-        <Preference
-            android:icon="@drawable/ic_about"
-            android:key="aboutApp"
-            android:title="@string/aboutApp"
-            android:summary="@string/author"
-            app:iconSpaceReserved="false" />
-
-    </PreferenceCategory>
-
     <PreferenceCategory
         android:title="@string/settingsTitleContacts"
         app:allowDividerAbove="false"
@@ -61,5 +45,21 @@
             android:key="emailSend"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/information"
+        app:allowDividerAbove="false"
+
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false">
+        <Preference
+            android:icon="@drawable/ic_about"
+            android:key="aboutApp"
+            android:title="@string/aboutApp"
+            android:summary="@string/author"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+
 </PreferenceScreen>
 

@@ -6,6 +6,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.LiveData;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
@@ -13,35 +14,39 @@ import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.utils.adapters.TagsAdapter;
 import com.pasich.mynotes.utils.adapters.TagsDialogAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TagDialog extends DialogFragment {
 
     private final Note note;
+    private final LiveData<List<Tag>> tagList;
 
 
-    public TagDialog(Note note) {
+    public TagDialog(Note note, LiveData<List<Tag>> tagList) {
+
         this.note = note;
+        this.tagList = tagList;
     }
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
         final TagDialogView mView = new TagDialogView(getLayoutInflater());
-        final DataManager dataManager = new DataManager();
         final NoteView noteView = (NoteView) getContext();
 
 
-
-        /*
-        Тут весь трабла в тому що данні підгружаються пізніше ніж потрібно!
-         */
-
-        TagsDialogAdapter tagsAdapter = new TagsDialogAdapter(dataManager.getTagsRepository().getTagsList());
+      TagsAdapter  tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
         mView.listTags.setAdapter(tagsAdapter);
-
-
+        tagList.observe(
+                this,
+                tags -> {
+                    tagsAdapter.submitList(tags);
+                });
         mView.setTitle(
                 note.getTag().length() == 0
                         ? getString(R.string.selectTagForNote)
@@ -60,4 +65,7 @@ public class TagDialog extends DialogFragment {
         builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return builder;
     }
+
+
+
 }

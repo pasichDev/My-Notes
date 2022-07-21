@@ -4,8 +4,11 @@ import static com.pasich.mynotes.di.App.getApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -27,6 +30,7 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog.ChoiceNoteDialog
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.MoreActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.TagDialog.TagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
@@ -96,6 +100,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
             mainPresenter.clickLongNote(notesAdapter.getCurrentList().get(position));
           }
         });
+
+    binding.actionSearch.setOnQueryTextListener(
+            new SearchView.OnQueryTextListener() {
+              @Override
+              public boolean onQueryTextSubmit(String query) {
+                return false;
+              }
+
+              @Override
+              public boolean onQueryTextChange(String newText) {
+
+                return false;
+              }
+            });
   }
 
   @Override
@@ -116,6 +134,23 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     llSearchView.addView(
         utils.addButtonSearchView(this, R.drawable.ic_edit_format_list, R.id.formatButton));
     formatList.init(findViewById(R.id.formatButton));
+
+      binding.actionSearch.setOnQueryTextFocusChangeListener(
+              (v, hasFocus) -> {
+                Log.wtf("pasic", "focus  " + hasFocus);
+                binding.listTags.setVisibility(View.GONE);
+                findViewById(R.id.sortButton).setVisibility(View.GONE);
+                findViewById(R.id.formatButton).setVisibility(View.GONE);
+
+              });
+      binding.actionSearch.setOnCloseListener(
+              () -> {
+                Log.wtf("pasic", "close  ");
+                findViewById(R.id.sortButton).setVisibility(View.VISIBLE);
+                findViewById(R.id.formatButton).setVisibility(View.VISIBLE);
+                binding.actionSearch.setFocusable(false);
+                return false;
+              });
   }
 
   @Override
@@ -145,9 +180,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         notes -> {
           notesAdapter.submitList(notes);
           binding.listNotes.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.recycle_view_animation));
-          /* binding.setEmptyNotes(notesAdapter.getCurrentList().size() == 0);*/
         });
   }
+
+
+
 
   @Override
   public void deleteNote(Note note) {
@@ -164,7 +201,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     mainPresenter.editTagNote(tag,note);
   }
 
-  @Override
+    @Override
+    public void tagNoteSelected(Note note) {
+      new TagDialog(note, mainPresenter.getTagsArray()).show(getSupportFragmentManager(), "EditDIalog");
+    }
+
+    @Override
   public void selectTagUser(int position) {
     tagsAdapter.chooseTag(position);
   }
@@ -206,16 +248,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void choiceNoteDialog(Note note) {
-    /* String[] keysNote = {
-            String.valueOf(position),
-            String.valueOf(ListNotesAdapter.getItem(position).getId()),
-            ListNotesAdapter.getItem(position).getDate(),
-            String.valueOf(ListNotesAdapter.getItem(position).getValue().length())
-    };*/
-
-    String[] keysNote = {};
     new ChoiceNoteDialog(note).show(getSupportFragmentManager(), "ChoiceDialog");
   }
+
+
 
   @Override
   public void onBackPressed() {

@@ -1,5 +1,7 @@
 package com.pasich.mynotes.ui.presenter;
 
+import androidx.lifecycle.LiveData;
+
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -8,6 +10,8 @@ import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
+
+import java.util.List;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
         implements MainContract.presenter {
@@ -116,5 +120,9 @@ public class MainPresenter extends PresenterBase<MainContract.view>
             note.setTag(tag.getNameTag());
             notesRepository.updateNote(note);
         }
+    }
+
+    public  LiveData<List<Tag>> getTagsArray() {
+        return tagsRepository.getTagsUser();
     }
 }

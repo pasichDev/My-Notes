@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TagsDialogAdapter extends RecyclerView.Adapter<TagsDialogAdapter.ViewHolder> {
 
-    private final List<Tag> listTags;
+    private final ArrayList<String> listTags;
     private OnItemClickListener mOnItemClickListener;
 
-    public TagsDialogAdapter(List<Tag> listTags) {
+    public TagsDialogAdapter(ArrayList<String> listTags) {
         this.listTags = listTags;
     }
 
@@ -54,8 +55,8 @@ public class TagsDialogAdapter extends RecyclerView.Adapter<TagsDialogAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.ItemBinding.setTagsModel(listTags.get(position));
-        holder.ItemBinding.setCheckedItem(listTags.get(position).getSelected());
+        holder.ItemBinding.setTagsModel(new Tag().create(listTags.get(position)));
+    //    holder.ItemBinding.setCheckedItem(listTags.get(position).getSelected());
     }
 
     public interface OnItemClickListener {

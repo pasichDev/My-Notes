@@ -1,6 +1,7 @@
 package com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 
 import android.view.LayoutInflater;
+import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,9 @@ public class TagDialogView extends InputTagView {
     listTags.addItemDecoration(new SpacesItemDecoration(5));
     listTags.setLayoutManager(
             new LinearLayoutManager(getContextRoot(), RecyclerView.HORIZONTAL, false));
-    addView(listTags,LP_DEFAULT);
+    LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    LP.setMargins(30, 0, 10, 0);
+    addView(listTags, LP);
   }
 }

@@ -16,4 +16,6 @@ public interface NoteView {
 
   void editTagForNote(Tag tag, Note note);
 
+  void tagNoteSelected(Note note);
+
 }

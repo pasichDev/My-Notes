@@ -39,16 +39,12 @@ public class TagsRepository {
     }
 
 
-    public List<Tag> getTagsList() {
-        refreshListTagData();
-        return this.listTagsData;
-    }
+    public LiveData<List<Tag>> getTagsUser() {
+        LiveData<List<Tag>> mTags;
+        mTags = tagsDao.getTagsUser();
 
-    private void refreshListTagData() {
-        Runnable run = () -> listTagsData = new ArrayList<Tag>(tagsDao.getTagsList());
-        executor.execute(run);
+        return mTags;
     }
-
 
     public void insert(Tag tag) {
 

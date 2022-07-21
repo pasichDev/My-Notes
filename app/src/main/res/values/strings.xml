@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name"> My Notes </string>
+    <string name="plusAdd" translatable="false">+</string>
     <string name="NewNote"> Create note </string>
     <string name="title_activity_settings"> Settings </string>
     <string name="settings"> Settings </string>
@@ -155,6 +156,6 @@
     https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
 
     <string name="settingsEditNote" translatable="false">Настройки редактирования заметки</string>
-    <string name="settingsParticipation" translatable="false">Насйтроки взаимодействия</string>
+    <string name="settingsParticipation" translatable="false">Настройки взаимодействия</string>
 
 </resources>
