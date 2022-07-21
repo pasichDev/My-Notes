@@ -33,6 +33,7 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
    *
    * @return - позиция метки
    */
+  @Deprecated
   public int getCheckedPosition() {
     int retCount = 0;
     for (int i = 0; i < getCurrentList().size(); i++) {
@@ -44,8 +45,35 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     return retCount;
   }
 
-  public void chooseTag(int position) {
+  @Deprecated
+  public int getTagForName(String nameTagSearch) {
+    int retCount = 0;
+    for (int i = 0; i < getCurrentList().size(); i++) {
+      if (getItem(i).getNameTag().equals(nameTagSearch)) {
+        retCount = i;
+        break;
+      }
+    }
+    return retCount;
+  }
 
+
+  @Deprecated
+  public void autChoseTag(String nameTag) {
+    int positionTag = getTagForName(nameTag);
+    getItem(positionTag).setSelected(true);
+    notifyItemChanged(positionTag, PAYLOAD_BACKGROUND);
+  }
+
+
+
+  /**
+   * Метод который реализует выбор метки
+   * @param position
+   */
+
+  @Deprecated
+  public void chooseTag(int position) {
     int positionSelected = getCheckedPosition();
     getItem(positionSelected).setSelected(false);
     notifyItemChanged(positionSelected, PAYLOAD_BACKGROUND);

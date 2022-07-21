@@ -28,7 +28,7 @@ public class DeleteTagDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
 
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final ManageTag ManageTag = (ManageTag) getContext();
+   // final ManageTag ManageTag = (ManageTag) getContext();
     final DeleteTagView view = new DeleteTagView(getLayoutInflater());
     ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
@@ -52,8 +52,8 @@ public class DeleteTagDialog extends DialogFragment {
             (parent, v, position, id) -> {
               String action = adapter.getItem(position).getAction();
               if (!action.equals("Close")) {
-                assert ManageTag != null;
-                ManageTag.deleteTag(action.equals("DeleteAndNotes"), positionTag);
+            //    assert ManageTag != null;
+            //    ManageTag.deleteTag(action.equals("DeleteAndNotes"), positionTag);
               }
               dismiss();
             });
