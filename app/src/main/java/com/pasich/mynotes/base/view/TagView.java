@@ -11,7 +11,9 @@ public interface TagView {
 
   void addTag(String nameTag);
 
-  void deleteTag(Tag tag);
+
+  void deleteTag(Tag tag, boolean deleteNotes);
 
   void editVisibility(Tag tag);
+
 }

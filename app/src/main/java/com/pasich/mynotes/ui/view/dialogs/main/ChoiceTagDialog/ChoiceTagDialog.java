@@ -11,7 +11,6 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.ChoiceModel;
 import com.pasich.mynotes.base.view.TagView;
 import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog.ChoiceTagView;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog.DeleteTagDialog;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
@@ -58,9 +57,9 @@ public class ChoiceTagDialog extends BottomSheetDialogFragment {
               if (adapter.getItem(position).getAction().equals("deleteTag")) {
                 if (keysNoteInfo[0] == 0) {
                   assert tagView != null;
-                  tagView.deleteTag(tag);
+                  tagView.deleteTag(tag, false);
                 } else {
-                  new DeleteTagDialog(keysNoteInfo[0], 1)
+                  new DeleteTagDialog(keysNoteInfo[0], tag)
                       .show(getParentFragmentManager(), "deleteTag");
                 }
               }

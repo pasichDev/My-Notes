@@ -40,6 +40,10 @@ public class TagDialog extends DialogFragment {
         noteView = (NoteView) getContext();
         final String noteTag = note.getTag();
 
+        mView.setTitle(
+                note.getTag().length() == 0
+                        ? getString(R.string.selectTagForNote)
+                        : getString(R.string.editSelectTagForNote));
 
         tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
         mView.listTags.setAdapter(tagsAdapter);
@@ -51,14 +55,14 @@ public class TagDialog extends DialogFragment {
                 });
 
 
-        builder.setContentView(mView.getRootContainer());
-        initListener();
-        builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        return builder;
-    }
 
-
-    private void initListener() {
+        mView.getSaveButton()
+                .setOnClickListener(
+                        view1 -> {
+                            assert noteView != null;
+                            noteView.editTagForNote(new Tag().create(mView.getInputTag().getText().toString()), note);
+                            dismiss();
+                        });
         tagsAdapter.setOnItemClickListener(
                 new TagsAdapter.OnItemClickListener() {
                     @Override
@@ -73,22 +77,13 @@ public class TagDialog extends DialogFragment {
                     }
                 });
 
-
-        mView.setTitle(
-                note.getTag().length() == 0
-                        ? getString(R.string.selectTagForNote)
-                        : getString(R.string.editSelectTagForNote));
-
-
-        mView.getSaveButton()
-                .setOnClickListener(
-                        view1 -> {
-                            assert noteView != null;
-                            noteView.editTagForNote(new Tag().create(mView.getInputTag().getText().toString()), note);
-                            dismiss();
-                        });
-
+        builder.setContentView(mView.getRootContainer());
+        builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        return builder;
     }
+
+
+
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);

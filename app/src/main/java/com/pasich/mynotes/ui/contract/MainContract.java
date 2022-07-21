@@ -38,7 +38,7 @@ public interface MainContract {
 
     void addTag(String nameTag);
 
-    void deleteTag(Tag tag);
+    void deleteTag(Tag tag, boolean deleteNotes);
 
     void editVisibility(Tag tag);
 
@@ -50,7 +50,6 @@ public interface MainContract {
 
     void deleteNote(Note note);
 
-    void actionClickNote();
 
     void editTagNote(Tag tag, Note note);
 

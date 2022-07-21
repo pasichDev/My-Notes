@@ -29,6 +29,13 @@ public interface NoteDao {
   @Query("SELECT COUNT(tag) FROM notes WHERE tag = :nameTag")
   int getCountNotesTag(String nameTag);
 
+
+  @Query("DELETE FROM notes WHERE tag = :nameTag")
+  void deleteNotesForTag(String nameTag);
+
+  @Query("UPDATE notes Set tag = '' WHERE tag = :nameTag")
+  void clearTagForNotes(String nameTag);
+
   @Query("DELETE FROM notes")
   void deleteAll();
 }

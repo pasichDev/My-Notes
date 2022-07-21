@@ -1,6 +1,7 @@
 package com.pasich.mynotes.utils.adapters;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -97,7 +98,8 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-      return oldItem.getTag().equals(newItem.getTag());
+      Log.wtf("pasic", "areItemsTheSame: check " + newItem.getTitle());
+      return oldItem == newItem;
     }
 
     /**
@@ -109,7 +111,8 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
      */
     @Override
     public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-      return oldItem.getValue().equals(newItem.getValue()) ||  oldItem.getTag().equals(newItem.getTag()) ;
+      Log.wtf("pasic", "areContentsTheSame: check ");
+      return false ;
     }
   }
 }

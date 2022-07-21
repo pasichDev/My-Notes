@@ -7,7 +7,6 @@ import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.dao.TagsDao;
 import com.pasich.mynotes.utils.DiskExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -16,7 +15,6 @@ public class TagsRepository {
     private static TagsRepository instance;
     private Executor executor;
     private TagsDao tagsDao;
-    private List<Tag> listTagsData;
 
     private TagsRepository(Executor executor, TagsDao tagsDao) {
         this.executor = executor;

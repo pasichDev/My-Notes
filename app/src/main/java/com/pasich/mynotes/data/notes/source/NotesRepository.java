@@ -1,5 +1,6 @@
 package com.pasich.mynotes.data.notes.source;
 
+
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -55,10 +56,22 @@ public class NotesRepository {
     executor.execute(runnable);
   }
 
+  public void deleteNotesForTag(String nameTag) {
+    Runnable runnable = () -> noteDao.deleteNotesForTag(nameTag);
+    executor.execute(runnable);
+  }
+
+  public void clearTagForNotes(String nameTag) {
+    Runnable runnable = () -> noteDao.clearTagForNotes(nameTag);
+    executor.execute(runnable);
+  }
+
   public int getCountNoteTag(String nameTag) {
     AtomicInteger count = new AtomicInteger();
     Runnable runnable = () ->{ count.set(noteDao.getCountNotesTag(nameTag));};
+
     executor.execute(runnable);
+
     Log.wtf("pasic", "step3: " + count );
     return count.get();
   }

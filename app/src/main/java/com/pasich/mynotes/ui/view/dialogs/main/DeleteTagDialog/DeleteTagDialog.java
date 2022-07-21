@@ -10,6 +10,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.ChoiceModel;
 import com.pasich.mynotes.base.interfaces.ManageTag;
+import com.pasich.mynotes.base.view.TagView;
+import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
 import java.util.ArrayList;
@@ -17,18 +19,18 @@ import java.util.ArrayList;
 public class DeleteTagDialog extends DialogFragment {
 
   private final int countNotesToTag;
-  private final int positionTag;
+  private final Tag tag;
 
-  public DeleteTagDialog(int countNotesToTag, int position) {
+  public DeleteTagDialog(int countNotesToTag, Tag tag) {
     this.countNotesToTag = countNotesToTag;
-    this.positionTag = position;
+    this.tag = tag;
   }
 
   @NonNull
   public Dialog onCreateDialog(Bundle savedInstanceState) {
 
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-   // final ManageTag ManageTag = (ManageTag) getContext();
+    final TagView tagView = (TagView) getContext();
     final DeleteTagView view = new DeleteTagView(getLayoutInflater());
     ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
     arrayChoice.add(
@@ -52,8 +54,8 @@ public class DeleteTagDialog extends DialogFragment {
             (parent, v, position, id) -> {
               String action = adapter.getItem(position).getAction();
               if (!action.equals("Close")) {
-            //    assert ManageTag != null;
-            //    ManageTag.deleteTag(action.equals("DeleteAndNotes"), positionTag);
+                 assert tagView != null;
+                 tagView.deleteTag(tag, action.equals("DeleteAndNotes"));
               }
               dismiss();
             });

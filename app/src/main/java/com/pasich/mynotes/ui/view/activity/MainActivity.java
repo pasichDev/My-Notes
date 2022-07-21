@@ -217,8 +217,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   }
 
   @Override
-  public void deleteTag(Tag tag) {
-    mainPresenter.deleteTag(tag);
+  public void deleteTag(Tag tag, boolean deleteNotes) {
+    mainPresenter.deleteTag(tag, deleteNotes);
   }
 
   @Override

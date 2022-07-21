@@ -71,9 +71,18 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     }
 
     @Override
-    public void deleteTag(Tag tag) {
-        if (data != null) tagsRepository.deleteTag(tag);
+    public void deleteTag(Tag tag, boolean deleteNotes) {
+        if (data != null) {
+            if (!deleteNotes) {
+                notesRepository.clearTagForNotes(tag.getNameTag());
+            }else {
+                notesRepository.deleteNotesForTag(tag.getNameTag());
+            }
+            tagsRepository.deleteTag(tag);
+        }
     }
+
+
 
     @Override
     public void editVisibility(Tag tag) {
@@ -108,10 +117,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         notesRepository.deleteNote(note);
     }
 
-    @Override
-    public void actionClickNote() {
-
-    }
 
     @Override
     public void editTagNote(Tag tag, Note note) {
