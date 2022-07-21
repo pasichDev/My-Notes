@@ -38,7 +38,6 @@
     <PreferenceCategory
         android:title="@string/settingsTitleContacts"
         app:allowDividerAbove="false"
-
         app:allowDividerBelow="false"
         app:iconSpaceReserved="false">
 
@@ -59,6 +58,7 @@
             android:icon="@drawable/ic_email_two"
             android:summary="pasichDev@outlook.com"
             android:title="Email"
+            android:key="emailSend"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 </PreferenceScreen>
