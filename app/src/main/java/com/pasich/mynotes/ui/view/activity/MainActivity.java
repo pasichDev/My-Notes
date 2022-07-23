@@ -62,14 +62,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     mainPresenter.setDataManager(dataManager);
     mainPresenter.viewIsReady();
 
+    startActivity(new Intent(MainActivity.this, TrashActivity.class));
   }
 
   @Override
   public void init() {
-    getApp()
-        .getComponentsHolder()
-        .getActivityComponent(getClass(), new MainActivityModule())
-        .inject(MainActivity.this);
+      getApp()
+              .getComponentsHolder()
+              .getActivityComponent(getClass(), new MainActivityModule())
+              .inject(MainActivity.this);
     binding.setPresenter((MainPresenter) mainPresenter);
   }
 
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         this,
         notes -> {
           notesAdapter.submitList(notes);
-          binding.listNotes.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.recycle_view_animation));
+     //     binding.listNotes.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.recycle_view_animation));
         });
   }
 

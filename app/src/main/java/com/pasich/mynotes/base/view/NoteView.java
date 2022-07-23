@@ -8,7 +8,6 @@ import com.pasich.mynotes.data.tags.Tag;
 import java.util.List;
 
 public interface NoteView {
-  void settingsNotesList(int countColumn, LiveData<List<Note>> noteList);
 
   void deleteNote(Note note);
 

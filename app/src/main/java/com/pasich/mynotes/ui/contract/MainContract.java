@@ -13,46 +13,49 @@ import java.util.List;
 
 public interface MainContract {
 
-  interface view extends MyView, TagView, NoteView {
-    void settingsSearchView();
+    interface view extends MyView, TagView, NoteView {
+        void settingsSearchView();
 
-    void newNotesButton();
+        void settingsNotesList(int countColumn, LiveData<List<Note>> noteList);
 
-    void moreActivity();
+        void newNotesButton();
 
-    void startCreateTagDialog();
+        void moreActivity();
 
-    void choiceTagDialog(Tag tag, Integer[] arg);
+        void startCreateTagDialog();
 
-    void choiceNoteDialog(Note note);
+        void choiceTagDialog(Tag tag, Integer[] arg);
 
-    void settingsTagsList(LiveData<List<Tag>> tagList);
-    void selectTagUser(int position);
+        void choiceNoteDialog(Note note);
 
-  }
+        void settingsTagsList(LiveData<List<Tag>> tagList);
 
-  interface presenter extends MyPresenter<view> {
-    void newNotesClick();
+        void selectTagUser(int position);
 
-    void moreActivityClick();
+    }
 
-    void addTag(String nameTag);
+    interface presenter extends MyPresenter<view> {
+        void newNotesClick();
 
-    void deleteTag(Tag tag, boolean deleteNotes);
+        void moreActivityClick();
 
-    void editVisibility(Tag tag);
+        void addTag(String nameTag);
 
-    void clickTag(Tag tag, int position);
+        void deleteTag(Tag tag, boolean deleteNotes);
 
-    void clickLongTag(Tag tag);
+        void editVisibility(Tag tag);
 
-    void clickLongNote(Note note);
+        void clickTag(Tag tag, int position);
 
-    void deleteNote(Note note);
+        void clickLongTag(Tag tag);
+
+        void clickLongNote(Note note);
+
+        void deleteNote(Note note);
 
 
-    void editTagNote(Tag tag, Note note);
+        void editTagNote(Tag tag, Note note);
 
-      LiveData<List<Tag>> getTagsArray();
-  }
+        LiveData<List<Tag>> getTagsArray();
+    }
 }

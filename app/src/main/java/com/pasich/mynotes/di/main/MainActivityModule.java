@@ -1,6 +1,5 @@
 package com.pasich.mynotes.di.main;
 
-import android.app.Activity;
 import android.view.View;
 
 import com.pasich.mynotes.base.dagger.ActivityModule;
