@@ -72,7 +72,7 @@ dependencies {
     //powerPreferences
     implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"
 
-
+    implementation 'com.google.android.play:review:2.0.0'
     // compileOnly 'javax.annotation:jsr250-api:1.0'
 }
 
