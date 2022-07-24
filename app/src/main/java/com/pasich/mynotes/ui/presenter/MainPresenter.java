@@ -12,6 +12,7 @@ import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
         implements MainContract.presenter {
@@ -101,7 +102,12 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     @Override
     public void clickLongTag(Tag tag) {
         if (tag.getSystemAction() == 0) {
-            Integer[] keysNote = {notesRepository.getCountNoteTag(tag.getNameTag())};
+            Integer[] keysNote = new Integer[0];
+            try {
+                keysNote = new Integer[]{notesRepository.getCountNoteTag(tag.getNameTag())};
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
             getView().choiceTagDialog(tag, keysNote);
         }
     }
