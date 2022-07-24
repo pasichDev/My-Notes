@@ -28,8 +28,8 @@ public class TrashRepository {
     return instance;
   }
 
-  public LiveData<List<TrashNote>> getNotes() {
-    LiveData<List<TrashNote>> mNotes;
+  public LiveData<List<Note>> getNotes() {
+    LiveData<List<Note>> mNotes;
     mNotes = trashDao.getTrash();
 
     return mNotes;

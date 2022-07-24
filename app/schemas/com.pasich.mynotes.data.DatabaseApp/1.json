@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2e33e377d32da6e6a163202684496cf3",
+    "identityHash": "01716c59634d99af4fd14ba59b75e097",
     "entities": [
       {
         "tableName": "tags",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `visibility` INTEGER NOT NULL, `systemAction` INTEGER NOT NULL, `selected` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `visibility` INTEGER NOT NULL, `systemAction` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -29,12 +29,6 @@
           {
             "fieldPath": "systemAction",
             "columnName": "systemAction",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "selected",
-            "columnName": "selected",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -182,7 +176,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2e33e377d32da6e6a163202684496cf3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '01716c59634d99af4fd14ba59b75e097')"
     ]
   }
 }

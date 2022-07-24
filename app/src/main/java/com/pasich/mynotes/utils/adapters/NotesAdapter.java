@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 
 import java.util.ArrayList;
@@ -78,6 +80,10 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
     // as change in recycler MyView data.
     // notifyDataSetChanged();
   }
+
+
+
+
 
   public interface OnItemClickListener {
     void onClick(int position);

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.di.trash.TrashActivityModule;
@@ -105,16 +106,16 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
 
   @Override
-  public void settingsNotesList(int countColumn, LiveData<List<TrashNote>> noteList) {
+  public void settingsNotesList(int countColumn, LiveData<List<Note>> noteList) {
     binding.ListTrash.addItemDecoration(new SpacesItemDecoration(15));
     binding.ListTrash.setLayoutManager(
             new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
     notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
     binding.ListTrash.setAdapter(notesAdapter);
-   /* noteList.observe(
+    noteList.observe(
             this,
-        //    notes -> { notesAdapter.submitList(notes);
-              });*/
+            notes -> { notesAdapter.submitList((List<Note>) notes);
+              });
   }
 
   @Override

@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface TrashDao {
   @Query("SELECT * FROM notes")
-  LiveData<List<TrashNote>> getTrash();
+  LiveData<List<Note>> getTrash();
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   void moveToTrash(Note note);

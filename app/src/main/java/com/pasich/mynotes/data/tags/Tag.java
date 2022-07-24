@@ -3,6 +3,7 @@ package com.pasich.mynotes.data.tags;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -32,6 +33,7 @@ public class Tag {
   private int systemAction = 0;
 
   @ColumnInfo(name = "selected")
+  @Ignore
   private boolean selected = false;
 
   public Tag create(String nameTag, int systemAction, boolean selected) {
