@@ -12,44 +12,44 @@ import java.util.concurrent.Executor;
 
 public class TrashRepository {
 
-  private static TrashRepository instance;
-  private Executor executor;
-  private TrashDao trashDao;
+    private static TrashRepository instance;
+    private Executor executor;
+    private TrashDao trashDao;
 
-  private TrashRepository(Executor executor, TrashDao trashDao) {
-    this.executor = executor;
-    this.trashDao = trashDao;
-  }
-
-  public static TrashRepository getInstance(TrashDao noteDao) {
-    if (instance == null) {
-      instance = new TrashRepository(new DiskExecutor(), noteDao);
+    private TrashRepository(Executor executor, TrashDao trashDao) {
+        this.executor = executor;
+        this.trashDao = trashDao;
     }
-    return instance;
-  }
 
-  public LiveData<List<Note>> getNotes() {
-    LiveData<List<Note>> mNotes;
-    mNotes = trashDao.getTrash();
+    public static TrashRepository getInstance(TrashDao noteDao) {
+        if (instance == null) {
+            instance = new TrashRepository(new DiskExecutor(), noteDao);
+        }
+        return instance;
+    }
 
-    return mNotes;
-  }
+    public LiveData<List<TrashNote>> getNotes() {
+        return trashDao.getTrash();
+    }
 
-  public void moveToTrash(Note note) {
+    public void moveToTrash(Note note) {
+        Runnable runnable = () -> trashDao.moveToTrash(new TrashNote().convertNote(note));
+        executor.execute(runnable);
+    }
 
-    Runnable runnable = () -> trashDao.moveToTrash(note);
-    executor.execute(runnable);
-  }
+    public void deleteNote(TrashNote note) {
+        Runnable runnable = () -> trashDao.deleteNote(note);
+        executor.execute(runnable);
+    }
 
-  public void deleteNote(TrashNote note) {
+    public void deleteAll() {
+        Runnable runnable = () -> trashDao.deleteAll();
+        executor.execute(runnable);
+    }
 
-    Runnable runnable = () -> trashDao.deleteNote(note);
-    executor.execute(runnable);
-  }
-
-  public void destroyInstance() {
-    instance = null;
-    trashDao = null;
-    executor = null;
-  }
+    public void destroyInstance() {
+        instance = null;
+        trashDao = null;
+        executor = null;
+    }
 }

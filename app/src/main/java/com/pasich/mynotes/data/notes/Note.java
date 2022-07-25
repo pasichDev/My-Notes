@@ -41,6 +41,7 @@ public class Note {
     this.value = value;
     this.date = date;
     this.type = "note";
+    this.Checked = false;
     return this;
   }
 

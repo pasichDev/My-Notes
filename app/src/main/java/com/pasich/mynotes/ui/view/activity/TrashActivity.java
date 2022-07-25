@@ -14,15 +14,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.di.trash.TrashActivityModule;
 import com.pasich.mynotes.ui.contract.TrashContract;
-import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog.CleanTrashDialog;
-import com.pasich.mynotes.utils.adapters.NotesAdapter;
+import com.pasich.mynotes.utils.adapters.TrashNotesAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.List;
@@ -34,7 +32,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
   private ActivityTrashBinding binding;
 
-  private NotesAdapter notesAdapter;
+  private TrashNotesAdapter notesAdapter;
   @Inject public TrashContract.presenter trashPresenter;
   @Inject public DataManager dataManager;
 
@@ -106,20 +104,25 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
 
   @Override
-  public void settingsNotesList(int countColumn, LiveData<List<Note>> noteList) {
+  public void settingsNotesList(int countColumn, LiveData<List<TrashNote>> noteList) {
     binding.ListTrash.addItemDecoration(new SpacesItemDecoration(15));
     binding.ListTrash.setLayoutManager(
             new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
-    notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
+    notesAdapter = new TrashNotesAdapter(new TrashNotesAdapter.noteDiff());
     binding.ListTrash.setAdapter(notesAdapter);
     noteList.observe(
             this,
-            notes -> { notesAdapter.submitList((List<Note>) notes);
+            notes -> { notesAdapter.submitList((List<TrashNote>) notes);
               });
   }
 
   @Override
   public void cleanTrashDialogShow() {
     new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
+  }
+
+  @Override
+  public void cleanTrashYes() {
+    trashPresenter.cleanTrashYes();
   }
 }

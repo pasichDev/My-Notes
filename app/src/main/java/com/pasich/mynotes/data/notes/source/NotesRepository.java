@@ -33,10 +33,7 @@ public class NotesRepository {
     }
 
     public LiveData<List<Note>> getNotes() {
-        LiveData<List<Note>> mNotes;
-        mNotes = noteDao.getNotes();
-
-        return mNotes;
+        return noteDao.getNotes();
     }
 
     public void insert(Note note) {

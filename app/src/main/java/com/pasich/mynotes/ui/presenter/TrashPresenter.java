@@ -24,8 +24,8 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
 
     @Override
     public void viewIsReady() {
-       getView().settingsNotesList(1, trashRepository.getNotes());
-       getView().initListeners();
+        getView().settingsNotesList(1, trashRepository.getNotes());
+        getView().initListeners();
     }
 
     @Override
@@ -35,6 +35,7 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
 
     @Override
     public void destroy() {
+        trashRepository.destroyInstance();
         data = null;
     }
 
@@ -42,5 +43,10 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
     @Override
     public void cleanTrashDialogStart() {
         if (isViewAttached()) getView().cleanTrashDialogShow();
+    }
+
+    @Override
+    public void cleanTrashYes() {
+        trashRepository.deleteAll();
     }
 }

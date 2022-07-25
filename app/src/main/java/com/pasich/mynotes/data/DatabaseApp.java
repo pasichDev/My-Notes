@@ -43,7 +43,15 @@ public abstract class DatabaseApp extends RoomDatabase {
                 sInstance
                     .noteDao()
                     .addNote(new Note().create("forNote", "myHistory classix", "22.33.55 224"));
+                  sInstance
+                          .trashDao()
+                          .moveToTrash(new TrashNote().create("Trash 1", "myHistory trash", "22.33.55 224"));
+                  sInstance
+                          .trashDao()
+                          .moveToTrash(new TrashNote().create("Trash 2", "myHistory trash 22", "22.33.55 224"));
               };
+
+
           executor.execute(runnable);
         }
       };

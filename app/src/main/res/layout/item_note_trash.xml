@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="checkedItem"
+            type="boolean" />
+
+        <variable
+            name="noteTrashItem"
+            type="com.pasich.mynotes.data.trash.TrashNote" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{checkedItem ? @drawable/item_note_background_selected :  @drawable/item_selected}">
+
+
+
+        <TextView
+            android:id="@+id/nameNote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/raleway_medium"
+            android:maxLines="1"
+            android:text="@{noteTrashItem.title}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="@{noteTrashItem.title.length() > 2 ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toTopOf="@+id/previewNote"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/previewNote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
+            android:text="@{noteTrashItem.value.length() > 200 ? noteTrashItem.value.substring(0,200) : noteTrashItem.value}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameNote" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
