@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
@@ -54,6 +55,9 @@ public class TagDialog extends DialogFragment {
                     if (noteTag.trim().length() >= 1) tagsAdapter.autChoseTag(noteTag);
                 });
 
+        if (noteTag.trim().length() >= 1) {
+            mView.getRootContainer().findViewById(R.id.removeTagForDialog).setVisibility(View.VISIBLE);
+        }
 
 
         mView.getSaveButton()

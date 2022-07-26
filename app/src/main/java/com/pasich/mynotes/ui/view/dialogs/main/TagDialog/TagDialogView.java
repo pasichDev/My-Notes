@@ -1,6 +1,7 @@
 package com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,7 +52,7 @@ public class TagDialogView extends InputTagView {
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams
                 (ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 10, 0, 0);
-
+        imageCLeanTag.setVisibility(View.GONE);
         imageCLeanTag.setLayoutParams(layoutParams);
 
         return imageCLeanTag;
