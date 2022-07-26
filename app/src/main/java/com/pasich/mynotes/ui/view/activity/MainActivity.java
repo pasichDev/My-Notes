@@ -38,6 +38,7 @@ import com.pasich.mynotes.utils.other.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -219,7 +220,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
   @Override
   public void deleteTag(Tag tag, boolean deleteNotes) {
-    mainPresenter.deleteTag(tag, deleteNotes);
+      try {
+          mainPresenter.deleteTag(tag, deleteNotes);
+      } catch (ExecutionException | InterruptedException e) {
+          e.printStackTrace();
+      }
   }
 
   @Override

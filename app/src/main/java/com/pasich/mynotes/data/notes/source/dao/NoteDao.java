@@ -10,6 +10,7 @@ import androidx.room.Update;
 
 import com.pasich.mynotes.data.notes.Note;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -30,8 +31,8 @@ public interface NoteDao {
   int getCountNotesTag(String nameTag);
 
 
-  @Query("DELETE FROM notes WHERE tag = :nameTag")
-  void deleteNotesForTag(String nameTag);
+  @Query("SELECT * FROM notes WHERE tag = :nameTag")
+  List<Note> getNotesForTag(String nameTag);
 
   @Query("UPDATE notes Set tag = '' WHERE tag = :nameTag")
   void clearTagForNotes(String nameTag);

@@ -10,6 +10,7 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface MainContract {
 
@@ -41,7 +42,7 @@ public interface MainContract {
 
         void addTag(String nameTag);
 
-        void deleteTag(Tag tag, boolean deleteNotes);
+        void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException;
 
         void editVisibility(Tag tag);
 

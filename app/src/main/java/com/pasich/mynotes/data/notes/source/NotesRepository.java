@@ -7,6 +7,7 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.dao.NoteDao;
 import com.pasich.mynotes.utils.DiskExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -54,9 +55,10 @@ public class NotesRepository {
         executor.execute(runnable);
     }
 
-    public void deleteNotesForTag(String nameTag) {
-        Runnable runnable = () -> noteDao.deleteNotesForTag(nameTag);
-        executor.execute(runnable);
+    public ArrayList<Note> getNotesFromTag(String nameTag) throws ExecutionException, InterruptedException {
+        Future<?> future = Executors.newSingleThreadExecutor()
+                .submit((Callable<?>) () -> noteDao.getNotesForTag(nameTag));
+        return (ArrayList<Note>) future.get();
     }
 
     public void clearTagForNotes(String nameTag) {

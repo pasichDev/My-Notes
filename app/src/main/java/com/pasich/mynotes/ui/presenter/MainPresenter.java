@@ -72,12 +72,16 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     }
 
     @Override
-    public void deleteTag(Tag tag, boolean deleteNotes) {
+    public void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException {
         if (data != null) {
             if (!deleteNotes) {
                 notesRepository.clearTagForNotes(tag.getNameTag());
             }else {
-                notesRepository.deleteNotesForTag(tag.getNameTag());
+                for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())){
+                    trashRepository.moveToTrash(note);
+                    notesRepository.deleteNote(note);
+                }
+
             }
             tagsRepository.deleteTag(tag);
         }

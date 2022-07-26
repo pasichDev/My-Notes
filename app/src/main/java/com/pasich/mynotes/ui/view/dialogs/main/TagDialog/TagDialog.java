@@ -51,7 +51,7 @@ public class TagDialog extends DialogFragment {
                 this,
                 tags -> {
                     tagsAdapter.submitList(tags);
-                    if (noteTag.length() >= 1) tagsAdapter.autChoseTag(noteTag);
+                    if (noteTag.trim().length() >= 1) tagsAdapter.autChoseTag(noteTag);
                 });
 
 
