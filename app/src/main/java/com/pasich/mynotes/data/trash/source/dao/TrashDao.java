@@ -17,8 +17,10 @@ public interface TrashDao {
   @Query("SELECT * FROM trash")
   LiveData<List<TrashNote>> getTrash();
 
+
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   void moveToTrash(TrashNote note);
+
 
   @Delete
   void deleteNote(TrashNote note);

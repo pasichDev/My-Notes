@@ -1,5 +1,7 @@
 package com.pasich.mynotes.data.trash.source;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import com.pasich.mynotes.data.notes.Note;
@@ -32,8 +34,11 @@ public class TrashRepository {
         return trashDao.getTrash();
     }
 
-    public void moveToTrash(Note note) {
-        Runnable runnable = () -> trashDao.moveToTrash(new TrashNote().convertNote(note));
+    public synchronized void moveToTrash(Note note) {
+        Runnable runnable = () ->{
+           trashDao.moveToTrash(new TrashNote().convertNote(note));
+        };
+
         executor.execute(runnable);
     }
 

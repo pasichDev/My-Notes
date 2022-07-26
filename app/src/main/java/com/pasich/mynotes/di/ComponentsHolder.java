@@ -11,6 +11,7 @@ import com.pasich.mynotes.di.dagger.DaggerAppComponent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -45,7 +46,7 @@ public class ComponentsHolder {
   public ActivityComponent getActivityComponent(Class<?> cls, ActivityModule module) {
     ActivityComponent component = components.get(cls);
     if (component == null) {
-      ActivityComponentBuilder builder = builders.get(cls).get();
+      ActivityComponentBuilder builder = Objects.requireNonNull(builders.get(cls)).get();
       if (module != null) {
         builder.module(module);
       }

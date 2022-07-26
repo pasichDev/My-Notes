@@ -50,7 +50,7 @@ public class TrashNote {
      * @return - получения заметка в новой модели
      */
     public TrashNote convertNote(Note note) {
-        return this.create(note.getTitle(),note.getValue(),note.getDate(),note.getType());
+        return new TrashNote().create(note.getTitle(),note.getValue(),note.getDate(),note.getType());
     }
 
     public String getTitle() {

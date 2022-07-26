@@ -20,7 +20,7 @@ public class CleanTrashDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-        final TrashView trashView = (TrashView) requireContext();
+        final TrashView trashView = (TrashView) getContext();
         final CleanTrashView view = new CleanTrashView(getLayoutInflater());
 
         ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
