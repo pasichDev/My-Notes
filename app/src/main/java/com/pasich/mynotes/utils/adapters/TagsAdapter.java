@@ -60,9 +60,11 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
   @Deprecated
   public void autChoseTag(String nameTag) {
-    int positionTag = getTagForName(nameTag);
-    getItem(positionTag).setSelected(true);
-    notifyItemChanged(positionTag, PAYLOAD_BACKGROUND);
+   if (getCurrentList().size() >= 1) {
+     int positionTag = getTagForName(nameTag);
+     getItem(positionTag).setSelected(true);
+     notifyItemChanged(positionTag, PAYLOAD_BACKGROUND);
+   }
   }
 
 
