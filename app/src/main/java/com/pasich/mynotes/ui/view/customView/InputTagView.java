@@ -47,7 +47,7 @@ public class InputTagView extends BaseView {
             new TextValidatorUtils(getInputTag()) {
               @Override
               public void validate(TextView textView, String text) {
-                validateText(text.length());
+                validateText(text.trim().length());
               }
             });
   }
