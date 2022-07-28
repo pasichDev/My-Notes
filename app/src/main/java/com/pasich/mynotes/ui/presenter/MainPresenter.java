@@ -1,7 +1,5 @@
 package com.pasich.mynotes.ui.presenter;
 
-import androidx.lifecycle.LiveData;
-
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -11,7 +9,6 @@ import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
@@ -52,6 +49,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     @Override
     public void destroy() {
         tagsRepository.destroyInstance();
+        trashRepository.destroyInstance();
         notesRepository.destroyInstance();
         data = null;
     }
@@ -127,17 +125,4 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         notesRepository.deleteNote(note);
     }
 
-
-    @Override
-    public void editTagNote(Tag tag, Note note) {
-        if (data != null) {
-            tagsRepository.insert(tag);
-            note.setTag(tag.getNameTag());
-            notesRepository.updateNote(note);
-        }
-    }
-
-    public  LiveData<List<Tag>> getTagsArray() {
-        return tagsRepository.getTagsUser();
-    }
 }

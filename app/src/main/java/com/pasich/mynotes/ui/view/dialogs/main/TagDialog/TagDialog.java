@@ -12,67 +12,91 @@ import androidx.lifecycle.LiveData;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.view.NoteView;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.ui.contract.TagDialogContract;
+import com.pasich.mynotes.ui.presenter.dialog.TagDialogPresenter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
 
 import java.util.List;
 
 
-public class TagDialog extends DialogFragment {
+public class TagDialog extends DialogFragment implements TagDialogContract.view {
 
     private final Note note;
-    private final LiveData<List<Tag>> tagList;
     private TagsAdapter tagsAdapter;
     private TagDialogView mView;
-    private NoteView noteView;
+    private final TagDialogPresenter dialogPresenter;
+    public final DataManager dataManager;
 
-    public TagDialog(Note note, LiveData<List<Tag>> tagList) {
 
+    public TagDialog(Note note) {
         this.note = note;
-        this.tagList = tagList;
+        this.dataManager = new DataManager();
+        this.dialogPresenter = new TagDialogPresenter();
+
     }
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
         mView = new TagDialogView(getLayoutInflater());
-        noteView = (NoteView) getContext();
-        final String noteTag = note.getTag();
 
+        init();
+
+        dialogPresenter.attachView(this);
+        dialogPresenter.setDataManager(dataManager);
+        dialogPresenter.viewIsReady();
+
+
+        builder.setContentView(mView.getRootContainer());
+        builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        return builder;
+    }
+
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        dialogPresenter.detachView();
+        mView = null;
+        requireActivity()
+                .getWindow()
+                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+
+    @Override
+    public void init() {
         mView.setTitle(
                 note.getTag().length() == 0
                         ? getString(R.string.selectTagForNote)
                         : getString(R.string.editSelectTagForNote));
 
-        tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
-        mView.listTags.setAdapter(tagsAdapter);
-        tagList.observe(
-                this,
-                tags -> {
-                    tagsAdapter.submitList(tags);
-                    if (noteTag.trim().length() >= 1) tagsAdapter.autChoseTag(noteTag);
-                });
 
-        if (noteTag.trim().length() >= 1) {
+        if (note.getTag().trim().length() >= 1) {
             mView.getRootContainer().findViewById(R.id.removeTagForDialog).setVisibility(View.VISIBLE);
         }
+    }
 
+    @Override
+    public void initListeners() {
 
         mView.getSaveButton()
                 .setOnClickListener(
                         view1 -> {
-                            assert noteView != null;
-                            noteView.editTagForNote(new Tag().create(mView.getInputTag().getText().toString()), note);
+                            dialogPresenter.createTagNote(new Tag().create(mView.getInputTag().getText().toString()), note);
                             dismiss();
                         });
         tagsAdapter.setOnItemClickListener(
                 new TagsAdapter.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
-                        noteView.editTagForNote(tagsAdapter.getCurrentList().get(position), note);
-                        dismiss();
+                        if (!tagsAdapter.getCurrentList().get(position).getNameTag().equals(note.getTag())) {
+                            dialogPresenter.editTagNote(tagsAdapter.getCurrentList().get(position), note);
+                            dismiss();
+                        }
                     }
 
                     @Override
@@ -81,18 +105,25 @@ public class TagDialog extends DialogFragment {
                     }
                 });
 
-        builder.setContentView(mView.getRootContainer());
-        builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        return builder;
+        mView.getRootContainer().findViewById(R.id.removeTagForDialog)
+                .setOnClickListener(
+                        view1 -> {
+                            dialogPresenter.removeTagNote(note);
+                            dismiss();
+                        });
     }
-
-
 
     @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-        requireActivity()
-                .getWindow()
-                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    public void settingsTagsList(int countColumn, LiveData<List<Tag>> tagsList) {
+        tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
+        mView.listTags.setAdapter(tagsAdapter);
+        tagsList.observe(
+                this,
+                tags -> {
+                    tagsAdapter.submitList(tags);
+                    if (note.getTag().trim().length() >= 1) tagsAdapter.autChoseTag(note.getTag());
+                });
     }
+
+
 }

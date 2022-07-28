@@ -54,9 +54,5 @@ public interface MainContract {
 
         void deleteNote(Note note);
 
-
-        void editTagNote(Tag tag, Note note);
-
-        LiveData<List<Tag>> getTagsArray();
     }
 }

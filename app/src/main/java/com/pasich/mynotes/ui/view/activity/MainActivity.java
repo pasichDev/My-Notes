@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 
@@ -197,15 +196,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
   public void actionStartNote() {
 
   }
-
-  @Override
-  public void editTagForNote(Tag tag, Note note) {
-    mainPresenter.editTagNote(tag,note);
-  }
-
     @Override
     public void tagNoteSelected(Note note) {
-      new TagDialog(note, mainPresenter.getTagsArray()).show(getSupportFragmentManager(), "EditDIalog");
+      new TagDialog(note).show(getSupportFragmentManager(), "EditDIalog");
     }
 
     @Override
