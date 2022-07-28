@@ -15,7 +15,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.ui.contract.TagDialogContract;
+import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialog.TagDialogPresenter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
 

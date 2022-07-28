@@ -60,25 +60,29 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
   @Deprecated
   public void autChoseTag(String nameTag) {
-   if (getCurrentList().size() >= 1) {
-     int positionTag = getTagForName(nameTag);
-     getItem(positionTag).setSelected(true);
-     notifyItemChanged(positionTag, PAYLOAD_BACKGROUND);
-   }
+    if (getCurrentList().size() >= 1) {
+      int positionTag = getTagForName(nameTag);
+      getItem(positionTag).setSelected(true);
+      notifyItemChanged(positionTag, PAYLOAD_BACKGROUND);
+    }
   }
 
+  public void removeOldCheck() {
+    int positionSelected = getCheckedPosition();
+    getItem(positionSelected).setSelected(false);
+    notifyItemChanged(positionSelected, PAYLOAD_BACKGROUND);
+  }
 
 
   /**
    * Метод который реализует выбор метки
+   *
    * @param position
    */
 
   @Deprecated
   public void chooseTag(int position) {
-    int positionSelected = getCheckedPosition();
-    getItem(positionSelected).setSelected(false);
-    notifyItemChanged(positionSelected, PAYLOAD_BACKGROUND);
+    removeOldCheck();
     getItem(position).setSelected(true);
     notifyItemChanged(position, PAYLOAD_BACKGROUND);
   }

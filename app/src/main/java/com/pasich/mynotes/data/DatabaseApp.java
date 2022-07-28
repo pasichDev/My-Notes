@@ -31,18 +31,18 @@ public abstract class DatabaseApp extends RoomDatabase {
           super.onCreate(db);
           Runnable runnable =
               () -> {
-                TagsDao dao = sInstance.tagsDao();
-                dao.deleteAll();
+                  TagsDao dao = sInstance.tagsDao();
+                  dao.deleteAll();
 
-                dao.addTag(new Tag().create("", 1, false));
-                dao.addTag(new Tag().create("allNotes", 2, true));
+                  dao.addTag(new Tag().create("", 1));
+                  dao.addTag(new Tag().create("allNotes", 2));
 
-                sInstance
-                    .noteDao()
-                    .addNote(new Note().create("allNotes", "myHistory classix", "22.33.55 224"));
-                sInstance
-                    .noteDao()
-                    .addNote(new Note().create("forNote", "myHistory classix", "22.33.55 224"));
+                  sInstance
+                          .noteDao()
+                          .addNote(new Note().create("allNotes", "myHistory classix", "22.33.55 224"));
+                  sInstance
+                          .noteDao()
+                          .addNote(new Note().create("forNote", "myHistory classix", "22.33.55 224"));
 
               };
 

@@ -43,217 +43,224 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements MainContract.view {
 
-  @Inject public MainContract.presenter mainPresenter;
-  @Inject public MainUtils utils;
-  @Inject public FormatListUtils formatList;
-  @Inject public DataManager dataManager;
+    @Inject
+    public MainContract.presenter mainPresenter;
+    @Inject
+    public MainUtils utils;
+    @Inject
+    public FormatListUtils formatList;
+    @Inject
+    public DataManager dataManager;
 
-  private ActivityMainBinding binding;
-  private TagsAdapter tagsAdapter;
-  private NotesAdapter notesAdapter;
+    private ActivityMainBinding binding;
+    private TagsAdapter tagsAdapter;
+    private NotesAdapter notesAdapter;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
-    init();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
+        init();
 
-    mainPresenter.attachView(this);
-    mainPresenter.setDataManager(dataManager);
-    mainPresenter.viewIsReady();
+        mainPresenter.attachView(this);
+        mainPresenter.setDataManager(dataManager);
+        mainPresenter.viewIsReady();
 
-  // startActivity(new Intent(MainActivity.this, TrashActivity.class));
-  }
-
-  @Override
-  public void init() {
-      getApp()
-              .getComponentsHolder()
-              .getActivityComponent(getClass(), new MainActivityModule())
-              .inject(MainActivity.this);
-    binding.setPresenter((MainPresenter) mainPresenter);
-  }
-
-  @Override
-  public void initListeners() {
-
-    tagsAdapter.setOnItemClickListener(
-        new TagsAdapter.OnItemClickListener() {
-          @Override
-          public void onClick(int position) {
-            mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
-          }
-
-          @Override
-          public void onLongClick(int position) {
-            mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
-          }
-        });
-
-    notesAdapter.setOnItemClickListener(
-        new NotesAdapter.OnItemClickListener() {
-
-          @Override
-          public void onClick(int position) {}
-
-          @Override
-          public void onLongClick(int position) {
-            mainPresenter.clickLongNote(notesAdapter.getCurrentList().get(position));
-          }
-        });
-
-    binding.actionSearch.setOnQueryTextListener(
-            new SearchView.OnQueryTextListener() {
-              @Override
-              public boolean onQueryTextSubmit(String query) {
-                return false;
-              }
-
-              @Override
-              public boolean onQueryTextChange(String newText) {
-
-                return false;
-              }
-            });
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    mainPresenter.detachView();
-    if (isFinishing()) {
-      mainPresenter.destroy();
-      getApp().getComponentsHolder().releaseActivityComponent(getClass());
+        // startActivity(new Intent(MainActivity.this, TrashActivity.class));
     }
-  }
 
-  @Override
-  public void settingsSearchView() {
-    binding.actionSearch.setSubmitButtonEnabled(false);
-    LinearLayout llSearchView = (LinearLayout) binding.actionSearch.getChildAt(0);
-    llSearchView.addView(utils.addButtonSearchView(this, R.drawable.ic_sort, R.id.sortButton));
-    llSearchView.addView(
-        utils.addButtonSearchView(this, R.drawable.ic_edit_format_list, R.id.formatButton));
-    formatList.init(findViewById(R.id.formatButton));
+    @Override
+    public void init() {
+        getApp()
+                .getComponentsHolder()
+                .getActivityComponent(getClass(), new MainActivityModule())
+                .inject(MainActivity.this);
+        binding.setPresenter((MainPresenter) mainPresenter);
+    }
 
-      binding.actionSearch.setOnQueryTextFocusChangeListener(
-              (v, hasFocus) -> {
-                Log.wtf("pasic", "focus  " + hasFocus);
-                binding.listTags.setVisibility(View.GONE);
-                findViewById(R.id.sortButton).setVisibility(View.GONE);
-                findViewById(R.id.formatButton).setVisibility(View.GONE);
+    @Override
+    public void initListeners() {
 
-              });
-      binding.actionSearch.setOnCloseListener(
-              () -> {
-                Log.wtf("pasic", "close  ");
-                findViewById(R.id.sortButton).setVisibility(View.VISIBLE);
-                findViewById(R.id.formatButton).setVisibility(View.VISIBLE);
-                binding.actionSearch.setFocusable(false);
-                return false;
-              });
-  }
+        tagsAdapter.setOnItemClickListener(
+                new TagsAdapter.OnItemClickListener() {
+                    @Override
+                    public void onClick(int position) {
+                        mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
+                    }
 
-  @Override
-  public void settingsTagsList(LiveData<List<Tag>> tagList) {
-    binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
-    binding.listTags.setLayoutManager(
-        new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+                    @Override
+                    public void onLongClick(int position) {
+                        mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
+                    }
+                });
 
-    tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
-    binding.listTags.setAdapter(tagsAdapter);
-    tagList.observe(
-        this,
-        tags -> {
-          tagsAdapter.submitList(tags);
-        });
-  }
+        notesAdapter.setOnItemClickListener(
+                new NotesAdapter.OnItemClickListener() {
 
-  @Override
-  public void settingsNotesList(int countColumn, LiveData<List<Note>> noteList) {
-    binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
-    binding.listNotes.setLayoutManager(
-        new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
-    notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
-    binding.listNotes.setAdapter(notesAdapter);
-    noteList.observe(
-        this,
-        notes -> {
-          notesAdapter.submitList(notes);
-     //     binding.listNotes.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.recycle_view_animation));
-        });
-  }
+                    @Override
+                    public void onClick(int position) {
+                    }
+
+                    @Override
+                    public void onLongClick(int position) {
+                        mainPresenter.clickLongNote(notesAdapter.getCurrentList().get(position));
+                    }
+                });
+
+        binding.actionSearch.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+
+                        return false;
+                    }
+                });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mainPresenter.detachView();
+        if (isFinishing()) {
+            mainPresenter.destroy();
+            getApp().getComponentsHolder().releaseActivityComponent(getClass());
+        }
+    }
+
+    @Override
+    public void settingsSearchView() {
+        binding.actionSearch.setSubmitButtonEnabled(false);
+        LinearLayout llSearchView = (LinearLayout) binding.actionSearch.getChildAt(0);
+        llSearchView.addView(utils.addButtonSearchView(this, R.drawable.ic_sort, R.id.sortButton));
+        llSearchView.addView(
+                utils.addButtonSearchView(this, R.drawable.ic_edit_format_list, R.id.formatButton));
+        formatList.init(findViewById(R.id.formatButton));
+
+        binding.actionSearch.setOnQueryTextFocusChangeListener(
+                (v, hasFocus) -> {
+                    Log.wtf("pasic", "focus  " + hasFocus);
+                    binding.listTags.setVisibility(View.GONE);
+                    findViewById(R.id.sortButton).setVisibility(View.GONE);
+                    findViewById(R.id.formatButton).setVisibility(View.GONE);
+
+                });
+        binding.actionSearch.setOnCloseListener(
+                () -> {
+                    Log.wtf("pasic", "close  ");
+                    findViewById(R.id.sortButton).setVisibility(View.VISIBLE);
+                    findViewById(R.id.formatButton).setVisibility(View.VISIBLE);
+                    binding.actionSearch.setFocusable(false);
+                    return false;
+                });
+    }
+
+    @Override
+    public void settingsTagsList(LiveData<List<Tag>> tagList) {
+        binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
+        binding.listTags.setLayoutManager(
+                new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+
+        tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
+        binding.listTags.setAdapter(tagsAdapter);
+        tagList.observe(
+                this,
+                tags -> {
+                    int positionSelected = tagsAdapter.getCheckedPosition();
+                    if (tagsAdapter.getCurrentList().size() >= 1)
+                        tagsAdapter.removeOldCheck();
+                    tagsAdapter.submitList(tags);
+
+                });
+    }
+
+    @Override
+    public void settingsNotesList(int countColumn, LiveData<List<Note>> noteList) {
+        binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
+        binding.listNotes.setLayoutManager(
+                new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
+        notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
+        binding.listNotes.setAdapter(notesAdapter);
+        noteList.observe(
+                this,
+                notes -> {
+                    notesAdapter.submitList(notes);
+                    binding.setEmptyNotes(!(notes.size() >= 1));
+                });
+    }
 
 
+    @Override
+    public void deleteNote(Note note) {
+        mainPresenter.deleteNote(note);
+    }
 
+    @Override
+    public void actionStartNote() {
 
-  @Override
-  public void deleteNote(Note note) {
-    mainPresenter.deleteNote(note);
-  }
+    }
 
-  @Override
-  public void actionStartNote() {
-
-  }
     @Override
     public void tagNoteSelected(Note note) {
-      new TagDialog(note).show(getSupportFragmentManager(), "EditDIalog");
+        new TagDialog(note).show(getSupportFragmentManager(), "EditDIalog");
     }
 
     @Override
-  public void selectTagUser(int position) {
-    tagsAdapter.chooseTag(position);
-  }
+    public void selectTagUser(int position) {
+        tagsAdapter.chooseTag(position);
+    }
 
-  @Override
-  public void addTag(String nameTag) {
-    mainPresenter.addTag(nameTag);
-  }
+    @Override
+    public void addTag(String nameTag) {
+        mainPresenter.addTag(nameTag);
+    }
 
-  @Override
-  public void deleteTag(Tag tag, boolean deleteNotes) {
-      try {
-          mainPresenter.deleteTag(tag, deleteNotes);
-      } catch (ExecutionException | InterruptedException e) {
-          e.printStackTrace();
-      }
-  }
+    @Override
+    public void deleteTag(Tag tag, boolean deleteNotes) {
+        try {
+            mainPresenter.deleteTag(tag, deleteNotes);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-  @Override
-  public void editVisibility(Tag tag) {
-    mainPresenter.editVisibility(tag);
-  }
+    @Override
+    public void editVisibility(Tag tag) {
+        mainPresenter.editVisibility(tag);
+    }
 
-  @Override
-  public void newNotesButton() {
-    startActivity(new Intent(this, NoteActivity.class));
-  }
+    @Override
+    public void newNotesButton() {
+        startActivity(new Intent(this, NoteActivity.class));
+    }
 
-  @Override
-  public void moreActivity() {
-    new MoreActivityDialog().show(getSupportFragmentManager(), "more activity");
-  }
+    @Override
+    public void moreActivity() {
+        new MoreActivityDialog().show(getSupportFragmentManager(), "more activity");
+    }
 
-  @Override
-  public void startCreateTagDialog() {
-    new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
-  }
+    @Override
+    public void startCreateTagDialog() {
+        new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
+    }
 
-  @Override
-  public void choiceTagDialog(Tag tag, Integer[] arg) {
-    new ChoiceTagDialog(tag, arg).show(getSupportFragmentManager(), "ChoiceDialog");
-  }
+    @Override
+    public void choiceTagDialog(Tag tag, Integer[] arg) {
+        new ChoiceTagDialog(tag, arg).show(getSupportFragmentManager(), "ChoiceDialog");
+    }
 
-  @Override
-  public void choiceNoteDialog(Note note) {
-    new ChoiceNoteDialog(note).show(getSupportFragmentManager(), "ChoiceDialog");
-  }
+    @Override
+    public void choiceNoteDialog(Note note) {
+        new ChoiceNoteDialog(note).show(getSupportFragmentManager(), "ChoiceDialog");
+    }
 
 
-
-  @Override
-  public void onBackPressed() {
-    utils.CloseApp(MainActivity.this);
-  }
+    @Override
+    public void onBackPressed() {
+        utils.CloseApp(MainActivity.this);
+    }
 }

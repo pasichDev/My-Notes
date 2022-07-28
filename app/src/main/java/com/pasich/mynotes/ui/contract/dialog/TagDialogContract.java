@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.contract;
+package com.pasich.mynotes.ui.contract.dialog;
 
 
 import androidx.lifecycle.LiveData;

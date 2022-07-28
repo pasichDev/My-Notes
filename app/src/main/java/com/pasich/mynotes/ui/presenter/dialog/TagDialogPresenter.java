@@ -7,7 +7,7 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.TagsRepository;
-import com.pasich.mynotes.ui.contract.TagDialogContract;
+import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
 
 
 public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>

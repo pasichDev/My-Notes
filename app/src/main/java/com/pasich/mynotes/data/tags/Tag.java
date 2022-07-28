@@ -32,14 +32,13 @@ public class Tag {
   @ColumnInfo(name = "systemAction")
   private int systemAction = 0;
 
-  @ColumnInfo(name = "selected")
+
   @Ignore
   private boolean selected = false;
 
-  public Tag create(String nameTag, int systemAction, boolean selected) {
+  public Tag create(String nameTag, int systemAction) {
     this.nameTag = nameTag;
     this.systemAction = systemAction;
-    this.selected = selected;
 
     return this;
   }

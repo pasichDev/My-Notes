@@ -121,7 +121,9 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
     @Override
     public void deleteNote(Note note) {
-        trashRepository.moveToTrash(note);
+       synchronized (this) {
+           trashRepository.moveToTrash(note);
+       }
         notesRepository.deleteNote(note);
     }
 

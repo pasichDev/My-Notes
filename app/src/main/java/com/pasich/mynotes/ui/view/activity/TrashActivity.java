@@ -32,8 +32,9 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
   private ActivityTrashBinding binding;
 
-  private TrashNotesAdapter notesAdapter;
-  @Inject public TrashContract.presenter trashPresenter;
+  private TrashNotesAdapter notesTrashAdapter;
+  @Inject
+  public TrashContract.presenter trashPresenter;
   @Inject public DataManager dataManager;
 
   @Override
@@ -108,12 +109,14 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
     binding.ListTrash.addItemDecoration(new SpacesItemDecoration(15));
     binding.ListTrash.setLayoutManager(
             new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
-    notesAdapter = new TrashNotesAdapter(new TrashNotesAdapter.noteDiff());
-    binding.ListTrash.setAdapter(notesAdapter);
+    notesTrashAdapter = new TrashNotesAdapter(new TrashNotesAdapter.noteDiff());
+    binding.ListTrash.setAdapter(notesTrashAdapter);
     noteList.observe(
             this,
-            notes -> { notesAdapter.submitList((List<TrashNote>) notes);
-              });
+            notes -> {
+              notesTrashAdapter.submitList((List<TrashNote>) notes);
+              binding.setEmptyNotesTrash(!(notes.size() >= 1));
+            });
   }
 
   @Override
