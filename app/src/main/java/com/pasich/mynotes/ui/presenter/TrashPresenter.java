@@ -24,6 +24,7 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
 
     @Override
     public void viewIsReady() {
+        getView().settingsActionBar();
         getView().settingsNotesList(1, trashRepository.getNotes());
         getView().initListeners();
     }

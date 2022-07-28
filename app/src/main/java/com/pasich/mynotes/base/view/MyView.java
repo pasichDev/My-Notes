@@ -4,4 +4,6 @@ public interface MyView {
   void init();
 
   void initListeners();
+
+  void settingsActionBar();
 }

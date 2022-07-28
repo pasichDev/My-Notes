@@ -22,7 +22,6 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
-import com.pasich.mynotes.otherClasses.controllers.activity.NoteActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog.ChoiceNoteDialog;
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mainPresenter.setDataManager(dataManager);
         mainPresenter.viewIsReady();
 
-        // startActivity(new Intent(MainActivity.this, TrashActivity.class));
     }
 
     @Override
@@ -120,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                         return false;
                     }
                 });
+    }
+
+    @Override
+    public void settingsActionBar() {
+
     }
 
     @Override

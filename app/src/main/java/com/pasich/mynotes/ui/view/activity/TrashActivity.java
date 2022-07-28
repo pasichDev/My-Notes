@@ -55,36 +55,33 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
             .getComponentsHolder()
             .getActivityComponent(getClass(), new TrashActivityModule())
             .inject(TrashActivity.this);
-    setupActionBar();
-    binding.setPresenter((TrashPresenter) trashPresenter);
+      binding.setPresenter((TrashPresenter) trashPresenter);
   }
 
-  @Override
-  public void initListeners() {
+    @Override
+    public void initListeners() {
 
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    trashPresenter.detachView();
-    if (isFinishing()) {
-      trashPresenter.destroy();
-      getApp().getComponentsHolder().releaseActivityComponent(getClass());
     }
-  }
 
-  /** Method that sets up the Activity's ActionBar */
-  private void setupActionBar() {
-    setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
-    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
-  }
+    @Override
+    public void settingsActionBar() {
+        setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        trashPresenter.detachView();
+        if (isFinishing()) {
+            trashPresenter.destroy();
+            getApp().getComponentsHolder().releaseActivityComponent(getClass());
+        }
+    }
 
 
-
-
-  @Override
+    @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
     return true;

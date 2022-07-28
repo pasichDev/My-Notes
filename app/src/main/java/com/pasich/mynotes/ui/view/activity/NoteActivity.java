@@ -1,41 +1,91 @@
-package com.pasich.mynotes.otherClasses.controllers.activity;
+package com.pasich.mynotes.ui.view.activity;
 
-import android.content.Intent;
+import static com.pasich.mynotes.di.App.getApp;
+
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.databinding.ActivityNoteBinding;
+import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.otherClasses.models.NoteModel;
 import com.pasich.mynotes.otherClasses.view.NoteView;
+import com.pasich.mynotes.ui.contract.NoteContract;
+import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 
 import java.util.Objects;
 
-public class NoteActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public class NoteActivity extends AppCompatActivity implements NoteContract.view {
 
   private NoteView NoteVIew;
   private NoteModel NoteModel;
 
+
+  @Inject
+  public DataManager dataManager;
+  @Inject
+  public NoteContract.presenter notePresenter;
+
+  private ActivityNoteBinding binding;
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_note);
+    binding = DataBindingUtil.setContentView(NoteActivity.this, R.layout.activity_note);
+    init();
 
+    notePresenter.attachView(this);
+    notePresenter.setDataManager(dataManager);
+    notePresenter.viewIsReady();
+
+    /*
     NoteModel = new NoteModel(this, NoteVIew = new NoteView(getWindow().getDecorView()));
-    setSupportActionBar(findViewById(R.id.toolbar_actionbar));
-    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
     initializationActivity();
 
     NoteVIew.activatedButton.setOnClickListener(view -> NoteVIew.activatedActivity());
+
+     */
   }
 
-  /** Метод который */
+
+  @Override
+  public void init() {
+    getApp()
+            .getComponentsHolder()
+            .getActivityComponent(getClass(), new NoteActivityModule())
+            .inject(NoteActivity.this);
+    binding.setPresenter((NotePresenter) notePresenter);
+  }
+
+  @Override
+  public void initListeners() {
+
+  }
+
+  @Override
+  public void settingsActionBar() {
+    setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
+    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+  }
+
+  /**
+   * Метод который
+   */
   private void initializationActivity() {
     if (NoteModel.newNoteKey) {
       NoteVIew.activatedActivity();
@@ -96,19 +146,41 @@ public class NoteActivity extends AppCompatActivity {
   @Override
   public void onDestroy() {
     super.onDestroy();
-    NoteModel.closeConnection();
+    //  NoteModel.closeConnection();
   }
 
 
   private void closeNotesSave() {
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    Intent intent = new Intent();
     if (NoteVIew.valueNote.length() >= 2) {
-      saveNote();
-      intent.putExtra("RestartListView", true);
+      //   saveNote();
     }
-    intent.putExtra("tagNote", NoteModel.tagNote);
-    setResult(24, intent);
     finish();
+  }
+
+
+  @Override
+  public void settingsEditTextNote(String textStyle) {
+    int styleSel;
+    switch (textStyle) {
+      case "italic":
+        styleSel = Typeface.ITALIC;
+        break;
+      case "bold":
+        styleSel = Typeface.BOLD;
+        break;
+      case "bold-italic":
+        styleSel = Typeface.BOLD_ITALIC;
+        break;
+      default:
+        styleSel = Typeface.NORMAL;
+        break;
+    }
+    binding.valueNote.setTypeface(null, styleSel);
+  }
+
+  @Override
+  public void textSizeValueNote(int sizeText) {
+    binding.valueNote.setTextSize(sizeText == 0 ? 16 : sizeText);
   }
 }
