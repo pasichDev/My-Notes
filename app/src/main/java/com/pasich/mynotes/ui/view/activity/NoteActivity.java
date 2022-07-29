@@ -16,7 +16,6 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.di.note.NoteActivityModule;
-import com.pasich.mynotes.otherClasses.view.NoteView;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
@@ -27,7 +26,6 @@ import javax.inject.Inject;
 
 public class NoteActivity extends AppCompatActivity implements NoteContract.view {
 
-  private NoteView NoteVIew;
 
   public String shareText, tagNote;
   public int idKey;
@@ -70,7 +68,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     if (newNoteKey) {
       activatedActivity();
       if (shareText != null && shareText.length() > 5)
-        NoteVIew.valueNote.setText(shareText);
+        binding.valueNote.setText(shareText);
     } else if (idKey >= 1) {
       notePresenter.loadingData(idKey);
     }
