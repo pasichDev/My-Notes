@@ -26,7 +26,6 @@ import javax.inject.Inject;
 
 public class NoteActivity extends AppCompatActivity implements NoteContract.view {
 
-
   public String shareText, tagNote;
   public int idKey;
   public boolean newNoteKey;
