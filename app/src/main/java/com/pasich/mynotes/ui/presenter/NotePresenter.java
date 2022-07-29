@@ -61,4 +61,9 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void activateEditNote() {
+        getView().activatedActivity();
+    }
 }

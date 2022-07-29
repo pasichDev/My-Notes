@@ -17,6 +17,8 @@ public interface NoteContract {
 
         void closeNoteActivity();
 
+        void activatedActivity();
+
         void loadingNote(Note note);
 
 
@@ -26,5 +28,7 @@ public interface NoteContract {
         void closeActivity();
 
         void loadingData(int idNote);
+
+        void activateEditNote();
     }
 }

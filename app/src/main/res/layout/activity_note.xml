@@ -10,6 +10,11 @@
             name="presenter"
             type="com.pasich.mynotes.ui.presenter.NotePresenter" />
 
+        <variable
+            name="activateEdit"
+            android:value="false"
+            type="boolean" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
@@ -32,16 +37,18 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar">
 
 
-        <TextView
-            android:id="@+id/dataEditNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:textColor="?attr/colorLight"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notesTitle" />
+            <TextView
+                android:id="@+id/dataEditNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:textColor="?attr/colorLight"
+                android:textSize="14sp"
+                android:focusable="@{activateEdit, default=false}"
+                android:focusableInTouchMode="@{activateEdit, default=false}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/notesTitle" />
 
 
         <EditText
@@ -57,6 +64,8 @@
             android:inputType="text|textImeMultiLine"
             android:maxLines="3"
             android:singleLine="false"
+            android:focusable="@{activateEdit, default=false}"
+            android:focusableInTouchMode="@{activateEdit, default=false}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -129,8 +138,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:visibility="@{activateEdit ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{(view) -> presenter.activateEditNote()}"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_edit" />
 
@@ -139,7 +150,7 @@
             style="?android:attr/actionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:visibility="invisible"
+            android:visibility="@{activateEdit ? View.VISIBLE : View.INVISIBLE}"
             android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

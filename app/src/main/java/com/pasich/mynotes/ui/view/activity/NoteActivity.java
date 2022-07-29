@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -87,19 +86,10 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
   }
 
 
-  @Deprecated
+  @Override
   public void activatedActivity() {
-    /**
-     * єту шляпу нужно переписать под биндинг
-     * в режимим активации
-     */
-    binding.notesTitle.setFocusable(true);
-    binding.notesTitle.setFocusableInTouchMode(true);
-    binding.valueNote.setFocusable(true);
-    binding.valueNote.setFocusableInTouchMode(true);
+    binding.setActivateEdit(true);
     binding.valueNote.requestFocus();
-    binding.editActive.setVisibility(View.GONE);
-    binding.spechStart.setVisibility(View.VISIBLE);
   }
 
   private void saveNote() {
