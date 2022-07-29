@@ -33,6 +33,7 @@ public interface MainContract {
 
         void selectTagUser(int position);
 
+        void openNoteEdit(int idNote);
     }
 
     interface presenter extends MyPresenter<view> {
@@ -49,6 +50,8 @@ public interface MainContract {
         void clickTag(Tag tag, int position);
 
         void clickLongTag(Tag tag);
+
+        void clickNote(int idNote);
 
         void clickLongNote(Note note);
 

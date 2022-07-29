@@ -115,14 +115,19 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     }
 
     @Override
+    public void clickNote(int idNote) {
+        getView().openNoteEdit(idNote);
+    }
+
+    @Override
     public void clickLongNote(Note note) {
         getView().choiceNoteDialog(note);
     }
 
     @Override
     public void deleteNote(Note note) {
-       synchronized (this) {
-           trashRepository.moveToTrash(note);
+        synchronized (this) {
+            trashRepository.moveToTrash(note);
        }
         notesRepository.deleteNote(note);
     }

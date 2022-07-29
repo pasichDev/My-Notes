@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
                     @Override
                     public void onClick(int position) {
+                        mainPresenter.clickNote(notesAdapter.getCurrentList().get(position).getId());
                     }
 
                     @Override
@@ -218,6 +219,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
+    public void openNoteEdit(int idNote) {
+        startActivity(new Intent(this, NoteActivity.class)
+                .putExtra("NewNote", false)
+                .putExtra("idNote", idNote)
+                .putExtra("tagNote", ""));
+    }
+
+    @Override
     public void addTag(String nameTag) {
         mainPresenter.addTag(nameTag);
     }
@@ -238,7 +247,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void newNotesButton() {
-        startActivity(new Intent(this, NoteActivity.class));
+        startActivity(new Intent(this, NoteActivity.class)
+                .putExtra("NewNote", true)
+                .putExtra("tagNote", ""));
     }
 
     @Override

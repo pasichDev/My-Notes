@@ -37,7 +37,7 @@ public class NotesRepository {
         return noteDao.getNotes();
     }
 
-    public void insert(Note note) {
+    public void addNote(Note note) {
 
         Runnable runnable = () -> noteDao.addNote(note);
         executor.execute(runnable);
@@ -70,6 +70,12 @@ public class NotesRepository {
         Future<?> future = Executors.newSingleThreadExecutor()
                 .submit((Callable<?>) () -> noteDao.getCountNotesTag(nameTag));
         return (int) future.get();
+    }
+
+    public Note getNoteFromId(int idNote) throws ExecutionException, InterruptedException {
+        Future<?> future = Executors.newSingleThreadExecutor()
+                .submit((Callable<?>) () -> noteDao.getNoteForId(idNote));
+        return (Note) future.get();
     }
 
     public void destroyInstance() {

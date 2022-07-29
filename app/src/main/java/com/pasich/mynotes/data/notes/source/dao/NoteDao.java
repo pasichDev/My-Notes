@@ -10,7 +10,6 @@ import androidx.room.Update;
 
 import com.pasich.mynotes.data.notes.Note;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -39,4 +38,7 @@ public interface NoteDao {
 
   @Query("DELETE FROM notes")
   void deleteAll();
+
+  @Query("SELECT * FROM notes WHERE id=:idNote")
+  Note getNoteForId(int idNote);
 }

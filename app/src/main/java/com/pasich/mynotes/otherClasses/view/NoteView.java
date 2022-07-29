@@ -36,13 +36,4 @@ public class NoteView {
      */
 
 
-    public void activatedActivity() {
-    titleName.setFocusable(true);
-    titleName.setFocusableInTouchMode(true);
-    valueNote.setFocusable(true);
-    valueNote.setFocusableInTouchMode(true);
-    valueNote.requestFocus();
-    activatedButton.setVisibility(View.GONE);
-    spechStart.setVisibility(View.VISIBLE);
-  }
 }
