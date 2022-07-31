@@ -8,6 +8,7 @@
     tools:context=".ui.view.activity.SplashActivity">
 
     <ImageView
+        android:id="@+id/splashImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="266dp"

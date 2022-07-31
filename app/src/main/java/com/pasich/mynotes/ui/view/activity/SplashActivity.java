@@ -1,13 +1,17 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 
 import com.pasich.mynotes.R;
+import com.preference.PowerPreference;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
   @Override
@@ -15,34 +19,38 @@ public class SplashActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
 
-    if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("splashEnable", true)) {
-      initialization();
+    startAnimation();
+  }
+
+  private void startAnimation() {
+
+    if (!PowerPreference.getDefaultFile().getBoolean("splashEnable", true)) {
+      startNextActivity();
     } else {
-      finish();
-      startActivity(new Intent(SplashActivity.this, MainActivity.class));
-      overridePendingTransition(0, 0);
+      Animation mAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.spalsh_start_activity_animation);
+      mAnimation.setAnimationListener(new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+          startNextActivity();
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+        }
+      });
+      findViewById(R.id.splashImage).startAnimation(mAnimation);
+
     }
   }
 
-  private void initialization() {
-    Thread splashScreenStarter =
-        new Thread() {
-          public void run() {
-            try {
-              int delay = 0;
-              while (delay < 2000) {
-                sleep(100);
-                delay = delay + 100;
-              }
-              startActivity(new Intent(SplashActivity.this, MainActivity.class));
 
-            } catch (InterruptedException e) {
-              e.printStackTrace();
-            } finally {
-              finish();
-            }
-          }
-        };
-    splashScreenStarter.start();
+  private void startNextActivity() {
+    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+    finish();
   }
+
 }
