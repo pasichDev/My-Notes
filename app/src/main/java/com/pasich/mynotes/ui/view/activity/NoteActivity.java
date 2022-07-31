@@ -178,9 +178,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void closeNoteActivity() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        if (binding.valueNote.getText().toString().trim().length() >= 2 &&
-                !binding.valueNote.getText().toString().equals(mNote.getValue())
-                || !binding.notesTitle.getText().toString().equals(mNote.getTitle())) {
+        if (binding.valueNote.getText().toString().trim().length() >= 2) {
             saveNote();
         }
         finish();
@@ -195,7 +193,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                     mValue,
                     mThisDate
             ));
-        } else {
+        } else if (!mValue.equals(mNote.getValue())
+                || !mTitle.equals(mNote.getTitle())) {
 
             if (!mNote.getTitle().contentEquals(mTitle)) mNote.setTitle(mTitle);
             if (!mNote.getValue().contentEquals(mValue)) {

@@ -11,7 +11,6 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.ChoiceModel;
-import com.pasich.mynotes.base.interfaces.SortInterface;
 import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
@@ -24,7 +23,7 @@ public class ChooseSortDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ListDialogView view = new ListDialogView(getLayoutInflater());
-    final SortInterface SortInterface = (SortInterface) getContext();
+   // final SortInterface SortInterface = (SortInterface) getContext();
     final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
     final String sortParam =
         PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -67,12 +66,12 @@ public class ChooseSortDialog extends DialogFragment {
             (parent, v, position, id) -> {
               String sortPar = arraySortOption.get(position).getAction();
               requireContext()
-                  .getSharedPreferences("com.pasich.mynotes_preferences", Context.MODE_PRIVATE)
-                  .edit()
-                  .putString("sortPref", sortPar)
-                  .apply();
-              assert SortInterface != null;
-              SortInterface.sortList(sortPar);
+                      .getSharedPreferences("com.pasich.mynotes_preferences", Context.MODE_PRIVATE)
+                      .edit()
+                      .putString("sortPref", sortPar)
+                      .apply();
+              //     assert SortInterface != null;
+              //      SortInterface.sortList(sortPar);
               dismiss();
             });
     builder.setContentView(view.getRootContainer());

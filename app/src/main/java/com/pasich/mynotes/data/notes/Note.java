@@ -5,14 +5,22 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.util.Comparator;
+
 @Entity(
-    tableName = "notes",
-    indices = {
-      @Index(
-          value = {"title"},
-          unique = true)
-    })
+        tableName = "notes",
+        indices = {
+                @Index(
+                        value = {"title"},
+                        unique = true)
+        })
 public class Note {
+
+  public static Comparator<Note> COMPARE_BY_DATE_SORT =
+          (one, other) -> one.getDate().compareTo(other.getDate());
+  public static Comparator<Note> COMPARE_BY_DATE_REVERSE =
+          (one, other) -> other.getDate().compareTo(one.getDate());
+
 
   @PrimaryKey(autoGenerate = true)
   public int id;
