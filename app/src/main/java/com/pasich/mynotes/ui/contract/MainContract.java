@@ -17,7 +17,7 @@ public interface MainContract {
     interface view extends MyView, TagView, NoteView {
         void settingsSearchView();
 
-        void settingsNotesList(int countColumn, LiveData<List<Note>> noteList);
+        void settingsNotesList(LiveData<List<Note>> noteList);
 
         void newNotesButton();
 
@@ -38,6 +38,8 @@ public interface MainContract {
 
     interface presenter extends MyPresenter<view> {
         void newNotesClick();
+
+        int getFormatParam();
 
         void moreActivityClick();
 

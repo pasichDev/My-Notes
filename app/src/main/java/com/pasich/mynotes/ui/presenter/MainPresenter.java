@@ -34,11 +34,11 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     public void viewIsReady() {
         getView().settingsSearchView();
         getView().settingsTagsList(tagsRepository.getTags());
-        getView().settingsNotesList(getFormatParam(), notesRepository.getNotes());
+        getView().settingsNotesList(notesRepository.getNotes());
         getView().initListeners();
     }
 
-    private int getFormatParam() {
+    public int getFormatParam() {
         return data.getDefaultPreference().getInt("formatParam", 1);
     }
 

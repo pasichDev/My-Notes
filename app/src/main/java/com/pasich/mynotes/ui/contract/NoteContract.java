@@ -30,5 +30,9 @@ public interface NoteContract {
         void loadingData(int idNote);
 
         void activateEditNote();
+
+        void createNote(Note note);
+
+        void saveNote(Note note);
     }
 }

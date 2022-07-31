@@ -32,7 +32,7 @@ import com.pasich.mynotes.ui.view.dialogs.main.TagDialog.TagDialog;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
-import com.pasich.mynotes.utils.other.FormatListUtils;
+import com.pasich.mynotes.utils.formatList.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.List;
@@ -119,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                         return false;
                     }
                 });
+
+
+        this.findViewById(R.id.formatButton).setOnClickListener(view -> {
+            formatList.formatNote();
+            setLayoutManger();
+        });
     }
 
     @Override
@@ -183,12 +189,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void settingsNotesList(int countColumn, LiveData<List<Note>> noteList) {
+    public void settingsNotesList(LiveData<List<Note>> noteList) {
         binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
-        binding.listNotes.setLayoutManager(
-                new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
         notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
+        setLayoutManger();
         binding.listNotes.setAdapter(notesAdapter);
+
         noteList.observe(
                 this,
                 notes -> {
@@ -197,6 +203,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 });
     }
 
+
+    public void setLayoutManger() {
+        binding.listNotes.setLayoutManager(
+                new StaggeredGridLayoutManager(mainPresenter.getFormatParam(), LinearLayoutManager.VERTICAL));
+
+    }
 
     @Override
     public void deleteNote(Note note) {
@@ -277,4 +289,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void onBackPressed() {
         utils.CloseApp(MainActivity.this);
     }
+
+
 }

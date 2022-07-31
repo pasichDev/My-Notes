@@ -2,6 +2,7 @@ package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.ui.contract.NoteContract;
@@ -65,5 +66,15 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
     @Override
     public void activateEditNote() {
         getView().activatedActivity();
+    }
+
+    @Override
+    public void createNote(Note note) {
+        notesRepository.addNote(note);
+    }
+
+    @Override
+    public void saveNote(Note note) {
+        notesRepository.updateNote(note);
     }
 }
