@@ -12,7 +12,7 @@ import com.pasich.mynotes.base.ChoiceModel;
 import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.utils.ShareUtils;
-import com.pasich.mynotes.utils.ShortCutManager;
+import com.pasich.mynotes.utils.ShortCutUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class ChoiceNoteDialog extends DialogFragment {
                             }
                             if (adapter.getItem(position).getAction().equals("addShotCut") &&
                                     android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                                ShortCutManager.createShortCut(note, getContext());
+                                ShortCutUtils.createShortCut(note, getContext());
                             }
                             dismiss();
                         });

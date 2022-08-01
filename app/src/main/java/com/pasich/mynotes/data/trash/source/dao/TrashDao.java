@@ -1,6 +1,5 @@
 package com.pasich.mynotes.data.trash.source.dao;
 
-import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;

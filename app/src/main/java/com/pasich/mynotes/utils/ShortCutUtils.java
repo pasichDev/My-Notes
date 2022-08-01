@@ -16,7 +16,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
 
-public class ShortCutManager {
+public class ShortCutUtils {
 
     @SuppressLint({"NewApi", "UnspecifiedImmutableFlag"})
     public static void createShortCut(Note note, Context context) {
