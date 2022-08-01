@@ -1,7 +1,5 @@
 package com.pasich.mynotes.utils.adapters;
 
-import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
@@ -68,21 +65,6 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
     }
   }
 
-  // method for filtering our recyclerview items.
-  @SuppressLint("NotifyDataSetChanged")
-  public void filterList(ArrayList<Note> filterllist) {
-    // below line is to add our filtered
-    // list in our course array list.
-    //  listNotes = filterllist;
-    // below line is to notify our adapter
-    // as change in recycler MyView data.
-    // notifyDataSetChanged();
-  }
-
-
-
-
-
   public interface OnItemClickListener {
     void onClick(int position);
 
@@ -102,21 +84,14 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-      Log.wtf("pasic", "areItemsTheSame: check " + newItem.getTitle());
-      return oldItem == newItem;
+      return oldItem.getId() == newItem.getId();
     }
 
-    /**
-     * Это нужно обновить потому что измениния проверяються только в одном случае
-     *
-     * @param oldItem
-     * @param newItem
-     * @return
-     */
     @Override
     public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-      Log.wtf("pasic", "areContentsTheSame: check ");
-      return false ;
+      return oldItem.getTitle().equals(newItem.getTitle())
+              && oldItem.getValue().equals(newItem.getValue())
+              && oldItem.getTag().length() != newItem.getTag().length();
     }
   }
 }

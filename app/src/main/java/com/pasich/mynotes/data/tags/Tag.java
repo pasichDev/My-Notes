@@ -21,7 +21,7 @@ public class Tag {
 
   @NonNull
   @ColumnInfo(name = "name")
-  private String nameTag;
+  private String nameTag = "";
 
   @ColumnInfo(name = "visibility")
   private int visibility = 0;
@@ -43,26 +43,30 @@ public class Tag {
     return this;
   }
 
-  public Tag create(String nameTag) {
-    this.nameTag = nameTag;
-    return this;
-  }
+    public Tag create(String nameTag) {
+        this.nameTag = nameTag;
+        return this;
+    }
 
-  @NonNull
-  public String getNameTag() {
-    return this.nameTag;
-  }
+    @NonNull
+    public String getNameTag() {
+        return this.nameTag;
+    }
 
-  public void setNameTag(@NonNull String newNameTag) {
-    this.nameTag = newNameTag;
-  }
+    public long getId() {
+        return this.id;
+    }
 
-  public int getSystemAction() {
-    return this.systemAction;
-  }
+    public void setNameTag(@NonNull String newNameTag) {
+        this.nameTag = newNameTag;
+    }
 
-  public void setSystemAction(int arg0) {
-    this.systemAction = arg0;
+    public int getSystemAction() {
+        return this.systemAction;
+    }
+
+    public void setSystemAction(int arg0) {
+        this.systemAction = arg0;
   }
 
   public boolean getSelected() {

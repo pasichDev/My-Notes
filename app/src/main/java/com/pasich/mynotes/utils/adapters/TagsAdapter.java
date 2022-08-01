@@ -147,7 +147,7 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Tag oldItem, @NonNull Tag newItem) {
-      return oldItem.getNameTag().equals(newItem.getNameTag());
+      return oldItem.getId() == (newItem.getId());
     }
 
     @Override
