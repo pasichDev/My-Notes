@@ -3,11 +3,7 @@ package com.pasich.mynotes.ui.view.activity;
 import static com.pasich.mynotes.data.notes.Note.COMPARE_BY_DATE_REVERSE;
 import static com.pasich.mynotes.di.App.getApp;
 
-import android.annotation.SuppressLint;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.pm.ShortcutInfo;
-import android.content.pm.ShortcutManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -105,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
                     @Override
                     public void onClick(int position) {
-                        mainPresenter.clickNote(notesAdapter.getCurrentList().get(position).getId());
+                      mainPresenter.clickNote(notesAdapter.getCurrentList().get(position).getId());
                     }
 
                     @Override
@@ -136,40 +132,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
         this.findViewById(R.id.sortButton).setOnClickListener(view -> {
             //   new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
-            createShortCut();
 
 
         });
-    }
-
-
-    @SuppressLint("NewApi")
-    public void createShortCut() {
-        ShortcutManager shortcutManager =
-                this.getSystemService(ShortcutManager.class);
-
-        if (shortcutManager.isRequestPinShortcutSupported()) {
-            // Assumes there's already a shortcut with the ID "my-shortcut".
-            // The shortcut must be enabled.
-            ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(this, "static").build();
-
-
-            // Create the PendingIntent object only if your app needs to be notified
-            // that the user allowed the shortcut to be pinned. Note that, if the
-            // pinning operation fails, your app isn't notified. We assume here that the
-            // app has implemented a method called createShortcutResultIntent() that
-            // returns a broadcast intent.
-            Intent pinnedShortcutCallbackIntent =
-                    shortcutManager.createShortcutResultIntent(pinShortcutInfo);
-
-            // Configure the intent so that your app's broadcast receiver gets
-            // the callback successfully.For details, see PendingIntent.getBroadcast().
-            PendingIntent successCallback = PendingIntent.getBroadcast(this, /* request code */ 0,
-                    pinnedShortcutCallbackIntent, /* flags */ 0);
-
-            shortcutManager.requestPinShortcut(pinShortcutInfo,
-                    successCallback.getIntentSender());
-        }
     }
 
 

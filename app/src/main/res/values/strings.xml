@@ -158,4 +158,8 @@
     <string name="settingsEditNote" translatable="false">Настройки редактирования заметки</string>
     <string name="settingsParticipation" translatable="false">Настройки взаимодействия</string>
 
+
+    <string name="addShortCutLauncher" translatable="false">Добавить ярлык на рабочий стол</string>
+    <string name="addShortCutSuccessfully" translatable="false">Добавления ярлыка выполнено успешно</string>
+
 </resources>
