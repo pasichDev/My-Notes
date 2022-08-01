@@ -1,6 +1,7 @@
 package com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,9 +43,9 @@ public class ChoiceNoteDialog extends DialogFragment {
         arrayChoice.add(
                 new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
         arrayChoice.add(new ChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             arrayChoice.add(new ChoiceModel(getString(R.string.addShortCutLauncher), R.drawable.ic_label, "addShotCut", false));
-
+        }
         arrayChoice.add(
                 new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
 
@@ -74,7 +75,7 @@ public class ChoiceNoteDialog extends DialogFragment {
                                 noteView.deleteNote(note);
                             }
                             if (adapter.getItem(position).getAction().equals("addShotCut") &&
-                                    android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                                    android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                                 ShortCutUtils.createShortCut(note, getContext());
                             }
                             dismiss();
