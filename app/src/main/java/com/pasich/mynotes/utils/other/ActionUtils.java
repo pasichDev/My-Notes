@@ -2,27 +2,32 @@ package com.pasich.mynotes.utils.other;
 
 import android.view.View;
 
-import com.pasich.mynotes.models.adapter.NoteModel;
+import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.ui.view.customView.ActionPanel;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
-import com.pasich.mynotes.view.custom.ActionPanel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ActionUtils extends ActionPanel implements View.OnClickListener {
 
-  private final NotesAdapter adapter;
-  private final int PAYLOAD_BACKGROUND = 22;
-  private final ArrayList<Long> ArrayChecked = new ArrayList<>();
+  private  NotesAdapter adapter;
+  private  int PAYLOAD_BACKGROUND = 22;
+  private  ArrayList<Long> ArrayChecked = new ArrayList<>();
   /** Panel close button indicator */
   private boolean ACTION_ON = false;
 
-  public ActionUtils(View view, NotesAdapter adapter, int objectActivity) {
+  public ActionUtils(View rootView, int objectActivity) {
+    super(rootView, objectActivity);
+  }
+
+  /** public ActionUtils(View view, NotesAdapter adapter, int objectActivity) {
     super(view, objectActivity);
     this.adapter = adapter;
     getActionPanel().setVisibility(View.GONE);
     getClosePanelButton().setOnClickListener(this);
   }
+
 
   /**
    * @return - Returns the value of ACTION_ON
@@ -45,15 +50,15 @@ public class ActionUtils extends ActionPanel implements View.OnClickListener {
    *
    * @return - data adapter
    */
-  private List<NoteModel> getDataAdapter() {
-    return adapter.getData();
+  private List<Note> getDataAdapter() {
+    return adapter.getCurrentList();
   }
 
   /**
    * @return - Number of marked items (int)
    */
   public int getCountCheckedItem() {
-    List<NoteModel> data = getDataAdapter();
+    List<Note> data = getDataAdapter();
     int count = 0;
     for (int i = 0; i < data.size(); i++) {
       count = data.get(i).getChecked() ? count + 1 : count;
@@ -63,7 +68,7 @@ public class ActionUtils extends ActionPanel implements View.OnClickListener {
 
   /** Clear all marks */
   private void checkedClean() {
-    List<NoteModel> data = getDataAdapter();
+    List<Note> data = getDataAdapter();
     for (int i = 0; i < data.size(); i++) {
       if (data.get(i).getChecked()) data.get(i).setChecked(false);
       adapter.notifyItemChanged(i, PAYLOAD_BACKGROUND);
@@ -117,12 +122,12 @@ public class ActionUtils extends ActionPanel implements View.OnClickListener {
   }
 
   public void selectItemAction(int item) {
-    NoteModel noteItem = getDataAdapter().get(item);
+    Note noteItem = getDataAdapter().get(item);
     if (noteItem.getChecked()) {
       noteItem.setChecked(false);
-      isCheckedItemFalse(noteItem.getId());
+      // isCheckedItemFalse(noteItem.getId());
     } else {
-      isCheckedItem(noteItem.getId());
+      //  isCheckedItem(noteItem.getId());
       noteItem.setChecked(true);
     }
     manageActionPanel();

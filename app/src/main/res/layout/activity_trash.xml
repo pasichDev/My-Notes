@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
+        <variable
+            name="presenter"
+            type="com.pasich.mynotes.ui.presenter.TrashPresenter" />
 
         <variable
             name="emptyNotesTrash"
@@ -14,8 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/activity_trash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".controllers.activity.TrashActivity">
+        tools:context=".ui.view.activity.TrashActivity">
 
         <ImageButton
             android:id="@+id/cleanTrash"
@@ -25,6 +28,7 @@
             android:layout_marginEnd="20dp"
             android:contentDescription="@string/trashClean"
             android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
+            android:onClick="@{(view) -> presenter.cleanTrashDialogStart()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
             app:srcCompat="@drawable/ic_trash_menu"
@@ -54,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/listViewMargin"
-            android:layout_marginTop="@dimen/listViewMargin"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="@dimen/listViewMargin"
             android:layout_marginBottom="@dimen/listViewMargin"
             android:layoutAnimation="@anim/recycle_view_animation"

@@ -1,56 +1,30 @@
 package com.pasich.mynotes.utils.adapters;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
-import com.pasich.mynotes.models.adapter.NoteModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
+public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
 
-  private List<NoteModel> listNotes;
   private OnItemClickListener mOnItemClickListener;
 
-  public NotesAdapter(List<NoteModel> listNotes) {
-    this.listNotes = listNotes;
+  public NotesAdapter(@NonNull noteDiff diffCallback) {
+    super(diffCallback);
   }
-
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
     this.mOnItemClickListener = onItemClickListener;
-  }
-
-  /**
-   * Метод который находит елемент в массиве и удаляет из него
-   *
-   * @param noteID - id заметки которую нужно убрать
-   */
-  public void removeItemsArray(int noteID) {
-    for (int i = 0; i < listNotes.size(); i++) {
-      if (listNotes.get(i).getId() == noteID) {
-        listNotes.remove(i);
-        notifyItemRemoved(i);
-      }
-    }
-  }
-
-  @Override
-  public int getItemCount() {
-    return (null != listNotes ? listNotes.size() : 0);
-  }
-
-  public List<NoteModel> getData() {
-    return this.listNotes;
-  }
-
-  public NoteModel getItem(int i) {
-    return listNotes != null ? listNotes.get(i) : null;
   }
 
   @NonNull
@@ -76,7 +50,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    holder.ItemBinding.setNoteItem(listNotes.get(position));
+    holder.ItemBinding.setNoteItem(getCurrentList().get(position));
   }
 
   @Override
@@ -88,7 +62,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
       for (Object payload : payloads) {
         int PAYLOAD_BACKGROUND = 22;
         if (payload.equals(PAYLOAD_BACKGROUND)) {
-          holder.ItemBinding.setCheckedItem(listNotes.get(position).getChecked());
+          holder.ItemBinding.setCheckedItem(getCurrentList().get(position).getChecked());
         }
       }
     }
@@ -96,14 +70,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
   // method for filtering our recyclerview items.
   @SuppressLint("NotifyDataSetChanged")
-  public void filterList(ArrayList<NoteModel> filterllist) {
+  public void filterList(ArrayList<Note> filterllist) {
     // below line is to add our filtered
     // list in our course array list.
-    listNotes = filterllist;
+    //  listNotes = filterllist;
     // below line is to notify our adapter
-    // as change in recycler view data.
-    notifyDataSetChanged();
+    // as change in recycler MyView data.
+    // notifyDataSetChanged();
   }
+
+
+
+
 
   public interface OnItemClickListener {
     void onClick(int position);
@@ -117,6 +95,28 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     ViewHolder(ItemNoteBinding binding) {
       super(binding.getRoot());
       ItemBinding = binding;
+    }
+  }
+
+  public static class noteDiff extends DiffUtil.ItemCallback<Note> {
+
+    @Override
+    public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
+      Log.wtf("pasic", "areItemsTheSame: check " + newItem.getTitle());
+      return oldItem == newItem;
+    }
+
+    /**
+     * Это нужно обновить потому что измениния проверяються только в одном случае
+     *
+     * @param oldItem
+     * @param newItem
+     * @return
+     */
+    @Override
+    public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
+      Log.wtf("pasic", "areContentsTheSame: check ");
+      return false ;
     }
   }
 }

@@ -12,7 +12,7 @@
 
         <variable
             name="noteItem"
-            type="com.pasich.mynotes.models.adapter.NoteModel" />
+            type="com.pasich.mynotes.data.notes.Note" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,10 +62,10 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/tag_selected"
-            android:text="@{noteItem.tags}"
+            android:text="@{noteItem.tag}"
             android:textColor="?attr/colorPrimaryVariant"
             android:textStyle="bold"
-            android:visibility="@{noteItem.tags.length() > 1 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{noteItem.tag.length() > 1 ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/previewNote" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,9 @@
     <data>
 
         <import type="android.view.View" />
-
+        <variable
+            name="presenter"
+            type="com.pasich.mynotes.ui.presenter.MainPresenter" />
         <variable
             name="emptyNotes"
             type="boolean" />
@@ -15,7 +17,7 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".controllers.activity.MainActivity">
+        tools:context=".ui.view.activity.MainActivity">
 
         <include
             android:id="@+id/toolbar_actionbar"
@@ -40,11 +42,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="@{(view) -> presenter.moreActivityClick()}"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
         app:srcCompat="@drawable/ic_out_more"
         android:contentDescription="@string/more" />
 
-    <SearchView
+    <android.widget.SearchView
         android:id="@+id/actionSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
-    </SearchView>
+    </android.widget.SearchView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newNotesButton"
@@ -75,6 +78,7 @@
         android:visibility="visible"
         app:backgroundTint="?attr/colorPrimaryBackground"
         app:elevation="7dp"
+        android:onClick="@{(view) -> presenter.newNotesClick()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add"
@@ -124,7 +128,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/listViewMargin"
         android:layout_marginBottom="@dimen/listViewMargin"
-        android:layoutAnimation="@anim/recycle_view_animation"
         android:visibility="@{emptyNotes ? View.GONE : View.VISIBLE}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

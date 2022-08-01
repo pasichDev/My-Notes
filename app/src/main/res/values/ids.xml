@@ -6,4 +6,5 @@
     <item name="closeButtonPanel" type="id" />
     <item name="deleteNotesArray" type="id" />
     <item name="removeNotesArray" type="id" />
+    <item name="removeTagForDialog" type="id" />
 </resources>
