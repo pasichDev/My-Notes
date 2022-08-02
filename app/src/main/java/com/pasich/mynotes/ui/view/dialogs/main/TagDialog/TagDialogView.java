@@ -29,10 +29,11 @@ public class TagDialogView extends InputTagView {
         addTitle("");
         LinearLayout linearLayoutRecycle = new LinearLayout(getContextRoot());
         linearLayoutRecycle.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayoutRecycle.addView(createAddTagButton());
         linearLayoutRecycle.addView(createRemoveTagButton());
         linearLayoutRecycle.addView(createRecycleView());
         addView(linearLayoutRecycle, getLp());
-        addView(getNewTagView());
+        //  addView(getNewTagView());
     }
 
     private RecyclerView createRecycleView() {
@@ -58,10 +59,24 @@ public class TagDialogView extends InputTagView {
         return imageCLeanTag;
     }
 
+    private ImageButton createAddTagButton() {
+        ImageButton imageCLeanTag = new ImageButton(getContextRoot());
+        imageCLeanTag.setImageResource(R.drawable.ic_add_tag_dialog);
+        imageCLeanTag.setId(R.id.addTagForDialog);
+        imageCLeanTag.setScaleType(ImageView.ScaleType.CENTER);
+        imageCLeanTag.setBackground(null);
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams
+                (ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 10, 0, 0);
+        imageCLeanTag.setLayoutParams(layoutParams);
+
+        return imageCLeanTag;
+    }
+
     private LinearLayout.LayoutParams getLp() {
         LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        LP.setMargins(30, 0, 10, 0);
+        LP.setMargins(30, 0, 10, 40);
         return LP;
     }
 }

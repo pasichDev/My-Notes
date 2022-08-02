@@ -7,4 +7,5 @@
     <item name="deleteNotesArray" type="id" />
     <item name="removeNotesArray" type="id" />
     <item name="removeTagForDialog" type="id" />
+    <item name="addTagForDialog" type="id" />
 </resources>
