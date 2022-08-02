@@ -15,11 +15,15 @@ public interface NoteContract {
 
         void initTypeActivity();
 
+        void createSpeechRecognizer(String speechLanguage, String speechOutput);
+
         void closeNoteActivity();
 
         void activatedActivity();
 
         void loadingNote(Note note);
+
+        void initListenerSpeechRecognizer();
 
 
     }

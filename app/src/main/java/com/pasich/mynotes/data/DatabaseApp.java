@@ -37,13 +37,6 @@ public abstract class DatabaseApp extends RoomDatabase {
                   dao.addTag(new Tag().create("", 1));
                   dao.addTag(new Tag().create("allNotes", 2));
 
-                  sInstance
-                          .noteDao()
-                          .addNote(new Note().create("allNotes", "myHistory classix", "22.33.55 224"));
-                  sInstance
-                          .noteDao()
-                          .addNote(new Note().create("forNote", "myHistory classix", "22.33.55 224"));
-
               };
 
 
