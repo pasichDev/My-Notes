@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.utils.simplifications.AnimationListener;
 import com.preference.PowerPreference;
 
 @SuppressLint("CustomSplashScreen")
@@ -18,7 +19,6 @@ public class SplashActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
-
     startAnimation();
   }
 
@@ -28,18 +28,10 @@ public class SplashActivity extends AppCompatActivity {
       startNextActivity();
     } else {
       Animation mAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.spalsh_start_activity_animation);
-      mAnimation.setAnimationListener(new Animation.AnimationListener() {
+      mAnimation.setAnimationListener(new AnimationListener() {
         @Override
-        public void onAnimationStart(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
+        public void animationEnd() {
           startNextActivity();
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
         }
       });
       findViewById(R.id.splashImage).startAnimation(mAnimation);
