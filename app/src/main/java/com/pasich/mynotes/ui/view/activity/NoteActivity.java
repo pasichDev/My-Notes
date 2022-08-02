@@ -16,7 +16,9 @@ import android.speech.SpeechRecognizer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
@@ -137,10 +139,14 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                 new RecognitionListener() {
                     @Override
                     public void onReadyForSpeech(Bundle bundle) {
+                        binding.recordMessges.setVisibility(View.VISIBLE);
+                        binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information));
+
                     }
 
                     @Override
                     public void onBeginningOfSpeech() {
+
                         //     speechStartText.setVisibility(View.VISIBLE);
                         //       imageSpeechVolume.setVisibility(View.VISIBLE);
                         //      // Эта функция начинает запис текста
@@ -170,6 +176,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
                     @Override
                     public void onError(int i) {
+                        binding.recordMessges.setVisibility(View.GONE);
+                        binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
                          /*   Log.d("xxx", String.valueOf(i));
                             if (i == 7) {
                                 speechStartText.setVisibility(View.GONE);
@@ -192,6 +200,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
                     @Override
                     public void onResults(Bundle bundle) {
+                        binding.recordMessges.setVisibility(View.GONE);
+                        binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
+
                         //     ArrayList<String> data =
                         //              bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                         //      saveSpeechToText(data);
