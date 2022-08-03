@@ -1,10 +1,12 @@
 package com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -29,7 +31,7 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
     private TagDialogView mView;
     private final TagDialogPresenter dialogPresenter;
     public final DataManager dataManager;
-
+    BottomSheetDialog builder;
 
     public TagDialog(Note note) {
         this.note = note;
@@ -40,9 +42,9 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
+        builder = new BottomSheetDialog(requireContext());
         mView = new TagDialogView(getLayoutInflater());
-
+        builder.setContentView(mView.getRootContainer());
         init();
 
         dialogPresenter.attachView(this);
@@ -50,8 +52,6 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
         dialogPresenter.viewIsReady();
 
 
-        builder.setContentView(mView.getRootContainer());
-        builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return builder;
     }
 
@@ -73,6 +73,7 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
                 note.getTag().length() == 0
                         ? getString(R.string.selectTagForNote)
                         : getString(R.string.editSelectTagForNote));
+        mView.goneInputNewTag();
 
 
         if (note.getTag().trim().length() >= 1) {
@@ -110,6 +111,17 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
                         view1 -> {
                             dialogPresenter.removeTagNote(note);
                             dismiss();
+                        });
+        mView.getRootContainer().findViewById(R.id.addTagForDialog)
+                .setOnClickListener(
+                        view1 -> {
+                            mView.visibilityInputNewTag();
+                            mView.getRootContainer().findViewById(R.id.addTagForDialog).setVisibility(View.GONE);
+                            mView.getInputTag().requestFocus();
+                            builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                            ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                                    .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
+
                         });
     }
 

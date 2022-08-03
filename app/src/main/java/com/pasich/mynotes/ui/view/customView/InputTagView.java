@@ -4,10 +4,12 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ViewNewTagInputBinding;
 import com.pasich.mynotes.ui.view.customView.dialog.BaseView;
 import com.pasich.mynotes.utils.simplifications.TextValidatorUtils;
@@ -26,8 +28,17 @@ public class InputTagView extends BaseView {
     binding.setErrorText(false);
     binding.setEnableButtonSave(false);
     validateNameActivate();
-    getInputTag().requestFocus();
   }
+
+  public void visibilityInputNewTag() {
+    binding.inputNameView.setVisibility(View.VISIBLE);
+    binding.inputNameView.setAnimation(AnimationUtils.loadAnimation(getContextRoot(), R.anim.item_add_record_information));
+  }
+
+  public void goneInputNewTag() {
+    binding.inputNameView.setVisibility(View.GONE);
+  }
+
 
   public final Button getSaveButton() {
     return binding.saveTag;

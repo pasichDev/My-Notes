@@ -33,7 +33,7 @@ public class TagDialogView extends InputTagView {
         linearLayoutRecycle.addView(createRemoveTagButton());
         linearLayoutRecycle.addView(createRecycleView());
         addView(linearLayoutRecycle, getLp());
-        //  addView(getNewTagView());
+        addView(getNewTagView());
     }
 
     private RecyclerView createRecycleView() {
