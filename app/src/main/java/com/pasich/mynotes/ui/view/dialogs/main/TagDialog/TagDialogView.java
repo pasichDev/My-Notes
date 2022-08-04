@@ -29,8 +29,8 @@ public class TagDialogView extends InputTagView {
         addTitle("");
         LinearLayout linearLayoutRecycle = new LinearLayout(getContextRoot());
         linearLayoutRecycle.setOrientation(LinearLayout.HORIZONTAL);
-        linearLayoutRecycle.addView(createAddTagButton());
-        linearLayoutRecycle.addView(createRemoveTagButton());
+        linearLayoutRecycle.addView(createButton(R.drawable.ic_add_tag_dialog, R.id.addTagForDialog, View.VISIBLE));
+        linearLayoutRecycle.addView(createButton(R.drawable.ic_close_search_view, R.id.removeTagForDialog, View.GONE));
         linearLayoutRecycle.addView(createRecycleView());
         addView(linearLayoutRecycle, getLp());
         addView(getNewTagView());
@@ -44,30 +44,16 @@ public class TagDialogView extends InputTagView {
     }
 
 
-    private ImageButton createRemoveTagButton() {
+    private ImageButton createButton(int drawable, int id, int visibility) {
         ImageButton imageCLeanTag = new ImageButton(getContextRoot());
-        imageCLeanTag.setImageResource(R.drawable.ic_close_search_view);
-        imageCLeanTag.setId(R.id.removeTagForDialog);
+        imageCLeanTag.setImageResource(drawable);
+        imageCLeanTag.setId(id);
         imageCLeanTag.setScaleType(ImageView.ScaleType.CENTER);
         imageCLeanTag.setBackground(null);
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams
                 (ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 10, 0, 0);
-        imageCLeanTag.setVisibility(View.GONE);
-        imageCLeanTag.setLayoutParams(layoutParams);
-
-        return imageCLeanTag;
-    }
-
-    private ImageButton createAddTagButton() {
-        ImageButton imageCLeanTag = new ImageButton(getContextRoot());
-        imageCLeanTag.setImageResource(R.drawable.ic_add_tag_dialog);
-        imageCLeanTag.setId(R.id.addTagForDialog);
-        imageCLeanTag.setScaleType(ImageView.ScaleType.CENTER);
-        imageCLeanTag.setBackground(null);
-        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams
-                (ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 10, 0, 0);
+        imageCLeanTag.setVisibility(visibility);
         imageCLeanTag.setLayoutParams(layoutParams);
 
         return imageCLeanTag;
