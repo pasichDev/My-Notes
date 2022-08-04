@@ -2,13 +2,16 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.data.notes.Note.COMPARE_BY_DATE_REVERSE;
 import static com.pasich.mynotes.di.App.getApp;
+import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -250,6 +253,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 .putExtra("NewNote", false)
                 .putExtra("idNote", idNote)
                 .putExtra("tagNote", ""));
+    }
+
+    @SuppressLint("StringFormatMatches")
+    @Override
+    public void startToastCheckCountTags() {
+        Toast.makeText(this, getString(R.string.countTagsError, MAX_TAG_COUNT), Toast.LENGTH_SHORT).show();
     }
 
     @Override

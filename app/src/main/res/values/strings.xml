@@ -104,12 +104,11 @@
     <string name="deleteTagAndNotes" translatable="false">Удалить метку и отмеченные заметки</string>
 
     <string name="nameTagInput" translatable="false">Введите название метки</string>
-    <string name="errorCountNameTag" translatable="false">Название метки не может состоять больше чем из 20-ти символов</string>
 
     <string name="splashEnablePrefTitle" translatable="false">Заставка при запуске</string>
     <string name="splashEnablePrefSummary" translatable="false">Показывать заставку при открытии приложения</string>
 
-    <string name="countTagsError" translatable="false">Нельзя создать больше 10 меток</string>
+    <string name="countTagsError" translatable="false">Нельзя создать больше %1$s меток</string>
 
     <string name="allNotes" translatable="false">Все заметки </string>
     <string name="more" translatable="false">Больше</string>
@@ -120,7 +119,7 @@
 
     <string name="tag" translatable="false">Метка</string>
     <string name="selectAll" translatable="false">Выбрать несколько элементов</string>
-    <string name="selectTagForNote" translatable="false">Добавить метку</string>
+    <string name="selectTagForNote" translatable="false">Повесить метку</string>
     <string name="editSelectTagForNote" translatable="false">Изменить метку</string>
 
     <string name="noTag" translatable="false">Без метки</string>

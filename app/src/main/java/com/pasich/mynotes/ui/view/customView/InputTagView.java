@@ -53,7 +53,8 @@ public class InputTagView extends BaseView {
   }
 
   public final String getText() {
-    return binding.inputNameTag.getText().toString().substring(0, MAX_NAME_TAG);
+    String text = binding.inputNameTag.getText().toString();
+    return text.length() <= MAX_NAME_TAG ? text : text.substring(0, MAX_NAME_TAG);
   }
 
   private void validateNameActivate() {

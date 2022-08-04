@@ -16,6 +16,8 @@ public interface TagDialogContract {
     interface view extends MyView {
 
         void settingsTagsList(int countColumn, LiveData<List<Tag>> tagsList);
+
+        void visibilityAddTagButton(boolean visibility);
     }
 
     interface presenter extends MyPresenter<view> {

@@ -34,6 +34,8 @@ public interface MainContract {
         void selectTagUser(int position);
 
         void openNoteEdit(int idNote);
+
+        void startToastCheckCountTags();
     }
 
     interface presenter extends MyPresenter<view> {

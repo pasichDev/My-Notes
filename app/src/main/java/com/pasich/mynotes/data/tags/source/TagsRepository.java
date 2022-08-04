@@ -8,7 +8,11 @@ import com.pasich.mynotes.data.tags.source.dao.TagsDao;
 import com.pasich.mynotes.utils.DiskExecutor;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class TagsRepository {
 
@@ -60,6 +64,13 @@ public class TagsRepository {
 
         Runnable runnable = () -> tagsDao.updateTag(tag);
         executor.execute(runnable);
+    }
+
+
+    public int getCountTagAll() throws ExecutionException, InterruptedException {
+        Future<?> future = Executors.newSingleThreadExecutor()
+                .submit((Callable<?>) () -> tagsDao.getCountAllTag());
+        return (int) future.get();
     }
 
     public void destroyInstance() {

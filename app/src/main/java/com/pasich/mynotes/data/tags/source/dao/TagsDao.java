@@ -23,6 +23,9 @@ public interface TagsDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void addTag(Tag tag);
 
+  @Query("SELECT COUNT(name) FROM tags WHERE systemAction = 0")
+  int getCountAllTag();
+
   @Update
   void updateTag(Tag tag);
 

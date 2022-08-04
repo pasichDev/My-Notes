@@ -1,5 +1,7 @@
 package com.pasich.mynotes.ui.presenter;
 
+import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
+
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -95,7 +97,14 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     @Override
     public void clickTag(Tag tag, int position) {
         if (tag.getSystemAction() == 1) {
-            getView().startCreateTagDialog();
+            try {
+                if (tagsRepository.getCountTagAll() >= MAX_TAG_COUNT) {
+                    getView().startToastCheckCountTags();
+                } else
+                    getView().startCreateTagDialog();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
         } else {
             getView().selectTagUser(position);
         }

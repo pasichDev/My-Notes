@@ -7,7 +7,7 @@ public class TagSettings {
    */
   public static final int MAX_NAME_TAG = 20;
   /**
-   * Minimum number of characters in label names
+   * Max counts tag
    */
-  public static final int MIN_NAME_TAG = 1;
+  public static final int MAX_TAG_COUNT = 10;
 }

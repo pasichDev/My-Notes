@@ -112,6 +112,7 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
                             dialogPresenter.removeTagNote(note);
                             dismiss();
                         });
+
         mView.getRootContainer().findViewById(R.id.addTagForDialog)
                 .setOnClickListener(
                         view1 -> {
@@ -140,6 +141,12 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
                     tagsAdapter.submitList(tags);
                     if (note.getTag().trim().length() >= 1) tagsAdapter.autChoseTag(note.getTag());
                 });
+    }
+
+    @Override
+    public void visibilityAddTagButton(boolean visibility) {
+        mView.getRootContainer().findViewById(R.id.addTagForDialog).setVisibility(visibility ? View.VISIBLE : View.GONE);
+
     }
 
 
