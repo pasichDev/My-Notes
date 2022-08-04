@@ -31,8 +31,7 @@ public class NewTagDialog extends BottomSheetDialogFragment {
         .setOnClickListener(
             view -> {
               assert tagView != null;
-              tagView.addTag(mView.getInputTag().getText().toString());
-
+              tagView.addTag(mView.getText());
               dismiss();
             });
 

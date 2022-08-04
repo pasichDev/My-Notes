@@ -87,7 +87,7 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
         mView.getSaveButton()
                 .setOnClickListener(
                         view1 -> {
-                            dialogPresenter.createTagNote(new Tag().create(mView.getInputTag().getText().toString()), note);
+                            dialogPresenter.createTagNote(new Tag().create(mView.getText()), note);
                             dismiss();
                         });
         tagsAdapter.setOnItemClickListener(

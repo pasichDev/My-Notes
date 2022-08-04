@@ -30,7 +30,7 @@ public class InputTagView extends BaseView {
     validateNameActivate();
   }
 
-  public void visibilityInputNewTag() {
+  public final void visibilityInputNewTag() {
     binding.inputNameView.setVisibility(View.VISIBLE);
     binding.inputNameView.setAnimation(AnimationUtils.loadAnimation(getContextRoot(), R.anim.item_add_record_information));
   }
@@ -52,22 +52,26 @@ public class InputTagView extends BaseView {
     return binding.getRoot();
   }
 
-  private void validateNameActivate() {
-    getInputTag()
-        .addTextChangedListener(
-            new TextValidatorUtils(getInputTag()) {
-              @Override
-              public void validate(TextView textView, String text) {
-                validateText(text.trim().length());
-              }
-            });
+  public final String getText() {
+    return binding.inputNameTag.getText().toString().substring(0, MAX_NAME_TAG);
   }
 
-  public void validateText(int length) {
-    if (length >= MAX_NAME_TAG + 1) {
+  private void validateNameActivate() {
+    getInputTag()
+            .addTextChangedListener(
+                    new TextValidatorUtils(getInputTag()) {
+                      @Override
+                      public void validate(TextView textView, String text) {
+                        validateText(text.trim().length());
+                      }
+                    });
+  }
+
+  private void validateText(int length) {
+    if (length >= MAX_NAME_TAG) {
       binding.setErrorText(true);
       binding.setEnableButtonSave(false);
-    } else if (length == MAX_NAME_TAG) {
+    } else if (length == MAX_NAME_TAG - 1) {
       binding.setErrorText(false);
       binding.setEnableButtonSave(true);
     }
