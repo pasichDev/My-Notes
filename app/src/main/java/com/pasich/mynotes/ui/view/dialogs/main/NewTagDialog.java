@@ -24,6 +24,7 @@ public class NewTagDialog extends BottomSheetDialogFragment {
     final TagView tagView = (TagView) getContext();
 
     mView.addTitle(getString(R.string.addTag));
+    mView.getInputTag().requestFocus();
     mView.addView(mView.getNewTagView());
     mView
         .getSaveButton()
