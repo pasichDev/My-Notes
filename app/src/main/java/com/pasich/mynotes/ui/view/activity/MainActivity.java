@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -168,17 +167,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         binding.actionSearch.setOnQueryTextFocusChangeListener(
                 (v, hasFocus) -> {
                     Log.wtf("pasic", "focus  " + hasFocus);
-                    binding.listTags.setVisibility(View.GONE);
-                    findViewById(R.id.sortButton).setVisibility(View.GONE);
-                    findViewById(R.id.formatButton).setVisibility(View.GONE);
+                    //     binding.listTags.setVisibility(View.GONE);
+                    //       findViewById(R.id.sortButton).setVisibility(View.GONE);
+                    //       findViewById(R.id.formatButton).setVisibility(View.GONE);
 
                 });
         binding.actionSearch.setOnCloseListener(
                 () -> {
-                    Log.wtf("pasic", "close  ");
-                    findViewById(R.id.sortButton).setVisibility(View.VISIBLE);
-                    findViewById(R.id.formatButton).setVisibility(View.VISIBLE);
-                    binding.actionSearch.setFocusable(false);
+                    //    Log.wtf("pasic", "close  ");
+                    //     findViewById(R.id.sortButton).setVisibility(View.VISIBLE);
+                    //      findViewById(R.id.formatButton).setVisibility(View.VISIBLE);
+                    //     binding.actionSearch.setFocusable(false);
                     return false;
                 });
     }
