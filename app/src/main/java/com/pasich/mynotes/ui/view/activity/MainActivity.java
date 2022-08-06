@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     private ActivityMainBinding binding;
     private TagsAdapter tagsAdapter;
     private NotesAdapter notesAdapter;
+    private StaggeredGridLayoutManager gridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 .getActivityComponent(getClass(), new MainActivityModule())
                 .inject(MainActivity.this);
         binding.setPresenter((MainPresenter) mainPresenter);
+        gridLayoutManager = new StaggeredGridLayoutManager(
+                dataManager.getDefaultPreference().getInt("formatParam", 1),
+                LinearLayoutManager.VERTICAL);
     }
 
 
@@ -137,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
         this.findViewById(R.id.formatButton).setOnClickListener(view -> {
             formatList.formatNote();
-            setLayoutManger();
+            gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
         });
 
         this.findViewById(R.id.sortButton).setOnClickListener(view -> {
@@ -205,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void settingsNotesList(LiveData<List<Note>> noteList) {
         binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
         notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
-        setLayoutManger();
+        binding.listNotes.setLayoutManager(gridLayoutManager);
         binding.listNotes.setAdapter(notesAdapter);
 
         noteList.observe(
@@ -215,12 +219,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                     binding.setEmptyNotes(!(notes.size() >= 1));
 
                 });
-    }
-
-
-    public void setLayoutManger() {
-        binding.listNotes.setLayoutManager(
-                new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL));
     }
 
     @Override
