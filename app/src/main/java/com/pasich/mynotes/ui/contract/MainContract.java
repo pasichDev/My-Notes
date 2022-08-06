@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.contract;
 import androidx.lifecycle.LiveData;
 
 import com.pasich.mynotes.base.MyPresenter;
+import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.MyView;
 import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.base.view.TagView;
@@ -14,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 
 public interface MainContract {
 
-    interface view extends MyView, TagView, NoteView {
+    interface view extends MyView, TagView, NoteView, MainSortView {
         void settingsSearchView();
 
         void settingsNotesList(LiveData<List<Note>> noteList);

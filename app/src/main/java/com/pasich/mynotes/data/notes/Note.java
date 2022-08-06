@@ -16,10 +16,14 @@ import java.util.Comparator;
         })
 public class Note {
 
-  public static Comparator<Note> COMPARE_BY_DATE_SORT =
-          (one, other) -> one.getDate().compareTo(other.getDate());
+  public static Comparator<Note> COMPARE_BY_TITLE_REVERSE =
+          (one, other) -> other.getTitle().compareTo(one.getTitle());
+  public static Comparator<Note> COMPARE_BY_TITLE_SORT =
+          (one, other) -> one.getTitle().compareTo(other.getTitle());
   public static Comparator<Note> COMPARE_BY_DATE_REVERSE =
           (one, other) -> other.getDate().compareTo(one.getDate());
+  public static Comparator<Note> COMPARE_BY_DATE_SORT =
+          (one, other) -> one.getDate().compareTo(other.getDate());
 
 
   @PrimaryKey(autoGenerate = true)

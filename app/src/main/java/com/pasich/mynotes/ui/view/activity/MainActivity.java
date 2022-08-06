@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static com.pasich.mynotes.data.notes.Note.COMPARE_BY_DATE_REVERSE;
 import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
@@ -39,7 +38,6 @@ import com.pasich.mynotes.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -213,8 +211,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         noteList.observe(
                 this,
                 notes -> {
-
-                    Collections.sort(notes, COMPARE_BY_DATE_REVERSE);
                     notesAdapter.submitList(notes);
                     binding.setEmptyNotes(!(notes.size() >= 1));
 
@@ -310,4 +306,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
 
+    @Override
+    public void sortList(String arg) {
+        notesAdapter.sortList(arg);
+
+    }
 }
