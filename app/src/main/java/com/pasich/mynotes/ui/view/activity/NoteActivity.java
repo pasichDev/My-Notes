@@ -26,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.interfaces.AudioPermission;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
@@ -35,7 +34,8 @@ import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.utils.ListNotesUtils;
-import com.pasich.mynotes.utils.PermissionManager;
+import com.pasich.mynotes.utils.permissionManager.AudioPermission;
+import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
 import java.util.Calendar;
 import java.util.Locale;

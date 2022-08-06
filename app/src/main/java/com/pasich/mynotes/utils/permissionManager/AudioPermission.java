@@ -1,4 +1,4 @@
-package com.pasich.mynotes.base.interfaces;
+package com.pasich.mynotes.utils.permissionManager;
 
 
 import androidx.annotation.NonNull;

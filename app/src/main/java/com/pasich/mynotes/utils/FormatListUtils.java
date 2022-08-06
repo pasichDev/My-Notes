@@ -1,6 +1,5 @@
-package com.pasich.mynotes.utils.formatList;
+package com.pasich.mynotes.utils;
 
-import android.content.Context;
 import android.widget.ImageButton;
 
 import com.pasich.mynotes.R;
@@ -8,7 +7,6 @@ import com.preference.PowerPreference;
 
 public class FormatListUtils {
   private ImageButton buttonFormat;
-  Context context;
 
   public void init(ImageButton button) {
     this.buttonFormat = button;

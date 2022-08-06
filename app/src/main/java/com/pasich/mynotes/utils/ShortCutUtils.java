@@ -32,19 +32,18 @@ public class ShortCutUtils {
                     note.getTitle() :
                     note.getValue().length() >= 10 ? note.getValue().substring(0, 10) : context.getString(R.string.notes);
 
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(""),
-                    context,
-                    NoteActivity.class)
-                    .putExtra("NewNote", false)
-                    .putExtra("idNote", note.getId())
-                    .putExtra("tagNote", "");
 
             ShortcutInfo.Builder pinShortcutBuilder = new ShortcutInfo.Builder(
                     context,
                     Integer.toString(note.getId()))
                     .setShortLabel(titleLabel)
-                    .setIntent(intent)
+                    .setIntent(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(""),
+                            context,
+                            NoteActivity.class)
+                            .putExtra("NewNote", false)
+                            .putExtra("idNote", note.getId())
+                            .putExtra("tagNote", ""))
                     .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher_notes_shortcut));
 
 

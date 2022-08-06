@@ -5,8 +5,8 @@ import android.view.View;
 import com.pasich.mynotes.base.dagger.ActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
+import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.MainUtils;
-import com.pasich.mynotes.utils.formatList.FormatListUtils;
 import com.pasich.mynotes.utils.other.ActionUtils;
 
 import dagger.Module;

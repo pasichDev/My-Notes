@@ -9,12 +9,12 @@ import com.pasich.mynotes.data.notes.Note;
 
 
 @Entity(
-    tableName = "trash",
-    indices = {
-      @Index(
-          value = {"title"},
-          unique = true)
-    })
+        tableName = "trash",
+        indices = {
+                @Index(
+                        value = {"title"},
+                        unique = true)
+        })
 public class TrashNote {
 
     @PrimaryKey(autoGenerate = true)
@@ -25,7 +25,8 @@ public class TrashNote {
     private String date;
     private String type;
 
-    @Ignore private boolean Checked;
+    @Ignore
+    private boolean Checked;
 
     public TrashNote create(String title, String value, String date, String type) {
         this.title = title;
@@ -46,11 +47,16 @@ public class TrashNote {
 
     /**
      * Метод который реализует конвертирование модели Note в модель TrashNote
+     *
      * @param note - заметка которую нужно конвертировать
      * @return - получения заметка в новой модели
      */
     public TrashNote convertNote(Note note) {
-        return new TrashNote().create(note.getTitle(),note.getValue(),note.getDate(),note.getType());
+        return new TrashNote().create(note.getTitle(), note.getValue(), note.getDate(), note.getType());
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getTitle() {

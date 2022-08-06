@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.utils.permissionManager;
 
 import android.Manifest;
 import android.content.Context;
@@ -6,8 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 import androidx.core.content.ContextCompat;
-
-import com.pasich.mynotes.base.interfaces.AudioPermission;
 
 public class PermissionManager {
 

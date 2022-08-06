@@ -88,7 +88,7 @@ public class TrashNotesAdapter extends ListAdapter<TrashNote, TrashNotesAdapter.
     @Override
     public boolean areItemsTheSame(@NonNull TrashNote oldItem, @NonNull TrashNote newItem) {
 
-      return oldItem == newItem;
+      return oldItem.getId() == newItem.getId();
     }
 
     @SuppressLint("DiffUtilEquals")

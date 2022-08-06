@@ -32,10 +32,10 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.MoreActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog.TagDialog;
+import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
-import com.pasich.mynotes.utils.formatList.FormatListUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.Collections;
