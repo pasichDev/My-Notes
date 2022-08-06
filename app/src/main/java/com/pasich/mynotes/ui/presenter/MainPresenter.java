@@ -40,10 +40,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         getView().initListeners();
     }
 
-    public int getFormatParam() {
-        return data.getDefaultPreference().getInt("formatParam", 1);
-    }
-
     @Override
     public void detachView() {
     }

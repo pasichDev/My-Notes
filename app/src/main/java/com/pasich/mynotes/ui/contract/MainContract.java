@@ -42,7 +42,6 @@ public interface MainContract {
     interface presenter extends MyPresenter<view> {
         void newNotesClick();
 
-        int getFormatParam();
 
         void moreActivityClick();
 

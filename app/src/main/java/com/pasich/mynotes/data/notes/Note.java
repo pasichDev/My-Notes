@@ -5,8 +5,6 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.util.Comparator;
-
 @Entity(
         tableName = "notes",
         indices = {
@@ -16,22 +14,6 @@ import java.util.Comparator;
         })
 public class Note {
 
-  public static Comparator<Note> COMPARE_BY_TITLE_REVERSE =
-          (one, other) -> other.getTitle().compareTo(one.getTitle());
-  public static Comparator<Note> COMPARE_BY_TITLE_SORT =
-          (one, other) -> one.getTitle().compareTo(other.getTitle());
-
-
- /* public static Comparator<Note> COMPARE_BY_DATE_REVERSE =
-          (one, other) -> {
-            return  (int)  other.getDate().compareTo(one.getDate());
-          };
-  public static Comparator<Note> COMPARE_BY_DATE_SORT =
-          (one, other) -> one.getDate().compareTo(other.getDate());
-*/
-
-  public static Comparator<Note> COMPARE_BY_DATE_REVERSE = (e1, e2) -> Math.toIntExact((long) (e1.getDate() - e2.getDate()));
-  public static Comparator<Note> COMPARE_BY_DATE_SORT = (e1, e2) -> Math.toIntExact((long) (e2.getDate() - e1.getDate()));
 
 
   @PrimaryKey(autoGenerate = true)

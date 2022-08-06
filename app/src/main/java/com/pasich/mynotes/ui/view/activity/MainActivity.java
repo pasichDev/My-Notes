@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         noteList.observe(
                 this,
                 notes -> {
-                    notesAdapter.submitList(notes);
+                    notesAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
                     binding.setEmptyNotes(!(notes.size() >= 1));
 
                 });
@@ -220,8 +220,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     public void setLayoutManger() {
         binding.listNotes.setLayoutManager(
-                new StaggeredGridLayoutManager(mainPresenter.getFormatParam(), LinearLayoutManager.VERTICAL));
-
+                new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL));
     }
 
     @Override
