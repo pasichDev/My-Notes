@@ -1,9 +1,9 @@
-package com.pasich.mynotes.utils.other;
+package com.pasich.mynotes.utils.actionPanel;
 
 import android.view.View;
 
 import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.ui.view.customView.ActionPanel;
+import com.pasich.mynotes.utils.actionPanel.base.ActionPanel;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ActionUtils extends ActionPanel implements View.OnClickListener {
     super(rootView, objectActivity);
   }
 
-  /** public ActionUtils(View view, NotesAdapter adapter, int objectActivity) {
+  public ActionUtils(View view, NotesAdapter adapter, int objectActivity) {
     super(view, objectActivity);
     this.adapter = adapter;
     getActionPanel().setVisibility(View.GONE);

@@ -82,6 +82,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         binding.setPresenter((MainPresenter) mainPresenter);
     }
 
+
+    private void initActionUtils() {
+     /*   ActionUtils = new ActionUtils(binding.getRoot(), ListNotesAdapter, R.id.activity_main);
+        ActionUtils.addButtonToActionPanel(R.drawable.ic_delete, R.id.deleteNotesArray);
+        ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).setOnClickListener(this);
+*/
+    }
+
+
     @Override
     public void initListeners() {
 
