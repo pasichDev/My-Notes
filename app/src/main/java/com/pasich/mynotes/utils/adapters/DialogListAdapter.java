@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.pasich.mynotes.base.ChoiceModel;
+import com.pasich.mynotes.data.model.ChoiceModel;
 import com.pasich.mynotes.databinding.ItemsDialogChoiceBinding;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.base;
+package com.pasich.mynotes.data.model;
 
 public class ChoiceModel {
   private final String name;

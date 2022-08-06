@@ -30,33 +30,34 @@ import javax.inject.Inject;
 
 public class TrashActivity extends AppCompatActivity implements TrashContract.view {
 
-  private ActivityTrashBinding binding;
+    private ActivityTrashBinding binding;
 
-  private TrashNotesAdapter notesTrashAdapter;
-  @Inject
-  public TrashContract.presenter trashPresenter;
-  @Inject public DataManager dataManager;
+    private TrashNotesAdapter notesTrashAdapter;
+    @Inject
+    public TrashContract.presenter trashPresenter;
+    @Inject
+    public DataManager dataManager;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    binding = DataBindingUtil.setContentView(TrashActivity.this, R.layout.activity_trash);
-    init();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(TrashActivity.this, R.layout.activity_trash);
+        init();
 
-    trashPresenter.attachView(this);
-    trashPresenter.setDataManager(dataManager);
-    trashPresenter.viewIsReady();
+        trashPresenter.attachView(this);
+        trashPresenter.setDataManager(dataManager);
+        trashPresenter.viewIsReady();
 
-  }
+    }
 
-  @Override
-  public void init() {
-    getApp()
-            .getComponentsHolder()
-            .getActivityComponent(getClass(), new TrashActivityModule())
-            .inject(TrashActivity.this);
-      binding.setPresenter((TrashPresenter) trashPresenter);
-  }
+    @Override
+    public void init() {
+        getApp()
+                .getComponentsHolder()
+                .getActivityComponent(getClass(), new TrashActivityModule())
+                .inject(TrashActivity.this);
+        binding.setPresenter((TrashPresenter) trashPresenter);
+    }
 
     @Override
     public void initListeners() {
@@ -82,47 +83,43 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
 
     @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
-    return true;
-  }
-
-  @Override
-  public void onBackPressed() {
-    finish();
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == android.R.id.home) {
-    finish();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
+        return true;
     }
-    return true;
-  }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
 
 
-  @Override
-  public void settingsNotesList(int countColumn, LiveData<List<TrashNote>> noteList) {
-    binding.ListTrash.addItemDecoration(new SpacesItemDecoration(15));
-    binding.ListTrash.setLayoutManager(
-            new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
-    notesTrashAdapter = new TrashNotesAdapter(new TrashNotesAdapter.noteDiff());
-    binding.ListTrash.setAdapter(notesTrashAdapter);
-    noteList.observe(
-            this,
-            notes -> {
-              notesTrashAdapter.submitList((List<TrashNote>) notes);
-              binding.setEmptyNotesTrash(!(notes.size() >= 1));
-            });
-  }
+    @Override
+    public void settingsNotesList(int countColumn, LiveData<List<TrashNote>> noteList) {
+        binding.ListTrash.addItemDecoration(new SpacesItemDecoration(15));
+        binding.ListTrash.setLayoutManager(
+                new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
+        notesTrashAdapter = new TrashNotesAdapter(new TrashNotesAdapter.noteDiff());
+        binding.ListTrash.setAdapter(notesTrashAdapter);
+        noteList.observe(
+                this,
+                notes -> {
+                    notesTrashAdapter.submitList((List<TrashNote>) notes);
+                    binding.setEmptyNotesTrash(!(notes.size() >= 1));
+                });
+    }
 
-  @Override
-  public void cleanTrashDialogShow() {
-    new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
-  }
+    @Override
+    public void cleanTrashDialogShow() {
+        new CleanTrashDialog(dataManager.getTrashRepository()).show(getSupportFragmentManager(), "CLeanTrash");
+    }
 
-  @Override
-  public void cleanTrashYes() {
-    trashPresenter.cleanTrashYes();
-  }
 }

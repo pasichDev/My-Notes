@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.ChoiceModel;
+import com.pasich.mynotes.data.model.ChoiceModel;
 import com.pasich.mynotes.ui.view.dialogs.settings.WhatUpdateDialog;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;

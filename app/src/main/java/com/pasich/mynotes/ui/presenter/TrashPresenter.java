@@ -46,8 +46,4 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
         if (isViewAttached()) getView().cleanTrashDialogShow();
     }
 
-    @Override
-    public void cleanTrashYes() {
-        trashRepository.deleteAll();
-    }
 }
