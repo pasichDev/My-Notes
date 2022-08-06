@@ -63,7 +63,7 @@ public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
 
     @Override
     public void createTagNote(Tag tag, Note note) {
-        tagsRepository.insert(tag);
+        tagsRepository.addTag(tag);
         note.setTag(tag.getNameTag());
         notesRepository.updateNote(note);
     }

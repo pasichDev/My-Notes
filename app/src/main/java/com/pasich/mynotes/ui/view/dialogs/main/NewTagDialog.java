@@ -12,43 +12,49 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.view.TagView;
+import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.ui.view.customView.InputTagView;
 
 public class NewTagDialog extends BottomSheetDialogFragment {
 
-  @NonNull
-  public Dialog onCreateDialog(Bundle savedInstanceState) {
-    final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final InputTagView mView = new InputTagView(getLayoutInflater());
-    final TagView tagView = (TagView) getContext();
+    private TagsRepository repository;
 
-    mView.addTitle(getString(R.string.addTag));
-    mView.getInputTag().requestFocus();
-    mView.addView(mView.getNewTagView());
-    mView
-        .getSaveButton()
-        .setOnClickListener(
-            view -> {
-              assert tagView != null;
-              tagView.addTag(mView.getText());
-              dismiss();
-            });
+    public NewTagDialog(TagsRepository repository) {
+        this.repository = repository;
+    }
 
-    builder.setContentView(mView.getRootContainer());
+    @NonNull
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
+        final InputTagView mView = new InputTagView(getLayoutInflater());
 
-    builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-    ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-        .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
+        mView.addTitle(getString(R.string.addTag));
+        mView.getInputTag().requestFocus();
+        mView.addView(mView.getNewTagView());
+        mView
+                .getSaveButton()
+                .setOnClickListener(
+                        view -> {
+                            repository.addTag(new Tag().create(mView.getText()));
+                            dismiss();
+                        });
 
-    return builder;
-  }
+        builder.setContentView(mView.getRootContainer());
 
-  @Override
-  public void onDismiss(@NonNull DialogInterface dialog) {
-    super.onDismiss(dialog);
-    requireActivity()
-        .getWindow()
-        .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-  }
+        builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
+
+        return builder;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        repository = null;
+        requireActivity()
+                .getWindow()
+                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
 }

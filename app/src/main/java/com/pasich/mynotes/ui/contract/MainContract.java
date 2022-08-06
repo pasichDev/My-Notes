@@ -45,7 +45,6 @@ public interface MainContract {
 
         void moreActivityClick();
 
-        void addTag(String nameTag);
 
         void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException;
 

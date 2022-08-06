@@ -9,7 +9,6 @@ public interface NoteView {
 
   void actionStartNote();
 
-
   void tagNoteSelected(Note note);
 
 }

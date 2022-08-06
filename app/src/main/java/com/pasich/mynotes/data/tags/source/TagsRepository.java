@@ -48,7 +48,7 @@ public class TagsRepository {
         return mTags;
     }
 
-    public void insert(Tag tag) {
+    public void addTag(Tag tag) {
 
         Runnable runnable = () -> tagsDao.addTag(tag);
         executor.execute(runnable);

@@ -27,8 +27,9 @@ import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog.ChoiceNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog.ChoiceTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.MoreActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog.TagDialog;
@@ -142,16 +143,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         });
 
         this.findViewById(R.id.sortButton).setOnClickListener(view -> {
-            //   new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
-
-
+            new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
         });
-    }
-
-
-    @Override
-    public void settingsActionBar() {
-
     }
 
     @Override
@@ -270,11 +263,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void addTag(String nameTag) {
-        mainPresenter.addTag(nameTag);
-    }
-
-    @Override
     public void deleteTag(Tag tag, boolean deleteNotes) {
         try {
             mainPresenter.deleteTag(tag, deleteNotes);
@@ -302,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void startCreateTagDialog() {
-        new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
+        new NewTagDialog(dataManager.getTagsRepository()).show(getSupportFragmentManager(), "New Tag");
     }
 
     @Override

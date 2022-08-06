@@ -26,7 +26,8 @@ public class MoreActivityDialog extends DialogFragment {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ListView listView = new ListView(requireContext());
     final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
-    listView.setLayoutAnimation(
+
+      listView.setLayoutAnimation(
         new LayoutAnimationController(
             AnimationUtils.loadAnimation(listView.getContext(), R.anim.item_animation_dialog)));
     listView.setDivider(null);

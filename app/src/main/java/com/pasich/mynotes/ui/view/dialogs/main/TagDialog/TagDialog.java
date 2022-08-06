@@ -126,10 +126,6 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
                         });
     }
 
-    @Override
-    public void settingsActionBar() {
-
-    }
 
     @Override
     public void settingsTagsList(int countColumn, LiveData<List<Tag>> tagsList) {

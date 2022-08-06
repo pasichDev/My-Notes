@@ -67,11 +67,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     }
 
     @Override
-    public void addTag(String nameTag) {
-        if (data != null) tagsRepository.insert(new Tag().create(nameTag));
-    }
-
-    @Override
     public void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException {
         if (data != null) {
             if (!deleteNotes) {

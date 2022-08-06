@@ -1,18 +1,17 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.preference.PreferenceManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.ChoiceModel;
 import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
+import com.preference.PowerPreference;
 
 import java.util.ArrayList;
 
@@ -23,11 +22,8 @@ public class ChooseSortDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
     final ListDialogView view = new ListDialogView(getLayoutInflater());
-   // final SortInterface SortInterface = (SortInterface) getContext();
     final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
-    final String sortParam =
-        PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .getString("sortPref", "DataReserve");
+    final String sortParam = PowerPreference.getDefaultFile().getString("sortPref", "DataReserve");
 
     view.addTitle(getString(R.string.sortHead));
     view.addView(view.getItemsView());
@@ -61,15 +57,9 @@ public class ChooseSortDialog extends DialogFragment {
     DialogListAdapter adapter = new DialogListAdapter(arraySortOption);
     view.getItemsView().setAdapter(adapter);
 
-    view.getItemsView()
-        .setOnItemClickListener(
+    view.getItemsView().setOnItemClickListener(
             (parent, v, position, id) -> {
-              String sortPar = arraySortOption.get(position).getAction();
-              requireContext()
-                      .getSharedPreferences("com.pasich.mynotes_preferences", Context.MODE_PRIVATE)
-                      .edit()
-                      .putString("sortPref", sortPar)
-                      .apply();
+              PowerPreference.getDefaultFile().setString("sortPref", arraySortOption.get(position).getAction());
               //     assert SortInterface != null;
               //      SortInterface.sortList(sortPar);
               dismiss();

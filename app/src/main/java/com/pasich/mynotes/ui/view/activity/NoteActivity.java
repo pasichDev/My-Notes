@@ -32,7 +32,7 @@ import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
-import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog.ChoiceNoteDialog;
 import com.pasich.mynotes.utils.ListNotesUtils;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
@@ -263,7 +263,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             notePresenter.closeActivity();
         }
         if (item.getItemId() == R.id.moreBut) {
-            new MoreNoteDialog().show(getSupportFragmentManager(), "moreNote");
+            new ChoiceNoteDialog(mNote).show(getSupportFragmentManager(), "ChoiceDialog");
         }
         return true;
     }
