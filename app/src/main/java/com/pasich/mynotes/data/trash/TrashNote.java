@@ -22,13 +22,13 @@ public class TrashNote {
 
     private String title;
     private String value;
-    private String date;
+    private long date;
     private String type;
 
     @Ignore
     private boolean Checked;
 
-    public TrashNote create(String title, String value, String date, String type) {
+    public TrashNote create(String title, String value, long date, String type) {
         this.title = title;
         this.value = value;
         this.date = date;
@@ -37,7 +37,7 @@ public class TrashNote {
         return this;
     }
 
-    public TrashNote create(String title, String value, String date) {
+    public TrashNote create(String title, String value, int date) {
         this.title = title;
         this.value = value;
         this.date = date;
@@ -83,11 +83,11 @@ public class TrashNote {
         this.Checked = arg;
     }
 
-    public String getDate() {
+    public long getDate() {
         return this.date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

@@ -20,10 +20,18 @@ public class Note {
           (one, other) -> other.getTitle().compareTo(one.getTitle());
   public static Comparator<Note> COMPARE_BY_TITLE_SORT =
           (one, other) -> one.getTitle().compareTo(other.getTitle());
-  public static Comparator<Note> COMPARE_BY_DATE_REVERSE =
-          (one, other) -> other.getDate().compareTo(one.getDate());
+
+
+ /* public static Comparator<Note> COMPARE_BY_DATE_REVERSE =
+          (one, other) -> {
+            return  (int)  other.getDate().compareTo(one.getDate());
+          };
   public static Comparator<Note> COMPARE_BY_DATE_SORT =
           (one, other) -> one.getDate().compareTo(other.getDate());
+*/
+
+  public static Comparator<Note> COMPARE_BY_DATE_REVERSE = (e1, e2) -> Math.toIntExact((long) (e1.getDate() - e2.getDate()));
+  public static Comparator<Note> COMPARE_BY_DATE_SORT = (e1, e2) -> Math.toIntExact((long) (e2.getDate() - e1.getDate()));
 
 
   @PrimaryKey(autoGenerate = true)
@@ -31,13 +39,13 @@ public class Note {
 
   private String title;
   private String value;
-  private String date;
+  private long date;
   private String type;
   private String tag;
 
   @Ignore private boolean Checked;
 
-  public Note create(String title, String value, String date, String type, String tag) {
+  public Note create(String title, String value, long date, String type, String tag) {
     this.title = title;
     this.tag = tag;
     this.value = value;
@@ -47,7 +55,7 @@ public class Note {
     return this;
   }
 
-  public Note create(String title, String value, String date) {
+  public Note create(String title, String value, long date) {
     this.title = title;
     this.tag = "";
     this.value = value;
@@ -94,11 +102,11 @@ public class Note {
     this.Checked = arg;
   }
 
-  public String getDate() {
+  public long getDate() {
     return this.date;
   }
 
-  public void setDate(String date) {
+  public void setDate(long date) {
     this.date = date;
   }
 

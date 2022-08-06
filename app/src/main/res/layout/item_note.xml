@@ -34,7 +34,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:visibility="@{noteItem.title.length() > 2 ? View.VISIBLE : View.GONE }"
+            android:visibility="@{noteItem.title.length() >= 2 ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toTopOf="@+id/previewNote"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"

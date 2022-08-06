@@ -61,11 +61,13 @@ public class ChooseSortDialog extends DialogFragment {
 
         view.getItemsView().setOnItemClickListener(
                 (parent, v, position, id) -> {
-                    PowerPreference.getDefaultFile().setString("sortPref", arraySortOption.get(position).getAction());
+                    if (!adapter.getItem(position).getSelected()) {
+                        PowerPreference.getDefaultFile().setString("sortPref", arraySortOption.get(position).getAction());
 
-                    assert sortView != null;
-                    sortView.sortList(arraySortOption.get(position).getAction());
-                    dismiss();
+                        assert sortView != null;
+                        sortView.sortList(arraySortOption.get(position).getAction());
+                        dismiss();
+                    }
                 });
         builder.setContentView(view.getRootContainer());
         return builder;

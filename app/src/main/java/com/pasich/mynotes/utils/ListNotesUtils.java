@@ -2,7 +2,6 @@ package com.pasich.mynotes.utils;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class ListNotesUtils {
@@ -13,7 +12,8 @@ public class ListNotesUtils {
      * @param date - original file date
      * @return - date (string)
      */
-    public static String returnDateFile(Date date) {
+    public static String convertDate(long date) {
         return new SimpleDateFormat("dd.MM.yyyy  HH:mm:ss", Locale.getDefault()).format(date);
     }
+
 }

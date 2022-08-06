@@ -20,6 +20,7 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -44,13 +45,22 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
   @RequiresApi(api = Build.VERSION_CODES.N)
   public void sortByType(String arg) {
     List<Note> sortedList = new ArrayList<>(getCurrentList());
-    sortedList.sort(getArg(arg));
-    List<Note> displayOrderList = new ArrayList<>(getCurrentList());
+    //  sortedList.sort(getArg(arg));
+    Collections.sort(sortedList, getArg(arg));
+    for (Note note : sortedList) {
+
+      Log.wtf("pasic", "namenote: " + note.getTitle());
+    }
+  /*  List<Note> displayOrderList = new ArrayList<>(getCurrentList());
     for (int i = 0; i < sortedList.size(); ++i) {
       int toPos = sortedList.indexOf(displayOrderList.get(i));
       notifyItemMoved(i, toPos);
       listMoveTo(displayOrderList, i, toPos);
     }
+   */
+    submitList(sortedList);
+    notifyDataSetChanged();
+
   }
 
   private void listMoveTo(List<Note> list, int fromPos, int toPos) {

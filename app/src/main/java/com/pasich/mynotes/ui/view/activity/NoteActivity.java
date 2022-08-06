@@ -2,6 +2,7 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.di.App.getApp;
+import static com.pasich.mynotes.utils.ListNotesUtils.convertDate;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -33,11 +34,10 @@ import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog.ChoiceNoteDialog;
-import com.pasich.mynotes.utils.ListNotesUtils;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -291,7 +291,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void loadingNote(Note note) {
         binding.notesTitle.setText(note.getTitle());
         binding.valueNote.setText(note.getValue());
-        binding.dataEditNote.setText(note.getDate());
+        binding.dataEditNote.setText(convertDate(note.getDate()));
         this.mNote = note;
     }
 
@@ -333,7 +333,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     }
 
     private void saveNote() {
-        String mThisDate = ListNotesUtils.returnDateFile(Calendar.getInstance().getTime());
+        long mThisDate = new Date().getTime();
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
         if (newNoteKey) {

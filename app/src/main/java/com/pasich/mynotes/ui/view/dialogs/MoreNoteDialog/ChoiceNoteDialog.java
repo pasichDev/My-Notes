@@ -1,5 +1,7 @@
 package com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 
+import static com.pasich.mynotes.utils.ListNotesUtils.convertDate;
+
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +37,7 @@ public class ChoiceNoteDialog extends DialogFragment {
         final NoteView noteView = (NoteView) getContext();
 
 
-        view.initializeInfoLayout(note.getDate(), note.getValue().length());
+        view.initializeInfoLayout(convertDate(note.getDate()), note.getValue().length());
 
         arrayChoice.add(
                 new ChoiceModel(
