@@ -47,7 +47,6 @@ public class DeleteTagDialog extends DialogFragment {
     DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
     view.getItemsView().setAdapter(adapter);
 
-    view.getItemsView().setDivider(null);
     view.getItemsView()
         .setOnItemClickListener(
             (parent, v, position, id) -> {

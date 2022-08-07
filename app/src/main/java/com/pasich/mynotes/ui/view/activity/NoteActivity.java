@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,15 +29,19 @@ import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.model.SourceModel;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
+import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -116,7 +121,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void initListeners() {
         if (isRecognitionAvailable(getApplicationContext())) {
-            binding.spechStart.setOnTouchListener(
+            binding.speechStart.setOnTouchListener(
                     (view, motionEvent) -> {
                         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                             speechRecognizer.stopListening();
@@ -217,6 +222,16 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                     public void onEvent(int i, Bundle bundle) {
                     }
                 });
+    }
+
+    @Override
+    public void loadingSourceNote() {
+        ArrayList<SourceModel> listSource = new SearchSourceNote().getListSources(binding.valueNote.getText().toString());
+        if (listSource.size() >= 1)
+            new SourceNoteDialog(listSource).show(getSupportFragmentManager(), "SourcesNoteDialog");
+        else
+            Toast.makeText(getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT)
+                    .show();
     }
 
 

@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.ChoiceModel;
+import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 import com.pasich.mynotes.ui.view.dialogs.settings.WhatUpdateDialog;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
@@ -25,10 +26,10 @@ public class AboutAppDialog extends BottomSheetDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
         final ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
-        final AboutAppView view = new AboutAppView(getLayoutInflater());
+        final ListDialogView view = new ListDialogView(getLayoutInflater());
 
-        view.setTitle(getString(R.string.aboutApp));
-
+        view.addTitle(getString(R.string.aboutApp));
+        view.addView(view.getItemsView());
         arrayChoice.add(
                 new ChoiceModel(getString(R.string.shareApp), R.drawable.ic_share, "shareApp", false));
 

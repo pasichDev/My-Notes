@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
+
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -88,5 +89,10 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
             data.getTrashRepository().moveToTrash(note);
         }
         notesRepository.deleteNote(note);
+    }
+
+    @Override
+    public void sourceNote() {
+        getView().loadingSourceNote();
     }
 }

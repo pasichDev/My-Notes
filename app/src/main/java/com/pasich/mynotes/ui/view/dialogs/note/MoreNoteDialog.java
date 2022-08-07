@@ -3,8 +3,6 @@ package com.pasich.mynotes.ui.view.dialogs.note;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -37,17 +35,11 @@ public class MoreNoteDialog extends DialogFragment {
 
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
         final ListView listView = new ListView(requireContext());
-        final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
+
         final NoteActivityView noteActivityView = (NoteActivityView) getContext();
 
-        listView.setLayoutAnimation(
-                new LayoutAnimationController(
-                        AnimationUtils.loadAnimation(listView.getContext(), R.anim.item_animation_dialog)));
-        listView.setDivider(null);
 
-        initList(arraySortOption);
-
-        DialogListAdapter adapter = new DialogListAdapter(arraySortOption);
+        DialogListAdapter adapter = new DialogListAdapter(initList());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(
                 (parent, v, position, id) -> {
@@ -75,7 +67,8 @@ public class MoreNoteDialog extends DialogFragment {
         return builder;
     }
 
-    private void initList(ArrayList<ChoiceModel> arraySortOption) {
+    private ArrayList<ChoiceModel> initList() {
+        final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
         arraySortOption.add(
                 new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
 
@@ -93,5 +86,7 @@ public class MoreNoteDialog extends DialogFragment {
         arraySortOption.add(
                 new ChoiceModel(
                         getString(R.string.noSave), R.drawable.ic_close_search_view, "Close", false));
+
+        return arraySortOption;
     }
 }

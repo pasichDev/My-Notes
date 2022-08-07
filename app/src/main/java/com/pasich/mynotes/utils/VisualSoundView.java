@@ -32,7 +32,7 @@ class VisualSoundView extends View {
 
         @SuppressLint("DrawAllocation")
         Paint line1 = new Paint();
-        line1.setStrokeWidth(5);
+        line1.setStrokeWidth(15);
 
         line1.setColor(Color.BLACK);
         line1.setTextSize(20);

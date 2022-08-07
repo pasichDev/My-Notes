@@ -16,6 +16,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_Note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@{checkedItem ? @drawable/item_note_background_selected :  @drawable/item_selected}">
@@ -48,6 +49,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
+            android:maxLines="5"
             android:gravity="center_vertical"
             android:text="@{noteItem.value.length() > 200 ? noteItem.value.substring(0,200) : noteItem.value}"
             app:layout_constraintBottom_toTopOf="@+id/tagNote"

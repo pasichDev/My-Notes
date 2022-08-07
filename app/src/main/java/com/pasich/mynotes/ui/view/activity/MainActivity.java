@@ -4,6 +4,7 @@ import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -271,9 +272,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void newNotesButton() {
+
+        ActivityOptions options = ActivityOptions
+                .makeSceneTransitionAnimation(this, binding.newNotesButton, "robot");
+        // start the new activity
+        //  startActivity(intent, options.toBundle())
+
+     /*   startActivity(new Intent(this, NoteActivity.class)
+                .putExtra("NewNote", false)
+                .putExtra("idNote", idNote)
+                .putExtra("tagNote", ""), options.toBundle());
+        */
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", true)
-                .putExtra("tagNote", ""));
+                .putExtra("tagNote", ""), options.toBundle());
     }
 
     @Override

@@ -16,7 +16,7 @@ public class ListDialogView extends BaseView {
     this.itemsView = createListView();
   }
 
-  /**
+    /**
    * Метод который создает и настраивет itemsListView
    *
    * @return - itemsListView

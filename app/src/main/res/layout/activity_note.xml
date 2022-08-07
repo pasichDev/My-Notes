@@ -153,12 +153,14 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageButton
+                android:id="@+id/sourceStart"
                 style="?android:attr/actionButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:onClick="@{(view) -> presenter.sourceNote()}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/spechStart"
+                app:layout_constraintEnd_toStartOf="@+id/speechStart"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_source" />
@@ -177,7 +179,7 @@
                 app:srcCompat="@drawable/ic_edit" />
 
             <ImageButton
-                android:id="@+id/spechStart"
+                android:id="@+id/speechStart"
                 style="?android:attr/actionButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"

@@ -27,6 +27,8 @@ public interface NoteContract {
 
         void initListenerSpeechRecognizer();
 
+        void loadingSourceNote();
+
 
     }
 
@@ -42,5 +44,7 @@ public interface NoteContract {
         void saveNote(Note note);
 
         void deleteNote(Note note);
+
+        void sourceNote();
     }
 }

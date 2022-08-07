@@ -2,6 +2,7 @@ package com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 
 import static com.pasich.mynotes.utils.ListNotesUtils.convertDate;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.data.model.ChoiceModel;
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.databinding.ViewInfoItemBinding;
+import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
@@ -24,7 +27,6 @@ public class ChoiceNoteDialog extends DialogFragment {
 
     private final Note note;
 
-
     public ChoiceNoteDialog(Note note) {
         this.note = note;
     }
@@ -32,27 +34,15 @@ public class ChoiceNoteDialog extends DialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
-        final ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
-        final ChoiceNoteView view = new ChoiceNoteView(getLayoutInflater());
+
+        final ListDialogView view = new ListDialogView(getLayoutInflater());
         final NoteView noteView = (NoteView) getContext();
 
 
-        view.initializeInfoLayout(convertDate(note.getDate()), note.getValue().length());
+        view.addView(view.getItemsView());
+        view.addView(initializeInfoLayout(convertDate(note.getDate()), note.getValue().length()).getRoot());
 
-        arrayChoice.add(
-                new ChoiceModel(
-                        getString(R.string.selectAll), R.drawable.ic_check_box, "SelectAll", false));
-        arrayChoice.add(
-                new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
-        arrayChoice.add(new ChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            arrayChoice.add(new ChoiceModel(getString(R.string.addShortCutLauncher), R.drawable.ic_label, "addShotCut", false));
-        }
-        arrayChoice.add(
-                new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
-
-
-        DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
+        DialogListAdapter adapter = new DialogListAdapter(initList());
         view.getItemsView().setAdapter(adapter);
 
 
@@ -86,5 +76,29 @@ public class ChoiceNoteDialog extends DialogFragment {
         builder.setContentView(view.getRootContainer());
 
         return builder;
+    }
+
+    private ArrayList<ChoiceModel> initList() {
+        final ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
+        arrayChoice.add(
+                new ChoiceModel(
+                        getString(R.string.selectAll), R.drawable.ic_check_box, "SelectAll", false));
+        arrayChoice.add(
+                new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
+        arrayChoice.add(new ChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            arrayChoice.add(new ChoiceModel(getString(R.string.addShortCutLauncher), R.drawable.ic_label, "addShotCut", false));
+        }
+        arrayChoice.add(
+                new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
+
+        return arrayChoice;
+    }
+
+    @SuppressLint("StringFormatMatches")
+    public ViewInfoItemBinding initializeInfoLayout(String dateNote, int symbolsLength) {
+        ViewInfoItemBinding binding = ViewInfoItemBinding.inflate(getLayoutInflater());
+        binding.infoTextView.setText(getString(R.string.layoutStringInfo, dateNote, symbolsLength));
+        return binding;
     }
 }
