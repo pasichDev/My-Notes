@@ -48,7 +48,7 @@ android {
 
 ext {
     powerPrefenceVersion = '2.1.0'
-    roomVersion = '2.4.2'
+    roomVersion = '2.4.3'
     daggerCompilerVersion = '2.20'
     daggerVersion = '2.38.1'
 }
@@ -72,7 +72,5 @@ dependencies {
     //powerPreferences
     implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"
 
-    implementation 'com.google.android.play:review:2.0.0'
-    // compileOnly 'javax.annotation:jsr250-api:1.0'
 }
 
