@@ -14,6 +14,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.NoteActivityView;
 import com.pasich.mynotes.data.model.ChoiceModel;
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.utils.GoogleTranslationIntent;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
@@ -46,10 +47,9 @@ public class MoreNoteDialog extends DialogFragment {
                 new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
         arraySortOption.add(
                 new ChoiceModel(
-                        getString(R.string.translateNote), R.drawable.ic_translate, "Translate", false));
+                        getString(R.string.translateNote), R.drawable.ic_translate, "GoogleTanslationIntent", false));
 
         if (!typeActivity) {
-            arraySortOption.add(new ChoiceModel(getString(R.string.tag), R.drawable.ic_tag, "Tag", false));
             arraySortOption.add(
                     new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
         }
@@ -63,6 +63,9 @@ public class MoreNoteDialog extends DialogFragment {
                     if (adapter.getItem(position).getAction().equals("Close")) {
                         assert noteActivityView != null;
                         noteActivityView.closeActivityNotSaved();
+                    }
+                    if (adapter.getItem(position).getAction().equals("GoogleTanslationIntent")) {
+                        new GoogleTranslationIntent().startTranslation(getActivity(), mNote.getValue());
                     }
                     if (adapter.getItem(position).getAction().equals("Share")) {
                         new ShareUtils(mNote, getActivity()).shareNotes();

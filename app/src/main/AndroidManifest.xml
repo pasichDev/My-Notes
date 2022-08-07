@@ -11,6 +11,9 @@
         </intent>
     </queries>
 
+    <queries>
+        <package android:name="com.google.android.apps.translate" />
+    </queries>
     <application
         android:name=".di.App"
         android:allowBackup="true"

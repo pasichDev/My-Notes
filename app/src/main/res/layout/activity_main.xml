@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
+
         <variable
             name="presenter"
             type="com.pasich.mynotes.ui.presenter.MainPresenter" />
+
         <variable
             name="emptyNotes"
             type="boolean" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,14 +29,14 @@
 
         <TextView
             android:id="@+id/textView"
+            style="@style/headActivityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-        style="@style/headActivityText"
-        android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
-        android:layout_marginTop="10dp"
-        android:text="@string/notes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar" />
+            android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
+            android:layout_marginTop="10dp"
+            android:text="@string/notes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar" />
 
     <ImageButton
         android:id="@+id/moreActivity"
