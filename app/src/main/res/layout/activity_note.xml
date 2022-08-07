@@ -54,7 +54,7 @@
             <EditText
                 android:id="@+id/notesTitle"
                 style="@style/headActivityText"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
