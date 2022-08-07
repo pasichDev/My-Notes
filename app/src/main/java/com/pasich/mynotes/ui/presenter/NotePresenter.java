@@ -24,6 +24,7 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
         data = dataManager;
         tagsRepository = data.getTagsRepository();
         notesRepository = data.getNotesRepository();
+        notesRepository = data.getNotesRepository();
     }
 
     @Override
@@ -79,5 +80,13 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
     @Override
     public void saveNote(Note note) {
         notesRepository.updateNote(note);
+    }
+
+    @Override
+    public void deleteNote(Note note) {
+        synchronized (this) {
+            data.getTrashRepository().moveToTrash(note);
+        }
+        notesRepository.deleteNote(note);
     }
 }

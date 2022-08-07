@@ -161,4 +161,5 @@
     <string name="addShortCutLauncher" translatable="false">Добавить ярлык на рабочий стол</string>
     <string name="addShortCutSuccessfully" translatable="false">Добавления ярлыка выполнено успешно</string>
 
+    <string name="translateNote" translatable="false">Вызвать переводчик</string>
 </resources>

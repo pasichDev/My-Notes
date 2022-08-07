@@ -26,7 +26,7 @@ import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
-import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog.ChoiceNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.MoreActivityDialog;
@@ -279,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void moreActivity() {
         new MoreActivityDialog().show(getSupportFragmentManager(), "more activity");
+
     }
 
     @Override

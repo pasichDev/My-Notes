@@ -33,7 +33,7 @@ import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
-import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog.ChoiceNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
@@ -263,7 +263,14 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             notePresenter.closeActivity();
         }
         if (item.getItemId() == R.id.moreBut) {
-            new ChoiceNoteDialog(mNote).show(getSupportFragmentManager(), "ChoiceDialog");
+            MoreNoteDialog moreNoteDialog;
+            if (newNoteKey) moreNoteDialog = new MoreNoteDialog(new Note()
+                    .create(binding.notesTitle.getText().toString(),
+                            binding.valueNote.getText().toString(),
+                            new Date().getTime()), true);
+            else
+                moreNoteDialog = new MoreNoteDialog(mNote, false);
+            moreNoteDialog.show(getSupportFragmentManager(), "MoreNote");
         }
         return true;
     }
@@ -294,7 +301,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         binding.dataEditNote.setText(convertDate(note.getDate()));
         this.mNote = note;
     }
-
 
 
     @Override
@@ -385,4 +391,14 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     }
 
 
+    @Override
+    public void deleteNote(Note note) {
+        notePresenter.deleteNote(note);
+        finish();
+    }
+
+    @Override
+    public void closeActivityNotSaved() {
+        finish();
+    }
 }

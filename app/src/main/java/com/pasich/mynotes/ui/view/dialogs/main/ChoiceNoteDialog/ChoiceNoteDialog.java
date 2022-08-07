@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
+package com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 
 import static com.pasich.mynotes.utils.ListNotesUtils.convertDate;
 
