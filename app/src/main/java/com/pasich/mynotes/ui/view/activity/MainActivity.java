@@ -213,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         binding.listNotes.setLayoutManager(gridLayoutManager);
         binding.listNotes.setAdapter(notesAdapter);
 
+
         noteList.observe(
                 this,
                 notes -> {

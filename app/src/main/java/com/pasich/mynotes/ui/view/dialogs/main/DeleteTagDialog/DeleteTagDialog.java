@@ -17,47 +17,47 @@ import java.util.ArrayList;
 
 public class DeleteTagDialog extends DialogFragment {
 
-  private final int countNotesToTag;
-  private final Tag tag;
+    private final int countNotesToTag;
+    private final Tag tag;
 
-  public DeleteTagDialog(int countNotesToTag, Tag tag) {
-    this.countNotesToTag = countNotesToTag;
-    this.tag = tag;
-  }
+    public DeleteTagDialog(int countNotesToTag, Tag tag) {
+        this.countNotesToTag = countNotesToTag;
+        this.tag = tag;
+    }
 
-  @NonNull
-  public Dialog onCreateDialog(Bundle savedInstanceState) {
+    @NonNull
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-    final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-    final TagView tagView = (TagView) getContext();
-    final DeleteTagView view = new DeleteTagView(getLayoutInflater());
-    ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
-    arrayChoice.add(
-        new ChoiceModel(getString(R.string.deleteTag), R.drawable.ic_delete, "Delete", false));
-    if (countNotesToTag != 0)
-      arrayChoice.add(
-          new ChoiceModel(
-              getString(R.string.deleteTagAndNotes),
-              R.drawable.ic_delete,
-              "DeleteAndNotes",
-              false));
-    arrayChoice.add(
-        new ChoiceModel(
-            getString(R.string.cancel), R.drawable.ic_close_search_view, "Close", false));
-    DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
-    view.getItemsView().setAdapter(adapter);
+        final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
+        final TagView tagView = (TagView) getContext();
+        final DeleteTagView view = new DeleteTagView(getLayoutInflater());
+        ArrayList<ChoiceModel> arrayChoice = new ArrayList<>();
+        arrayChoice.add(
+                new ChoiceModel(getString(R.string.deleteTag), R.drawable.ic_tag_delete, "Delete", false));
+        if (countNotesToTag != 0)
+            arrayChoice.add(
+                    new ChoiceModel(
+                            getString(R.string.deleteTagAndNotes),
+                            R.drawable.ic_delete_notes_tag,
+                            "DeleteAndNotes",
+                            false));
+        arrayChoice.add(
+                new ChoiceModel(
+                        getString(R.string.cancel), R.drawable.ic_close_search_view, "Close", false));
+        DialogListAdapter adapter = new DialogListAdapter(arrayChoice);
+        view.getItemsView().setAdapter(adapter);
 
-    view.getItemsView()
-        .setOnItemClickListener(
-            (parent, v, position, id) -> {
-              String action = adapter.getItem(position).getAction();
-              if (!action.equals("Close")) {
-                 assert tagView != null;
-                 tagView.deleteTag(tag, action.equals("DeleteAndNotes"));
-              }
-              dismiss();
-            });
-    builder.setContentView(view.getRootContainer());
-    return builder;
-  }
+        view.getItemsView()
+                .setOnItemClickListener(
+                        (parent, v, position, id) -> {
+                            String action = adapter.getItem(position).getAction();
+                            if (!action.equals("Close")) {
+                                assert tagView != null;
+                                tagView.deleteTag(tag, action.equals("DeleteAndNotes"));
+                            }
+                            dismiss();
+                        });
+        builder.setContentView(view.getRootContainer());
+        return builder;
+    }
 }

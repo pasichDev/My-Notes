@@ -90,7 +90,7 @@ public class ChoiceNoteDialog extends DialogFragment {
             arrayChoice.add(new ChoiceModel(getString(R.string.addShortCutLauncher), R.drawable.ic_label, "addShotCut", false));
         }
         arrayChoice.add(
-                new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
+                new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete_note, "Delete", false));
 
         return arrayChoice;
     }

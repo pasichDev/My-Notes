@@ -3,7 +3,6 @@ package com.pasich.mynotes.ui.view.dialogs.note;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -13,6 +12,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.NoteActivityView;
 import com.pasich.mynotes.data.model.ChoiceModel;
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 import com.pasich.mynotes.utils.GoogleTranslationIntent;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;
@@ -34,14 +34,14 @@ public class MoreNoteDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-        final ListView listView = new ListView(requireContext());
+        final ListDialogView view = new ListDialogView(getLayoutInflater());
 
         final NoteActivityView noteActivityView = (NoteActivityView) getContext();
 
 
         DialogListAdapter adapter = new DialogListAdapter(initList());
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(
+        view.getItemsView().setAdapter(adapter);
+        view.getItemsView().setOnItemClickListener(
                 (parent, v, position, id) -> {
                     if (adapter.getItem(position).getAction().equals("Close")) {
                         assert noteActivityView != null;
@@ -63,7 +63,8 @@ public class MoreNoteDialog extends DialogFragment {
                     }
                     dismiss();
                 });
-        builder.setContentView(listView);
+        view.addView(view.getItemsView());
+        builder.setContentView(view.getRootContainer());
         return builder;
     }
 
@@ -81,7 +82,7 @@ public class MoreNoteDialog extends DialogFragment {
                 arraySortOption.add(new ChoiceModel(getString(R.string.addShortCutLauncher), R.drawable.ic_label, "addShotCut", false));
             }
             arraySortOption.add(
-                    new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete, "Delete", false));
+                    new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete_note, "Delete", false));
         }
         arraySortOption.add(
                 new ChoiceModel(
