@@ -1,6 +1,7 @@
 package com.pasich.mynotes.utils.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,21 @@ public class NoteSourceAdapter extends BaseAdapter {
   public NoteSourceAdapter(ArrayList<SourceModel> list) {
     this.listSource = list;
   }
+
+  public void refreshList(String type, ArrayList<SourceModel> inputList) {
+    //  List<SourceModel> array = (List<SourceModel>) listSource.clone();
+    listSource.clear();
+    Log.wtf("pasic", "refreshList:  test");
+    for (SourceModel source : inputList) {
+
+      Log.wtf("pasic", "->" + type);
+      Log.wtf("pasic", "->" + source.getType());
+      if (source.getType().equals(type)) listSource.add(source);
+      Log.wtf("pasic", "refreshList: " + source.getSource());
+    }
+    notifyDataSetChanged();
+  }
+
 
   @Override
   public int getCount() {

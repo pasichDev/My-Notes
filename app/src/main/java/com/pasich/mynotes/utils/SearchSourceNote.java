@@ -8,23 +8,39 @@ import java.util.regex.Pattern;
 
 public class SearchSourceNote {
 
-    public SearchSourceNote() {
+    private final String textString;
+    private final ArrayList<SourceModel> getList;
+
+
+    public SearchSourceNote(String textString) {
+        this.textString = textString;
+        this.getList = getListSources();
     }
 
-    public ArrayList<SourceModel> getListSources(String textString) {
-        ArrayList<SourceModel> listArray = new ArrayList<>();
 
-        for (String link : this.getLinks(textString)) {
+    public int getCountSource() {
+        return getList.size();
+    }
+
+    public ArrayList<SourceModel> getList() {
+        return this.getList;
+    }
+
+    private ArrayList<SourceModel> getListSources() {
+        ArrayList<SourceModel> listArray = new ArrayList<>();
+        for (String link : this.getLinks()) {
             listArray.add(new SourceModel(link, "Url"));
         }
 
-        for (String mail : getMail(textString)) {
+        for (String mail : getMail()) {
             listArray.add(new SourceModel(mail, "Mail"));
         }
 
-        for (String number : getPhoneNumber(textString)) {
+        for (String number : getPhoneNumber()) {
             listArray.add(new SourceModel(number, "Tel"));
         }
+
+
         return listArray;
     }
 
@@ -33,7 +49,7 @@ public class SearchSourceNote {
      *
      * @return - ArrayList<String>
      */
-    private ArrayList<String> getLinks(String textString) {
+    private ArrayList<String> getLinks() {
         ArrayList<String> arrayLink = new ArrayList<>();
         String regLink = "(https?|www|http)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
         Matcher match = Pattern.compile(regLink).matcher(textString);
@@ -47,7 +63,7 @@ public class SearchSourceNote {
      *
      * @return - ArrayList<String>
      */
-    private ArrayList<String> getMail(String textString) {
+    private ArrayList<String> getMail() {
         ArrayList<String> arrayMail = new ArrayList<>();
         String regMail = "[A-Za-z0-9+_.-]+@(.+)";
         Matcher match = Pattern.compile(regMail).matcher(textString);
@@ -61,7 +77,7 @@ public class SearchSourceNote {
      *
      * @return - ArrayList<String>
      */
-    private ArrayList<String> getPhoneNumber(String textString) {
+    private ArrayList<String> getPhoneNumber() {
         ArrayList<String> arrayNumber = new ArrayList<>();
         String regPhoneNumber =
                 "(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}"

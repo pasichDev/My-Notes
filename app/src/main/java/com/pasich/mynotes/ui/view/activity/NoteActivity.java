@@ -29,7 +29,6 @@ import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.model.SourceModel;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.di.note.NoteActivityModule;
@@ -41,7 +40,6 @@ import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -226,9 +224,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void loadingSourceNote() {
-        ArrayList<SourceModel> listSource = new SearchSourceNote().getListSources(binding.valueNote.getText().toString());
-        if (listSource.size() >= 1)
-            new SourceNoteDialog(listSource).show(getSupportFragmentManager(), "SourcesNoteDialog");
+        SearchSourceNote searchSourceNote = new SearchSourceNote(binding.valueNote.getText().toString());
+        if (searchSourceNote.getCountSource() >= 1)
+            new SourceNoteDialog(searchSourceNote).show(getSupportFragmentManager(), "SourcesNoteDialog");
         else
             Toast.makeText(getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT)
                     .show();
