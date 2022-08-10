@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         init();
 
+
         mainPresenter.attachView(this);
         mainPresenter.setDataManager(dataManager);
         mainPresenter.viewIsReady();
@@ -198,9 +199,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         tagList.observe(
                 this,
                 tags -> {
-                    int positionSelected = tagsAdapter.getCheckedPosition();
+             /*      int positionSelected = tagsAdapter.getCheckedPosition();
                     if (tagsAdapter.getCurrentList().size() >= 1)
                         tagsAdapter.removeOldCheck();
+*/
+
                     tagsAdapter.submitList(tags);
 
                 });
@@ -217,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         noteList.observe(
                 this,
                 notes -> {
+                    Log.wtf("pasich", "update observer note ");
                     notesAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
                     binding.setEmptyNotes(!(notes.size() >= 1));
 

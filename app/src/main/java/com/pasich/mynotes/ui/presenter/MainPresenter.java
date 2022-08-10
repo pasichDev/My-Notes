@@ -2,6 +2,8 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.util.Log;
+
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -126,10 +128,14 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
     @Override
     public void deleteNote(Note note) {
-        synchronized (this) {
-            trashRepository.moveToTrash(note);
-       }
-        notesRepository.deleteNote(note);
+        Log.wtf("pasich", "do synchronized: " + note.getId());
+
+        trashRepository.moveToTrash(note);
+
+        Log.wtf("pasich", " synchronized: " + note.getId());
+
+        Log.wtf("pasich", "posle synchronized: " + note.getId());
+        //  notesRepository.deleteNote(note);
     }
 
 }
