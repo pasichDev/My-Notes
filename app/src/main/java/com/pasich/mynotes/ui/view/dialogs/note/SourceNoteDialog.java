@@ -14,7 +14,7 @@ import com.pasich.mynotes.data.model.SourceFilterModel;
 import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.adapters.FilterSourceAdapter;
-import com.pasich.mynotes.utils.adapters.NoteSourceAdapter;
+import com.pasich.mynotes.utils.adapters.SourceAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class SourceNoteDialog extends DialogFragment {
     private final SearchSourceNote searchSourceNote;
     private FilterSourceAdapter filterSourceAdapter;
-    private NoteSourceAdapter noteSourceAdapter;
+    private SourceAdapter sourceAdapter;
 
 
     public SourceNoteDialog(SearchSourceNote searchSourceNote) {
@@ -40,8 +40,8 @@ public class SourceNoteDialog extends DialogFragment {
         listDialogView.LP_DEFAULT.setMargins(30, 0, 10, 40);
         listDialogView.addView(createRecycleView(), listDialogView.LP_DEFAULT);
 
-        noteSourceAdapter = new NoteSourceAdapter(searchSourceNote.getListSources("Url"));
-        listDialogView.getItemsView().setAdapter(noteSourceAdapter);
+        sourceAdapter = new SourceAdapter(searchSourceNote.getListSources("Url"));
+        listDialogView.getItemsView().setAdapter(sourceAdapter);
 
 
         filterSourceAdapter.setOnItemClickListener(
@@ -60,8 +60,22 @@ public class SourceNoteDialog extends DialogFragment {
 
         listDialogView.getItemsView().setOnItemClickListener(
                 (parent, v, position, id) -> {
+                    //   if(sourceAdapter.getItem(position).getType().equals("Mail")){
 
-                    dismiss();
+
+
+                         /*   Intent intent = new Intent(Intent.ACTION_SENDTO);
+                            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                            intent.putExtra(Intent.EXTRA_EMAIL, "addresses");
+                            intent.putExtra(Intent.EXTRA_SUBJECT, sourceAdapter.getItem(position).getSource());
+                       //     if (intent.resolveActivity(requireContext().getPackageManager()) != null) {
+                                startActivity(intent);
+                        //    }
+*/
+                    //   }
+                    //  dismiss();
+
+
                 });
 
 
@@ -72,7 +86,7 @@ public class SourceNoteDialog extends DialogFragment {
 
     private void chooseItem(int position) {
         filterSourceAdapter.chooseItem(position);
-        noteSourceAdapter.refreshList(searchSourceNote.getListSources(filterSourceAdapter.getItem(position).getType()));
+        sourceAdapter.refreshList(searchSourceNote.getListSources(filterSourceAdapter.getItem(position).getType()));
 
     }
 

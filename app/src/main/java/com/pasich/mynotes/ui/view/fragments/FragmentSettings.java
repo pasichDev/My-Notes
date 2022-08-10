@@ -53,14 +53,14 @@ public class FragmentSettings extends PreferenceFragmentCompat {
 
     @Deprecated
     private void sendEmail() {
-        try {
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_APP_EMAIL);
-            intent.putExtra(Intent.EXTRA_EMAIL, "pasichDev@outlook.com");
-            this.startActivity(intent);
-        } catch (android.content.ActivityNotFoundException e) {
-            Toast.makeText(getContext(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
+      try {
+          Intent intent = new Intent(Intent.ACTION_MAIN);
+          intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+          intent.putExtra(Intent.EXTRA_EMAIL, "pasichDev@outlook.com");
+          this.startActivity(intent);
+      } catch (android.content.ActivityNotFoundException e) {
+          Toast.makeText(getContext(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+      }
 
     }
 }

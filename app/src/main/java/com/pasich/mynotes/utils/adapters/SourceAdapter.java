@@ -12,12 +12,12 @@ import com.pasich.mynotes.databinding.ItemSourceNoteChoiceBinding;
 
 import java.util.ArrayList;
 
-public class NoteSourceAdapter extends BaseAdapter {
+public class SourceAdapter extends BaseAdapter {
 
     private ArrayList<SourceModel> listSource;
     private LayoutInflater LayoutInflater;
 
-    public NoteSourceAdapter(ArrayList<SourceModel> list) {
+    public SourceAdapter(ArrayList<SourceModel> list) {
         this.listSource = list;
     }
 
