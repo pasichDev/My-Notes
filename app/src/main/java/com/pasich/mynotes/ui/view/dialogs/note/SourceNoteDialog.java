@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class SourceNoteDialog extends DialogFragment {
     private final SearchSourceNote searchSourceNote;
-    private RecyclerView listFilter;
     private FilterSourceAdapter filterSourceAdapter;
     private NoteSourceAdapter noteSourceAdapter;
 
@@ -41,7 +40,7 @@ public class SourceNoteDialog extends DialogFragment {
         listDialogView.LP_DEFAULT.setMargins(30, 0, 10, 40);
         listDialogView.addView(createRecycleView(), listDialogView.LP_DEFAULT);
 
-        noteSourceAdapter = new NoteSourceAdapter(searchSourceNote.getList());
+        noteSourceAdapter = new NoteSourceAdapter(searchSourceNote.getListSources("Url"));
         listDialogView.getItemsView().setAdapter(noteSourceAdapter);
 
 
@@ -50,6 +49,7 @@ public class SourceNoteDialog extends DialogFragment {
                     @Override
                     public void onClick(int position) {
                         chooseItem(position);
+                        listDialogView.getItemsView().scheduleLayoutAnimation();
                     }
 
                     @Override
@@ -72,12 +72,13 @@ public class SourceNoteDialog extends DialogFragment {
 
     private void chooseItem(int position) {
         filterSourceAdapter.chooseItem(position);
-        noteSourceAdapter.refreshList(filterSourceAdapter.getItem(position).getType(), searchSourceNote.getList());
+        noteSourceAdapter.refreshList(searchSourceNote.getListSources(filterSourceAdapter.getItem(position).getType()));
+
     }
 
 
     private RecyclerView createRecycleView() {
-        listFilter = new RecyclerView(requireContext());
+        RecyclerView listFilter = new RecyclerView(requireContext());
         listFilter.addItemDecoration(new SpacesItemDecoration(5));
         listFilter.setLayoutManager(
                 new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));

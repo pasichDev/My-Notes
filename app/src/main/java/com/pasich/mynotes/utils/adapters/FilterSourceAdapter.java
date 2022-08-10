@@ -82,7 +82,7 @@ public class FilterSourceAdapter extends RecyclerView.Adapter<FilterSourceAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.ItemBinding.setItem(list.get(position));
+        holder.ItemBinding.setObjectModel(list.get(position));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class FilterSourceAdapter extends RecyclerView.Adapter<FilterSourceAdapte
         } else {
             for (Object payload : payloads) {
                 if (payload.equals(22)) {
-                    holder.ItemBinding.setItem(list.get(position));
+                    holder.ItemBinding.setObjectModel(list.get(position));
                 }
             }
         }

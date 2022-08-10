@@ -9,37 +9,36 @@ import java.util.regex.Pattern;
 public class SearchSourceNote {
 
     private final String textString;
-    private final ArrayList<SourceModel> getList;
 
 
     public SearchSourceNote(String textString) {
         this.textString = textString;
-        this.getList = getListSources();
     }
 
 
     public int getCountSource() {
-        return getList.size();
+        return getLinks().size();
     }
 
-    public ArrayList<SourceModel> getList() {
-        return this.getList;
-    }
-
-    private ArrayList<SourceModel> getListSources() {
+    public ArrayList<SourceModel> getListSources(String type) {
         ArrayList<SourceModel> listArray = new ArrayList<>();
-        for (String link : this.getLinks()) {
-            listArray.add(new SourceModel(link, "Url"));
+        switch (type) {
+            case "Url":
+                for (String link : this.getLinks()) {
+                    listArray.add(new SourceModel(link, "Url"));
+                }
+                break;
+            case "Mail":
+                for (String mail : getMail()) {
+                    listArray.add(new SourceModel(mail, "Mail"));
+                }
+                break;
+            case "Tel":
+                for (String number : getPhoneNumber()) {
+                    listArray.add(new SourceModel(number, "Tel"));
+                }
+                break;
         }
-
-        for (String mail : getMail()) {
-            listArray.add(new SourceModel(mail, "Mail"));
-        }
-
-        for (String number : getPhoneNumber()) {
-            listArray.add(new SourceModel(number, "Tel"));
-        }
-
 
         return listArray;
     }
