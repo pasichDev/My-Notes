@@ -43,7 +43,7 @@ public class SourceNoteDialog extends DialogFragment {
 
         listDialogView.addTitle(getString(R.string.sourceNotes));
 
-        listDialogView.LP_DEFAULT.setMargins(30, 0, 10, 40);
+        listDialogView.LP_DEFAULT.setMargins(30, 0, 10, 0);
         listDialogView.addView(createRecycleView(), listDialogView.LP_DEFAULT);
 
         sourceAdapter = new SourceAdapter(searchSourceNote.getListSources("Url"));
