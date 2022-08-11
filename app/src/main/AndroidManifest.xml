@@ -21,11 +21,9 @@
             <action android:name="android.intent.action.DIAL" />
             <data android:scheme="*" />
         </intent>
-    </queries>
-
-    <queries>
         <package android:name="com.google.android.apps.translate" />
     </queries>
+
     <application
         android:name=".di.App"
         android:allowBackup="true"
@@ -64,7 +62,14 @@
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".ui.view.activity.ShareActivity"
             android:exported="true"

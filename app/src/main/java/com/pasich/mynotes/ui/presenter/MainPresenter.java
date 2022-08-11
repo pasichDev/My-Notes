@@ -138,4 +138,5 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         //  notesRepository.deleteNote(note);
     }
 
+
 }

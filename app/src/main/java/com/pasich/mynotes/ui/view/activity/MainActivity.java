@@ -5,6 +5,7 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,6 +71,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mainPresenter.attachView(this);
         mainPresenter.setDataManager(dataManager);
         mainPresenter.viewIsReady();
+
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            // doMySearch(query);
+            Log.v("pasic", query);
+        }
 
 
     }
@@ -149,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         this.findViewById(R.id.sortButton).setOnClickListener(view -> {
             new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
         });
+
     }
 
     @Override
@@ -163,20 +173,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void settingsSearchView() {
-        binding.actionSearch.setSubmitButtonEnabled(false);
         LinearLayout llSearchView = (LinearLayout) binding.actionSearch.getChildAt(0);
         llSearchView.addView(utils.addButtonSearchView(this, R.drawable.ic_sort, R.id.sortButton));
         llSearchView.addView(
                 utils.addButtonSearchView(this, R.drawable.ic_edit_format_list, R.id.formatButton));
         formatList.init(findViewById(R.id.formatButton));
 
+
+        llSearchView.setOnClickListener(view -> onSearchRequested());
+        binding.actionSearch.setEnabled(false);
         binding.actionSearch.setOnQueryTextFocusChangeListener(
                 (v, hasFocus) -> {
-                    Log.wtf("pasic", "focus  " + hasFocus);
+                    onSearchRequested();
+                    //   onSearchRequested();
+                    //   Log.wtf("pasic", "focus  " + hasFocus);
                     //     binding.listTags.setVisibility(View.GONE);
                     //       findViewById(R.id.sortButton).setVisibility(View.GONE);
                     //       findViewById(R.id.formatButton).setVisibility(View.GONE);
-
+                    //      onSearchRequested();
+                    //      binding.actionSearch.setFocusable(false);
                 });
         binding.actionSearch.setOnCloseListener(
                 () -> {
@@ -186,7 +201,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                     //     binding.actionSearch.setFocusable(false);
                     return false;
                 });
+
     }
+
 
     @Override
     public void settingsTagsList(LiveData<List<Tag>> tagList) {
@@ -260,6 +277,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void startToastCheckCountTags() {
         Toast.makeText(this, getString(R.string.countTagsError, MAX_TAG_COUNT), Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void deleteTag(Tag tag, boolean deleteNotes) {
