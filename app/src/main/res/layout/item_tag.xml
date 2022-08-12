@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -21,8 +20,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:background="@{checkedItem ? @drawable/tab_background_selected : @drawable/tab_background_unselected}">
+        android:background="@{checkedItem ? @drawable/tab_background_selected : @drawable/tab_background_unselected}"
+        android:padding="1dp">
 
 
         <ImageView
@@ -42,16 +41,15 @@
 
         <TextView
             android:id="@+id/nameTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
+            style="@style/tagName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="15dp"
             android:text="@{TagsModel.systemAction == 2 ?  @string/allNotes :  TagsModel.nameTag}"
-            android:textColor="@{checkedItem ? @color/white : @color/colorPrimaryBackground}"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:textColor="@{checkedItem ? @color/white : @color/colorPrimaryVariantBlue}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

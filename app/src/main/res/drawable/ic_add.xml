@@ -2,7 +2,7 @@
     android:viewportHeight="24"
     android:viewportWidth="24"
     android:width="16dp"
-    android:tint="?attr/colorPrimaryBackground"
+    android:tint="@color/colorPrimaryVariantBlue"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <path
         android:fillColor="@color/black"

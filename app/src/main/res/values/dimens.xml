@@ -4,4 +4,5 @@
     <dimen name="listViewMargin">10dp</dimen>
     <dimen name="addTagTextCustom">16dp</dimen>
     <dimen name="addTagTextStandart">13dp</dimen>
+    <dimen name="radiusBackgroundTag">30dp</dimen>
 </resources>
