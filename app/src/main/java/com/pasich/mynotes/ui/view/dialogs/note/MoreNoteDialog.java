@@ -70,13 +70,15 @@ public class MoreNoteDialog extends DialogFragment {
 
     private ArrayList<ChoiceModel> initList() {
         final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
-        arraySortOption.add(
-                new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
 
-        if (mNote.getValue().length() >= 5) arraySortOption.add(
-                new ChoiceModel(
-                        getString(R.string.translateNote), R.drawable.ic_translate, "GoogleTranslationIntent", false));
 
+        if (mNote.getValue().length() >= 5) {
+            arraySortOption.add(
+                    new ChoiceModel(
+                            getString(R.string.translateNote), R.drawable.ic_translate, "GoogleTranslationIntent", false));
+            arraySortOption.add(
+                    new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
+        }
         if (!typeActivity) {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 arraySortOption.add(new ChoiceModel(getString(R.string.addShortCutLauncher), R.drawable.ic_label, "addShotCut", false));

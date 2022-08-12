@@ -245,6 +245,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void activatedActivity() {
         binding.setActivateEdit(true);
+        if (newNoteKey) binding.dataEditNote.setVisibility(View.GONE);
         binding.valueNote.setSelection(binding.valueNote.getText().length());
         binding.valueNote.setFocusableInTouchMode(true);
         binding.valueNote.requestFocus();

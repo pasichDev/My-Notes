@@ -47,6 +47,7 @@
                 android:focusable="@{activateEdit, default=false}"
                 android:focusableInTouchMode="@{activateEdit, default=false}"
                 android:textSize="14sp"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/notesTitle" />
 
@@ -100,6 +101,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
                         android:autofillHints="no"
+                        android:hint="@string/hintTextNote"
                         android:background="#00FFFFFF"
                         android:focusable="@{activateEdit, default=false}"
                         android:focusableInTouchMode="@{activateEdit, default=false}"

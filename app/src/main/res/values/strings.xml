@@ -169,5 +169,8 @@
     <string name="links" translatable="false">Ссылки</string>
     <string name="mail" translatable="false">Email</string>
 
+
+    <string name="hintTextNote" translatable="false">Текст заметки</string>
+
     <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
 </resources>
