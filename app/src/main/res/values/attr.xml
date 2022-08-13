@@ -5,6 +5,8 @@
     <attr name="colorPrimaryBackground" format="reference|color" />
     <attr name="colorBackground" format="reference|color" />
     <attr name="colorLight" format="reference|color" />
+    <attr name="colorAccentIcon" format="reference|color" />
+
 
     <declare-styleable name="VisualSound">
         <attr name="showText" format="boolean" />

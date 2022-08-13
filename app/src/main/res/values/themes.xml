@@ -9,6 +9,7 @@
         <item name="colorLight">@color/darkLight</item>
 
         <item name="colorAccent">@color/colorPrimaryBackground</item>
+        <item name="colorAccentIcon">@color/colorPrimaryVariantBlue</item>
         <item name="colorControlNormal">@color/black</item>
 
         <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
