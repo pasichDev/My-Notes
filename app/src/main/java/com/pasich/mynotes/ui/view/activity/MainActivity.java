@@ -232,11 +232,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
         binding.listNotes.setLayoutManager(gridLayoutManager);
         binding.listNotes.setAdapter(notesAdapter);
+        final int[] start = {1};
 
         noteList.observe(this, notes -> {
             notesAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
             binding.setEmptyNotes(!(notes.size() >= 1));
-
+            if (start[0] == 1) binding.listNotes.scheduleLayoutAnimation();
+            start[0] = 0;
         });
     }
 

@@ -6,7 +6,9 @@ plugins {
 android {
     compileSdkVersion 33
     buildToolsVersion "30.0.3"
-
+    lintOptions {
+        abortOnError false
+    }
     buildFeatures {
         viewBinding true
         dataBinding true

@@ -114,6 +114,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
                 notes -> {
                     notesTrashAdapter.submitList((List<TrashNote>) notes);
                     binding.setEmptyNotesTrash(!(notes.size() >= 1));
+                    binding.ListTrash.scheduleLayoutAnimation();
                 });
     }
 

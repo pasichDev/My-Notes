@@ -2,6 +2,8 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.util.Log;
+
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -126,8 +128,11 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
     @Override
     public void deleteNote(Note note) {
-        trashRepository.moveToTrash(note);
-        notesRepository.deleteNote(note);
+        //   trashRepository.moveToTrash(note);
+        // notesRepository.deleteNote(note);
+
+        if (tagsRepository == null) Log.wtf("pasic", "tagReposit: null ");
+        if (notesRepository == null) Log.wtf("pasic", "noterepo: null ");
     }
 
 
