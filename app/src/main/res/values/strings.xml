@@ -126,7 +126,7 @@
     <string name="createNewTag" translatable="false">Создать новую метку</string>
 
     <string name="emptyListMain" translatable="false">Здесь будуть ваши заметки.</string>
-    <string name="emptyListTrash" translatable="false">Корзина пустая.</string>
+    <string name="emptyListTrash" translatable="false">Корзина пустая</string>
 
     <string name="sort_Date_Increase" translatable="false">Дата изменения: сначала новые</string>
     <string name="sort_Date_Decrease" translatable="false">Дата изменения: сначала старые</string>

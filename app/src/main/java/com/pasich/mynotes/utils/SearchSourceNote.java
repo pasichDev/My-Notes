@@ -16,10 +16,6 @@ public class SearchSourceNote {
     }
 
 
-    public int getCountSource() {
-        return getLinks().size();
-    }
-
     public ArrayList<SourceModel> getListSources(String type) {
         ArrayList<SourceModel> listArray = new ArrayList<>();
         switch (type) {
