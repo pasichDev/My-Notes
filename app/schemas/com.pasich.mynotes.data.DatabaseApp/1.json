@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "13cdfa25b1d7c91153355781e8bdaf60",
+    "identityHash": "354c0ff3f944b9757c02f6721f46be24",
     "entities": [
       {
         "tableName": "tags",
@@ -101,13 +101,13 @@
         },
         "indices": [
           {
-            "name": "index_notes_title",
+            "name": "index_notes_value",
             "unique": true,
             "columnNames": [
-              "title"
+              "value"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_notes_title` ON `${TABLE_NAME}` (`title`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_notes_value` ON `${TABLE_NAME}` (`value`)"
           }
         ],
         "foreignKeys": []
@@ -160,7 +160,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '13cdfa25b1d7c91153355781e8bdaf60')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '354c0ff3f944b9757c02f6721f46be24')"
     ]
   }
 }

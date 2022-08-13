@@ -17,7 +17,7 @@ public interface TrashDao {
   LiveData<List<TrashNote>> getTrash();
 
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  @Insert(onConflict = OnConflictStrategy.IGNORE)
   void moveToTrash(TrashNote note);
 
   @Query("INSERT INTO trash (title,value,date,type) VALUES (:title,:value,:date, 'note')")

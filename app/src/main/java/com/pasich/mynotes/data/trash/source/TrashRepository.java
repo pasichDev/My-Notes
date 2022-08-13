@@ -9,6 +9,7 @@ import com.pasich.mynotes.utils.DiskExecutor;
 
 import java.util.List;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class TrashRepository {
 
@@ -37,7 +38,7 @@ public class TrashRepository {
             trashDao.moveToTrash(note.getTitle(), note.getValue(), note.getDate());
 
         };
-        executor.execute(runnable);
+        Executors.newSingleThreadExecutor().execute(runnable);
     }
 
     public void deleteNote(TrashNote note) {

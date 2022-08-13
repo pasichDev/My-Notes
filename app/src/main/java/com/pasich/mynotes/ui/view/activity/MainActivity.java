@@ -233,15 +233,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         binding.listNotes.setLayoutManager(gridLayoutManager);
         binding.listNotes.setAdapter(notesAdapter);
 
+        noteList.observe(this, notes -> {
+            notesAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
+            binding.setEmptyNotes(!(notes.size() >= 1));
 
-        noteList.observe(
-                this,
-                notes -> {
-                    Log.wtf("pasich", "update observer note ");
-                    notesAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
-                    binding.setEmptyNotes(!(notes.size() >= 1));
-
-                });
+        });
     }
 
     @Override

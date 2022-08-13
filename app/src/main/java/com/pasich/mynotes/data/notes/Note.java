@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
         tableName = "notes",
         indices = {
                 @Index(
-                        value = {"title"},
+                        value = {"value"},
                         unique = true)
         })
 public class Note {

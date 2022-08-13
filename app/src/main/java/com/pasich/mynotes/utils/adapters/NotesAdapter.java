@@ -34,7 +34,6 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
         submitList(sortedList);
     }
 
-
     public void sortList(List<Note> notesList, String arg) {
         Collections.sort(notesList, new NoteComparator().getComparator(arg));
         submitList(notesList);

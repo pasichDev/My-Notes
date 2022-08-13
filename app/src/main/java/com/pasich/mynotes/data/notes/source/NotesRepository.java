@@ -45,7 +45,7 @@ public class NotesRepository {
 
     public void deleteNote(Note note) {
         Runnable runnable = () -> noteDao.deleteNote(note);
-        executor.execute(runnable);
+        Executors.newSingleThreadExecutor().execute(runnable);
     }
 
     public void updateNote(Note note) {
