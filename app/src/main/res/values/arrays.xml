@@ -15,17 +15,17 @@
     </string-array>
 
     <!-- Режим ввода продиктованого текста -->
-    <string-array name="spechOutputSettings_name">
+    <string-array name="speechOutputSettings_name">
         <item>@string/lineSetSPech</item>
         <item>@string/paragraphSetSpech</item>
     </string-array>
-    <string-array name="spechOutputSettings_value">
+    <string-array name="speechOutputSettings_value">
         <item>line</item>
         <item>paragraph</item>
     </string-array>
 
     <!-- Основной язык голосового ввода -->
-    <string-array name="spechMain_enteries">
+    <string-array name="speechMain_enteries">
         <item>@string/defaultLangVoiece</item>
         <item>English</item>
         <item>Русский</item>
@@ -33,7 +33,7 @@
         <item>Українська</item>
     </string-array>
 
-    <string-array name="spechMain_values">
+    <string-array name="speechMain_values">
         <item>default</item>
         <item>en-EN</item>
         <item>ru-RU</item>

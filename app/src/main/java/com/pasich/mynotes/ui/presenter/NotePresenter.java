@@ -31,11 +31,9 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
     @Override
     public void viewIsReady() {
         getView().settingsActionBar();
-        getView().textSizeValueNote(data.getDefaultPreference().getInt("textSize", 16));
-        getView().settingsEditTextNote(data.getDefaultPreference().getString("textStyle", "normal"));
+        getView().setValueNote();
         getView().initTypeActivity();
-        getView().createSpeechRecognizer(data.getDefaultPreference().getString("spechLaunguage", "default"),
-                data.getDefaultPreference().getString("setSpechOutputText", "line"));
+        getView().createSpeechRecognizer();
         getView().initListeners();
         getView().initListenerSpeechRecognizer();
     }

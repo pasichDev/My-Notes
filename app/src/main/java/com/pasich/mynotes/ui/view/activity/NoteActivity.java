@@ -8,10 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.view.Menu;
@@ -35,11 +33,14 @@ import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.note.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
+import com.pasich.mynotes.utils.NoteUtils;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -59,6 +60,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public NoteContract.presenter notePresenter;
     @Inject
     public PermissionManager permissionManager;
+    @Inject
+    public NoteUtils noteUtils;
+
 
     private SpeechRecognizer speechRecognizer;
     private Intent speechRecognizerIntent;
@@ -102,15 +106,14 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     }
 
     @Override
-    public void createSpeechRecognizer(String speechLanguage, String speechOutput) {
+    public void createSpeechRecognizer() {
+        String speechLanguage = dataManager.getDefaultPreference().getString("speechLanguage", "default");
         speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                .putExtra(
-                        RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                .putExtra(
-                        RecognizerIntent.EXTRA_LANGUAGE,
+                .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                .putExtra(RecognizerIntent.EXTRA_LANGUAGE,
                         speechLanguage.equals("default")
                                 ? Locale.getDefault()
-                                : speechOutput)
+                                : speechLanguage)
                 .putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
 
     }
@@ -131,95 +134,48 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                         }
                         return false;
                     });
-
-
         }
     }
 
     @Override
     public void initListenerSpeechRecognizer() {
-        speechRecognizer.setRecognitionListener(
-                new RecognitionListener() {
-                    @Override
-                    public void onReadyForSpeech(Bundle bundle) {
-                        binding.recordMessges.setVisibility(View.VISIBLE);
-                        binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information));
+        speechRecognizer.setRecognitionListener(new com.pasich.mynotes.utils.simplifications.SpeechRecognizer() {
+            @Override
+            public void startListener() {
+                binding.recordMessges.setVisibility(View.VISIBLE);
+                binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information));
 
-                    }
+            }
 
-                    @Override
-                    public void onBeginningOfSpeech() {
+            @Override
+            public void errorDebug(int i) {
+                binding.recordMessges.setVisibility(View.GONE);
+                binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
+                if (i == 7) {
+                    Toast.makeText(getApplicationContext(),
+                                    getString(R.string.emptySpeec), Toast.LENGTH_SHORT)
+                            .show();
+                }
+                if (i == 2) {
 
-                        //     speechStartText.setVisibility(View.VISIBLE);
-                        //       imageSpeechVolume.setVisibility(View.VISIBLE);
-                        //      // Эта функция начинает запис текста
-                        //      speechStartText.setText(getString(R.string.spechToListen));
-                    }
+                    Toast.makeText(
+                                    getApplicationContext(),
+                                    getString(R.string.errorInternetConectSpeech),
+                                    Toast.LENGTH_LONG)
+                            .show();
+                    speechRecognizer.stopListening();
+                }
+            }
 
-                    @Override
-                    public void onRmsChanged(float v) {
-                       /*     if (v > 7) {
-                                findViewById(R.id.imageSpechVolume).setAlpha(1);
-                            } else if (v > 4 && v < 7) {
-                                findViewById(R.id.imageSpechVolume).setAlpha((float) 0.8);
-                            } else if (v > 0 && v < 4) {
-                                findViewById(R.id.imageSpechVolume).setAlpha((float) 0.5);
-                            } else if (v < 0) {
-                                findViewById(R.id.imageSpechVolume).setAlpha((float) 0.0);
-                            }*/
-                    }
+            @Override
+            public void saveText(Bundle bundle) {
+                binding.recordMessges.setVisibility(View.GONE);
+                binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
+                saveSpeechToText(bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
 
-                    @Override
-                    public void onBufferReceived(byte[] bytes) {
-                    }
+            }
+        });
 
-                    @Override
-                    public void onEndOfSpeech() {
-                    }
-
-                    @Override
-                    public void onError(int i) {
-                        binding.recordMessges.setVisibility(View.GONE);
-                        binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
-                         /*   Log.d("xxx", String.valueOf(i));
-                            if (i == 7) {
-                                speechStartText.setVisibility(View.GONE);
-                                imageSpeechVolume.setVisibility(View.GONE);
-                                Toast.makeText(
-                                                getApplicationContext(), getString(R.string.emptySpeec), Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                            if (i == 2) {
-                                speechStartText.setVisibility(View.GONE);
-                                imageSpeechVolume.setVisibility(View.GONE);
-                                Toast.makeText(
-                                                getApplicationContext(),
-                                                getString(R.string.errorInternetConectSpeech),
-                                                Toast.LENGTH_LONG)
-                                        .show();
-                                speechRecognizer.stopListening();
-                            }*/
-                    }
-
-                    @Override
-                    public void onResults(Bundle bundle) {
-                        binding.recordMessges.setVisibility(View.GONE);
-                        binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
-
-                        //     ArrayList<String> data =
-                        //              bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                        //      saveSpeechToText(data);
-                        //      speechStartText.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onPartialResults(Bundle bundle) {
-                    }
-
-                    @Override
-                    public void onEvent(int i, Bundle bundle) {
-                    }
-                });
     }
 
     @Override
@@ -230,6 +186,16 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         else
             Toast.makeText(getApplicationContext(), getString(R.string.notSource), Toast.LENGTH_SHORT)
                     .show();
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private void saveSpeechToText(ArrayList<String> result) {
+        String valueNote = binding.valueNote.getText().toString();
+        String valueLine = dataManager.getDefaultPreference().getString("setSpeechOutputText", "line").equals("line") ?
+                " " : valueNote.length() == 0 ? "" : "\n";
+        binding.valueNote.setText(valueNote + valueLine + result.get(0));
+        binding.valueNote.setSelection(binding.valueNote.getText().toString().length()); // Отобразим курсор на последнем слове
     }
 
 
@@ -310,7 +276,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void loadingNote(Note note) {
-        binding.notesTitle.setText(note.getTitle());
+        binding.notesTitle.setText(note.getTitle().length() >= 2 ? note.getTitle() : "");
         binding.valueNote.setText(note.getValue());
         binding.dataEditNote.setText(convertDate(note.getDate()));
         this.mNote = note;
@@ -318,28 +284,11 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
 
     @Override
-    public void settingsEditTextNote(String textStyle) {
-        int styleSel;
-        switch (textStyle) {
-            case "italic":
-                styleSel = Typeface.ITALIC;
-                break;
-            case "bold":
-                styleSel = Typeface.BOLD;
-                break;
-            case "bold-italic":
-                styleSel = Typeface.BOLD_ITALIC;
-                break;
-            default:
-                styleSel = Typeface.NORMAL;
-                break;
-        }
-        binding.valueNote.setTypeface(null, styleSel);
-    }
-
-    @Override
-    public void textSizeValueNote(int sizeText) {
+    public void setValueNote() {
+        int sizeText = dataManager.getDefaultPreference().getInt("textSize", 16);
         binding.valueNote.setTextSize(sizeText == 0 ? 16 : sizeText);
+        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
+                dataManager.getDefaultPreference().getString("textStyle", "normal")));
     }
 
 
@@ -378,13 +327,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void onRequestPermissionsResult(
             int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if (requestCode == 22) {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                /**
-                 * Сюда добавить диалог ошибки разрешенеия на запись
-                 */
-                //  new PermissionErrorDialog("Audio").show(getSupportFragmentManager(), "permissonError");
+                new PermissionsError().show(getSupportFragmentManager(), "permissionError");
             }
         }
     }

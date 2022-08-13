@@ -19,23 +19,23 @@ public class FragmentVoice extends PreferenceFragmentCompat implements SettingsA
         TextView textTitleActivity = requireActivity().findViewById(R.id.titleActivity);
         textTitleActivity.setText(R.string.settingsVoice);
 
-        final Preference errorSpechService = findPreference("errorSpechService");
+        final Preference errorSpeechService = findPreference("errorSpeechService");
         final Preference speechLanguage = findPreference("speechLanguage");
-        final Preference setSpechOutputText = findPreference("setSpechOutputText");
+        final Preference setSpeechOutputText = findPreference("setSpeechOutputText");
 
         if (!isRecognitionAvailable(getContext())) {
             assert speechLanguage != null;
             speechLanguage.setVisible(false);
-            assert setSpechOutputText != null;
-            setSpechOutputText.setVisible(false);
-            assert errorSpechService != null;
-            errorSpechService.setVisible(true);
+            assert setSpeechOutputText != null;
+            setSpeechOutputText.setVisible(false);
+            assert errorSpeechService != null;
+            errorSpeechService.setVisible(true);
         }
 
-        assert errorSpechService != null;
-        errorSpechService.setOnPreferenceClickListener(
+        assert errorSpeechService != null;
+        errorSpeechService.setOnPreferenceClickListener(
                 preference -> {
-                    new ErrorTtsDialog().show(getParentFragmentManager(),"errortts");
+                    new ErrorTtsDialog().show(getParentFragmentManager(), "errortts");
                     return true;
                 });
     }

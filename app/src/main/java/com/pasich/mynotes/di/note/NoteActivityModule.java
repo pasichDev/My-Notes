@@ -5,6 +5,7 @@ import com.pasich.mynotes.base.dagger.ActivityModule;
 import com.pasich.mynotes.di.main.MainActivityScope;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
+import com.pasich.mynotes.utils.NoteUtils;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
 import dagger.Module;
@@ -27,6 +28,12 @@ public class NoteActivityModule implements ActivityModule {
     @Provides
     PermissionManager providerPermissionManager() {
         return new PermissionManager();
+    }
+
+    @MainActivityScope
+    @Provides
+    NoteUtils providerNoteUtils() {
+        return new NoteUtils();
     }
 
 }

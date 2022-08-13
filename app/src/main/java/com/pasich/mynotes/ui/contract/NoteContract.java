@@ -10,14 +10,11 @@ import com.pasich.mynotes.data.notes.Note;
 public interface NoteContract {
 
     interface view extends MyView, ActionBar, NoteActivityView {
-
-        void settingsEditTextNote(String textStyle);
-
-        void textSizeValueNote(int sizeText);
+        void setValueNote();
 
         void initTypeActivity();
 
-        void createSpeechRecognizer(String speechLanguage, String speechOutput);
+        void createSpeechRecognizer();
 
         void closeNoteActivity();
 
