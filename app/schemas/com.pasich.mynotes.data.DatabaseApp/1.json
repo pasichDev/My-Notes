@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9bec9ba0db12ddcfce7e8a62d998a3df",
+    "identityHash": "13cdfa25b1d7c91153355781e8bdaf60",
     "entities": [
       {
         "tableName": "tags",
@@ -153,24 +153,14 @@
           ],
           "autoGenerate": true
         },
-        "indices": [
-          {
-            "name": "index_trash_title",
-            "unique": true,
-            "columnNames": [
-              "title"
-            ],
-            "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_trash_title` ON `${TABLE_NAME}` (`title`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9bec9ba0db12ddcfce7e8a62d998a3df')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '13cdfa25b1d7c91153355781e8bdaf60')"
     ]
   }
 }

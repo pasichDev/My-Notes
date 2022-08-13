@@ -155,9 +155,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
             gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
         });
 
-        this.findViewById(R.id.sortButton).setOnClickListener(view -> {
-            new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
-        });
+        this.findViewById(R.id.sortButton).setOnClickListener(view -> new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog"));
 
     }
 
@@ -166,6 +164,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         super.onDestroy();
         mainPresenter.detachView();
         if (isFinishing()) {
+            notesAdapter = null;
+            tagsAdapter = null;
             mainPresenter.destroy();
             getApp().getComponentsHolder().releaseActivityComponent(getClass());
         }

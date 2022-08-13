@@ -8,9 +8,6 @@ import java.util.List;
 
 public interface TagView {
   void settingsTagsList(LiveData<List<Tag>> tagList);
-
-
-
   void deleteTag(Tag tag, boolean deleteNotes);
 
   void editVisibility(Tag tag);
