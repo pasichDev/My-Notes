@@ -357,7 +357,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
         if (newNoteKey) {
-            notePresenter.createNote(new Note().create(mTitle,
+            notePresenter.createNote(new Note().create(mTitle.length() >= 2 ? mTitle : " ",
                     mValue,
                     mThisDate
             ));

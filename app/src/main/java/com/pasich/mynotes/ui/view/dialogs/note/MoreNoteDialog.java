@@ -74,10 +74,11 @@ public class MoreNoteDialog extends DialogFragment {
 
         if (mNote.getValue().length() >= 5) {
             arraySortOption.add(
+                    new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
+            arraySortOption.add(
                     new ChoiceModel(
                             getString(R.string.translateNote), R.drawable.ic_translate, "GoogleTranslationIntent", false));
-            arraySortOption.add(
-                    new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
+
         }
         if (!typeActivity) {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

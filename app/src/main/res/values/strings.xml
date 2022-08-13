@@ -112,7 +112,7 @@
 
     <string name="allNotes" translatable="false">Все заметки </string>
     <string name="more" translatable="false">Больше</string>
-    <string name="noteTitle" translatable="false">Заголовок заметки</string>
+    <string name="noteTitle" translatable="false">Заголовок</string>
     <string name="deleteSelectTag" translatable="false">Удаление метки</string>
     <string name="deleteSelectTagTextMassage" translatable="false">Вы действительно хотите удалить метку? После удаления метка пропадет у всех отмеченных заметках.</string>
     <string name="cleanTrashMessage" translatable="false">Вы действительно хотите очистить корзину? Все заметки будут навсегда удаленны.</string>
@@ -170,7 +170,7 @@
     <string name="mail" translatable="false">Email</string>
 
 
-    <string name="hintTextNote" translatable="false">Текст заметки</string>
+    <string name="hintTextNote" translatable="false">Текст</string>
 
     <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
 </resources>
