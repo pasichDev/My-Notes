@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     buildFeatures {
@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.pasich.mynotes"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 10
         versionName '2.0.10'
         javaCompileOptions {
