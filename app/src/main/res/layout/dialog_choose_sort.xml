@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="16sp"
+            android:textSize="@dimen/textSizeDialog"
             android:text="@string/sort_Date_Increase" />
 
     </LinearLayout>
@@ -38,7 +38,6 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
-
         android:padding="8dp">
 
         <ImageView
@@ -52,7 +51,7 @@
             android:id="@+id/DataReserveText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="@dimen/textSizeDialog"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
             android:text="@string/sort_Date_Decrease" />
@@ -80,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="16sp"
+            android:textSize="@dimen/textSizeDialog"
             android:text="@string/sort_Title_Increase" />
     </LinearLayout>
 
@@ -106,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="16sp"
+            android:textSize="@dimen/textSizeDialog"
             android:text="@string/sort_Title_Decrease" />
     </LinearLayout>
 </LinearLayout>

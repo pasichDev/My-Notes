@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
             android:text="@string/share" />
 
     </LinearLayout>
@@ -50,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
             android:text="@string/translateNote" />
 
     </LinearLayout>
@@ -74,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
             android:text="@string/noSave" />
     </LinearLayout>
 

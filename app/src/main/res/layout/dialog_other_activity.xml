@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
             android:text="@string/trashN" />
     </LinearLayout>
 
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
             android:text="@string/settings" />
 
     </LinearLayout>
