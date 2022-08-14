@@ -13,9 +13,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/selectAll"
             android:src="@drawable/ic_check_box" />
 
@@ -24,8 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/selectAll" />
+            android:text="@string/selectAll"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
     <LinearLayout
@@ -37,9 +35,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/share"
             android:src="@drawable/ic_share" />
 
@@ -48,8 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/share" />
+            android:text="@string/share"
+            android:textSize="@dimen/textSizeDialog" />
 
     </LinearLayout>
 
@@ -62,9 +58,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/tag"
             android:src="@drawable/ic_tag" />
 
@@ -73,8 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/tag" />
+            android:text="@string/tag"
+            android:textSize="@dimen/textSizeDialog" />
 
     </LinearLayout>
 
@@ -88,9 +82,7 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/addShortCutLauncher"
             android:src="@drawable/ic_label" />
 
@@ -99,8 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/addShortCutLauncher" />
+            android:text="@string/addShortCutLauncher"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
     <LinearLayout
@@ -112,9 +104,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/trashNotes"
             android:src="@drawable/ic_delete_note" />
 
@@ -123,8 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/trashNotes" />
+            android:text="@string/trashNotes"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
     <include layout="@layout/view_info_item" />

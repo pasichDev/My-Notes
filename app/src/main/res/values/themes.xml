@@ -78,5 +78,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-
+    <style name="iconDialogList">
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+    </style>
 </resources>

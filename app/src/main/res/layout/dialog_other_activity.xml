@@ -13,9 +13,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/trashN"
             android:src="@drawable/ic_trash_menu" />
 
@@ -37,9 +35,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/settings"
             android:src="@drawable/ic_settings" />
 

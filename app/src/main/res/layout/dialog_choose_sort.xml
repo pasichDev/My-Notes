@@ -15,9 +15,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/sortHead"
             android:src="@drawable/ic_sort" />
 
@@ -41,9 +39,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/sortHead"
             android:src="@drawable/ic_sort" />
 
@@ -67,9 +63,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/sortHead"
             android:src="@drawable/ic_sort" />
 
@@ -93,9 +87,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/sortHead"
             android:src="@drawable/ic_sort" />
 

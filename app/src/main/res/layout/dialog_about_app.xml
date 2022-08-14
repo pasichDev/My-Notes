@@ -13,9 +13,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/shareApp"
             android:src="@drawable/ic_share" />
 
@@ -37,9 +35,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/ratingApp"
             android:src="@drawable/ic_rating" />
 
@@ -62,9 +58,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/privacyApp"
             android:src="@drawable/ic_privacy" />
 
@@ -87,9 +81,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/whatUpdate"
             android:src="@drawable/ic_about_dialog" />
 

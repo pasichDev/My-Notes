@@ -15,9 +15,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/deleteTag"
             android:src="@drawable/ic_tag_delete" />
 
@@ -41,9 +39,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/deleteTagAndNotes"
             android:src="@drawable/ic_delete_notes_tag" />
 
@@ -65,9 +61,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            style="@style/iconDialogList"
             android:contentDescription="@string/cancel"
             android:src="@drawable/ic_close_search_view" />
 
