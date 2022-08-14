@@ -106,7 +106,7 @@ public class NotesAdapter extends ListAdapter<Note, NotesAdapter.ViewHolder> {
         public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
             return oldItem.getTitle().equals(newItem.getTitle())
                     && oldItem.getValue().equals(newItem.getValue())
-                    && oldItem.getTag().length() != newItem.getTag().length();
+                    && oldItem.getTag().equals(newItem.getTag());
         }
     }
 }

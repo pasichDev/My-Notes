@@ -18,8 +18,8 @@ import java.util.concurrent.Future;
 public class NotesRepository {
 
     private static NotesRepository instance;
-    private Executor executor;
-    private NoteDao noteDao;
+    private final Executor executor;
+    private final NoteDao noteDao;
 
     private NotesRepository(Executor executor, NoteDao noteDao) {
         this.executor = executor;
@@ -53,13 +53,6 @@ public class NotesRepository {
         executor.execute(runnable);
     }
 
-    public void deleteTag(Note note) {
-        Runnable runnable = () -> {
-            note.setTag("");
-            noteDao.updateNote(note);
-        };
-        executor.execute(runnable);
-    }
 
     public ArrayList<Note> getNotesFromTag(String nameTag) throws ExecutionException, InterruptedException {
         Future<?> future = Executors.newSingleThreadExecutor()

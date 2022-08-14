@@ -2,8 +2,6 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
-import android.util.Log;
-
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -66,11 +64,9 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         if (data != null) {
             if (!deleteNotes) {
                 for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())) {
-                    notesRepository.deleteTag(note);
-                    Log.wtf("pasic", "deleteTag: " + note.getId() + "/" + note.getTag());
+                    note.setTag("");
+                    notesRepository.updateNote(note);
                 }
-                //notesRepository.clearTagForNotes(tag.getNameTag());
-
             } else {
                 for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())) {
                     trashRepository.moveToTrash(note);

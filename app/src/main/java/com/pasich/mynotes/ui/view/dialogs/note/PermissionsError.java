@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
@@ -32,10 +31,8 @@ public class PermissionsError extends BottomSheetDialogFragment {
         assert message != null;
         message.setText(getString(R.string.errorPermisions_Message));
 
-        Button buttonInfo = builder.findViewById(R.id.buttonInfoApp);
-        assert buttonInfo != null;
-        buttonInfo.setVisibility(View.VISIBLE);
-        buttonInfo.setOnClickListener(v -> {
+        builder.findViewById(R.id.buttonInfoLayout).setVisibility(View.VISIBLE);
+        builder.findViewById(R.id.buttonInfoApp).setOnClickListener(v -> {
             openIntentInfoApp();
             dismiss();
         });

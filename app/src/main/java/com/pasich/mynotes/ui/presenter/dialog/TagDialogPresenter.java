@@ -17,7 +17,6 @@ import java.util.concurrent.ExecutionException;
 public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
         implements TagDialogContract.presenter {
 
-    private DataManager data;
     private TagsRepository tagsRepository;
     private NotesRepository notesRepository;
 
@@ -26,9 +25,8 @@ public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
 
     @Override
     public void setDataManager(DataManager dataManager) {
-        data = dataManager;
-        tagsRepository = data.getTagsRepository();
-        notesRepository = data.getNotesRepository();
+        tagsRepository = dataManager.getTagsRepository();
+        notesRepository = dataManager.getNotesRepository();
     }
 
     @Override
