@@ -7,69 +7,42 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.MainSortView;
-import com.pasich.mynotes.data.model.ChoiceModel;
-import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
-import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 import com.preference.PowerPreference;
 
-import java.util.ArrayList;
 
 public class ChooseSortDialog extends DialogFragment {
+    private MainSortView sortView;
+
 
     @NonNull
     @Deprecated
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-        final ListDialogView view = new ListDialogView(getLayoutInflater());
-        final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
-        final MainSortView sortView = (MainSortView) getContext();
+        sortView = (MainSortView) getContext();
         final String sortParam = PowerPreference.getDefaultFile().getString("sortPref", "DataReserve");
+        builder.setContentView(R.layout.dialog_choose_sort);
 
-        view.addTitle(getString(R.string.sortHead));
-        view.addView(view.getItemsView());
+        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
+        assert title != null;
+        title.setText(R.string.sortHead);
 
-        arraySortOption.add(
-                new ChoiceModel(
-                        getString(R.string.sort_Date_Increase),
-                        R.drawable.ic_sort,
-                        "DataSort",
-                        sortParam.equals("DataSort")));
-        arraySortOption.add(
-                new ChoiceModel(
-                        getString(R.string.sort_Date_Decrease),
-                        R.drawable.ic_sort,
-                        "DataReserve",
-                        sortParam.equals("DataReserve")));
 
-        arraySortOption.add(
-                new ChoiceModel(
-                        getString(R.string.sort_Title_Increase),
-                        R.drawable.ic_sort,
-                        "TitleSort",
-                        sortParam.equals("TitleSort")));
-        arraySortOption.add(
-                new ChoiceModel(
-                        getString(R.string.sort_Title_Decrease),
-                        R.drawable.ic_sort,
-                        "TitleReserve",
-                        sortParam.equals("TitleReserve")));
-
-        DialogListAdapter adapter = new DialogListAdapter(arraySortOption);
-        view.getItemsView().setAdapter(adapter);
-
-        view.getItemsView().setOnItemClickListener(
-                (parent, v, position, id) -> {
-                    if (!adapter.getItem(position).getSelected()) {
-                        PowerPreference.getDefaultFile().setString("sortPref", arraySortOption.get(position).getAction());
-
-                        assert sortView != null;
-                        sortView.sortList(arraySortOption.get(position).getAction());
-                        dismiss();
-                    }
-                });
-        builder.setContentView(view.getRootContainer());
+        builder.findViewById(R.id.DataSort).setOnClickListener(v -> selectedSort("DataSort"));
+        builder.findViewById(R.id.DataReserve).setOnClickListener(v -> selectedSort("DataReserve"));
+        builder.findViewById(R.id.TitleSort).setOnClickListener(v -> selectedSort("TitleSort"));
+        builder.findViewById(R.id.TitleReserve).setOnClickListener(v -> selectedSort("TitleReserve"));
         return builder;
     }
+
+    private void selectedSort(String param) {
+        PowerPreference.getDefaultFile().setString("sortPref", param);
+        assert sortView != null;
+        sortView.sortList(param);
+        dismiss();
+    }
+
+
 }

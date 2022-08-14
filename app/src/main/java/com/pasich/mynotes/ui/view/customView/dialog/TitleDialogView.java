@@ -2,8 +2,6 @@ package com.pasich.mynotes.ui.view.customView.dialog;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.pasich.mynotes.databinding.ViewHeadDialogBinding;
 
@@ -33,10 +31,10 @@ public class TitleDialogView {
    * @param text - Dialog title
    */
   protected void addTitle(String text) {
-    if (binding.HeadTextDialog.getParent() != null) {
-      ((ViewGroup) binding.HeadTextDialog.getParent()).removeView(binding.HeadTextDialog);
-    }
-    this.binding.HeadTextDialog.setText(text);
+    //   if (binding.HeadTextDialog.getParent() != null) {
+    //    ((ViewGroup) binding.HeadTextDialog.getParent()).removeView(binding.HeadTextDialog);
+    //  }
+    //  this.binding.HeadTextDialog.setText(text);
   }
 
   /**
@@ -45,7 +43,7 @@ public class TitleDialogView {
    * @param text - Dialog title
    */
   protected void setTitle(String text) {
-    binding.HeadTextDialog.setText(text);
+    //   binding.HeadTextDialog.setText(text);
   }
 
   /**
@@ -53,7 +51,7 @@ public class TitleDialogView {
    *
    * @return - editText
    */
-  protected TextView getTitleView() {
-    return binding.HeadTextDialog;
-  }
+  //protected TextView getTitleView() {
+  //  return binding.HeadTextDialog;
+  //}
 }

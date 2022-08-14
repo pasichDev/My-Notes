@@ -8,5 +8,4 @@
     <item name="removeNotesArray" type="id" />
     <item name="removeTagForDialog" type="id" />
     <item name="addTagForDialog" type="id" />
-    <item name="errorPermissionsButton" type="id" />
 </resources>

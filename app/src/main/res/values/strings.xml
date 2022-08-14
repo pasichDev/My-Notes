@@ -138,6 +138,9 @@
 
 
     <string name="layoutStringInfo" translatable="false">%1$s | %2$s символов</string>
+    <string name="layoutStringInfoCountSymbols" translatable="false">%1$s символов</string>
+
+
     <string name="layoutStringInfoTags" translatable="false">Отмечено %1$s заметок</string>
 
 

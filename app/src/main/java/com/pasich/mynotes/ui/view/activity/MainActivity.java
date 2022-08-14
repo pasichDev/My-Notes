@@ -28,11 +28,11 @@ import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog.ChoiceNoteDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog.ChoiceTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.MoreActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.OtherActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog.TagDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.MainUtils;
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
                     @Override
                     public void onClick(int position) {
-                      mainPresenter.clickNote(notesAdapter.getCurrentList().get(position).getId());
+                        mainPresenter.clickNote(notesAdapter.getCurrentList().get(position).getId());
                     }
 
                     @Override
@@ -294,24 +294,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void newNotesButton() {
 
-        ActivityOptions options = ActivityOptions
-                .makeSceneTransitionAnimation(this, binding.newNotesButton, "robot");
-        // start the new activity
-        //  startActivity(intent, options.toBundle())
-
-     /*   startActivity(new Intent(this, NoteActivity.class)
-                .putExtra("NewNote", false)
-                .putExtra("idNote", idNote)
-                .putExtra("tagNote", ""), options.toBundle());
-        */
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", true)
-                .putExtra("tagNote", ""), options.toBundle());
+                .putExtra("tagNote", ""), ActivityOptions
+                .makeSceneTransitionAnimation(this, binding.newNotesButton, "robot")
+                .toBundle());
     }
 
     @Override
     public void moreActivity() {
-        new MoreActivityDialog().show(getSupportFragmentManager(), "more activity");
+        new OtherActivityDialog().show(getSupportFragmentManager(), "more activity");
 
     }
 

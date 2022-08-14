@@ -19,7 +19,7 @@ import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.di.trash.TrashActivityModule;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
-import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog.CleanTrashDialog;
+import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 import com.pasich.mynotes.utils.adapters.TrashNotesAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 

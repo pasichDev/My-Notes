@@ -10,7 +10,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.ui.view.dialogs.settings.aboutAppDialog.AboutAppDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.AboutAppDialog;
 
 public class FragmentSettings extends PreferenceFragmentCompat {
     @Override

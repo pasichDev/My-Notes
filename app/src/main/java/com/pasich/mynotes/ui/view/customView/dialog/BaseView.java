@@ -51,7 +51,7 @@ public class BaseView extends TitleDialogView {
   @Override
   public void addTitle(String text) {
     super.addTitle(text);
-    getRootContainer().addView(getTitleView());
+   // getRootContainer().addView(getTitleView());
   }
 
   @Override

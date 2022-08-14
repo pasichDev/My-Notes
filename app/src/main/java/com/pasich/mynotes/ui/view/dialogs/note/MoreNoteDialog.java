@@ -1,24 +1,24 @@
 package com.pasich.mynotes.ui.view.dialogs.note;
 
+
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.NoteActivityView;
-import com.pasich.mynotes.data.model.ChoiceModel;
 import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
 import com.pasich.mynotes.utils.GoogleTranslationIntent;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;
-import com.pasich.mynotes.utils.adapters.DialogListAdapter;
 
-import java.util.ArrayList;
 
 public class MoreNoteDialog extends DialogFragment {
 
@@ -30,67 +30,58 @@ public class MoreNoteDialog extends DialogFragment {
         this.typeActivity = typeNote;
     }
 
+    @SuppressLint("StringFormatMatches")
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-        final ListDialogView view = new ListDialogView(getLayoutInflater());
-
         final NoteActivityView noteActivityView = (NoteActivityView) getContext();
+        builder.setContentView(typeActivity ? R.layout.dialog_more_new_note : R.layout.dialog_more_note);
+
+        MaterialTextView infoItem = builder.findViewById(R.id.noteInfo);
+        assert infoItem != null;
+
+        if (!typeActivity)
+            infoItem.setText(getString(R.string.layoutStringInfoCountSymbols, mNote.getValue().length()));
 
 
-        DialogListAdapter adapter = new DialogListAdapter(initList());
-        view.getItemsView().setAdapter(adapter);
-        view.getItemsView().setOnItemClickListener(
-                (parent, v, position, id) -> {
-                    if (adapter.getItem(position).getAction().equals("Close")) {
-                        assert noteActivityView != null;
-                        noteActivityView.closeActivityNotSaved();
-                    }
-                    if (adapter.getItem(position).getAction().equals("GoogleTranslationIntent")) {
-                        new GoogleTranslationIntent().startTranslation(requireActivity(), mNote.getValue());
-                    }
-                    if (adapter.getItem(position).getAction().equals("Share")) {
-                        new ShareUtils(mNote, getActivity()).shareNotes();
-                    }
-                    if (adapter.getItem(position).getAction().equals("Delete")) {
-                        assert noteActivityView != null;
-                        noteActivityView.deleteNote(mNote);
-                    }
-                    if (adapter.getItem(position).getAction().equals("addShotCut") &&
-                            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                        ShortCutUtils.createShortCut(mNote, getContext());
-                    }
-                    dismiss();
-                });
-        view.addView(view.getItemsView());
-        builder.setContentView(view.getRootContainer());
-        return builder;
-    }
-
-    private ArrayList<ChoiceModel> initList() {
-        final ArrayList<ChoiceModel> arraySortOption = new ArrayList<>();
+        builder.findViewById(R.id.noSave).setOnClickListener(v -> {
+            assert noteActivityView != null;
+            noteActivityView.closeActivityNotSaved();
+            dismiss();
+        });
 
 
         if (mNote.getValue().length() >= 5) {
-            arraySortOption.add(
-                    new ChoiceModel(getString(R.string.share), R.drawable.ic_share, "Share", false));
-            arraySortOption.add(
-                    new ChoiceModel(
-                            getString(R.string.translateNote), R.drawable.ic_translate, "GoogleTranslationIntent", false));
+            builder.findViewById(R.id.share).setVisibility(View.VISIBLE);
+            builder.findViewById(R.id.share).setOnClickListener(v -> {
+                new ShareUtils(mNote, getActivity()).shareNotes();
+                dismiss();
+            });
+            builder.findViewById(R.id.translateNote).setVisibility(View.VISIBLE);
+            builder.findViewById(R.id.translateNote).setOnClickListener(v -> {
+                new GoogleTranslationIntent().startTranslation(requireActivity(), mNote.getValue());
+                dismiss();
+            });
 
-        }
-        if (!typeActivity) {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                arraySortOption.add(new ChoiceModel(getString(R.string.addShortCutLauncher), R.drawable.ic_label, "addShotCut", false));
+            if (!typeActivity) {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    builder.findViewById(R.id.addShortCutLauncher).setVisibility(View.VISIBLE);
+                    builder.findViewById(R.id.addShortCutLauncher).setOnClickListener(v -> {
+                        ShortCutUtils.createShortCut(mNote, getContext());
+                        dismiss();
+                    });
+                }
+                builder.findViewById(R.id.moveToTrash).setOnClickListener(v -> {
+                    assert noteActivityView != null;
+                    noteActivityView.deleteNote(mNote);
+                    dismiss();
+                });
             }
-            arraySortOption.add(
-                    new ChoiceModel(getString(R.string.trashNotes), R.drawable.ic_delete_note, "Delete", false));
-        }
-        arraySortOption.add(
-                new ChoiceModel(
-                        getString(R.string.noSave), R.drawable.ic_close_search_view, "Close", false));
 
-        return arraySortOption;
+
+        }
+
+        return builder;
     }
+
 }

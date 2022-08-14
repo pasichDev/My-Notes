@@ -10,7 +10,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.view.activity.SettingsActivity;
-import com.pasich.mynotes.ui.view.dialogs.settings.errorTts.ErrorTtsDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.ErrorTtsDialog;
 
 public class FragmentVoice extends PreferenceFragmentCompat implements SettingsActivity.IOnBackPressed {
     @Override
