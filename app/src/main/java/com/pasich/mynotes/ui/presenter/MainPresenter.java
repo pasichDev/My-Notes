@@ -2,8 +2,6 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
-import android.util.Log;
-
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -28,10 +26,10 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
     @Override
     public void setDataManager(DataManager dataManager) {
-        data = dataManager;
-        tagsRepository = data.getTagsRepository();
-        notesRepository = data.getNotesRepository();
-        trashRepository = data.getTrashRepository();
+        this.data = dataManager;
+        this.tagsRepository = data.getTagsRepository();
+        this.notesRepository = data.getNotesRepository();
+        this.trashRepository = data.getTrashRepository();
     }
 
     @Override
@@ -48,9 +46,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
     @Override
     public void destroy() {
-        tagsRepository.destroyInstance();
-        trashRepository.destroyInstance();
-        notesRepository.destroyInstance();
         data = null;
     }
 
@@ -69,8 +64,8 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         if (data != null) {
             if (!deleteNotes) {
                 notesRepository.clearTagForNotes(tag.getNameTag());
-            }else {
-                for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())){
+            } else {
+                for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())) {
                     trashRepository.moveToTrash(note);
                     notesRepository.deleteNote(note);
                 }
@@ -79,7 +74,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
             tagsRepository.deleteTag(tag);
         }
     }
-
 
 
     @Override
@@ -128,11 +122,8 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
     @Override
     public void deleteNote(Note note) {
-        //   trashRepository.moveToTrash(note);
-        // notesRepository.deleteNote(note);
-
-        if (tagsRepository == null) Log.wtf("pasic", "tagReposit: null ");
-        if (notesRepository == null) Log.wtf("pasic", "noterepo: null ");
+        trashRepository.moveToTrash(note);
+        notesRepository.deleteNote(note);
     }
 
 

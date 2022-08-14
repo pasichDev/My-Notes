@@ -45,9 +45,6 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
 
     @Override
     public void destroy() {
-        tagsRepository.destroyInstance();
-        notesRepository.destroyInstance();
-        data = null;
     }
 
 

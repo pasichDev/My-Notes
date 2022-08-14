@@ -51,9 +51,4 @@ public class TrashRepository {
         executor.execute(runnable);
     }
 
-    public void destroyInstance() {
-        instance = null;
-        trashDao = null;
-        executor = null;
-    }
 }

@@ -36,8 +36,7 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
 
     @Override
     public void destroy() {
-        trashRepository.destroyInstance();
-        data = null;
+
     }
 
 

@@ -49,9 +49,7 @@ public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
 
     @Override
     public void destroy() {
-        tagsRepository.destroyInstance();
-        notesRepository.destroyInstance();
-        data = null;
+
     }
 
 

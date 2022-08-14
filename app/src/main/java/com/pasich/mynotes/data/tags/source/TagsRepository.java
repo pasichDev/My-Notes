@@ -73,9 +73,4 @@ public class TagsRepository {
         return (int) future.get();
     }
 
-    public void destroyInstance() {
-        instance = null;
-        tagsDao = null;
-        executor = null;
-    }
 }

@@ -77,9 +77,5 @@ public class NotesRepository {
         return (Note) future.get();
     }
 
-    public void destroyInstance() {
-        instance = null;
-        noteDao = null;
-        executor = null;
-    }
+
 }
