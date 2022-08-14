@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Blue color theme. -->
-    <style name="ThemeBlue" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="ThemeBlue" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
@@ -20,7 +20,7 @@
 
 
     <!-- SplashStyle-->
-    <style name="ThemeBlueSplash" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="ThemeBlueSplash" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
         <item name="colorBackground">@color/white</item>
         <item name="colorLight">@color/darkLight</item>
@@ -43,7 +43,7 @@
         <item name="textFillColor">@color/black</item>
     </style>
 
-    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+    <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
 
     </style>
