@@ -29,7 +29,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:fontFamily="@font/raleway_medium"
+            android:fontFamily="@font/railway_medium"
             android:maxLines="1"
             android:text="@{noteTrashItem.title}"
             android:textColor="@color/black"

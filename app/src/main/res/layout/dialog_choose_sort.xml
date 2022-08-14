@@ -14,19 +14,15 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/sortHead"
-            android:src="@drawable/ic_sort" />
-
         <TextView
             android:id="@+id/DataSortText"
+            style="@style/marginDialogItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/sort_Date_Increase" />
+            android:text="@string/sort_Date_Increase"
+            android:textSize="@dimen/textSizeDialog" />
 
     </LinearLayout>
 
@@ -38,19 +34,14 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/sortHead"
-            android:src="@drawable/ic_sort" />
-
         <TextView
             android:id="@+id/DataReserveText"
+            style="@style/marginDialogItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/textSizeDialog"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:text="@string/sort_Date_Decrease" />
+            android:text="@string/sort_Date_Decrease"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
 
@@ -62,19 +53,15 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/sortHead"
-            android:src="@drawable/ic_sort" />
-
         <TextView
             android:id="@+id/TitleSortText"
+            style="@style/marginDialogItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/sort_Title_Increase" />
+            android:text="@string/sort_Title_Increase"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
 
@@ -86,18 +73,14 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/sortHead"
-            android:src="@drawable/ic_sort" />
-
         <TextView
             android:id="@+id/TitleReserveText"
+            style="@style/marginDialogItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/sort_Title_Decrease" />
+            android:text="@string/sort_Title_Decrease"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 </LinearLayout>

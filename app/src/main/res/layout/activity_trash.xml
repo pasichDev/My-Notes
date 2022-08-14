@@ -84,7 +84,7 @@
 
             <TextView
                 android:id="@+id/emptyListText"
-                android:fontFamily="@font/raleway_medium"
+                android:fontFamily="@font/railway_medium"
                 android:gravity="center"
                 android:textSize="24sp"
                 android:textStyle="normal"

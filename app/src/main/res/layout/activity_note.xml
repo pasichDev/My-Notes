@@ -62,7 +62,7 @@
                 android:background="@null"
                 android:focusable="@{activateEdit, default=false}"
                 android:focusableInTouchMode="@{activateEdit, default=false}"
-                android:fontStyle="@font/raleway_medium"
+                android:fontStyle="@font/railway_medium"
                 android:hint="@string/noteTitle"
                 android:inputType="text|textImeMultiLine"
                 android:longClickable="false"
