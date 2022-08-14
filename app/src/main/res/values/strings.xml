@@ -128,12 +128,12 @@
     <string name="emptyListMain" translatable="false">Здесь будуть ваши заметки.</string>
     <string name="emptyListTrash" translatable="false">Корзина пустая</string>
 
-    <string name="sort_Date_Increase" translatable="false">Дата изменения: сначала новые</string>
-    <string name="sort_Date_Decrease" translatable="false">Дата изменения: сначала старые</string>
-    <string name="sort_Title_Increase" translatable="false">Название: от А-Я</string>
-    <string name="sort_Title_Decrease" translatable="false">Название: от Я-А</string>
+    <string name="sort_Date_Increase" translatable="false">Дате изменения: сначала новые</string>
+    <string name="sort_Date_Decrease" translatable="false">Дате изменения: сначала старые</string>
+    <string name="sort_Title_Increase" translatable="false">Названии: от А-Я</string>
+    <string name="sort_Title_Decrease" translatable="false">Названии: от Я-А</string>
 
-    <string name="sortHead" translatable="false">Сортировка</string>
+    <string name="sortHead" translatable="false">Cортировать по:</string>
     <string name="visibilityNotesToTag" translatable="false">Скрыть метку</string>
 
 

@@ -49,8 +49,15 @@ public class NotesRepository {
     }
 
     public void updateNote(Note note) {
-
         Runnable runnable = () -> noteDao.updateNote(note);
+        executor.execute(runnable);
+    }
+
+    public void deleteTag(Note note) {
+        Runnable runnable = () -> {
+            note.setTag("");
+            noteDao.updateNote(note);
+        };
         executor.execute(runnable);
     }
 

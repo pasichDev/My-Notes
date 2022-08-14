@@ -33,9 +33,11 @@ public class DeleteTagDialog extends DialogFragment {
         builder.setContentView(R.layout.dialog_delete_tag);
 
         MaterialTextView title = builder.findViewById(R.id.headTextDialog);
+        assert title != null;
         title.setText(R.string.deleteTag);
 
         MaterialTextView message = builder.findViewById(R.id.textMessageDialog);
+        assert message != null;
         message.setText(R.string.deleteSelectTagTextMassage);
 
 

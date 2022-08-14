@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 
@@ -10,38 +11,72 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.MainSortView;
+import com.pasich.mynotes.databinding.DialogChooseSortBinding;
 import com.preference.PowerPreference;
 
 
 public class ChooseSortDialog extends DialogFragment {
     private MainSortView sortView;
-
+    private DialogChooseSortBinding binding;
+    private String sortParam;
 
     @NonNull
     @Deprecated
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-        sortView = (MainSortView) getContext();
-        final String sortParam = PowerPreference.getDefaultFile().getString("sortPref", "DataReserve");
-        builder.setContentView(R.layout.dialog_choose_sort);
+        this.binding = DialogChooseSortBinding.inflate(getLayoutInflater());
+        this.sortView = (MainSortView) getContext();
+        this.sortParam = PowerPreference.getDefaultFile().getString("sortPref", "DataReserve");
+
+        builder.setContentView(binding.getRoot());
 
         MaterialTextView title = builder.findViewById(R.id.headTextDialog);
         assert title != null;
         title.setText(R.string.sortHead);
 
+        selectedAutoItem(sortParam);
 
-        builder.findViewById(R.id.DataSort).setOnClickListener(v -> selectedSort("DataSort"));
-        builder.findViewById(R.id.DataReserve).setOnClickListener(v -> selectedSort("DataReserve"));
-        builder.findViewById(R.id.TitleSort).setOnClickListener(v -> selectedSort("TitleSort"));
-        builder.findViewById(R.id.TitleReserve).setOnClickListener(v -> selectedSort("TitleReserve"));
+        binding.DataSort.setOnClickListener(v -> selectedSort("DataSort"));
+        binding.DataReserve.setOnClickListener(v -> selectedSort("DataReserve"));
+        binding.TitleSort.setOnClickListener(v -> selectedSort("TitleSort"));
+        binding.TitleReserve.setOnClickListener(v -> selectedSort("TitleReserve"));
         return builder;
     }
 
     private void selectedSort(String param) {
-        PowerPreference.getDefaultFile().setString("sortPref", param);
-        assert sortView != null;
-        sortView.sortList(param);
-        dismiss();
+        if (!param.equals(sortParam)) {
+            PowerPreference.getDefaultFile().setString("sortPref", param);
+            assert sortView != null;
+            sortView.sortList(param);
+            dismiss();
+        }
+    }
+
+    @SuppressLint("ResourceType")
+    public void selectedAutoItem(String param) {
+        int colorBackground = R.color.colorPrimary;
+        int colorText = R.color.colorPrimaryVariantBlue;
+        switch (param) {
+            case "DataSort":
+                binding.DataSort.setBackgroundColor(getResources().getColor(colorBackground));
+                binding.DataSortText.setTextColor(getResources().getColor(colorText));
+                break;
+            case "DataReserve":
+                binding.DataReserve.setBackgroundColor(getResources().getColor(colorBackground));
+                binding.DataReserveText.setTextColor(getResources().getColor(colorText));
+                break;
+            case "TitleSort":
+                binding.TitleSort.setBackgroundColor(getResources().getColor(colorBackground));
+                binding.TitleSortText.setTextColor(getResources().getColor(colorText));
+
+                break;
+            case "TitleReserve":
+                binding.TitleReserve.setBackgroundColor(getResources().getColor(colorBackground));
+                binding.TitleReserveText.setTextColor(getResources().getColor(colorText));
+
+                break;
+        }
     }
 
 

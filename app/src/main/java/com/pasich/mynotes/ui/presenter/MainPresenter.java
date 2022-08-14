@@ -2,6 +2,8 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.util.Log;
+
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -63,7 +65,12 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     public void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException {
         if (data != null) {
             if (!deleteNotes) {
-                notesRepository.clearTagForNotes(tag.getNameTag());
+                for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())) {
+                    notesRepository.deleteTag(note);
+                    Log.wtf("pasic", "deleteTag: " + note.getId() + "/" + note.getTag());
+                }
+                //notesRepository.clearTagForNotes(tag.getNameTag());
+
             } else {
                 for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())) {
                     trashRepository.moveToTrash(note);
@@ -122,8 +129,10 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
     @Override
     public void deleteNote(Note note) {
-        trashRepository.moveToTrash(note);
-        notesRepository.deleteNote(note);
+        if (data != null) {
+            trashRepository.moveToTrash(note);
+            notesRepository.deleteNote(note);
+        }
     }
 
 
