@@ -61,9 +61,7 @@ public class TagDialog extends DialogFragment implements TagDialogContract.view 
         super.onDismiss(dialog);
         dialogPresenter.detachView();
         mView = null;
-        requireActivity()
-                .getWindow()
-                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
     }
 
 

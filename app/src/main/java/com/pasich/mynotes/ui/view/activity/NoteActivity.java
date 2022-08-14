@@ -5,20 +5,18 @@ import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.ListNotesUtils.convertDate;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -151,20 +149,19 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             public void errorDebug(int i) {
                 binding.recordMessges.setVisibility(View.GONE);
                 binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
-                if (i == 7) {
-                    Toast.makeText(getApplicationContext(),
-                                    getString(R.string.emptySpeec), Toast.LENGTH_SHORT)
-                            .show();
-                }
-                if (i == 2) {
 
-                    Toast.makeText(
-                                    getApplicationContext(),
-                                    getString(R.string.errorInternetConectSpeech),
-                                    Toast.LENGTH_LONG)
-                            .show();
-                    speechRecognizer.stopListening();
-                }
+                int textError = R.string.error;
+                if (i == 7)
+                    textError = R.string.emptySpeec;
+                else if (i == 2)
+                    textError = R.string.errorInternetConectSpeech;
+                Toast.makeText(
+                                getApplicationContext(),
+                                getString(textError),
+                                Toast.LENGTH_LONG)
+                        .show();
+                speechRecognizer.stopListening();
+
             }
 
             @Override
@@ -181,7 +178,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void loadingSourceNote() {
         SearchSourceNote searchSourceNote = new SearchSourceNote(binding.valueNote.getText().toString());
-            new SourceNoteDialog(searchSourceNote).show(getSupportFragmentManager(), "SourcesNoteDialog");
+        new SourceNoteDialog(searchSourceNote).show(getSupportFragmentManager(), "SourcesNoteDialog");
 
     }
 
@@ -192,7 +189,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         String valueLine = dataManager.getDefaultPreference().getString("setSpeechOutputText", "line").equals("line") ?
                 " " : valueNote.length() == 0 ? "" : "\n";
         binding.valueNote.setText(valueNote + valueLine + result.get(0));
-        binding.valueNote.setSelection(binding.valueNote.getText().toString().length()); // Отобразим курсор на последнем слове
+        binding.valueNote.setSelection(binding.valueNote.getText().toString().length());
     }
 
 
@@ -212,9 +209,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         binding.valueNote.setSelection(binding.valueNote.getText().length());
         binding.valueNote.setFocusableInTouchMode(true);
         binding.valueNote.requestFocus();
-        InputMethodManager imm =
-                (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(binding.valueNote, InputMethodManager.SHOW_FORCED);
+
     }
 
 
@@ -255,6 +250,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void onStop() {
         super.onStop();
+        Log.wtf("pasic", "onStop: ");
     }
 
     @Override
@@ -282,8 +278,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void setValueNote() {
-        int sizeText = dataManager.getDefaultPreference().getInt("textSize", 16);
-        binding.valueNote.setTextSize(sizeText == 0 ? 16 : sizeText);
+        int sizeText = dataManager.getDefaultPreference().getInt("textSize", 20);
+        binding.valueNote.setTextSize(sizeText == 0 ? 20 : sizeText);
         binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
                 dataManager.getDefaultPreference().getString("textStyle", "normal")));
     }
@@ -291,7 +287,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void closeNoteActivity() {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         if (binding.valueNote.getText().toString().trim().length() >= 2) {
             saveNote();
         }
@@ -357,4 +352,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void closeActivityNotSaved() {
         finish();
     }
+
+
 }

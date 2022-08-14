@@ -17,7 +17,7 @@
                     app:iconSpaceReserved="false"
                     app:useSimpleSummaryProvider="true" />
                 <SeekBarPreference
-                    android:defaultValue="16"
+                    android:defaultValue="20"
                     android:key="textSize"
                     android:max="34"
                     android:title="@string/sizeText"
