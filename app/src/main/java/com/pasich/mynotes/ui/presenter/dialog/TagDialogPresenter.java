@@ -29,14 +29,6 @@ public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
 
     @Override
     public void viewIsReady() {
-      /*  getView().settingsTagsList(1, tagsRepository.getTagsUser());
-        try {
-            getView().visibilityAddTagButton(tagsRepository.getCountTagAll() < MAX_TAG_COUNT);
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-       */
         try {
             getView().loadingTagsOfChips(tagsRepository.getTagsUser());
         } catch (ExecutionException | InterruptedException e) {

@@ -9,7 +9,4 @@
         <include
             android:id="@+id/includedInput"
             layout="@layout/view_new_tag_input" />
-
-
-
     </LinearLayout>

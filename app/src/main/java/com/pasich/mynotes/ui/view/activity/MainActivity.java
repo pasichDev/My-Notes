@@ -33,7 +33,7 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.OtherActivityDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.TagDialog.TagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;

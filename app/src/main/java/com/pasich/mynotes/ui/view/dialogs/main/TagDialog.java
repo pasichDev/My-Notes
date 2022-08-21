@@ -1,11 +1,14 @@
-package com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
+package com.pasich.mynotes.ui.view.dialogs.main;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +23,7 @@ import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.DialogAddTagToNoteBinding;
 import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialog.TagDialogPresenter;
+import com.pasich.mynotes.utils.ValidateNameTag;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -90,6 +94,13 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
             if (dialogPresenter.getCountTags() < MAX_TAG_COUNT) {
                 binding.addTagChip.setVisibility(View.VISIBLE);
                 binding.addTagChip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    binding.includedInput.getRoot().setVisibility(View.VISIBLE);
+                    binding.includedInput.inputNameView.requestFocus();
+                    builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                    ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
+                    binding.addTagChip.setVisibility(View.GONE);
+
                 });
             }
 
@@ -105,46 +116,12 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
             });
         }
 
-
-
-
-/*
-        mView.getSaveButton()
-                .setOnClickListener(
-                        view1 -> {
-                            dialogPresenter.createTagNote(new Tag().create(mView.getText()), note);
-                            dismiss();
-                        });
-        tagsAdapter.setOnItemClickListener(
-                new TagsAdapter.OnItemClickListener() {
-                    @Override
-                    public void onClick(int position) {
-                        if (!tagsAdapter.getCurrentList().get(position).getNameTag().equals(note.getTag())) {
-                            dialogPresenter.editTagNote(tagsAdapter.getCurrentList().get(position), note);
-                            dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onLongClick(int position) {
-
-                    }
+        binding.includedInput.saveTag.setOnClickListener(
+                view1 -> {
+                    dialogPresenter.createTagNote(new Tag().create(binding.includedInput.inputNameTag.getText().toString()), note);
+                    dismiss();
                 });
-
-
-
-        mView.getRootContainer().findViewById(R.id.addTagForDialog)
-                .setOnClickListener(
-                        view1 -> {
-                            mView.visibilityInputNewTag();
-                            mView.getRootContainer().findViewById(R.id.addTagForDialog).setVisibility(View.GONE);
-                            mView.getInputTag().requestFocus();
-                            builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-                            ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-                                    .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
-
-                        });
-  */
+        new ValidateNameTag(binding.includedInput.inputNameTag, binding.includedInput.saveTag);
     }
 
 
