@@ -1,23 +1,18 @@
 package com.pasich.mynotes.ui.view.dialogs.note;
 
 import android.app.Dialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.SourceFilterModel;
-import com.pasich.mynotes.ui.view.customView.dialog.ListDialogView;
+import com.pasich.mynotes.databinding.DialogSourceNoteBinding;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.adapters.FilterSourceAdapter;
 import com.pasich.mynotes.utils.adapters.SourceAdapter;
@@ -25,10 +20,13 @@ import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.ArrayList;
 
-public class SourceNoteDialog extends DialogFragment {
+public class SourceNoteDialog extends BottomSheetDialogFragment {
     private final SearchSourceNote searchSourceNote;
     private FilterSourceAdapter filterSourceAdapter;
     private SourceAdapter sourceAdapter;
+
+
+    private DialogSourceNoteBinding binding;
 
 
     public SourceNoteDialog(SearchSourceNote searchSourceNote) {
@@ -37,8 +35,20 @@ public class SourceNoteDialog extends DialogFragment {
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+        binding = DialogSourceNoteBinding.inflate(getLayoutInflater());
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
+
+        builder.setContentView(binding.getRoot());
+        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
+        assert title != null;
+        title.setText(getString(R.string.sourceNotes));
+
+
+
+
+
+       /*
+
         final ListDialogView listDialogView = new ListDialogView(getLayoutInflater());
 
         listDialogView.addTitle(getString(R.string.sourceNotes));
@@ -96,6 +106,9 @@ public class SourceNoteDialog extends DialogFragment {
 
         listDialogView.getRootContainer().addView(listDialogView.getItemsView());
         builder.setContentView(listDialogView.getRootContainer());
+        */
+
+
         return builder;
     }
 
