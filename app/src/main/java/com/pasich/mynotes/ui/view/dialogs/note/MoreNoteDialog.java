@@ -37,11 +37,12 @@ public class MoreNoteDialog extends DialogFragment {
         final NoteActivityView noteActivityView = (NoteActivityView) getContext();
         builder.setContentView(typeActivity ? R.layout.dialog_more_new_note : R.layout.dialog_more_note);
 
-        MaterialTextView infoItem = builder.findViewById(R.id.noteInfo);
-        assert infoItem != null;
 
-        if (!typeActivity)
+        if (!typeActivity) {
+            MaterialTextView infoItem = builder.findViewById(R.id.noteInfo);
+            assert infoItem != null;
             infoItem.setText(getString(R.string.layoutStringInfoCountSymbols, mNote.getValue().length()));
+        }
 
 
         builder.findViewById(R.id.noSave).setOnClickListener(v -> {

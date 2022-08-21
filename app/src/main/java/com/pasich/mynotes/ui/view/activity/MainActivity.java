@@ -184,21 +184,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         binding.actionSearch.setEnabled(false);
         binding.actionSearch.setOnQueryTextFocusChangeListener(
                 (v, hasFocus) -> {
-                    onSearchRequested();
-                    //   onSearchRequested();
-                    //   Log.wtf("pasic", "focus  " + hasFocus);
-                    //     binding.listTags.setVisibility(View.GONE);
-                    //       findViewById(R.id.sortButton).setVisibility(View.GONE);
-                    //       findViewById(R.id.formatButton).setVisibility(View.GONE);
-                    //      onSearchRequested();
-                    //      binding.actionSearch.setFocusable(false);
+
                 });
         binding.actionSearch.setOnCloseListener(
                 () -> {
-                    //    Log.wtf("pasic", "close  ");
-                    //     findViewById(R.id.sortButton).setVisibility(View.VISIBLE);
-                    //      findViewById(R.id.formatButton).setVisibility(View.VISIBLE);
-                    //     binding.actionSearch.setFocusable(false);
+
                     return false;
                 });
 

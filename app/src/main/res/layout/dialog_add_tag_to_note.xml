@@ -24,7 +24,7 @@
             app:iconStartPadding="10dp"
             app:chipIconSize="18dp"
             android:visibility="gone"
-            android:text="@string/addTag"
+            android:text="@string/createTag"
             app:chipIcon="@drawable/ic_add_tag_dialog"
             style="@style/ChipStyleCustom"
             android:layout_width="wrap_content"

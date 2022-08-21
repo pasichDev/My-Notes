@@ -53,6 +53,7 @@ public class ChoiceTagDialog extends BottomSheetDialogFragment {
 
         SwitchCompat switchVisibility = builder.findViewById(R.id.switchVisibilityTag);
         assert switchVisibility != null;
+        switchVisibility.setChecked(tag.getVisibility() == 1);
         switchVisibility.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     assert tagView != null;

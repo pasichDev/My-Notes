@@ -35,27 +35,26 @@
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:padding="8dp">
-
         <ImageView
             style="@style/iconDialogList"
             android:contentDescription="@string/deleteTag"
             android:src="@drawable/ic_tag" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
+            android:layout_weight="1"
             android:textSize="@dimen/textSizeDialog"
             android:text="@string/visibilityNotesToTag" />
 
-        <androidx.appcompat.widget.SwitchCompat
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switchVisibilityTag"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:padding="8dp" />
+            android:layout_width="wrap_content"
+            android:padding="8dp"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 

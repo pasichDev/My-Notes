@@ -1,12 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Blue color theme. -->
     <style name="ThemeBlue" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
         <item name="colorBackground">@color/white</item>
         <item name="colorLight">@color/darkLight</item>
+
+        <!-- Цвет фона дилоговых окон-->
+        <item name="colorSurface">@color/white</item>
+
+        <!-- Цвет switchmaterial.SwitchMaterial -->
+        <item name="switchStyle">@style/Widget.App.Switch</item>
+
 
         <item name="colorAccent">@color/colorPrimaryBackground</item>
         <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
@@ -48,7 +54,6 @@
         <item name="fontFamily">@font/railway_medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="iconDialogList" parent="marginDialogItem">
@@ -69,5 +74,15 @@
         <item name="chipStrokeWidth">1dp</item>
         <item name="android:textColor">?attr/colorAccentIcon</item>
     </style>
+
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorOnSurface">@color/colorPrimaryBackground</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+    </style>
+
 
 </resources>
