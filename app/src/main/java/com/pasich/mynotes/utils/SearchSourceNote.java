@@ -9,35 +9,35 @@ import java.util.regex.Pattern;
 public class SearchSourceNote {
 
     private final String textString;
-
+    private final ArrayList<SourceModel> listArray = new ArrayList<>();
 
     public SearchSourceNote(String textString) {
         this.textString = textString;
+        this.loadData();
     }
 
 
-    public ArrayList<SourceModel> getListSources(String type) {
-        ArrayList<SourceModel> listArray = new ArrayList<>();
-        switch (type) {
-            case "Url":
-                for (String link : this.getLinks()) {
-                    listArray.add(new SourceModel(link, "Url"));
-                }
-                break;
-            case "Mail":
-                for (String mail : getMail()) {
-                    listArray.add(new SourceModel(mail, "Mail"));
-                }
-                break;
-            case "Tel":
-                for (String number : getPhoneNumber()) {
-                    listArray.add(new SourceModel(number, "Tel"));
-                }
-                break;
+    public void loadData() {
+        for (String link : this.getLinks()) {
+            listArray.add(new SourceModel(link, "Url"));
+        }
+        for (String mail : getMail()) {
+            listArray.add(new SourceModel(mail, "Mail"));
         }
 
+        for (String number : getPhoneNumber()) {
+            listArray.add(new SourceModel(number, "Tel"));
+        }
+    }
+
+    public ArrayList<SourceModel> getListArray() {
         return listArray;
     }
+
+    public int getCountSource() {
+        return listArray.size();
+    }
+
 
     /**
      * Method that returns an array of links

@@ -2,43 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
-    <include layout="@layout/view_head_dialog" />
+    <include
+        android:id="@+id/titleInclude"
+        layout="@layout/view_head_dialog" />
 
-    <com.google.android.material.chip.ChipGroup
+    <ListView
+        android:id="@+id/mListSource"
         android:layout_width="match_parent"
-        android:padding="8dp"
-        app:singleLine="true"
-        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content">
+        android:layoutAnimation="@anim/recycle_view_animation"
+        android:divider="@null" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/linksChip"
-            android:text="@string/links"
-
-            style="@style/ChipStyleCustom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/mailChip"
-            android:text="@string/mail"
-            style="@style/ChipStyleCustom"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/phoneChip"
-            android:text="@string/tel"
-            style="@style/ChipStyleCustom"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.chip.ChipGroup>
 </LinearLayout>

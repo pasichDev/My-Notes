@@ -178,7 +178,11 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void loadingSourceNote() {
         SearchSourceNote searchSourceNote = new SearchSourceNote(binding.valueNote.getText().toString());
-        new SourceNoteDialog(searchSourceNote).show(getSupportFragmentManager(), "SourcesNoteDialog");
+        if (searchSourceNote.getCountSource() >= 1)
+            new SourceNoteDialog(searchSourceNote).show(getSupportFragmentManager(), "SourcesNoteDialog");
+        else
+            Toast.makeText(this, getString(R.string.notSource), Toast.LENGTH_SHORT).show();
+
 
     }
 

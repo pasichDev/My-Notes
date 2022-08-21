@@ -14,18 +14,12 @@ import java.util.ArrayList;
 
 public class SourceAdapter extends BaseAdapter {
 
-    private ArrayList<SourceModel> listSource;
+    private final ArrayList<SourceModel> listSource;
     private LayoutInflater LayoutInflater;
 
     public SourceAdapter(ArrayList<SourceModel> list) {
         this.listSource = list;
     }
-
-    public void refreshList(ArrayList<SourceModel> inputList) {
-        listSource = inputList;
-        notifyDataSetChanged();
-    }
-
 
     @Override
     public int getCount() {
