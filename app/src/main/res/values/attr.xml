@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
     <attr name="colorPrimaryBackground" format="reference|color" />
     <attr name="colorBackground" format="reference|color" />
     <attr name="colorLight" format="reference|color" />
     <attr name="colorAccentIcon" format="reference|color" />
 
-
-    <declare-styleable name="VisualSound">
-        <attr name="showText" format="boolean" />
-        <attr name="labelPosition" format="enum">
-            <enum name="left" value="0" />
-            <enum name="right" value="1" />
-        </attr>
-    </declare-styleable>
 </resources>

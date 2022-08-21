@@ -8,5 +8,5 @@
 
         <include
             android:id="@+id/includedInput"
-            layout="@layout/view_new_tag_input" />
+            layout="@layout/view_input_tag" />
     </LinearLayout>

@@ -47,5 +47,5 @@
     <include
         android:id="@+id/includedInput"
         android:visibility="gone"
-        layout="@layout/view_new_tag_input" />
+        layout="@layout/view_input_tag" />
 </LinearLayout>

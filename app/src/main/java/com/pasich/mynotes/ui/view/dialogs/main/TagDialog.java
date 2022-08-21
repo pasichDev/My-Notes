@@ -97,7 +97,7 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
                 binding.addTagChip.setVisibility(View.VISIBLE);
                 binding.addTagChip.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     binding.includedInput.getRoot().setVisibility(View.VISIBLE);
-                    binding.includedInput.inputNameView.requestFocus();
+                    binding.includedInput.inputNameTag.requestFocus();
                     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                     ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                             .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);

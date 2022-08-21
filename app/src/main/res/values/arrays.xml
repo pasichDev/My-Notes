@@ -41,17 +41,4 @@
         <item>uk-UA</item>
     </string-array>
 
-
-    <string-array name="themeColor_values">
-        <item>Red</item>
-        <item>Orange</item>
-        <item>Green</item>
-        <item>Indigo</item>
-        <item>Purple</item>
-        <item>Dark</item>
-
-
-    </string-array>
-
-
 </resources>

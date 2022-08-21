@@ -2,10 +2,10 @@
 <resources>
     <item name="sortButton" type="id" />
     <item name="formatButton" type="id" />
+
     <item name="actionPanel" type="id" />
     <item name="closeButtonPanel" type="id" />
+
     <item name="deleteNotesArray" type="id" />
     <item name="removeNotesArray" type="id" />
-    <item name="removeTagForDialog" type="id" />
-    <item name="addTagForDialog" type="id" />
 </resources>
