@@ -20,14 +20,14 @@
             android:id="@+id/linksChip"
             android:text="@string/links"
 
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            style="@style/ChipStyleCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/mailChip"
             android:text="@string/mail"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            style="@style/ChipStyleCustom"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -35,7 +35,7 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/phoneChip"
             android:text="@string/tel"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            style="@style/ChipStyleCustom"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

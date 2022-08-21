@@ -63,7 +63,7 @@
         <item name="android:layout_marginEnd">12dp</item>
     </style>
 
-    <style name="Colors_Widget.MaterialComponents.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+    <style name="ChipStyleCustom" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/white</item>
         <item name="chipStrokeColor">?attr/colorAccentIcon</item>
         <item name="chipStrokeWidth">1dp</item>

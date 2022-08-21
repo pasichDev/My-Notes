@@ -26,7 +26,7 @@
             android:visibility="gone"
             android:text="@string/addTag"
             app:chipIcon="@drawable/ic_add_tag_dialog"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            style="@style/ChipStyleCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -38,7 +38,7 @@
             app:iconStartPadding="10dp"
             app:chipIconSize="18dp"
             app:chipIcon="@drawable/ic_delete_notes_tag"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            style="@style/ChipStyleCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
