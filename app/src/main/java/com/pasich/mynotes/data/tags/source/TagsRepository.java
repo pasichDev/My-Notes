@@ -41,17 +41,17 @@ public class TagsRepository {
     }
 
 
-    public LiveData<List<Tag>> getTagsUser() {
-        LiveData<List<Tag>> mTags;
-        mTags = tagsDao.getTagsUser();
-
-        return mTags;
+    public List<Tag> getTagsUser() throws ExecutionException, InterruptedException {
+        Future<?> future = Executors.newSingleThreadExecutor()
+                .submit((Callable<?>) () -> tagsDao.getTagsUser());
+        return (List<Tag>) future.get();
     }
 
     public void addTag(Tag tag) {
-
-        Runnable runnable = () -> tagsDao.addTag(tag);
-        executor.execute(runnable);
+        if (tag.getNameTag().trim().length() >= 2) {
+            Runnable runnable = () -> tagsDao.addTag(tag);
+            executor.execute(runnable);
+        }
     }
 
     public void deleteTag(Tag tag) {

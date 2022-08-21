@@ -18,7 +18,7 @@ public interface TagsDao {
   LiveData<List<Tag>> getTags();
 
   @Query("SELECT * FROM tags where systemAction = 0")
-  LiveData<List<Tag>> getTagsUser();
+  List<Tag> getTagsUser();
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void addTag(Tag tag);

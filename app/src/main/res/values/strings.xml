@@ -119,7 +119,7 @@
 
     <string name="tag" translatable="false">Метка</string>
     <string name="selectAll" translatable="false">Выбрать несколько элементов</string>
-    <string name="selectTagForNote" translatable="false">Повесить метку</string>
+    <string name="selectTagForNote" translatable="false">Добавить метку</string>
     <string name="editSelectTagForNote" translatable="false">Изменить метку</string>
 
     <string name="noTag" translatable="false">Без метки</string>

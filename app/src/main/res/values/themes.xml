@@ -64,9 +64,10 @@
     </style>
 
     <style name="Colors_Widget.MaterialComponents.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor">@color/colorPrimary</item>
-        <item name="chipStrokeColor">@color/colorPrimary</item>
-        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="chipStrokeColor">?attr/colorAccentIcon</item>
+        <item name="android:padding">5dp</item>
+        <item name="chipStrokeWidth">1dp</item>
         <item name="android:textColor">?attr/colorAccentIcon</item>
     </style>
 

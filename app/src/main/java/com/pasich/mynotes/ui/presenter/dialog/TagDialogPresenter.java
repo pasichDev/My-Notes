@@ -1,8 +1,6 @@
 package com.pasich.mynotes.ui.presenter.dialog;
 
 
-import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
-
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -31,12 +29,21 @@ public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
 
     @Override
     public void viewIsReady() {
-        getView().settingsTagsList(1, tagsRepository.getTagsUser());
+      /*  getView().settingsTagsList(1, tagsRepository.getTagsUser());
         try {
             getView().visibilityAddTagButton(tagsRepository.getCountTagAll() < MAX_TAG_COUNT);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+
+       */
+        try {
+            getView().loadingTagsOfChips(tagsRepository.getTagsUser());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
         getView().initListeners();
     }
 
@@ -52,9 +59,14 @@ public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
 
 
     @Override
-    public void editTagNote(Tag tag, Note note) {
-        note.setTag(tag.getNameTag());
+    public void editTagNote(String nameTag, Note note) {
+        note.setTag(nameTag);
         notesRepository.updateNote(note);
+    }
+
+    @Override
+    public int getCountTags() throws ExecutionException, InterruptedException {
+        return tagsRepository.getCountTagAll();
     }
 
     @Override
