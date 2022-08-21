@@ -63,7 +63,9 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         dialogPresenter.detachView();
-
+        requireActivity()
+                .getWindow()
+                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
