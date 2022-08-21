@@ -1,24 +1,30 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
+import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.TagsRepository;
-import com.pasich.mynotes.ui.view.customView.InputTagView;
+import com.pasich.mynotes.databinding.DialogNewTagBinding;
+import com.pasich.mynotes.utils.simplifications.TextValidatorUtils;
 
 public class NewTagDialog extends BottomSheetDialogFragment {
 
     private TagsRepository repository;
+    private DialogNewTagBinding binding;
 
     public NewTagDialog(TagsRepository repository) {
         this.repository = repository;
@@ -27,24 +33,38 @@ public class NewTagDialog extends BottomSheetDialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-        final InputTagView mView = new InputTagView(getLayoutInflater());
+        binding = DialogNewTagBinding.inflate(getLayoutInflater());
 
-        mView.addTitle(getString(R.string.addTag));
-        mView.getInputTag().requestFocus();
-        mView.addView(mView.getNewTagView());
-        mView
-                .getSaveButton()
-                .setOnClickListener(
-                        view -> {
-                            repository.addTag(new Tag().create(mView.getText()));
-                            dismiss();
-                        });
+        builder.setContentView(binding.getRoot());
 
-        builder.setContentView(mView.getRootContainer());
+        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
+        assert title != null;
+        title.setText(R.string.addTag);
+
+
+        binding.setErrorText(false);
+        binding.setEnableButtonSave(false);
+        binding.inputNameTag.requestFocus();
 
         builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                 .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
+
+
+        binding.saveTag.setOnClickListener(
+                view -> {
+                    repository.addTag(new Tag().create(binding.inputNameTag.getText().toString()));
+                    dismiss();
+                });
+
+
+        binding.inputNameTag.addTextChangedListener(
+                new TextValidatorUtils(binding.inputNameTag) {
+                    @Override
+                    public void validate(TextView textView, String text) {
+                        validateText(text.trim().length());
+                    }
+                });
 
         return builder;
     }
@@ -56,5 +76,17 @@ public class NewTagDialog extends BottomSheetDialogFragment {
         requireActivity()
                 .getWindow()
                 .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    private void validateText(int length) {
+        if (length >= MAX_NAME_TAG) {
+            binding.setErrorText(true);
+            binding.setEnableButtonSave(false);
+        } else if (length == MAX_NAME_TAG - 1) {
+            binding.setErrorText(false);
+            binding.setEnableButtonSave(true);
+        }
+        if (length < 1) binding.setEnableButtonSave(false);
+        else if (length < MAX_NAME_TAG - 1) binding.setEnableButtonSave(true);
     }
 }

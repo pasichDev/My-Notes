@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="errorText"
+            type="boolean" />
+
+        <variable
+            name="enableButtonSave"
+            type="boolean" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/view_head_dialog" />
+
+        <LinearLayout
+            android:id="@+id/share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/inputNameTag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/createNewTag"
+                android:background="@{errorText ? @drawable/background_normal_error : @drawable/background_normal_input, default= @drawable/background_normal_input}"
+                android:enabled="true"
+                android:hint="@string/createNewTag"
+                android:inputType="textCapSentences|textImeMultiLine"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/saveTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryBackground"
+                android:enabled="@{enableButtonSave ? true : false }"
+                android:text="@string/save"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</layout>
