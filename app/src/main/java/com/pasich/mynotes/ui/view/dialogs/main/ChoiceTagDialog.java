@@ -1,5 +1,7 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
+import static com.pasich.mynotes.utils.DialogVibrateOpen.start;
+
 import android.app.Dialog;
 import android.os.Bundle;
 
@@ -38,7 +40,9 @@ public class ChoiceTagDialog extends BottomSheetDialogFragment {
         assert infoItem != null;
         infoItem.setText(
                 getString(R.string.layoutStringInfoTags, String.valueOf(countNotes)));
-
+        builder.setOnShowListener(dialog -> {
+            start(requireActivity());
+        });
 
         builder.findViewById(R.id.deleteTagLayout).setOnClickListener(v -> {
             if (countNotes == 0) {
