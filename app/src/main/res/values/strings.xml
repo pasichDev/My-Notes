@@ -177,4 +177,6 @@
     <string name="hintTextNote" translatable="false">Текст</string>
 
     <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
+    <string name="infoDialogSource" translatable="false">Чтобы скопировать текст вложения нажмите и удерживайте</string>
+
 </resources>

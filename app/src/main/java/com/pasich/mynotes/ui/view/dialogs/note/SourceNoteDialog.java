@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.DialogSourceNoteBinding;
 import com.pasich.mynotes.utils.SearchSourceNote;
@@ -32,10 +34,18 @@ public class SourceNoteDialog extends BottomSheetDialogFragment {
         final DialogSourceNoteBinding binding = DialogSourceNoteBinding.inflate(getLayoutInflater());
         final SourceAdapter mSourceAdapter = new SourceAdapter(searchSourceNote.getListArray());
 
+        builder.getBehavior().setHideable(false);
         builder.setContentView(binding.getRoot());
         binding.titleInclude.headTextDialog.setText(getString(R.string.sourceNotes));
-        binding.mListSource.setAdapter(mSourceAdapter);
 
+        MaterialTextView infoItem = builder.findViewById(R.id.noteInfo);
+        assert infoItem != null;
+        infoItem.setText(getString(R.string.infoDialogSource));
+
+        binding.titleInclude.closeDialog.setVisibility(View.VISIBLE);
+        binding.titleInclude.closeDialog.setOnClickListener(v -> dismiss());
+
+        binding.mListSource.setAdapter(mSourceAdapter);
         binding.mListSource.setOnItemClickListener(
                 (parent, v, position, id) -> {
                     Intent intent = null;
