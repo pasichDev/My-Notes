@@ -38,19 +38,20 @@ public class NotesRepository {
     }
 
     public void addNote(Note note) {
-
-        Runnable runnable = () -> noteDao.addNote(note);
-        executor.execute(runnable);
+        executor.execute(() -> noteDao.addNote(note));
     }
 
     public void deleteNote(Note note) {
-        Runnable runnable = () -> noteDao.deleteNote(note);
-        Executors.newSingleThreadExecutor().execute(runnable);
+        executor.execute(() -> noteDao.deleteNote(note));
+    }
+
+    public void deleteNote(ArrayList<Note> notes) {
+        for (Note note : notes)
+            executor.execute(() -> noteDao.deleteNote(note));
     }
 
     public void updateNote(Note note) {
-        Runnable runnable = () -> noteDao.updateNote(note);
-        executor.execute(runnable);
+        executor.execute(() -> noteDao.updateNote(note));
     }
 
 
@@ -61,8 +62,7 @@ public class NotesRepository {
     }
 
     public void clearTagForNotes(String nameTag) {
-        Runnable runnable = () -> noteDao.clearTagForNotes(nameTag);
-        executor.execute(runnable);
+        executor.execute(() -> noteDao.clearTagForNotes(nameTag));
     }
 
     public int getCountNoteTag(String nameTag) throws ExecutionException, InterruptedException {

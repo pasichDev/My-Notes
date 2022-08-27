@@ -38,6 +38,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
     @Inject
     public DataManager dataManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,5 +123,6 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
     public void cleanTrashDialogShow() {
         new CleanTrashDialog(dataManager.getTrashRepository()).show(getSupportFragmentManager(), "CLeanTrash");
     }
+
 
 }

@@ -18,9 +18,11 @@ public interface TrashContract {
         void settingsNotesList(int countColumn, LiveData<List<TrashNote>> noteList);
 
         void cleanTrashDialogShow();
+
     }
 
     interface presenter extends MyPresenter<view> {
         void cleanTrashDialogStart();
     }
 }
+;

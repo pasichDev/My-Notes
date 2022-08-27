@@ -7,15 +7,15 @@ import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.data.trash.source.dao.TrashDao;
 import com.pasich.mynotes.utils.DiskExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class TrashRepository {
 
     private static TrashRepository instance;
-    private Executor executor;
-    private TrashDao trashDao;
+    private final Executor executor;
+    private final TrashDao trashDao;
 
     private TrashRepository(Executor executor, TrashDao trashDao) {
         this.executor = executor;
@@ -34,21 +34,21 @@ public class TrashRepository {
     }
 
     public void moveToTrash(Note note) {
-        Runnable runnable = () -> {
-            trashDao.moveToTrash(note.getTitle(), note.getValue(), note.getDate());
-
-        };
-        Executors.newSingleThreadExecutor().execute(runnable);
+        executor.execute(() -> trashDao.moveToTrash(note.getTitle(), note.getValue(), note.getDate()));
     }
 
+    public void moveToTrash(ArrayList<Note> notes) {
+        for (Note note : notes)
+            executor.execute(() -> trashDao.moveToTrash(note.getTitle(), note.getValue(), note.getDate()));
+    }
+
+
     public void deleteNote(TrashNote note) {
-        Runnable runnable = () -> trashDao.deleteNote(note);
-        executor.execute(runnable);
+        executor.execute(() -> trashDao.deleteNote(note));
     }
 
     public void deleteAll() {
-        Runnable runnable = () -> trashDao.deleteAll();
-        executor.execute(runnable);
+        executor.execute(trashDao::deleteAll);
     }
 
 }

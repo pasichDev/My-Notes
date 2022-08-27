@@ -1,6 +1,5 @@
 package com.pasich.mynotes.di.main;
 
-import android.view.View;
 
 import com.pasich.mynotes.base.dagger.ActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
@@ -36,10 +35,12 @@ public class MainActivityModule implements ActivityModule {
     return new FormatListUtils();
   }
 
+
   @MainActivityScope
   @Provides
-  ActionUtils providerActionUtils(View view, int objectActivity) {
-    return new ActionUtils(view, objectActivity);
+  ActionUtils providerActionUtil() {
+    return new ActionUtils();
   }
+
 
 }

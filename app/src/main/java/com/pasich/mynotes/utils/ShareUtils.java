@@ -49,7 +49,7 @@ public class ShareUtils {
     /**
      * Method for calling the share app window
      */
-    public void shareApp() {
+    public void shareText() {
         if (!(valueString.length() == 0)) {
             activity.startActivity(
                     Intent.createChooser(

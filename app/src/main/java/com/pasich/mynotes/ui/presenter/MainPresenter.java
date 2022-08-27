@@ -11,6 +11,7 @@ import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
@@ -38,6 +39,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         getView().settingsTagsList(tagsRepository.getTags());
         getView().settingsNotesList(notesRepository.getNotes());
         getView().initListeners();
+        getView().initActionUtils();
     }
 
     @Override
@@ -118,16 +120,20 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         getView().openNoteEdit(idNote);
     }
 
-    @Override
-    public void clickLongNote(Note note) {
-        getView().choiceNoteDialog(note);
-    }
 
     @Override
     public void deleteNote(Note note) {
         if (data != null) {
             trashRepository.moveToTrash(note);
             notesRepository.deleteNote(note);
+        }
+    }
+
+    @Override
+    public void deleteNotesArray(ArrayList<Note> notes) {
+        if (data != null) {
+            trashRepository.moveToTrash(notes);
+            notesRepository.deleteNote(notes);
         }
     }
 

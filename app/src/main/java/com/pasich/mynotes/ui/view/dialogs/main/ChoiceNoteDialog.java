@@ -22,9 +22,11 @@ import com.pasich.mynotes.utils.ShortCutUtils;
 public class ChoiceNoteDialog extends BottomSheetDialogFragment {
 
     private final Note note;
+    private final int positionItem;
 
-    public ChoiceNoteDialog(Note note) {
+    public ChoiceNoteDialog(Note note, int position) {
         this.note = note;
+        this.positionItem = position;
     }
 
     @NonNull
@@ -45,7 +47,7 @@ public class ChoiceNoteDialog extends BottomSheetDialogFragment {
         binding.actionPanelActivate.setOnClickListener(view ->
         {
             assert noteView != null;
-            noteView.actionStartNote();
+            noteView.actionStartNote(positionItem);
             dismiss();
         });
         binding.shareLinearLayout.setOnClickListener(view -> {

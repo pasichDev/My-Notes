@@ -34,4 +34,6 @@ public class MainUtils {
       Swipe = 0;
     }
   }
+
+
 }

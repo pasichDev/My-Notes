@@ -10,6 +10,7 @@ import com.pasich.mynotes.base.view.TagView;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -28,7 +29,7 @@ public interface MainContract {
 
         void choiceTagDialog(Tag tag, Integer[] arg);
 
-        void choiceNoteDialog(Note note);
+        void choiceNoteDialog(Note note, int position);
 
         void settingsTagsList(LiveData<List<Tag>> tagList);
 
@@ -38,14 +39,14 @@ public interface MainContract {
 
         void startToastCheckCountTags();
 
+        void initActionUtils();
+
     }
 
     interface presenter extends MyPresenter<view> {
         void newNotesClick();
 
-
         void moreActivityClick();
-
 
         void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException;
 
@@ -57,10 +58,8 @@ public interface MainContract {
 
         void clickNote(int idNote);
 
-        void clickLongNote(Note note);
-
         void deleteNote(Note note);
 
-
+        void deleteNotesArray(ArrayList<Note> notes);
     }
 }

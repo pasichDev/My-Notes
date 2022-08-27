@@ -23,7 +23,7 @@ public class AboutAppDialog extends BottomSheetDialogFragment {
         builder.setContentView(R.layout.dialog_about_app);
 
         builder.findViewById(R.id.shareApp).setOnClickListener(v -> {
-            new ShareUtils(getString(R.string.shareAppText), getActivity()).shareApp();
+            new ShareUtils(getString(R.string.shareAppText), getActivity()).shareText();
             dismiss();
         });
         builder.findViewById(R.id.ratingApp).setOnClickListener(v -> {

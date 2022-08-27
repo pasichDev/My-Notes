@@ -5,10 +5,9 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -36,16 +35,20 @@ import com.pasich.mynotes.ui.view.dialogs.main.OtherActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.MainUtils;
+import com.pasich.mynotes.utils.ShareUtils;
+import com.pasich.mynotes.utils.actionPanel.ActionUtils;
+import com.pasich.mynotes.utils.actionPanel.ManagerViewAction;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainContract.view {
+public class MainActivity extends AppCompatActivity implements MainContract.view, ManagerViewAction {
 
     @Inject
     public MainContract.presenter mainPresenter;
@@ -55,11 +58,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public FormatListUtils formatList;
     @Inject
     public DataManager dataManager;
+    @Inject
+    public ActionUtils actionUtils;
 
     private ActivityMainBinding binding;
     private TagsAdapter tagsAdapter;
     private NotesAdapter notesAdapter;
     private StaggeredGridLayoutManager gridLayoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,19 +73,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         init();
 
-
         mainPresenter.attachView(this);
         mainPresenter.setDataManager(dataManager);
         mainPresenter.viewIsReady();
-
-
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            // doMySearch(query);
-            Log.v("pasic", query);
-        }
-
 
     }
 
@@ -94,14 +90,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         gridLayoutManager = new StaggeredGridLayoutManager(
                 dataManager.getDefaultPreference().getInt("formatParam", 1),
                 LinearLayoutManager.VERTICAL);
+
     }
 
 
-    private void initActionUtils() {
-     /*   ActionUtils = new ActionUtils(binding.getRoot(), ListNotesAdapter, R.id.activity_main);
-        ActionUtils.addButtonToActionPanel(R.drawable.ic_delete, R.id.deleteNotesArray);
-        ActionUtils.getActionPanel().findViewById(R.id.deleteNotesArray).setOnClickListener(this);
-*/
+    @Override
+    public void initActionUtils() {
+        actionUtils.createObject(getLayoutInflater(), notesAdapter, binding.getRoot().findViewById(R.id.activity_main));
     }
 
 
@@ -112,12 +107,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 new TagsAdapter.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
-                        mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
+                        if (!actionUtils.getAction())
+                            mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
                     }
 
                     @Override
                     public void onLongClick(int position) {
-                        mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
+                        if (!actionUtils.getAction())
+                            mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
                     }
                 });
 
@@ -126,12 +123,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
                     @Override
                     public void onClick(int position) {
-                        mainPresenter.clickNote(notesAdapter.getCurrentList().get(position).getId());
+                        if (!actionUtils.getAction())
+                            mainPresenter.clickNote(notesAdapter.getCurrentList().get(position).getId());
+                        else actionUtils.selectItemAction(position);
+
                     }
 
                     @Override
                     public void onLongClick(int position) {
-                        mainPresenter.clickLongNote(notesAdapter.getCurrentList().get(position));
+                        if (!actionUtils.getAction())
+                            choiceNoteDialog(notesAdapter.getCurrentList().get(position), position);
                     }
                 });
 
@@ -151,11 +152,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
         this.findViewById(R.id.formatButton).setOnClickListener(view -> {
-            formatList.formatNote();
-            gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
+            if (!actionUtils.getAction()) {
+                formatList.formatNote();
+                gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
+            }
         });
 
-        this.findViewById(R.id.sortButton).setOnClickListener(view -> new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog"));
+        this.findViewById(R.id.sortButton).setOnClickListener(view -> {
+            if (!actionUtils.getAction())
+                new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
+        });
 
     }
 
@@ -178,20 +184,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         llSearchView.addView(
                 utils.addButtonSearchView(this, R.drawable.ic_edit_format_list, R.id.formatButton));
         formatList.init(findViewById(R.id.formatButton));
-
-
-        llSearchView.setOnClickListener(view -> onSearchRequested());
         binding.actionSearch.setEnabled(false);
-        binding.actionSearch.setOnQueryTextFocusChangeListener(
-                (v, hasFocus) -> {
-
-                });
-        binding.actionSearch.setOnCloseListener(
-                () -> {
-
-                    return false;
-                });
-
     }
 
 
@@ -206,11 +199,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         tagList.observe(
                 this,
                 tags -> {
-             /*      int positionSelected = tagsAdapter.getCheckedPosition();
-                    if (tagsAdapter.getCurrentList().size() >= 1)
-                        tagsAdapter.removeOldCheck();
-*/
-
                     tagsAdapter.submitList(tags);
 
                 });
@@ -222,13 +210,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
         binding.listNotes.setLayoutManager(gridLayoutManager);
         binding.listNotes.setAdapter(notesAdapter);
-        final int[] start = {1};
+        final int[] start = {0};
 
         noteList.observe(this, notes -> {
             notesAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
             binding.setEmptyNotes(!(notes.size() >= 1));
-            if (start[0] == 1) binding.listNotes.scheduleLayoutAnimation();
-            start[0] = 0;
+            if (start[0] == 0) binding.listNotes.scheduleLayoutAnimation();
+            start[0] = 1;
         });
     }
 
@@ -238,8 +226,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void actionStartNote() {
-
+    public void actionStartNote(int position) {
+        actionUtils.selectItemAction(position);
     }
 
     @Override
@@ -293,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void moreActivity() {
+        if (actionUtils.getAction()) actionUtils.closeActionPanel();
         new OtherActivityDialog().show(getSupportFragmentManager(), "more activity");
 
     }
@@ -308,14 +297,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void choiceNoteDialog(Note note) {
-        new ChoiceNoteDialog(note).show(getSupportFragmentManager(), "ChoiceDialog");
+    public void choiceNoteDialog(Note note, int position) {
+        new ChoiceNoteDialog(note, position).show(getSupportFragmentManager(), "ChoiceDialog");
     }
 
 
     @Override
     public void onBackPressed() {
-        utils.CloseApp(MainActivity.this);
+        if (actionUtils.getAction()) actionUtils.closeActionPanel();
+        else
+            utils.CloseApp(MainActivity.this);
     }
 
 
@@ -323,5 +314,36 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void sortList(String arg) {
         notesAdapter.sortList(arg);
 
+    }
+
+    @Override
+    public void activateActionPanel() {
+        binding.newNotesButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void deactivationActionPanel() {
+        binding.newNotesButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void deleteNotes(ArrayList<Note> notes) {
+        mainPresenter.deleteNotesArray(notes);
+        actionUtils.closeActionPanel();
+    }
+
+    @Override
+    public void shareNotes(ArrayList<Note> notes) {
+        String valueShare = "";
+        for (Note note : notes) {
+            valueShare = valueShare + note.getTitle() +
+                    System.getProperty("line.separator") +
+                    System.getProperty("line.separator") +
+                    note.getValue() +
+                    System.getProperty("line.separator") +
+                    System.getProperty("line.separator");
+        }
+        new ShareUtils(valueShare, this).shareText();
+        actionUtils.closeActionPanel();
     }
 }

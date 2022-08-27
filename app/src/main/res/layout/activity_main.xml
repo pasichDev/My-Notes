@@ -68,15 +68,27 @@
 
         </android.widget.SearchView>
 
+        <include
+            android:id="@+id/actionInclude"
+
+            layout="@layout/action_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/newNotesButton" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/newNotesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-        android:contentDescription="@string/NewNote"
-        android:visibility="visible"
-        app:backgroundTint="?attr/colorPrimaryBackground"
+            android:contentDescription="@string/NewNote"
+            android:visibility="visible"
+            app:backgroundTint="?attr/colorPrimaryBackground"
         app:elevation="7dp"
         android:onClick="@{(view) -> presenter.newNotesClick()}"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -149,6 +161,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/actionSearch" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

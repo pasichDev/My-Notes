@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 public class DiskExecutor implements Executor {
 
-    private final Executor diskExecutor;
+     final Executor diskExecutor;
 
     public DiskExecutor() {
         this.diskExecutor = Executors.newSingleThreadExecutor();
