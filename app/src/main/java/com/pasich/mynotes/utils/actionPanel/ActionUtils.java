@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
 import com.pasich.mynotes.utils.adapters.NotesAdapter;
+import com.pasich.mynotes.utils.adapters.TrashNotesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,19 +18,31 @@ public class ActionUtils {
 
     private boolean ACTION_ON = false;
 
-    private NotesAdapter adapter;
+    /**
+     * Два адптера которые мы используем
+     */
+    private NotesAdapter mAdapter;
+    private TrashNotesAdapter mAdapterTrash;
+
+
     private final int PAYLOAD_BACKGROUND = 22;
     private final ArrayList<Note> ArrayChecked = new ArrayList<>();
     private ActionPanelBinding binding;
     private ConstraintLayout mViewRoot;
     private ManagerViewAction managerViewAction;
 
-    public ActionUtils() {
-    }
-
 
     public void createObject(LayoutInflater inflater, NotesAdapter adapter, ConstraintLayout view) {
-        this.adapter = adapter;
+        this.mAdapter = adapter;
+        this.mViewRoot = view;
+        this.binding = ActionPanelBinding.inflate(inflater);
+        this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
+        addActionPanel();
+        setListener();
+    }
+
+    public void createObject(LayoutInflater inflater, TrashNotesAdapter adapter, ConstraintLayout view) {
+        this.mAdapterTrash = adapter;
         this.mViewRoot = view;
         this.binding = ActionPanelBinding.inflate(inflater);
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
@@ -94,7 +107,7 @@ public class ActionUtils {
      * @return - data adapter
      */
     private List<Note> getDataAdapter() {
-        return adapter.getCurrentList();
+        return mAdapter.getCurrentList();
     }
 
     /**
@@ -116,7 +129,7 @@ public class ActionUtils {
         List<Note> data = getDataAdapter();
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getChecked()) data.get(i).setChecked(false);
-            adapter.notifyItemChanged(i, PAYLOAD_BACKGROUND);
+            mAdapter.notifyItemChanged(i, PAYLOAD_BACKGROUND);
         }
     }
 
@@ -181,7 +194,7 @@ public class ActionUtils {
     }
 
     public void selectItemAction(int item) {
-        Note note = adapter.getCurrentList().get(item);
+        Note note = mAdapter.getCurrentList().get(item);
         if (note.getChecked()) {
             note.setChecked(false);
             isCheckedItemFalse(note);
@@ -190,7 +203,7 @@ public class ActionUtils {
             note.setChecked(true);
         }
         manageActionPanel();
-        adapter.notifyItemChanged(item, PAYLOAD_BACKGROUND);
+        mAdapter.notifyItemChanged(item, PAYLOAD_BACKGROUND);
     }
 
 

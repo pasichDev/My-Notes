@@ -20,6 +20,7 @@ import com.pasich.mynotes.di.trash.TrashActivityModule;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
+import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.adapters.TrashNotesAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
@@ -37,7 +38,8 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
     public TrashContract.presenter trashPresenter;
     @Inject
     public DataManager dataManager;
-
+    @Inject
+    public ActionUtils actionUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +124,11 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
     @Override
     public void cleanTrashDialogShow() {
         new CleanTrashDialog(dataManager.getTrashRepository()).show(getSupportFragmentManager(), "CLeanTrash");
+    }
+
+    @Override
+    public void initActionUtils() {
+        //   actionUtils.createObject(getLayoutInflater(),(NotesAdapter) notesTrashAdapter, binding.getRoot().findViewById(R.id.activity_main));
     }
 
 

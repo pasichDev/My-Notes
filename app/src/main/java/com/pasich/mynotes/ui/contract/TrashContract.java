@@ -19,6 +19,7 @@ public interface TrashContract {
 
         void cleanTrashDialogShow();
 
+        void initActionUtils();
     }
 
     interface presenter extends MyPresenter<view> {
