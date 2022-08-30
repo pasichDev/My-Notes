@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.utils.recycler;
 
 
 import java.text.SimpleDateFormat;

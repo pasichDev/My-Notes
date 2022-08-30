@@ -8,6 +8,11 @@ import android.widget.Toast;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.notes.Note;
 
+/**
+ * Класс который в будующем нужно переписать, чтобы можно было делиться одной заметкой
+ * или несколькоми
+ */
+@Deprecated
 public class ShareUtils {
 
     private Note note;

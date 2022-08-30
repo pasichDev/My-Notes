@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.utils.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.pasich.mynotes.R;
 
 public class MainUtils {
+
 
   private int Swipe = 0;
 

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.simplifications;
+package com.pasich.mynotes.utils.base.simplifications;
 
 import android.view.animation.Animation;
 

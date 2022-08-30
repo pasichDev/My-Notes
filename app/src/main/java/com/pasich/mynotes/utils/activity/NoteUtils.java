@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.utils.activity;
 
 
 import android.graphics.Typeface;

@@ -1,7 +1,7 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
 import static com.pasich.mynotes.utils.DialogVibrateOpen.start;
-import static com.pasich.mynotes.utils.ListNotesUtils.convertDate;
+import static com.pasich.mynotes.utils.recycler.ListNotesUtils.convertDate;
 
 import android.app.Dialog;
 import android.os.Bundle;

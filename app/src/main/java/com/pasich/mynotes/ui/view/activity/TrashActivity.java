@@ -16,13 +16,16 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
+import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
 import com.pasich.mynotes.di.trash.TrashActivityModule;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
-import com.pasich.mynotes.utils.adapters.TrashNotesAdapter;
+import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
+import com.pasich.mynotes.utils.adapters.genericAdapterNote.OnItemClickListener;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
+import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +36,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     private ActivityTrashBinding binding;
 
-    private TrashNotesAdapter notesTrashAdapter;
+    private GenericNoteAdapter<TrashNote, ItemNoteTrashBinding> mNotesTrashAdapter;
     @Inject
     public TrashContract.presenter trashPresenter;
     @Inject
@@ -64,7 +67,17 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void initListeners() {
+        mNotesTrashAdapter.setOnItemClickListener(new OnItemClickListener<TrashNote>() {
+            @Override
+            public void onClick(int position, TrashNote model) {
+                actionUtils.selectItemAction(position);
+            }
 
+            @Override
+            public void onLongClick(int position, TrashNote model) {
+
+            }
+        });
     }
 
     @Override
@@ -110,12 +123,18 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         binding.ListTrash.addItemDecoration(new SpacesItemDecoration(15));
         binding.ListTrash.setLayoutManager(
                 new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
-        notesTrashAdapter = new TrashNotesAdapter(new TrashNotesAdapter.noteDiff());
-        binding.ListTrash.setAdapter(notesTrashAdapter);
+        mNotesTrashAdapter = new GenericNoteAdapter<>(new DiffUtilTrash(),
+                R.layout.item_note_trash,
+                (binder, model) -> {
+                    binder.setNote(model);
+                    binding.executePendingBindings();
+                });
+
+        binding.ListTrash.setAdapter(mNotesTrashAdapter);
         noteList.observe(
                 this,
                 notes -> {
-                    notesTrashAdapter.submitList((List<TrashNote>) notes);
+                    mNotesTrashAdapter.submitList(notes);
                     binding.setEmptyNotesTrash(!(notes.size() >= 1));
                     binding.ListTrash.scheduleLayoutAnimation();
                 });
@@ -128,7 +147,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void initActionUtils() {
-        //   actionUtils.createObject(getLayoutInflater(),(NotesAdapter) notesTrashAdapter, binding.getRoot().findViewById(R.id.activity_main));
+        actionUtils.createObject(getLayoutInflater(), mNotesTrashAdapter, binding.getRoot().findViewById(R.id.activity_main));
     }
 
 

@@ -11,7 +11,7 @@
             type="boolean" />
 
         <variable
-            name="noteTrashItem"
+            name="Note"
             type="com.pasich.mynotes.data.trash.TrashNote" />
     </data>
 
@@ -31,11 +31,11 @@
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/railway_medium"
             android:maxLines="1"
-            android:text="@{noteTrashItem.title}"
+            android:text="@{Note.title}"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:visibility="@{noteTrashItem.title.length() >= 2 ? View.VISIBLE : View.GONE }"
+            android:visibility="@{Note.title.length() >= 2 ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toTopOf="@+id/previewNote"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
@@ -50,7 +50,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:gravity="center_vertical"
-            android:text="@{noteTrashItem.value.length() > 200 ? noteTrashItem.value.substring(0,200) : noteTrashItem.value}"
+            android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameNote" />

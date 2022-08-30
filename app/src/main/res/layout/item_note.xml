@@ -11,7 +11,7 @@
             type="boolean" />
 
         <variable
-            name="noteItem"
+            name="Note"
             type="com.pasich.mynotes.data.notes.Note" />
     </data>
 
@@ -31,11 +31,11 @@
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/railway_medium"
             android:maxLines="2"
-            android:text="@{noteItem.title}"
+            android:text="@{Note.title}"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:visibility="@{noteItem.title.length() >= 2 ? View.VISIBLE : View.GONE }"
+            android:visibility="@{Note.title.length() >= 2 ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toTopOf="@+id/previewNote"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
@@ -51,7 +51,7 @@
             android:layout_marginBottom="5dp"
             android:maxLines="5"
             android:gravity="center_vertical"
-            android:text="@{noteItem.value.length() > 200 ? noteItem.value.substring(0,200) : noteItem.value}"
+            android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}"
             app:layout_constraintBottom_toTopOf="@+id/tagNote"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -63,8 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="1dp"
-            android:text="@{'#'+noteItem.tag}"
-            android:visibility="@{noteItem.tag.length() >= 1 ? View.VISIBLE : View.GONE}"
+            android:text="@{'#'+Note.tag}"
+            android:visibility="@{Note.tag.length() >= 1 ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/previewNote" />
 

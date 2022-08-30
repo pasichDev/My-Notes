@@ -24,6 +24,7 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
+import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
@@ -34,13 +35,15 @@ import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.OtherActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
-import com.pasich.mynotes.utils.MainUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.ManagerViewAction;
-import com.pasich.mynotes.utils.adapters.NotesAdapter;
+import com.pasich.mynotes.utils.activity.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
+import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
+import com.pasich.mynotes.utils.adapters.genericAdapterNote.OnItemClickListener;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
+import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +66,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     private ActivityMainBinding binding;
     private TagsAdapter tagsAdapter;
-    private NotesAdapter notesAdapter;
     private StaggeredGridLayoutManager gridLayoutManager;
+
+    private GenericNoteAdapter<Note, ItemNoteBinding> mNoteAdapter;
 
 
     @Override
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void initActionUtils() {
-        actionUtils.createObject(getLayoutInflater(), notesAdapter, binding.getRoot().findViewById(R.id.activity_main));
+        actionUtils.createObject(getLayoutInflater(), mNoteAdapter, binding.getRoot().findViewById(R.id.activity_main));
     }
 
 
@@ -118,22 +122,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                     }
                 });
 
-        notesAdapter.setOnItemClickListener(
-                new NotesAdapter.OnItemClickListener() {
+        mNoteAdapter.setOnItemClickListener(
+                new OnItemClickListener<Note>() {
 
                     @Override
-                    public void onClick(int position) {
+                    public void onClick(int position, Note model) {
                         if (!actionUtils.getAction())
-                            mainPresenter.clickNote(notesAdapter.getCurrentList().get(position).getId());
+                            mainPresenter.clickNote(model.id);
                         else actionUtils.selectItemAction(position);
 
                     }
 
                     @Override
-                    public void onLongClick(int position) {
+                    public void onLongClick(int position, Note model) {
                         if (!actionUtils.getAction())
-                            choiceNoteDialog(notesAdapter.getCurrentList().get(position), position);
+                            choiceNoteDialog(model, position);
                     }
+
+
                 });
 
         binding.actionSearch.setOnQueryTextListener(
@@ -170,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         super.onDestroy();
         mainPresenter.detachView();
         if (isFinishing()) {
-            notesAdapter = null;
+            mNoteAdapter = null;
             tagsAdapter = null;
             mainPresenter.destroy();
             getApp().getComponentsHolder().releaseActivityComponent(getClass());
@@ -207,16 +213,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void settingsNotesList(LiveData<List<Note>> noteList) {
         binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
-        notesAdapter = new NotesAdapter(new NotesAdapter.noteDiff());
         binding.listNotes.setLayoutManager(gridLayoutManager);
-        binding.listNotes.setAdapter(notesAdapter);
+
+        mNoteAdapter = new GenericNoteAdapter<>(new DiffUtilNote(),
+                R.layout.item_note,
+                (binder, model) -> {
+                    binder.setNote(model);
+                    binding.executePendingBindings();
+                });
+
+        binding.listNotes.setAdapter(mNoteAdapter);
         final int[] start = {0};
 
         noteList.observe(this, notes -> {
-            notesAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
+            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
             binding.setEmptyNotes(!(notes.size() >= 1));
             if (start[0] == 0) binding.listNotes.scheduleLayoutAnimation();
             start[0] = 1;
+            mNoteAdapter.submitList(notes);
         });
     }
 
@@ -312,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void sortList(String arg) {
-        notesAdapter.sortList(arg);
+        mNoteAdapter.sortList(arg);
 
     }
 

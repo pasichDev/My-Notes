@@ -1,10 +1,10 @@
-package com.pasich.mynotes.utils.comparator;
+package com.pasich.mynotes.utils.recycler.comparator;
 
 import com.pasich.mynotes.data.notes.Note;
 
 import java.util.Comparator;
 
-public class NoteComparator {
+public class NoteComparator<T> {
     private final Comparator<Note> COMPARE_BY_TITLE_REVERSE =
             (e1, e2) -> e2.getTitle().toLowerCase().compareTo(e1.getTitle().toLowerCase());
     private final Comparator<Note> COMPARE_BY_TITLE_SORT =

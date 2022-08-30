@@ -8,8 +8,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
-import com.pasich.mynotes.utils.adapters.NotesAdapter;
-import com.pasich.mynotes.utils.adapters.TrashNotesAdapter;
+import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,7 @@ public class ActionUtils {
     /**
      * Два адптера которые мы используем
      */
-    private NotesAdapter mAdapter;
-    private TrashNotesAdapter mAdapterTrash;
+    private GenericNoteAdapter mAdapter;
 
 
     private final int PAYLOAD_BACKGROUND = 22;
@@ -32,17 +30,8 @@ public class ActionUtils {
     private ManagerViewAction managerViewAction;
 
 
-    public void createObject(LayoutInflater inflater, NotesAdapter adapter, ConstraintLayout view) {
+    public void createObject(LayoutInflater inflater, GenericNoteAdapter adapter, ConstraintLayout view) {
         this.mAdapter = adapter;
-        this.mViewRoot = view;
-        this.binding = ActionPanelBinding.inflate(inflater);
-        this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
-        addActionPanel();
-        setListener();
-    }
-
-    public void createObject(LayoutInflater inflater, TrashNotesAdapter adapter, ConstraintLayout view) {
-        this.mAdapterTrash = adapter;
         this.mViewRoot = view;
         this.binding = ActionPanelBinding.inflate(inflater);
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
@@ -194,7 +183,7 @@ public class ActionUtils {
     }
 
     public void selectItemAction(int item) {
-        Note note = mAdapter.getCurrentList().get(item);
+      /*  Object note = mAdapter.getCurrentList().get(item);
         if (note.getChecked()) {
             note.setChecked(false);
             isCheckedItemFalse(note);
@@ -204,6 +193,8 @@ public class ActionUtils {
         }
         manageActionPanel();
         mAdapter.notifyItemChanged(item, PAYLOAD_BACKGROUND);
+
+       */
     }
 
 

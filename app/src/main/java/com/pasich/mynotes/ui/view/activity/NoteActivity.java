@@ -2,7 +2,7 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.di.App.getApp;
-import static com.pasich.mynotes.utils.ListNotesUtils.convertDate;
+import static com.pasich.mynotes.utils.recycler.ListNotesUtils.convertDate;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -33,8 +33,8 @@ import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
-import com.pasich.mynotes.utils.NoteUtils;
 import com.pasich.mynotes.utils.SearchSourceNote;
+import com.pasich.mynotes.utils.activity.NoteUtils;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
@@ -137,7 +137,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void initListenerSpeechRecognizer() {
-        speechRecognizer.setRecognitionListener(new com.pasich.mynotes.utils.simplifications.SpeechRecognizer() {
+        speechRecognizer.setRecognitionListener(new com.pasich.mynotes.utils.base.simplifications.SpeechRecognizer() {
             @Override
             public void startListener() {
                 binding.recordMessges.setVisibility(View.VISIBLE);
