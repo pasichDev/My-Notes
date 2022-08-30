@@ -81,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:nestedScrollingEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,16 +104,16 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
-                        android:longClickable="true"
                         android:autofillHints="no"
-                        android:hint="@string/hintTextNote"
                         android:background="#00FFFFFF"
                         android:focusable="@{activateEdit, default=false}"
                         android:focusableInTouchMode="@{activateEdit, default=false}"
                         android:gravity="start|top"
+                        android:hint="@string/hintTextNote"
                         android:inputType="none|text|textCapSentences|textMultiLine"
-                        android:minHeight="100dp"
+                        android:longClickable="true"
                         android:maxLength="20000"
+                        android:minHeight="100dp"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -148,54 +149,45 @@
                 app:srcCompat="@drawable/ic_vizual_audio" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/buttonsVIew"
+        <LinearLayout
+            android:id="@+id/actionPanel"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_action_panel"
+            android:orientation="horizontal"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/background_button_note"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="4dp">
 
             <ImageButton
                 android:id="@+id/sourceStart"
-                style="?android:attr/actionButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                style="@style/iconDialogList"
                 android:onClick="@{(view) -> presenter.sourceNote()}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/speechStart"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_source" />
+                app:srcCompat="@drawable/ic_source"
+                app:tint="@color/white"
+                android:contentDescription="@string/sourceNotes" />
 
             <ImageButton
                 android:id="@+id/editActive"
-                style="?android:attr/actionButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                style="@style/iconDialogList"
                 android:onClick="@{(view) -> presenter.activateEditNote()}"
                 android:visibility="@{activateEdit ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_edit" />
+                app:srcCompat="@drawable/ic_edit"
+                app:tint="@color/white"
+
+                android:contentDescription="@string/editSelectTagForNote" />
 
             <ImageButton
                 android:id="@+id/speechStart"
-                style="?android:attr/actionButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginEnd="10dp"
-                android:visibility="@{activateEdit ? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_mic" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                style="@style/iconDialogList"
+                android:visibility="@{activateEdit ? View.VISIBLE : View.GONE}"
+                app:srcCompat="@drawable/ic_mic"
+                app:tint="@color/white"
+                android:contentDescription="@string/holdOnSpeec" />
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
