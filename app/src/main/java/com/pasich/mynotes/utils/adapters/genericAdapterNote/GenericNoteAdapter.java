@@ -37,6 +37,7 @@ public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapt
         super((DiffUtil.ItemCallback<T>) diffCallback);
         this.layoutId = layoutId;
         this.bindingInterface = bindingInterface;
+
     }
 
     public GenericNoteAdapter(@NonNull DiffUtilTrash diffCallback,

@@ -25,6 +25,7 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
+import com.pasich.mynotes.databinding.SearchViewButtonsBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
@@ -63,8 +64,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public DataManager dataManager;
     @Inject
     public ActionUtils actionUtils;
+    private ActivityMainBinding mActivityBinding;
 
-    private ActivityMainBinding binding;
+
     private TagsAdapter tagsAdapter;
     private StaggeredGridLayoutManager gridLayoutManager;
 
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
+        mActivityBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         init();
 
         mainPresenter.attachView(this);
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 .getComponentsHolder()
                 .getActivityComponent(getClass(), new MainActivityModule())
                 .inject(MainActivity.this);
-        binding.setPresenter((MainPresenter) mainPresenter);
+        mActivityBinding.setPresenter((MainPresenter) mainPresenter);
         gridLayoutManager = new StaggeredGridLayoutManager(
                 dataManager.getDefaultPreference().getInt("formatParam", 1),
                 LinearLayoutManager.VERTICAL);
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void initActionUtils() {
-        actionUtils.createObject(getLayoutInflater(), mNoteAdapter, binding.getRoot().findViewById(R.id.activity_main));
+        actionUtils.createObject(getLayoutInflater(), mNoteAdapter, mActivityBinding.getRoot().findViewById(R.id.activity_main));
     }
 
 
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
                 });
 
-        binding.actionSearch.setOnQueryTextListener(
+        mActivityBinding.actionSearch.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
@@ -156,18 +158,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                     }
                 });
 
-
-        this.findViewById(R.id.formatButton).setOnClickListener(view -> {
-            if (!actionUtils.getAction()) {
-                formatList.formatNote();
-                gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
-            }
-        });
-
-        this.findViewById(R.id.sortButton).setOnClickListener(view -> {
-            if (!actionUtils.getAction())
-                new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
-        });
 
     }
 
@@ -185,23 +175,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void settingsSearchView() {
-        LinearLayout llSearchView = (LinearLayout) binding.actionSearch.getChildAt(0);
-        llSearchView.addView(utils.addButtonSearchView(this, R.drawable.ic_sort, R.id.sortButton));
-        llSearchView.addView(
-                utils.addButtonSearchView(this, R.drawable.ic_edit_format_list, R.id.formatButton));
-        formatList.init(findViewById(R.id.formatButton));
-        binding.actionSearch.setEnabled(false);
+        mActivityBinding.actionSearch.setEnabled(false);
+        initializeButtonSearchView();
     }
 
 
     @Override
     public void settingsTagsList(LiveData<List<Tag>> tagList) {
-        binding.listTags.addItemDecoration(new SpacesItemDecoration(5));
-        binding.listTags.setLayoutManager(
+        mActivityBinding.listTags.addItemDecoration(new SpacesItemDecoration(5));
+        mActivityBinding.listTags.setLayoutManager(
                 new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
-        binding.listTags.setAdapter(tagsAdapter);
+        mActivityBinding.listTags.setAdapter(tagsAdapter);
         tagList.observe(
                 this,
                 tags -> {
@@ -212,23 +198,23 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void settingsNotesList(LiveData<List<Note>> noteList) {
-        binding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
-        binding.listNotes.setLayoutManager(gridLayoutManager);
+        mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
+        mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
 
         mNoteAdapter = new GenericNoteAdapter<>(new DiffUtilNote(),
                 R.layout.item_note,
                 (binder, model) -> {
                     binder.setNote(model);
-                    binding.executePendingBindings();
+                    mActivityBinding.executePendingBindings();
                 });
 
-        binding.listNotes.setAdapter(mNoteAdapter);
+        mActivityBinding.listNotes.setAdapter(mNoteAdapter);
         final int[] start = {0};
 
         noteList.observe(this, notes -> {
             mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
-            binding.setEmptyNotes(!(notes.size() >= 1));
-            if (start[0] == 0) binding.listNotes.scheduleLayoutAnimation();
+            mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
+            if (start[0] == 0) mActivityBinding.listNotes.scheduleLayoutAnimation();
             start[0] = 1;
             mNoteAdapter.submitList(notes);
         });
@@ -289,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", true)
                 .putExtra("tagNote", ""), ActivityOptions
-                .makeSceneTransitionAnimation(this, binding.newNotesButton, "robot")
+                .makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, "robot")
                 .toBundle());
     }
 
@@ -332,12 +318,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void activateActionPanel() {
-        binding.newNotesButton.setVisibility(View.GONE);
+        mActivityBinding.newNotesButton.setVisibility(View.GONE);
     }
 
     @Override
     public void deactivationActionPanel() {
-        binding.newNotesButton.setVisibility(View.VISIBLE);
+        mActivityBinding.newNotesButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -359,5 +345,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         }
         new ShareUtils(valueShare, this).shareText();
         actionUtils.closeActionPanel();
+    }
+
+
+    private void initializeButtonSearchView() {
+        LinearLayout mSearchView = (LinearLayout) mActivityBinding.actionSearch.getChildAt(0);
+        View mSearchViewLayout = View.inflate(this, R.layout.search_view_buttons, null);
+        mSearchView.addView(mSearchViewLayout);
+        formatList.init(SearchViewButtonsBinding.bind(mSearchViewLayout).formatButton);
+        mSearchViewLayout.findViewById(R.id.formatButton).setOnClickListener(view -> {
+            if (!actionUtils.getAction()) {
+                formatList.formatNote();
+                gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
+            }
+        });
+
+        mSearchViewLayout.findViewById(R.id.sortButton).setOnClickListener(view -> {
+            if (!actionUtils.getAction())
+                new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
+        });
     }
 }
