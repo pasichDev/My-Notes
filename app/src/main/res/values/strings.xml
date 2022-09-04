@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name"> My Notes </string>
+    <string name="telegram_adrrs" translatable="false">@andriipasichnik</string>
+    <string name="email_adrrs" translatable="false">pasichDev@gmail.com</string>
+
     <string name="plusAdd" translatable="false">+</string>
     <string name="NewNote"> Create note </string>
     <string name="title_activity_settings"> Settings </string>

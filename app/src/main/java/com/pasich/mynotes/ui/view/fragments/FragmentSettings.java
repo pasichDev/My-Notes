@@ -1,7 +1,5 @@
 package com.pasich.mynotes.ui.view.fragments;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutAppDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.FeedbackDialog;
 
 public class FragmentSettings extends PreferenceFragmentCompat {
     @Override
@@ -19,7 +18,7 @@ public class FragmentSettings extends PreferenceFragmentCompat {
         final Preference aboutApp = findPreference("aboutApp");
         final Preference settingsApp = findPreference("settingsApp");
         final Preference settingsVoice = findPreference("settingsVoice");
-        final Preference emailSend = findPreference("emailSend");
+        final Preference feedback = findPreference("feedback");
 
         assert aboutApp != null;
         aboutApp.setSummary("My Notes (v" + BuildConfig.VERSION_NAME + ")");
@@ -37,9 +36,9 @@ public class FragmentSettings extends PreferenceFragmentCompat {
             changeFragment(new FragmentVoice());
             return true;
         });
-        assert emailSend != null;
-        emailSend.setOnPreferenceClickListener(preference -> {
-            sendEmail();
+        assert feedback != null;
+        feedback.setOnPreferenceClickListener(preference -> {
+            new FeedbackDialog().show(getParentFragmentManager(), "feedbackDialog");
             return true;
         });
     }
@@ -51,12 +50,5 @@ public class FragmentSettings extends PreferenceFragmentCompat {
     }
 
 
-    private void sendEmail() {
-        Intent intent = new Intent(Intent.ACTION_SENDTO)
-                .setData(Uri.parse("mailto:pasichDev@outlook.com"));
-        if (intent.resolveActivity(requireContext().getPackageManager()) != null) {
-            startActivity(intent);
-        }
 
-    }
 }

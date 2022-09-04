@@ -1,64 +1,29 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+        <PreferenceCategory android:title="@null">
 
-    <PreferenceCategory
-        android:title="@string/settingsTitle"
-        app:allowDividerAbove="false"
-        app:allowDividerBelow="false"
-        app:iconSpaceReserved="false">
-
-        <Preference
-            android:icon="@drawable/ic_app_settings"
-            android:key="settingsApp"
-            android:title="@string/settingsApp"
+                <Preference
+                    android:icon="@drawable/ic_app_settings"
+                    android:key="settingsApp"
+                    android:title="@string/settingsApp"
+                    app:iconSpaceReserved="false" />
+                <Preference
+                    android:icon="@drawable/ic_icon_voice"
+                    android:key="settingsVoice"
+                    android:title="@string/settingsVoice"
             app:iconSpaceReserved="false" />
-        <Preference
-            android:icon="@drawable/ic_icon_voice"
-            android:key="settingsVoice"
-            android:title="@string/settingsVoice"
-            app:iconSpaceReserved="false" />
-
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/settingsTitleContacts"
-        app:allowDividerAbove="false"
-        app:allowDividerBelow="false"
-        app:iconSpaceReserved="false">
-
-
-        <Preference
-            android:icon="@drawable/ic_telegram"
-            android:summary="@andriipasichnik"
-            android:title="Telegram"
-            app:enabled="true"
-            app:iconSpaceReserved="false">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://t.me/andriipasichnik" />
-        </Preference>
-
-
-        <Preference
-            android:icon="@drawable/ic_email_two"
-            android:summary="pasichDev@outlook.com"
-            android:title="Email"
-            android:key="emailSend"
-            app:iconSpaceReserved="false" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/information"
-        app:allowDividerAbove="false"
-
-        app:allowDividerBelow="false"
-        app:iconSpaceReserved="false">
-        <Preference
-            android:icon="@drawable/ic_about"
-            android:key="aboutApp"
-            android:title="@string/aboutApp"
-            android:summary="@string/author"
-            app:iconSpaceReserved="false" />
-
-    </PreferenceCategory>
+                <Preference
+                    android:icon="@drawable/ic_feedback"
+                    android:key="feedback"
+                    android:title="@string/settingsTitleContacts"
+                    app:iconSpaceReserved="false" />
+                <Preference
+                    android:icon="@drawable/ic_about"
+                    android:key="aboutApp"
+                    android:title="@string/aboutApp"
+                    android:summary="@string/author"
+                    app:iconSpaceReserved="false" />
+        </PreferenceCategory>
 
 
 </PreferenceScreen>
