@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -15,46 +14,37 @@
             type="com.pasich.mynotes.data.notes.Note" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/item_Note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{checkedItem ? @drawable/item_note_background_selected :  @drawable/item_selected}">
-
+        android:background="@{checkedItem ? @drawable/item_note_background_selected :  @drawable/item_selected}"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/nameNote"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="5dp"
             android:fontFamily="@font/railway_medium"
             android:maxLines="2"
             android:text="@{Note.title}"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:visibility="@{Note.title.length() >= 2 ? View.VISIBLE : View.GONE }"
-            app:layout_constraintBottom_toTopOf="@+id/previewNote"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.526"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="@{Note.title.length() >= 2 ? View.VISIBLE : View.GONE }" />
 
         <TextView
             android:id="@+id/previewNote"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:maxLines="5"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="3dp"
             android:gravity="center_vertical"
-            android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}"
-            app:layout_constraintBottom_toTopOf="@+id/tagNote"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:maxLines="5"
+            android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}" />
 
 
         <com.google.android.material.chip.Chip
@@ -62,12 +52,8 @@
             style="@style/ChipStyleCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="1dp"
+            android:layout_margin="8dp"
             android:text="@{'#'+Note.tag}"
-            android:visibility="@{Note.tag.length() >= 1 ? View.VISIBLE : View.GONE}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/previewNote" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:visibility="@{Note.tag.length() >= 1 ? View.VISIBLE : View.GONE}" />
+    </LinearLayout>
 </layout>
