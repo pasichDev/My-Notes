@@ -179,4 +179,5 @@
     <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
     <string name="infoDialogSource" translatable="false">Чтобы скопировать текст вложения нажмите и удерживайте</string>
 
+    <string name="contactsSource" translatable="false">Ссылки, номера телефонов и почта</string>
 </resources>
