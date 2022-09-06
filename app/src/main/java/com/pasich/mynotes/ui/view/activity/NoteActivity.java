@@ -284,6 +284,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void setValueNote() {
         int sizeText = dataManager.getDefaultPreference().getInt("textSize", 20);
         binding.valueNote.setTextSize(sizeText == 0 ? 20 : sizeText);
+        binding.notesTitle.setTextSize(sizeText == 0 ? 24 : sizeText + 4);
         binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
                 dataManager.getDefaultPreference().getString("textStyle", "normal")));
     }
