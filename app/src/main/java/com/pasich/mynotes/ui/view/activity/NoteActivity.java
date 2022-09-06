@@ -2,7 +2,7 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.di.App.getApp;
-import static com.pasich.mynotes.utils.recycler.ListNotesUtils.convertDate;
+import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -202,14 +202,13 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
     }
 
 
     @Override
     public void activatedActivity() {
         binding.setActivateEdit(true);
-        if (newNoteKey) binding.dataEditNote.setVisibility(View.GONE);
+        //  if (newNoteKey) binding.dataEditNote.setVisibility(View.GONE);
         binding.valueNote.setSelection(binding.valueNote.getText().length());
         binding.valueNote.setFocusableInTouchMode(true);
         binding.valueNote.requestFocus();
@@ -275,8 +274,14 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void loadingNote(Note note) {
         binding.notesTitle.setText(note.getTitle().length() >= 2 ? note.getTitle() : "");
         binding.valueNote.setText(note.getValue());
-        binding.dataEditNote.setText(convertDate(note.getDate()));
+        binding.toolbarActionbar.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(note.getDate())));
+        if (note.getTag().length() >= 1) {
+            binding.toolbarActionbar.titleToolbarTag.setText(note.getTag());
+        } else {
+            binding.toolbarActionbar.titleToolbarTag.setVisibility(View.GONE);
+        }
         this.mNote = note;
+
     }
 
 

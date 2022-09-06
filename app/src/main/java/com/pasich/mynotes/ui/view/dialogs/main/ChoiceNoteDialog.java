@@ -1,7 +1,7 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
 import static com.pasich.mynotes.utils.DialogVibrateOpen.start;
-import static com.pasich.mynotes.utils.recycler.ListNotesUtils.convertDate;
+import static com.pasich.mynotes.utils.FormattedDataUtil.convertDateAll;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -42,7 +42,7 @@ public class ChoiceNoteDialog extends BottomSheetDialogFragment {
 
         MaterialTextView infoItem = mDialog.findViewById(R.id.noteInfo);
         assert infoItem != null;
-        infoItem.setText(getString(R.string.layoutStringInfo, convertDate(note.getDate()), String.valueOf(note.getValue().length())));
+        infoItem.setText(getString(R.string.layoutStringInfo, convertDateAll(note.getDate()), String.valueOf(note.getValue().length())));
 
         binding.actionPanelActivate.setOnClickListener(view ->
         {

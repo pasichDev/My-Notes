@@ -26,7 +26,7 @@
 
         <include
             android:id="@+id/toolbar_actionbar"
-            layout="@layout/view_toolbar" />
+            layout="@layout/view_toolbar_note" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,21 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar">
 
 
-            <TextView
-                android:id="@+id/dataEditNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:focusable="@{activateEdit, default=false}"
-                android:focusableInTouchMode="@{activateEdit, default=false}"
-                android:textSize="14sp"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/notesTitle" />
-
-
-            <EditText
+        <EditText
                 android:id="@+id/notesTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
