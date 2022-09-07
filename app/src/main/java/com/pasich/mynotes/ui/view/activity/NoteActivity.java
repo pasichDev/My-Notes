@@ -228,8 +228,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
-        menu.findItem(R.id.moreBut).setVisible(true);
+        getMenuInflater().inflate(R.menu.menu_activity_toolbar_note, menu);
         return true;
     }
 

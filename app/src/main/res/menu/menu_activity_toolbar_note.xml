@@ -5,7 +5,6 @@
 
     <item
         android:id="@+id/moreBut"
-        android:visible="false"
         android:icon="@drawable/ic_more"
         android:title="@string/more"
         app:showAsAction="ifRoom" />
