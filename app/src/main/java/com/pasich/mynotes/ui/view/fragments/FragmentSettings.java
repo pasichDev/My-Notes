@@ -16,7 +16,6 @@ public class FragmentSettings extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.settings_prefences, rootKey);
         final Preference aboutApp = findPreference("aboutApp");
-        final Preference settingsApp = findPreference("settingsApp");
         final Preference settingsVoice = findPreference("settingsVoice");
         final Preference feedback = findPreference("feedback");
 
@@ -26,11 +25,7 @@ public class FragmentSettings extends PreferenceFragmentCompat {
             new AboutAppDialog().show(getParentFragmentManager(), "AboutApp");
             return true;
         });
-        assert settingsApp != null;
-        settingsApp.setOnPreferenceClickListener(preference -> {
-            changeFragment(new FragmentMain());
-            return true;
-        });
+
         assert settingsVoice != null;
         settingsVoice.setOnPreferenceClickListener(preference -> {
             changeFragment(new FragmentVoice());

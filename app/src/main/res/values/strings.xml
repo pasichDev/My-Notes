@@ -147,7 +147,6 @@
 
 
     <string name="aboutApp" translatable="false">О приложении</string>
-    <string name="settingsApp" translatable="false">Настройки приложения</string>
     <string name="settingsVoice" translatable="false">Настройки голосового ввода</string>
     <string name="settingsTitle" translatable="false"> Общие настройки</string>
     <string name="information" translatable="false">Информация</string>

@@ -2,12 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
         <PreferenceCategory android:title="@null">
 
-                <Preference
-                    android:icon="@drawable/ic_app_settings"
-                    android:key="settingsApp"
-                    android:title="@string/settingsApp"
-                    app:iconSpaceReserved="false" />
-                <Preference
+
+        <Preference
                     android:icon="@drawable/ic_icon_voice"
                     android:key="settingsVoice"
                     android:title="@string/settingsVoice"

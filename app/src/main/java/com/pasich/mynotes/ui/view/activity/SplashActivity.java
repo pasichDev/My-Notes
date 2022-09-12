@@ -8,9 +8,9 @@ import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.utils.base.simplifications.AnimationListener;
-import com.preference.PowerPreference;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
@@ -24,19 +24,18 @@ public class SplashActivity extends AppCompatActivity {
 
   private void startAnimation() {
 
-    if (!PowerPreference.getDefaultFile().getBoolean("splashEnable", true)) {
-      startNextActivity();
-    } else {
-      Animation mAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.spalsh_start_activity_animation);
-      mAnimation.setAnimationListener(new AnimationListener() {
-        @Override
-        public void animationEnd() {
+      if (BuildConfig.DEBUG) {
           startNextActivity();
-        }
-      });
-      findViewById(R.id.splashImage).startAnimation(mAnimation);
-
-    }
+      } else {
+          Animation mAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.spalsh_start_activity_animation);
+          mAnimation.setAnimationListener(new AnimationListener() {
+              @Override
+              public void animationEnd() {
+                  startNextActivity();
+              }
+          });
+          findViewById(R.id.splashImage).startAnimation(mAnimation);
+      }
   }
 
 
