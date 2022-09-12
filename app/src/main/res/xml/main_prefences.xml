@@ -7,15 +7,6 @@
             app:allowDividerBelow="false"
             app:iconSpaceReserved="false">
 
-
-                <ListPreference
-                    android:defaultValue="normal"
-                    android:entries="@array/textStyle_name"
-                    android:entryValues="@array/textStyle_value"
-                    android:key="textStyle"
-                    android:title="@string/textStyleTitle"
-                    app:iconSpaceReserved="false"
-                    app:useSimpleSummaryProvider="true" />
                 <SeekBarPreference
                     android:defaultValue="20"
                     android:key="textSize"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name"> My Notes </string>
-    <string name="telegram_adrrs" translatable="false">@andriipasichnik</string>
+    <string name="telegram_adrrs" translatable="false">/@andriipasichnik</string>
     <string name="email_adrrs" translatable="false">pasichDev@gmail.com</string>
 
     <string name="plusAdd" translatable="false">+</string>
@@ -69,7 +69,6 @@
     <string name="languageGitLinkTitle">Source (Github)</string>
     <string name="selectColorPrimaryApp">Choose the main color of the application</string>
     <string name="ThemeToolbar_summary">Choose an app color scheme</string>
-    <string name="textStyleTitle">Font style</string>
     <string name="fontStyleBold">Bold</string>
     <string name="fontStyleNormal">Standard</string>
     <string name="fontStyleItalic">Italic</string>

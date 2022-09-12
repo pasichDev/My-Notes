@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <include
+        android:id="@+id/view_settings_note"
+        layout="@layout/view_settings_note" />
 
     <LinearLayout
         android:id="@+id/share"
@@ -119,7 +124,9 @@
             android:text="@string/noSave" />
     </LinearLayout>
 
-    <include layout="@layout/view_info_item" />
+    <include
+        android:id="@+id/note_info"
+        layout="@layout/view_info_item" />
 
 
 </LinearLayout>

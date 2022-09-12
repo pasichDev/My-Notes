@@ -11,41 +11,47 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.view.ActivitySettings;
 import com.pasich.mynotes.base.view.NoteActivityView;
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.databinding.DialogMoreNoteBinding;
 import com.pasich.mynotes.utils.GoogleTranslationIntent;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;
+import com.pasich.mynotes.utils.prefences.TextStylePreferences;
 
 
 public class MoreNoteDialog extends DialogFragment {
 
     private final Note mNote;
-    private final boolean typeActivity;
+    private DialogMoreNoteBinding binding;
+    private ActivitySettings activitySettings;
+    private NoteActivityView noteActivityView;
 
-    public MoreNoteDialog(Note note, boolean typeNote) {
+    public MoreNoteDialog(Note note) {
         this.mNote = note;
-        this.typeActivity = typeNote;
     }
 
     @SuppressLint("StringFormatMatches")
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-        final NoteActivityView noteActivityView = (NoteActivityView) getContext();
-        builder.setContentView(typeActivity ? R.layout.dialog_more_new_note : R.layout.dialog_more_note);
+
+        noteActivityView = (NoteActivityView) getContext();
+        activitySettings = (ActivitySettings) getContext();
+        binding = DialogMoreNoteBinding.inflate(getLayoutInflater());
+        builder.setContentView(binding.getRoot());
+
+        binding.noteInfo.noteInfo.setText(getString(R.string.layoutStringInfoCountSymbols, mNote.getValue().length()));
+
+        initListeners();
+        return builder;
+    }
 
 
-        if (!typeActivity) {
-            MaterialTextView infoItem = builder.findViewById(R.id.noteInfo);
-            assert infoItem != null;
-            infoItem.setText(getString(R.string.layoutStringInfoCountSymbols, mNote.getValue().length()));
-        }
-
-
-        builder.findViewById(R.id.noSave).setOnClickListener(v -> {
+    private void initListeners() {
+        binding.noSave.setOnClickListener(v -> {
             assert noteActivityView != null;
             noteActivityView.closeActivityNotSaved();
             dismiss();
@@ -53,36 +59,41 @@ public class MoreNoteDialog extends DialogFragment {
 
 
         if (mNote.getValue().length() >= 5) {
-            builder.findViewById(R.id.share).setVisibility(View.VISIBLE);
-            builder.findViewById(R.id.share).setOnClickListener(v -> {
+            binding.share.setVisibility(View.VISIBLE);
+            binding.share.setOnClickListener(v -> {
                 new ShareUtils(mNote, getActivity()).shareNotes();
                 dismiss();
             });
-            builder.findViewById(R.id.translateNote).setVisibility(View.VISIBLE);
-            builder.findViewById(R.id.translateNote).setOnClickListener(v -> {
+            binding.translateNote.setVisibility(View.VISIBLE);
+            binding.translateNote.setOnClickListener(v -> {
                 new GoogleTranslationIntent().startTranslation(requireActivity(), mNote.getValue());
                 dismiss();
             });
 
-            if (!typeActivity) {
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    builder.findViewById(R.id.addShortCutLauncher).setVisibility(View.VISIBLE);
-                    builder.findViewById(R.id.addShortCutLauncher).setOnClickListener(v -> {
-                        ShortCutUtils.createShortCut(mNote, getContext());
-                        dismiss();
-                    });
-                }
-                builder.findViewById(R.id.moveToTrash).setOnClickListener(v -> {
-                    assert noteActivityView != null;
-                    noteActivityView.deleteNote(mNote);
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                binding.addShortCutLauncher.setVisibility(View.VISIBLE);
+                binding.addShortCutLauncher.setOnClickListener(v -> {
+                    ShortCutUtils.createShortCut(mNote, getContext());
                     dismiss();
                 });
             }
-
-
+            binding.moveToTrash.setOnClickListener(v -> {
+                assert noteActivityView != null;
+                noteActivityView.deleteNote(mNote);
+                dismiss();
+            });
         }
 
-        return builder;
+        initializeSettingsView();
+    }
+
+    private void initializeSettingsView() {
+        TextStylePreferences textStyle = new TextStylePreferences(binding.viewSettingsNote.textStyleItem);
+        binding.viewSettingsNote.textStyleItem.setOnClickListener(v -> {
+            textStyle.changeArgument();
+            activitySettings.changeTextStyle();
+        });
     }
 
 }

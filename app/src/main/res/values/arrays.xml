@@ -1,19 +1,5 @@
 <resources>
 
-    <!-- Стиль текста при редактировании приложения -->
-    <string-array name="textStyle_name">
-        <item>@string/fontStyleItalic</item>
-        <item>@string/fontStyleNormal</item>
-        <item>@string/fontStyleBold</item>
-        <item>@string/fontStyleBoldItalic</item>
-    </string-array>
-    <string-array name="textStyle_value">
-        <item>italic</item>
-        <item>normal</item>
-        <item>bold</item>
-        <item>bold-italic</item>
-    </string-array>
-
     <!-- Режим ввода продиктованого текста -->
     <string-array name="speechOutputSettings_name">
         <item>@string/lineSetSPech</item>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageButton
+        android:id="@+id/textStyleItem"
+        style="@style/viewSettingNoteIconStyle"
+        android:src="@drawable/ic_style_normal" />
+
+    <ImageButton
+        style="@style/viewSettingNoteIconStyle"
+        android:src="@drawable/ic_delete_note" />
+
+    <ImageButton
+        style="@style/viewSettingNoteIconStyle"
+        android:src="@drawable/ic_rating" />
+
+    <ImageButton
+        style="@style/viewSettingNoteIconStyle"
+        android:src="@drawable/ic_share" />
+</LinearLayout>

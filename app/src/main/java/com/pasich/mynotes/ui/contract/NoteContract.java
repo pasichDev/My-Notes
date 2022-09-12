@@ -3,14 +3,15 @@ package com.pasich.mynotes.ui.contract;
 
 import com.pasich.mynotes.base.MyPresenter;
 import com.pasich.mynotes.base.view.ActionBar;
+import com.pasich.mynotes.base.view.ActivitySettings;
 import com.pasich.mynotes.base.view.MyView;
 import com.pasich.mynotes.base.view.NoteActivityView;
 import com.pasich.mynotes.data.notes.Note;
 
 public interface NoteContract {
 
-    interface view extends MyView, ActionBar, NoteActivityView {
-        void setValueNote();
+    interface view extends MyView, ActionBar, NoteActivityView, ActivitySettings {
+
 
         void initTypeActivity();
 

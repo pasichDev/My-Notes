@@ -3,6 +3,8 @@ package com.pasich.mynotes.ui.view.activity;
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
+import static com.pasich.mynotes.utils.prefences.TextStylePreferences.ARGUMENT_DEFAULT_TEXT_STYLE;
+import static com.pasich.mynotes.utils.prefences.TextStylePreferences.ARGUMENT_PREFERENCE_TEXT_STYLE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -30,6 +32,7 @@ import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
+import com.pasich.mynotes.ui.view.dialogs.note.MoreNewNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
@@ -237,14 +240,12 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             notePresenter.closeActivity();
         }
         if (item.getItemId() == R.id.moreBut) {
-            MoreNoteDialog moreNoteDialog;
-            if (newNoteKey) moreNoteDialog = new MoreNoteDialog(new Note()
+            if (newNoteKey) new MoreNewNoteDialog(new Note()
                     .create(binding.notesTitle.getText().toString(),
                             binding.valueNote.getText().toString(),
-                            new Date().getTime()), true);
+                            new Date().getTime())).show(getSupportFragmentManager(), "MoreNote");
             else
-                moreNoteDialog = new MoreNoteDialog(mNote, false);
-            moreNoteDialog.show(getSupportFragmentManager(), "MoreNote");
+                new MoreNoteDialog(mNote).show(getSupportFragmentManager(), "MoreNote");
         }
         return true;
     }
@@ -284,14 +285,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     }
 
 
-    @Override
-    public void setValueNote() {
-        int sizeText = dataManager.getDefaultPreference().getInt("textSize", 20);
-        binding.valueNote.setTextSize(sizeText == 0 ? 20 : sizeText);
-        binding.notesTitle.setTextSize(sizeText == 0 ? 24 : sizeText + 4);
-        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
-                dataManager.getDefaultPreference().getString("textStyle", "normal")));
-    }
 
 
     @Override
@@ -363,4 +356,21 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     }
 
 
+    @Override
+    public void changeTextStyle() {
+        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
+                dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)));
+    }
+
+
+    /**
+     *   @Override
+     *     public void setViewLayout() {
+     *         int sizeText = dataManager.getDefaultPreference().getInt("textSize", 20);
+     *         binding.valueNote.setTextSize(sizeText == 0 ? 20 : sizeText);
+     *         binding.notesTitle.setTextSize(sizeText == 0 ? 24 : sizeText + 4);
+     *         binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
+     *                 dataManager.getDefaultPreference().getString("textStyle", "normal")));
+     *     }
+     */
 }
