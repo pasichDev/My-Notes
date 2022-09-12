@@ -92,7 +92,7 @@ public class ActionUtils<T> {
      * @return - Number of marked items (int)
      */
     public int getCountCheckedItem() {
-        List data = mAdapter.getCurrentList();
+        List<Note> data = mAdapter.getCurrentList();
         int count = 0;
         for (int i = 0; i < data.size(); i++) {
             count = data.get(i).getChecked() ? count + 1 : count;
