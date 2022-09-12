@@ -6,10 +6,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="checkedItem"
-            type="boolean" />
-
-        <variable
             name="Note"
             type="com.pasich.mynotes.data.notes.Note" />
     </data>
@@ -18,7 +14,7 @@
         android:id="@+id/item_Note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{checkedItem ? @drawable/item_note_background_selected :  @drawable/item_selected}"
+        android:background="@{Note.checked ? @drawable/item_note_background_selected :  @drawable/item_selected}"
         android:orientation="vertical">
 
         <TextView

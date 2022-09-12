@@ -47,7 +47,7 @@ public class ChoiceNoteDialog extends BottomSheetDialogFragment {
         binding.actionPanelActivate.setOnClickListener(view ->
         {
             assert noteView != null;
-            noteView.actionStartNote(positionItem);
+            noteView.actionStartNote(note, positionItem);
             dismiss();
         });
         binding.shareLinearLayout.setOnClickListener(view -> {

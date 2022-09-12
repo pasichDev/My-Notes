@@ -7,7 +7,7 @@ public interface NoteView {
 
   void deleteNote(Note note);
 
-  void actionStartNote(int position);
+  void actionStartNote(Note note, int position);
 
   void tagNoteSelected(Note note);
 

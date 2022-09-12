@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                     public void onClick(int position, Note model) {
                         if (!actionUtils.getAction())
                             mainPresenter.clickNote(model.id);
-                        else actionUtils.selectItemAction(position);
+                        else actionUtils.selectItemAction(model, position);
 
                     }
 
@@ -226,8 +226,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void actionStartNote(int position) {
-        actionUtils.selectItemAction(position);
+    public void actionStartNote(Note note, int position) {
+        actionUtils.selectItemAction(note, position);
     }
 
     @Override

@@ -7,24 +7,21 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
 import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionUtils {
+public class ActionUtils<T> {
 
     private boolean ACTION_ON = false;
-
-    /**
-     * Два адптера которые мы используем
-     */
     private GenericNoteAdapter mAdapter;
 
 
     private final int PAYLOAD_BACKGROUND = 22;
-    private final ArrayList<Note> ArrayChecked = new ArrayList<>();
+    private final ArrayList<T> ArrayChecked = new ArrayList<>();
     private ActionPanelBinding binding;
     private ConstraintLayout mViewRoot;
     private ManagerViewAction managerViewAction;
@@ -42,8 +39,8 @@ public class ActionUtils {
 
     private void setListener() {
         binding.closeActionPanel.setOnClickListener(v -> closeActionPanel());
-        binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes(getArrayChecked()));
-        binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes(getArrayChecked()));
+        //      binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes(getArrayChecked()));
+        //     binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes(getArrayChecked()));
     }
 
     private void addActionPanel() {
@@ -90,20 +87,12 @@ public class ActionUtils {
         this.ACTION_ON = arg;
     }
 
-    /**
-     * Returns an array of data from the adapter
-     *
-     * @return - data adapter
-     */
-    private List<Note> getDataAdapter() {
-        return mAdapter.getCurrentList();
-    }
 
     /**
      * @return - Number of marked items (int)
      */
     public int getCountCheckedItem() {
-        List<Note> data = getDataAdapter();
+        List data = mAdapter.getCurrentList();
         int count = 0;
         for (int i = 0; i < data.size(); i++) {
             count = data.get(i).getChecked() ? count + 1 : count;
@@ -115,7 +104,7 @@ public class ActionUtils {
      * Clear all marks
      */
     private void checkedClean() {
-        List<Note> data = getDataAdapter();
+        List<Note> data = mAdapter.getCurrentList();
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getChecked()) data.get(i).setChecked(false);
             mAdapter.notifyItemChanged(i, PAYLOAD_BACKGROUND);
@@ -150,7 +139,7 @@ public class ActionUtils {
     /**
      * Action panel control when unchecked
      */
-    public void isCheckedItemFalse(Note note) {
+    public void isCheckedItemFalse(T note) {
         if (getCountCheckedItem() == 0) {
             getArrayChecked().clear();
             closeActionPanel();
@@ -162,7 +151,7 @@ public class ActionUtils {
     /**
      * Action panel control when adding checkmark
      */
-    public void isCheckedItem(Note note) {
+    public void isCheckedItem(T note) {
         if (!getArrayChecked().contains(note)) getArrayChecked().add(note);
         else getArrayChecked().remove(note);
         if (!(getAction())) setAction(true);
@@ -178,23 +167,33 @@ public class ActionUtils {
         getArrayChecked().clear();
     }
 
-    public ArrayList<Note> getArrayChecked() {
+    public ArrayList<T> getArrayChecked() {
         return this.ArrayChecked;
     }
 
-    public void selectItemAction(int item) {
-      /*  Object note = mAdapter.getCurrentList().get(item);
+
+    public void selectItemAction(Note note, int item) {
         if (note.getChecked()) {
             note.setChecked(false);
-            isCheckedItemFalse(note);
+            isCheckedItemFalse((T) note);
         } else {
-            isCheckedItem(note);
+            isCheckedItem((T) note);
             note.setChecked(true);
         }
         manageActionPanel();
         mAdapter.notifyItemChanged(item, PAYLOAD_BACKGROUND);
+    }
 
-       */
+    public void selectItemAction(TrashNote note, int item) {
+        if (note.getChecked()) {
+            note.setChecked(false);
+            isCheckedItemFalse((T) note);
+        } else {
+            isCheckedItem((T) note);
+            note.setChecked(true);
+        }
+        manageActionPanel();
+        mAdapter.notifyItemChanged(item, PAYLOAD_BACKGROUND);
     }
 
 

@@ -70,7 +70,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         mNotesTrashAdapter.setOnItemClickListener(new OnItemClickListener<TrashNote>() {
             @Override
             public void onClick(int position, TrashNote model) {
-                actionUtils.selectItemAction(position);
+                actionUtils.selectItemAction(model, position);
             }
 
             @Override
