@@ -31,6 +31,7 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
     @Override
     public void viewIsReady() {
         getView().changeTextStyle();
+        getView().changeTextSizeOffline();
         getView().settingsActionBar();
         getView().initTypeActivity();
         getView().createSpeechRecognizer();

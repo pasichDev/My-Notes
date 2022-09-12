@@ -10,7 +10,6 @@
     <string name="settings"> Settings </string>
     <string name="verApp" translatable="false"> versionApp </string>
     <string name="author" translatable="false"> Andrii Pasichnik (pasichDev) </string>
-    <string name="sizeText"> Text size </string>
     <string name="ThemeToolbar_title"> Color scheme </string>
     <string name="trashNotes">Move to trash</string>
     <string name="trashN"> Trash </string>
@@ -59,7 +58,7 @@
     <string name="spechLaunguage"> Select recognition language </string>
     <string name="setSpechOutputText"> Write mode for received text </string>
     <string name="autoSave"> Auto save notes </string>
-    <string name="autoSaveSumarry"> Save the note when you call or accidentally exit the application </string>
+    <string name="autoSaveSummary"> Save the note when you call or accidentally exit the application </string>
     <string name="interaction"> Interaction </string>
     <string name="emptySpeec"> Can\'t hear you please try again </string>
     <string name="spechToListen"> Speak, I\'m listening .. </string>
@@ -160,7 +159,6 @@
     <string name="shareAppText" translatable="false"> Рекомендую "Мои Заметки" /n
     https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
 
-    <string name="settingsEditNote" translatable="false">Настройки редактирования заметки</string>
     <string name="settingsParticipation" translatable="false">Настройки взаимодействия</string>
 
 

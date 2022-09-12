@@ -3,8 +3,10 @@ package com.pasich.mynotes.ui.view.activity;
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
-import static com.pasich.mynotes.utils.prefences.TextStylePreferences.ARGUMENT_DEFAULT_TEXT_STYLE;
-import static com.pasich.mynotes.utils.prefences.TextStylePreferences.ARGUMENT_PREFERENCE_TEXT_STYLE;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_SIZE;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_SIZE;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -360,6 +362,17 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void changeTextStyle() {
         binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
                 dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)));
+    }
+
+    @Override
+    public void changeTextSizeOnline(int sizeText) {
+        binding.valueNote.setTextSize(sizeText == 0 ? 16 : sizeText);
+        binding.notesTitle.setTextSize(sizeText == 0 ? 20 : sizeText + 4);
+    }
+
+    @Override
+    public void changeTextSizeOffline() {
+        changeTextSizeOnline(dataManager.getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
     }
 
 

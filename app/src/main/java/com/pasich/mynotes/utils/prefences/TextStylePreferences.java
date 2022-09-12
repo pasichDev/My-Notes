@@ -1,5 +1,8 @@
 package com.pasich.mynotes.utils.prefences;
 
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE;
+
 import android.widget.ImageButton;
 
 import com.pasich.mynotes.R;
@@ -8,8 +11,6 @@ import com.preference.PowerPreference;
 public class TextStylePreferences {
 
     private final ImageButton mButton;
-    public static final String ARGUMENT_PREFERENCE_TEXT_STYLE = "textStyle";
-    public static final String ARGUMENT_DEFAULT_TEXT_STYLE = "normal";
 
 
     public TextStylePreferences(ImageButton button) {

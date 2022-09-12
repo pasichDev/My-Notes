@@ -2,22 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <PreferenceCategory
-            android:title="@string/settingsEditNote"
-            app:allowDividerAbove="false"
-            app:allowDividerBelow="false"
-            app:iconSpaceReserved="false">
-
-                <SeekBarPreference
-                    android:defaultValue="20"
-                    android:key="textSize"
-                    android:max="34"
-                    android:title="@string/sizeText"
-                    app:iconSpaceReserved="false"
-                    app:min="12"
-                    app:showSeekBarValue="true"
-                    app:useSimpleSummaryProvider="true" />
-        </PreferenceCategory>
-        <PreferenceCategory
             android:title="@string/settingsParticipation"
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
@@ -26,7 +10,7 @@
                 <SwitchPreference
                     android:defaultValue="true"
                     android:key="autoSave"
-                    android:summary="@string/autoSaveSumarry"
+                    android:summary="@string/autoSaveSummary"
                     android:title="@string/autoSave"
                     app:iconSpaceReserved="false" />
 

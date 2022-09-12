@@ -4,7 +4,6 @@
     <string name="NewNote"> Створити нотатку </string>
     <string name="title_activity_settings"> Налаштування </string>
     <string name="settings"> Налаштування </string>
-    <string name="sizeText"> Розмір тексту </string>
     <string name="ThemeToolbar_title"> Основний колiр </string>
     <string name="trashNotes">Перемістити до корзини</string>
     <string name="trashN"> Кошик </string>
@@ -50,7 +49,7 @@
     <string name="spechLaunguage">Виберіть мову розпізнавання</string>
     <string name="setSpechOutputText">Режим запису для отриманого тексту</string>
     <string name="autoSave">Автоматичне збереження нотатки</string>
-    <string name="autoSaveSumarry">Зберігаємо нотатку під час дзвінка, або випадковому виході з додатка</string>
+    <string name="autoSaveSummary">Зберігаємо нотатку під час дзвінка, або випадковому виході з додатка</string>
     <string name="interaction">Взаємодія</string>
     <string name="emptySpeec">Вас не чути, спробуйте ще раз..</string>
     <string name="spechToListen">Говоріть, я вас слухаю..</string>

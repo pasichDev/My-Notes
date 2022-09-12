@@ -4,7 +4,6 @@
     <string name="NewNote"> Utwórz notatkę </string>
     <string name="title_activity_settings"> Ustawienia </string>
     <string name="settings"> Ustawienia </string>
-    <string name="sizeText"> Rozmiar tekstu </string>
     <string name="ThemeToolbar_title"> Kolor podstawowy </string>
     <string name="trashNotes">Przenieś do koszyka</string>
     <string name="trashN"> Kosz </string>
@@ -50,7 +49,7 @@
     <string name="spechLaunguage"> Wybierz język rozpoznawania </string>
     <string name="setSpechOutputText"> Tryb nagrywania otrzymanego tekstu </string>
     <string name="autoSave"> Automatycznie zapisz notatkę </string>
-    <string name="autoSaveSumarry"> Zapisz notatkę podczas rozmowy lub przypadkowo wyjdź z aplikacji </string>
+    <string name="autoSaveSummary"> Zapisz notatkę podczas rozmowy lub przypadkowo wyjdź z aplikacji </string>
     <string name="interaction"> Interakcja </string>
     <string name="emptySpeec"> Nie słyszę, proszę spróbuj ponownie .. </string>
     <string name="spechToListen"> Powiedz, że cię słucham .. </string>

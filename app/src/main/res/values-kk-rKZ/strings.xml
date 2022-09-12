@@ -4,7 +4,6 @@
     <string name="NewNote">Жаңа ескертпе</string>
     <string name="title_activity_settings">Параметрлер</string>
     <string name="settings">Параметрлер</string>
-    <string name="sizeText">Мәтін өлшемі</string>
     <string name="ThemeToolbar_title">Түс схемасы</string>
     <string name="trashNotes">Себетке жылжыту</string>
     <string name="trashN">Себет</string>
@@ -50,7 +49,7 @@
     <string name = "spechLaunguage">Тану тілін таңдаңыз</string>
     <string name = "setSpechOutputText">Қабылданған мәтін үшін жазу режимі</string>
     <string name = "autoSave">Ескертпелерді автоматты сақтау</string>
-    <string name = "autoSaveSumarry">Қоңырау шалғанда немесе қолданбадан кездейсоқ шыққанда ескертпе сақтаңыз</string>
+    <string name="autoSaveSummary">Қоңырау шалғанда немесе қолданбадан кездейсоқ шыққанда ескертпе сақтаңыз</string>
     <string name = "interaction">Өзара әрекеттесу</string>
     <string name = "emptySpeec">Қайталап көргеніңізді есту мүмкін емес</string>
     <string name = "spechToListen">Сөйле, мен тыңдап жатырмын..</string>
