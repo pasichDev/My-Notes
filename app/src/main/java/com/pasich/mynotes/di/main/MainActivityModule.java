@@ -6,6 +6,7 @@ import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
+import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.activity.MainUtils;
 
 import dagger.Module;
@@ -32,15 +33,21 @@ public class MainActivityModule implements ActivityModule {
   @MainActivityScope
   @Provides
   FormatListUtils providerFormatListUtils() {
-    return new FormatListUtils();
+      return new FormatListUtils();
   }
 
 
-  @MainActivityScope
-  @Provides
-  ActionUtils providerActionUtil() {
-    return new ActionUtils();
-  }
+    @MainActivityScope
+    @Provides
+    ActionUtils providerActionUtil() {
+        return new ActionUtils();
+    }
+
+    @MainActivityScope
+    @Provides
+    NoteActionTool providerNoteActionTool() {
+        return new NoteActionTool();
+    }
 
 
 }

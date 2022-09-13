@@ -1,6 +1,7 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.di.App.getApp;
+import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,6 +23,8 @@ import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
+import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
+import com.pasich.mynotes.utils.actionPanel.tool.TrashNoteActionTool;
 import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
 import com.pasich.mynotes.utils.adapters.genericAdapterNote.OnItemClickListener;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
@@ -32,7 +35,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class TrashActivity extends AppCompatActivity implements TrashContract.view {
+public class TrashActivity extends AppCompatActivity implements TrashContract.view, ManagerViewAction<TrashNote> {
 
     private ActivityTrashBinding binding;
 
@@ -43,6 +46,9 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
     public DataManager dataManager;
     @Inject
     public ActionUtils actionUtils;
+    @Inject
+    public TrashNoteActionTool trashNoteActionTool;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +76,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         mNotesTrashAdapter.setOnItemClickListener(new OnItemClickListener<TrashNote>() {
             @Override
             public void onClick(int position, TrashNote model) {
-                actionUtils.selectItemAction(model, position);
+                selectItemAction(model, position);
             }
 
             @Override
@@ -106,12 +112,15 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void onBackPressed() {
+        if (getAction()) actionUtils.closeActionPanel();
         finish();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == android.R.id.home) {
+            if (getAction()) actionUtils.closeActionPanel();
             finish();
         }
         return true;
@@ -147,8 +156,54 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void initActionUtils() {
-        actionUtils.createObject(getLayoutInflater(), mNotesTrashAdapter, binding.getRoot().findViewById(R.id.activity_main));
+        actionUtils.createObject(getLayoutInflater(), binding.getRoot().findViewById(R.id.activity_trash));
+        trashNoteActionTool.createObject(mNotesTrashAdapter);
+        actionUtils.setTrash();
     }
 
 
+    @Override
+    public void activateActionPanel() {
+        binding.cleanTrash.setEnabled(false);
+    }
+
+    @Override
+    public void deactivationActionPanel() {
+        binding.cleanTrash.setEnabled(true);
+    }
+
+    @Override
+    public void toolCleanChecked() {
+        trashNoteActionTool.checkedClean();
+    }
+
+
+    @Override
+    public void deleteNotes() {
+
+    }
+
+    @Override
+    public void shareNotes() {
+
+    }
+
+    @Override
+    public void restoreNotes() {
+
+    }
+
+    @Override
+    public void selectItemAction(TrashNote note, int position) {
+        if (note.getChecked()) {
+            note.setChecked(false);
+            if (!trashNoteActionTool.isCheckedItemFalse(note)) actionUtils.closeActionPanel();
+        } else {
+            trashNoteActionTool.isCheckedItem(note);
+            note.setChecked(true);
+        }
+
+        actionUtils.manageActionPanel(trashNoteActionTool.getCountCheckedItem());
+        mNotesTrashAdapter.notifyItemChanged(position, 22);
+    }
 }

@@ -1,6 +1,7 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.di.App.getApp;
+import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.annotation.SuppressLint;
@@ -38,7 +39,8 @@ import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
-import com.pasich.mynotes.utils.actionPanel.ManagerViewAction;
+import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
+import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.activity.MainUtils;
 import com.pasich.mynotes.utils.adapters.TagsAdapter;
 import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
@@ -46,13 +48,12 @@ import com.pasich.mynotes.utils.adapters.genericAdapterNote.OnItemClickListener;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainContract.view, ManagerViewAction {
+public class MainActivity extends AppCompatActivity implements MainContract.view, ManagerViewAction<Note> {
 
     @Inject
     public MainContract.presenter mainPresenter;
@@ -64,12 +65,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public DataManager dataManager;
     @Inject
     public ActionUtils actionUtils;
+    @Inject
+    public NoteActionTool noteActionTool;
+
+
     private ActivityMainBinding mActivityBinding;
-
-
     private TagsAdapter tagsAdapter;
     private StaggeredGridLayoutManager gridLayoutManager;
-
     private GenericNoteAdapter<Note, ItemNoteBinding> mNoteAdapter;
 
 
@@ -102,7 +104,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void initActionUtils() {
-        actionUtils.createObject(getLayoutInflater(), mNoteAdapter, mActivityBinding.getRoot().findViewById(R.id.activity_main));
+        actionUtils.createObject(getLayoutInflater(), mActivityBinding.getRoot().findViewById(R.id.activity_main));
+        noteActionTool.createObject(mNoteAdapter);
     }
 
 
@@ -113,13 +116,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 new TagsAdapter.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
-                        if (!actionUtils.getAction())
+                        if (!getAction())
                             mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
                     }
 
                     @Override
                     public void onLongClick(int position) {
-                        if (!actionUtils.getAction())
+                        if (!getAction())
                             mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
                     }
                 });
@@ -129,15 +132,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
                     @Override
                     public void onClick(int position, Note model) {
-                        if (!actionUtils.getAction())
+                        if (!getAction())
                             mainPresenter.clickNote(model.id);
-                        else actionUtils.selectItemAction(model, position);
+                        else selectItemAction(model, position);
 
                     }
 
                     @Override
                     public void onLongClick(int position, Note model) {
-                        if (!actionUtils.getAction())
+                        if (!getAction())
                             choiceNoteDialog(model, position);
                     }
 
@@ -227,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void actionStartNote(Note note, int position) {
-        actionUtils.selectItemAction(note, position);
+        selectItemAction(note, position);
     }
 
     @Override
@@ -281,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void moreActivity() {
-        if (actionUtils.getAction()) actionUtils.closeActionPanel();
+        if (getAction()) actionUtils.closeActionPanel();
         new OtherActivityDialog().show(getSupportFragmentManager(), "more activity");
 
     }
@@ -304,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void onBackPressed() {
-        if (actionUtils.getAction()) actionUtils.closeActionPanel();
+        if (getAction()) actionUtils.closeActionPanel();
         else
             utils.CloseApp(MainActivity.this);
     }
@@ -326,16 +329,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mActivityBinding.newNotesButton.setVisibility(View.VISIBLE);
     }
 
+
     @Override
-    public void deleteNotes(ArrayList<Note> notes) {
-        mainPresenter.deleteNotesArray(notes);
+    public void deleteNotes() {
+        mainPresenter.deleteNotesArray(noteActionTool.getArrayChecked());
         actionUtils.closeActionPanel();
     }
 
+
     @Override
-    public void shareNotes(ArrayList<Note> notes) {
+    public void shareNotes() {
         String valueShare = "";
-        for (Note note : notes) {
+        for (Note note : noteActionTool.getArrayChecked()) {
             valueShare = valueShare + note.getTitle() +
                     System.getProperty("line.separator") +
                     System.getProperty("line.separator") +
@@ -347,6 +352,29 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         actionUtils.closeActionPanel();
     }
 
+    @Override
+    public void restoreNotes() {
+
+    }
+
+    @Override
+    public void selectItemAction(Note note, int position) {
+        if (note.getChecked()) {
+            note.setChecked(false);
+            if (!noteActionTool.isCheckedItemFalse(note)) actionUtils.closeActionPanel();
+        } else {
+            noteActionTool.isCheckedItem(note);
+            note.setChecked(true);
+        }
+
+        actionUtils.manageActionPanel(noteActionTool.getCountCheckedItem());
+        mNoteAdapter.notifyItemChanged(position, 22);
+    }
+
+    @Override
+    public void toolCleanChecked() {
+        noteActionTool.checkedClean();
+    }
 
     private void initializeButtonSearchView() {
         LinearLayout mSearchView = (LinearLayout) mActivityBinding.actionSearch.getChildAt(0);
@@ -354,14 +382,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mSearchView.addView(mSearchViewLayout);
         formatList.init(SearchViewButtonsBinding.bind(mSearchViewLayout).formatButton);
         mSearchViewLayout.findViewById(R.id.formatButton).setOnClickListener(view -> {
-            if (!actionUtils.getAction()) {
+            if (!getAction()) {
                 formatList.formatNote();
                 gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
             }
         });
 
         mSearchViewLayout.findViewById(R.id.sortButton).setOnClickListener(view -> {
-            if (!actionUtils.getAction())
+            if (!getAction())
                 new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
         });
     }

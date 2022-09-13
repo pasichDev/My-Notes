@@ -15,27 +15,27 @@ import androidx.room.PrimaryKey;
 public class Note {
 
 
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
-  @PrimaryKey(autoGenerate = true)
-  public int id;
+    private String title;
+    private String value;
+    private long date;
+    private String type;
+    private String tag;
 
-  private String title;
-  private String value;
-  private long date;
-  private String type;
-  private String tag;
+    @Ignore
+    private boolean Checked;
 
-  @Ignore private boolean Checked;
-
-  public Note create(String title, String value, long date, String type, String tag) {
-    this.title = title;
-    this.tag = tag;
-    this.value = value;
-    this.date = date;
-    this.type = type;
-    this.Checked = false;
-    return this;
-  }
+    public Note create(String title, String value, long date, String type, String tag) {
+        this.title = title;
+        this.tag = tag;
+        this.value = value;
+        this.date = date;
+        this.type = type;
+        this.Checked = false;
+        return this;
+    }
 
   public Note create(String title, String value, long date) {
     this.title = title;

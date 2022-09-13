@@ -6,29 +6,19 @@ import android.view.View;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
-import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class ActionUtils<T> {
-
-    private boolean ACTION_ON = false;
-    private GenericNoteAdapter mAdapter;
+import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 
-    private final int PAYLOAD_BACKGROUND = 22;
-    private final ArrayList<T> ArrayChecked = new ArrayList<>();
+public class ActionUtils {
+
+    private static boolean ACTION_ON = false;
     private ActionPanelBinding binding;
     private ConstraintLayout mViewRoot;
     private ManagerViewAction managerViewAction;
 
 
-    public void createObject(LayoutInflater inflater, GenericNoteAdapter adapter, ConstraintLayout view) {
-        this.mAdapter = adapter;
+    public void createObject(LayoutInflater inflater, ConstraintLayout view) {
         this.mViewRoot = view;
         this.binding = ActionPanelBinding.inflate(inflater);
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
@@ -39,8 +29,9 @@ public class ActionUtils<T> {
 
     private void setListener() {
         binding.closeActionPanel.setOnClickListener(v -> closeActionPanel());
-        //      binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes(getArrayChecked()));
-        //     binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes(getArrayChecked()));
+        binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes());
+        binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes());
+        binding.actionPanelRestore.setOnClickListener(v -> managerViewAction.shareNotes());
     }
 
     private void addActionPanel() {
@@ -69,13 +60,15 @@ public class ActionUtils<T> {
 
     public void setTrash() {
         binding.actionPanelShare.setVisibility(View.GONE);
+        binding.actionPanelDelete.setVisibility(View.GONE);
+        binding.actionPanelRestore.setVisibility(View.VISIBLE);
     }
 
     /**
      * @return - Returns the value of ACTION_ON
      */
-    public boolean getAction() {
-        return this.ACTION_ON;
+    public static boolean getAction() {
+        return ACTION_ON;
     }
 
     /**
@@ -83,32 +76,8 @@ public class ActionUtils<T> {
      *
      * @param arg - (boolean) true/false
      */
-    public void setAction(boolean arg) {
-        this.ACTION_ON = arg;
-    }
-
-
-    /**
-     * @return - Number of marked items (int)
-     */
-    public int getCountCheckedItem() {
-        List<Note> data = mAdapter.getCurrentList();
-        int count = 0;
-        for (int i = 0; i < data.size(); i++) {
-            count = data.get(i).getChecked() ? count + 1 : count;
-        }
-        return count;
-    }
-
-    /**
-     * Clear all marks
-     */
-    private void checkedClean() {
-        List<Note> data = mAdapter.getCurrentList();
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getChecked()) data.get(i).setChecked(false);
-            mAdapter.notifyItemChanged(i, PAYLOAD_BACKGROUND);
-        }
+    public static void setAction(boolean arg) {
+        ACTION_ON = arg;
     }
 
     /**
@@ -130,71 +99,14 @@ public class ActionUtils<T> {
     /**
      * The method that controls the visibility of the action panel
      */
-    public void manageActionPanel() {
-        int countChecked = getCountCheckedItem();
+    public void manageActionPanel(int countChecked) {
         if (countChecked == 0) deactivationActionPanel();
         else if (!getAction() || countChecked == 1) activateActionPanel();
     }
 
-    /**
-     * Action panel control when unchecked
-     */
-    public void isCheckedItemFalse(T note) {
-        if (getCountCheckedItem() == 0) {
-            getArrayChecked().clear();
-            closeActionPanel();
-        } else {
-            getArrayChecked().remove(note);
-        }
-    }
-
-    /**
-     * Action panel control when adding checkmark
-     */
-    public void isCheckedItem(T note) {
-        if (!getArrayChecked().contains(note)) getArrayChecked().add(note);
-        else getArrayChecked().remove(note);
-        if (!(getAction())) setAction(true);
-    }
-
-    /**
-     * The method that disables the actionPanel when manually accessed from under the key
-     */
     public void closeActionPanel() {
-        checkedClean();
+        managerViewAction.toolCleanChecked();
         deactivationActionPanel();
         setAction(false);
-        getArrayChecked().clear();
     }
-
-    public ArrayList<T> getArrayChecked() {
-        return this.ArrayChecked;
-    }
-
-
-    public void selectItemAction(Note note, int item) {
-        if (note.getChecked()) {
-            note.setChecked(false);
-            isCheckedItemFalse((T) note);
-        } else {
-            isCheckedItem((T) note);
-            note.setChecked(true);
-        }
-        manageActionPanel();
-        mAdapter.notifyItemChanged(item, PAYLOAD_BACKGROUND);
-    }
-
-    public void selectItemAction(TrashNote note, int item) {
-        if (note.getChecked()) {
-            note.setChecked(false);
-            isCheckedItemFalse((T) note);
-        } else {
-            isCheckedItem((T) note);
-            note.setChecked(true);
-        }
-        manageActionPanel();
-        mAdapter.notifyItemChanged(item, PAYLOAD_BACKGROUND);
-    }
-
-
 }

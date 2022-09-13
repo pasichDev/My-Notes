@@ -180,4 +180,5 @@
 
     <string name="changeSettingsLayout" translatable="false">Настроить отображение</string>
     <string name="lastDateEditNote" translatable="false">Последнее изменение: %1$s </string>
+    <string name="restore" translatable="false">Восстановить заметки</string>
 </resources>

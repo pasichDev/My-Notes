@@ -10,7 +10,6 @@ import com.pasich.mynotes.ui.contract.TrashContract;
 public class TrashPresenter extends PresenterBase<TrashContract.view>
         implements TrashContract.presenter {
 
-    private DataManager data;
     private TrashRepository trashRepository;
 
     public TrashPresenter() {
@@ -18,8 +17,7 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
 
     @Override
     public void setDataManager(DataManager dataManager) {
-        data = dataManager;
-        trashRepository = data.getTrashRepository();
+        trashRepository = dataManager.getTrashRepository();
     }
 
     @Override
@@ -27,6 +25,7 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
         getView().settingsActionBar();
         getView().settingsNotesList(1, trashRepository.getNotes());
         getView().initListeners();
+        getView().initActionUtils();
     }
 
     @Override

@@ -18,6 +18,14 @@
         app:tint="@color/white" />
 
     <ImageButton
+        android:id="@+id/action_panel_restore"
+        style="@style/iconDialogList"
+        android:contentDescription="@string/restore"
+        android:src="@drawable/ic_restore_trash"
+        android:visibility="gone"
+        app:tint="@color/white" />
+
+    <ImageButton
         android:id="@+id/action_panel_delete"
         style="@style/iconDialogList"
         android:contentDescription="@string/deleteSelectTag"

@@ -42,9 +42,6 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         getView().initActionUtils();
     }
 
-    @Override
-    public void detachView() {
-    }
 
     @Override
     public void destroy() {

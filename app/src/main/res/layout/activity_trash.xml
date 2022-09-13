@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+
         <variable
             name="presenter"
             type="com.pasich.mynotes.ui.presenter.TrashPresenter" />
@@ -15,7 +16,8 @@
             type="boolean" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/activity_trash"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_trash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.view.activity.TrashActivity">
