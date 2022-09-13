@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -110,13 +109,10 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void createSpeechRecognizer() {
-        String speechLanguage = dataManager.getDefaultPreference().getString("speechLanguage", "default");
         speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
                 .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
                 .putExtra(RecognizerIntent.EXTRA_LANGUAGE,
-                        speechLanguage.equals("default")
-                                ? Locale.getDefault()
-                                : speechLanguage)
+                        Locale.getDefault())
                 .putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
 
     }
@@ -194,10 +190,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @SuppressLint("SetTextI18n")
     private void saveSpeechToText(ArrayList<String> result) {
-        String valueNote = binding.valueNote.getText().toString();
-        String valueLine = dataManager.getDefaultPreference().getString("setSpeechOutputText", "line").equals("line") ?
-                " " : valueNote.length() == 0 ? "" : "\n";
-        binding.valueNote.setText(valueNote + valueLine + result.get(0));
+        binding.valueNote.setText(binding.valueNote.getText().toString() + " " + result.get(0));
         binding.valueNote.setSelection(binding.valueNote.getText().toString().length());
     }
 
@@ -213,7 +206,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void activatedActivity() {
         binding.setActivateEdit(true);
-        //  if (newNoteKey) binding.dataEditNote.setVisibility(View.GONE);
         binding.valueNote.setSelection(binding.valueNote.getText().length());
         binding.valueNote.setFocusableInTouchMode(true);
         binding.valueNote.requestFocus();
@@ -255,7 +247,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void onStop() {
         super.onStop();
-        Log.wtf("pasic", "onStop: ");
     }
 
     @Override
@@ -375,15 +366,4 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         changeTextSizeOnline(dataManager.getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
     }
 
-
-    /**
-     *   @Override
-     *     public void setViewLayout() {
-     *         int sizeText = dataManager.getDefaultPreference().getInt("textSize", 20);
-     *         binding.valueNote.setTextSize(sizeText == 0 ? 20 : sizeText);
-     *         binding.notesTitle.setTextSize(sizeText == 0 ? 24 : sizeText + 4);
-     *         binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
-     *                 dataManager.getDefaultPreference().getString("textStyle", "normal")));
-     *     }
-     */
 }

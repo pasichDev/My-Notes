@@ -178,6 +178,6 @@
     <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
     <string name="infoDialogSource" translatable="false">Чтобы скопировать текст вложения нажмите и удерживайте</string>
 
-
+    <string name="changeSettingsLayout" translatable="false">Настроить отображение</string>
     <string name="lastDateEditNote" translatable="false">Последнее изменение: %1$s </string>
 </resources>

@@ -6,6 +6,8 @@ public abstract class OnSeekBarChangeListener implements SeekBar.OnSeekBarChange
 
     protected abstract void changeProgress(int progress);
 
+    protected abstract void stopChangeProgress(SeekBar seekBar);
+
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         changeProgress(progress);
@@ -18,6 +20,6 @@ public abstract class OnSeekBarChangeListener implements SeekBar.OnSeekBarChange
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        stopChangeProgress(seekBar);
     }
 }

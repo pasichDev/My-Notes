@@ -4,11 +4,6 @@
 
 
         <Preference
-                    android:icon="@drawable/ic_icon_voice"
-                    android:key="settingsVoice"
-                    android:title="@string/settingsVoice"
-            app:iconSpaceReserved="false" />
-                <Preference
                     android:icon="@drawable/ic_feedback"
                     android:key="feedback"
                     android:title="@string/settingsTitleContacts"

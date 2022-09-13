@@ -91,12 +91,15 @@ public class MoreNoteDialog extends DialogFragment {
             });
         }
 
+        binding.changeSettingsVIew.setOnClickListener(v -> {
+            binding.groupLayouts.setVisibility(View.GONE);
+            binding.viewSettingsNote.rootView.setVisibility(View.VISIBLE);
+        });
         changeTextStyle();
         changeTextSize();
     }
 
     private void changeTextStyle() {
-
         TextStylePreferences textStyle = new TextStylePreferences(binding.viewSettingsNote.textStyleItem);
         binding.viewSettingsNote.textStyleItem.setOnClickListener(v -> {
             textStyle.changeArgument();
@@ -113,17 +116,7 @@ public class MoreNoteDialog extends DialogFragment {
         binding.viewSettingsNote.editSizeText.setOnClickListener(v -> {
             binding.viewSettingsNote.rootView.setVisibility(View.GONE);
             binding.seekbarView.rootView.setVisibility(View.VISIBLE);
-            binding.groupLayouts.setVisibility(View.GONE);
             binding.seekbarView.valueSeek.setText(String.valueOf(seekBar.getProgress() + 12));
-        });
-
-        binding.seekbarView.applySize.setOnClickListener(v -> {
-            binding.viewSettingsNote.rootView.setVisibility(View.VISIBLE);
-            binding.seekbarView.rootView.setVisibility(View.GONE);
-            binding.groupLayouts.setVisibility(View.VISIBLE);
-
-            activitySettings.changeTextSizeOnline(seekBar.getProgress() + 12);
-            PowerPreference.getDefaultFile().setInt(ARGUMENT_PREFERENCE_TEXT_SIZE, seekBar.getProgress() + 12);
         });
 
         binding.seekbarView.seekBarSize.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -132,6 +125,12 @@ public class MoreNoteDialog extends DialogFragment {
                 int size = progress + 12;
                 binding.seekbarView.valueSeek.setText(String.valueOf(size));
                 activitySettings.changeTextSizeOnline(size);
+            }
+
+            @Override
+            protected void stopChangeProgress(SeekBar seekBar) {
+                activitySettings.changeTextSizeOnline(seekBar.getProgress() + 12);
+                PowerPreference.getDefaultFile().setInt(ARGUMENT_PREFERENCE_TEXT_SIZE, seekBar.getProgress() + 12);
             }
         });
 

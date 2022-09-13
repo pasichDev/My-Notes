@@ -26,11 +26,7 @@ public class FragmentSettings extends PreferenceFragmentCompat {
             return true;
         });
 
-        assert settingsVoice != null;
-        settingsVoice.setOnPreferenceClickListener(preference -> {
-            changeFragment(new FragmentVoice());
-            return true;
-        });
+
         assert feedback != null;
         feedback.setOnPreferenceClickListener(preference -> {
             new FeedbackDialog().show(getParentFragmentManager(), "feedbackDialog");

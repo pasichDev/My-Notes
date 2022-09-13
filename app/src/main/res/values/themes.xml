@@ -87,10 +87,11 @@
         <item name="colorSecondary">@color/colorPrimary</item>
     </style>
 <style name="viewSettingNoteIconStyle" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">24dp</item>
+    <item name="android:layout_height">24dp</item>
     <item name="android:padding">10dp</item>
-    <item name="android:layout_margin">10dp</item>
+    <item name="android:layout_margin">15dp</item>
+    <item name="android:layout_weight">1</item>
     <item name="android:background">@null</item>
 </style>
 
