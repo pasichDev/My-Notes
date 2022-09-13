@@ -11,12 +11,22 @@
 
     <ImageButton
         android:id="@+id/textStyleItem"
-        style="@style/viewSettingNoteIconStyle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:padding="10dp"
+        android:layout_margin="15dp"
+        android:layout_weight="1"
+        style="?android:attr/actionButtonStyle"
         android:src="@drawable/ic_style_normal" />
 
     <ImageButton
         android:id="@+id/editSizeText"
-        style="@style/viewSettingNoteIconStyle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:padding="10dp"
+        android:layout_margin="15dp"
+        android:layout_weight="1"
+        style="?android:attr/actionButtonStyle"
         android:src="@drawable/ic_size_text_new" />
 
 </LinearLayout>
