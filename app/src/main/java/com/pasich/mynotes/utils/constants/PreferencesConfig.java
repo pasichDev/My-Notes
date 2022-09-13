@@ -5,6 +5,6 @@ public class PreferencesConfig {
     public static final String ARGUMENT_PREFERENCE_TEXT_STYLE = "textStyle";
     public static final String ARGUMENT_DEFAULT_TEXT_STYLE = "normal";
     //TextSize
-    public static final String ARGUMENT_PREFERENCE_TEXT_SIZE = "textStyle";
+    public static final String ARGUMENT_PREFERENCE_TEXT_SIZE = "textSize";
     public static final int ARGUMENT_DEFAULT_TEXT_SIZE = 16;
 }
