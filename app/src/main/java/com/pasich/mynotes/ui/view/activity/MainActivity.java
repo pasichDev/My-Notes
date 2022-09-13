@@ -193,10 +193,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mActivityBinding.listTags.setAdapter(tagsAdapter);
         tagList.observe(
                 this,
-                tags -> {
-                    tagsAdapter.submitList(tags);
-
-                });
+                tags -> tagsAdapter.submitList(tags));
     }
 
     @Override
@@ -339,16 +336,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void shareNotes() {
-        String valueShare = "";
+        StringBuilder valueShare = new StringBuilder();
         for (Note note : noteActionTool.getArrayChecked()) {
-            valueShare = valueShare + note.getTitle() +
-                    System.getProperty("line.separator") +
-                    System.getProperty("line.separator") +
-                    note.getValue() +
-                    System.getProperty("line.separator") +
-                    System.getProperty("line.separator");
+            valueShare.append(note.getTitle()).append(System.getProperty("line.separator")).append(System.getProperty("line.separator")).append(note.getValue()).append(System.getProperty("line.separator")).append(System.getProperty("line.separator"));
         }
-        new ShareUtils(valueShare, this).shareText();
+        new ShareUtils(valueShare.toString(), this).shareText();
         actionUtils.closeActionPanel();
     }
 

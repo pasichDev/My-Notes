@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.dao.NoteDao;
+import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.utils.DiskExecutor;
 
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class NotesRepository {
     }
 
     public long addNote(Note note) throws ExecutionException, InterruptedException {
-        // executor.execute(() -> noteDao.addNote(note));
         Future<?> future = Executors.newSingleThreadExecutor()
                 .submit((Callable<?>) () -> noteDao.addNote(note));
         return (long) future.get();
@@ -77,5 +77,9 @@ public class NotesRepository {
         return (Note) future.get();
     }
 
+    public void moveToNotes(ArrayList<TrashNote> notes) {
+        for (TrashNote note : notes)
+            executor.execute(() -> noteDao.moveToTrash(note.getTitle(), note.getValue(), note.getDate()));
+    }
 
 }

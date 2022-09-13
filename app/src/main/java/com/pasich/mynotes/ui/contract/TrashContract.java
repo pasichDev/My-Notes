@@ -8,6 +8,7 @@ import com.pasich.mynotes.base.view.ActionBar;
 import com.pasich.mynotes.base.view.MyView;
 import com.pasich.mynotes.data.trash.TrashNote;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +25,8 @@ public interface TrashContract {
 
     interface presenter extends MyPresenter<view> {
         void cleanTrashDialogStart();
+
+        void restoreNotesArray(ArrayList<TrashNote> notes);
     }
 }
 ;

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.utils.recycler.comparator.NoteComparator;
+import com.pasich.mynotes.utils.recycler.comparator.TrashNoteComparator;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
 
@@ -104,4 +105,8 @@ public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapt
         submitList(notesList);
     }
 
+    public void sortListTrash(List<T> notesList) {
+        Collections.sort(notesList, new TrashNoteComparator().getComparator());
+        submitList(notesList);
+    }
 }

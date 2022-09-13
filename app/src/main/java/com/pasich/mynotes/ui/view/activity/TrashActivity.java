@@ -140,13 +140,18 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
                 });
 
         binding.ListTrash.setAdapter(mNotesTrashAdapter);
+
+        final int[] start = {0};
         noteList.observe(
                 this,
                 notes -> {
+                    mNotesTrashAdapter.sortListTrash(notes);
                     mNotesTrashAdapter.submitList(notes);
                     binding.setEmptyNotesTrash(!(notes.size() >= 1));
-                    binding.ListTrash.scheduleLayoutAnimation();
+                    if (start[0] == 0) binding.ListTrash.scheduleLayoutAnimation();
+                    start[0] = 1;
                 });
+
     }
 
     @Override
@@ -190,7 +195,8 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void restoreNotes() {
-
+        trashPresenter.restoreNotesArray(trashNoteActionTool.getArrayChecked());
+        actionUtils.closeActionPanel();
     }
 
     @Override

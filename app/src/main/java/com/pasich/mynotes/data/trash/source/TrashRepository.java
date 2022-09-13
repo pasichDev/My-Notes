@@ -47,6 +47,11 @@ public class TrashRepository {
         executor.execute(() -> trashDao.deleteNote(note));
     }
 
+    public void deleteNote(ArrayList<TrashNote> notes) {
+        for (TrashNote note : notes)
+            executor.execute(() -> trashDao.deleteNote(note));
+    }
+
     public void deleteAll() {
         executor.execute(trashDao::deleteAll);
     }

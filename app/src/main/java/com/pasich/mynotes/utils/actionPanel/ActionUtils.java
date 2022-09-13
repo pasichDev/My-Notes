@@ -31,7 +31,7 @@ public class ActionUtils {
         binding.closeActionPanel.setOnClickListener(v -> closeActionPanel());
         binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes());
         binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes());
-        binding.actionPanelRestore.setOnClickListener(v -> managerViewAction.shareNotes());
+        binding.actionPanelRestore.setOnClickListener(v -> managerViewAction.restoreNotes());
     }
 
     private void addActionPanel() {
