@@ -37,8 +37,11 @@ public class NotesRepository {
         return noteDao.getNotes();
     }
 
-    public void addNote(Note note) {
-        executor.execute(() -> noteDao.addNote(note));
+    public long addNote(Note note) throws ExecutionException, InterruptedException {
+        // executor.execute(() -> noteDao.addNote(note));
+        Future<?> future = Executors.newSingleThreadExecutor()
+                .submit((Callable<?>) () -> noteDao.addNote(note));
+        return (long) future.get();
     }
 
     public void deleteNote(Note note) {
@@ -61,9 +64,6 @@ public class NotesRepository {
         return (ArrayList<Note>) future.get();
     }
 
-    public void clearTagForNotes(String nameTag) {
-        executor.execute(() -> noteDao.clearTagForNotes(nameTag));
-    }
 
     public int getCountNoteTag(String nameTag) throws ExecutionException, InterruptedException {
         Future<?> future = Executors.newSingleThreadExecutor()

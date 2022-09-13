@@ -5,7 +5,6 @@ import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
-import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.ui.contract.NoteContract;
 
 import java.util.concurrent.ExecutionException;
@@ -14,7 +13,6 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
         implements NoteContract.presenter {
 
     private DataManager data;
-    private TagsRepository tagsRepository;
     private NotesRepository notesRepository;
 
     public NotePresenter() {
@@ -23,8 +21,6 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
     @Override
     public void setDataManager(DataManager dataManager) {
         data = dataManager;
-        tagsRepository = data.getTagsRepository();
-        notesRepository = data.getNotesRepository();
         notesRepository = data.getNotesRepository();
     }
 
@@ -70,8 +66,8 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
     }
 
     @Override
-    public void createNote(Note note) {
-        notesRepository.addNote(note);
+    public long createNote(Note note) throws ExecutionException, InterruptedException {
+        return notesRepository.addNote(note);
     }
 
     @Override
@@ -90,5 +86,10 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
     @Override
     public void sourceNote() {
         getView().loadingSourceNote();
+    }
+
+    @Override
+    public Note loadingNote(int idNote) throws ExecutionException, InterruptedException {
+        return notesRepository.getNoteFromId(idNote);
     }
 }

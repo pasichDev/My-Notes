@@ -8,6 +8,8 @@ import com.pasich.mynotes.base.view.MyView;
 import com.pasich.mynotes.base.view.NoteActivityView;
 import com.pasich.mynotes.data.notes.Note;
 
+import java.util.concurrent.ExecutionException;
+
 public interface NoteContract {
 
     interface view extends MyView, ActionBar, NoteActivityView, ActivitySettings {
@@ -37,12 +39,14 @@ public interface NoteContract {
 
         void activateEditNote();
 
-        void createNote(Note note);
+        long createNote(Note note) throws ExecutionException, InterruptedException;
 
         void saveNote(Note note);
 
         void deleteNote(Note note);
 
         void sourceNote();
+
+        Note loadingNote(int idNote) throws ExecutionException, InterruptedException;
     }
 }

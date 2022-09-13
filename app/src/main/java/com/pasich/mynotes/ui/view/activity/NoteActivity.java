@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -247,6 +248,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void onStop() {
         super.onStop();
+
+        saveNote();
     }
 
     @Override
@@ -293,10 +296,17 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
         if (newNoteKey) {
-            notePresenter.createNote(new Note().create(mTitle.length() >= 2 ? mTitle : " ",
+            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ",
                     mValue,
                     mThisDate
-            ));
+            );
+
+            try {
+                this.mNote = notePresenter.loadingNote((int) notePresenter.createNote(note));
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.newNoteKey = false;
         } else if (!mValue.equals(mNote.getValue())
                 || !mTitle.equals(mNote.getTitle())) {
 

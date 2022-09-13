@@ -18,7 +18,7 @@ public interface NoteDao {
   LiveData<List<Note>> getNotes();
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
-  void addNote(Note note);
+  long addNote(Note note);
 
   @Update
   void updateNote(Note note);
@@ -33,11 +33,6 @@ public interface NoteDao {
   @Query("SELECT * FROM notes WHERE tag = :nameTag")
   List<Note> getNotesForTag(String nameTag);
 
-  @Query("UPDATE notes Set tag = '' WHERE tag = :nameTag")
-  void clearTagForNotes(String nameTag);
-
-  @Query("DELETE FROM notes")
-  void deleteAll();
 
   @Query("SELECT * FROM notes WHERE id=:idNote")
   Note getNoteForId(int idNote);
