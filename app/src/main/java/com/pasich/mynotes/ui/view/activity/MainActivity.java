@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -20,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @SuppressLint("StringFormatMatches")
     @Override
     public void startToastCheckCountTags() {
-        Toast.makeText(this, getString(R.string.countTagsError, MAX_TAG_COUNT), Toast.LENGTH_SHORT).show();
+        Snackbar.make(mActivityBinding.getRoot(), getString(R.string.countTagsError, MAX_TAG_COUNT), Snackbar.LENGTH_LONG).show();
     }
 
 

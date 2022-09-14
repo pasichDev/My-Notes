@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <import type="android.view.View" />
 
 
@@ -17,44 +16,37 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
         android:background="@{checkedItem ? @drawable/tab_background_selected : @drawable/tab_background_unselected}"
-        android:padding="1dp">
+        android:layout_margin="5dp">
 
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="13dp"
             android:visibility="@{TagsModel.systemAction == 1 ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add" />
+            android:layout_weight="1"
+            android:padding="15dp"
+            app:srcCompat="@drawable/ic_add"
+            android:contentDescription="@string/addTag" />
 
         <TextView
             android:id="@+id/nameTag"
             style="@style/tagName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:textStyle="bold"
             android:text="@{TagsModel.systemAction == 2 ?  @string/allNotes :  TagsModel.nameTag}"
             android:textColor="@{checkedItem ? @color/white : @color/colorPrimaryVariantBlue}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="@{TagsModel.systemAction != 1 ? View.VISIBLE : View.GONE}" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
