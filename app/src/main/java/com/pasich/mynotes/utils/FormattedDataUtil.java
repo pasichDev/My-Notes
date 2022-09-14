@@ -25,7 +25,7 @@ public class FormattedDataUtil {
      */
 
     public static String lastDayEditNote(long date) {
-        if (new Date().getTime() - date > 86400)
+        if (new Date().getDay() != new Date(date).getDay())
             return new SimpleDateFormat("d MMM", Locale.getDefault()).format(date);
         else
             return new SimpleDateFormat("HH:mm", Locale.getDefault()).format(date);
