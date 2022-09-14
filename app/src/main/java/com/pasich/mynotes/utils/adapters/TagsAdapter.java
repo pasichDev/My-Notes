@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
 
-import java.util.List;
-
 public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
   private final int PAYLOAD_BACKGROUND = 22;
@@ -114,20 +112,14 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     holder.ItemBinding.setCheckedItem(getItem(position).getSelected());
   }
 
+  /*
   @Override
   public void onBindViewHolder(
       @NonNull TagsAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
-    if (payloads.isEmpty()) {
       super.onBindViewHolder(holder, position, payloads);
-    } else {
-      for (Object payload : payloads) {
-        if (payload.equals(PAYLOAD_BACKGROUND)) {
-          holder.ItemBinding.setCheckedItem(getItem(position).getSelected());
-        }
-      }
-    }
-  }
 
+  }
+*/
   public interface OnItemClickListener {
     void onClick(int position);
 

@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
+        android:padding="15dp"
         android:background="@{checkedItem ? @drawable/tab_background_selected : @drawable/tab_background_unselected}"
         android:layout_margin="5dp">
 
@@ -30,18 +31,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{TagsModel.systemAction == 1 ? View.VISIBLE : View.GONE}"
-            android:layout_weight="1"
-            android:padding="15dp"
             app:srcCompat="@drawable/ic_add"
             android:contentDescription="@string/addTag" />
 
         <TextView
             android:id="@+id/nameTag"
             style="@style/tagName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="@{TagsModel.systemAction == 2 ?  @string/allNotes :  TagsModel.nameTag}"
             android:textColor="@{checkedItem ? @color/white : @color/colorPrimaryVariantBlue}"
