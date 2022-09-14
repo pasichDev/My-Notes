@@ -137,6 +137,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                         return false;
                     });
         }
+
+
     }
 
     @Override
@@ -244,8 +246,23 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             else
                 new MoreNoteDialog(mNote).show(getSupportFragmentManager(), "MoreNote");
         }
+
+        if (item.getItemId() == R.id.hiddenActionPanel) {
+            manageActionPanel(item);
+        }
         return true;
     }
+
+    private void manageActionPanel(MenuItem item) {
+        if (binding.actionPanel.getVisibility() == View.VISIBLE) {
+            binding.actionPanel.setVisibility(View.GONE);
+            item.setIcon(R.drawable.ic_panel);
+        } else {
+            binding.actionPanel.setVisibility(View.VISIBLE);
+            item.setIcon(R.drawable.ic_panel_hidden);
+        }
+    }
+
 
     @Override
     public void onStop() {

@@ -73,38 +73,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <EditText
+                    android:id="@+id/valueNote"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/valueNote"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="20dp"
-                        android:autofillHints="no"
-                        android:background="#00FFFFFF"
-                        android:focusable="@{activateEdit, default=false}"
-                        android:focusableInTouchMode="@{activateEdit, default=false}"
-                        android:gravity="start|top"
-                        android:hint="@string/hintTextNote"
-                        android:inputType="none|text|textCapSentences|textMultiLine"
-                        android:longClickable="true"
-                        android:maxLength="20000"
-                        android:minHeight="100dp"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:autofillHints="no"
+                    android:background="#00FFFFFF"
+                    android:focusable="@{activateEdit, default=false}"
+                    android:focusableInTouchMode="@{activateEdit, default=false}"
+                    android:gravity="start|top"
+                    android:hint="@string/hintTextNote"
+                    android:inputType="none|text|textCapSentences|textMultiLine"
+                    android:longClickable="true"
+                    android:maxLength="20000"
+                    android:minHeight="100dp"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </ScrollView>
