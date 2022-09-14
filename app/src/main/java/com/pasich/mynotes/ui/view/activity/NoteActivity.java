@@ -70,6 +70,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     private SpeechRecognizer speechRecognizer;
     private Intent speechRecognizerIntent;
     private ActivityNoteBinding binding;
+    private boolean exitNoSave = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         notePresenter.attachView(this);
         notePresenter.setDataManager(dataManager);
         notePresenter.viewIsReady();
+
 
     }
 
@@ -248,8 +250,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void onStop() {
         super.onStop();
-
-        saveNote();
+        if (!exitNoSave) saveNote();
     }
 
     @Override
@@ -355,6 +356,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void closeActivityNotSaved() {
+        exitNoSave = true;
         finish();
     }
 
