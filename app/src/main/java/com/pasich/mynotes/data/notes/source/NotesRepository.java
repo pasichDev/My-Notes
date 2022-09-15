@@ -43,12 +43,12 @@ public class NotesRepository {
     }
 
     public void setNotesAll(List<Note> value) {
-        notesAll.setValue(value);
+        notesAll.postValue(value);
     }
 
     public void loadingNotes() {
         try {
-            notesAll.setValue(getNotes());
+            notesAll.postValue(getNotes());
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
