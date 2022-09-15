@@ -42,11 +42,13 @@ import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.activity.MainUtils;
-import com.pasich.mynotes.utils.adapters.TagsAdapter;
 import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
 import com.pasich.mynotes.utils.adapters.genericAdapterNote.OnItemClickListener;
+import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
+import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
+import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     private TagsAdapter tagsAdapter;
     private StaggeredGridLayoutManager gridLayoutManager;
     private GenericNoteAdapter<Note, ItemNoteBinding> mNoteAdapter;
+    private boolean[] startConfiguration = {false, false};
 
 
     @Override
@@ -113,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void initListeners() {
 
         tagsAdapter.setOnItemClickListener(
-                new TagsAdapter.OnItemClickListener() {
+                new OnItemClickListenerTag() {
                     @Override
                     public void onClick(int position) {
                         if (!getAction())
@@ -172,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
             mNoteAdapter = null;
             tagsAdapter = null;
             mainPresenter.destroy();
+            startConfiguration = null;
             getApp().getComponentsHolder().releaseActivityComponent(getClass());
         }
     }
@@ -189,11 +193,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mActivityBinding.listTags.setLayoutManager(
                 new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
-        tagsAdapter = new TagsAdapter(new TagsAdapter.tagDiff());
+        tagsAdapter = new TagsAdapter(new DiffUtilTag());
         mActivityBinding.listTags.setAdapter(tagsAdapter);
         tagList.observe(
                 this,
-                tags -> tagsAdapter.submitList(tags));
+                tags -> {
+                    if (!startConfiguration[0]) {
+                        tagsAdapter.submitListStart(tags);
+                        startConfiguration[0] = true;
+                    } else
+                        tagsAdapter.submitList(tags);
+                });
     }
 
     @Override
@@ -209,13 +219,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 });
 
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
-        final int[] start = {0};
 
         noteList.observe(this, notes -> {
             mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
             mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
-            if (start[0] == 0) mActivityBinding.listNotes.scheduleLayoutAnimation();
-            start[0] = 1;
+            if (!startConfiguration[1]) mActivityBinding.listNotes.scheduleLayoutAnimation();
+            startConfiguration[1] = true;
             mNoteAdapter.submitList(notes);
         });
     }
