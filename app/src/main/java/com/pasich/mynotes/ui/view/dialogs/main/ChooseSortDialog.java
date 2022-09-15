@@ -1,5 +1,8 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_SORT;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -27,7 +30,7 @@ public class ChooseSortDialog extends DialogFragment {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
         this.binding = DialogChooseSortBinding.inflate(getLayoutInflater());
         this.sortView = (MainSortView) getContext();
-        this.sortParam = PowerPreference.getDefaultFile().getString("sortPref", "DataReserve");
+        this.sortParam = PowerPreference.getDefaultFile().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF);
 
         builder.setContentView(binding.getRoot());
 
@@ -46,7 +49,7 @@ public class ChooseSortDialog extends DialogFragment {
 
     private void selectedSort(String param) {
         if (!param.equals(sortParam)) {
-            PowerPreference.getDefaultFile().setString("sortPref", param);
+            PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_SORT, param);
             assert sortView != null;
             sortView.sortList(param);
             dismiss();

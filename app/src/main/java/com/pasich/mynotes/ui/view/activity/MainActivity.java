@@ -2,6 +2,8 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_SORT;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.annotation.SuppressLint;
@@ -220,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
         noteList.observe(this, notes -> {
             Log.wtf("pasic", "true observer ");
-            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataSort"));
+            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
             mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
         });
     }
