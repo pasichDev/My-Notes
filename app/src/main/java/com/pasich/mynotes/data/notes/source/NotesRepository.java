@@ -2,6 +2,7 @@ package com.pasich.mynotes.data.notes.source;
 
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.dao.NoteDao;
@@ -22,9 +23,12 @@ public class NotesRepository {
     private final Executor executor;
     private final NoteDao noteDao;
 
+    private final MutableLiveData<List<Note>> notesAll = new MutableLiveData<>();
+
     private NotesRepository(Executor executor, NoteDao noteDao) {
         this.executor = executor;
         this.noteDao = noteDao;
+        loadingNotes();
     }
 
     public static NotesRepository getInstance(NoteDao noteDao) {
@@ -34,15 +38,34 @@ public class NotesRepository {
         return instance;
     }
 
-    public LiveData<List<Note>> getNotes() {
-        return noteDao.getNotes();
+    public LiveData<List<Note>> getNotesAll() {
+        return notesAll;
     }
 
-    public List<?> getNotesAll() throws ExecutionException, InterruptedException {
+    public void setNotesAll(List<Note> value) {
+        notesAll.setValue(value);
+    }
+
+    public void loadingNotes() {
+        try {
+            notesAll.setValue(getNotes());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public List<Note> getNotes() throws ExecutionException, InterruptedException {
+        Future<?> future = Executors.newSingleThreadExecutor()
+                .submit((Callable<?>) noteDao::getNotesAll);
+        return (List<Note>) future.get();
+    }
+
+   /* public List<?> getNotesAll() throws ExecutionException, InterruptedException {
         Future<?> future = Executors.newSingleThreadExecutor()
                 .submit((Callable<?>) noteDao::getNotesAll);
         return (List<?>) future.get();
-    }
+    }*/
 
 
     public long addNote(Note note) throws ExecutionException, InterruptedException {

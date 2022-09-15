@@ -372,14 +372,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void selectTagUser(int position, List<Note> noteListForTag) {
+    public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
 
         Log.wtf("pasic", "true cangeTAg ");
         //   addArrayFromNotesAdapter(noteListForTag);
         //  mNoteAdapter.onCurrentListChanged((List<Note>) noteListForTag, mNoteAdapter.getCurrentList());
         //  mNoteAdapter.submitList((List<Note>) );
-        //  mNoteAdapter.sortList(noteListForTag,dataManager.getDefaultPreference().getString("sortPref", "DataSort"));
+        //  mNoteAdapter.sortList(noteListForTag,dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
 
 
     }

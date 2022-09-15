@@ -109,4 +109,6 @@ public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapt
         Collections.sort(notesList, new TrashNoteComparator().COMPARE_BY_DATE);
         submitList(notesList);
     }
+
+
 }

@@ -12,7 +12,6 @@ import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
@@ -38,7 +37,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     public void viewIsReady() {
         getView().settingsSearchView();
         getView().settingsTagsList(tagsRepository.getTags());
-        getView().settingsNotesList(notesRepository.getNotes());
+        getView().settingsNotesList(notesRepository.getNotesAll());
         getView().initListeners();
         getView().initActionUtils();
     }
@@ -93,11 +92,18 @@ public class MainPresenter extends PresenterBase<MainContract.view>
                 } else
                     getView().startCreateTagDialog();
             } else {
-                getView().selectTagUser(position,
-                        tag.getSystemAction() == 2 ?
-                                (List<Note>) notesRepository.getNotesAll()
-                                :
-                                notesRepository.getNotesFromTag(tag.getNameTag()));
+                getView().selectTagUser(position);
+                notesRepository.setNotesAll(tag.getSystemAction() == 2 ?
+                        notesRepository.getNotes()
+                        :
+                        notesRepository.getNotesFromTag(tag.getNameTag()));
+
+
+                //position,
+                //                        tag.getSystemAction() == 2 ?
+                //                                (List<Note>) notesRepository.getNotesAll()
+                //                                :
+                //                                notesRepository.getNotesFromTag(tag.getNameTag())
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();

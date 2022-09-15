@@ -33,7 +33,7 @@ public interface MainContract {
 
         void settingsTagsList(LiveData<List<Tag>> tagList);
 
-        void selectTagUser(int position, List<Note> noteListForTag);
+        void selectTagUser(int position);
 
         void openNoteEdit(int idNote);
 
