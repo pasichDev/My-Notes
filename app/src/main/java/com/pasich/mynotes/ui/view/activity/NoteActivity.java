@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -304,10 +303,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void closeNoteActivity() {
-        if (binding.valueNote.getText().toString().trim().length() >= 2) {
-            Log.wtf("pasic", "closeNoteActivity: null " + binding.valueNote.getText().toString() + "///");
+        if (binding.valueNote.getText().toString().trim().length() >= 2)
             saveNote();
-        }
         finish();
     }
 

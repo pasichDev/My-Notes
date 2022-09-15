@@ -38,6 +38,13 @@ public class NotesRepository {
         return noteDao.getNotes();
     }
 
+    public List<?> getNotesAll() throws ExecutionException, InterruptedException {
+        Future<?> future = Executors.newSingleThreadExecutor()
+                .submit((Callable<?>) noteDao::getNotesAll);
+        return (List<?>) future.get();
+    }
+
+
     public long addNote(Note note) throws ExecutionException, InterruptedException {
         Future<?> future = Executors.newSingleThreadExecutor()
                 .submit((Callable<?>) () -> noteDao.addNote(note));
@@ -62,10 +69,6 @@ public class NotesRepository {
         Future<?> future = Executors.newSingleThreadExecutor()
                 .submit((Callable<?>) () -> noteDao.getNotesForTag(nameTag));
         return (ArrayList<Note>) future.get();
-    }
-
-    public LiveData<List<Note>> getNotesFromTagLiveData(String nameTag) {
-        return noteDao.getNotesForTagLiveDat(nameTag);
     }
 
     public int getCountNoteTag(String nameTag) throws ExecutionException, InterruptedException {

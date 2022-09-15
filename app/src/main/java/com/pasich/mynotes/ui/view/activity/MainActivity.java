@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -217,7 +218,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 });
 
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
-        addArrayFromNotesAdapter(noteList);
+        noteList.observe(this, notes -> {
+            Log.wtf("pasic", "true observer ");
+            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataSort"));
+            mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
+        });
     }
 
     @Override
@@ -365,17 +370,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void selectTagUser(int position, LiveData<List<Note>> noteListForTag) {
+    public void selectTagUser(int position, List<Note> noteListForTag) {
         tagsAdapter.chooseTag(position);
-        addArrayFromNotesAdapter(noteListForTag);
+
+        Log.wtf("pasic", "true cangeTAg ");
+        //   addArrayFromNotesAdapter(noteListForTag);
+        //  mNoteAdapter.onCurrentListChanged((List<Note>) noteListForTag, mNoteAdapter.getCurrentList());
+        //  mNoteAdapter.submitList((List<Note>) );
+        //  mNoteAdapter.sortList(noteListForTag,dataManager.getDefaultPreference().getString("sortPref", "DataSort"));
+
+
     }
 
 
     private void addArrayFromNotesAdapter(LiveData<List<Note>> noteList) {
-        noteList.observe(this, notes -> {
-            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
-            mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
-        });
+
     }
 
 

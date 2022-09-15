@@ -12,6 +12,7 @@ import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainPresenter extends PresenterBase<MainContract.view>
@@ -85,18 +86,21 @@ public class MainPresenter extends PresenterBase<MainContract.view>
 
     @Override
     public void clickTag(Tag tag, int position) {
-        if (tag.getSystemAction() == 1) {
-            try {
+        try {
+            if (tag.getSystemAction() == 1) {
                 if (tagsRepository.getCountTagAll() >= MAX_TAG_COUNT) {
                     getView().startToastCheckCountTags();
                 } else
                     getView().startCreateTagDialog();
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+            } else {
+                getView().selectTagUser(position,
+                        tag.getSystemAction() == 2 ?
+                                (List<Note>) notesRepository.getNotesAll()
+                                :
+                                notesRepository.getNotesFromTag(tag.getNameTag()));
             }
-        } else {
-            getView().selectTagUser(position,
-                    tag.getSystemAction() == 2 ? notesRepository.getNotes() : notesRepository.getNotesFromTagLiveData(tag.getNameTag()));
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

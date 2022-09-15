@@ -17,6 +17,9 @@ public interface NoteDao {
   @Query("SELECT * FROM notes")
   LiveData<List<Note>> getNotes();
 
+  @Query("SELECT * FROM notes")
+  List<Note> getNotesAll();
+
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   long addNote(Note note);
 
@@ -29,12 +32,8 @@ public interface NoteDao {
   @Query("SELECT COUNT(tag) FROM notes WHERE tag = :nameTag")
   int getCountNotesTag(String nameTag);
 
-
   @Query("SELECT * FROM notes WHERE tag = :nameTag")
   List<Note> getNotesForTag(String nameTag);
-
-  @Query("SELECT * FROM notes WHERE tag = :nameTag")
-  LiveData<List<Note>> getNotesForTagLiveDat(String nameTag);
 
   @Query("SELECT * FROM notes WHERE id=:idNote")
   Note getNoteForId(int idNote);
