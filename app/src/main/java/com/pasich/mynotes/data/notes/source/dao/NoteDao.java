@@ -33,6 +33,8 @@ public interface NoteDao {
   @Query("SELECT * FROM notes WHERE tag = :nameTag")
   List<Note> getNotesForTag(String nameTag);
 
+  @Query("SELECT * FROM notes WHERE tag = :nameTag")
+  LiveData<List<Note>> getNotesForTagLiveDat(String nameTag);
 
   @Query("SELECT * FROM notes WHERE id=:idNote")
   Note getNoteForId(int idNote);

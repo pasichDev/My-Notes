@@ -172,10 +172,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         super.onDestroy();
         mainPresenter.detachView();
         if (isFinishing()) {
-            mNoteAdapter = null;
-            tagsAdapter = null;
+            variablesNull();
             mainPresenter.destroy();
-            startConfiguration = null;
             getApp().getComponentsHolder().releaseActivityComponent(getClass());
         }
     }
@@ -219,14 +217,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 });
 
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
-
-        noteList.observe(this, notes -> {
-            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
-            mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
-            if (!startConfiguration[1]) mActivityBinding.listNotes.scheduleLayoutAnimation();
-            startConfiguration[1] = true;
-            mNoteAdapter.submitList(notes);
-        });
+        addArrayFromNotesAdapter(noteList);
     }
 
     @Override
@@ -244,10 +235,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         new TagDialog(note).show(getSupportFragmentManager(), "EditDIalog");
     }
 
-    @Override
-    public void selectTagUser(int position) {
-        tagsAdapter.chooseTag(position);
-    }
+
 
     @Override
     public void openNoteEdit(int idNote) {
@@ -280,10 +268,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void newNotesButton() {
-
+        Tag tagSelected = tagsAdapter.getTagSelected();
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", true)
-                .putExtra("tagNote", ""), ActivityOptions
+                .putExtra("tagNote", tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag()), ActivityOptions
                 .makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, "robot")
                 .toBundle());
     }
@@ -314,8 +302,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void onBackPressed() {
         if (getAction()) actionUtils.closeActionPanel();
-        else
-            utils.CloseApp(MainActivity.this);
+        else utils.CloseApp(MainActivity.this);
     }
 
 
@@ -377,6 +364,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         noteActionTool.checkedClean();
     }
 
+    @Override
+    public void selectTagUser(int position, LiveData<List<Note>> noteListForTag) {
+        tagsAdapter.chooseTag(position);
+        addArrayFromNotesAdapter(noteListForTag);
+    }
+
+
+    private void addArrayFromNotesAdapter(LiveData<List<Note>> noteList) {
+        noteList.observe(this, notes -> {
+            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString("sortPref", "DataReserve"));
+            mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
+        });
+    }
+
+
     private void initializeButtonSearchView() {
         LinearLayout mSearchView = (LinearLayout) mActivityBinding.actionSearch.getChildAt(0);
         View mSearchViewLayout = View.inflate(this, R.layout.search_view_buttons, null);
@@ -393,5 +395,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
             if (!getAction())
                 new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
         });
+    }
+
+
+    private void variablesNull() {
+        mNoteAdapter = null;
+        tagsAdapter = null;
+        startConfiguration = null;
     }
 }

@@ -95,9 +95,11 @@ public class MainPresenter extends PresenterBase<MainContract.view>
                 e.printStackTrace();
             }
         } else {
-            getView().selectTagUser(position);
+            getView().selectTagUser(position,
+                    tag.getSystemAction() == 2 ? notesRepository.getNotes() : notesRepository.getNotesFromTagLiveData(tag.getNameTag()));
         }
     }
+
 
     @Override
     public void clickLongTag(Tag tag) {

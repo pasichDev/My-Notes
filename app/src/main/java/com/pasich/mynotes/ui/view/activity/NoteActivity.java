@@ -318,7 +318,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         if (newNoteKey) {
             Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ",
                     mValue,
-                    mThisDate
+                    mThisDate,
+                    "note",
+                    tagNote
             );
 
             try {

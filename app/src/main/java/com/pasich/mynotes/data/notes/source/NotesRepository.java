@@ -64,6 +64,9 @@ public class NotesRepository {
         return (ArrayList<Note>) future.get();
     }
 
+    public LiveData<List<Note>> getNotesFromTagLiveData(String nameTag) {
+        return noteDao.getNotesForTagLiveDat(nameTag);
+    }
 
     public int getCountNoteTag(String nameTag) throws ExecutionException, InterruptedException {
         Future<?> future = Executors.newSingleThreadExecutor()
