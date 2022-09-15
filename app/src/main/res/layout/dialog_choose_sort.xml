@@ -19,7 +19,6 @@
             style="@style/marginDialogItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_gravity="center_vertical"
             android:text="@string/sort_Date_Increase"
             android:textSize="@dimen/textSizeDialog" />

@@ -43,7 +43,7 @@
             android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}" />
 
 
-        <com.google.android.material.chip.Chip
+        <TextView
             android:id="@+id/tagNote"
             style="@style/ChipStyleCustom"
             android:layout_width="wrap_content"
