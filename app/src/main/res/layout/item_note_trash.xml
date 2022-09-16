@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:fontFamily="@font/railway_medium"
-            android:maxLines="2"
+            android:maxLines="@integer/countLinesNoteTitle"
             android:text="@{Note.title}"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -38,7 +38,7 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="3dp"
             android:gravity="center_vertical"
-            android:maxLines="5"
+            android:maxLines="@integer/maxLinesItemNoteValue"
             android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}" />
     </LinearLayout>
 </layout>

@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -39,6 +40,7 @@ import com.pasich.mynotes.ui.view.dialogs.note.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
+import com.pasich.mynotes.utils.base.simplifications.TextWatcher;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
@@ -138,6 +140,16 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                     });
         }
 
+        binding.notesTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            protected void changeText(Editable s) {
+
+                if (s.toString().contains("\n")) {
+                    binding.notesTitle.setText(s.toString().replace('\n', ' ').trim());
+                    binding.valueNote.requestFocus();
+                }
+            }
+        });
 
     }
 
@@ -178,6 +190,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
             }
         });
+
 
     }
 
@@ -387,7 +400,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void changeTextSizeOnline(int sizeText) {
         binding.valueNote.setTextSize(sizeText == 0 ? 16 : sizeText);
-        binding.notesTitle.setTextSize(sizeText == 0 ? 20 : sizeText + 4);
+        binding.notesTitle.setTextSize(sizeText == 0 ? 20 : sizeText + 6);
     }
 
     @Override

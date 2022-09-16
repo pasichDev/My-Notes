@@ -9,7 +9,7 @@
         layout="@layout/view_settings_note" />
     <include
         android:id="@+id/seekbar_view"
-        layout="@layout/view_seekbar_size_tex" />
+        layout="@layout/view_seekbar_size_text" />
 
 
     <LinearLayout
