@@ -400,7 +400,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void changeTextSizeOnline(int sizeText) {
         binding.valueNote.setTextSize(sizeText == 0 ? 16 : sizeText);
-        binding.notesTitle.setTextSize(sizeText == 0 ? 20 : sizeText + 6);
+        binding.notesTitle.setTextSize(sizeText == 0 ? 20 : sizeText + 4);
     }
 
     @Override
