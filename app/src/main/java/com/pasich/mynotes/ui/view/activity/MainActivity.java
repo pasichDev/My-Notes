@@ -374,8 +374,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
-
-        Log.wtf("pasic", "true cangeTAg ");
+        //     Log.wtf("pasic", "true cangeTAg ");
         //   addArrayFromNotesAdapter(noteListForTag);
         //  mNoteAdapter.onCurrentListChanged((List<Note>) noteListForTag, mNoteAdapter.getCurrentList());
         //  mNoteAdapter.submitList((List<Note>) );

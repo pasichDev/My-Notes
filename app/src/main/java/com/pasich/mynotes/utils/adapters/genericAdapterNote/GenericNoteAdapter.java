@@ -110,5 +110,4 @@ public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapt
         submitList(notesList);
     }
 
-
 }

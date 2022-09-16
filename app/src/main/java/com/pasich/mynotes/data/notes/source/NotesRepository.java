@@ -28,7 +28,7 @@ public class NotesRepository {
     private NotesRepository(Executor executor, NoteDao noteDao) {
         this.executor = executor;
         this.noteDao = noteDao;
-        loadingNotes();
+     //   loadingNotes();
     }
 
     public static NotesRepository getInstance(NoteDao noteDao) {
@@ -55,17 +55,16 @@ public class NotesRepository {
     }
 
 
+    public LiveData<List<Note>> getLoadingNotes() {
+        return noteDao.getNotes();
+    }
+
+
     public List<Note> getNotes() throws ExecutionException, InterruptedException {
         Future<?> future = Executors.newSingleThreadExecutor()
                 .submit((Callable<?>) noteDao::getNotesAll);
         return (List<Note>) future.get();
     }
-
-   /* public List<?> getNotesAll() throws ExecutionException, InterruptedException {
-        Future<?> future = Executors.newSingleThreadExecutor()
-                .submit((Callable<?>) noteDao::getNotesAll);
-        return (List<?>) future.get();
-    }*/
 
 
     public long addNote(Note note) throws ExecutionException, InterruptedException {

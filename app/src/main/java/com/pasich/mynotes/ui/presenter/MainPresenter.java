@@ -37,7 +37,7 @@ public class MainPresenter extends PresenterBase<MainContract.view>
     public void viewIsReady() {
         getView().settingsSearchView();
         getView().settingsTagsList(tagsRepository.getTags());
-        getView().settingsNotesList(notesRepository.getNotesAll());
+        getView().settingsNotesList(notesRepository.getLoadingNotes());
         getView().initListeners();
         getView().initActionUtils();
     }

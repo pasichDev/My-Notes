@@ -5,6 +5,7 @@
 
         <import type="android.view.View" />
 
+
         <variable
             name="Note"
             type="com.pasich.mynotes.data.notes.Note" />
