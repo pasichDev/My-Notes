@@ -54,11 +54,6 @@ import javax.inject.Inject;
 
 public class NoteActivity extends AppCompatActivity implements NoteContract.view, AudioPermission {
 
-    private String shareText, tagNote;
-    private int idKey;
-    private boolean newNoteKey;
-    private Note mNote;
-
     @Inject
     public DataManager dataManager;
     @Inject
@@ -67,8 +62,10 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public PermissionManager permissionManager;
     @Inject
     public NoteUtils noteUtils;
-
-
+    private String shareText, tagNote;
+    private int idKey;
+    private boolean newNoteKey;
+    private Note mNote;
     private SpeechRecognizer speechRecognizer;
     private Intent speechRecognizerIntent;
     private ActivityNoteBinding binding;
@@ -89,10 +86,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void init() {
-        getApp()
-                .getComponentsHolder()
-                .getActivityComponent(getClass(), new NoteActivityModule())
-                .inject(NoteActivity.this);
+        getApp().getComponentsHolder().getActivityComponent(getClass(), new NoteActivityModule()).inject(NoteActivity.this);
         binding.setPresenter((NotePresenter) notePresenter);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
@@ -105,8 +99,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void initTypeActivity() {
         if (newNoteKey) {
             activatedActivity();
-            if (shareText != null && shareText.length() > 5)
-                binding.valueNote.setText(shareText);
+            if (shareText != null && shareText.length() > 5) binding.valueNote.setText(shareText);
         } else if (idKey >= 1) {
             notePresenter.loadingData(idKey);
         }
@@ -114,11 +107,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void createSpeechRecognizer() {
-        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                .putExtra(RecognizerIntent.EXTRA_LANGUAGE,
-                        Locale.getDefault())
-                .putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
+        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM).putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault()).putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
 
     }
 
@@ -126,18 +115,17 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void initListeners() {
         if (isRecognitionAvailable(getApplicationContext())) {
-            binding.speechStart.setOnTouchListener(
-                    (view, motionEvent) -> {
-                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                            speechRecognizer.stopListening();
-                        }
-                        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                            if (permissionManager.checkPermissionVoice(this)) {
-                                speechRecognizer.startListening(speechRecognizerIntent);
-                            }
-                        }
-                        return false;
-                    });
+            binding.speechStart.setOnTouchListener((view, motionEvent) -> {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    speechRecognizer.stopListening();
+                }
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (permissionManager.checkPermissionVoice(this)) {
+                        speechRecognizer.startListening(speechRecognizerIntent);
+                    }
+                }
+                return false;
+            });
         }
 
         binding.notesTitle.addTextChangedListener(new TextWatcher() {
@@ -169,15 +157,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                 binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
 
                 int textError = R.string.error;
-                if (i == 7)
-                    textError = R.string.emptySpeec;
-                else if (i == 2)
-                    textError = R.string.errorInternetConectSpeech;
-                Toast.makeText(
-                                getApplicationContext(),
-                                getString(textError),
-                                Toast.LENGTH_LONG)
-                        .show();
+                if (i == 7) textError = R.string.emptySpeec;
+                else if (i == 2) textError = R.string.errorInternetConectSpeech;
+                Toast.makeText(getApplicationContext(), getString(textError), Toast.LENGTH_LONG).show();
                 speechRecognizer.stopListening();
 
             }
@@ -199,8 +181,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         SearchSourceNote searchSourceNote = new SearchSourceNote(binding.valueNote.getText().toString());
         if (searchSourceNote.getCountSource() >= 1)
             new SourceNoteDialog(searchSourceNote).show(getSupportFragmentManager(), "SourcesNoteDialog");
-        else
-            Toast.makeText(this, getString(R.string.notSource), Toast.LENGTH_SHORT).show();
+        else Toast.makeText(this, getString(R.string.notSource), Toast.LENGTH_SHORT).show();
 
 
     }
@@ -252,12 +233,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             notePresenter.closeActivity();
         }
         if (item.getItemId() == R.id.moreBut) {
-            if (newNoteKey) new MoreNewNoteDialog(new Note()
-                    .create(binding.notesTitle.getText().toString(),
-                            binding.valueNote.getText().toString(),
-                            new Date().getTime())).show(getSupportFragmentManager(), "MoreNote");
-            else
-                new MoreNoteDialog(mNote).show(getSupportFragmentManager(), "MoreNote");
+            if (newNoteKey)
+                new MoreNewNoteDialog(new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime())).show(getSupportFragmentManager(), "MoreNote");
+            else new MoreNoteDialog(mNote).show(getSupportFragmentManager(), "MoreNote");
         }
 
         if (item.getItemId() == R.id.hiddenActionPanel) {
@@ -312,12 +290,11 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     }
 
 
-
-
     @Override
     public void closeNoteActivity() {
-        if (binding.valueNote.getText().toString().trim().length() >= 2)
-            saveNote();
+        if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
+        if (shareText.length() >= 2)
+            Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -326,11 +303,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
         if (newNoteKey) {
-            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ",
-                    mValue,
-                    mThisDate,
-                    tagNote
-            );
+            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ", mValue, mThisDate, tagNote);
 
             try {
                 this.mNote = notePresenter.loadingNote((int) notePresenter.createNote(note));
@@ -338,8 +311,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                 e.printStackTrace();
             }
             this.newNoteKey = false;
-        } else if (!mValue.equals(mNote.getValue())
-                || !mTitle.equals(mNote.getTitle())) {
+        } else if (!mValue.equals(mNote.getValue()) || !mTitle.equals(mNote.getTitle())) {
 
             if (!mNote.getTitle().contentEquals(mTitle)) mNote.setTitle(mTitle);
             if (!mNote.getValue().contentEquals(mValue)) {
@@ -352,8 +324,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     }
 
     @Override
-    public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 22) {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
@@ -393,8 +364,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void changeTextStyle() {
-        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(
-                dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)));
+        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)));
     }
 
     @Override

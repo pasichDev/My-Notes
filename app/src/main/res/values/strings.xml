@@ -131,4 +131,6 @@
 
     <string name="writeMe" translatable="false">Мои контакты</string>
 
+    <string name="noteSaved" translatable="false">Заметку сохранено</string>
+
 </resources>
