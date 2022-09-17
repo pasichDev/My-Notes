@@ -49,28 +49,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/privacyApp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/privacyApp"
-            android:src="@drawable/ic_privacy" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/privacyApp" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/whatUpdate"

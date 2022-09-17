@@ -3,7 +3,7 @@
     <string name="app_name"> My Notes </string>
     <string name="telegram_adrrs" translatable="false">/@andriipasichnik</string>
     <string name="email_adrrs" translatable="false">pasichDev@gmail.com</string>
-
+    <string name="interpunct" translatable="false">·</string>
     <string name="plusAdd" translatable="false">+</string>
     <string name="NewNote"> Create note </string>
     <string name="title_activity_settings"> Settings </string>
@@ -182,4 +182,6 @@
     <string name="lastDateEditNote" translatable="false">Последнее изменение: %1$s </string>
     <string name="restore" translatable="false">Восстановить заметки</string>
     <string name="showActionPanel" translatable="false">Спятать/Показать ActionPanel</string>
+
+    <string name="howToUse" translatable="false">Как использовать?</string>
 </resources>

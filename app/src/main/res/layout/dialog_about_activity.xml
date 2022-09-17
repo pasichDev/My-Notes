@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_center_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/trashActivityLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/trashN"
+            android:src="@drawable/ic_trash_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
+            android:text="@string/trashN" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/shareApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/shareApp"
+            android:src="@drawable/ic_share" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
+            android:text="@string/shareApp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ratingApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/ratingApp"
+            android:src="@drawable/ic_rating" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
+            android:text="@string/ratingApp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/ratingApp"
+            android:src="@drawable/ic_feedback" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
+            android:text="@string/settingsTitleContacts" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/whatUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/whatUpdate"
+            android:src="@drawable/ic_about_dialog" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
+            android:text="@string/whatUpdate" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/privacyApp"
+            style="@style/styleAboutButtonBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacyApp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:text="@string/interpunct" />
+
+        <Button
+            android:id="@+id/howUseApp"
+            style="@style/styleAboutButtonBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/howToUse" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
-import static com.pasich.mynotes.utils.DialogVibrateOpen.start;
 import static com.pasich.mynotes.utils.FormattedDataUtil.convertDateAll;
 
 import android.app.Dialog;
@@ -10,7 +9,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.NoteView;
@@ -18,8 +16,9 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.DialogChoiceNoteBinding;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;
+import com.pasich.mynotes.utils.override.DialogOpenVibrate;
 
-public class ChoiceNoteDialog extends BottomSheetDialogFragment {
+public class ChoiceNoteDialog extends DialogOpenVibrate {
 
     private final Note note;
     private final int positionItem;
@@ -36,8 +35,6 @@ public class ChoiceNoteDialog extends BottomSheetDialogFragment {
         com.pasich.mynotes.databinding.DialogChoiceNoteBinding binding = DialogChoiceNoteBinding.inflate(getLayoutInflater());
 
         mDialog.setContentView(binding.getRoot());
-
-        mDialog.setOnShowListener(dialog -> start(requireActivity()));
 
 
         MaterialTextView infoItem = mDialog.findViewById(R.id.noteInfo);

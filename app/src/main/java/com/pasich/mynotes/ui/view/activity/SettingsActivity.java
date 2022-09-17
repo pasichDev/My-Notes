@@ -5,28 +5,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.databinding.ActivitySettingsBinding;
-import com.pasich.mynotes.ui.view.fragments.FragmentSettings;
 
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private ActivitySettingsBinding binding;
 
-    public interface IOnBackPressed {
-        boolean onBackPressed();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(SettingsActivity.this, R.layout.activity_settings);
+        setContentView(R.layout.activity_settings);
 
-        setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
+        setSupportActionBar(findViewById(R.id.toolbar_actionbar));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -42,28 +34,15 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            closeFragment(true);
+            finish();
         }
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        closeFragment(false);
+        finish();
     }
 
-    private void closeFragment(boolean onBack) {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
-            if (onBack) super.onBackPressed();
-            finish();
-
-        } else {
-            binding.titleActivity.setText(R.string.settings);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainerView, new FragmentSettings())
-                    .commit();
-        }
-    }
 
 }
