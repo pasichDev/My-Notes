@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
+import com.pasich.mynotes.ui.view.dialogs.settings.FeedbackDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.WhatUpdateDialog;
 import com.pasich.mynotes.utils.ShareUtils;
 
@@ -41,7 +42,7 @@ public class AboutActivityDialog extends DialogFragment {
             dismiss();
         });
 
-        builder.findViewById(R.id.howUseApp).setOnClickListener(v -> {
+        builder.findViewById(R.id.help).setOnClickListener(v -> {
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_HOW_TO_USE));
             requireContext().startActivity(i);
             dismiss();
@@ -61,12 +62,16 @@ public class AboutActivityDialog extends DialogFragment {
             new WhatUpdateDialog().show(getParentFragmentManager(), "WhatsUpdate");
             dismiss();
         });
+
+        builder.findViewById(R.id.feedback).setOnClickListener(v -> {
+            new FeedbackDialog().show(getParentFragmentManager(), "WhatsUpdate");
+            dismiss();
+        });
         return builder;
     }
 
     private void openIntentGooglePlay() {
-        final Uri uri = Uri.parse("market://details?id=" + requireContext().getPackageName());
-        final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
+        final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + requireContext().getPackageName()));
         if (requireContext().getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0) {
             startActivity(rateAppIntent);
         } else {

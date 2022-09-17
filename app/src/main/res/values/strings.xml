@@ -183,5 +183,9 @@
     <string name="restore" translatable="false">Восстановить заметки</string>
     <string name="showActionPanel" translatable="false">Спятать/Показать ActionPanel</string>
 
-    <string name="howToUse" translatable="false">Как использовать?</string>
+    <string name="help" translatable="false">Помощь</string>
+    <string name="trashDeleteNotes" translatable="false">Удаленные заметки (Корзина)</string>
+    <string name="restoreOldBackups" translatable="false">Восстановить заметки</string>
+
+
 </resources>

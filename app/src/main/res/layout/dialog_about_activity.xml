@@ -10,12 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
+        android:padding="4dp"
         android:orientation="horizontal">
 
         <ImageView
             style="@style/iconDialogList"
             android:contentDescription="@string/trashN"
-            android:src="@drawable/ic_trash_menu" />
+            android:src="@drawable/ic_trash" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +24,29 @@
             android:layout_gravity="center_vertical"
             android:padding="8dp"
             android:textSize="@dimen/textSizeDialog"
-            android:text="@string/trashN" />
+            android:text="@string/trashDeleteNotes" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/restoreOldBackups"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:padding="4dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/restoreOldBackups"
+            android:src="@drawable/ic_restore_old" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:textSize="@dimen/textSizeDialog"
+            android:text="@string/restoreOldBackups" />
     </LinearLayout>
 
     <LinearLayout
@@ -31,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
+        android:padding="4dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -52,12 +76,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
+        android:padding="4dp"
         android:orientation="horizontal">
 
         <ImageView
             style="@style/iconDialogList"
             android:contentDescription="@string/ratingApp"
-            android:src="@drawable/ic_rating" />
+            android:src="@drawable/ic_like_rating" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,6 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
+        android:padding="4dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -97,6 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
+        android:padding="4dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -135,11 +162,11 @@
             android:text="@string/interpunct" />
 
         <Button
-            android:id="@+id/howUseApp"
+            android:id="@+id/help"
             style="@style/styleAboutButtonBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/howToUse" />
+            android:text="@string/help" />
 
     </LinearLayout>
 </LinearLayout>
