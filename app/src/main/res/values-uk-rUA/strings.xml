@@ -4,65 +4,28 @@
     <string name="NewNote"> Створити нотатку </string>
     <string name="title_activity_settings"> Налаштування </string>
     <string name="settings"> Налаштування </string>
-    <string name="ThemeToolbar_title"> Основний колiр </string>
     <string name="trashNotes">Перемістити до корзини</string>
     <string name="trashN"> Кошик </string>
     <string name="trashClean">Очистити корзину</string>
-    <string name="saveNotes">Зберегти нотатку</string>
     <string name="share">Поділитися</string>
     <string name="yesCleanTrash">Так, очистити</string>
     <string name="cancel">Відмінити</string>
     <string name="shareNull">Пуста корзина!</string>
-    <string name="sendDev">Написати розробнику</string>
     <string name="whatUpdate">Що нового?</string>
     <string name="save">Зберегти</string>
-    <string name="warning">Попередження</string>
     <string name="errorInternetConectSpeech">Відсутнє підключення до інтернету. Перевірте доступність інтернет-мережi.</string>
     <string name="error_TTS">Служба розпізнавання мовлення не знайдена</string>
     <string name="error_TTS_Message">Щоб використовувати голосовий ввiд, вам потрібно встановити додаток Speech Services від Google. </string>
     <string name="errorPermisions">Помилка доступу</string>
     <string name="errorPermisions_Message">Для можливості використовувати цю функцію, вам потрібно надати дозвіл на запис аудіо.
     Для цього відкрийте меню Про додаток -> Дозволи та дозвольте використовувати мікрофон</string>
-    <string name="open_PlayMarket">Відкрити Play Market </string>
-    <string name="holdOn">Утримуйте…</string>
     <string name="holdOnSpeec">Утримуйте і говорiть</string>
-    <string name="open_infoApp">Про додаток</string>
     <string name="notes">Нотатки</string>
-    <string name="viceNotes">Голосові нотатки</string>
-    <string name="continueNext">Продовжити</string>
     <string name="noSave">Закрити без збереження</string>
-    <string name="lineSetSPech">В один рядок</string>
-    <string name="paragraphSetSpech">З нового абзацу</string>
-    <string name="mainPrefences">Основні</string>
-    <string name="recoveryCopy">Резервні копії</string>
-    <string name="speechPrefences">Налаштування мовленя</string>
     <string name="infoAppPrefences">Про додаток</string>
-    <string name="comunicateDev">Зв\'язок</string>
     <string name="ratingApp">Оцінити додаток</string>
-    <string name="importsNotes">Імпортувати нотатки</string>
-    <string name="exportsNotes">Експортувати нотатки</string>
-    <string name="importsNotesSymmary">Вiдновити нотатки з локального сховища</string>
-    <string name="exportsNotesSymmary">Зберегти резервну копію в локальному сховищi</string>
-    <string name="Function_not_available">Функція не доступна</string>
-    <string name="pressToInfo">Натиснiть, щоб переглянути подробиці</string>
-    <string name="spechPrefences">Налаштування розпізнавання мовленя</string>
-    <string name="spechLaunguage">Виберіть мову розпізнавання</string>
-    <string name="setSpechOutputText">Режим запису для отриманого тексту</string>
-    <string name="autoSave">Автоматичне збереження нотатки</string>
-    <string name="autoSaveSummary">Зберігаємо нотатку під час дзвінка, або випадковому виході з додатка</string>
-    <string name="interaction">Взаємодія</string>
     <string name="emptySpeec">Вас не чути, спробуйте ще раз..</string>
-    <string name="spechToListen">Говоріть, я вас слухаю..</string>
-    <string name="defaultLangVoiece">За замовчуванням пристрою</string>
     <string name="exitWhat">Для виходу потрібно повторити дію</string>
-
-    <string name="fontStyleBoldItalic">Жирний-Курсив</string>
-    <string name="fontStyleItalic">Курсив</string>
-    <string name="languageGitLinkTitle">Вихідний код (Github)</string>
-    <string name="selectColorPrimaryApp">Виберіть основний колір програми</string>
-    <string name="ThemeToolbar_summary">Виберіть колірну схему програми</string>
-    <string name="fontStyleBold">Жирний</string>
-    <string name="fontStyleNormal">Стандартний</string>
 
     <string name="updateNowM">- Додано: Вкладення нотаток, у цьому вікні можна побачити посилання, номери телефонів, адреси email які використовуються в нотатках \n
 - Додано: новий перемикач сортування нотаток. \n
@@ -76,12 +39,7 @@
     <string name="error">Помилка</string>
     <string name="notSource">У даній нотатці немає активних вкладень</string>
     <string name="notSupportedShare" translatable="false">Цей вміст не підтримується.</string>
-    <string name="cd_emptyTrash">Корзина порожня</string>
     <string name="notFoundPlayMarket">Відсутній  Play Market</string>
     <string name="copyX">Скопійовано</string>
-    <string name="investments">вкладення</string>
-    <string name="copyNotesTo">Переміщення нотатки</string>
-    <string name="cd_remind">Нагадування</string>
-    <string name="cd_sort">Сортувати</string>
     <string name="cd_format">Форматувати нотатки</string>
 </resources>

@@ -4,19 +4,15 @@
     <string name="NewNote">Создать заметку</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="settings">Настройки</string>
-    <string name="ThemeToolbar_title">Цветовая схема</string>
     <string name="trashNotes">Переместить в корзину</string>
     <string name="trashN">Корзина</string>
     <string name="trashClean">Очистить корзину</string>
-    <string name="saveNotes">Сохранить заметку</string>
     <string name="share">Поделиться</string>
     <string name="yesCleanTrash">Да, очистить</string>
     <string name="cancel">Отменить</string>
     <string name="shareNull">Нечем делиться!</string>
-    <string name="sendDev">Написать разработчику</string>
     <string name="whatUpdate">Что нового?</string>
     <string name="save">Сохранить</string>
-    <string name="warning">"Предупреждение "</string>
 
     <string name="errorInternetConectSpeech">Отсутствует подключение к интернету. Проверьте доступность интернет сети.</string>
     <string name="error_TTS">Служба распознавания речи не найдена</string>
@@ -24,46 +20,13 @@
     <string name="errorPermisions">Ошибка доступа</string>
     <string name="errorPermisions_Message">Для возможности использовать данную функцию, вам нужно предоставить разрешение на запись аудио.
     Для этого откройте меню О приложении -> Разрешения и разрешите использовать микрофон</string>
-    <string name="open_PlayMarket">Открыть Play Market </string>
-    <string name="holdOn">Удерживайте…</string>
     <string name="holdOnSpeec">Удерживайте и говорите</string>
-    <string name="open_infoApp">О приложении</string>
     <string name="notes">Заметки</string>
-    <string name="viceNotes">Голосовые заметки</string>
-    <string name="continueNext">Продолжить</string>
     <string name="noSave">Закрыть без сохранения</string>
-    <string name="lineSetSPech">В одну строку</string>
-    <string name="paragraphSetSpech">С нового абзаца</string>
-    <string name="mainPrefences">Основные</string>
-    <string name="recoveryCopy">Резервные копии</string>
-    <string name="speechPrefences">Настройки речи</string>
     <string name="infoAppPrefences">О приложении</string>
-    <string name="comunicateDev">Связь</string>
     <string name="ratingApp">Оценить приложение</string>
-    <string name="importsNotes">Импортировать заметки</string>
-    <string name="exportsNotes">Экспортировать заметки</string>
-    <string name="importsNotesSymmary">Восстановить заметки с локального хранилища</string>
-    <string name="exportsNotesSymmary">Сохранить резервную копию в локальное хранилище</string>
-    <string name="Function_not_available">Функция не доступная</string>
-    <string name="pressToInfo">Нажмите, чтобы посмотреть подробности</string>
-    <string name="spechPrefences">Настройки распознавания речи</string>
-    <string name="spechLaunguage">Выберите язык распознавания</string>
-    <string name="setSpechOutputText">Режим записи для полученного  текста</string>
-    <string name="autoSave">Автоматическое сохранение заметок</string>
-    <string name="autoSaveSummary">Сохраняем заметку при звонке, или случайном выходе с приложения</string>
-    <string name="interaction">Взаимодействие</string>
     <string name="emptySpeec">Вас не слышно повторите попытку</string>
-    <string name="spechToListen">Говорите, я вас слушаю..</string>
-    <string name="defaultLangVoiece">По умолчанию устройства</string>
     <string name="exitWhat">Для выхода, нужно повторить действие</string>
-
-    <string name="fontStyleBoldItalic">Жирный-Курсив</string>
-    <string name="fontStyleItalic">Курсив</string>
-    <string name="fontStyleBold">Жирный</string>
-    <string name="fontStyleNormal">Стандартный</string>
-    <string name="ThemeToolbar_summary">Выберите цветовую схему приложения</string>
-    <string name="selectColorPrimaryApp">Выберите основной цвет приложения</string>
-    <string name="languageGitLinkTitle">Исходный код (Github)</string>
 
     <string name="updateNowM">
 - Добавлено: Вложения заметок, в данном окне можно увидеть ссылки, номера телефонов, почты которые используются в заметках \n
@@ -79,13 +42,8 @@
     <string name="error">Ошибка</string>
     <string name="notSource">В данной заметке нет вложений</string>
     <string name="notSupportedShare" translatable="false">Этот контент не поддерживается.</string>
-    <string name="cd_emptyTrash">Корзина пустая</string>
     <string name="notFoundPlayMarket">Отсутствует приложение Play Market</string>
     <string name="copyX">"Скопировано "</string>
-    <string name="investments">Вложения</string>
-    <string name="copyNotesTo">Перемещение заметки</string>
-    <string name="cd_remind">Напоминание</string>
-    <string name="cd_sort">Сортировать</string>
     <string name="cd_format">Форматировать заметки</string>
 
 </resources>
