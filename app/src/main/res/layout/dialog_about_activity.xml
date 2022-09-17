@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
-        android:padding="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <ImageView
             style="@style/iconDialogList"
@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/trashDeleteNotes" />
+            android:text="@string/trashDeleteNotes"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
     <LinearLayout
@@ -32,8 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
-        android:padding="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <ImageView
             style="@style/iconDialogList"
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/restoreOldBackups" />
+            android:text="@string/restoreOldBackups"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
-        android:padding="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <ImageView
             style="@style/iconDialogList"
@@ -67,8 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/shareApp" />
+            android:text="@string/shareApp"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,8 +76,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
-        android:padding="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <ImageView
             style="@style/iconDialogList"
@@ -89,8 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/ratingApp" />
+            android:text="@string/ratingApp"
+            android:textSize="@dimen/textSizeDialog" />
 
     </LinearLayout>
 
@@ -99,8 +99,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
-        android:padding="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <ImageView
             style="@style/iconDialogList"
@@ -112,8 +112,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/settingsTitleContacts" />
+            android:text="@string/settingsTitleContacts"
+            android:textSize="@dimen/textSizeDialog" />
 
     </LinearLayout>
 
@@ -123,8 +123,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
-        android:padding="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <ImageView
             style="@style/iconDialogList"
@@ -136,8 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/whatUpdate" />
+            android:text="@string/whatUpdate"
+            android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
 
@@ -157,9 +157,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/interpunct"
             android:textSize="32sp"
-            android:textStyle="bold"
-            android:text="@string/interpunct" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/help"

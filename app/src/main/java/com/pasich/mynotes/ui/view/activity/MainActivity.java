@@ -33,12 +33,12 @@ import com.pasich.mynotes.databinding.SearchViewButtonsBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
-import com.pasich.mynotes.ui.view.dialogs.main.AboutActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void moreActivity() {
         if (getAction()) actionUtils.closeActionPanel();
-        new AboutActivityDialog().show(getSupportFragmentManager(), "more activity");
+        new AboutDialog().show(getSupportFragmentManager(), "more activity");
 
     }
 

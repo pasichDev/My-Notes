@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.main;
+package com.pasich.mynotes.ui.view.dialogs.settings;
 
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_HOW_TO_USE;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_PRIVACY_POLICY;
@@ -16,11 +16,9 @@ import androidx.fragment.app.DialogFragment;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
-import com.pasich.mynotes.ui.view.dialogs.settings.FeedbackDialog;
-import com.pasich.mynotes.ui.view.dialogs.settings.WhatUpdateDialog;
 import com.pasich.mynotes.utils.ShareUtils;
 
-public class AboutActivityDialog extends DialogFragment {
+public class AboutDialog extends DialogFragment {
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -75,8 +73,7 @@ public class AboutActivityDialog extends DialogFragment {
         if (requireContext().getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0) {
             startActivity(rateAppIntent);
         } else {
-            Toast.makeText(getContext(), getString(R.string.notFoundPlayMarket), Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(getContext(), getString(R.string.notFoundPlayMarket), Toast.LENGTH_SHORT).show();
         }
     }
 }

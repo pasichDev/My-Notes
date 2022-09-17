@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        layout="@layout/view_head_dialog" />
+
     <LinearLayout
         android:id="@+id/telegramSend"
         android:layout_width="match_parent"
@@ -22,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:text="@string/telegram_adrrs"
+            android:text="@string/telegram_nick"
             android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
@@ -37,14 +42,14 @@
         <ImageView
             style="@style/iconDialogList"
             android:contentDescription="@string/ratingApp"
-            android:src="@drawable/ic_email_two" />
+            android:src="@drawable/ic_email" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="8dp"
-            android:text="@string/email_adrrs"
+            android:text="@string/email_address"
             android:textSize="@dimen/textSizeDialog" />
 
     </LinearLayout>
