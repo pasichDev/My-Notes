@@ -51,7 +51,6 @@ public class RestoreBackupDialog extends BottomSheetDialogFragment {
 
         binding.titleView.headTextDialog.setText(getString(R.string.restoreBackup));
         binding.setStep(1);
-        binding.setCountNotesAdd(0);
 
         binding.openArchive.setOnClickListener(v -> openArchiveBackupIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/zip")));
 
@@ -90,19 +89,25 @@ public class RestoreBackupDialog extends BottomSheetDialogFragment {
 
 
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-                count = count + 1;
-                String[] titleFile = zipEntry.getName().replaceAll(".txt", "").split("/");
 
-                StringBuilder stringBuilder = new StringBuilder();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(zipInputStream));
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                    stringBuilder.append('\n');
+                if (zipEntry.getName().endsWith(".txt")) {
+
+                    String[] titleFile = zipEntry.getName().replaceAll(".txt", "").split("/");
+
+                    StringBuilder stringBuilder = new StringBuilder();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(zipInputStream));
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line);
+                        stringBuilder.append('\n');
+                    }
+                    if (stringBuilder.length() >= 2) {
+                        restoreNotesBackupOld.saveNoteRestore(new Note().create(
+                                titleFile.length >= 1 ? titleFile[titleFile.length - 1] : titleFile[0],
+                                String.valueOf(stringBuilder), new Date().getTime()));
+                        count = count + 1;
+                    }
                 }
-                restoreNotesBackupOld.saveNoteRestore(new Note().create(
-                        titleFile.length >= 1 ? titleFile[titleFile.length - 1] : titleFile[0],
-                        String.valueOf(stringBuilder), new Date().getTime()));
 
             }
 

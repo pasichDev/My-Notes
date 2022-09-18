@@ -10,9 +10,6 @@
             name="step"
             type="Integer" />
 
-        <variable
-            name="countNotesAdd"
-            type="int" />
     </data>
 
     <LinearLayout

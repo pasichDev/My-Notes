@@ -41,7 +41,6 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
-import com.pasich.mynotes.ui.view.dialogs.settings.RestoreBackupDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mainPresenter.setDataManager(dataManager);
         mainPresenter.viewIsReady();
 
-        new RestoreBackupDialog().show(getSupportFragmentManager(), "tts");
     }
 
 
