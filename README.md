@@ -5,7 +5,7 @@
 # My Notes: Quick notes with voice input!
 >[![License Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=true)](http://www.apache.org/licenses/LICENSE-2.0)
 ![minSdkVersion 21](https://img.shields.io/badge/minSdkVersion-21-red.svg?style=true)
-![compileSdkVersion 31](https://img.shields.io/badge/compileSdkVersion-31-green.svg?style=true)
+![compileSdkVersion 33](https://img.shields.io/badge/compileSdkVersion-33-green.svg?style=true)
 
 The application does not require any suspicious permissions, and most importantly, we do not have any advertising!
 

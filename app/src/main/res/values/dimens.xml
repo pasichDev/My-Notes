@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginConstraintLayoutOnBothSides">20dp</dimen>
+    <dimen name="listViewMargin">10dp</dimen>
+    <dimen name="radiusBackgroundTag">15dp</dimen>
+
+    <dimen name="textSizeDialog">16sp</dimen>
+</resources>

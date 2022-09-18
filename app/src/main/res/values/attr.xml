@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="iconDrawableTint" format="reference|color" />
-    <attr name="colorHiden" format="reference|color" />
-    <attr name="colorTextNote" format="reference|color" />
+    <attr name="colorPrimaryBackground" format="reference|color" />
+    <attr name="colorBackground" format="reference|color" />
+    <attr name="colorLight" format="reference|color" />
+    <attr name="colorAccentIcon" format="reference|color" />
+
 </resources>

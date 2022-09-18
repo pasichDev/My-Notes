@@ -1,144 +1,92 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Red color theme. -->
-    <style name="ThemeRed" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Основной цвет -->
-        <item name="colorPrimary">@color/red_Primary</item>
-        <item name="colorPrimaryVariant">@color/red_PrimaryVariant</item>
-        <!-- Второстепенный цвет, используеться в настройках -->
-        <item name="colorSecondary">@color/red_Secondary</item>
-        <!-- Цвет значка спиннер -->
-        <item name="colorControlNormal">@color/red_Drawable</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Цвет меню item -->
-        <item name="android:itemTextAppearance">@style/textItemColor</item>
-        <!-- Цвет иконок -->
-        <item name="iconDrawableTint">@color/red_Drawable</item>
-        <!-- Цвет иконок тулбара -->
-        <item name="colorHiden">@color/hiden</item>
-        <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
-        <item name="colorTextNote">@color/EditViewDark</item>
+    <style name="ThemeBlue" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="colorLight">@color/darkLight</item>
+
+        <!-- Цвет фона дилоговых окон-->
+        <item name="colorSurface">@color/white</item>
+
+        <!-- Цвет switchmaterial.SwitchMaterial -->
+        <item name="switchStyle">@style/Widget.App.Switch</item>
+
+
+        <item name="colorAccent">@color/colorPrimaryBackground</item>
+        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
+        <item name="colorControlNormal">@color/black</item>
+
+        <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
 
     </style>
 
 
-    <!-- Green color theme. -->
-    <style name="ThemeGreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Основной цвет -->
-        <item name="colorPrimary">@color/green_Primary</item>
-        <item name="colorPrimaryVariant">@color/green_PrimaryVariant</item>
-        <!-- Второстепенный цвет, используеться в настройках -->
-        <item name="colorSecondary">@color/green_Secondary</item>
-        <!-- Цвет значка спиннер -->
-        <item name="colorControlNormal">@color/green_Drawable</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Цвет меню item -->
-        <item name="android:itemTextAppearance">@style/textItemColor</item>
-        <!-- Цвет иконок -->
-        <item name="iconDrawableTint">@color/green_Drawable</item>
-        <!-- Цвет иконок тулбара -->
-        <item name="colorHiden">@color/hiden</item>
-        <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
-        <item name="colorTextNote">@color/EditViewDark</item>
-    </style>
-
-    <!-- indigo color theme. -->
-    <style name="ThemeIndigo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Основной цвет -->
-        <item name="colorPrimary">@color/indigo_Primary</item>
-        <item name="colorPrimaryVariant">@color/indigo_PrimaryVariant</item>
-        <!-- Второстепенный цвет, используеться в настройках -->
-        <item name="colorSecondary">@color/indigo_Secondary</item>
-        <!-- Цвет значка спиннер -->
-        <item name="colorControlNormal">@color/indigo_Drawable</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Цвет меню item -->
-        <item name="android:itemTextAppearance">@style/textItemColor</item>
-        <!-- Цвет иконок -->
-        <item name="iconDrawableTint">@color/indigo_Drawable</item>
-        <!-- Цвет иконок тулбара -->
-        <item name="colorHiden">@color/hiden</item>
-        <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
-        <item name="colorTextNote">@color/EditViewDark</item>
-    </style>
-
-    <!-- Purple color theme. -->
-    <style name="ThemePurple" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Основной цвет -->
-        <item name="colorPrimary">@color/purple_Primary</item>
-        <item name="colorPrimaryVariant">@color/purple_PrimaryVariant</item>
-        <!-- Второстепенный цвет, используеться в настройках -->
-        <item name="colorSecondary">@color/purple_Secondary</item>
-        <!-- Цвет значка спиннер -->
-        <item name="colorControlNormal">@color/purple_Drawable</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Цвет меню item -->
-        <item name="android:itemTextAppearance">@style/textItemColor</item>
-        <!-- Цвет иконок -->
-        <item name="iconDrawableTint">@color/purple_Drawable</item>
-        <!-- Цвет иконок тулбара -->
-        <item name="colorHiden">@color/hiden</item>
-        <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
-        <item name="colorTextNote">@color/EditViewDark</item>
-    </style>
-
-    <!-- Orange color theme. -->
-    <style name="ThemeOrange" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Основной цвет -->
-        <item name="colorPrimary">@color/orange_Primary</item>
-        <item name="colorPrimaryVariant">@color/orange_PrimaryVariant</item>
-        <!-- Второстепенный цвет, используеться в настройках -->
-        <item name="colorSecondary">@color/orange_Secondary</item>
-        <!-- Цвет значка спиннер -->
-        <item name="colorControlNormal">@color/orange_Drawable</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Цвет меню item -->
-        <item name="android:itemTextAppearance">@style/textItemColor</item>
-        <!-- Цвет иконок -->
-        <item name="iconDrawableTint">@color/orange_Drawable</item>
-        <!-- Цвет иконок тулбара -->
-        <item name="colorHiden">@color/hiden</item>
-        <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
-        <item name="colorTextNote">@color/EditViewDark</item>
-    </style>
-
-    <!-- Dark color theme. -->
-    <style name="ThemeDark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Основной цвет -->
-        <item name="colorPrimary">@color/dark_Primary</item>
-        <item name="colorPrimaryVariant">@color/dark_PrimaryVariant</item>
-        <!-- Второстепенный цвет, используеться в настройках -->
-        <item name="colorSecondary">@color/dark_Secondary</item>
-        <!-- Цвет значка спиннер -->
-        <item name="colorControlNormal">@color/dark_Drawable</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Цвет меню item -->
-        <item name="android:itemTextAppearance">@style/textItemColor</item>
-        <!-- Цвет иконок -->
-        <item name="iconDrawableTint">@color/dark_Drawable</item>
-        <!-- Цвет иконок тулбара -->
-        <item name="colorHiden">@color/hiden</item>
-        <!-- Цвет названия заметок и датыа такаже цвета текста. изменить в темной теме -->
-        <item name="colorTextNote">@color/EditViewDark</item>
+    <!-- SplashStyle-->
+    <style name="ThemeBlueSplash" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="colorLight">@color/darkLight</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryBackground</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
 
+    <style name="headActivityText">
+        <item name="fontFamily">@font/railway_medium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
-    <style name="textItemColor" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
-        <item name="android:textColor">@color/EditViewDark</item>
+    <style name="headDialogText">
+        <item name="fontFamily">@font/railway_medium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
-    <style name="textColorNameList">
-        <item name="android:textColor">@color/EditViewDark</item>
+
+
+    <style name="iconDialogList" parent="marginDialogItem">
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:background">@null</item>
     </style>
-    <style name="textColorDateList">
-        <item name="android:textColor">@color/textHidenColor</item>
+
+    <style name="marginDialogItem">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+    </style>
+
+    <style name="ChipStyleCustom" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="chipStrokeColor">?attr/colorAccentIcon</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textColor">?attr/colorAccentIcon</item>
+    </style>
+
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorOnSurface">@color/colorPrimaryBackground</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+    </style>
+
+    <style name="styleAboutButtonBottom" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">@font/railway_medium</item>
     </style>
 
 </resources>
