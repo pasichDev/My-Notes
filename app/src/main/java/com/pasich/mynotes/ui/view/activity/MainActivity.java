@@ -22,8 +22,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
@@ -37,8 +39,8 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.OtherActivityDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
@@ -58,7 +60,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainContract.view, ManagerViewAction<Note> {
+public class MainActivity extends AppCompatActivity implements MainContract.view, ManagerViewAction<Note>, RestoreNotesBackupOld {
 
     @Inject
     public MainContract.presenter mainPresenter;
@@ -249,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", false)
                 .putExtra("idNote", idNote)
+                .putExtra("shareText", "")
                 .putExtra("tagNote", ""));
     }
 
@@ -278,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         Tag tagSelected = tagsAdapter.getTagSelected();
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", true)
+                .putExtra("shareText", "")
                 .putExtra("tagNote", tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag()), ActivityOptions
                 .makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, "robot")
                 .toBundle());
@@ -286,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void moreActivity() {
         if (getAction()) actionUtils.closeActionPanel();
-        new OtherActivityDialog().show(getSupportFragmentManager(), "more activity");
+        new AboutDialog().show(getSupportFragmentManager(), "more activity");
 
     }
 
@@ -412,5 +416,23 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mNoteAdapter = null;
         tagsAdapter = null;
         startConfiguration = null;
+    }
+
+    @Override
+    public void errorProcessRestore() {
+        Snackbar.make(mActivityBinding.getRoot(), getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void successfullyProcessRestore(int countNotes) {
+        Snackbar.make(mActivityBinding.getRoot(),
+                getString(R.string.successfullyRestoreNotes, countNotes),
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void saveNoteRestore(Note newNote) {
+        mainPresenter.addNote(newNote);
+        Log.wtf("pasic", newNote.getTitle());
     }
 }

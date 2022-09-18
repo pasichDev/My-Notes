@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_center_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/trashActivityLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/trashN"
+            android:src="@drawable/ic_trash" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:text="@string/trashDeleteNotes"
+            android:textSize="@dimen/textSizeDialog" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/restoreOldBackups"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/restoreOldBackups"
+            android:src="@drawable/ic_restore_old" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:text="@string/restoreOldBackups"
+            android:textSize="@dimen/textSizeDialog" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/shareApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/shareApp"
+            android:src="@drawable/ic_share" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:text="@string/shareApp"
+            android:textSize="@dimen/textSizeDialog" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ratingApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/ratingApp"
+            android:src="@drawable/ic_like_rating" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:text="@string/ratingApp"
+            android:textSize="@dimen/textSizeDialog" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/ratingApp"
+            android:src="@drawable/ic_feedback" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:text="@string/settingsTitleContacts"
+            android:textSize="@dimen/textSizeDialog" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/whatUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_selected_item_round"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/whatUpdate"
+            android:src="@drawable/ic_about_dialog" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:text="@string/whatUpdate"
+            android:textSize="@dimen/textSizeDialog" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/privacyApp"
+            style="@style/styleAboutButtonBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacyApp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/interpunct"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/help"
+            style="@style/styleAboutButtonBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help" />
+
+    </LinearLayout>
+</LinearLayout>

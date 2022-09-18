@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name"> My Notes </string>
-    <string name="telegram_adrrs" translatable="false">/@andriipasichnik</string>
-    <string name="email_adrrs" translatable="false">pasichDev@gmail.com</string>
+    <string name="telegram_nick" translatable="false">"@"pasichDev</string>
+    <string name="email_address" translatable="false">pasichDev@gmail.com</string>
 
-    <string name="plusAdd" translatable="false">+</string>
+    <string name="interpunct" translatable="false">·</string>
     <string name="NewNote"> Create note </string>
     <string name="title_activity_settings"> Settings </string>
     <string name="settings"> Settings </string>
-    <string name="verApp" translatable="false"> versionApp </string>
-    <string name="author" translatable="false"> Andrii Pasichnik (pasichDev) </string>
-    <string name="ThemeToolbar_title"> Color scheme </string>
     <string name="trashNotes">Move to trash</string>
     <string name="trashN"> Trash </string>
     <string name="trashClean">Trash Clean</string>
-    <string name="saveNotes">Save notes</string>
     <string name="share">Share</string>
     <string name="yesCleanTrash">Yes, clear</string>
     <string name="cancel">Cancel</string>
     <string name="shareNull">Nothing to share!</string>
-    <string name="sendDev">Communication with developers</string>
     <string name="telegram">Open developer contacts</string>
     <string name="whatUpdate">Whats new?</string>
     <string name="save">Save</string>
-    <string name="warning">Warning</string>
 
     <string name="errorInternetConectSpeech"> No internet connection. Check the internet availability. </string>
     <string name="error_TTS"> Speech service not found </string>
@@ -32,46 +26,14 @@
     <string name="errorPermisions_Message"> To be able to use this function, you need to grant permission to record audio.
     To do this, open the About app -> Permissions menu and allow using the microphone </string>
 
-    <string name="open_PlayMarket"> Open Play Market </string>
-    <string name="holdOn"> Hold … </string>
     <string name="holdOnSpeec"> Hold and talk </string>
-    <string name="open_infoApp"> About the app </string>
     <string name="notes"> Notes </string>
-    <string name="viceNotes"> Voice Notes </string>
-    <string name="continueNext"> Continue </string>
     <string name="noSave"> Close without saving </string>
-    <string name="lineSetSPech"> One line </string>
-    <string name="paragraphSetSpech"> From new paragraph </string>
-    <string name="mainPrefences"> Main </string>
-    <string name="recoveryCopy"> Backups </string>
-    <string name="speechPrefences"> Speech Settings </string>
     <string name="infoAppPrefences"> About App </string>
-    <string name="comunicateDev"> Link </string>
     <string name="ratingApp"> Rate this app </string>
-    <string name="importsNotes"> Import Notes </string>
-    <string name="exportsNotes"> Export notes </string>
-    <string name="importsNotesSymmary"> Restore notes from local storage </string>
-    <string name="exportsNotesSymmary"> Save backup to local storage </string>
-    <string name="Function_not_available"> Function not available </string>
-    <string name="pressToInfo"> Click to view details </string>
-    <string name="spechPrefences"> Speech recognition settings </string>
-    <string name="spechLaunguage"> Select recognition language </string>
-    <string name="setSpechOutputText"> Write mode for received text </string>
-    <string name="autoSave"> Auto save notes </string>
-    <string name="autoSaveSummary"> Save the note when you call or accidentally exit the application </string>
-    <string name="interaction"> Interaction </string>
     <string name="emptySpeec"> Can\'t hear you please try again </string>
-    <string name="spechToListen"> Speak, I\'m listening .. </string>
-    <string name="defaultLangVoiece">Default devices</string>
     <string name="exitWhat">To exit, you need to repeat the action</string>
 
-    <string name="languageGitLinkTitle">Source (Github)</string>
-    <string name="selectColorPrimaryApp">Choose the main color of the application</string>
-    <string name="ThemeToolbar_summary">Choose an app color scheme</string>
-    <string name="fontStyleBold">Bold</string>
-    <string name="fontStyleNormal">Standard</string>
-    <string name="fontStyleItalic">Italic</string>
-    <string name="fontStyleBoldItalic">Bold-Italic</string>
     <string name="notFoundPlayMarket">Missing Play Market app</string>
 
 
@@ -89,12 +51,7 @@
     <string name="notSupportedShare">This content is not supported.</string>
     <string name="error">Error</string>
     <string name="notSource">This note has no attachments.</string>
-    <string name="cd_emptyTrash">Trash empty</string>
     <string name="copyX">Copied</string>
-    <string name="investments">Investments</string>
-    <string name="copyNotesTo">Moving a note</string>
-    <string name="cd_remind">Reminder</string>
-    <string name="cd_sort">Sort</string>
     <string name="cd_format">Format notes</string>
 
     <string name="search" translatable="false">Поиск в заметках </string>
@@ -104,11 +61,6 @@
     <string name="createTag" translatable="false">Создать метку</string>
     <string name="deleteTag" translatable="false">Удалить метку</string>
     <string name="deleteTagAndNotes" translatable="false">Удалить метку и отмеченные заметки</string>
-
-    <string name="nameTagInput" translatable="false">Введите название метки</string>
-
-    <string name="splashEnablePrefTitle" translatable="false">Заставка при запуске</string>
-    <string name="splashEnablePrefSummary" translatable="false">Показывать заставку при открытии приложения</string>
 
     <string name="countTagsError" translatable="false">Нельзя создать больше %1$s меток</string>
 
@@ -124,7 +76,6 @@
     <string name="selectTagForNote" translatable="false">Добавить метку</string>
     <string name="editSelectTagForNote" translatable="false">Изменить метку</string>
 
-    <string name="noTag" translatable="false">Без метки</string>
     <string name="createNewTag" translatable="false">Название метки</string>
 
     <string name="emptyListMain" translatable="false">Здесь будуть ваши заметки.</string>
@@ -146,10 +97,6 @@
     <string name="layoutStringInfoTags" translatable="false">Отмечено %1$s заметок</string>
 
 
-    <string name="aboutApp" translatable="false">О приложении</string>
-    <string name="settingsVoice" translatable="false">Настройки голосового ввода</string>
-    <string name="settingsTitle" translatable="false"> Общие настройки</string>
-    <string name="information" translatable="false">Информация</string>
     <string name="settingsTitleContacts" translatable="false">Обратная связь</string>
 
     <string name="shareApp" translatable="false">Поделиться приложением</string>
@@ -158,8 +105,6 @@
     <string name="shareAppText" translatable="false"> Рекомендую "Мои Заметки" /n
     https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
 
-    <string name="settingsParticipation" translatable="false">Настройки взаимодействия</string>
-
 
     <string name="addShortCutLauncher" translatable="false">Добавить ярлык на рабочий стол</string>
     <string name="addShortCutSuccessfully" translatable="false">Добавления ярлыка выполнено успешно</string>
@@ -167,10 +112,6 @@
     <string name="translateNote" translatable="false">Перевести заметку</string>
 
     <string name="sourceNotes" translatable="false">Вложения</string>
-
-    <string name="tel" translatable="false">Номера телефонов</string>
-    <string name="links" translatable="false">Ссылки</string>
-    <string name="mail" translatable="false">Email</string>
 
 
     <string name="hintTextNote" translatable="false">Текст</string>
@@ -182,4 +123,26 @@
     <string name="lastDateEditNote" translatable="false">Последнее изменение: %1$s </string>
     <string name="restore" translatable="false">Восстановить заметки</string>
     <string name="showActionPanel" translatable="false">Спятать/Показать ActionPanel</string>
+
+    <string name="help" translatable="false">Помощь</string>
+    <string name="trashDeleteNotes" translatable="false">Удаленные заметки (Корзина)</string>
+    <string name="restoreOldBackups" translatable="false">Восстановить заметки</string>
+
+
+    <string name="writeMe" translatable="false">Мои контакты</string>
+    <string name="noteSaved" translatable="false">Заметку сохранено</string>
+
+
+    <string name="restoreBackup" translatable="false">Восстановить заметки</string>
+    <string name="restoreBackupMessages" translatable="false">В этом окне вы можете восстановить заметки из старых резервных копий.
+        Эта функция будет поддерживаться ещё несколько обновлений, потом она будет удалена,
+        а на замену придет синхронизация з Google.
+    </string>
+    <string name="restoreBackupMessageTwo" translatable="false">  Новые заметки будут добавленные до уже существующих, а дубликаты будут проигнорированые!</string>
+    <string name="selectedArchive" translatable="false">Выбрать рез. копию</string>
+    <string name="loadingProgress" translatable="false">Ожидайте, идет обработка данных</string>
+
+    <string name="errorEmptyNotesRestore" translatable="false">Ошибка: Данный архив либо поврежден, или не содержит заметок</string>
+    <string name="successfullyRestoreNotes" translatable="false">Успешно: Заметок восстановленно: %1$d </string>
+
 </resources>

@@ -6,13 +6,11 @@ plugins {
 android {
     compileSdkVersion 32
     buildToolsVersion "30.0.3"
-    lintOptions {
-        abortOnError false
-    }
     buildFeatures {
         viewBinding true
         dataBinding true
     }
+
 
     defaultConfig {
         applicationId "com.pasich.mynotes"
@@ -46,6 +44,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     namespace 'com.pasich.mynotes'
+    lint {
+        abortOnError false
+    }
 }
 
 ext {

@@ -61,5 +61,7 @@ public interface MainContract {
         void deleteNote(Note note);
 
         void deleteNotesArray(ArrayList<Note> notes);
+
+        void addNote(Note note);
     }
 }

@@ -74,7 +74,7 @@
         <activity
             android:name=".ui.view.activity.ShareActivity"
             android:exported="true"
-            android:label="@string/saveNotes">
+            android:label="@string/NewNote">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
