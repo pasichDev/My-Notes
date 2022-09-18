@@ -1,161 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoteActivity">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="presenter"
-            type="com.pasich.mynotes.ui.presenter.NotePresenter" />
-
-        <variable
-            name="activateEdit"
-            type="boolean"
-            android:value="false" />
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/noteLayout"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.view.activity.NoteActivity">
+        android:layout_marginBottom="44dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <include
             android:id="@+id/toolbar_actionbar"
-            layout="@layout/view_toolbar_note" />
+            layout="@layout/toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            android:nestedScrollingEnabled="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+
+            <EditText
+                android:id="@+id/newNotesTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/notesTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:autofillHints="no"
-                    android:background="@null"
-                    android:enabled="@{activateEdit, default=false}"
-                    android:focusable="@{activateEdit, default=false}"
-                    android:focusableInTouchMode="@{activateEdit, default=false}"
-                    android:fontFamily="@font/railway_medium"
-                    android:hint="@string/noteTitle"
-                    android:inputType="textMultiLine"
-                    android:maxLength="@integer/maxLengthNotesTitle"
-                    android:maxLines="@integer/countLinesNoteTitle"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:textColor="@drawable/textview_colors"
-                    android:textStyle="bold"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <EditText
-                    android:id="@+id/valueNote"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:autofillHints="no"
-                    android:background="#00FFFFFF"
-                    android:enabled="@{activateEdit, default=false}"
-                    android:focusable="@{activateEdit, default=false}"
-                    android:focusableInTouchMode="@{activateEdit, default=false}"
-                    android:gravity="start|top"
-                    android:hint="@string/hintTextNote"
-                    android:inputType="textAutoComplete|text|textCapSentences|textMultiLine"
-                    android:longClickable="true"
-                    android:maxLength="@integer/maxLengthNotesTextValue"
-                    android:minHeight="100dp"
-                    android:padding="20dp"
-                    android:textColor="@drawable/textview_colors" />
-
-            </LinearLayout>
+                android:autofillHints="no"
+                android:background="#00FFFFFF"
+                android:ems="12"
+                android:gravity="start|top"
+                android:inputType="none|text|textCapSentences|textMultiLine"
+                android:minHeight="100dp"
+                android:padding="10dp"
+                android:textColor="?attr/colorTextNote"
+                android:textSize="16sp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
         </ScrollView>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/recordMessges"
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editNotesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="22dp"
+        android:contentDescription="@string/EditNote"
+        app:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_edit"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/spechTextNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="22dp"
+        android:contentDescription="@string/holdOnSpeec"
+        android:visibility="invisible"
+        app:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/editNotesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_mic"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/spechStartText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/holdOn"
+        android:text="@string/holdOn"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/spechTextNote"
+        app:layout_constraintTop_toTopOf="@+id/spechTextNote" />
+
+    <ImageView
+        android:id="@+id/imageSpechVolume"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/spechStartText"
+        app:layout_constraintTop_toTopOf="@+id/spechTextNote"
+        app:srcCompat="@drawable/ic_spech_voice" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/shareButton"
+            style="?android:attr/actionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/background_button_note"
-            android:visibility="gone"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@string/share"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toEndOf="@+id/deleteButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_share" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_vizual_audio" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <LinearLayout
-            android:id="@+id/actionPanel"
+        <ImageButton
+            android:id="@+id/sourceButton"
+            style="?android:attr/actionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_action_panel"
-            android:orientation="horizontal"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@string/investments"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:padding="4dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_source" />
 
-            <ImageButton
-                android:id="@+id/sourceStart"
-                style="@style/iconDialogList"
-                android:contentDescription="@string/sourceNotes"
-                android:onClick="@{(view) -> presenter.sourceNote()}"
-                app:layout_constraintEnd_toStartOf="@+id/speechStart"
-                app:srcCompat="@drawable/ic_source"
-                app:tint="@color/white"
-                tools:ignore="TouchTargetSizeCheck" />
+        <ImageButton
+            android:id="@+id/remindButton"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@string/cd_remind"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sourceButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_remind" />
 
-            <ImageButton
-                android:id="@+id/editActive"
-                style="@style/iconDialogList"
-                android:contentDescription="@string/editSelectTagForNote"
-                android:onClick="@{(view) -> presenter.activateEditNote()}"
-                android:visibility="@{activateEdit ? View.GONE : View.VISIBLE}"
-                app:srcCompat="@drawable/ic_edit"
-
-                app:tint="@color/white"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <ImageButton
-                android:id="@+id/speechStart"
-                style="@style/iconDialogList"
-                android:contentDescription="@string/holdOnSpeec"
-                android:visibility="@{activateEdit ? View.VISIBLE : View.GONE}"
-                app:srcCompat="@drawable/ic_mic"
-                app:tint="@color/white"
-                tools:ignore="TouchTargetSizeCheck" />
-        </LinearLayout>
-
-
+        <ImageButton
+            android:id="@+id/deleteButton"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@string/cd_deleteNote"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/remindButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
