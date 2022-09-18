@@ -20,4 +20,3 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# Fix OAuth Drive API failure for release builds
