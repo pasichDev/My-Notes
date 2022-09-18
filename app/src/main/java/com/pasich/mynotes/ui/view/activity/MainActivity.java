@@ -249,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", false)
                 .putExtra("idNote", idNote)
+                .putExtra("shareText", "")
                 .putExtra("tagNote", ""));
     }
 
@@ -278,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         Tag tagSelected = tagsAdapter.getTagSelected();
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", true)
+                .putExtra("shareText", "")
                 .putExtra("tagNote", tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag()), ActivityOptions
                 .makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, "robot")
                 .toBundle());
