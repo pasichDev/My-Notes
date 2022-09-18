@@ -146,5 +146,14 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         }
     }
 
+    @Override
+    public void addNote(Note note) {
+        try {
+            notesRepository.addNote(note);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

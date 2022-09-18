@@ -65,6 +65,11 @@ public class AboutDialog extends DialogFragment {
             new FeedbackDialog().show(getParentFragmentManager(), "WhatsUpdate");
             dismiss();
         });
+        builder.findViewById(R.id.restoreOldBackups).setOnClickListener(v -> {
+            new RestoreBackupDialog().show(getParentFragmentManager(), "WhatsUpdate");
+            dismiss();
+        });
+
         return builder;
     }
 

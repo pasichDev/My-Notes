@@ -130,7 +130,19 @@
 
 
     <string name="writeMe" translatable="false">Мои контакты</string>
-
     <string name="noteSaved" translatable="false">Заметку сохранено</string>
+
+
+    <string name="restoreBackup" translatable="false">Восстановить заметки</string>
+    <string name="restoreBackupMessages" translatable="false">В этом окне вы можете восстановить заметки из старых резервных копий.
+        Эта функция будет поддерживаться ещё несколько обновлений, потом она будет удалена,
+        а на замену придет синхронизация з Google.
+    </string>
+    <string name="restoreBackupMessageTwo" translatable="false">  Новые заметки будут добавленные до уже существующих, а дубликаты будут проигнорированые!</string>
+    <string name="selectedArchive" translatable="false">Выбрать рез. копию</string>
+    <string name="loadingProgress" translatable="false">Ожидайте, идет обработка данных</string>
+
+    <string name="errorEmptyNotesRestore" translatable="false">Ошибка: Данный архив либо поврежден, или не содержит заметок</string>
+    <string name="successfullyRestoreNotes" translatable="false">Успешно: Заметок восстановленно: %1$d </string>
 
 </resources>
