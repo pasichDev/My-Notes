@@ -64,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/background_search_view"
                 android:closeIcon="@drawable/ic_close_search_view"
                 android:iconifiedByDefault="false"
