@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
@@ -169,6 +170,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                     }
                 });
 
+
+        mActivityBinding.listNotes.clearOnScrollListeners();
+        mActivityBinding.listNotes.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    mActivityBinding.newNotesButton.show();
+                } else {
+                    mActivityBinding.newNotesButton.hide();
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
 
     }
 
