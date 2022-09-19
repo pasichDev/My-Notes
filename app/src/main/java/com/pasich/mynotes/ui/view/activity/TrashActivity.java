@@ -161,7 +161,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void initActionUtils() {
-        actionUtils.createObject(getLayoutInflater(), binding.getRoot().findViewById(R.id.activity_trash));
+        actionUtils.createObject(binding.getRoot().findViewById(R.id.activity_trash));
         trashNoteActionTool.createObject(mNotesTrashAdapter);
         actionUtils.setTrash();
     }

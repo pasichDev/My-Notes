@@ -1,11 +1,11 @@
 package com.pasich.mynotes.utils.actionPanel;
 
-import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
@@ -14,13 +14,13 @@ public class ActionUtils {
 
     private static boolean ACTION_ON = false;
     private ActionPanelBinding binding;
-    private ConstraintLayout mViewRoot;
+    private CoordinatorLayout mViewRoot;
     private ManagerViewAction managerViewAction;
 
 
-    public void createObject(LayoutInflater inflater, ConstraintLayout view) {
+    public void createObject(CoordinatorLayout view) {
         this.mViewRoot = view;
-        this.binding = ActionPanelBinding.inflate(inflater);
+        this.binding = ActionPanelBinding.bind(view.findViewById(R.id.actionInclude));
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
         addActionPanel();
         setListener();
@@ -35,8 +35,9 @@ public class ActionUtils {
     }
 
     private void addActionPanel() {
-        mViewRoot.addView(binding.getRoot());
-        createConstraintSetActionPanel();
+        // mViewRoot.addView(binding.getRoot());
+        //   binding.actionPanel.setVisibility(View.GONE);
+        //    createConstraintSetActionPanel();
     }
 
     private void createConstraintSetActionPanel() {
@@ -53,9 +54,8 @@ public class ActionUtils {
                 ConstraintSet.BOTTOM,
                 50);
 
-        set.applyTo(mViewRoot);
+        //   set.applyTo(mViewRoot);
 
-        binding.actionPanel.setVisibility(View.GONE);
     }
 
     public void setTrash() {
@@ -85,7 +85,7 @@ public class ActionUtils {
      */
     private void activateActionPanel() {
         managerViewAction.activateActionPanel();
-        binding.actionPanel.setVisibility(View.VISIBLE);
+        mViewRoot.findViewById(R.id.actionInclude).setVisibility(View.VISIBLE);
     }
 
     /**
@@ -93,7 +93,7 @@ public class ActionUtils {
      */
     private void deactivationActionPanel() {
         managerViewAction.deactivationActionPanel();
-        binding.actionPanel.setVisibility(View.GONE);
+        mViewRoot.findViewById(R.id.actionInclude).setVisibility(View.GONE);
     }
 
     /**

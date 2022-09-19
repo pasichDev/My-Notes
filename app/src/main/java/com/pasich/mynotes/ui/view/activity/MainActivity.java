@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void initActionUtils() {
-        actionUtils.createObject(getLayoutInflater(), mActivityBinding.getRoot().findViewById(R.id.activity_main));
+        actionUtils.createObject(mActivityBinding.getRoot().findViewById(R.id.activity_main));
         noteActionTool.createObject(mNoteAdapter);
     }
 
@@ -175,11 +175,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mActivityBinding.listNotes.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    mActivityBinding.newNotesButton.show();
-                } else {
-                    mActivityBinding.newNotesButton.hide();
-                }
+                if (!getAction())
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        mActivityBinding.newNotesButton.show();
+                    } else {
+                        mActivityBinding.newNotesButton.hide();
+                    }
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
@@ -272,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @SuppressLint("StringFormatMatches")
     @Override
     public void startToastCheckCountTags() {
-        Snackbar.make(mActivityBinding.getRoot(), getString(R.string.countTagsError, MAX_TAG_COUNT), Snackbar.LENGTH_LONG).show();
+        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.countTagsError, MAX_TAG_COUNT), Snackbar.LENGTH_LONG).show();
     }
 
 
@@ -434,12 +435,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void errorProcessRestore() {
-        Snackbar.make(mActivityBinding.getRoot(), getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
+        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     @Override
     public void successfullyProcessRestore(int countNotes) {
-        Snackbar.make(mActivityBinding.getRoot(),
+        Snackbar.make(mActivityBinding.newNotesButton,
                 getString(R.string.successfullyRestoreNotes, countNotes),
                 BaseTransientBottomBar.LENGTH_LONG).show();
     }
