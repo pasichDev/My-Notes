@@ -61,7 +61,7 @@ public class RestoreBackupDialog extends BottomSheetDialogFragment {
     public void startProcess(Intent data) {
         binding.setStep(2);
         binding.titleView.headTextDialog.setVisibility(View.GONE);
-
+        requireDialog().setCanceledOnTouchOutside(false);
         new Thread(() -> {
             try {
                 ParcelFileDescriptor descriptor = requireContext().getContentResolver().openFileDescriptor(data.getData(), "r");

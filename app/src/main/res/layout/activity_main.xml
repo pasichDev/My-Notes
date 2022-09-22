@@ -143,6 +143,7 @@
             android:onClick="@{(view) -> presenter.newNotesClick()}"
             app:backgroundTint="?attr/colorPrimaryBackground"
             app:elevation="7dp"
+            app:layout_dodgeInsetEdges="bottom"
             app:layout_anchor="@id/list_notes"
             app:layout_anchorGravity="bottom|right|end"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
