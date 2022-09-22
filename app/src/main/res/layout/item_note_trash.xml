@@ -13,14 +13,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{Note.checked ? @drawable/item_note_background_selected :  @drawable/item_selected}"
+        android:background="@{Note.checked ? @drawable/item_note_checked :  @drawable/selector_item_note_unchecked}"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/nameNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:fontFamily="@font/railway_medium"
             android:maxLines="@integer/countLinesNoteTitle"
             android:text="@{Note.title}"
@@ -33,9 +34,7 @@
             android:id="@+id/previewNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginBottom="3dp"
             android:gravity="center_vertical"
             android:maxLines="@integer/maxLinesItemNoteValue"

@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/imageSource"
             style="@style/iconDialogList"
-            android:contentDescription="@string/shareApp"
+            android:contentDescription="@string/sourceNotes"
             android:src="@null" />
 
         <TextView

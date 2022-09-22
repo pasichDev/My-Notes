@@ -92,7 +92,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/background_button_note"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -109,7 +108,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_vizual_audio" />
+                app:srcCompat="@drawable/ic_delete_note" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -8,7 +8,7 @@
             <corners android:radius="@dimen/radiusBackgroundTag" />
             <solid android:color="@color/colorClick" />
             <padding
-                android:left="10dp"
+                android:left="15dp"
                 android:top="15dp"
                 android:right="15dp"
                 android:bottom="15dp" />

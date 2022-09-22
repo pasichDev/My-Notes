@@ -3,10 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="checkedTag"
             type="Boolean" />
+
         <variable
             name="tag"
             type="com.pasich.mynotes.data.tags.Tag" />
@@ -16,30 +19,28 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:background="@{checkedTag ? @drawable/item_tag_checked : @drawable/selector_item_tab_unchecked}"
         android:gravity="center"
-        android:padding="15dp"
-        android:background="@{checkedTag ? @drawable/tab_background_selected : @drawable/tab_background_unselected}"
-        android:layout_margin="5dp">
+        android:orientation="vertical"
+        android:padding="15dp">
 
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/addTag"
             android:visibility="@{tag.systemAction == 1 ? View.VISIBLE : View.GONE}"
-            app:srcCompat="@drawable/ic_add"
-            android:contentDescription="@string/addTag" />
+            app:srcCompat="@drawable/ic_add" />
 
         <TextView
             android:id="@+id/nameTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:text="@{tag.systemAction == 2 ?  @string/allNotes :  tag.nameTag}"
             android:textColor="@{checkedTag ? @color/white : @color/colorPrimaryVariantBlue}"
+            android:textStyle="bold"
             android:visibility="@{tag.systemAction != 1 ? View.VISIBLE : View.GONE}" />
-
-
     </LinearLayout>
 </layout>
