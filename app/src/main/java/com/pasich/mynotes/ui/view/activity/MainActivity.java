@@ -169,21 +169,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                     }
                 });
 
-/*
-        mActivityBinding.listNotes.clearOnScrollListeners();
-        mActivityBinding.listNotes.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                if (!getAction())
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        mActivityBinding.newNotesButton.show();
-                    } else {
-                        mActivityBinding.newNotesButton.hide();
-                    }
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
-*/
     }
 
     @Override
