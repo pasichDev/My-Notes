@@ -25,21 +25,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
+                android:layout_marginEnd="20dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView"
                     style="@style/headActivityText"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
-                    android:layout_marginTop="40dp"
-                    android:layout_weight="1"
+                    android:layout_gravity="bottom|start"
                     android:padding="6dp"
                     android:text="@string/notes" />
 
@@ -48,17 +50,15 @@
                     style="?android:attr/actionButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_weight="0"
+                    android:layout_gravity="bottom|end"
                     android:contentDescription="@string/more"
                     android:onClick="@{(view) -> presenter.moreActivityClick()}"
                     app:srcCompat="@drawable/ic_out_more" />
 
-            </LinearLayout>
+            </FrameLayout>
 
 
-            <android.widget.SearchView
+            <com.pasich.mynotes.utils.override.SearchViewNote
                 android:id="@+id/actionSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

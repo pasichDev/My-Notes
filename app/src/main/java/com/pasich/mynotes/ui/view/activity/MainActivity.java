@@ -12,7 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.AutoCompleteTextView;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,6 +92,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mainPresenter.attachView(this);
         mainPresenter.setDataManager(dataManager);
         mainPresenter.viewIsReady();
+
+
+        AutoCompleteTextView searchTextView = (AutoCompleteTextView)
+                mActivityBinding.actionSearch.findViewById(getResources().getIdentifier("android:id/search_src_text", null, null));
+
+
+        searchTextView.setOnClickListener(v ->
+        {
+            // mActivityBinding.actionSearch.setGravity(BOTTOM);
+            //   mActivityBinding.actionSearch.setLayoutParams();
+            Log.wtf("pasic", "searchView ");
+        });
 
     }
 
@@ -393,21 +405,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
     private void initializeButtonSearchView() {
-        LinearLayout mSearchView = (LinearLayout) mActivityBinding.actionSearch.getChildAt(0);
-        View mSearchViewLayout = View.inflate(this, R.layout.search_view_buttons, null);
-        mSearchView.addView(mSearchViewLayout);
-        formatList.init(SearchViewButtonsBinding.bind(mSearchViewLayout).formatButton);
-        mSearchViewLayout.findViewById(R.id.formatButton).setOnClickListener(view -> {
+        formatList.init(SearchViewButtonsBinding.bind(mActivityBinding.actionSearch).formatButton);
+        mActivityBinding.actionSearch.findViewById(R.id.formatButton).setOnClickListener(view -> {
             if (!getAction()) {
                 formatList.formatNote();
                 gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
             }
         });
 
-        mSearchViewLayout.findViewById(R.id.sortButton).setOnClickListener(view -> {
+        mActivityBinding.actionSearch.findViewById(R.id.sortButton).setOnClickListener(view -> {
             if (!getAction())
                 new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
         });
+
+
     }
 
 
