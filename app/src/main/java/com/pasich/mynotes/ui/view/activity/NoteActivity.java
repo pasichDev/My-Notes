@@ -70,6 +70,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     private Intent speechRecognizerIntent;
     private ActivityNoteBinding binding;
     private boolean exitNoSave = false;
+    private boolean clickActionPanelShow = false;
+    private final float rightSwipeActionPanel = 1.5F;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void init() {
         getApp().getComponentsHolder().getActivityComponent(getClass(), new NoteActivityModule()).inject(NoteActivity.this);
         binding.setPresenter((NotePresenter) notePresenter);
+        binding.setActivateActionPanel(true);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
         this.shareText = getIntent().getStringExtra("shareText");
@@ -139,6 +142,16 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             }
         });
 
+
+        binding.actionPanel.setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN && !clickActionPanelShow) {
+                hideActionPanel(view);
+            } else {
+                return false;
+            }
+            return true;
+        });
+
     }
 
     @Override
@@ -184,6 +197,16 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         else Toast.makeText(this, getString(R.string.notSource), Toast.LENGTH_SHORT).show();
 
 
+    }
+
+    @Override
+    public void showActionPanel() {
+        binding.setActivateActionPanel(true);
+        binding.actionPanel.animate()
+                .x((binding.actionPanel.getX() - binding.actionPanel.getWidth() / rightSwipeActionPanel))
+                .setDuration(0)
+                .start();
+        clickActionPanelShow = false;
     }
 
 
@@ -238,20 +261,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             else new MoreNoteDialog(mNote).show(getSupportFragmentManager(), "MoreNote");
         }
 
-        if (item.getItemId() == R.id.hiddenActionPanel) {
-            manageActionPanel(item);
-        }
-        return true;
-    }
 
-    private void manageActionPanel(MenuItem item) {
-        if (binding.actionPanel.getVisibility() == View.VISIBLE) {
-            binding.actionPanel.setVisibility(View.GONE);
-            item.setIcon(R.drawable.ic_panel);
-        } else {
-            binding.actionPanel.setVisibility(View.VISIBLE);
-            item.setIcon(R.drawable.ic_panel_hidden);
-        }
+        return true;
     }
 
 
@@ -376,6 +387,15 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void changeTextSizeOffline() {
         changeTextSizeOnline(dataManager.getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
+    }
+
+    private void hideActionPanel(View view) {
+        binding.setActivateActionPanel(false);
+        view.animate()
+                .x((view.getX() + view.getWidth() / rightSwipeActionPanel))
+                .setDuration(0)
+                .start();
+        clickActionPanelShow = true;
     }
 
 }

@@ -16,6 +16,11 @@
             type="boolean"
             android:value="false" />
 
+        <variable
+            name="activateActionPanel"
+            type="boolean"
+            android:value="false" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -124,12 +129,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="4dp">
 
+
+            <ImageButton
+                android:id="@+id/showActionPanel"
+                style="@style/iconDialogList"
+                android:contentDescription="@string/showActionPanelCd"
+                android:onClick="@{(view) -> presenter.showActionPanel()}"
+                app:srcCompat="@drawable/ic_show_action_panel"
+                app:tint="@color/white"
+                android:visibility="@{activateActionPanel ? View.GONE : View.VISIBLE, default = gone}"
+                tools:ignore="TouchTargetSizeCheck" />
+
+
             <ImageButton
                 android:id="@+id/sourceStart"
                 style="@style/iconDialogList"
                 android:contentDescription="@string/sourceNotes"
                 android:onClick="@{(view) -> presenter.sourceNote()}"
-                app:layout_constraintEnd_toStartOf="@+id/speechStart"
+                android:visibility="@{!activateActionPanel ? View.GONE : View.VISIBLE, default = visible}"
                 app:srcCompat="@drawable/ic_source"
                 app:tint="@color/white"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -141,7 +158,6 @@
                 android:onClick="@{(view) -> presenter.activateEditNote()}"
                 android:visibility="@{activateEdit ? View.GONE : View.VISIBLE}"
                 app:srcCompat="@drawable/ic_edit"
-
                 app:tint="@color/white"
                 tools:ignore="TouchTargetSizeCheck" />
 
