@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                     }
                 });
 
-
+/*
         mActivityBinding.listNotes.clearOnScrollListeners();
         mActivityBinding.listNotes.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-
+*/
     }
 
     @Override
@@ -228,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void settingsNotesList(LiveData<List<Note>> noteList) {
         mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
         mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
-
+        mActivityBinding.listNotes.setNestedScrollingEnabled(true);
         mNoteAdapter = new GenericNoteAdapter<>(new DiffUtilNote(),
                 R.layout.item_note,
                 (binder, model) -> {

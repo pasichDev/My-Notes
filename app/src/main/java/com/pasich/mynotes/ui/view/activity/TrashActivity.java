@@ -6,6 +6,7 @@ import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -60,6 +61,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         trashPresenter.setDataManager(dataManager);
         trashPresenter.viewIsReady();
 
+
     }
 
     @Override
@@ -88,9 +90,8 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void settingsActionBar() {
-        setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
+        setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -120,9 +121,12 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
-            if (getAction()) actionUtils.closeActionPanel();
-            finish();
+            if (getAction()) {
+                actionUtils.closeActionPanel();
+            } else
+                finish();
         }
+
         return true;
     }
 
@@ -169,12 +173,12 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void activateActionPanel() {
-        binding.cleanTrash.setEnabled(false);
+        binding.cleanTrash.setVisibility(View.GONE);
     }
 
     @Override
     public void deactivationActionPanel() {
-        binding.cleanTrash.setEnabled(true);
+        binding.cleanTrash.setVisibility(View.VISIBLE);
     }
 
     @Override

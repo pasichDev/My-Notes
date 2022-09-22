@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -16,63 +16,56 @@
             type="boolean" />
     </data>
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/activity_trash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.view.activity.TrashActivity">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fitsSystemWindows="true">
 
-        <LinearLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:fitsSystemWindows="true"
+                app:expandedTitleMarginStart="20dp"
+                app:expandedTitleTextAppearance="@style/TextAppearanceTitleActivity"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@string/trashN">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    app:layout_collapseMode="pin" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ListTrash"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/toolbar_actionbar"
-                layout="@layout/view_toolbar" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/headTextTitle"
-                    style="@style/headActivityText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/trashN"
-                    android:layout_weight="1"
-                    android:padding="5dp" />
-
-                <ImageButton
-                    android:id="@+id/cleanTrash"
-                    style="?android:attr/actionButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/trashClean"
-                    android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
-                    android:onClick="@{(view) -> presenter.cleanTrashDialogStart()}"
-                    app:srcCompat="@drawable/ic_trash_menu"
-                    app:tint="@color/black" />
-
-            </LinearLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ListTrash"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
-                android:layoutAnimation="@anim/recycle_view_animation"
-                android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager" />
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:clipToPadding="false"
+            android:layoutAnimation="@anim/recycle_view_animation"
+            android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layout_behavior=".utils.behavior.ScrollFabBehavior" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/emptyListVIew"
@@ -92,28 +85,46 @@
 
             <TextView
                 android:id="@+id/emptyListText"
-                android:fontFamily="@font/railway_medium"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:textStyle="normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/railway_medium"
+                android:gravity="center"
                 android:text="@string/emptyListTrash"
+                android:textSize="24sp"
+                android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cleanTrash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/trashClean"
+            android:onClick="@{(view) -> presenter.cleanTrashDialogStart()}"
+            android:src="@drawable/ic_trash"
+            android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
+            app:backgroundTint="?attr/colorPrimaryBackground"
+            app:layout_anchor="@id/ListTrash"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
+            app:tint="@color/white" />
+
 
         <include
             android:id="@+id/actionInclude"
             layout="@layout/action_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_anchorGravity="bottom|right|end"
             android:layout_gravity="bottom|end"
             android:layout_margin="15dp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_anchorGravity="bottom|right|end" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
