@@ -65,7 +65,7 @@
             android:layoutAnimation="@anim/recycle_view_animation"
             android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:layout_behavior=".utils.behavior.ScrollFabBehavior" />
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/emptyListVIew"
