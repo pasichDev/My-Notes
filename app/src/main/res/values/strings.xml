@@ -146,5 +146,6 @@
     <string name="successfullyRestoreNotes" translatable="false">Успешно: Заметок восстановленно: %1$d </string>
 
     <string name="showActionPanelCd" translatable="false">Показать Action Panel</string>
+    <string name="searchNotesFromTitle" translatable="false">Введите заголовок заметки</string>
 
 </resources>

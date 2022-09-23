@@ -57,22 +57,57 @@
 
             </FrameLayout>
 
-
-            <com.pasich.mynotes.utils.override.SearchViewNote
-                android:id="@+id/actionSearch"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_search_view"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/background_search_view"
-                android:closeIcon="@drawable/ic_close_search_view"
-                android:iconifiedByDefault="false"
-                android:queryBackground="@null"
-                android:queryHint="@string/search"
-                android:searchHintIcon="@drawable/ic_search"
-                android:searchIcon="@drawable/ic_search"
-                tools:targetApi="lollipop_mr1" />
+                android:orientation="horizontal">
+
+                <ImageButton
+                    style="?android:attr/actionButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:onClick="@{View -> presenter.startSearchDialog()}"
+                    android:contentDescription="@string/search"
+                    android:src="@drawable/ic_search" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:text="@string/search"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textColor="@color/darkLight"
+                    android:onClick="@{View -> presenter.startSearchDialog()}"
+                    android:textSize="18sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/sortButton"
+                    style="?android:attr/actionButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:onClick="@{View -> presenter.sortButton()}"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/sortHead"
+                    android:src="@drawable/ic_sort" />
+
+                <ImageButton
+                    android:id="@+id/formatButton"
+                    style="?android:attr/actionButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:onClick="@{View -> presenter.formatButton()}"
+                    android:contentDescription="@string/cd_format"
+                    android:src="@drawable/ic_edit_format_list" />
+
+
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_tags"

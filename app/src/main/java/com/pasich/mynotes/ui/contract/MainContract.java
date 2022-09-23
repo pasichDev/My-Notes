@@ -41,6 +41,11 @@ public interface MainContract {
 
         void initActionUtils();
 
+        void sortButton();
+
+        void formatButton();
+
+        void startSearchDialog();
     }
 
     interface presenter extends MyPresenter<view> {
@@ -63,5 +68,11 @@ public interface MainContract {
         void deleteNotesArray(ArrayList<Note> notes);
 
         void addNote(Note note);
+
+        void sortButton();
+
+        void formatButton();
+
+        void startSearchDialog();
     }
 }

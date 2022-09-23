@@ -14,8 +14,7 @@ import com.pasich.mynotes.ui.contract.MainContract;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MainPresenter extends PresenterBase<MainContract.view>
-        implements MainContract.presenter {
+public class MainPresenter extends PresenterBase<MainContract.view> implements MainContract.presenter {
 
     private DataManager data;
     private TagsRepository tagsRepository;
@@ -89,14 +88,10 @@ public class MainPresenter extends PresenterBase<MainContract.view>
             if (tag.getSystemAction() == 1) {
                 if (tagsRepository.getCountTagAll() >= MAX_TAG_COUNT) {
                     getView().startToastCheckCountTags();
-                } else
-                    getView().startCreateTagDialog();
+                } else getView().startCreateTagDialog();
             } else {
                 getView().selectTagUser(position);
-                notesRepository.setNotesAll(tag.getSystemAction() == 2 ?
-                        notesRepository.getNotes()
-                        :
-                        notesRepository.getNotesFromTag(tag.getNameTag()));
+                notesRepository.setNotesAll(tag.getSystemAction() == 2 ? notesRepository.getNotes() : notesRepository.getNotesFromTag(tag.getNameTag()));
 
 
                 //position,
@@ -153,6 +148,21 @@ public class MainPresenter extends PresenterBase<MainContract.view>
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void sortButton() {
+        getView().sortButton();
+    }
+
+    @Override
+    public void formatButton() {
+        getView().formatButton();
+    }
+
+    @Override
+    public void startSearchDialog() {
+        getView().startSearchDialog();
     }
 
 

@@ -28,7 +28,6 @@ public class NotesRepository {
     private NotesRepository(Executor executor, NoteDao noteDao) {
         this.executor = executor;
         this.noteDao = noteDao;
-     //   loadingNotes();
     }
 
     public static NotesRepository getInstance(NoteDao noteDao) {
@@ -38,9 +37,6 @@ public class NotesRepository {
         return instance;
     }
 
-    public LiveData<List<Note>> getNotesAll() {
-        return notesAll;
-    }
 
     public void setNotesAll(List<Note> value) {
         notesAll.postValue(value);

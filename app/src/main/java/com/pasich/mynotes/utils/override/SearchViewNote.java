@@ -2,6 +2,8 @@ package com.pasich.mynotes.utils.override;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -43,4 +45,9 @@ public class SearchViewNote extends SearchView {
     }
 
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.wtf("pasic", "onTouchEvent: " + event);
+        return super.onTouchEvent(event);
+    }
 }

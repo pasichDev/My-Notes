@@ -12,8 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -31,7 +29,6 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
-import com.pasich.mynotes.databinding.SearchViewButtonsBinding;
 import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
@@ -39,6 +36,7 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
@@ -94,16 +92,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mainPresenter.viewIsReady();
 
 
-        AutoCompleteTextView searchTextView = (AutoCompleteTextView)
-                mActivityBinding.actionSearch.findViewById(getResources().getIdentifier("android:id/search_src_text", null, null));
-
-
-        searchTextView.setOnClickListener(v ->
-        {
-            // mActivityBinding.actionSearch.setGravity(BOTTOM);
-            //   mActivityBinding.actionSearch.setLayoutParams();
-            Log.wtf("pasic", "searchView ");
-        });
 
     }
 
@@ -126,6 +114,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void initActionUtils() {
         actionUtils.createObject(mActivityBinding.getRoot().findViewById(R.id.activity_main));
         noteActionTool.createObject(mNoteAdapter);
+    }
+
+    @Override
+    public void sortButton() {
+        if (!getAction())
+            new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
+    }
+
+    @Override
+    public void formatButton() {
+        if (!getAction()) {
+            formatList.formatNote();
+            gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
+        }
+    }
+
+    @Override
+    public void startSearchDialog() {
+        new SearchDialog().show(getSupportFragmentManager(), "SearchDialog");
     }
 
 
@@ -167,19 +174,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
                 });
 
-        mActivityBinding.actionSearch.setOnQueryTextListener(
-                new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-
-                        return false;
-                    }
-                });
 
     }
 
@@ -196,8 +190,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void settingsSearchView() {
-        mActivityBinding.actionSearch.setEnabled(false);
-        initializeButtonSearchView();
+        formatList.init(mActivityBinding.formatButton);
+
     }
 
 
@@ -404,22 +398,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
 
-    private void initializeButtonSearchView() {
-        formatList.init(SearchViewButtonsBinding.bind(mActivityBinding.actionSearch).formatButton);
-        mActivityBinding.actionSearch.findViewById(R.id.formatButton).setOnClickListener(view -> {
-            if (!getAction()) {
-                formatList.formatNote();
-                gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
-            }
-        });
 
-        mActivityBinding.actionSearch.findViewById(R.id.sortButton).setOnClickListener(view -> {
-            if (!getAction())
-                new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
-        });
-
-
-    }
 
 
     private void variablesNull() {
