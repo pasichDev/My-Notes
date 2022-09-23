@@ -62,7 +62,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     public void cleanResult() {
         if (listNotes.size() >= 1) {
             listNotes.clear();
-            notifyDataSetChanged();
+         //   notifyDataSetChanged();
         }
     }
 

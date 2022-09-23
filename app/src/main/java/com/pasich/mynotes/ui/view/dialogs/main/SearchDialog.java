@@ -12,6 +12,7 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -52,6 +53,7 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         searchDialogPresenter.setDataManager(dataManager);
         searchDialogPresenter.viewIsReady();
 
+
         return builder;
     }
 
@@ -71,9 +73,12 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
     @Override
     public void init() {
+
+
         fabNewNote.hide();
         builder.getBehavior().setHideable(false);
         builder.setCanceledOnTouchOutside(false);
+        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         binding.actionSearch.requestFocus();
         builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
@@ -120,7 +125,9 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
     @Override
     public void settingsListResult() {
-        binding.resultsList.setLayoutManager(new LinearLayoutManager(requireContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        linearLayoutManager.setReverseLayout(true);
+        binding.resultsList.setLayoutManager(linearLayoutManager);
         binding.resultsList.addItemDecoration(new SpacesItemDecoration(25));
         searchNotesAdapter = new SearchNotesAdapter();
         binding.resultsList.setAdapter(searchNotesAdapter);
