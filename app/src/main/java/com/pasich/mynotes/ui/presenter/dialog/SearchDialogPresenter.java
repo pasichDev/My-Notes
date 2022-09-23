@@ -26,13 +26,14 @@ public class SearchDialogPresenter extends PresenterBase<SearchDialogContract.vi
     public void viewIsReady() {
         getView().initFabButton();
         getView().init();
-        getView().initListeners();
         getView().settingsListResult();
         try {
             getView().createListenerSearch(notesRepository.getNotes());
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        getView().initListeners();
     }
 
     @Override

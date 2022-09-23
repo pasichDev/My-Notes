@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void startSearchDialog() {
+        mActivityBinding.layoutSearch.startAnimation(AnimationUtils.loadAnimation(this, R.anim.click_scale));
         new SearchDialog().show(getSupportFragmentManager(), "SearchDialog");
     }
 

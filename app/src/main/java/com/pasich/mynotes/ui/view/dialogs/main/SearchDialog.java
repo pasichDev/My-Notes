@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.view.dialogs.main;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -20,7 +21,8 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.DialogSearchBinding;
 import com.pasich.mynotes.ui.contract.dialog.SearchDialogContract;
 import com.pasich.mynotes.ui.presenter.dialog.SearchDialogPresenter;
-import com.pasich.mynotes.utils.adapters.SearchNotesAdapter;
+import com.pasich.mynotes.ui.view.activity.NoteActivity;
+import com.pasich.mynotes.utils.adapters.searchAdapter.SearchNotesAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -58,9 +60,8 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         super.onDismiss(dialog);
         fabNewNote.show();
         onDestroy();
-        requireActivity()
-                .getWindow()
-                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        closeKeyboard();
+
     }
 
     @Override
@@ -75,15 +76,17 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         builder.setCanceledOnTouchOutside(false);
         binding.actionSearch.requestFocus();
         builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-                .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
+        ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
     }
 
     @Override
     public void initListeners() {
-        binding.closeSearch.setOnClickListener(v -> {
-            dismiss();
+        binding.closeSearch.setOnClickListener(v -> dismiss());
+        searchNotesAdapter.setItemClickListener(idNote -> {
+            closeKeyboard();
+            startActivity(new Intent(requireActivity(), NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
         });
+
 
     }
 
@@ -126,23 +129,26 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
     @Override
     public void createListenerSearch(List<Note> mNotes) {
-        binding.actionSearch.setOnQueryTextListener(
-                new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
+        binding.actionSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
+            @Override
+            public boolean onQueryTextChange(String newText) {
 
-                        filter(newText, mNotes);
-                        return false;
-                    }
-                });
+                filter(newText, mNotes);
+                return false;
+            }
+        });
 
 
     }
 
+
+    private void closeKeyboard() {
+        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
 
 }
