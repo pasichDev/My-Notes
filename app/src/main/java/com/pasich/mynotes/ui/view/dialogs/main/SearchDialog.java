@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -32,11 +33,11 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
     private DialogSearchBinding binding;
     private BottomSheetDialog builder;
     private SearchNotesAdapter searchNotesAdapter;
+    private FloatingActionButton fabNewNote;
 
     public SearchDialog() {
         this.dataManager = new DataManager();
         this.searchDialogPresenter = new SearchDialogPresenter();
-
     }
 
     @NonNull
@@ -45,11 +46,6 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         binding = DialogSearchBinding.inflate(getLayoutInflater());
         builder.setContentView(binding.getRoot());
 
-
-        binding.actionSearch.requestFocus();
-
-
-        init();
         searchDialogPresenter.attachView(this);
         searchDialogPresenter.setDataManager(dataManager);
         searchDialogPresenter.viewIsReady();
@@ -60,15 +56,24 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
+        fabNewNote.show();
         onDestroy();
         requireActivity()
                 .getWindow()
                 .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    @Override
+    public void initFabButton() {
+        this.fabNewNote = requireActivity().findViewById(R.id.newNotesButton);
+    }
 
     @Override
     public void init() {
+        fabNewNote.hide();
+        builder.getBehavior().setHideable(false);
+        builder.setCanceledOnTouchOutside(false);
+        binding.actionSearch.requestFocus();
         builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                 .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
@@ -76,6 +81,9 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
     @Override
     public void initListeners() {
+        binding.closeSearch.setOnClickListener(v -> {
+            dismiss();
+        });
 
     }
 
@@ -102,6 +110,7 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         super.onDestroy();
         binding = null;
         builder = null;
+        searchNotesAdapter = null;
         searchDialogPresenter.detachView();
         dataManager = null;
     }
@@ -134,4 +143,6 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
 
     }
+
+
 }

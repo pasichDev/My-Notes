@@ -394,13 +394,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
 
-    private void addArrayFromNotesAdapter(LiveData<List<Note>> noteList) {
-
-    }
-
-
-
-
 
     private void variablesNull() {
         mNoteAdapter = null;
@@ -410,7 +403,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void errorProcessRestore() {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
+        Snackbar.make(mActivityBinding.newNotesButton,
+                getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     @Override
@@ -423,6 +417,5 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void saveNoteRestore(Note newNote) {
         mainPresenter.addNote(newNote);
-        Log.wtf("pasic", newNote.getTitle());
     }
 }

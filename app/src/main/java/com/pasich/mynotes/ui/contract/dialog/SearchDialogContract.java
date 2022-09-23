@@ -14,6 +14,8 @@ public interface SearchDialogContract {
         void settingsListResult();
 
         void createListenerSearch(List<Note> mNotes);
+
+        void initFabButton();
     }
 
     interface presenter extends MyPresenter<view> {
