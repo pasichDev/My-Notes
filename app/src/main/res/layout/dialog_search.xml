@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,21 +8,42 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resultsList"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="wrap_content" />
 
 
-    <SearchView
-        android:id="@+id/actionSearch"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/background_search_view"
-        android:closeIcon="@drawable/ic_close_search_view"
-        android:iconifiedByDefault="false"
-        android:queryBackground="@null"
-        android:queryHint="@string/searchNotesFromTitle"
-        android:searchIcon="@drawable/ic_search"
-        android:elevation="8dp" />
+        android:padding="20dp"
+        android:orientation="horizontal">
+
+        <SearchView
+            android:id="@+id/actionSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_search_view"
+            android:closeIcon="@drawable/ic_close_search_view"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@null"
+            android:layout_weight="1"
+            android:queryHint="@string/searchNotesFromTitle"
+            android:searchIcon="@drawable/ic_search"
+            android:elevation="8dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            android:background="@drawable/background_search_view"
+            android:backgroundTint="@color/colorPrimaryBackground"
+            android:src="@drawable/ic_close_search_view"
+            app:tint="@color/white" />
+
+    </LinearLayout>
 
 </LinearLayout>

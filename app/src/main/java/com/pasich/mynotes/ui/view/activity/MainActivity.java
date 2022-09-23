@@ -361,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     }
 
+
     @Override
     public void selectItemAction(Note note, int position) {
         if (note.getChecked()) {
