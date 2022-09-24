@@ -1,12 +1,9 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -62,7 +59,6 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         super.onDismiss(dialog);
         fabNewNote.show();
         onDestroy();
-        closeKeyboard();
 
     }
 
@@ -73,24 +69,20 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
     @Override
     public void init() {
-
-
         fabNewNote.hide();
-        builder.getBehavior().setHideable(false);
-        builder.setCanceledOnTouchOutside(false);
         builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         binding.actionSearch.requestFocus();
-        builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
     }
 
     @Override
     public void initListeners() {
-        binding.closeSearch.setOnClickListener(v -> dismiss());
-        searchNotesAdapter.setItemClickListener(idNote -> {
-            closeKeyboard();
-            startActivity(new Intent(requireActivity(), NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
+        binding.closeSearch.setOnClickListener(v -> {
+
+            binding.actionSearch.clearFocus();
+
+            dismiss();
         });
+        searchNotesAdapter.setItemClickListener(idNote -> startActivity(new Intent(requireActivity(), NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", "")));
 
 
     }
@@ -125,12 +117,15 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
     @Override
     public void settingsListResult() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-        linearLayoutManager.setReverseLayout(true);
-        binding.resultsList.setLayoutManager(linearLayoutManager);
+        binding.resultsList.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true));
+
         binding.resultsList.addItemDecoration(new SpacesItemDecoration(25));
         searchNotesAdapter = new SearchNotesAdapter();
         binding.resultsList.setAdapter(searchNotesAdapter);
+
+
+        //  SnapHelper snapHelper = new PagerSnapHelper();
+        //  snapHelper.attachToRecyclerView( binding.resultsList);
 
     }
 
@@ -151,11 +146,6 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         });
 
 
-    }
-
-
-    private void closeKeyboard() {
-        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 }

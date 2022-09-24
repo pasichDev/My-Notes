@@ -17,6 +17,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
 
     private List<Note> listNotes = new ArrayList<>();
     private SetItemClickListener mOnItemClickListener;
+    private int lastPosition = -1;
 
     public void setItemClickListener(SetItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
@@ -49,6 +50,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.ItemBinding.setNote(listNotes.get(position));
+
     }
 
 
@@ -62,7 +64,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     public void cleanResult() {
         if (listNotes.size() >= 1) {
             listNotes.clear();
-         //   notifyDataSetChanged();
+            notifyDataSetChanged();
         }
     }
 

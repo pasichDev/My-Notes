@@ -101,6 +101,9 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="behavior_draggable">false</item>
+        <item name="behavior_hideable">false</item>
     </style>
 
 </resources>

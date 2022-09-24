@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void startSearchDialog() {
         mActivityBinding.layoutSearch.startAnimation(AnimationUtils.loadAnimation(this, R.anim.click_scale));
+
         new SearchDialog().show(getSupportFragmentManager(), "SearchDialog");
     }
 
@@ -199,12 +200,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void settingsTagsList(LiveData<List<Tag>> tagList) {
+
         mActivityBinding.listTags.addItemDecoration(new SpacesItemDecoration(5));
-        mActivityBinding.listTags.setLayoutManager(
-                new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        );
 
         tagsAdapter = new TagsAdapter(new DiffUtilTag());
         mActivityBinding.listTags.setAdapter(tagsAdapter);
+
         tagList.observe(
                 this,
                 tags -> {
@@ -229,6 +232,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
                 });
 
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
+
+
         noteList.observe(this, notes -> {
             Log.wtf("pasic", "true observer ");
             mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));

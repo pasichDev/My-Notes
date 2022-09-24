@@ -64,7 +64,7 @@ public class MoreNoteDialog extends DialogFragment {
         });
 
 
-        if (mNote.getValue().length() >= 3) {
+        if (mNote.getValue().length() >= 2) {
             binding.share.setVisibility(View.VISIBLE);
             binding.share.setOnClickListener(v -> {
                 new ShareUtils(mNote, getActivity()).shareNotes();
