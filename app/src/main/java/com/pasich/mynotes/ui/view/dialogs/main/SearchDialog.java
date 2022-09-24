@@ -42,7 +42,7 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        builder = new BottomSheetDialog(requireContext(), R.style.TransparentDialog);
+        builder = new BottomSheetDialog(requireContext(), R.style.SearchDialog);
         binding = DialogSearchBinding.inflate(getLayoutInflater());
         builder.setContentView(binding.getRoot());
 
