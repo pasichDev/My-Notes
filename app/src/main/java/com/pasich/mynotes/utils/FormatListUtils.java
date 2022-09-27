@@ -1,5 +1,8 @@
 package com.pasich.mynotes.utils;
 
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_FORMAT_VALUE;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_FORMAT;
+
 import android.widget.ImageButton;
 
 import com.pasich.mynotes.R;
@@ -14,7 +17,7 @@ public class FormatListUtils {
     }
 
     private int getParamFormatValue() {
-        return PowerPreference.getDefaultFile().getInt("formatParam", 1);
+        return PowerPreference.getDefaultFile().getInt(ARGUMENT_PREFERENCE_FORMAT, ARGUMENT_DEFAULT_FORMAT_VALUE);
     }
 
     /**
@@ -23,11 +26,11 @@ public class FormatListUtils {
     public void formatNote() {
         switch (getParamFormatValue()) {
             case 1:
-                PowerPreference.getDefaultFile().setInt("formatParam", 2);
+                PowerPreference.getDefaultFile().setInt(ARGUMENT_PREFERENCE_FORMAT, 2);
                 buttonFormat.setImageResource(getParamIco(2));
                 break;
             case 2:
-                PowerPreference.getDefaultFile().setInt("formatParam", 1);
+                PowerPreference.getDefaultFile().setInt(ARGUMENT_PREFERENCE_FORMAT, 1);
                 buttonFormat.setImageResource(getParamIco(1));
                 break;
         }
