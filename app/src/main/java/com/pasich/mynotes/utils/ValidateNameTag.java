@@ -1,10 +1,11 @@
 package com.pasich.mynotes.utils;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
+import static com.preference.provider.PreferenceProvider.context;
 
+import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.pasich.mynotes.R;
@@ -12,11 +13,9 @@ import com.pasich.mynotes.R;
 
 public class ValidateNameTag {
     private final EditText mEditText;
-    private final Button mButtonSave;
 
-    public ValidateNameTag(EditText editText, Button buttonSave) {
+    public ValidateNameTag(EditText editText) {
         this.mEditText = editText;
-        this.mButtonSave = buttonSave;
         this.init();
     }
 
@@ -41,15 +40,17 @@ public class ValidateNameTag {
                 });
     }
 
+    @SuppressLint("StringFormatMatches")
     private void validateText(int length) {
         if (length >= MAX_NAME_TAG) {
-            mEditText.setBackgroundResource(R.drawable.background_normal_error);
-            mButtonSave.setEnabled(false);
+
+            mEditText.setError(context.getString(R.string.countTagsError, MAX_NAME_TAG));
+
         } else if (length == MAX_NAME_TAG - 1) {
             mEditText.setBackgroundResource(R.drawable.background_normal_input);
-            mButtonSave.setEnabled(true);
+            //  mButtonSave.setEnabled(true);
         }
-        if (length < 1) mButtonSave.setEnabled(false);
-        else if (length < MAX_NAME_TAG - 1) mButtonSave.setEnabled(true);
+        //   if (length < 1) mButtonSave.setEnabled(false);
+        //   else if (length < MAX_NAME_TAG - 1) mButtonSave.setEnabled(true);
     }
 }

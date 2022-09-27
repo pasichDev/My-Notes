@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/view_head_dialog" />
+    <include
+        android:id="@+id/includeHead"
+        layout="@layout/view_head_dialog" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroupSystem"

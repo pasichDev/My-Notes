@@ -1,21 +1,22 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
+import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
@@ -23,19 +24,21 @@ import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.DialogAddTagToNoteBinding;
 import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialog.TagDialogPresenter;
-import com.pasich.mynotes.utils.ValidateNameTag;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 
 public class TagDialog extends BottomSheetDialogFragment implements TagDialogContract.view {
 
+    public final DataManager dataManager;
     private final Note note;
     private final TagDialogPresenter dialogPresenter;
-    public final DataManager dataManager;
     public BottomSheetDialog builder;
     private DialogAddTagToNoteBinding binding;
+    private boolean errorText = true;
+
 
     public TagDialog(Note note) {
         this.note = note;
@@ -63,16 +66,12 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         dialogPresenter.detachView();
-        requireActivity()
-                .getWindow()
-                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
     public void initTitle() {
-        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
-        assert title != null;
-        title.setText(note.getTag().length() == 0 ? getString(R.string.selectTagForNote) : getString(R.string.editSelectTagForNote));
+        binding.includeHead.headTextDialog.setText(note.getTag().length() == 0 ? getString(R.string.selectTagForNote) : getString(R.string.editSelectTagForNote));
 
     }
 
@@ -97,10 +96,35 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
                 binding.addTagChip.setVisibility(View.VISIBLE);
                 binding.addTagChip.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     binding.includedInput.getRoot().setVisibility(View.VISIBLE);
-                    binding.includedInput.inputNameTag.requestFocus();
-                    builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-                    ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_FORCED);
+                    binding.includedInput.outlinedTextField.requestFocus();
+                    binding.includedInput.outlinedTextField.setEndIconOnClickListener(v -> saveTag());
+                    binding.includedInput.nameTag.setOnEditorActionListener((v, actionId, event) -> {
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            saveTag();
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    binding.includedInput.nameTag.addTextChangedListener(new TextWatcher() {
+
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            validateText(s.toString().trim().length());
+                        }
+                    });
+
+
                     binding.addTagChip.setVisibility(View.GONE);
 
                 });
@@ -118,18 +142,32 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
             });
         }
 
-        binding.includedInput.saveTag.setOnClickListener(
-                view1 -> {
-                    dialogPresenter.createTagNote(new Tag().create(binding.includedInput.inputNameTag.getText().toString()), note);
-                    dismiss();
-                });
-        new ValidateNameTag(binding.includedInput.inputNameTag, binding.includedInput.saveTag);
     }
 
 
     private void selectedTag(String nameChip) {
         if (!nameChip.equals(note.getTag())) {
             dialogPresenter.editTagNote(nameChip, note);
+            dismiss();
+        }
+    }
+
+    private void validateText(int length) {
+        if (length >= MAX_NAME_TAG) {
+            errorText = true;
+            binding.includedInput.outlinedTextField.setError(getString(R.string.errorNewTagInput, MAX_NAME_TAG));
+        } else if (length == MAX_NAME_TAG - 1) {
+            errorText = false;
+            binding.includedInput.outlinedTextField.setError(null);
+        }
+        if (length < 1) errorText = true;
+        else if (length < MAX_NAME_TAG - 1) errorText = false;
+    }
+
+
+    private void saveTag() {
+        if (!errorText) {
+            dialogPresenter.createTagNote(new Tag().create(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString()), note);
             dismiss();
         }
     }

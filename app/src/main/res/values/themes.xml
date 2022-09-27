@@ -1,11 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="ThemeBlue" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
+
+
+        <!-- Цвет фона дилоговых окон, цвет поля ввода-->
+        <item name="colorPrimary">@color/colorPrimaryBackground</item>
+
+
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
         <item name="colorBackground">@color/white</item>
         <item name="colorLight">@color/darkLight</item>
+
 
         <!-- Цвет фона дилоговых окон-->
         <item name="colorSurface">@color/white</item>

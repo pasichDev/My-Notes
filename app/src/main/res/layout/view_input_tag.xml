@@ -2,35 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/inputNameTag"
-        android:layout_width="0dp"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="@string/createNewTag"
-        android:enabled="true"
-        android:hint="@string/createNewTag"
-        android:inputType="textCapSentences|textImeMultiLine"
-        android:maxLength="20"
-        android:background="@drawable/background_normal_input"
-        android:maxLines="1"
-        android:layout_weight="1"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:padding="8dp" />
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_add_tag_dialog"
+        app:endIconTint="?attr/colorPrimary"
+        app:errorEnabled="true"
+        android:hint="@string/createNewTag"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <Button
-        android:id="@+id/saveTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryBackground"
-        android:text="@string/save"
-        android:enabled="false"
-        android:textColor="@color/white"
-        android:layout_margin="10dp"
-        android:padding="8dp" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameTag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textImeMultiLine" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 </LinearLayout>

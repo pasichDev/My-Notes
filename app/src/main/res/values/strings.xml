@@ -76,7 +76,7 @@
     <string name="selectTagForNote" translatable="false">Добавить метку</string>
     <string name="editSelectTagForNote" translatable="false">Изменить метку</string>
 
-    <string name="createNewTag" translatable="false">Название метки</string>
+    <string name="createNewTag" translatable="false">Введите название метки</string>
 
     <string name="emptyListMain" translatable="false">Здесь будуть ваши заметки.</string>
     <string name="emptyListTrash" translatable="false">Корзина пустая</string>
@@ -147,5 +147,8 @@
 
     <string name="showActionPanelCd" translatable="false">Показать Action Panel</string>
     <string name="searchNotesFromTitle" translatable="false">Введите заголовок заметки</string>
+
+    <string name="errorNewTagInput" translatable="false">Ошибка: Максимальное количество символов которое может содержать название метки  %1$d </string>
+
 
 </resources>
