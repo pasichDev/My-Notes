@@ -40,5 +40,5 @@ public interface NoteDao {
   Note getNoteForId(int idNote);
 
   @Query("INSERT INTO notes (title,value,date,tag) VALUES (:title,:value,:date, '')")
-  void moveToTrash(String title, String value, long date);
+  void moveToNotes(String title, String value, long date);
 }

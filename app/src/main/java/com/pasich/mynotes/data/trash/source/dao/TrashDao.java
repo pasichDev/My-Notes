@@ -20,9 +20,6 @@ public interface TrashDao {
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   void moveToTrash(TrashNote note);
 
-  @Query("INSERT INTO trash (title,value,date,type) VALUES (:title,:value,:date, 'note')")
-  void moveToTrash(String title, String value, long date);
-
   @Delete
   void deleteNote(TrashNote note);
 

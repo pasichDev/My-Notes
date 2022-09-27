@@ -54,6 +54,7 @@ import javax.inject.Inject;
 
 public class NoteActivity extends AppCompatActivity implements NoteContract.view, AudioPermission {
 
+    private final float rightSwipeActionPanel = 1.5F;
     @Inject
     public DataManager dataManager;
     @Inject
@@ -71,7 +72,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     private ActivityNoteBinding binding;
     private boolean exitNoSave = false;
     private boolean clickActionPanelShow = false;
-    private final float rightSwipeActionPanel = 1.5F;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,10 +202,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void showActionPanel() {
         binding.setActivateActionPanel(true);
-        binding.actionPanel.animate()
-                .x((binding.actionPanel.getX() - binding.actionPanel.getWidth() / rightSwipeActionPanel))
-                .setDuration(0)
-                .start();
+        binding.actionPanel.animate().x((binding.actionPanel.getX() - binding.actionPanel.getWidth() / rightSwipeActionPanel)).setDuration(0).start();
         clickActionPanelShow = false;
     }
 
@@ -303,6 +300,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void closeNoteActivity() {
+        exitNoSave = true;
         if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
         if (shareText.length() >= 2)
             Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
@@ -391,10 +389,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     private void hideActionPanel(View view) {
         binding.setActivateActionPanel(false);
-        view.animate()
-                .x((view.getX() + view.getWidth() / rightSwipeActionPanel))
-                .setDuration(0)
-                .start();
+        view.animate().x((view.getX() + view.getWidth() / rightSwipeActionPanel)).setDuration(0).start();
         clickActionPanelShow = true;
     }
 

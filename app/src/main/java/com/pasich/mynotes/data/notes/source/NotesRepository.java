@@ -103,7 +103,7 @@ public class NotesRepository {
 
     public void moveToNotes(ArrayList<TrashNote> notes) {
         for (TrashNote note : notes)
-            executor.execute(() -> noteDao.moveToTrash(note.getTitle(), note.getValue(), note.getDate()));
+            executor.execute(() -> noteDao.addNote(new Note().create(note.getTitle(), note.getValue(), note.getDate())));
     }
 
 }

@@ -20,6 +20,7 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
         tools:context=".ui.view.activity.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -122,7 +123,8 @@
 
 
         </com.google.android.material.appbar.AppBarLayout>
-            <androidx.recyclerview.widget.RecyclerView
+
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_notes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

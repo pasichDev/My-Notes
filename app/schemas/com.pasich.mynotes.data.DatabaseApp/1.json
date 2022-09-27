@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5082162cbcb853905a6e3afa0c0d5900",
+    "identityHash": "6942268b12a5e8e7f9fa30e2a6b4283e",
     "entities": [
       {
         "tableName": "tags",
@@ -108,7 +108,7 @@
       },
       {
         "tableName": "trash",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `value` TEXT, `date` INTEGER NOT NULL, `type` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `value` TEXT, `date` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -133,12 +133,6 @@
             "columnName": "date",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "TEXT",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -147,14 +141,24 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_trash_value",
+            "unique": true,
+            "columnNames": [
+              "value"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_trash_value` ON `${TABLE_NAME}` (`value`)"
+          }
+        ],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5082162cbcb853905a6e3afa0c0d5900')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6942268b12a5e8e7f9fa30e2a6b4283e')"
     ]
   }
 }

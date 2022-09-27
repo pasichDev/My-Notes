@@ -34,12 +34,12 @@ public class TrashRepository {
     }
 
     public void moveToTrash(Note note) {
-        executor.execute(() -> trashDao.moveToTrash(note.getTitle(), note.getValue(), note.getDate()));
+        executor.execute(() -> trashDao.moveToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate())));
     }
 
     public void moveToTrash(ArrayList<Note> notes) {
         for (Note note : notes)
-            executor.execute(() -> trashDao.moveToTrash(note.getTitle(), note.getValue(), note.getDate()));
+            executor.execute(() -> trashDao.moveToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate())));
     }
 
 

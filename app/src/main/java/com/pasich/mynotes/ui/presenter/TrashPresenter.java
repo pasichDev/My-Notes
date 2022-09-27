@@ -52,7 +52,7 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
 
     @Override
     public void restoreNotesArray(ArrayList<TrashNote> notes) {
-        if (trashRepository != null) {
+        if (trashRepository != null && notesRepository != null) {
             notesRepository.moveToNotes(notes);
             trashRepository.deleteNote(notes);
         }

@@ -2,11 +2,16 @@ package com.pasich.mynotes.data.trash;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(
-        tableName = "trash"
-)
+        tableName = "trash",
+        indices = {
+                @Index(
+                        value = {"value"},
+                        unique = true)
+        })
 public class TrashNote {
 
     @PrimaryKey(autoGenerate = true)
@@ -15,25 +20,15 @@ public class TrashNote {
     private String title;
     private String value;
     private long date;
-    private String type;
 
     @Ignore
     private boolean Checked;
 
-    public TrashNote create(String title, String value, long date, String type) {
+    public TrashNote create(String title, String value, long date) {
         this.title = title;
         this.value = value;
         this.date = date;
-        this.type = type;
         this.Checked = false;
-        return this;
-    }
-
-    public TrashNote create(String title, String value, int date) {
-        this.title = title;
-        this.value = value;
-        this.date = date;
-        this.type = "note";
         return this;
     }
 
@@ -74,12 +69,5 @@ public class TrashNote {
         this.date = date;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return this.type;
-    }
 
 }
