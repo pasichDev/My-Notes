@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textview.MaterialTextView;
@@ -33,6 +34,7 @@ public class SourceNoteDialog extends BottomSheetDialogFragment {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
         final DialogSourceNoteBinding binding = DialogSourceNoteBinding.inflate(getLayoutInflater());
         final SourceAdapter mSourceAdapter = new SourceAdapter(searchSourceNote.getListArray());
+        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
         builder.getBehavior().setHideable(false);
         builder.setContentView(binding.getRoot());

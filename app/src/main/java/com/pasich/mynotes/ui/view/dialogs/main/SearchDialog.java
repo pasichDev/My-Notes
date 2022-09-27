@@ -77,9 +77,7 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
     @Override
     public void initListeners() {
         binding.closeSearch.setOnClickListener(v -> {
-
             binding.actionSearch.clearFocus();
-
             dismiss();
         });
         searchNotesAdapter.setItemClickListener(idNote -> startActivity(new Intent(requireActivity(), NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", "")));
@@ -123,9 +121,6 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         searchNotesAdapter = new SearchNotesAdapter();
         binding.resultsList.setAdapter(searchNotesAdapter);
 
-
-        //  SnapHelper snapHelper = new PagerSnapHelper();
-        //  snapHelper.attachToRecyclerView( binding.resultsList);
 
     }
 

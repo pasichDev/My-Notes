@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.ActivitySettings;
@@ -43,7 +44,7 @@ public class MoreNoteDialog extends DialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-
+        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         noteActivityView = (NoteActivityView) getContext();
         activitySettings = (ActivitySettings) getContext();
         binding = DialogMoreNoteBinding.inflate(getLayoutInflater());

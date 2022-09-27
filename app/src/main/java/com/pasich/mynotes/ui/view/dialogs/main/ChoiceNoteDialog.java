@@ -8,6 +8,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
@@ -32,6 +33,7 @@ public class ChoiceNoteDialog extends DialogOpenVibrate {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog mDialog = new BottomSheetDialog(requireActivity());
         final NoteView noteView = (NoteView) getContext();
+        mDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         com.pasich.mynotes.databinding.DialogChoiceNoteBinding binding = DialogChoiceNoteBinding.inflate(getLayoutInflater());
 
         mDialog.setContentView(binding.getRoot());

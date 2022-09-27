@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
@@ -30,6 +31,7 @@ public class DeleteTagDialog extends DialogFragment {
         final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
         final TagView tagView = (TagView) getContext();
 
+        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         builder.setContentView(R.layout.dialog_delete_tag);
 
         MaterialTextView title = builder.findViewById(R.id.headTextDialog);

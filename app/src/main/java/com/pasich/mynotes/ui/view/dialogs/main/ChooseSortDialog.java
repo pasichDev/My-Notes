@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
@@ -31,7 +32,7 @@ public class ChooseSortDialog extends DialogFragment {
         this.binding = DialogChooseSortBinding.inflate(getLayoutInflater());
         this.sortView = (MainSortView) getContext();
         this.sortParam = PowerPreference.getDefaultFile().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF);
-
+        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         builder.setContentView(binding.getRoot());
 
         MaterialTextView title = builder.findViewById(R.id.headTextDialog);

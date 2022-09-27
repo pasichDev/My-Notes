@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
@@ -46,6 +47,7 @@ public class RestoreBackupDialog extends BottomSheetDialogFragment {
         binding = DialogRestoreBackupBinding.inflate(getLayoutInflater());
         restoreNotesBackupOld = (RestoreNotesBackupOld) requireContext();
 
+        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         builder.getBehavior().setHideable(false);
         builder.setContentView(binding.getRoot());
 
