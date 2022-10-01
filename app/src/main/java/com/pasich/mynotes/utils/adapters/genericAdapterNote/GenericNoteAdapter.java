@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.utils.recycler.comparator.NoteComparator;
@@ -21,10 +20,13 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapter<T, GenericNoteAdapter.RecyclerViewHolder> {
+public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends RecyclerView.Adapter<T, GenericNoteAdapter.RecyclerViewHolder> {
     private final int layoutId;
     private final GenericAdapterCallback<VM, T> bindingInterface;
     private OnItemClickListener<T> mOnItemClickListener;
+
+    private DiffUtilNote diffUtilNote = new DiffUtilNote();
+    private final AsyncListDiffer<T> mDiffer = new AsyncListDiffer(this, diffUtilNote);
 
 
     public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
@@ -32,10 +34,9 @@ public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapt
     }
 
 
-    public GenericNoteAdapter(@NonNull DiffUtilNote diffCallback,
-                              int layoutId,
+    public GenericNoteAdapter(int layoutId,
                               GenericAdapterCallback<VM, T> bindingInterface) {
-        super((DiffUtil.ItemCallback<T>) diffCallback);
+
         this.layoutId = layoutId;
         this.bindingInterface = bindingInterface;
 
@@ -44,7 +45,7 @@ public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapt
     public GenericNoteAdapter(@NonNull DiffUtilTrash diffCallback,
                               int layoutId,
                               GenericAdapterCallback<VM, T> bindingInterface) {
-        super((DiffUtil.ItemCallback<T>) diffCallback);
+
         this.layoutId = layoutId;
         this.bindingInterface = bindingInterface;
     }
@@ -71,11 +72,11 @@ public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapt
                 .inflate(layoutId, parent, false));
         if (mOnItemClickListener != null) {
             view.itemView.setOnClickListener(
-                    v -> mOnItemClickListener.onClick(view.getAdapterPosition(), getCurrentList().get(view.getAdapterPosition())));
+                    v -> mOnItemClickListener.onClick(view.getAdapterPosition(), mDiffer.getCurrentList().get(view.getAdapterPosition())));
 
             view.itemView.setOnLongClickListener(
                     v -> {
-                        mOnItemClickListener.onLongClick(view.getAdapterPosition(), getCurrentList().get(view.getAdapterPosition()));
+                        mOnItemClickListener.onLongClick(view.getAdapterPosition(), mDiffer.getCurrentList().get(view.getAdapterPosition()));
                         return false;
                     });
         }
@@ -83,31 +84,32 @@ public class GenericNoteAdapter<T, VM extends ViewDataBinding> extends ListAdapt
     }
 
     @Override
-    public void onBindViewHolder(GenericNoteAdapter.RecyclerViewHolder holder, int position) {
-        holder.bindData(getCurrentList().get(position));
+    public void onBindViewHolder(@NonNull T holder, int position) {
+        GenericNoteAdapter.RecyclerViewHolder mHolder = (RecyclerViewHolder) holder;
+        mHolder.bindData(mDiffer.getCurrentList().get(position));
     }
+
 
     @Override
     public int getItemCount() {
-        getCurrentList();
-        return getCurrentList().size();
+        return mDiffer.getCurrentList().size();
     }
 
 
     public void sortList(String arg) {
-        List<T> sortedList = new ArrayList<>(getCurrentList());
+        List<T> sortedList = new ArrayList<T>(mDiffer.getCurrentList());
         Collections.sort(sortedList, new NoteComparator().getComparator(arg));
-        submitList(sortedList);
+        mDiffer.submitList(sortedList);
     }
 
     public void sortList(List<T> notesList, String arg) {
         Collections.sort(notesList, new NoteComparator().getComparator(arg));
-        submitList(notesList);
+        mDiffer.submitList(notesList);
     }
 
     public void sortListTrash(List<T> notesList) {
         Collections.sort(notesList, new TrashNoteComparator().COMPARE_BY_DATE);
-        submitList(notesList);
+        mDiffer.submitList(notesList);
     }
 
 }

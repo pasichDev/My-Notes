@@ -51,7 +51,6 @@ import com.pasich.mynotes.utils.adapters.genericAdapterNote.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 
 import java.util.List;
@@ -224,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
         mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
         mActivityBinding.listNotes.setNestedScrollingEnabled(true);
-        mNoteAdapter = new GenericNoteAdapter<>(new DiffUtilNote(),
+        mNoteAdapter = new GenericNoteAdapter<>(
                 R.layout.item_note,
                 (binder, model) -> {
                     binder.setNote(model);
