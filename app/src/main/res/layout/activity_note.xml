@@ -55,9 +55,7 @@
                     android:layout_marginTop="10dp"
                     android:autofillHints="no"
                     android:background="@null"
-                    android:enabled="@{activateEdit, default=false}"
-                    android:focusable="@{activateEdit, default=false}"
-                    android:focusableInTouchMode="@{activateEdit, default=false}"
+
                     android:fontFamily="@font/railway_medium"
                     android:hint="@string/noteTitle"
                     android:inputType="textMultiLine"

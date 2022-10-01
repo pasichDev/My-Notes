@@ -9,6 +9,7 @@ import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREF
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -225,9 +227,16 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void activatedActivity() {
         binding.setActivateEdit(true);
-        binding.valueNote.setSelection(binding.valueNote.getText().length());
+        binding.valueNote.setEnabled(true);
+        binding.valueNote.setFocusable(true);
+        if (!newNoteKey) binding.valueNote.setSelection(binding.valueNote.getText().length());
         binding.valueNote.setFocusableInTouchMode(true);
         binding.valueNote.requestFocus();
+        if (!newNoteKey) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.toggleSoftInputFromWindow(
+                    binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
+        }
 
     }
 
@@ -300,10 +309,16 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void closeNoteActivity() {
+
+        binding.getRoot().clearFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.valueNote.getWindowToken(), 0);
+
         exitNoSave = true;
         if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
         if (shareText.length() >= 2)
             Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
+
         finish();
     }
 
@@ -392,5 +407,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         view.animate().x((view.getX() + view.getWidth() / rightSwipeActionPanel)).setDuration(0).start();
         clickActionPanelShow = true;
     }
+
 
 }
