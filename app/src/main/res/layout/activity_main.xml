@@ -31,11 +31,11 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:layout_scrollFlags="scroll|snap"
                 android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_scrollFlags="scroll|snap">
 
                 <TextView
                     android:id="@+id/textView"
@@ -62,40 +62,40 @@
                 android:id="@+id/layoutSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_search_view"
-                app:layout_scrollFlags="scroll|snap"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/selector_search_view"
+                android:orientation="horizontal"
+                app:layout_scrollFlags="scroll|snap">
 
                 <ImageButton
                     style="?android:attr/actionButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:onClick="@{View -> presenter.startSearchDialog()}"
                     android:contentDescription="@string/search"
+                    android:onClick="@{View -> presenter.startSearchDialog()}"
                     android:src="@drawable/ic_search" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:text="@string/search"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:textColor="@color/darkLight"
-                    android:onClick="@{View -> presenter.startSearchDialog()}"
-                    android:textSize="18sp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:onClick="@{View -> presenter.startSearchDialog()}"
+                    android:padding="10dp"
+                    android:text="@string/search"
+                    android:textColor="@color/darkLight"
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/sortButton"
                     style="?android:attr/actionButtonStyle"
                     android:layout_width="wrap_content"
-                    android:onClick="@{View -> presenter.sortButton()}"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/sortHead"
+                    android:onClick="@{View -> presenter.sortButton()}"
                     android:src="@drawable/ic_sort" />
 
                 <ImageButton
@@ -104,8 +104,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:onClick="@{View -> presenter.formatButton()}"
                     android:contentDescription="@string/cd_format"
+                    android:onClick="@{View -> presenter.formatButton()}"
                     android:src="@drawable/ic_edit_format_list" />
 
 
@@ -115,54 +115,57 @@
                 android:id="@+id/list_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="noScroll"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                app:layout_scrollFlags="noScroll" />
 
 
         </com.google.android.material.appbar.AppBarLayout>
 
+
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_notes"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
+            android:id="@+id/list_notes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="15dp"
+            android:visibility="@{emptyNotes ? View.GONE : View.VISIBLE,  default=visible}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/emptyListVIew"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{emptyNotes ? View.VISIBLE : View.GONE, default=gone}">
+
+            <ImageView
+                android:id="@+id/emptyListImage"
+                android:layout_width="152dp"
+                android:layout_height="152dp"
+                android:contentDescription="@string/emptyListMain"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_notes_empty" />
+
+            <TextView
+                android:id="@+id/emptyListText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="15dp"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                android:visibility="@{emptyNotes ? View.GONE : View.VISIBLE,  default=visible}" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/emptyListVIew"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{emptyNotes ? View.VISIBLE : View.GONE, default=gone}">
-
-                <ImageView
-                    android:id="@+id/emptyListImage"
-                    android:layout_width="152dp"
-                    android:layout_height="152dp"
-                    android:contentDescription="@string/emptyListMain"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_notes_empty" />
-
-                <TextView
-                    android:id="@+id/emptyListText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/emptyListMain"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/emptyListImage" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="@string/emptyListMain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emptyListImage" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <include
@@ -170,26 +173,26 @@
             layout="@layout/action_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_anchorGravity="bottom|right|end"
             android:layout_gravity="bottom|end"
             android:layout_margin="15dp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_anchorGravity="bottom|right|end" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/newNotesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="15dp"
             android:contentDescription="@string/NewNote"
             android:onClick="@{(view) -> presenter.newNotesClick()}"
             app:backgroundTint="?attr/colorPrimaryBackground"
             app:elevation="7dp"
-            app:layout_dodgeInsetEdges="bottom"
             app:layout_anchor="@id/list_notes"
             app:layout_anchorGravity="bottom|right|end"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:layout_dodgeInsetEdges="bottom"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="15dp"
             app:srcCompat="@drawable/ic_add"
             app:tint="@color/white" />
 
