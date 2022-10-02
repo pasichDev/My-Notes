@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
     buildFeatures {
         viewBinding true
@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.pasich.mynotes"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 10
         versionName '2.0.10'
         javaCompileOptions {
@@ -53,14 +53,17 @@ ext {
     powerPrefenceVersion = '2.1.0'
     roomVersion = '2.4.3'
     daggerCompilerVersion = '2.20'
-    daggerVersion = '2.38.1'
+    daggerVersion = '2.43.2'
 }
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+
 
     //Dagger 2
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompilerVersion"

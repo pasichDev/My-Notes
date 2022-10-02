@@ -41,4 +41,9 @@ public interface NoteDao {
 
   @Query("INSERT INTO notes (title,value,date,tag) VALUES (:title,:value,:date, '')")
   void moveToNotes(String title, String value, long date);
+
+  @Query("UPDATE NOTES SET tag=:tag WHERE id=:noteID")
+  void setTagNote(String tag, int noteID);
+
+
 }

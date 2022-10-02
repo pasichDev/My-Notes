@@ -137,7 +137,7 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
         if (note.getTag().length() >= 2) {
             binding.dellTagChip.setVisibility(View.VISIBLE);
             binding.dellTagChip.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                dialogPresenter.removeTagNote(note);
+                dialogPresenter.removeTagNote(note.getId());
                 dismiss();
             });
         }
@@ -147,7 +147,7 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
 
     private void selectedTag(String nameChip) {
         if (!nameChip.equals(note.getTag())) {
-            dialogPresenter.editTagNote(nameChip, note);
+            dialogPresenter.editTagNote(nameChip, note.getId());
             dismiss();
         }
     }
@@ -167,7 +167,7 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
 
     private void saveTag() {
         if (!errorText) {
-            dialogPresenter.createTagNote(new Tag().create(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString()), note);
+            dialogPresenter.createTagNote(new Tag().create(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString()), note.getId());
             dismiss();
         }
     }

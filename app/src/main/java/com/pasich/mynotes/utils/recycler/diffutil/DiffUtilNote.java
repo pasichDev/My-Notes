@@ -14,8 +14,6 @@ public class DiffUtilNote extends DiffUtil.ItemCallback<Note> {
 
     @Override
     public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-        return oldItem.getTitle().equals(newItem.getTitle())
-                && oldItem.getValue().equals(newItem.getValue())
-                && oldItem.getTag().equals(newItem.getTag());
+        return oldItem.getTitle().equals(newItem.getTitle()) && oldItem.getValue().equals(newItem.getValue()) && oldItem.getTag().equals(newItem.getTag());
     }
 }

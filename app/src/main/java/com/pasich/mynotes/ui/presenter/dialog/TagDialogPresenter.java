@@ -3,7 +3,6 @@ package com.pasich.mynotes.ui.presenter.dialog;
 
 import com.pasich.mynotes.base.PresenterBase;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.TagsRepository;
@@ -51,9 +50,8 @@ public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
 
 
     @Override
-    public void editTagNote(String nameTag, Note note) {
-        note.setTag(nameTag);
-        notesRepository.updateNote(note);
+    public void editTagNote(String nameTag, int noteId) {
+        notesRepository.setTagNote(nameTag, noteId);
     }
 
     @Override
@@ -62,15 +60,13 @@ public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
     }
 
     @Override
-    public void createTagNote(Tag tag, Note note) {
+    public void createTagNote(Tag tag, int noteId) {
         tagsRepository.addTag(tag);
-        note.setTag(tag.getNameTag());
-        notesRepository.updateNote(note);
+        notesRepository.setTagNote(tag.getNameTag(), noteId);
     }
 
     @Override
-    public void removeTagNote(Note note) {
-        note.setTag("");
-        notesRepository.updateNote(note);
+    public void removeTagNote(int noteId) {
+        notesRepository.setTagNote("", noteId);
     }
 }

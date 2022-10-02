@@ -106,4 +106,7 @@ public class NotesRepository {
             executor.execute(() -> noteDao.addNote(new Note().create(note.getTitle(), note.getValue(), note.getDate())));
     }
 
+    public void setTagNote(String tag, int noteID) {
+        executor.execute(() -> noteDao.setTagNote(tag, noteID));
+    }
 }

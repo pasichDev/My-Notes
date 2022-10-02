@@ -2,7 +2,6 @@ package com.pasich.mynotes.ui.contract.dialog;
 
 import com.pasich.mynotes.base.MyPresenter;
 import com.pasich.mynotes.base.view.MyView;
-import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 
 import java.util.List;
@@ -18,12 +17,12 @@ public interface TagDialogContract {
     }
 
     interface presenter extends MyPresenter<view> {
-        void editTagNote(String nameTag, Note note);
+        void editTagNote(String nameTag, int noteId);
 
         int getCountTags() throws ExecutionException, InterruptedException;
 
-        void createTagNote(Tag tag, Note note);
+        void createTagNote(Tag tag, int noteId);
 
-        void removeTagNote(Note note);
+        void removeTagNote(int noteId);
     }
 }
