@@ -223,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void settingsNotesList(LiveData<List<Note>> noteList) {
         mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
         mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
-        mActivityBinding.listNotes.setNestedScrollingEnabled(true);
         mNoteAdapter = new GenericNoteAdapter<>(new DiffUtilNote(),
                 R.layout.item_note,
                 (binder, model) -> {
