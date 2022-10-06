@@ -35,6 +35,7 @@
         android:theme="@style/ThemeBlue">
         <activity
             android:name=".ui.view.activity.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ThemeBlueSplash"
             android:exported="true">
             <intent-filter>
@@ -47,6 +48,7 @@
         </activity>
         <activity
             android:name=".ui.view.activity.TrashActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -56,13 +58,16 @@
         </activity>
         <activity
             android:name=".ui.view.activity.NoteActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ui.view.activity.SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -74,6 +79,7 @@
         <activity
             android:name=".ui.view.activity.ShareActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/NewNote">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
