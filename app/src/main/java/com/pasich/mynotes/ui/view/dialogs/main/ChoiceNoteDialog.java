@@ -1,6 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
-import static com.pasich.mynotes.utils.FormattedDataUtil.convertDateAll;
+import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -41,7 +41,7 @@ public class ChoiceNoteDialog extends DialogOpenVibrate {
 
         MaterialTextView infoItem = mDialog.findViewById(R.id.noteInfo);
         assert infoItem != null;
-        infoItem.setText(getString(R.string.layoutStringInfo, convertDateAll(note.getDate()), String.valueOf(note.getValue().length())));
+        infoItem.setText(getString(R.string.layoutStringInfo, lastDayEditNote(note.getDate()), String.valueOf(note.getValue().length())));
 
         binding.actionPanelActivate.setOnClickListener(view ->
         {

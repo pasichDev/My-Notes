@@ -139,35 +139,6 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/emptyListVIew"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{emptyNotes ? View.VISIBLE : View.GONE, default=gone}">
-
-            <ImageView
-                android:id="@+id/emptyListImage"
-                android:layout_width="152dp"
-                android:layout_height="152dp"
-                android:contentDescription="@string/emptyListMain"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_notes_empty" />
-
-            <TextView
-                android:id="@+id/emptyListText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/emptyListMain"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emptyListImage" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         <include
             android:id="@+id/actionInclude"
             layout="@layout/action_panel"
