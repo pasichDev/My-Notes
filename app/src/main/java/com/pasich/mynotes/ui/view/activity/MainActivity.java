@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void moreActivity() {
         if (getAction()) actionUtils.closeActionPanel();
-        new AboutDialog().show(getSupportFragmentManager(), "more activity");
+        new AboutDialog(0).show(getSupportFragmentManager(), "more activity");
 
     }
 

@@ -14,11 +14,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.utils.ShareUtils;
 
 public class AboutDialog extends DialogFragment {
+
+    private final int countTrash;
+
+    public AboutDialog(int countTrash) {
+        this.countTrash = countTrash;
+    }
+
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -29,7 +38,13 @@ public class AboutDialog extends DialogFragment {
 
 
         builder.findViewById(R.id.trashActivityLayout).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), TrashActivity.class));
+            if (countTrash > 1) {
+                startActivity(new Intent(getActivity(), TrashActivity.class));
+            } else {
+                Snackbar.make(getActivity().getWindow().getDecorView(),
+                        getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
             dismiss();
         });
 
