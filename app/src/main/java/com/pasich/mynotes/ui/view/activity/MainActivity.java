@@ -10,7 +10,6 @@ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
@@ -234,7 +233,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
         noteList.observe(this, notes -> {
-            Log.wtf("pasic", "true observer ");
             mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
             mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
         });
