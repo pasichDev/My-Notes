@@ -37,7 +37,11 @@ public class MainPresenter extends PresenterBase<MainContract.view> implements M
         getView().settingsSearchView();
         getView().settingsTagsList();
         getView().settingsNotesList();
-        getView().loadingData(tagsRepository.getTags(), notesRepository.getLoadingNotes());
+        try {
+            getView().loadingData(tagsRepository.getTags(), notesRepository.getLoadingNotes());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
         getView().initListeners();
         getView().initActionUtils();
     }

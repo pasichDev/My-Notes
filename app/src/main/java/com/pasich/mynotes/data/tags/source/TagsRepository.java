@@ -33,11 +33,11 @@ public class TagsRepository {
     }
 
 
-    public LiveData<List<Tag>> getTags() {
-        LiveData<List<Tag>> mTags;
-        mTags = tagsDao.getTags();
+    public LiveData<List<Tag>> getTags() throws ExecutionException, InterruptedException {
+        Future<?> future = Executors.newSingleThreadExecutor()
+                .submit((Callable<?>) () -> tagsDao.getTags());
+        return (LiveData<List<Tag>>) future.get();
 
-        return mTags;
     }
 
 

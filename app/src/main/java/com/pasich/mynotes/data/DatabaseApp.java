@@ -1,5 +1,7 @@
 package com.pasich.mynotes.data;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -36,7 +38,7 @@ public abstract class DatabaseApp extends RoomDatabase {
 
                   dao.addTag(new Tag().create("", 1));
                   dao.addTag(new Tag().create("allNotes", 2));
-
+                  Log.wtf("pasic", "createBD:   ");
               };
 
 
