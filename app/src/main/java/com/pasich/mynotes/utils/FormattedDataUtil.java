@@ -2,20 +2,12 @@ package com.pasich.mynotes.utils;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class FormattedDataUtil {
 
-    /**
-     * This method returns the modification date of the file
-     *
-     * @param date - last modified date
-     * @return - formatted date (string)
-     */
-    public static String convertDateAll(long date) {
-        return new SimpleDateFormat("dd.MM.yyyy  HH:mm", Locale.getDefault()).format(date);
-    }
 
     /**
      * This method determines what result to display on the last change day or time
@@ -25,9 +17,13 @@ public class FormattedDataUtil {
      */
 
     public static String lastDayEditNote(long date) {
-        if (new Date().getDay() != new Date(date).getDay())
-            return new SimpleDateFormat("d MMM", Locale.getDefault()).format(date);
-        else
+        final GregorianCalendar newDate = new GregorianCalendar();
+        final int dayNote = Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(date));
+        final int montNote = Integer.parseInt(new SimpleDateFormat("MM", Locale.getDefault()).format(date));
+
+        if (newDate.get(Calendar.DAY_OF_MONTH) == dayNote && newDate.get(Calendar.MONTH) + 1 == montNote)
             return new SimpleDateFormat("HH:mm", Locale.getDefault()).format(date);
+        else return new SimpleDateFormat("d MMM", Locale.getDefault()).format(date);
+
     }
 }
