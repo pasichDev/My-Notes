@@ -92,20 +92,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mainPresenter.viewIsReady();
 
 
-
     }
 
 
     @Override
     public void init() {
-        getApp()
-                .getComponentsHolder()
-                .getActivityComponent(getClass(), new MainActivityModule())
-                .inject(MainActivity.this);
+        getApp().getComponentsHolder().getActivityComponent(getClass(), new MainActivityModule()).inject(MainActivity.this);
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
-        gridLayoutManager = new StaggeredGridLayoutManager(
-                dataManager.getDefaultPreference().getInt("formatParam", 1),
-                LinearLayoutManager.VERTICAL);
+        gridLayoutManager = new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL);
 
     }
 
@@ -118,8 +112,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void sortButton() {
-        if (!getAction())
-            new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
+        if (!getAction()) new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
     }
 
     @Override
@@ -133,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void startSearchDialog() {
         mActivityBinding.layoutSearch.startAnimation(AnimationUtils.loadAnimation(this, R.anim.click_scale));
-
         new SearchDialog().show(getSupportFragmentManager(), "SearchDialog");
     }
 
@@ -141,54 +133,40 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void initListeners() {
 
-        tagsAdapter.setOnItemClickListener(
-                new OnItemClickListenerTag() {
-                    @Override
-                    public void onClick(int position) {
-                        if (!getAction())
-                            mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
-                    }
+        tagsAdapter.setOnItemClickListener(new OnItemClickListenerTag() {
+            @Override
+            public void onClick(int position) {
+                if (!getAction())
+                    mainPresenter.clickTag(tagsAdapter.getCurrentList().get(position), position);
+            }
 
-                    @Override
-                    public void onLongClick(int position) {
-                        if (!getAction())
-                            mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
-                    }
-                });
+            @Override
+            public void onLongClick(int position) {
+                if (!getAction())
+                    mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
+            }
+        });
 
-        mNoteAdapter.setOnItemClickListener(
-                new OnItemClickListener<Note>() {
+        mNoteAdapter.setOnItemClickListener(new OnItemClickListener<Note>() {
 
-                    @Override
-                    public void onClick(int position, Note model) {
-                        if (!getAction())
-                            mainPresenter.clickNote(model.id);
-                        else selectItemAction(model, position);
+            @Override
+            public void onClick(int position, Note model) {
+                if (!getAction()) mainPresenter.clickNote(model.id);
+                else selectItemAction(model, position);
 
-                    }
+            }
 
-                    @Override
-                    public void onLongClick(int position, Note model) {
-                        if (!getAction())
-                            choiceNoteDialog(model, position);
-                    }
+            @Override
+            public void onLongClick(int position, Note model) {
+                if (!getAction()) choiceNoteDialog(model, position);
+            }
 
 
-                });
+        });
 
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mainPresenter.detachView();
-        if (isFinishing()) {
-            variablesNull();
-            mainPresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
-        }
-    }
 
     @Override
     public void settingsSearchView() {
@@ -198,43 +176,42 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
     @Override
-    public void settingsTagsList(LiveData<List<Tag>> tagList) {
+    public void settingsTagsList() {
 
         mActivityBinding.listTags.addItemDecoration(new SpacesItemDecoration(5));
-        mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        );
+        mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         tagsAdapter = new TagsAdapter(new DiffUtilTag());
         mActivityBinding.listTags.setAdapter(tagsAdapter);
 
-        tagList.observe(
-                this,
-                tags -> {
-                    if (!startConfiguration[0]) {
-                        tagsAdapter.submitListStart(tags);
-                        startConfiguration[0] = true;
-                    } else
-                        tagsAdapter.submitList(tags);
-                });
     }
 
     @Override
-    public void settingsNotesList(LiveData<List<Note>> noteList) {
+    public void settingsNotesList() {
         mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
         mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
-        mNoteAdapter = new GenericNoteAdapter<>(new DiffUtilNote(),
-                R.layout.item_note,
-                (binder, model) -> {
-                    binder.setNote(model);
-                    mActivityBinding.executePendingBindings();
-                });
+        mNoteAdapter = new GenericNoteAdapter<>(new DiffUtilNote(), R.layout.item_note, (binder, model) -> {
+            binder.setNote(model);
+            mActivityBinding.executePendingBindings();
+        });
 
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
 
 
+    }
+
+
+    @Override
+    public void loadingData(LiveData<List<Tag>> tagList, LiveData<List<Note>> noteList) {
         noteList.observe(this, notes -> {
             mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
             mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
+        });
+        tagList.observe(this, tags -> {
+            if (!startConfiguration[0]) {
+                tagsAdapter.submitListStart(tags);
+                startConfiguration[0] = true;
+            } else tagsAdapter.submitList(tags);
         });
     }
 
@@ -254,14 +231,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
 
-
     @Override
     public void openNoteEdit(int idNote) {
-        startActivity(new Intent(this, NoteActivity.class)
-                .putExtra("NewNote", false)
-                .putExtra("idNote", idNote)
-                .putExtra("shareText", "")
-                .putExtra("tagNote", ""));
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
 
     @SuppressLint("StringFormatMatches")
@@ -288,12 +260,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void newNotesButton() {
         Tag tagSelected = tagsAdapter.getTagSelected();
-        startActivity(new Intent(this, NoteActivity.class)
-                .putExtra("NewNote", true)
-                .putExtra("shareText", "")
-                .putExtra("tagNote", tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag()), ActivityOptions
-                .makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, "robot")
-                .toBundle());
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("shareText", "").putExtra("tagNote", tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag()), ActivityOptions.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, "robot").toBundle());
     }
 
     @Override
@@ -398,7 +365,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
 
-
     private void variablesNull() {
         mNoteAdapter = null;
         tagsAdapter = null;
@@ -407,19 +373,27 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void errorProcessRestore() {
-        Snackbar.make(mActivityBinding.newNotesButton,
-                getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
+        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     @Override
     public void successfullyProcessRestore(int countNotes) {
-        Snackbar.make(mActivityBinding.newNotesButton,
-                getString(R.string.successfullyRestoreNotes, countNotes),
-                BaseTransientBottomBar.LENGTH_LONG).show();
+        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.successfullyRestoreNotes, countNotes), BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     @Override
     public void saveNoteRestore(Note newNote) {
         mainPresenter.addNote(newNote);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mainPresenter.detachView();
+        if (isFinishing()) {
+            variablesNull();
+            mainPresenter.destroy();
+            getApp().getComponentsHolder().releaseActivityComponent(getClass());
+        }
     }
 }

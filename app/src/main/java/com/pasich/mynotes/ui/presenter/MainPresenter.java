@@ -35,8 +35,9 @@ public class MainPresenter extends PresenterBase<MainContract.view> implements M
     @Override
     public void viewIsReady() {
         getView().settingsSearchView();
-        getView().settingsTagsList(tagsRepository.getTags());
-        getView().settingsNotesList(notesRepository.getLoadingNotes());
+        getView().settingsTagsList();
+        getView().settingsNotesList();
+        getView().loadingData(tagsRepository.getTags(), notesRepository.getLoadingNotes());
         getView().initListeners();
         getView().initActionUtils();
     }

@@ -19,7 +19,7 @@ public interface MainContract {
     interface view extends MyView, TagView, NoteView, MainSortView {
         void settingsSearchView();
 
-        void settingsNotesList(LiveData<List<Note>> noteList);
+        void settingsNotesList();
 
         void newNotesButton();
 
@@ -31,9 +31,11 @@ public interface MainContract {
 
         void choiceNoteDialog(Note note, int position);
 
-        void settingsTagsList(LiveData<List<Tag>> tagList);
+        void settingsTagsList();
 
         void selectTagUser(int position);
+
+        void loadingData(LiveData<List<Tag>> tagList, LiveData<List<Note>> noteList);
 
         void openNoteEdit(int idNote);
 
