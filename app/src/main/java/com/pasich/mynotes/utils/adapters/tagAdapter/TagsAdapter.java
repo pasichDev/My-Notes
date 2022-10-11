@@ -41,19 +41,15 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     @NonNull
     @Override
     public TagsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolder view =
-                new ViewHolder(
-                        ItemTagBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        ViewHolder view = new ViewHolder(ItemTagBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
         if (mOnItemClickListener != null) {
-            view.itemView.setOnClickListener(
-                    v -> mOnItemClickListener.onClick(view.getAdapterPosition()));
+            view.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(view.getAdapterPosition()));
 
-            view.itemView.setOnLongClickListener(
-                    v -> {
-                        mOnItemClickListener.onLongClick(view.getAdapterPosition());
-                        return false;
-                    });
+            view.itemView.setOnLongClickListener(v -> {
+                mOnItemClickListener.onLongClick(view.getAdapterPosition());
+                return false;
+            });
 
         }
         return view;
@@ -61,13 +57,15 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.ItemBinding.setTag(getItem(position));
-        holder.ItemBinding.setCheckedTag(getItem(position).getSelected());
+        Tag tag = getItem(position);
+        holder.ItemBinding.setTag(tag);
+        if (tag.getSystemAction() == 2) mTagSelected = tag.setSelectedReturn(true);
+        holder.ItemBinding.setCheckedTag(tag.getSelected());
+
     }
 
     @Override
-    public void onBindViewHolder(
-            @NonNull TagsAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+    public void onBindViewHolder(@NonNull TagsAdapter.ViewHolder holder, int position, @NonNull List<Object> payloads) {
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads);
         } else {
@@ -76,17 +74,6 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         }
     }
 
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ItemTagBinding ItemBinding;
-
-        ViewHolder(ItemTagBinding binding) {
-            super(binding.getRoot());
-            ItemBinding = binding;
-        }
-    }
-
-
     /**
      * Метод который возвращет позицию метки по ее названию
      *
@@ -94,8 +81,7 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
      */
     public int getTagForName(String nameTagSearch) {
         for (int i = 0; i < getCurrentList().size(); i++)
-            if (getItem(i).getNameTag().equals(nameTagSearch))
-                return i;
+            if (getItem(i).getNameTag().equals(nameTagSearch)) return i;
         return 0;
     }
 
@@ -106,11 +92,9 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
      */
     public int getCheckedPosition(Tag tagSearch) {
         for (int i = 0; i < getCurrentList().size(); i++)
-            if (getItem(i).getId() == tagSearch.getId())
-                return i;
+            if (getItem(i).getId() == tagSearch.getId()) return i;
         return 0;
     }
-
 
     /**
      * Метод который реализует выбор метки
@@ -123,7 +107,6 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         notifyItemChanged(position, PAYLOAD_SET_SELECTED);
     }
 
-
     @Deprecated
     public void autChoseTag(String nameTag) {
         if (getCurrentList().size() >= 1) {
@@ -133,36 +116,13 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         }
     }
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ItemTagBinding ItemBinding;
 
-    /**
-     * Метод который вызиваеться только при первом запуске адаптера, а именно инициализуерует первую выбраную метку
-     * а также отдает список в diffUtil
-     *
-     * @param list - свписок всех меток
-     */
-    public void submitListStart(@Nullable List<Tag> list) {
-        mTagSelected = getAllNotesSearch(list);
-        submitList(list);
-    }
-
-
-    /**
-     * Метод который перебирает массив в поиске начально выбраной метки (allNotes)
-     * по типу SystemAction == 2
-     *
-     * @param list - список всех меток
-     * @return - возвращает модел выбраной метки
-     */
-    public Tag getAllNotesSearch(@Nullable List<Tag> list) {
-        assert list != null;
-        for (Tag tag : list) {
-            if (tag.getSystemAction() == 2) {
-                tag.setSelected(true);
-                return tag;
-            }
+        ViewHolder(ItemTagBinding binding) {
+            super(binding.getRoot());
+            ItemBinding = binding;
         }
-        return list.get(1);
     }
-
 
 }

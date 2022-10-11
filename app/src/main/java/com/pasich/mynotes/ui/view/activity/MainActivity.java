@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     private TagsAdapter tagsAdapter;
     private StaggeredGridLayoutManager gridLayoutManager;
     private GenericNoteAdapter<Note, ItemNoteBinding> mNoteAdapter;
-    private boolean[] startConfiguration = {false, false};
 
 
     @Override
@@ -183,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
         tagsAdapter = new TagsAdapter(new DiffUtilTag());
         mActivityBinding.listTags.setAdapter(tagsAdapter);
+        // tagsAdapter.onCurrentListChanged();
 
     }
 
@@ -203,16 +203,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void loadingData(LiveData<List<Tag>> tagList, LiveData<List<Note>> noteList) {
+
         noteList.observe(this, notes -> {
             mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
             mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
         });
-        tagList.observe(this, tags -> {
-            if (!startConfiguration[0]) {
-                tagsAdapter.submitListStart(tags);
-                startConfiguration[0] = true;
-            } else tagsAdapter.submitList(tags);
-        });
+        tagList.observe(this, tags -> tagsAdapter.submitList(tags));
     }
 
     @Override
@@ -368,7 +364,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     private void variablesNull() {
         mNoteAdapter = null;
         tagsAdapter = null;
-        startConfiguration = null;
     }
 
     @Override
