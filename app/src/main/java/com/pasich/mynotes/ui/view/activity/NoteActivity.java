@@ -40,6 +40,7 @@ import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNewNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
+import com.pasich.mynotes.utils.ManageActionPanelNoteActivity;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
 import com.pasich.mynotes.utils.base.simplifications.TextWatcher;
@@ -65,6 +66,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public PermissionManager permissionManager;
     @Inject
     public NoteUtils noteUtils;
+
     private String shareText, tagNote;
     private int idKey;
     private boolean newNoteKey;
@@ -73,7 +75,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     private Intent speechRecognizerIntent;
     private ActivityNoteBinding binding;
     private boolean exitNoSave = false;
-    private boolean clickActionPanelShow = false;
+
+
+    ManageActionPanelNoteActivity manageActionPanelNoteActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +88,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         notePresenter.setDataManager(dataManager);
         notePresenter.viewIsReady();
 
-
     }
 
 
@@ -92,12 +95,14 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public void init() {
         getApp().getComponentsHolder().getActivityComponent(getClass(), new NoteActivityModule()).inject(NoteActivity.this);
         binding.setPresenter((NotePresenter) notePresenter);
-        binding.setActivateActionPanel(true);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
         this.shareText = getIntent().getStringExtra("shareText");
         this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
         this.speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+
+
+        manageActionPanelNoteActivity = new ManageActionPanelNoteActivity(binding.scrollView, binding.actionPanel);
     }
 
     @Override
@@ -145,14 +150,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         });
 
 
-        binding.actionPanel.setOnTouchListener((view, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN && !clickActionPanelShow) {
-                hideActionPanel(view);
-            } else {
-                return false;
-            }
-            return true;
-        });
+        manageActionPanelNoteActivity.startListener();
+
 
     }
 
@@ -199,13 +198,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         else Toast.makeText(this, getString(R.string.notSource), Toast.LENGTH_SHORT).show();
 
 
-    }
-
-    @Override
-    public void showActionPanel() {
-        binding.setActivateActionPanel(true);
-        binding.actionPanel.animate().x((binding.actionPanel.getX() - binding.actionPanel.getWidth() / rightSwipeActionPanel)).setDuration(0).start();
-        clickActionPanelShow = false;
     }
 
 
@@ -402,11 +394,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         changeTextSizeOnline(dataManager.getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
     }
 
-    private void hideActionPanel(View view) {
-        binding.setActivateActionPanel(false);
-        view.animate().x((view.getX() + view.getWidth() / rightSwipeActionPanel)).setDuration(0).start();
-        clickActionPanelShow = true;
-    }
 
 
 }

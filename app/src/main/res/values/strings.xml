@@ -145,7 +145,6 @@
     <string name="errorEmptyNotesRestore" translatable="false">Ошибка: Данный архив либо поврежден, или не содержит заметок</string>
     <string name="successfullyRestoreNotes" translatable="false">Успешно: Заметок восстановленно: %1$d </string>
 
-    <string name="showActionPanelCd" translatable="false">Показать Action Panel</string>
     <string name="searchNotesFromTitle" translatable="false">Введите заголовок заметки</string>
 
     <string name="errorNewTagInput" translatable="false">Ошибка: Максимальное количество символов которое может содержать название метки  %1$d </string>

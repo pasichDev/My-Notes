@@ -88,10 +88,6 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
         getView().loadingSourceNote();
     }
 
-    @Override
-    public void showActionPanel() {
-        getView().showActionPanel();
-    }
 
     @Override
     public Note loadingNote(int idNote) throws ExecutionException, InterruptedException {

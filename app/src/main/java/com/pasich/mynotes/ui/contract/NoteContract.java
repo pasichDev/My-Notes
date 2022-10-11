@@ -29,9 +29,6 @@ public interface NoteContract {
 
         void loadingSourceNote();
 
-        void showActionPanel();
-
-
     }
 
     interface presenter extends MyPresenter<view> {
@@ -48,8 +45,6 @@ public interface NoteContract {
         void deleteNote(Note note);
 
         void sourceNote();
-
-        void showActionPanel();
 
         Note loadingNote(int idNote) throws ExecutionException, InterruptedException;
     }
