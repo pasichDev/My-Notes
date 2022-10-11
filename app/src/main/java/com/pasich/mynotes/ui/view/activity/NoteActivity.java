@@ -90,6 +90,12 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        manageActionPanelNoteActivity.startListener();
+    }
 
     @Override
     public void init() {
@@ -150,7 +156,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         });
 
 
-        manageActionPanelNoteActivity.startListener();
 
 
     }
