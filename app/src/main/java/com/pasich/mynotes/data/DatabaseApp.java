@@ -1,6 +1,5 @@
 package com.pasich.mynotes.data;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -19,47 +18,43 @@ import com.pasich.mynotes.utils.DiskExecutor;
 
 import java.util.concurrent.Executor;
 
-@Database(
-    version = 1,
-    entities = {Tag.class, Note.class, TrashNote.class})
+@Database(version = 1, entities = {Tag.class, Note.class, TrashNote.class})
 public abstract class DatabaseApp extends RoomDatabase {
 
-  private static DatabaseApp sInstance;
-  private static Executor executor;
-  private static final RoomDatabase.Callback sRoomDatabaseCallback =
-      new RoomDatabase.Callback() {
+    private static DatabaseApp sInstance;
+    private static Executor executor;
+    private static final RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
-          super.onCreate(db);
-          Runnable runnable =
-              () -> {
-                  TagsDao dao = sInstance.tagsDao();
-                  dao.deleteAll();
-
-                  dao.addTag(new Tag().create("", 1));
-                  dao.addTag(new Tag().create("allNotes", 2));
-                  Log.wtf("pasic", "createBD:   ");
-              };
+            super.onCreate(db);
+            Runnable runnable = () -> {
+                TagsDao dao = sInstance.tagsDao();
+                dao.deleteAll();
+                dao.addTag(new Tag().create("", 1));
+                dao.addTag(new Tag().create("allNotes", 2));
+            };
 
 
-          executor.execute(runnable);
+            executor.execute(runnable);
         }
-      };
 
-  public static synchronized DatabaseApp getInstance() {
-    if (sInstance == null) {
-      executor = new DiskExecutor();
-      sInstance =
-          Room.databaseBuilder(App.getInstance(), DatabaseApp.class, "MyNotes.db")
-              .addCallback(sRoomDatabaseCallback)
-              .build();
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+        }
+    };
+
+    public static synchronized DatabaseApp getInstance() {
+        if (sInstance == null) {
+            executor = new DiskExecutor();
+            sInstance = Room.databaseBuilder(App.getInstance(), DatabaseApp.class, "MyNotes.db").addCallback(sRoomDatabaseCallback).build();
+        }
+        return sInstance;
     }
-    return sInstance;
-  }
 
-  public abstract TagsDao tagsDao();
+    public abstract TagsDao tagsDao();
 
-  public abstract NoteDao noteDao();
+    public abstract NoteDao noteDao();
 
-  public abstract TrashDao trashDao();
+    public abstract TrashDao trashDao();
 }
