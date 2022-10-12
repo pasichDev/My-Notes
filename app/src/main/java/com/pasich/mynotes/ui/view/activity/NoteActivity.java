@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -66,6 +67,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public PermissionManager permissionManager;
     @Inject
     public NoteUtils noteUtils;
+    @Inject
+    ManageActionPanelNoteActivity manageActionPanelNoteActivity;
 
     private String shareText, tagNote;
     private int idKey;
@@ -77,8 +80,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     private boolean exitNoSave = false;
 
 
-    ManageActionPanelNoteActivity manageActionPanelNoteActivity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,14 +89,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         notePresenter.setDataManager(dataManager);
         notePresenter.viewIsReady();
 
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        manageActionPanelNoteActivity.startListener();
-    }
 
     @Override
     public void init() {
@@ -106,9 +102,13 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         this.shareText = getIntent().getStringExtra("shareText");
         this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
         this.speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+    }
 
 
-        manageActionPanelNoteActivity = new ManageActionPanelNoteActivity(binding.scrollView, binding.actionPanel);
+    @Override
+    public void createActionPanelNote() {
+        ViewTreeObserver viewTreeObserver = binding.scrollView.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(() -> manageActionPanelNoteActivity.startListener(binding.scrollView, binding.actionPanelNote));
     }
 
     @Override

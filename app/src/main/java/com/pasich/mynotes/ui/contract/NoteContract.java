@@ -29,6 +29,7 @@ public interface NoteContract {
 
         void loadingSourceNote();
 
+        void createActionPanelNote();
     }
 
     interface presenter extends MyPresenter<view> {

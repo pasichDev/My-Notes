@@ -33,6 +33,7 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
         getView().createSpeechRecognizer();
         getView().initListeners();
         getView().initListenerSpeechRecognizer();
+        getView().createActionPanelNote();
     }
 
 

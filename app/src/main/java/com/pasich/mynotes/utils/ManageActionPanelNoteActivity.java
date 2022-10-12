@@ -5,53 +5,44 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 
+import javax.inject.Inject;
+
 public class ManageActionPanelNoteActivity {
 
-    private final View actionPanel;
     private final int durationAnimation = 200;
-    private final ScrollView scrollView;
-    private boolean mHideActionPanel = false;
     private final float prefixWidth = 1.25F;
+    private View actionPanel;
+    private boolean mHideActionPanel = false;
     private int widthActionPanel;
 
-    public ManageActionPanelNoteActivity(ScrollView scrollView, View actionPanel) {
-        this.scrollView = scrollView;
-        this.actionPanel = actionPanel;
+    @Inject
+    public ManageActionPanelNoteActivity() {
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void startListener() {
+    public void startListener(ScrollView scrollView, View actionPanel) {
+        this.actionPanel = actionPanel;
+        this.widthActionPanel = (int) (actionPanel.getMeasuredWidth() * prefixWidth);
         scrollView.setOnTouchListener((v, event) -> {
             if (event.getAction() == 2) hideView();
             if (event.getAction() == 1) showView();
             Log.wtf("pasic", "startListener: " + event.getAction());
             return false;
         });
-
-        widthActionPanel = actionPanel.getMeasuredWidth();
     }
 
-
-    /**
-     * Исправить ошибку, из-за которой в widthActionPanel  == 0
-     * а также нужно добавить, прейиксы
-     */
-
-
     private void hideView() {
-        if (!getHideActionPanel()) {
-            actionPanel.animate().x((actionPanel.getX() + actionPanel.getWidth())).setDuration(durationAnimation).start();
+        if (!mHideActionPanel) {
+            actionPanel.animate().x((actionPanel.getX() + widthActionPanel)).setDuration(durationAnimation).start();
             mHideActionPanel = true;
-
-            Log.wtf("pasic", "listenerView: " + actionPanel.getX() + "/" + actionPanel.getWidth());
         }
     }
 
     private void showView() {
-        if (getHideActionPanel()) {
-            actionPanel.animate().x((actionPanel.getX() - actionPanel.getWidth())).setDuration(durationAnimation).start();
+        if (mHideActionPanel) {
+            actionPanel.animate().x((actionPanel.getX() - widthActionPanel)).setDuration(durationAnimation).start();
             mHideActionPanel = false;
-            Log.wtf("pasic", "listenerView: " + actionPanel.getX() + "/" + actionPanel.getWidth());
         }
     }
 
