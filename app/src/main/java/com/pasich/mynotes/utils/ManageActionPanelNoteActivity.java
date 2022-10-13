@@ -13,7 +13,8 @@ public class ManageActionPanelNoteActivity {
     private final float prefixWidth = 1.25F;
     private View actionPanel;
     private boolean mHideActionPanel = false;
-    private int widthActionPanel;
+    private float widthActionPanel;
+    private float actionPanelX;
 
     @Inject
     public ManageActionPanelNoteActivity() {
@@ -23,30 +24,40 @@ public class ManageActionPanelNoteActivity {
     @SuppressLint("ClickableViewAccessibility")
     public void startListener(ScrollView scrollView, View actionPanel) {
         this.actionPanel = actionPanel;
-        this.widthActionPanel = (int) (actionPanel.getMeasuredWidth() * prefixWidth);
+        this.widthActionPanel = actionPanel.getWidth() * prefixWidth;
+        this.actionPanelX = actionPanel.getX();
         scrollView.setOnTouchListener((v, event) -> {
-            if (event.getAction() == 2) hideView();
-            if (event.getAction() == 1) showView();
-            Log.wtf("pasic", "startListener: " + event.getAction());
+
+            if (event.getAction() == 2 && !mHideActionPanel) {
+                hideView();
+
+                Log.wtf("pasic", "hide");
+            }
+            if (event.getAction() == 1 && mHideActionPanel) {
+                showView();
+                Log.wtf("pasic", "show");
+            }
+
+            Log.wtf("pasic", "startListener: " + event.getAction() + "/");
+
             return false;
         });
     }
 
     private void hideView() {
-        if (!mHideActionPanel) {
-            actionPanel.animate().x((actionPanel.getX() + widthActionPanel)).setDuration(durationAnimation).start();
-            mHideActionPanel = true;
-        }
+        mHideActionPanel = true;
+        actionPanel.animate().x((actionPanelX + widthActionPanel)).setDuration(durationAnimation).start();
+
+        Log.wtf("pasic", "x formuls: " + actionPanelX + "/" + widthActionPanel);
+        Log.wtf("pasic", "x core: " + actionPanel.getX() + "/" + actionPanel.getWidth() * prefixWidth);
+        Log.wtf("pasic", "hideView");
+
     }
 
     private void showView() {
-        if (mHideActionPanel) {
-            actionPanel.animate().x((actionPanel.getX() - widthActionPanel)).setDuration(durationAnimation).start();
-            mHideActionPanel = false;
-        }
+        mHideActionPanel = false;
+        actionPanel.animate().x((actionPanel.getX() - widthActionPanel)).setDuration(durationAnimation).start();
+
     }
 
-    public boolean getHideActionPanel() {
-        return this.mHideActionPanel;
-    }
 }
