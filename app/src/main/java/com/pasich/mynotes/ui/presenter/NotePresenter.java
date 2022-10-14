@@ -9,12 +9,15 @@ import com.pasich.mynotes.ui.contract.NoteContract;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.inject.Inject;
+
 public class NotePresenter extends PresenterBase<NoteContract.view>
         implements NoteContract.presenter {
 
     private DataManager data;
     private NotesRepository notesRepository;
 
+    @Inject
     public NotePresenter() {
     }
 

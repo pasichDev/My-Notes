@@ -2,10 +2,8 @@ package com.pasich.mynotes.di.dagger;
 
 import com.pasich.mynotes.base.dagger.ActivityComponentBuilder;
 import com.pasich.mynotes.di.main.MainActivityComponent;
-import com.pasich.mynotes.di.note.NoteActivityComponent;
 import com.pasich.mynotes.di.trash.TrashActivityComponent;
 import com.pasich.mynotes.ui.view.activity.MainActivity;
-import com.pasich.mynotes.ui.view.activity.NoteActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 
 import dagger.Module;
@@ -13,7 +11,7 @@ import dagger.Provides;
 import dagger.multibindings.ClassKey;
 import dagger.multibindings.IntoMap;
 
-@Module(subcomponents = {MainActivityComponent.class, TrashActivityComponent.class, NoteActivityComponent.class})
+@Module(subcomponents = {MainActivityComponent.class, TrashActivityComponent.class})
 public class AppSubComponentsModule {
 
   @Provides
@@ -30,10 +28,5 @@ public class AppSubComponentsModule {
         return builder;
     }
 
-    @Provides
-    @IntoMap
-    @ClassKey(NoteActivity.class)
-    ActivityComponentBuilder provideSplashViewBuilderNote(NoteActivityComponent.Builder builder) {
-        return builder;
-    }
+
 }

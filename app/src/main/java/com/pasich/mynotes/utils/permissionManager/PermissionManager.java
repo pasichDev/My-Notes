@@ -7,8 +7,12 @@ import android.os.Build;
 
 import androidx.core.content.ContextCompat;
 
-public class PermissionManager {
+import javax.inject.Inject;
 
+public class PermissionManager {
+    @Inject
+    public PermissionManager() {
+    }
 
     /**
      * Запросить разрешение на использование микрофона
@@ -17,9 +21,7 @@ public class PermissionManager {
         boolean check = false;
         AudioPermission audioPermission = (AudioPermission) context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(
-                    context, Manifest.permission.RECORD_AUDIO)
-                    == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
 
                 check = true;
             } else {

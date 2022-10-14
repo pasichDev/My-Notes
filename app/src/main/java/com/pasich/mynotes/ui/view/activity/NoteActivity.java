@@ -34,7 +34,9 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
-import com.pasich.mynotes.di.note.NoteActivityModule;
+import com.pasich.mynotes.di.dagger.DaggerMainComponent;
+import com.pasich.mynotes.di.dagger.MainComponent;
+import com.pasich.mynotes.di.dagger.MainModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
@@ -58,7 +60,6 @@ import javax.inject.Inject;
 
 public class NoteActivity extends AppCompatActivity implements NoteContract.view, AudioPermission {
 
-    private final float rightSwipeActionPanel = 1.5F;
     @Inject
     public DataManager dataManager;
     @Inject
@@ -95,7 +96,11 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void init() {
-        getApp().getComponentsHolder().getActivityComponent(getClass(), new NoteActivityModule()).inject(NoteActivity.this);
+        //getApp().getComponentsHolder().getActivityComponent(getClass()).inject(NoteActivity.this);
+        MainComponent build = DaggerMainComponent.builder().mainModule(new MainModule()).build();
+        build.inject(this);
+
+
         binding.setPresenter((NotePresenter) notePresenter);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
