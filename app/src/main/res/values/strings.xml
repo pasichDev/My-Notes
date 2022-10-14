@@ -149,5 +149,6 @@
 
     <string name="errorNewTagInput" translatable="false">Ошибка: Максимальное количество символов которое может содержать название метки  %1$d </string>
 
+    <string name="emptyTrash" translatable="false">Здесь отображаються удаленные вами заметки</string>
 
 </resources>

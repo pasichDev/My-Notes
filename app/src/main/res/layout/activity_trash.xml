@@ -67,6 +67,9 @@
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
+        <include
+            android:id="@+id/includeEmpty"
+            layout="@layout/view_empty_trash" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/cleanTrash"
