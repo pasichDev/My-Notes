@@ -151,7 +151,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
                 notes -> {
                     mNotesTrashAdapter.sortListTrash(notes);
                     mNotesTrashAdapter.submitList(notes);
-                    showEmptyTrash(!(notes.size() >= 1));
+                    if (!(notes.size() >= 1)) showEmptyTrash(true);
                     if (start[0] == 0) binding.ListTrash.scheduleLayoutAnimation();
                     start[0] = 1;
                 });
@@ -161,7 +161,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     private void showEmptyTrash(boolean flag) {
         binding.setEmptyNotesTrash(flag);
-        binding.includeEmpty.getRoot().setVisibility(flag ? View.VISIBLE : View.GONE);
+        binding.includeEmpty.emptyView.setVisibility(flag ? View.VISIBLE : View.GONE);
     }
 
     @Override
