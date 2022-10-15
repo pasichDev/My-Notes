@@ -144,24 +144,18 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
                 });
 
         binding.ListTrash.setAdapter(mNotesTrashAdapter);
-
-        final int[] start = {0};
         noteList.observe(
                 this,
                 notes -> {
                     mNotesTrashAdapter.sortListTrash(notes);
-                    mNotesTrashAdapter.submitList(notes);
-                    if (!(notes.size() >= 1)) showEmptyTrash(true);
-                    if (start[0] == 0) binding.ListTrash.scheduleLayoutAnimation();
-                    start[0] = 1;
+                    if (!(notes.size() >= 1)) showEmptyTrash();
                 });
-
     }
 
 
-    private void showEmptyTrash(boolean flag) {
-        binding.setEmptyNotesTrash(flag);
-        binding.includeEmpty.emptyView.setVisibility(flag ? View.VISIBLE : View.GONE);
+    private void showEmptyTrash() {
+        binding.setEmptyNotesTrash(true);
+        binding.includeEmpty.emptyViewTrash.setVisibility(View.VISIBLE);
     }
 
     @Override

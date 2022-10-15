@@ -138,6 +138,9 @@
             android:visibility="@{emptyNotes ? View.GONE : View.VISIBLE,  default=visible}"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
+        <include
+            android:id="@+id/includeEmpty"
+            layout="@layout/view_empty_notes" />
 
         <include
             android:id="@+id/actionInclude"

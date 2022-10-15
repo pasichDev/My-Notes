@@ -206,9 +206,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
         noteList.observe(this, notes -> {
             mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
-            mActivityBinding.setEmptyNotes(!(notes.size() >= 1));
+            showEmptyTrash(!(notes.size() >= 1));
         });
         tagList.observe(this, tags -> tagsAdapter.submitList(tags));
+    }
+
+
+    private void showEmptyTrash(boolean flag) {
+        mActivityBinding.setEmptyNotes(flag);
+        mActivityBinding.includeEmpty.emptyViewNote.setVisibility(flag ? View.VISIBLE : View.GONE);
     }
 
     @Override
