@@ -100,17 +100,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
         gridLayoutManager = new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL);
 
-      /*  if (mActivityBinding.appBarMainActivity.getLayoutParams() != null) {
-            CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mActivityBinding.appBarMainActivity.getLayoutParams();
-            AppBarLayout.Behavior appBarLayoutBehaviour = new AppBarLayout.Behavior();
-            appBarLayoutBehaviour.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
-                @Override
-                public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
-                    return false;
-                }
-            });
-            layoutParams.setBehavior(appBarLayoutBehaviour);
-        }*/
     }
 
 
