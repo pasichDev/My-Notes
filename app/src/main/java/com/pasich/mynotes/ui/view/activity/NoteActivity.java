@@ -21,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -41,7 +40,6 @@ import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNewNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
-import com.pasich.mynotes.utils.ManageActionPanelNoteActivity;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
 import com.pasich.mynotes.utils.base.simplifications.TextWatcher;
@@ -66,8 +64,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     public PermissionManager permissionManager;
     @Inject
     public NoteUtils noteUtils;
-    @Inject
-    ManageActionPanelNoteActivity manageActionPanelNoteActivity;
 
     private String shareText, tagNote;
     private int idKey;
@@ -95,7 +91,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
     @Override
     public void init() {
         getApp().getComponentsHolder().getActivityComponent(getClass(), new NoteActivityModule()).inject(NoteActivity.this);
-
         binding.setPresenter((NotePresenter) notePresenter);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
@@ -107,9 +102,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void createActionPanelNote() {
-        ViewTreeObserver viewTreeObserver = binding.scrollView.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(() -> manageActionPanelNoteActivity.startListener(binding.scrollView, binding.actionPanelNote));
-    }
+     }
 
     @Override
     public void initTypeActivity() {
