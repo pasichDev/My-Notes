@@ -24,8 +24,10 @@
         tools:context=".ui.view.activity.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarMainActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_behavior=".utils.behavior.FixedAppBarLayoutBehavior"
             android:orientation="vertical">
 
             <FrameLayout
