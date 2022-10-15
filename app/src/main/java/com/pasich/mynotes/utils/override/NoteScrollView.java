@@ -5,7 +5,6 @@ import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_MOVE;
 import static android.view.MotionEvent.ACTION_UP;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -15,6 +14,7 @@ import android.widget.ScrollView;
 
 import com.pasich.mynotes.R;
 
+
 public class NoteScrollView extends ScrollView {
 
     private final int durationAnimation = 200;
@@ -22,7 +22,9 @@ public class NoteScrollView extends ScrollView {
     private View mDependence;
     private boolean mHideActionPanel = false;
     private int dependenceResourceId;
+    private float startDependenceX;
 
+    private int actionFlag = 0;
 
     public NoteScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -46,6 +48,9 @@ public class NoteScrollView extends ScrollView {
         super.onAttachedToWindow();
         if (dependenceResourceId != 0) {
             mDependence = getRootView().findViewById(dependenceResourceId);
+            mDependence.getViewTreeObserver().addOnGlobalLayoutListener(() ->
+                    startDependenceX = mDependence.getX());
+
         }
     }
 
@@ -56,24 +61,25 @@ public class NoteScrollView extends ScrollView {
         dependenceResourceId = 0;
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
         if (mDependence != null) {
             commOnTouchEvent(ev);
         }
-
-        return super.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
-
 
     public void commOnTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
-
+        actionFlag = actionFlag + action;
         if (action == ACTION_DOWN || action == ACTION_MOVE) {
-            if (!mHideActionPanel) hideView();
+            if (!mHideActionPanel && actionFlag >= 12) hideView();
         }
+
+
         if (action == ACTION_UP || action == ACTION_CANCEL) {
+            actionFlag = 0;
             if (mHideActionPanel) showView();
         }
 
@@ -81,13 +87,13 @@ public class NoteScrollView extends ScrollView {
 
 
     private void hideView() {
-        mDependence.animate().x((mDependence.getX() + (mDependence.getWidth() * prefixWidth))).setDuration(durationAnimation).start();
+        mDependence.animate().x((startDependenceX + (mDependence.getWidth() * prefixWidth))).setDuration(durationAnimation).start();
         mHideActionPanel = true;
 
     }
 
     private void showView() {
-        mDependence.animate().x((mDependence.getX() - mDependence.getWidth() * prefixWidth)).setDuration(durationAnimation).start();
+        mDependence.animate().x((startDependenceX)).setDuration(durationAnimation).start();
         mHideActionPanel = false;
     }
 
