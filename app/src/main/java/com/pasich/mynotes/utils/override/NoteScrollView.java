@@ -48,8 +48,7 @@ public class NoteScrollView extends ScrollView {
         super.onAttachedToWindow();
         if (dependenceResourceId != 0) {
             mDependence = getRootView().findViewById(dependenceResourceId);
-            mDependence.getViewTreeObserver().addOnGlobalLayoutListener(() ->
-                    startDependenceX = mDependence.getX());
+            mDependence.getViewTreeObserver().addOnGlobalLayoutListener(() -> startDependenceX = mDependence.getX());
 
         }
     }
