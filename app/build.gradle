@@ -63,7 +63,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-
+    implementation project(path: ':ScrollManageOtherView')
 
     //Dagger 2
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompilerVersion"

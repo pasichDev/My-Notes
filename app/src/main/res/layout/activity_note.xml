@@ -28,11 +28,13 @@
             android:id="@+id/toolbar_actionbar"
             layout="@layout/view_toolbar_note" />
 
-        <com.pasich.mynotes.utils.override.NoteScrollView
+
+        <io.github.scrollmanageotherview.ScrollManageView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:id_dependence="@+id/actionPanelNote"
+            app:orientationHideDependence="horizontal"
             android:layout_marginBottom="16dp"
             android:nestedScrollingEnabled="false"
             android:scrollbarSize="0dp"
@@ -84,7 +86,7 @@
                     android:textColor="@drawable/textview_colors" />
 
             </LinearLayout>
-        </com.pasich.mynotes.utils.override.NoteScrollView>
+        </io.github.scrollmanageotherview.ScrollManageView>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
