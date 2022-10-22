@@ -161,6 +161,6 @@
     <string name="Finish_text_Title" translatable="false">Завершение настройки</string>
     <string name="Finish_text_button_save_backup" translatable="false">Сохранить рез. копию</string>
     <string name="finish" translatable="false">Завершить</string>
-    <string name="Finish_text_Info" translatable="false">Чтобы завершить настройку приложения нужно сохранить рез. копию ваших заметок.</string>
+    <string name="Finish_text_Info" translatable="false">Чтобы завершить настройку приложения нужно сохранить рез. копию ваших заметок. Мы это делаем на случай того, если при запуске новой версии произойдет сбой.</string>
 
 </resources>
