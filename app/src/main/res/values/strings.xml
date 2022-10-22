@@ -152,4 +152,15 @@
     <string name="emptyTrash" translatable="false">Здесь отображаються удаленные вами заметки</string>
     <string name="emptyNotes" translatable="false">Здесь будут отображаться созданные вами заметки</string>
 
+    <string name="Hello_next" translatable="false">Продолжить</string>
+    <string name="Hello_text_Title" translatable="false">Вас приветствует новая версия My Notes</string>
+    <string name="v2_0_10" translatable="false">v2.0.10</string>
+    <string name="Hello_text_info" translatable="false">Мы отнимем у вас несколько минут, чтобы настроить приложение, а также расскажем что сделали нового для вас.</string>
+
+    <string name="skip" translatable="false">SKIP</string>
+    <string name="Finish_text_Title" translatable="false">Завершение настройки</string>
+    <string name="Finish_text_button_save_backup" translatable="false">Сохранить рез. копию</string>
+    <string name="finish" translatable="false">Завершить</string>
+    <string name="Finish_text_Info" translatable="false">Чтобы завершить настройку приложения нужно сохранить рез. копию ваших заметок.</string>
+
 </resources>

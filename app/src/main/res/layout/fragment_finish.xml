@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.helloUI.fragments.FinishFragment">
+
+    <ImageButton
+        android:id="@+id/backFragmentFeatures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/actionButtonStyle"
+        android:src="@drawable/ic_back_hello"
+        android:padding="10dp"
+        android:layout_margin="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/finish_image_fragment" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Finish_text_Title"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:fontFamily="@font/railway_medium"
+            android:gravity="center"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Finish_text_Info"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/backupSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_gravity="bottom"
+            android:padding="15dp"
+            android:text="@string/Finish_text_button_save_backup" />
+
+        <Button
+            android:id="@+id/Finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="32dp"
+            android:enabled="false"
+            android:layout_gravity="bottom"
+            android:padding="15dp"
+            android:text="@string/finish" />
+    </LinearLayout>
+
+
+</FrameLayout>

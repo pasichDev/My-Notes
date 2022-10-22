@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.view.activity.HelloActivity"
+            android:name=".ui.view.helloUI.HelloActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
