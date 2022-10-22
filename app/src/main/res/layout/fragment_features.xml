@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.helloUI.fragments.FeaturesFragment">
 
     <ImageButton
@@ -24,10 +25,19 @@
         android:layout_margin="10dp"
         android:text="@string/skip" />
 
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/featuresViewPage"
         android:layout_margin="10dp"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <me.relex.circleindicator.CircleIndicator3
+        android:layout_gravity="bottom"
+        android:layout_margin="30dp"
+        android:id="@+id/indicatorViewPager"
+        android:layout_width="match_parent"
+        app:ci_drawable="@drawable/indicator_selected"
+        android:layout_height="48dp" />
 </FrameLayout>

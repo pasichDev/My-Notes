@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +41,7 @@ public class FeaturesPageAdapter extends RecyclerView.Adapter<FeaturesPageAdapte
         holder.title.setText(features.getTitle());
         holder.info.setText(features.getInfo());
         holder.images.setImageResource(features.getImage());
-        holder.nextFinish.setVisibility(features.isButton() ? View.VISIBLE : View.GONE);
+
     }
 
     @Override
@@ -54,14 +53,12 @@ public class FeaturesPageAdapter extends RecyclerView.Adapter<FeaturesPageAdapte
         ImageView images;
         TextView title;
         TextView info;
-        Button nextFinish;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             images = itemView.findViewById(R.id.imageFeature);
             info = itemView.findViewById(R.id.infoFeature);
             title = itemView.findViewById(R.id.titleFeature);
-            nextFinish = itemView.findViewById(R.id.toFinish);
         }
     }
 }

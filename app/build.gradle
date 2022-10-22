@@ -77,6 +77,6 @@ dependencies {
 
     //powerPreferences
     implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"
-
+    implementation 'me.relex:circleindicator:2.1.6'
 }
 
