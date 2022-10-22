@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageFeature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp" />
+
+    <TextView
+        android:id="@+id/titleFeature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:fontFamily="@font/railway_medium"
+        android:gravity="center"
+        android:layout_gravity="center" />
+
+
+    <TextView
+        android:id="@+id/infoFeature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/helloColorInfo"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/toFinish"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:layout_gravity="bottom"
+        android:padding="15dp"
+        android:text="@string/Hello_next" />
+
+</LinearLayout>

@@ -163,4 +163,20 @@
     <string name="finish" translatable="false">Завершить</string>
     <string name="Finish_text_Info" translatable="false">Чтобы завершить настройку приложения нужно сохранить рез. копию ваших заметок. Мы это делаем на случай того, если при запуске новой версии произойдет сбой.</string>
 
+
+    <string name="feature_desing_title" translatable="false">Новый дизайн</string>
+    <string name="feature_desing_info" translatable="false">Новый дизайн вмещает в себя удобность и простоту. Каждое взаимодействие между пользователем и приложением продуманно до мелочей.</string>
+
+    <string name="feature_tags_title" translatable="false">Метки, Поиск</string>
+    <string name="feature_tags_info" translatable="false">Вместо папок реализовано метки. Теперь можно на каждую заметку повесить метку, чтобы в нужное время ничего не потерять.
+        А панель поиска всегда поможет быстро, найти нужную заметку по слову или названию.</string>
+
+
+    <string name="feature_create_title" translatable="false">Приложение пересоздано с нуля</string>
+    <string name="feature_create_info" translatable="false">Последнее обновление выпущено 5 месяцев назад, но все эти 5 месяцев я занимался разработкой новой версии которая написана с нуля. Я учел все ошибки которые допустил в старых версиях, и теперь могу твердить что приложение работает стабильно.
+    </string>
+
+
+    <string name="feature_newFetures_title" translatable="false">Новые функции </string>
+    <string name="feature_newFetures_info" translatable="false">Приложение получило много полезных функций, как перевод заметок, множественный выбор, ярлык заметки на рабочий стол, и многое другое. Со временем количество новых функций будет расти. (Виджет, синхронизации с Google)</string>
 </resources>
