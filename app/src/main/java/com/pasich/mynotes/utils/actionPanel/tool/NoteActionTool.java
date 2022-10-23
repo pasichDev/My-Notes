@@ -4,7 +4,7 @@ import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.setAction;
 
 import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
+import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.List;
 public class NoteActionTool {
 
     private final ArrayList<Note> ArrayChecked = new ArrayList<>();
-    private GenericNoteAdapter mAdapter;
+    private GenericAdapter mAdapter;
 
-    public void createObject(GenericNoteAdapter adapter) {
+    public void createObject(GenericAdapter adapter) {
         this.mAdapter = adapter;
     }
 

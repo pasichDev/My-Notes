@@ -26,8 +26,8 @@ import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.TrashNoteActionTool;
-import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
-import com.pasich.mynotes.utils.adapters.genericAdapterNote.OnItemClickListener;
+import com.pasich.mynotes.utils.adapters.TrashAdapter;
+import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
 
@@ -40,7 +40,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     private ActivityTrashBinding binding;
 
-    private GenericNoteAdapter<TrashNote, ItemNoteTrashBinding> mNotesTrashAdapter;
+    private TrashAdapter<ItemNoteTrashBinding> mNotesTrashAdapter;
     @Inject
     public TrashContract.presenter trashPresenter;
     @Inject
@@ -136,7 +136,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         binding.ListTrash.addItemDecoration(new SpacesItemDecoration(15));
         binding.ListTrash.setLayoutManager(
                 new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
-        mNotesTrashAdapter = new GenericNoteAdapter<>(new DiffUtilTrash(),
+        mNotesTrashAdapter = new TrashAdapter<>(new DiffUtilTrash(),
                 R.layout.item_note_trash,
                 (binder, model) -> {
                     binder.setNote(model);

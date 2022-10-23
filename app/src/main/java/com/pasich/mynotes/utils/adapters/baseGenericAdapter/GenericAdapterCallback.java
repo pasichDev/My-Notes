@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.adapters.genericAdapterNote;
+package com.pasich.mynotes.utils.adapters.baseGenericAdapter;
 
 import androidx.databinding.ViewDataBinding;
 

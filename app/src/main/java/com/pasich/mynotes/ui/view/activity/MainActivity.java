@@ -45,8 +45,8 @@ import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.activity.MainUtils;
-import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
-import com.pasich.mynotes.utils.adapters.genericAdapterNote.OnItemClickListener;
+import com.pasich.mynotes.utils.adapters.NoteAdapter;
+import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     private ActivityMainBinding mActivityBinding;
     private TagsAdapter tagsAdapter;
     private StaggeredGridLayoutManager gridLayoutManager;
-    private GenericNoteAdapter<Note, ItemNoteBinding> mNoteAdapter;
+    private NoteAdapter mNoteAdapter;
 
 
     @Override
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void settingsNotesList() {
         mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
         mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
-        mNoteAdapter = new GenericNoteAdapter<>(new DiffUtilNote(), R.layout.item_note, (binder, model) -> {
+        mNoteAdapter = new NoteAdapter<ItemNoteBinding>(new DiffUtilNote(), R.layout.item_note, (binder, model) -> {
             binder.setNote(model);
             mActivityBinding.executePendingBindings();
         });
@@ -357,6 +357,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
+        // mNoteAdapter.showTagNotes(tagsAdapter.getTagSelected().getNameTag());
         //     Log.wtf("pasic", "true cangeTAg ");
         //   addArrayFromNotesAdapter(noteListForTag);
         //  mNoteAdapter.onCurrentListChanged((List<Note>) noteListForTag, mNoteAdapter.getCurrentList());
