@@ -60,7 +60,7 @@ public class HelloActivity extends AppCompatActivity implements HelloTool {
 
 
     private void openFragment(Fragment nextFragment, int step) {
-        binding.setButtonsVisibility(mStep >= 2);
+        //     binding.setButtonsVisibility(mStep >= 2);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                 .replace(R.id.fragment_container_view, nextFragment, null).commit();
