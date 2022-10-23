@@ -22,7 +22,7 @@ import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.adapters.SourceAdapter;
 
 public class SourceNoteDialog extends BottomSheetDialogFragment {
-    private final SearchSourceNote searchSourceNote;
+    private final SearchSourceNote searchSourceNote; //Inject
 
 
     public SourceNoteDialog(SearchSourceNote searchSourceNote) {

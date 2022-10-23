@@ -28,11 +28,11 @@ import java.util.List;
 
 public class SearchDialog extends BottomSheetDialogFragment implements SearchDialogContract.view {
 
-    private final SearchDialogPresenter searchDialogPresenter;
-    public DataManager dataManager;
+    private final SearchDialogPresenter searchDialogPresenter; // @Inject
+    public DataManager dataManager; // @Inject_GLOBALL
     private DialogSearchBinding binding;
     private BottomSheetDialog builder;
-    private SearchNotesAdapter searchNotesAdapter;
+    private SearchNotesAdapter searchNotesAdapter;  // @Inject
     private FloatingActionButton fabNewNote;
 
     public SearchDialog() {

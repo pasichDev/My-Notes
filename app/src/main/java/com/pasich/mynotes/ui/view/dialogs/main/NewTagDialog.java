@@ -25,7 +25,7 @@ import java.util.Objects;
 
 public class NewTagDialog extends BottomSheetDialogFragment {
 
-    private TagsRepository repository;
+    private TagsRepository repository; // @Inject_GLOBAL
     private DialogNewTagBinding binding;
     private boolean errorText = true;
 

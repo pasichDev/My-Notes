@@ -32,10 +32,10 @@ import java.util.concurrent.ExecutionException;
 
 public class TagDialog extends BottomSheetDialogFragment implements TagDialogContract.view {
 
-    public final DataManager dataManager;
+    public final DataManager dataManager;  // @Inject_GLOBAL
     private final Note note;
-    private final TagDialogPresenter dialogPresenter;
-    public BottomSheetDialog builder;
+    private final TagDialogPresenter dialogPresenter;  // @Inject
+    public BottomSheetDialog builder; // @Inject
     private DialogAddTagToNoteBinding binding;
     private boolean errorText = true;
 

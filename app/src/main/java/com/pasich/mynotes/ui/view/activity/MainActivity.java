@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_SORT;
@@ -23,13 +22,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
-import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
@@ -42,7 +39,6 @@ import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
-import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.activity.MainUtils;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
@@ -56,28 +52,33 @@ import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainContract.view, ManagerViewAction<Note>, RestoreNotesBackupOld {
+public class MainActivity extends AppCompatActivity implements MainContract.view {
 
-    @Inject
-    public MainContract.presenter mainPresenter;
-    @Inject
-    public MainUtils utils;
-    @Inject
-    public FormatListUtils formatList;
-    @Inject
-    public DataManager dataManager;
-    @Inject
-    public ActionUtils actionUtils;
-    @Inject
-    public NoteActionTool noteActionTool;
+
+    public MainContract.presenter mainPresenter; // @Inject
+    public MainUtils utils; // @Inject
+    public FormatListUtils formatList; // @Inject
+    public DataManager dataManager; // @Inject_GLOBALL
+    public ActionUtils actionUtils; // @Inject_GLOBALL
+    public NoteActionTool noteActionTool; // @Inject
 
 
     private ActivityMainBinding mActivityBinding;
-    private TagsAdapter tagsAdapter;
-    private StaggeredGridLayoutManager gridLayoutManager;
-    private NoteAdapter<ItemNoteBinding> mNoteAdapter;
+    private TagsAdapter tagsAdapter; // @Inject
+    private StaggeredGridLayoutManager gridLayoutManager; // @Inject
+    private NoteAdapter<ItemNoteBinding> mNoteAdapter; // @Inject
+
+
+    public MainActivity() {
+        mainPresenter = new MainPresenter();
+        utils = new MainUtils();
+        formatList = new FormatListUtils();
+        dataManager = new DataManager();
+        actionUtils = new ActionUtils();
+        noteActionTool = new NoteActionTool();
+
+    }
 
 
     @Override
@@ -96,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void init() {
-        getApp().getComponentsHolder().getActivityComponent(getClass(), new MainActivityModule()).inject(MainActivity.this);
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
         gridLayoutManager = new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL);
 
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         if (isFinishing()) {
             variablesNull();
             mainPresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
+
         }
     }
 }

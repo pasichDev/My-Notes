@@ -7,12 +7,13 @@ import com.pasich.mynotes.base.view.ActivitySettings;
 import com.pasich.mynotes.base.view.MyView;
 import com.pasich.mynotes.base.view.NoteActivityView;
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 
 import java.util.concurrent.ExecutionException;
 
 public interface NoteContract {
 
-    interface view extends MyView, ActionBar, NoteActivityView, ActivitySettings {
+    interface view extends MyView, ActionBar, NoteActivityView, ActivitySettings, AudioPermission {
 
 
         void initTypeActivity();

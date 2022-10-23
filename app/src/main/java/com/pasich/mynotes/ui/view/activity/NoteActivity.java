@@ -1,7 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
-import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_SIZE;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;
@@ -33,7 +32,6 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
-import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
@@ -43,7 +41,6 @@ import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
 import com.pasich.mynotes.utils.base.simplifications.TextWatcher;
-import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
 import java.util.ArrayList;
@@ -52,18 +49,21 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-import javax.inject.Inject;
+public class NoteActivity extends AppCompatActivity implements NoteContract.view {
 
-public class NoteActivity extends AppCompatActivity implements NoteContract.view, AudioPermission {
 
-    @Inject
-    public DataManager dataManager;
-    @Inject
-    public NoteContract.presenter notePresenter;
-    @Inject
-    public PermissionManager permissionManager;
-    @Inject
-    public NoteUtils noteUtils;
+    public DataManager dataManager;// @Inject_GLOBAL
+    public NoteContract.presenter notePresenter;// @Inject
+    public PermissionManager permissionManager;// @Inject
+    public NoteUtils noteUtils;// @Inject
+
+
+    public NoteActivity() {
+        dataManager = new DataManager();
+        notePresenter = new NotePresenter();
+        permissionManager = new PermissionManager();
+        noteUtils = new NoteUtils();
+    }
 
     private String shareText, tagNote;
     private int idKey;
@@ -90,7 +90,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void init() {
-        getApp().getComponentsHolder().getActivityComponent(getClass(), new NoteActivityModule()).inject(NoteActivity.this);
         binding.setPresenter((NotePresenter) notePresenter);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
@@ -272,7 +271,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         notePresenter.detachView();
         if (isFinishing()) {
             notePresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
             speechRecognizer.destroy();
             speechRecognizer = null;
             speechRecognizerIntent = null;

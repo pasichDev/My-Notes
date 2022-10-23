@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
-import com.pasich.mynotes.di.trash.TrashActivityModule;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
@@ -34,21 +32,23 @@ import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
 import java.util.List;
 import java.util.Objects;
 
-import javax.inject.Inject;
 
 public class TrashActivity extends AppCompatActivity implements TrashContract.view, ManagerViewAction<TrashNote> {
 
     private ActivityTrashBinding binding;
+    private TrashAdapter<ItemNoteTrashBinding> mNotesTrashAdapter;  // @Inject
+    public TrashContract.presenter trashPresenter;  // @Inject
+    public DataManager dataManager; // @Inject_GLOBAL
+    public ActionUtils actionUtils; // @Inject_GLOBAL
+    public TrashNoteActionTool trashNoteActionTool; // @Inject
 
-    private TrashAdapter<ItemNoteTrashBinding> mNotesTrashAdapter;
-    @Inject
-    public TrashContract.presenter trashPresenter;
-    @Inject
-    public DataManager dataManager;
-    @Inject
-    public ActionUtils actionUtils;
-    @Inject
-    public TrashNoteActionTool trashNoteActionTool;
+
+    public TrashActivity() {
+        trashPresenter = new TrashPresenter();
+        dataManager = new DataManager();
+        actionUtils = new ActionUtils();
+        trashNoteActionTool = new TrashNoteActionTool();
+    }
 
 
     @Override
@@ -66,10 +66,6 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void init() {
-        getApp()
-                .getComponentsHolder()
-                .getActivityComponent(getClass(), new TrashActivityModule())
-                .inject(TrashActivity.this);
         binding.setPresenter((TrashPresenter) trashPresenter);
     }
 
@@ -100,7 +96,6 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         trashPresenter.detachView();
         if (isFinishing()) {
             trashPresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
         }
     }
 

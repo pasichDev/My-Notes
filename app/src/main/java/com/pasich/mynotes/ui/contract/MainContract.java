@@ -6,9 +6,11 @@ import com.pasich.mynotes.base.MyPresenter;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.MyView;
 import com.pasich.mynotes.base.view.NoteView;
+import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
 import com.pasich.mynotes.base.view.TagView;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 public interface MainContract {
 
-    interface view extends MyView, TagView, NoteView, MainSortView {
+    interface view extends MyView, TagView, NoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
         void settingsSearchView();
 
         void settingsNotesList();

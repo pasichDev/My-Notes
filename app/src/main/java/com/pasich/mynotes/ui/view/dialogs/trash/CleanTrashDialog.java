@@ -13,7 +13,7 @@ import com.pasich.mynotes.data.trash.source.TrashRepository;
 
 public class CleanTrashDialog extends BottomSheetDialogFragment {
 
-    private final TrashRepository repository;
+    private final TrashRepository repository; //INJECT
 
     public CleanTrashDialog(TrashRepository repository) {
         this.repository = repository;
