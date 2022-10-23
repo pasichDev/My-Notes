@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
-import com.pasich.mynotes.di.trash.DaggerTrashActivityComponent;
+import com.pasich.mynotes.di.trash.TrashActivityModule;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
@@ -65,8 +66,10 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void init() {
-
-        DaggerTrashActivityComponent.create().inject(this);
+        getApp()
+                .getComponentsHolder()
+                .getActivityComponent(getClass(), new TrashActivityModule())
+                .inject(TrashActivity.this);
         binding.setPresenter((TrashPresenter) trashPresenter);
     }
 
@@ -97,6 +100,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         trashPresenter.detachView();
         if (isFinishing()) {
             trashPresenter.destroy();
+            getApp().getComponentsHolder().releaseActivityComponent(getClass());
         }
     }
 

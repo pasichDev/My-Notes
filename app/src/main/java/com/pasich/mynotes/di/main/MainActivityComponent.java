@@ -1,10 +1,15 @@
 package com.pasich.mynotes.di.main;
 
+import com.pasich.mynotes.base.dagger.ActivityComponent;
+import com.pasich.mynotes.base.dagger.ActivityComponentBuilder;
 import com.pasich.mynotes.ui.view.activity.MainActivity;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
-@Component(modules = MainActivityModule.class)
-public interface MainActivityComponent {
-  void inject(MainActivity activity);
+@MainActivityScope
+@Subcomponent(modules = MainActivityModule.class)
+public interface MainActivityComponent extends ActivityComponent<MainActivity> {
+
+  @Subcomponent.Builder
+  interface Builder extends ActivityComponentBuilder<MainActivityComponent, MainActivityModule> {}
 }

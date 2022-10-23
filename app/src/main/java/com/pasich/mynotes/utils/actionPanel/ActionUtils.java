@@ -9,13 +9,8 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
-import javax.inject.Inject;
-
 
 public class ActionUtils {
-    @Inject
-    public ActionUtils() {
-    }
 
     private static boolean ACTION_ON = false;
     private ActionPanelBinding binding;
