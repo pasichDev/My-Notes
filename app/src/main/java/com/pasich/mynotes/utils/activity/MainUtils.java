@@ -1,12 +1,17 @@
 package com.pasich.mynotes.utils.activity;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.pasich.mynotes.R;
 
 public class MainUtils {
     private int mSwipe = 0;
+
+    public MainUtils() {
+        Log.wtf("pasic", "MainUtils: ");
+    }
 
     /**
      * Method The method that implements the closing of the application

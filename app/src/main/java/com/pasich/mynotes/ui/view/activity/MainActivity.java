@@ -27,6 +27,7 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
+import com.pasich.mynotes.di.mainActivity.DaggerMainActivityComponent;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
@@ -35,7 +36,6 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
-import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
@@ -52,12 +52,18 @@ import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import javax.inject.Inject;
+
 
 public class MainActivity extends AppCompatActivity implements MainContract.view {
 
 
+    @Inject
+    public MainUtils utils;
+
+
     public MainContract.presenter mainPresenter; // @Inject
-    public MainUtils utils; // @Inject
+    // @Inject
     public FormatListUtils formatList; // @Inject
     public DataManager dataManager; // @Inject_GLOBALL
     public ActionUtils actionUtils; // @Inject_GLOBALL
@@ -72,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     public MainActivity() {
         mainPresenter = new MainPresenter();
-        utils = new MainUtils();
+        //   utils = new MainUtils();
         formatList = new FormatListUtils();
         dataManager = new DataManager();
         actionUtils = new ActionUtils();
@@ -97,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void init() {
+        DaggerMainActivityComponent.create().inject(this);
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
         gridLayoutManager = new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL);
 
@@ -267,9 +274,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void moreActivity() {
-        if (getAction()) actionUtils.closeActionPanel();
-        new AboutDialog().show(getSupportFragmentManager(), "more activity");
+        //   if (getAction()) actionUtils.closeActionPanel();
+        //   new AboutDialog().show(getSupportFragmentManager(), "more activity");
 
+        finish();
+        startActivity(new Intent(MainActivity.this, MainActivity.class));
     }
 
     @Override
