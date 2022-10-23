@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     private ActivityMainBinding mActivityBinding;
     private TagsAdapter tagsAdapter;
     private StaggeredGridLayoutManager gridLayoutManager;
-    private NoteAdapter mNoteAdapter;
+    private NoteAdapter<ItemNoteBinding> mNoteAdapter;
 
 
     @Override
@@ -357,13 +357,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
-        // mNoteAdapter.showTagNotes(tagsAdapter.getTagSelected().getNameTag());
-        //     Log.wtf("pasic", "true cangeTAg ");
-        //   addArrayFromNotesAdapter(noteListForTag);
-        //  mNoteAdapter.onCurrentListChanged((List<Note>) noteListForTag, mNoteAdapter.getCurrentList());
-        //  mNoteAdapter.submitList((List<Note>) );
-        //  mNoteAdapter.sortList(noteListForTag,dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
-
+//        mNoteAdapter.showTagNotes(tagsAdapter.getTagSelected().getNameTag());
 
     }
 

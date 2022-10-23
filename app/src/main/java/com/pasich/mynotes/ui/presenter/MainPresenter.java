@@ -96,7 +96,7 @@ public class MainPresenter extends PresenterBase<MainContract.view> implements M
                 } else getView().startCreateTagDialog();
             } else {
                 getView().selectTagUser(position);
-                notesRepository.setNotesAll(tag.getSystemAction() == 2 ? notesRepository.getNotes() : notesRepository.getNotesFromTag(tag.getNameTag()));
+               // notesRepository.setNotesAll(tag.getSystemAction() == 2 ? notesRepository.getNotes() : notesRepository.getNotesFromTag(tag.getNameTag()));
 
 
                 //position,
