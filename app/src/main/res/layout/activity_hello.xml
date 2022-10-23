@@ -1,13 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.view.helloUI.HelloActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_view"
-        android:name="com.pasich.mynotes.ui.view.helloUI.fragments.HelloFragment"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="buttonsVisibility"
+            type="boolean" />
+    </data>
+
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.view.helloUI.HelloActivity">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/actionButtonStyle"
+                android:src="@drawable/ic_back_hello"
+                android:onClick="backButton"
+                android:visibility="@{buttonsVisibility ? View.VISIBLE : View.INVISIBLE , default=invisible}"
+                android:padding="10dp"
+                android:layout_margin="10dp" />
+
+            <Button
+                android:id="@+id/backupFragmentNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{buttonsVisibility ? View.VISIBLE : View.INVISIBLE , default=invisible}"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+                android:layout_gravity="top|end"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:text="@string/skip" />
+        </FrameLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_view"
+            android:name="com.pasich.mynotes.ui.view.helloUI.fragments.HelloFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</layout>

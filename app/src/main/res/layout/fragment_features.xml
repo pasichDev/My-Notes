@@ -6,29 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.helloUI.fragments.FeaturesFragment">
 
-    <ImageButton
-        android:id="@+id/backFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="?android:attr/actionButtonStyle"
-        android:src="@drawable/ic_back_hello"
-        android:padding="10dp"
-        android:layout_margin="10dp" />
-
-    <Button
-        android:id="@+id/backupFragmentNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
-        android:layout_gravity="top|end"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text="@string/skip" />
-
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/featuresViewPage"
-        android:layout_margin="10dp"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

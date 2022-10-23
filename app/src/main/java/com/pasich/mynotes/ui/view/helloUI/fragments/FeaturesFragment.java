@@ -46,8 +46,8 @@ public class FeaturesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_features, container, false);
-        view.findViewById(R.id.backFragment).setOnClickListener(v -> helloTool.backFragment(2));
-        view.findViewById(R.id.backupFragmentNext).setOnClickListener(v -> helloTool.nextFragment(2));
+        //  view.findViewById(R.id.backFragment).setOnClickListener(v -> helloTool.backFragment(2));
+        // view.findViewById(R.id.backupFragmentNext).setOnClickListener(v -> helloTool.nextFragment(2));
         listFeatures = view.findViewById(R.id.featuresViewPage);
         indicator = view.findViewById(R.id.indicatorViewPager);
         initFeaturesList();
