@@ -1,7 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
-import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_SIZE;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;
@@ -33,7 +32,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
-import com.pasich.mynotes.di.note.NoteActivityModule;
+import com.pasich.mynotes.di.note.DaggerNoteActivityComponent;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
@@ -90,7 +89,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void init() {
-        getApp().getComponentsHolder().getActivityComponent(getClass(), new NoteActivityModule()).inject(NoteActivity.this);
+
+        DaggerNoteActivityComponent.create().inject(this);
         binding.setPresenter((NotePresenter) notePresenter);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
@@ -272,7 +272,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         notePresenter.detachView();
         if (isFinishing()) {
             notePresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
             speechRecognizer.destroy();
             speechRecognizer = null;
             speechRecognizerIntent = null;

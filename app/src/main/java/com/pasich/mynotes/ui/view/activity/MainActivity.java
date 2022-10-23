@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_SORT;
@@ -29,7 +28,7 @@ import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
-import com.pasich.mynotes.di.main.MainActivityModule;
+import com.pasich.mynotes.di.main.DaggerMainActivityComponent;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void init() {
-        getApp().getComponentsHolder().getActivityComponent(getClass(), new MainActivityModule()).inject(MainActivity.this);
+        DaggerMainActivityComponent.create().inject(this);
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
         gridLayoutManager = new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL);
 
@@ -394,7 +393,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         if (isFinishing()) {
             variablesNull();
             mainPresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
         }
     }
 }

@@ -7,7 +7,6 @@ import android.app.Application;
 public class App extends Application {
 
   private static App sInstance;
-  private ComponentsHolder componentsHolder;
 
   public static App getApp() {
     assert context != null;
@@ -21,13 +20,7 @@ public class App extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-    componentsHolder = new ComponentsHolder(this);
     sInstance = this;
-    componentsHolder.init();
-  }
-
-  public ComponentsHolder getComponentsHolder() {
-    return componentsHolder;
   }
 
   

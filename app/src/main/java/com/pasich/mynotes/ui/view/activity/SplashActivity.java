@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.ui.view.helloUI.HelloActivity;
 import com.pasich.mynotes.utils.base.simplifications.AnimationListener;
 
 @SuppressLint("CustomSplashScreen")
@@ -25,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
   private void startAnimation() {
 
-      if (!BuildConfig.DEBUG) {
+      if (BuildConfig.DEBUG) {
           startNextActivity();
       } else {
           Animation mAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.spalsh_start_activity_animation);
@@ -41,8 +40,8 @@ public class SplashActivity extends AppCompatActivity {
 
 
   private void startNextActivity() {
-      //  startActivity(new Intent(SplashActivity.this, MainActivity.class));
-      startActivity(new Intent(SplashActivity.this, HelloActivity.class));
+      startActivity(new Intent(SplashActivity.this, MainActivity.class));
+      //  startActivity(new Intent(SplashActivity.this, HelloActivity.class));
       finish();
   }
 

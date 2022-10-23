@@ -6,8 +6,14 @@ import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.preference.PowerPreference;
 import com.preference.Preference;
 
+import javax.inject.Inject;
+
 public class DataManager {
 
+  @Inject
+  public DataManager() {
+
+  }
 
   public Preference getDefaultPreference() {
     return PowerPreference.getDefaultFile();

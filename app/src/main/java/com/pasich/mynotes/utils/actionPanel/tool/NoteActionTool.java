@@ -9,7 +9,13 @@ import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class NoteActionTool {
+
+    @Inject
+    public NoteActionTool() {
+    }
 
     private final ArrayList<Note> ArrayChecked = new ArrayList<>();
     private GenericNoteAdapter mAdapter;

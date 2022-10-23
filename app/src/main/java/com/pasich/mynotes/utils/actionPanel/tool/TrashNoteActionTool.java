@@ -9,7 +9,14 @@ import com.pasich.mynotes.utils.adapters.genericAdapterNote.GenericNoteAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class TrashNoteActionTool {
+
+    @Inject
+    public TrashNoteActionTool() {
+
+    }
 
     private final ArrayList<TrashNote> ArrayChecked = new ArrayList<>();
     private GenericNoteAdapter tAdapter;
