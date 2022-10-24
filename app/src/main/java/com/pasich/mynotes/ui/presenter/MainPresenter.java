@@ -2,34 +2,30 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
-import com.pasich.mynotes.base.PresenterBase;
+import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.DataManagerNew;
 import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.data.tags.source.TagsRepository;
-import com.pasich.mynotes.data.trash.source.TrashRepository;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MainPresenter extends PresenterBase<MainContract.view> implements MainContract.presenter {
+import javax.inject.Inject;
 
-    private DataManager data;
-    private TagsRepository tagsRepository;
-    private NotesRepository notesRepository;
-    private TrashRepository trashRepository;
 
-    public MainPresenter() {
+public class MainPresenter extends BasePresenterActivity<MainContract.view> implements MainContract.presenter {
+
+
+    @Inject
+    public MainPresenter(DataManagerNew dataManager) {
+        super(dataManager);
     }
 
     @Override
     public void setDataManager(DataManager dataManager) {
-        this.data = dataManager;
-        this.tagsRepository = data.getTagsRepository();
-        this.notesRepository = data.getNotesRepository();
-        this.trashRepository = data.getTrashRepository();
+
     }
 
     @Override
@@ -38,7 +34,7 @@ public class MainPresenter extends PresenterBase<MainContract.view> implements M
         getView().settingsTagsList();
         getView().settingsNotesList();
         try {
-            getView().loadingData(tagsRepository.getTags(), notesRepository.getLoadingNotes());
+            getView().loadingData(getTagsRepository().getTags(), getNotesRepository().getLoadingNotes());
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -49,7 +45,6 @@ public class MainPresenter extends PresenterBase<MainContract.view> implements M
 
     @Override
     public void destroy() {
-        data = null;
     }
 
     @Override
@@ -64,34 +59,34 @@ public class MainPresenter extends PresenterBase<MainContract.view> implements M
 
     @Override
     public void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException {
-        if (data != null) {
+        if (getDataManager() != null) {
             if (!deleteNotes) {
-                for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())) {
+                for (Note note : getNotesRepository().getNotesFromTag(tag.getNameTag())) {
                     note.setTag("");
-                    notesRepository.updateNote(note);
+                    getNotesRepository().updateNote(note);
                 }
             } else {
-                for (Note note : notesRepository.getNotesFromTag(tag.getNameTag())) {
-                    trashRepository.moveToTrash(note);
-                    notesRepository.deleteNote(note);
+                for (Note note : getNotesRepository().getNotesFromTag(tag.getNameTag())) {
+                    getTrashRepository().moveToTrash(note);
+                    getNotesRepository().deleteNote(note);
                 }
 
             }
-            tagsRepository.deleteTag(tag);
+            getTagsRepository().deleteTag(tag);
         }
     }
 
 
     @Override
     public void editVisibility(Tag tag) {
-        if (data != null) tagsRepository.updateTag(tag);
+        if (getDataManager() != null) getTagsRepository().updateTag(tag);
     }
 
     @Override
     public void clickTag(Tag tag, int position) {
         try {
             if (tag.getSystemAction() == 1) {
-                if (tagsRepository.getCountTagAll() >= MAX_TAG_COUNT) {
+                if (getTagsRepository().getCountTagAll() >= MAX_TAG_COUNT) {
                     getView().startToastCheckCountTags();
                 } else getView().startCreateTagDialog();
             } else {
@@ -116,7 +111,7 @@ public class MainPresenter extends PresenterBase<MainContract.view> implements M
         if (tag.getSystemAction() == 0) {
             Integer[] keysNote = new Integer[0];
             try {
-                keysNote = new Integer[]{notesRepository.getCountNoteTag(tag.getNameTag())};
+                keysNote = new Integer[]{getNotesRepository().getCountNoteTag(tag.getNameTag())};
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -132,24 +127,24 @@ public class MainPresenter extends PresenterBase<MainContract.view> implements M
 
     @Override
     public void deleteNote(Note note) {
-        if (data != null) {
-            trashRepository.moveToTrash(note);
-            notesRepository.deleteNote(note);
+        if (getDataManager() != null) {
+            getTrashRepository().moveToTrash(note);
+            getNotesRepository().deleteNote(note);
         }
     }
 
     @Override
     public void deleteNotesArray(ArrayList<Note> notes) {
-        if (data != null) {
-            trashRepository.moveToTrash(notes);
-            notesRepository.deleteNote(notes);
+        if (getDataManager() != null) {
+            getTrashRepository().moveToTrash(notes);
+            getNotesRepository().deleteNote(notes);
         }
     }
 
     @Override
     public void addNote(Note note) {
         try {
-            notesRepository.addNote(note);
+            getNotesRepository().addNote(note);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }

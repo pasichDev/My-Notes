@@ -1,21 +1,24 @@
 package com.pasich.mynotes.ui.presenter;
 
 
-import com.pasich.mynotes.base.PresenterBase;
+import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.DataManagerNew;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.ui.contract.NoteContract;
 
 import java.util.concurrent.ExecutionException;
 
-public class NotePresenter extends PresenterBase<NoteContract.view>
+public class NotePresenter extends BasePresenterActivity<NoteContract.view>
         implements NoteContract.presenter {
 
     private DataManager data;
     private NotesRepository notesRepository;
 
-    public NotePresenter() {
+
+    public NotePresenter(DataManagerNew dataManager) {
+        super(dataManager);
     }
 
     @Override

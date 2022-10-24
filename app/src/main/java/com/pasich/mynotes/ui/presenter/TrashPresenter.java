@@ -1,8 +1,9 @@
 package com.pasich.mynotes.ui.presenter;
 
 
-import com.pasich.mynotes.base.PresenterBase;
+import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.DataManagerNew;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.data.trash.source.TrashRepository;
@@ -11,14 +12,17 @@ import com.pasich.mynotes.ui.contract.TrashContract;
 import java.util.ArrayList;
 
 
-public class TrashPresenter extends PresenterBase<TrashContract.view>
+public class TrashPresenter extends BasePresenterActivity<TrashContract.view>
         implements TrashContract.presenter {
 
     private TrashRepository trashRepository;
     private NotesRepository notesRepository;
 
-    public TrashPresenter() {
+
+    public TrashPresenter(DataManagerNew dataManager) {
+        super(dataManager);
     }
+
 
     @Override
     public void setDataManager(DataManager dataManager) {

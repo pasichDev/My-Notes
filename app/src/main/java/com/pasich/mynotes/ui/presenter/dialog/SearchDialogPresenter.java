@@ -1,7 +1,6 @@
 package com.pasich.mynotes.ui.presenter.dialog;
 
-
-import com.pasich.mynotes.base.PresenterBase;
+import com.pasich.mynotes.base.dialog.BasePresenterDialog;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.ui.contract.dialog.SearchDialogContract;
@@ -9,7 +8,7 @@ import com.pasich.mynotes.ui.contract.dialog.SearchDialogContract;
 import java.util.concurrent.ExecutionException;
 
 
-public class SearchDialogPresenter extends PresenterBase<SearchDialogContract.view>
+public class SearchDialogPresenter extends BasePresenterDialog<SearchDialogContract.view>
         implements SearchDialogContract.presenter {
 
     private NotesRepository notesRepository;

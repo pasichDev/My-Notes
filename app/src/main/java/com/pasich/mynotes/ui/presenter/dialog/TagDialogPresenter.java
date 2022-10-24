@@ -1,7 +1,7 @@
 package com.pasich.mynotes.ui.presenter.dialog;
 
 
-import com.pasich.mynotes.base.PresenterBase;
+import com.pasich.mynotes.base.dialog.BasePresenterDialog;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.tags.Tag;
@@ -11,7 +11,7 @@ import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
 import java.util.concurrent.ExecutionException;
 
 
-public class TagDialogPresenter extends PresenterBase<TagDialogContract.view>
+public class TagDialogPresenter extends BasePresenterDialog<TagDialogContract.view>
         implements TagDialogContract.presenter {
 
     private TagsRepository tagsRepository;

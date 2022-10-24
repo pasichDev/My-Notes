@@ -1,8 +1,6 @@
-package com.pasich.mynotes.base;
+package com.pasich.mynotes.base.dialog;
 
-import com.pasich.mynotes.base.view.MyView;
-
-public abstract class PresenterBase<T extends MyView> implements MyPresenter<T> {
+public abstract class BasePresenterDialog<T extends BaseViewDialog> implements DialogPresenter<T> {
 
   private T view;
 

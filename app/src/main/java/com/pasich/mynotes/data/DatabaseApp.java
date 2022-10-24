@@ -7,13 +7,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.pasich.mynotes.MyApp;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.dao.NoteDao;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.data.tags.source.dao.TagsDao;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.data.trash.source.dao.TrashDao;
-import com.pasich.mynotes.di.App;
 import com.pasich.mynotes.utils.DiskExecutor;
 
 import java.util.concurrent.Executor;
@@ -47,7 +47,7 @@ public abstract class DatabaseApp extends RoomDatabase {
     public static synchronized DatabaseApp getInstance() {
         if (sInstance == null) {
             executor = new DiskExecutor();
-            sInstance = Room.databaseBuilder(App.getInstance(), DatabaseApp.class, "MyNotes.db").addCallback(sRoomDatabaseCallback).build();
+            sInstance = Room.databaseBuilder(MyApp.getInstance(), DatabaseApp.class, "MyNotes.db").addCallback(sRoomDatabaseCallback).build();
         }
         return sInstance;
     }

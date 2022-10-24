@@ -6,9 +6,12 @@ import android.widget.Toast;
 
 import com.pasich.mynotes.R;
 
+import javax.inject.Inject;
+
 public class MainUtils {
     private int mSwipe = 0;
 
+    @Inject
     public MainUtils() {
         Log.wtf("pasic", "MainUtils: ");
     }

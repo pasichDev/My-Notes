@@ -7,14 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.DataManagerNew;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
@@ -33,7 +34,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class TrashActivity extends AppCompatActivity implements TrashContract.view, ManagerViewAction<TrashNote> {
+public class TrashActivity extends BaseActivity implements TrashContract.view, ManagerViewAction<TrashNote> {
 
     private ActivityTrashBinding binding;
     private TrashAdapter<ItemNoteTrashBinding> mNotesTrashAdapter;  // @Inject
@@ -44,7 +45,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
 
     public TrashActivity() {
-        trashPresenter = new TrashPresenter();
+        trashPresenter = new TrashPresenter(new DataManagerNew());
         dataManager = new DataManager();
         actionUtils = new ActionUtils();
         trashNoteActionTool = new TrashNoteActionTool();
@@ -52,7 +53,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(TrashActivity.this, R.layout.activity_trash);
         init();

@@ -12,22 +12,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
-import com.pasich.mynotes.di.mainActivity.DaggerMainActivityComponent;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
@@ -55,15 +52,16 @@ import java.util.concurrent.ExecutionException;
 import javax.inject.Inject;
 
 
-public class MainActivity extends AppCompatActivity implements MainContract.view {
+public class MainActivity extends BaseActivity implements MainContract.view {
 
 
     @Inject
-    public MainUtils utils;
+    public MainContract.presenter mainPresenter;
+
+    @Inject
+    public MainUtils utils;    // @Inject
 
 
-    public MainContract.presenter mainPresenter; // @Inject
-    // @Inject
     public FormatListUtils formatList; // @Inject
     public DataManager dataManager; // @Inject_GLOBALL
     public ActionUtils actionUtils; // @Inject_GLOBALL
@@ -77,8 +75,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
     public MainActivity() {
-        mainPresenter = new MainPresenter();
-        //   utils = new MainUtils();
         formatList = new FormatListUtils();
         dataManager = new DataManager();
         actionUtils = new ActionUtils();
@@ -88,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         init();
@@ -103,7 +99,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void init() {
-        DaggerMainActivityComponent.create().inject(this);
+        //    DaggerMainActivityComponent.create().inject(this);
+        getActivityComponent().inject(this);
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
         gridLayoutManager = new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL);
 
@@ -248,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @SuppressLint("StringFormatMatches")
     @Override
     public void startToastCheckCountTags() {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.countTagsError, MAX_TAG_COUNT), Snackbar.LENGTH_LONG).show();
+        onError(getString(R.string.countTagsError, MAX_TAG_COUNT), mActivityBinding.newNotesButton);
     }
 
 
@@ -378,12 +375,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void errorProcessRestore() {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
+        onError(R.string.errorEmptyNotesRestore, mActivityBinding.newNotesButton);
     }
 
     @Override
     public void successfullyProcessRestore(int countNotes) {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.successfullyRestoreNotes, countNotes), BaseTransientBottomBar.LENGTH_LONG).show();
+        onError(getString(R.string.successfullyRestoreNotes, countNotes), mActivityBinding.newNotesButton);
     }
 
     @Override

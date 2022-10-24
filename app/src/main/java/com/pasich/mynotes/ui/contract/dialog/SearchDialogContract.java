@@ -1,7 +1,7 @@
 package com.pasich.mynotes.ui.contract.dialog;
 
-import com.pasich.mynotes.base.MyPresenter;
-import com.pasich.mynotes.base.view.MyView;
+import com.pasich.mynotes.base.dialog.BaseViewDialog;
+import com.pasich.mynotes.base.dialog.DialogPresenter;
 import com.pasich.mynotes.data.notes.Note;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SearchDialogContract {
 
-    interface view extends MyView {
+    interface view extends BaseViewDialog {
 
         void settingsListResult();
 
@@ -18,7 +18,7 @@ public interface SearchDialogContract {
         void initFabButton();
     }
 
-    interface presenter extends MyPresenter<view> {
+    interface presenter extends DialogPresenter<view> {
 
 
     }

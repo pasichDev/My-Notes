@@ -25,11 +25,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.DataManagerNew;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
@@ -49,7 +50,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class NoteActivity extends AppCompatActivity implements NoteContract.view {
+public class NoteActivity extends BaseActivity implements NoteContract.view {
 
 
     public DataManager dataManager;// @Inject_GLOBAL
@@ -60,7 +61,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     public NoteActivity() {
         dataManager = new DataManager();
-        notePresenter = new NotePresenter();
+        notePresenter = new NotePresenter(new DataManagerNew());
         permissionManager = new PermissionManager();
         noteUtils = new NoteUtils();
     }
@@ -76,7 +77,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(NoteActivity.this, R.layout.activity_note);
         init();
