@@ -3,7 +3,7 @@ package com.pasich.mynotes.data.newdata;
 import android.content.Context;
 
 import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.di.ApplicationContext;
+import com.pasich.mynotes.di.scope.ApplicationContext;
 
 import java.util.List;
 
@@ -23,7 +23,6 @@ public class AppDataManger implements DataManger {
     @Inject
     AppDataManger(@ApplicationContext Context context,
                   DbHelper dbHelper) {
-
         this.context = context;
         this.dbHelper = dbHelper;
     }

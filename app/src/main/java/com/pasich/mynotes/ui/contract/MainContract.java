@@ -10,7 +10,7 @@ import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
 import com.pasich.mynotes.base.view.TagView;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.di.PerActivity;
+import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 import java.util.ArrayList;

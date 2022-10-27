@@ -5,7 +5,13 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.pasich.mynotes.data.notes.Note;
 
+import javax.inject.Inject;
+
 public class DiffUtilNote extends DiffUtil.ItemCallback<Note> {
+
+    @Inject
+    public DiffUtilNote() {
+    }
 
     @Override
     public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {

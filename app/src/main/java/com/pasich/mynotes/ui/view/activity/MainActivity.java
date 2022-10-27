@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
@@ -28,7 +27,6 @@ import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
@@ -40,7 +38,6 @@ import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -57,52 +54,39 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
     @Inject
     public MainContract.presenter mainPresenter;
-
     @Inject
-    public MainUtils utils;    // @Inject
-
-
-    public FormatListUtils formatList; // @Inject
-    public DataManager dataManager; // @Inject_GLOBALL
-    public ActionUtils actionUtils; // @Inject_GLOBALL
-    public NoteActionTool noteActionTool; // @Inject
-
+    public MainUtils utils;
+    @Inject
+    public FormatListUtils formatList;
+    @Inject
+    public NoteActionTool noteActionTool;
+    @Inject
+    public TagsAdapter tagsAdapter;
+    @Inject
+    public StaggeredGridLayoutManager staggeredGridLayoutManager;
+    @Inject
+    public ActionUtils actionUtils;
+    @Inject
+    public NoteAdapter<ItemNoteBinding> mNoteAdapter;
 
     private ActivityMainBinding mActivityBinding;
-    private TagsAdapter tagsAdapter; // @Inject
-    private StaggeredGridLayoutManager gridLayoutManager; // @Inject
-    private NoteAdapter<ItemNoteBinding> mNoteAdapter; // @Inject
-
-
-    public MainActivity() {
-        formatList = new FormatListUtils();
-        dataManager = new DataManager();
-        actionUtils = new ActionUtils();
-        noteActionTool = new NoteActionTool();
-
-    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
-        init();
 
+        getActivityComponent().inject(this);
         mainPresenter.attachView(this);
-        mainPresenter.setDataManager(dataManager);
         mainPresenter.viewIsReady();
-
+        mActivityBinding.setPresenter((MainPresenter) mainPresenter);
 
     }
 
 
     @Override
     public void init() {
-        //    DaggerMainActivityComponent.create().inject(this);
-        getActivityComponent().inject(this);
-        mActivityBinding.setPresenter((MainPresenter) mainPresenter);
-        gridLayoutManager = new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL);
 
     }
 
@@ -110,7 +94,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     @Override
     public void initActionUtils() {
         actionUtils.createObject(mActivityBinding.getRoot().findViewById(R.id.activity_main));
-        noteActionTool.createObject(mNoteAdapter);
+
     }
 
     @Override
@@ -122,7 +106,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     public void formatButton() {
         if (!getAction()) {
             formatList.formatNote();
-            gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
+            //Нужно реализовать получение данных
+            // gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
         }
     }
 
@@ -186,16 +171,14 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         mActivityBinding.listTags.addItemDecoration(new SpacesItemDecoration(5));
         mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
-        tagsAdapter = new TagsAdapter(new DiffUtilTag());
         mActivityBinding.listTags.setAdapter(tagsAdapter);
-        // tagsAdapter.onCurrentListChanged();
 
     }
 
     @Override
     public void settingsNotesList() {
         mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
-        mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
+        mActivityBinding.listNotes.setLayoutManager(staggeredGridLayoutManager);
         //   mNoteAdapter = new NoteAdapter<ItemNoteBinding>(new DiffUtilNote(), R.layout.item_note, (binder, model) -> {
         //       binder.setNote(model);
         //        mActivityBinding.executePendingBindings();
@@ -210,10 +193,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     @Override
     public void loadingData(Observable<List<Tag>> tagList, LiveData<List<Note>> noteList) {
 
-        tagList.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(tags -> tagsAdapter.submitList(tags)
-                );
+
+        tagList.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(tags -> tagsAdapter.submitList(tags));
 
 
         //  noteList.observe(this, notes -> {
@@ -288,7 +269,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
     @Override
     public void startCreateTagDialog() {
-        new NewTagDialog(dataManager.getTagsRepository()).show(getSupportFragmentManager(), "New Tag");
+        //     new NewTagDialog(dataManager.getTagsRepository()).show(getSupportFragmentManager(), "New Tag");
     }
 
     @Override

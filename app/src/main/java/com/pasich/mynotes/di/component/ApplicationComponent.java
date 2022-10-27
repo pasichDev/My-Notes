@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.pasich.mynotes.MyApp;
 import com.pasich.mynotes.data.newdata.DataManger;
-import com.pasich.mynotes.di.ApplicationContext;
 import com.pasich.mynotes.di.module.ApplicationModule;
+import com.pasich.mynotes.di.scope.ApplicationContext;
 
 import javax.inject.Singleton;
 

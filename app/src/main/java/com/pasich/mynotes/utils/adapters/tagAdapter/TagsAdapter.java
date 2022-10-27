@@ -14,13 +14,17 @@ import com.pasich.mynotes.databinding.ItemTagBinding;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
     private final int PAYLOAD_SET_SELECTED = 1;
     private OnItemClickListenerTag mOnItemClickListener;
     private Tag mTagSelected;
 
-    public TagsAdapter(@NonNull DiffUtil.ItemCallback<Tag> diffCallback) {
+    @Inject
+    public TagsAdapter(@NonNull @Named("Tag") DiffUtil.ItemCallback<Tag> diffCallback) {
         super(diffCallback);
     }
 

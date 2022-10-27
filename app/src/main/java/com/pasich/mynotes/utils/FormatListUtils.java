@@ -8,8 +8,14 @@ import android.widget.ImageButton;
 import com.pasich.mynotes.R;
 import com.preference.PowerPreference;
 
+import javax.inject.Inject;
+
 public class FormatListUtils {
     private ImageButton buttonFormat;
+
+    @Inject
+    public FormatListUtils() {
+    }
 
     public void init(ImageButton button) {
         this.buttonFormat = button;

@@ -4,19 +4,24 @@ import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.setAction;
 
 import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.databinding.ItemNoteBinding;
+import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class NoteActionTool {
 
-    private final ArrayList<Note> ArrayChecked = new ArrayList<>();
-    private GenericAdapter mAdapter;
-
-    public void createObject(GenericAdapter adapter) {
+    @Inject
+    public NoteActionTool(NoteAdapter<ItemNoteBinding> adapter) {
         this.mAdapter = adapter;
     }
+
+    private final ArrayList<Note> ArrayChecked = new ArrayList<>();
+    private final GenericAdapter mAdapter;
 
     public ArrayList<Note> getArrayChecked() {
         return this.ArrayChecked;

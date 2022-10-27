@@ -2,15 +2,20 @@ package com.pasich.mynotes.utils.actionPanel;
 
 import android.view.View;
 
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
+import javax.inject.Inject;
+
 
 public class ActionUtils {
+
+    @Inject
+    public ActionUtils() {
+    }
 
     private static boolean ACTION_ON = false;
     private ActionPanelBinding binding;
@@ -22,7 +27,6 @@ public class ActionUtils {
         this.mViewRoot = view;
         this.binding = ActionPanelBinding.bind(view.findViewById(R.id.actionInclude));
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
-        addActionPanel();
         setListener();
     }
 
@@ -34,29 +38,8 @@ public class ActionUtils {
         binding.actionPanelRestore.setOnClickListener(v -> managerViewAction.restoreNotes());
     }
 
-    private void addActionPanel() {
-        // mViewRoot.addView(binding.getRoot());
-        //   binding.actionPanel.setVisibility(View.GONE);
-        //    createConstraintSetActionPanel();
-    }
 
-    private void createConstraintSetActionPanel() {
-        ConstraintSet set = new ConstraintSet();
-        set.constrainHeight(binding.actionPanel.getId(), ConstraintSet.WRAP_CONTENT);
-        set.constrainWidth(binding.actionPanel.getId(), ConstraintSet.WRAP_CONTENT);
 
-        set.connect(
-                binding.actionPanel.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 50);
-        set.connect(
-                binding.actionPanel.getId(),
-                ConstraintSet.BOTTOM,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.BOTTOM,
-                50);
-
-        //   set.applyTo(mViewRoot);
-
-    }
 
     public void setTrash() {
         binding.actionPanelShare.setVisibility(View.GONE);

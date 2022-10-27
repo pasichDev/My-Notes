@@ -9,44 +9,21 @@ import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallback;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note, VM> {
 
 
-    private List<Note> defaultList = new ArrayList<>();
-
-
+    @Inject
     public NoteAdapter(@NonNull DiffUtilNote diffCallback, int layoutId, GenericAdapterCallback<VM, Note> bindingInterface) {
         super(diffCallback, layoutId, bindingInterface);
 
     }
 
-
-    /**
-     * public void showTagNotes(String tag) {
-     * if (defaultList.size() == 0) defaultList = new ArrayList<>(getCurrentList());
-     * List<Note> newList = new ArrayList<>(defaultList);
-     * <p>
-     * if (tag.equals("allNotes")) {
-     * submitList(defaultList);
-     * } else {
-     * Iterator<Note> itr = newList.iterator();
-     * while (itr.hasNext()) {
-     * Note note = itr.next();
-     * if (!note.getTag().equals(tag)) {
-     * itr.remove();
-     * }
-     * }
-     * <p>
-     * <p>
-     * submitList(newList);
-     * }
-     * }
-     */
 
     public void sortList(String arg) {
         Collections.sort(getCurrentList(), new NoteComparator().getComparator(arg));
