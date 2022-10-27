@@ -1,6 +1,5 @@
 package com.pasich.mynotes.data.tags.source.dao;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -15,7 +14,7 @@ import java.util.List;
 @Dao
 public interface TagsDao {
   @Query("SELECT * FROM tags")
-  LiveData<List<Tag>> getTags();
+  List<Tag> getTags();
 
   @Query("SELECT * FROM tags where systemAction = 0")
   List<Tag> getTagsUser();

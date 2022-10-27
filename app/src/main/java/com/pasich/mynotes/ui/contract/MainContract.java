@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import io.reactivex.Observable;
+
 public interface MainContract {
 
     interface view extends BaseViewActivity, TagView, NoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
@@ -38,7 +40,7 @@ public interface MainContract {
 
         void selectTagUser(int position);
 
-        void loadingData(LiveData<List<Tag>> tagList, LiveData<List<Note>> noteList);
+        void loadingData(Observable<List<Tag>> tagList, LiveData<List<Note>> noteList);
 
         void openNoteEdit(int idNote);
 

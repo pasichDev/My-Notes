@@ -1,8 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_SORT;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.annotation.SuppressLint;
@@ -39,17 +37,19 @@ import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.activity.MainUtils;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
-import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseActivity implements MainContract.view {
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
             }
         });
 
-        mNoteAdapter.setOnItemClickListener(new OnItemClickListener<Note>() {
+/*        mNoteAdapter.setOnItemClickListener(new OnItemClickListener<Note>() {
 
             @Override
             public void onClick(int position, Note model) {
@@ -168,6 +168,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         });
 
 
+
+ */
     }
 
 
@@ -194,10 +196,10 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     public void settingsNotesList() {
         mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
         mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
-        mNoteAdapter = new NoteAdapter<ItemNoteBinding>(new DiffUtilNote(), R.layout.item_note, (binder, model) -> {
-            binder.setNote(model);
-            mActivityBinding.executePendingBindings();
-        });
+        //   mNoteAdapter = new NoteAdapter<ItemNoteBinding>(new DiffUtilNote(), R.layout.item_note, (binder, model) -> {
+        //       binder.setNote(model);
+        //        mActivityBinding.executePendingBindings();
+        //    });
 
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
 
@@ -206,13 +208,19 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
 
     @Override
-    public void loadingData(LiveData<List<Tag>> tagList, LiveData<List<Note>> noteList) {
+    public void loadingData(Observable<List<Tag>> tagList, LiveData<List<Note>> noteList) {
 
-        noteList.observe(this, notes -> {
-            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
-            showEmptyTrash(!(notes.size() >= 1));
-        });
-        tagList.observe(this, tags -> tagsAdapter.submitList(tags));
+        tagList.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(tags -> tagsAdapter.submitList(tags)
+                );
+
+
+        //  noteList.observe(this, notes -> {
+        //      mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
+        //       showEmptyTrash(!(notes.size() >= 1));
+        //    });
+        //  tagList.observe(this, tags -> tagsAdapter.submitList(tags));
     }
 
 

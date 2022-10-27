@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.DataManagerNew;
 import com.pasich.mynotes.data.trash.TrashNote;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
@@ -45,7 +44,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
 
     public TrashActivity() {
-        trashPresenter = new TrashPresenter(new DataManagerNew());
+        trashPresenter = null;
         dataManager = new DataManager();
         actionUtils = new ActionUtils();
         trashNoteActionTool = new TrashNoteActionTool();

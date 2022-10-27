@@ -1,4 +1,4 @@
-package com.pasich.mynotes.data;
+package com.pasich.mynotes.data.newdata;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

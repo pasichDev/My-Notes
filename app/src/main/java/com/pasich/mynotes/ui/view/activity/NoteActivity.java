@@ -30,7 +30,6 @@ import androidx.databinding.DataBindingUtil;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.DataManagerNew;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
@@ -61,7 +60,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     public NoteActivity() {
         dataManager = new DataManager();
-        notePresenter = new NotePresenter(new DataManagerNew());
+        notePresenter = null;
         permissionManager = new PermissionManager();
         noteUtils = new NoteUtils();
     }

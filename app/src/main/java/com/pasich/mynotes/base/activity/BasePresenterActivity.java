@@ -1,6 +1,6 @@
 package com.pasich.mynotes.base.activity;
 
-import com.pasich.mynotes.data.DataManagerNew;
+import com.pasich.mynotes.data.newdata.DataManger;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.data.trash.source.TrashRepository;
@@ -8,32 +8,32 @@ import com.pasich.mynotes.data.trash.source.TrashRepository;
 public abstract class BasePresenterActivity<T extends BaseViewActivity> implements ActivityPresenter<T> {
 
 
-    private final DataManagerNew dataManager;
+    private final DataManger dataManager;
     private T view;
 
 
-    public BasePresenterActivity(DataManagerNew dataManager) {
+    public BasePresenterActivity(DataManger dataManager) {
         this.dataManager = dataManager;
     }
 
     @Override
-    public DataManagerNew getDataManager() {
+    public DataManger getDataManager() {
         return dataManager;
     }
 
     @Override
     public TrashRepository getTrashRepository() {
-        return getDataManager().getTrashRepository();
+        return null;
     }
 
     @Override
     public NotesRepository getNotesRepository() {
-        return getDataManager().getNotesRepository();
+        return null;
     }
 
     @Override
     public TagsRepository getTagsRepository() {
-        return getDataManager().getTagsRepository();
+        return null;
     }
 
     @Override

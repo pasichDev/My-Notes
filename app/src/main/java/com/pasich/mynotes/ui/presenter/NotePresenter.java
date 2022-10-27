@@ -3,7 +3,7 @@ package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.DataManagerNew;
+import com.pasich.mynotes.data.newdata.DataManger;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.notes.source.NotesRepository;
 import com.pasich.mynotes.ui.contract.NoteContract;
@@ -17,7 +17,7 @@ public class NotePresenter extends BasePresenterActivity<NoteContract.view>
     private NotesRepository notesRepository;
 
 
-    public NotePresenter(DataManagerNew dataManager) {
+    public NotePresenter(DataManger dataManager) {
         super(dataManager);
     }
 

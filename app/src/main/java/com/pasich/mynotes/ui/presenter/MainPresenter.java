@@ -2,9 +2,11 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.util.Log;
+
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.DataManagerNew;
+import com.pasich.mynotes.data.newdata.DataManger;
 import com.pasich.mynotes.data.notes.Note;
 import com.pasich.mynotes.data.tags.Tag;
 import com.pasich.mynotes.ui.contract.MainContract;
@@ -19,7 +21,7 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
 
 
     @Inject
-    public MainPresenter(DataManagerNew dataManager) {
+    public MainPresenter(DataManger dataManager) {
         super(dataManager);
     }
 
@@ -33,11 +35,9 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
         getView().settingsSearchView();
         getView().settingsTagsList();
         getView().settingsNotesList();
-        try {
-            getView().loadingData(getTagsRepository().getTags(), getNotesRepository().getLoadingNotes());
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        getView().loadingData(getDataManager().getTags(), null);
+
         getView().initListeners();
         getView().initActionUtils();
     }
@@ -60,7 +60,7 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
     @Override
     public void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException {
         if (getDataManager() != null) {
-            if (!deleteNotes) {
+       /*     if (!deleteNotes) {
                 for (Note note : getNotesRepository().getNotesFromTag(tag.getNameTag())) {
                     note.setTag("");
                     getNotesRepository().updateNote(note);
@@ -72,7 +72,10 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
                 }
 
             }
-            getTagsRepository().deleteTag(tag);
+
+        */
+            Log.wtf("pasic", "deleteTag: ");
+            getDataManager().deleteTag(tag);
         }
     }
 
@@ -110,12 +113,12 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
     public void clickLongTag(Tag tag) {
         if (tag.getSystemAction() == 0) {
             Integer[] keysNote = new Integer[0];
-            try {
-                keysNote = new Integer[]{getNotesRepository().getCountNoteTag(tag.getNameTag())};
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            getView().choiceTagDialog(tag, keysNote);
+            //    try {
+//                keysNote = new Integer[]{getNotesRepository().getCountNoteTag(tag.getNameTag())};
+            //   } catch (ExecutionException | InterruptedException e) {
+            //     e.printStackTrace();
+            //      }
+            getView().choiceTagDialog(tag, new Integer[]{0});
         }
     }
 
