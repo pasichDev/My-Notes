@@ -26,4 +26,6 @@ public abstract class BasePresenterDialog<T extends BaseViewDialog> implements D
   public void destroy() {
     view = null;
   }
+
+
 }

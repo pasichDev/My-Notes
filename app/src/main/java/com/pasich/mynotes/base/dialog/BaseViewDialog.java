@@ -2,7 +2,8 @@ package com.pasich.mynotes.base.dialog;
 
 
 public interface BaseViewDialog {
-  void init();
+    void init();
 
-  void initListeners();
+    void initListeners();
+
 }

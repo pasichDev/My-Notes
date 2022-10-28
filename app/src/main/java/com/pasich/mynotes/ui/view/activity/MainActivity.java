@@ -172,11 +172,6 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     public void settingsNotesList() {
         mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
         mActivityBinding.listNotes.setLayoutManager(staggeredGridLayoutManager);
-        //   mNoteAdapter = new NoteAdapter<ItemNoteBinding>(new DiffUtilNote(), R.layout.item_note, (binder, model) -> {
-        //       binder.setNote(model);
-        //        mActivityBinding.executePendingBindings();
-        //    });
-
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
 
 
