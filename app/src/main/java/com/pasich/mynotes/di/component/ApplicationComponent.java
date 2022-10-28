@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.pasich.mynotes.MyApp;
-import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.di.module.ApplicationModule;
 import com.pasich.mynotes.di.scope.ApplicationContext;
 
@@ -22,7 +22,7 @@ public interface ApplicationComponent {
 
     Application getApplication();
 
-    DataManger getDataManager();
+    DataManager getDataManager();
 
 
     void inject(MyApp mvpApp);

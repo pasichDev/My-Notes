@@ -2,7 +2,7 @@ package com.pasich.mynotes.ui.presenter;
 
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
-import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.ui.contract.TrashContract;
 
@@ -13,8 +13,7 @@ public class TrashPresenter extends BasePresenterActivity<TrashContract.view>
         implements TrashContract.presenter {
 
 
-
-    public TrashPresenter(DataManger dataManager) {
+    public TrashPresenter(DataManager dataManager) {
         super(dataManager);
 
     }

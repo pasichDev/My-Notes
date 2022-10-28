@@ -3,7 +3,7 @@ package com.pasich.mynotes.ui.presenter;
 import android.util.Log;
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
-import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.ui.contract.MainContract;
@@ -18,7 +18,7 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
 
 
     @Inject
-    public MainPresenter(DataManger dataManager) {
+    public MainPresenter(DataManager dataManager) {
         super(dataManager);
     }
 

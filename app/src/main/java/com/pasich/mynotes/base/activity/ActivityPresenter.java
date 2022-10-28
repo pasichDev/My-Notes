@@ -1,6 +1,6 @@
 package com.pasich.mynotes.base.activity;
 
-import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.DataManager;
 public interface ActivityPresenter<V extends BaseViewActivity> {
 
   void attachView(V mVIew);
@@ -11,6 +11,6 @@ public interface ActivityPresenter<V extends BaseViewActivity> {
 
   void destroy();
 
-  DataManger getDataManager();
+  DataManager getDataManager();
 
 }

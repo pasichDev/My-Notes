@@ -1,20 +1,20 @@
 package com.pasich.mynotes.base.activity;
 
-import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.DataManager;
 
 public abstract class BasePresenterActivity<T extends BaseViewActivity> implements ActivityPresenter<T> {
 
 
-    private final DataManger dataManager;
+    private final DataManager dataManager;
     private T view;
 
 
-    public BasePresenterActivity(DataManger dataManager) {
+    public BasePresenterActivity(DataManager dataManager) {
         this.dataManager = dataManager;
     }
 
     @Override
-    public DataManger getDataManager() {
+    public DataManager getDataManager() {
         return dataManager;
     }
 

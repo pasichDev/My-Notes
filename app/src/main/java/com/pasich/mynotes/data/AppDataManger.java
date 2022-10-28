@@ -18,7 +18,7 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 @Singleton
-public class AppDataManger implements DataManger {
+public class AppDataManger implements DataManager {
 
 
     private final DbHelper dbHelper;

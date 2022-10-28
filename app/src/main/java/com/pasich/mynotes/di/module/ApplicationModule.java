@@ -6,7 +6,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.pasich.mynotes.data.AppDataManger;
-import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.AppDatabase;
 import com.pasich.mynotes.data.database.AppDbHelper;
 import com.pasich.mynotes.data.database.DbHelper;
@@ -70,7 +70,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataManger providesDataManager(AppDataManger appDataManager) {
+    DataManager providesDataManager(AppDataManger appDataManager) {
         return appDataManager;
     }
 
