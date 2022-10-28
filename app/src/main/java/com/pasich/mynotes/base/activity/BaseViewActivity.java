@@ -5,7 +5,6 @@ import android.view.View;
 import androidx.annotation.StringRes;
 
 public interface BaseViewActivity {
-  void init();
 
   void initListeners();
 

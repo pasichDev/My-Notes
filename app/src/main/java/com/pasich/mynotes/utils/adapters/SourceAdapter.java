@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.model.SourceModel;
+import com.pasich.mynotes.data.database.model.Source;
 import com.pasich.mynotes.databinding.ItemSourceNoteChoiceBinding;
 
 import java.util.ArrayList;
 
 public class SourceAdapter extends BaseAdapter {
 
-    private final ArrayList<SourceModel> listSource;
+    private final ArrayList<Source> listSource;
     private LayoutInflater LayoutInflater;
 
-    public SourceAdapter(ArrayList<SourceModel> list) {
+    public SourceAdapter(ArrayList<Source> list) {
         this.listSource = list;
     }
 
@@ -27,7 +27,7 @@ public class SourceAdapter extends BaseAdapter {
     }
 
     @Override
-    public SourceModel getItem(int i) {
+    public Source getItem(int i) {
         return listSource != null ? listSource.get(i) : null;
     }
 

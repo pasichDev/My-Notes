@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.database.notes.Note;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
 
 

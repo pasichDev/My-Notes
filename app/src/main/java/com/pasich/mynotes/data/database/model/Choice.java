@@ -1,12 +1,12 @@
-package com.pasich.mynotes.data.model;
+package com.pasich.mynotes.data.database.model;
 
-public class ChoiceModel {
+public class Choice {
   private final String name;
   private final String action;
   private final int icon;
   private boolean selected;
 
-  public ChoiceModel(String name, int icon, String action, boolean selected) {
+  public Choice(String name, int icon, String action, boolean selected) {
     this.name = name;
     this.action = action;
     this.icon = icon;

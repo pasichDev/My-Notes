@@ -1,8 +1,8 @@
 package com.pasich.mynotes.ui.presenter.dialog;
 
 import com.pasich.mynotes.base.dialog.BasePresenterDialog;
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.notes.source.NotesRepository;
+import com.pasich.mynotes.data.database.notes.source.NotesRepository;
+import com.pasich.mynotes.data.old.DataManager;
 import com.pasich.mynotes.ui.contract.dialog.SearchDialogContract;
 
 import java.util.concurrent.ExecutionException;
@@ -18,7 +18,7 @@ public class SearchDialogPresenter extends BasePresenterDialog<SearchDialogContr
 
     @Override
     public void setDataManager(DataManager dataManager) {
-        notesRepository = dataManager.getNotesRepository();
+        notesRepository = null;
     }
 
     @Override

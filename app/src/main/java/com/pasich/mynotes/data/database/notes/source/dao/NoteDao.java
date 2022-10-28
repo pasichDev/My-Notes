@@ -1,4 +1,4 @@
-package com.pasich.mynotes.data.notes.source.dao;
+package com.pasich.mynotes.data.database.notes.source.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.database.notes.Note;
 
 import java.util.List;
 

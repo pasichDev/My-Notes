@@ -1,12 +1,12 @@
-package com.pasich.mynotes.data.notes.source;
+package com.pasich.mynotes.data.database.notes.source;
 
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.notes.source.dao.NoteDao;
-import com.pasich.mynotes.data.trash.TrashNote;
+import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.database.notes.source.dao.NoteDao;
+import com.pasich.mynotes.data.database.trash.TrashNote;
 import com.pasich.mynotes.utils.DiskExecutor;
 
 import java.util.ArrayList;

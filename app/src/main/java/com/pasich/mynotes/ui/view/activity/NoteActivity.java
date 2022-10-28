@@ -2,10 +2,6 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_SIZE;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_SIZE;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -29,11 +25,10 @@ import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.old.DataManager;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
-import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNewNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
@@ -56,15 +51,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public NoteContract.presenter notePresenter;// @Inject
     public PermissionManager permissionManager;// @Inject
     public NoteUtils noteUtils;// @Inject
-
-
-    public NoteActivity() {
-        dataManager = new DataManager();
-        notePresenter = null;
-        permissionManager = new PermissionManager();
-        noteUtils = new NoteUtils();
-    }
-
     private String shareText, tagNote;
     private int idKey;
     private boolean newNoteKey;
@@ -74,19 +60,26 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     private ActivityNoteBinding binding;
     private boolean exitNoSave = false;
 
+    public NoteActivity() {
+        dataManager = new DataManager();
+        notePresenter = null;
+        permissionManager = new PermissionManager();
+        noteUtils = new NoteUtils();
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(NoteActivity.this, R.layout.activity_note);
-        init();
+        //   init();
         notePresenter.attachView(this);
-        notePresenter.setDataManager(dataManager);
         notePresenter.viewIsReady();
 
 
     }
 
+    /*
 
     @Override
     public void init() {
@@ -98,10 +91,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         this.speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
     }
 
-
+*/
     @Override
     public void createActionPanelNote() {
-     }
+    }
 
     @Override
     public void initTypeActivity() {
@@ -374,7 +367,13 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void changeTextStyle() {
-        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)));
+
+
+        //      binding.valueNote.setTypeface(null,
+        //              noteUtils.getTypeFace(dataManager.getDefaultPreference()
+        //                       .getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)));
+
+
     }
 
     @Override
@@ -385,7 +384,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void changeTextSizeOffline() {
-        changeTextSizeOnline(dataManager.getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
+        //   changeTextSizeOnline(dataManager.
+        //             getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
     }
 
 

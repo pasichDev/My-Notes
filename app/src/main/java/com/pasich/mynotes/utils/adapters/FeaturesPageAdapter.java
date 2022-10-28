@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.model.Features;
+import com.pasich.mynotes.data.database.model.Features;
 
 import java.util.ArrayList;
 

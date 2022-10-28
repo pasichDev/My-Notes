@@ -1,16 +1,9 @@
 package com.pasich.mynotes.base.activity;
 
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.newdata.DataManger;
-import com.pasich.mynotes.data.notes.source.NotesRepository;
-import com.pasich.mynotes.data.tags.source.TagsRepository;
-import com.pasich.mynotes.data.trash.source.TrashRepository;
-
+import com.pasich.mynotes.data.DataManger;
 public interface ActivityPresenter<V extends BaseViewActivity> {
 
   void attachView(V mVIew);
-
-  void setDataManager(DataManager dataManager);
 
   void viewIsReady();
 
@@ -20,9 +13,4 @@ public interface ActivityPresenter<V extends BaseViewActivity> {
 
   DataManger getDataManager();
 
-  TrashRepository getTrashRepository();
-
-  NotesRepository getNotesRepository();
-
-  TagsRepository getTagsRepository();
 }

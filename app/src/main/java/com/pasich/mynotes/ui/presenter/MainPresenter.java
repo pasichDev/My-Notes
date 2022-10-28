@@ -1,14 +1,11 @@
 package com.pasich.mynotes.ui.presenter;
 
-import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
-
 import android.util.Log;
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.newdata.DataManger;
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.database.notes.Note;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 import java.util.ArrayList;
@@ -23,11 +20,6 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
     @Inject
     public MainPresenter(DataManger dataManager) {
         super(dataManager);
-    }
-
-    @Override
-    public void setDataManager(DataManager dataManager) {
-
     }
 
     @Override
@@ -82,12 +74,12 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
 
     @Override
     public void editVisibility(Tag tag) {
-        if (getDataManager() != null) getTagsRepository().updateTag(tag);
+        //  if (getDataManager() != null) getTagsRepository().updateTag(tag);
     }
 
     @Override
     public void clickTag(Tag tag, int position) {
-        try {
+     /*   try {
             if (tag.getSystemAction() == 1) {
                 if (getTagsRepository().getCountTagAll() >= MAX_TAG_COUNT) {
                     getView().startToastCheckCountTags();
@@ -105,7 +97,7 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 
@@ -131,26 +123,28 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
     @Override
     public void deleteNote(Note note) {
         if (getDataManager() != null) {
-            getTrashRepository().moveToTrash(note);
-            getNotesRepository().deleteNote(note);
+            //    getTrashRepository().moveToTrash(note);
+            //      getNotesRepository().deleteNote(note);
         }
     }
 
     @Override
     public void deleteNotesArray(ArrayList<Note> notes) {
         if (getDataManager() != null) {
-            getTrashRepository().moveToTrash(notes);
-            getNotesRepository().deleteNote(notes);
+            //     getTrashRepository().moveToTrash(notes);
+            //       getNotesRepository().deleteNote(notes);
         }
     }
 
     @Override
     public void addNote(Note note) {
-        try {
+      /*  try {
             getNotesRepository().addNote(note);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+
+       */
     }
 
     @Override
@@ -160,7 +154,7 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
 
     @Override
     public void formatButton() {
-        getView().formatButton();
+        getView().formatButton(getDataManager().getFormatCount());
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils.adapters;
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 
-import com.pasich.mynotes.data.trash.TrashNote;
+import com.pasich.mynotes.data.database.trash.TrashNote;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallback;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;

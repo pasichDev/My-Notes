@@ -1,4 +1,4 @@
-package com.pasich.mynotes.data.tags.source.dao;
+package com.pasich.mynotes.data.database.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.database.model.Tag;
 
 import java.util.List;
 

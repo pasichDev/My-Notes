@@ -2,7 +2,7 @@ package com.pasich.mynotes.ui.contract.dialog;
 
 import com.pasich.mynotes.base.dialog.BaseViewDialog;
 import com.pasich.mynotes.base.dialog.DialogPresenter;
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.database.model.Tag;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

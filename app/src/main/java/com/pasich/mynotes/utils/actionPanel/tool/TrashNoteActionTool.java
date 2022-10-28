@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils.actionPanel.tool;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.setAction;
 
-import com.pasich.mynotes.data.trash.TrashNote;
+import com.pasich.mynotes.data.database.trash.TrashNote;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 
 import java.util.ArrayList;

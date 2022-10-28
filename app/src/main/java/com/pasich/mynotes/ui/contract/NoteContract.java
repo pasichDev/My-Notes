@@ -6,7 +6,7 @@ import com.pasich.mynotes.base.activity.BaseViewActivity;
 import com.pasich.mynotes.base.view.ActionBar;
 import com.pasich.mynotes.base.view.ActivitySettings;
 import com.pasich.mynotes.base.view.NoteActivityView;
-import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.database.notes.Note;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 
 import java.util.concurrent.ExecutionException;

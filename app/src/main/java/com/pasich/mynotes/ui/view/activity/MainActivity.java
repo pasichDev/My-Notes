@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.database.notes.Note;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.ui.contract.MainContract;
@@ -86,12 +86,6 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
 
     @Override
-    public void init() {
-
-    }
-
-
-    @Override
     public void initActionUtils() {
         actionUtils.createObject(mActivityBinding.getRoot().findViewById(R.id.activity_main));
 
@@ -103,11 +97,10 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     }
 
     @Override
-    public void formatButton() {
+    public void formatButton(int countSpan) {
         if (!getAction()) {
             formatList.formatNote();
-            //Нужно реализовать получение данных
-            // gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
+            staggeredGridLayoutManager.setSpanCount(countSpan);
         }
     }
 

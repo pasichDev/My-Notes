@@ -17,20 +17,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.data.tags.source.TagsRepository;
 import com.pasich.mynotes.databinding.DialogNewTagBinding;
-
-import java.util.Objects;
 
 public class NewTagDialog extends BottomSheetDialogFragment {
 
-    private TagsRepository repository; // @Inject_GLOBAL
     private DialogNewTagBinding binding;
     private boolean errorText = true;
 
-    public NewTagDialog(TagsRepository repository) {
-        this.repository = repository;
+    public NewTagDialog() {
+
     }
 
     @NonNull
@@ -93,7 +88,7 @@ public class NewTagDialog extends BottomSheetDialogFragment {
 
     private void saveTag() {
         if (!errorText) {
-            repository.addTag(new Tag().create(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString()));
+            //      repository.addTag(new Tag().create(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString()));
             dismiss();
         }
     }
@@ -102,7 +97,6 @@ public class NewTagDialog extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        repository = null;
         requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 

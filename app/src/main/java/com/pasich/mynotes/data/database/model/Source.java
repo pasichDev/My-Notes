@@ -1,13 +1,13 @@
-package com.pasich.mynotes.data.model;
+package com.pasich.mynotes.data.database.model;
 
-public class SourceModel {
+public class Source {
 
     /**
      * source - содержимое ресурса type - тип ресурса возможные варианты, url, tel, mail.
      */
     private String source, type;
 
-    public SourceModel(String source, String type) {
+    public Source(String source, String type) {
         this.source = source;
         this.type = type;
     }

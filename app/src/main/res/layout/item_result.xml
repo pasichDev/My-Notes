@@ -8,7 +8,7 @@
 
         <variable
             name="Note"
-            type="com.pasich.mynotes.data.notes.Note" />
+            type="com.pasich.mynotes.data.database.notes.Note" />
     </data>
 
     <LinearLayout

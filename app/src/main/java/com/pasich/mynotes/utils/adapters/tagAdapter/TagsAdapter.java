@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
 
 import java.util.List;

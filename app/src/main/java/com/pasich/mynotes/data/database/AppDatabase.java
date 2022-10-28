@@ -1,14 +1,14 @@
-package com.pasich.mynotes.data.newdata;
+package com.pasich.mynotes.data.database;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.notes.source.dao.NoteDao;
-import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.data.tags.source.dao.TagsDao;
-import com.pasich.mynotes.data.trash.TrashNote;
-import com.pasich.mynotes.data.trash.source.dao.TrashDao;
+import com.pasich.mynotes.data.database.dao.TagsDao;
+import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.database.notes.source.dao.NoteDao;
+import com.pasich.mynotes.data.database.trash.TrashNote;
+import com.pasich.mynotes.data.database.trash.source.dao.TrashDao;
 import com.pasich.mynotes.utils.constants.DB_Constants;
 
 import javax.inject.Singleton;

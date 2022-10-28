@@ -1,4 +1,4 @@
-package com.pasich.mynotes.data.tags;
+package com.pasich.mynotes.data.database.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

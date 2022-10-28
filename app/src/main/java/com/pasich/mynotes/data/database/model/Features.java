@@ -1,4 +1,4 @@
-package com.pasich.mynotes.data.model;
+package com.pasich.mynotes.data.database.model;
 
 public class Features {
 

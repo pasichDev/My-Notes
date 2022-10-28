@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.trash.TrashNote;
+import com.pasich.mynotes.data.database.trash.TrashNote;
+import com.pasich.mynotes.data.old.DataManager;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
 import com.pasich.mynotes.ui.contract.TrashContract;
@@ -55,19 +55,13 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(TrashActivity.this, R.layout.activity_trash);
-        init();
-
+        binding.setPresenter((TrashPresenter) trashPresenter);
         trashPresenter.attachView(this);
-        trashPresenter.setDataManager(dataManager);
         trashPresenter.viewIsReady();
 
 
     }
 
-    @Override
-    public void init() {
-        binding.setPresenter((TrashPresenter) trashPresenter);
-    }
 
     @Override
     public void initListeners() {
@@ -155,7 +149,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     @Override
     public void cleanTrashDialogShow() {
-        new CleanTrashDialog(dataManager.getTrashRepository()).show(getSupportFragmentManager(), "CLeanTrash");
+        new CleanTrashDialog(null).show(getSupportFragmentManager(), "CLeanTrash");
     }
 
     @Override

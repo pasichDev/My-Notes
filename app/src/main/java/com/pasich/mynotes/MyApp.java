@@ -8,12 +8,14 @@ import com.pasich.mynotes.di.module.ApplicationModule;
 
 public class MyApp extends Application {
 
-    private ApplicationComponent applicationComponent;
-
-
     @Deprecated
     private static MyApp sInstance;
+    private ApplicationComponent applicationComponent;
 
+    @Deprecated
+    public static MyApp getInstance() {
+        return sInstance;
+    }
 
     @Override
     public void onCreate() {
@@ -27,12 +29,6 @@ public class MyApp extends Application {
 
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
-    }
-
-
-    @Deprecated
-    public static MyApp getInstance() {
-        return sInstance;
     }
 
 }

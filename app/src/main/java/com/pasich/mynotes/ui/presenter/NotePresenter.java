@@ -2,10 +2,10 @@ package com.pasich.mynotes.ui.presenter;
 
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.newdata.DataManger;
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.notes.source.NotesRepository;
+import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.database.notes.source.NotesRepository;
+import com.pasich.mynotes.data.old.DataManager;
 import com.pasich.mynotes.ui.contract.NoteContract;
 
 import java.util.concurrent.ExecutionException;
@@ -19,13 +19,11 @@ public class NotePresenter extends BasePresenterActivity<NoteContract.view>
 
     public NotePresenter(DataManger dataManager) {
         super(dataManager);
+        data = null;
+        notesRepository = null;
     }
 
-    @Override
-    public void setDataManager(DataManager dataManager) {
-        data = dataManager;
-        notesRepository = data.getNotesRepository();
-    }
+
 
     @Override
     public void viewIsReady() {
@@ -82,7 +80,7 @@ public class NotePresenter extends BasePresenterActivity<NoteContract.view>
     @Override
     public void deleteNote(Note note) {
         synchronized (this) {
-            data.getTrashRepository().moveToTrash(note);
+            /// data.getTrashRepository().moveToTrash(note);
         }
         notesRepository.deleteNote(note);
     }

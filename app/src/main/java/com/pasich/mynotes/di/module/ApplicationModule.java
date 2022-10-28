@@ -5,11 +5,11 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.pasich.mynotes.data.newdata.AppDataManger;
-import com.pasich.mynotes.data.newdata.AppDatabase;
-import com.pasich.mynotes.data.newdata.AppDbHelper;
-import com.pasich.mynotes.data.newdata.DataManger;
-import com.pasich.mynotes.data.newdata.DbHelper;
+import com.pasich.mynotes.data.AppDataManger;
+import com.pasich.mynotes.data.DataManger;
+import com.pasich.mynotes.data.database.AppDatabase;
+import com.pasich.mynotes.data.database.AppDbHelper;
+import com.pasich.mynotes.data.database.DbHelper;
 import com.pasich.mynotes.di.scope.ApplicationContext;
 import com.pasich.mynotes.di.scope.DatabaseInfo;
 import com.pasich.mynotes.utils.constants.DB_Constants;
@@ -73,5 +73,6 @@ public class ApplicationModule {
     DataManger providesDataManager(AppDataManger appDataManager) {
         return appDataManager;
     }
+
 
 }

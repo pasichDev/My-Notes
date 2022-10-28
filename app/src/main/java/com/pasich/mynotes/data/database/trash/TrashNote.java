@@ -1,4 +1,4 @@
-package com.pasich.mynotes.data.notes;
+package com.pasich.mynotes.data.database.trash;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -6,14 +6,13 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(
-        tableName = "notes",
+        tableName = "trash",
         indices = {
                 @Index(
                         value = {"value"},
                         unique = true)
         })
-public class Note {
-
+public class TrashNote {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -21,23 +20,12 @@ public class Note {
     private String title;
     private String value;
     private long date;
-    private String tag;
 
     @Ignore
     private boolean Checked;
 
-    public Note create(String title, String value, long date, String tag) {
+    public TrashNote create(String title, String value, long date) {
         this.title = title;
-        this.tag = tag;
-        this.value = value;
-        this.date = date;
-        this.Checked = false;
-        return this;
-    }
-
-    public Note create(String title, String value, long date) {
-        this.title = title;
-        this.tag = "";
         this.value = value;
         this.date = date;
         this.Checked = false;
@@ -55,14 +43,6 @@ public class Note {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getTag() {
-        return this.tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
     }
 
     public String getValue() {
@@ -88,5 +68,6 @@ public class Note {
     public void setDate(long date) {
         this.date = date;
     }
+
 
 }

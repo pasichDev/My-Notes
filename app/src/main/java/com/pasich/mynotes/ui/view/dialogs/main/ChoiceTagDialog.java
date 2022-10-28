@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.TagView;
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.utils.override.DialogOpenVibrate;
 
 public class ChoiceTagDialog extends DialogOpenVibrate {

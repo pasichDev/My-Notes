@@ -1,7 +1,7 @@
-package com.pasich.mynotes.data.newdata;
+package com.pasich.mynotes.data.database;
 
 
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.database.model.Tag;
 
 import java.util.List;
 
