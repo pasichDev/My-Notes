@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Features;
 import com.pasich.mynotes.ui.view.helloUI.tool.HelloTool;
+import com.pasich.mynotes.utils.ZoomOutPageTransformer;
 import com.pasich.mynotes.utils.adapters.FeaturesPageAdapter;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class FeaturesFragment extends Fragment {
     private void initFeaturesList() {
         FeaturesPageAdapter featuresPageAdapter = new FeaturesPageAdapter(requireActivity(), listFeaturesArray);
         listFeatures.setAdapter(featuresPageAdapter);
-
+        listFeatures.setPageTransformer(new ZoomOutPageTransformer());
         indicator.setViewPager(listFeatures);
 
         featuresPageAdapter.registerAdapterDataObserver(indicator.getAdapterDataObserver());
