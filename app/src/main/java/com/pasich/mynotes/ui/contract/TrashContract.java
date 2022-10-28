@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import com.pasich.mynotes.base.activity.ActivityPresenter;
 import com.pasich.mynotes.base.activity.BaseViewActivity;
 import com.pasich.mynotes.base.view.ActionBar;
-import com.pasich.mynotes.data.database.trash.TrashNote;
+import com.pasich.mynotes.data.database.model.TrashNote;
 
 import java.util.ArrayList;
 import java.util.List;

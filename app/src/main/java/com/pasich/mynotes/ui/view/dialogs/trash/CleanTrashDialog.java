@@ -9,14 +9,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.database.trash.source.TrashRepository;
 
 public class CleanTrashDialog extends BottomSheetDialogFragment {
 
-    private final TrashRepository repository; //INJECT
 
-    public CleanTrashDialog(TrashRepository repository) {
-        this.repository = repository;
+    public CleanTrashDialog() {
     }
 
     @NonNull
@@ -31,7 +28,7 @@ public class CleanTrashDialog extends BottomSheetDialogFragment {
         message.setText(R.string.cleanTrashMessage);
 
         builder.findViewById(R.id.yesCleanTrash).setOnClickListener(v -> {
-            repository.deleteAll();
+            //    repository.deleteAll();
             dismiss();
         });
         builder.findViewById(R.id.cancel).setOnClickListener(v -> dismiss());

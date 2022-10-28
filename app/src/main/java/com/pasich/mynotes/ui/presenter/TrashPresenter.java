@@ -3,9 +3,8 @@ package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManger;
-import com.pasich.mynotes.data.database.notes.source.NotesRepository;
-import com.pasich.mynotes.data.database.trash.TrashNote;
-import com.pasich.mynotes.data.database.trash.source.TrashRepository;
+import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.old.notes.source.NotesRepository;
 import com.pasich.mynotes.ui.contract.TrashContract;
 
 import java.util.ArrayList;
@@ -14,14 +13,12 @@ import java.util.ArrayList;
 public class TrashPresenter extends BasePresenterActivity<TrashContract.view>
         implements TrashContract.presenter {
 
-    private TrashRepository trashRepository;
     private NotesRepository notesRepository;
 
 
     public TrashPresenter(DataManger dataManager) {
         super(dataManager);
 
-        trashRepository = null;
         notesRepository = null;
     }
 
@@ -30,7 +27,7 @@ public class TrashPresenter extends BasePresenterActivity<TrashContract.view>
     @Override
     public void viewIsReady() {
         getView().settingsActionBar();
-        getView().settingsNotesList(1, trashRepository.getNotes());
+        getView().settingsNotesList(1, null);
         getView().initListeners();
         getView().initActionUtils();
     }
@@ -53,10 +50,10 @@ public class TrashPresenter extends BasePresenterActivity<TrashContract.view>
 
     @Override
     public void restoreNotesArray(ArrayList<TrashNote> notes) {
-        if (trashRepository != null && notesRepository != null) {
-            notesRepository.moveToNotes(notes);
-            trashRepository.deleteNote(notes);
-        }
+        //  if (trashRepository != null && notesRepository != null) {
+        //       notesRepository.moveToNotes(notes);
+        //       trashRepository.deleteNote(notes);
+        //    }
     }
 
 }

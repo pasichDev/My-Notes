@@ -3,9 +3,9 @@ package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManger;
-import com.pasich.mynotes.data.database.notes.Note;
-import com.pasich.mynotes.data.database.notes.source.NotesRepository;
 import com.pasich.mynotes.data.old.DataManager;
+import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.old.notes.source.NotesRepository;
 import com.pasich.mynotes.ui.contract.NoteContract;
 
 import java.util.concurrent.ExecutionException;

@@ -3,8 +3,8 @@ package com.pasich.mynotes.ui.presenter.dialog;
 
 import com.pasich.mynotes.base.dialog.BasePresenterDialog;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.database.notes.source.NotesRepository;
 import com.pasich.mynotes.data.old.DataManager;
+import com.pasich.mynotes.data.old.notes.source.NotesRepository;
 import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
 
 import java.util.concurrent.ExecutionException;

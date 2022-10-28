@@ -1,4 +1,4 @@
-package com.pasich.mynotes.data.database.notes;
+package com.pasich.mynotes.data.old.notes;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;

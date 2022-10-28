@@ -1,6 +1,6 @@
 package com.pasich.mynotes.base.view;
 
-import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.old.notes.Note;
 
 public interface RestoreNotesBackupOld {
     void errorProcessRestore();

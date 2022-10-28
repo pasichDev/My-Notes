@@ -4,7 +4,7 @@ package com.pasich.mynotes.data.preferences;
 import com.preference.Preference;
 
 
-public interface DbPreferences {
+public interface PreferenceHelper {
 
     Preference getDefaultPreferences();
 

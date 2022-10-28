@@ -16,7 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
-import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.old.notes.Note;
 import com.pasich.mynotes.databinding.DialogRestoreBackupBinding;
 
 import java.io.BufferedReader;

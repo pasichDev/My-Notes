@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils.recycler.diffutil;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.pasich.mynotes.data.database.trash.TrashNote;
+import com.pasich.mynotes.data.database.model.TrashNote;
 
 public class DiffUtilTrash extends DiffUtil.ItemCallback<TrashNote> {
 

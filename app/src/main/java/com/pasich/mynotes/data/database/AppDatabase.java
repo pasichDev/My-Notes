@@ -4,11 +4,11 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 import com.pasich.mynotes.data.database.dao.TagsDao;
+import com.pasich.mynotes.data.database.dao.TrashDao;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.database.notes.Note;
-import com.pasich.mynotes.data.database.notes.source.dao.NoteDao;
-import com.pasich.mynotes.data.database.trash.TrashNote;
-import com.pasich.mynotes.data.database.trash.source.dao.TrashDao;
+import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.old.notes.source.dao.NoteDao;
 import com.pasich.mynotes.utils.constants.DB_Constants;
 
 import javax.inject.Singleton;

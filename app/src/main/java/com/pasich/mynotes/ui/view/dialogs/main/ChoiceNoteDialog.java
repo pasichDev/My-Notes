@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.NoteView;
-import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.old.notes.Note;
 import com.pasich.mynotes.databinding.DialogChoiceNoteBinding;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;

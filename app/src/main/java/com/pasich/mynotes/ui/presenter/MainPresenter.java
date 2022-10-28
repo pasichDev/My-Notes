@@ -5,7 +5,7 @@ import android.util.Log;
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManger;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.old.notes.Note;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 import java.util.ArrayList;

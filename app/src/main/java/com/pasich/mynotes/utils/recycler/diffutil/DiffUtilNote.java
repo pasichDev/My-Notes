@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils.recycler.diffutil;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.pasich.mynotes.data.database.notes.Note;
+import com.pasich.mynotes.data.old.notes.Note;
 
 import javax.inject.Inject;
 

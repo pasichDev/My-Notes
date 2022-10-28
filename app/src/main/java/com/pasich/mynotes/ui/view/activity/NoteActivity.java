@@ -25,8 +25,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.database.notes.Note;
 import com.pasich.mynotes.data.old.DataManager;
+import com.pasich.mynotes.data.old.notes.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;

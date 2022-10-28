@@ -14,13 +14,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.database.trash.TrashNote;
+import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.data.old.DataManager;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
-import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.TrashNoteActionTool;
@@ -149,7 +148,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     @Override
     public void cleanTrashDialogShow() {
-        new CleanTrashDialog(null).show(getSupportFragmentManager(), "CLeanTrash");
+//        new CleanTrashDialog(null).show(getSupportFragmentManager(), "CLeanTrash");
     }
 
     @Override
