@@ -14,8 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.old.DataManager;
-import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.DialogSearchBinding;
 import com.pasich.mynotes.ui.contract.dialog.SearchDialogContract;
 import com.pasich.mynotes.ui.presenter.dialog.SearchDialogPresenter;
@@ -29,14 +28,12 @@ import java.util.List;
 public class SearchDialog extends BottomSheetDialogFragment implements SearchDialogContract.view {
 
     private final SearchDialogPresenter searchDialogPresenter; // @Inject
-    public DataManager dataManager; // @Inject_GLOBALL
     private DialogSearchBinding binding;
     private BottomSheetDialog builder;
     private SearchNotesAdapter searchNotesAdapter;  // @Inject
     private FloatingActionButton fabNewNote;
 
     public SearchDialog() {
-        this.dataManager = new DataManager();
         this.searchDialogPresenter = new SearchDialogPresenter();
     }
 
@@ -47,7 +44,6 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         builder.setContentView(binding.getRoot());
 
         searchDialogPresenter.attachView(this);
-        searchDialogPresenter.setDataManager(dataManager);
         searchDialogPresenter.viewIsReady();
 
 
@@ -110,7 +106,7 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         builder = null;
         searchNotesAdapter = null;
         searchDialogPresenter.detachView();
-        dataManager = null;
+
     }
 
     @Override

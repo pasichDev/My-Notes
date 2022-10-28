@@ -1,36 +1,30 @@
 package com.pasich.mynotes.ui.presenter.dialog;
 
 import com.pasich.mynotes.base.dialog.BasePresenterDialog;
-import com.pasich.mynotes.data.old.DataManager;
-import com.pasich.mynotes.data.old.notes.source.NotesRepository;
 import com.pasich.mynotes.ui.contract.dialog.SearchDialogContract;
-
-import java.util.concurrent.ExecutionException;
 
 
 public class SearchDialogPresenter extends BasePresenterDialog<SearchDialogContract.view>
         implements SearchDialogContract.presenter {
 
-    private NotesRepository notesRepository;
 
     public SearchDialogPresenter() {
     }
 
-    @Override
-    public void setDataManager(DataManager dataManager) {
-        notesRepository = null;
-    }
+
 
     @Override
     public void viewIsReady() {
         getView().initFabButton();
         getView().init();
         getView().settingsListResult();
-        try {
+      /*  try {
             getView().createListenerSearch(notesRepository.getNotes());
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+
+       */
 
         getView().initListeners();
     }
@@ -42,7 +36,7 @@ public class SearchDialogPresenter extends BasePresenterDialog<SearchDialogContr
 
     @Override
     public void destroy() {
-        notesRepository = null;
+
     }
 
 

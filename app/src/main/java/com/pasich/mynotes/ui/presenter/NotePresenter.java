@@ -3,9 +3,7 @@ package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManger;
-import com.pasich.mynotes.data.old.DataManager;
-import com.pasich.mynotes.data.old.notes.Note;
-import com.pasich.mynotes.data.old.notes.source.NotesRepository;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.ui.contract.NoteContract;
 
 import java.util.concurrent.ExecutionException;
@@ -13,14 +11,9 @@ import java.util.concurrent.ExecutionException;
 public class NotePresenter extends BasePresenterActivity<NoteContract.view>
         implements NoteContract.presenter {
 
-    private DataManager data;
-    private NotesRepository notesRepository;
-
 
     public NotePresenter(DataManger dataManager) {
         super(dataManager);
-        data = null;
-        notesRepository = null;
     }
 
 
@@ -55,11 +48,8 @@ public class NotePresenter extends BasePresenterActivity<NoteContract.view>
 
     @Override
     public void loadingData(int idNote) {
-        try {
-            getView().loadingNote(notesRepository.getNoteFromId(idNote));
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        //     getView().loadingNote(notesRepository.getNoteFromId(idNote));
+
     }
 
     @Override
@@ -68,13 +58,14 @@ public class NotePresenter extends BasePresenterActivity<NoteContract.view>
     }
 
     @Override
-    public long createNote(Note note) throws ExecutionException, InterruptedException {
-        return notesRepository.addNote(note);
+    public long createNote(Note note) {
+        //  return notesRepository.addNote(note);
+        return 0;
     }
 
     @Override
     public void saveNote(Note note) {
-        notesRepository.updateNote(note);
+        //   notesRepository.updateNote(note);
     }
 
     @Override
@@ -82,7 +73,7 @@ public class NotePresenter extends BasePresenterActivity<NoteContract.view>
         synchronized (this) {
             /// data.getTrashRepository().moveToTrash(note);
         }
-        notesRepository.deleteNote(note);
+        // notesRepository.deleteNote(note);
     }
 
     @Override
@@ -93,6 +84,7 @@ public class NotePresenter extends BasePresenterActivity<NoteContract.view>
 
     @Override
     public Note loadingNote(int idNote) throws ExecutionException, InterruptedException {
-        return notesRepository.getNoteFromId(idNote);
+        //   return notesRepository.getNoteFromId(idNote);
+        return null;
     }
 }

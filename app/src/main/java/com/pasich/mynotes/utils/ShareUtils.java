@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
 
 /**
  * Класс который в будующем нужно переписать, чтобы можно было делиться одной заметкой

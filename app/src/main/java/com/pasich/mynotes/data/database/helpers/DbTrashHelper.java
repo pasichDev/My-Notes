@@ -1,7 +1,7 @@
 package com.pasich.mynotes.data.database.helpers;
 
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.TrashNote;
-import com.pasich.mynotes.data.old.notes.Note;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ public interface DbTrashHelper {
 
     Completable moveToTrash(ArrayList<Note> notes);
 
-    Completable deleteNote(TrashNote note);
+    Completable deleteTrashNote(TrashNote note);
 
-    Completable deleteNote(ArrayList<TrashNote> notes);
+    Completable deleteTrashNote(ArrayList<TrashNote> notes);
 
     Completable deleteAll();
 }

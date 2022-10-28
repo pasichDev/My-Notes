@@ -18,9 +18,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.old.DataManager;
-import com.pasich.mynotes.data.old.notes.Note;
 import com.pasich.mynotes.databinding.DialogAddTagToNoteBinding;
 import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialog.TagDialogPresenter;
@@ -32,7 +31,6 @@ import java.util.concurrent.ExecutionException;
 
 public class TagDialog extends BottomSheetDialogFragment implements TagDialogContract.view {
 
-    public final DataManager dataManager;  // @Inject_GLOBAL
     private final Note note;
     private final TagDialogPresenter dialogPresenter;  // @Inject
     public BottomSheetDialog builder; // @Inject
@@ -42,7 +40,6 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
 
     public TagDialog(Note note) {
         this.note = note;
-        this.dataManager = new DataManager();
         this.dialogPresenter = new TagDialogPresenter();
 
     }
@@ -56,7 +53,6 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
 
         init();
         dialogPresenter.attachView(this);
-        dialogPresenter.setDataManager(dataManager);
         dialogPresenter.viewIsReady();
         return builder;
     }

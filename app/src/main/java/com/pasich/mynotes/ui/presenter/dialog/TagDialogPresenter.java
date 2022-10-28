@@ -3,8 +3,6 @@ package com.pasich.mynotes.ui.presenter.dialog;
 
 import com.pasich.mynotes.base.dialog.BasePresenterDialog;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.old.DataManager;
-import com.pasich.mynotes.data.old.notes.source.NotesRepository;
 import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
 
 import java.util.concurrent.ExecutionException;
@@ -13,15 +11,10 @@ import java.util.concurrent.ExecutionException;
 public class TagDialogPresenter extends BasePresenterDialog<TagDialogContract.view>
         implements TagDialogContract.presenter {
 
-    private NotesRepository notesRepository;
 
     public TagDialogPresenter() {
     }
 
-    @Override
-    public void setDataManager(DataManager dataManager) {
-        notesRepository = null;
-    }
 
     @Override
     public void viewIsReady() {
@@ -48,7 +41,7 @@ public class TagDialogPresenter extends BasePresenterDialog<TagDialogContract.vi
 
     @Override
     public void editTagNote(String nameTag, int noteId) {
-        notesRepository.setTagNote(nameTag, noteId);
+     //   notesRepository.setTagNote(nameTag, noteId);
     }
 
     @Override
@@ -60,11 +53,11 @@ public class TagDialogPresenter extends BasePresenterDialog<TagDialogContract.vi
     @Override
     public void createTagNote(Tag tag, int noteId) {
         //   tagsRepository.addTag(tag);
-        notesRepository.setTagNote(tag.getNameTag(), noteId);
+        //   notesRepository.setTagNote(tag.getNameTag(), noteId);
     }
 
     @Override
     public void removeTagNote(int noteId) {
-        notesRepository.setTagNote("", noteId);
+        //    notesRepository.setTagNote("", noteId);
     }
 }

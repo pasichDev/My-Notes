@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ItemResultBinding;
 
 import java.util.ArrayList;

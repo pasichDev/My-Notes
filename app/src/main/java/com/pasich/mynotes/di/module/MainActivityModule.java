@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.old.notes.Note;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.di.scope.PreferenceInfo;

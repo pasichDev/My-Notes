@@ -1,6 +1,5 @@
-package com.pasich.mynotes.data.old.notes.source.dao;
+package com.pasich.mynotes.data.database.dao;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -8,15 +7,13 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
 
 import java.util.List;
 
 @Dao
 public interface NoteDao {
 
-  @Query("SELECT * FROM notes")
-  LiveData<List<Note>> getNotes();
 
   @Query("SELECT * FROM notes")
   List<Note> getNotesAll();
@@ -39,8 +36,6 @@ public interface NoteDao {
   @Query("SELECT * FROM notes WHERE id=:idNote")
   Note getNoteForId(int idNote);
 
-  @Query("INSERT INTO notes (title,value,date,tag) VALUES (:title,:value,:date, '')")
-  void moveToNotes(String title, String value, long date);
 
   @Query("UPDATE NOTES SET tag=:tag WHERE id=:noteID")
   void setTagNote(String tag, int noteID);

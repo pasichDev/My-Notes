@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils.actionPanel.tool;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.setAction;
 
-import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;

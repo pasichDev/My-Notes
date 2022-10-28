@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.NoteActivityView;
-import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.utils.GoogleTranslationIntent;
 import com.pasich.mynotes.utils.ShareUtils;
 

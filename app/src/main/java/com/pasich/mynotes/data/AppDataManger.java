@@ -2,9 +2,9 @@ package com.pasich.mynotes.data;
 
 
 import com.pasich.mynotes.data.database.DbHelper;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
-import com.pasich.mynotes.data.old.notes.Note;
 import com.pasich.mynotes.data.preferences.AppPreferencesHelper;
 import com.preference.Preference;
 
@@ -108,13 +108,13 @@ public class AppDataManger implements DataManger {
     }
 
     @Override
-    public Completable deleteNote(TrashNote note) {
-        return dbHelper.deleteNote(note);
+    public Completable deleteTrashNote(TrashNote note) {
+        return dbHelper.deleteTrashNote(note);
     }
 
     @Override
-    public Completable deleteNote(ArrayList<TrashNote> notes) {
-        return dbHelper.deleteNote(notes);
+    public Completable deleteTrashNote(ArrayList<TrashNote> notes) {
+        return dbHelper.deleteTrashNote(notes);
     }
 
     @Override
@@ -123,5 +123,56 @@ public class AppDataManger implements DataManger {
     }
 
 
+    /**
+     * Notes
+     */
+    @Override
+    public Observable<List<Note>> getNotes() {
+        return dbHelper.getNotes();
+    }
 
+    @Override
+    public Observable<List<Note>> getNotesForTag(String nameTag) {
+        return dbHelper.getNotesForTag(nameTag);
+    }
+
+    @Override
+    public Observable<Integer> getCountNotesTag(String nameTag) {
+        return dbHelper.getCountNotesTag(nameTag);
+    }
+
+    @Override
+    public Observable<Note> getNoteForId(int idNote) {
+        return dbHelper.getNoteForId(idNote);
+    }
+
+    @Override
+    public Completable addNote(Note note) {
+        return dbHelper.addNote(note);
+    }
+
+    @Override
+    public Completable deleteNote(Note note) {
+        return dbHelper.deleteNote(note);
+    }
+
+    @Override
+    public Completable deleteNote(ArrayList<Note> notes) {
+        return dbHelper.deleteNote(notes);
+    }
+
+    @Override
+    public Completable updateNote(Note note) {
+        return dbHelper.updateNote(note);
+    }
+
+    @Override
+    public Completable moveToNotes(ArrayList<TrashNote> notes) {
+        return dbHelper.moveToNotes(notes);
+    }
+
+    @Override
+    public Completable setTagNote(String nameTag, int idNote) {
+        return dbHelper.setTagNote(nameTag, idNote);
+    }
 }

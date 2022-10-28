@@ -25,8 +25,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.old.DataManager;
-import com.pasich.mynotes.data.old.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
@@ -47,7 +46,6 @@ import java.util.concurrent.ExecutionException;
 public class NoteActivity extends BaseActivity implements NoteContract.view {
 
 
-    public DataManager dataManager;// @Inject_GLOBAL
     public NoteContract.presenter notePresenter;// @Inject
     public PermissionManager permissionManager;// @Inject
     public NoteUtils noteUtils;// @Inject
@@ -61,7 +59,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     private boolean exitNoSave = false;
 
     public NoteActivity() {
-        dataManager = new DataManager();
         notePresenter = null;
         permissionManager = new PermissionManager();
         noteUtils = new NoteUtils();
