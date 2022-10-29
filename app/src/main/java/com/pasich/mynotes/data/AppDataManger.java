@@ -80,8 +80,8 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public Completable deleteTag(Tag tag) {
-        return dbHelper.deleteTag(tag);
+    public void deleteTag(Tag tag) {
+        dbHelper.deleteTag(tag);
     }
 
     @Override

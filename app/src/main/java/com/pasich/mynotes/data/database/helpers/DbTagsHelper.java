@@ -19,7 +19,7 @@ public interface DbTagsHelper {
 
     Completable addTag(Tag tag);
 
-    Completable deleteTag(Tag tag);
+    void deleteTag(Tag tag);
 
     Completable updateTag(Tag tag);
 }

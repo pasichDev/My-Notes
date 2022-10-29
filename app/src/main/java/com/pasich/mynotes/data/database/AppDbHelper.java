@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 @Singleton
 public class AppDbHelper implements DbHelper {
@@ -46,8 +47,10 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Completable deleteTag(Tag tag) {
-        return Completable.fromAction(() -> appDatabase.tagsDao().deleteTag(tag));
+    public void deleteTag(Tag tag) {
+        Completable.fromAction(() -> appDatabase.tagsDao().deleteTag(tag)).
+                subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
     @Override

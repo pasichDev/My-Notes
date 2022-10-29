@@ -81,7 +81,9 @@ dependencies {
 
 
     // reactive
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
+    //   implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+
 }
 
