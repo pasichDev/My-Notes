@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
@@ -40,12 +41,14 @@ import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -68,6 +71,12 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     public ActionUtils actionUtils;
     @Inject
     public NoteAdapter<ItemNoteBinding> mNoteAdapter;
+    @Named("TagsItemSpaceDecoration")
+    @Inject
+    public SpacesItemDecoration itemDecorationTags;
+    @Named("NotesItemSpaceDecoration")
+    @Inject
+    public SpacesItemDecoration itemDecorationNotes;
 
     private ActivityMainBinding mActivityBinding;
 
@@ -81,13 +90,6 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         mainPresenter.attachView(this);
         mainPresenter.viewIsReady();
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
-
-    }
-
-
-    @Override
-    public void initActionUtils() {
-        actionUtils.createObject(mActivityBinding.getRoot().findViewById(R.id.activity_main));
 
     }
 
@@ -161,8 +163,9 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     @Override
     public void settingsTagsList() {
 
-        mActivityBinding.listTags.addItemDecoration(new SpacesItemDecoration(5));
-        mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        mActivityBinding.listTags.addItemDecoration(itemDecorationTags);
+        mActivityBinding.listTags.setLayoutManager(
+                new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         mActivityBinding.listTags.setAdapter(tagsAdapter);
 
@@ -170,7 +173,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
     @Override
     public void settingsNotesList() {
-        mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
+        mActivityBinding.listNotes.addItemDecoration(itemDecorationNotes);
         mActivityBinding.listNotes.setLayoutManager(staggeredGridLayoutManager);
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
 
@@ -182,7 +185,29 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     public void loadingData(Observable<List<Tag>> tagList, LiveData<List<Note>> noteList) {
 
 
-        tagList.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(tags -> tagsAdapter.submitList(tags));
+        tagList.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Tag>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.wtf("pasic", "onSubscribe: ");
+                    }
+
+                    @Override
+                    public void onNext(List<Tag> tags) {
+                        tagsAdapter.submitList(tags);
+                        Log.wtf("pasic", "onNext: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.wtf("pasic", "onError: ");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.wtf("pasic", "onComplete: ");
+                    }
+                });
 
 
         //  noteList.observe(this, notes -> {
@@ -228,11 +253,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
     @Override
     public void deleteTag(Tag tag, boolean deleteNotes) {
-        try {
             mainPresenter.deleteTag(tag, deleteNotes);
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override

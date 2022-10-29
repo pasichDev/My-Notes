@@ -15,7 +15,6 @@ import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Observable;
 
@@ -46,8 +45,6 @@ public interface MainContract {
 
         void startToastCheckCountTags();
 
-        void initActionUtils();
-
         void sortButton();
 
         void formatButton(int countSpan);
@@ -62,7 +59,7 @@ public interface MainContract {
 
         void moreActivityClick();
 
-        void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException;
+        void deleteTag(Tag tag, boolean deleteNotes);
 
         void editVisibility(Tag tag);
 

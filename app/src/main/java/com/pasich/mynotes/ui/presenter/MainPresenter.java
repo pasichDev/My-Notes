@@ -9,7 +9,6 @@ import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.ui.contract.MainContract;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -31,7 +30,6 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
         getView().loadingData(getDataManager().getTags(), null);
 
         getView().initListeners();
-        getView().initActionUtils();
     }
 
 
@@ -50,22 +48,26 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
     }
 
     @Override
-    public void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException {
+    public void deleteTag(Tag tag, boolean deleteNotes) {
         if (getDataManager() != null) {
-       /*     if (!deleteNotes) {
-                for (Note note : getNotesRepository().getNotesFromTag(tag.getNameTag())) {
+            if (!deleteNotes) {
+            /*    for (Note note : getDataManager().getNotesFroTag(tag.getNameTag())) {
                     note.setTag("");
-                    getNotesRepository().updateNote(note);
+                    getDataManager().updateNote(note);
                 }
+
+             */
             } else {
-                for (Note note : getNotesRepository().getNotesFromTag(tag.getNameTag())) {
-                    getTrashRepository().moveToTrash(note);
-                    getNotesRepository().deleteNote(note);
+             /*   for (Note note : getDataManager().getNotesFroTag(tag.getNameTag())) {
+                    getDataManager().moveToTrash(note);
+                    getDataManager().deleteNote(note);
                 }
+
+              */
 
             }
 
-        */
+
             Log.wtf("pasic", "deleteTag: ");
             getDataManager().deleteTag(tag);
         }

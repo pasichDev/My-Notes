@@ -9,42 +9,21 @@ import com.pasich.mynotes.databinding.ActionPanelBinding;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 
 public class ActionUtils {
+    private static boolean ACTION_ON = false;
+    private final ActionPanelBinding binding;
+    private final CoordinatorLayout mViewRoot;
+    private final ManagerViewAction managerViewAction;
 
     @Inject
-    public ActionUtils() {
-    }
-
-    private static boolean ACTION_ON = false;
-    private ActionPanelBinding binding;
-    private CoordinatorLayout mViewRoot;
-    private ManagerViewAction managerViewAction;
-
-
-    public void createObject(CoordinatorLayout view) {
+    public ActionUtils(@Named("MainActivityRootLayout") CoordinatorLayout view) {
         this.mViewRoot = view;
         this.binding = ActionPanelBinding.bind(view.findViewById(R.id.actionInclude));
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
         setListener();
-    }
-
-
-    private void setListener() {
-        binding.closeActionPanel.setOnClickListener(v -> closeActionPanel());
-        binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes());
-        binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes());
-        binding.actionPanelRestore.setOnClickListener(v -> managerViewAction.restoreNotes());
-    }
-
-
-
-
-    public void setTrash() {
-        binding.actionPanelShare.setVisibility(View.GONE);
-        binding.actionPanelDelete.setVisibility(View.GONE);
-        binding.actionPanelRestore.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -61,6 +40,19 @@ public class ActionUtils {
      */
     public static void setAction(boolean arg) {
         ACTION_ON = arg;
+    }
+
+    private void setListener() {
+        binding.closeActionPanel.setOnClickListener(v -> closeActionPanel());
+        binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes());
+        binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes());
+        binding.actionPanelRestore.setOnClickListener(v -> managerViewAction.restoreNotes());
+    }
+
+    public void setTrash() {
+        binding.actionPanelShare.setVisibility(View.GONE);
+        binding.actionPanelDelete.setVisibility(View.GONE);
+        binding.actionPanelRestore.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -88,6 +80,10 @@ public class ActionUtils {
     }
 
     public void closeActionPanel() {
+        binding.closeActionPanel.setOnClickListener(null);
+        binding.actionPanelDelete.setOnClickListener(null);
+        binding.actionPanelShare.setOnClickListener(null);
+        binding.actionPanelRestore.setOnClickListener(null);
         managerViewAction.toolCleanChecked();
         deactivationActionPanel();
         setAction(false);

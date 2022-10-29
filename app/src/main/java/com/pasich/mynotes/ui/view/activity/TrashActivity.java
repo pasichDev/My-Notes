@@ -42,7 +42,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     public TrashActivity() {
         trashPresenter = null;
-        actionUtils = new ActionUtils();
+     //   actionUtils = new ActionUtils();
         trashNoteActionTool = new TrashNoteActionTool();
     }
 
@@ -150,7 +150,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     @Override
     public void initActionUtils() {
-        actionUtils.createObject(binding.getRoot().findViewById(R.id.activity_trash));
+        //   actionUtils.createObject(binding.getRoot().findViewById(R.id.activity_trash));
         trashNoteActionTool.createObject(mNotesTrashAdapter);
         actionUtils.setTrash();
     }

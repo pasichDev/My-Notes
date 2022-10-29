@@ -13,6 +13,7 @@ import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.di.scope.PreferenceInfo;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;
+import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 import com.preference.PowerPreference;
@@ -56,4 +57,13 @@ public class MainActivityModule {
     int providesSpanCountStaggerGridLayout() {
         return PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_FORMAT, PreferencesConfig.ARGUMENT_DEFAULT_FORMAT_VALUE);
     }
+
+    @Named("TagsItemSpaceDecoration")
+    @Provides
+    @PerActivity
+    SpacesItemDecoration providerSpaceItemDecorationTags() {
+        return new SpacesItemDecoration(5);
+    }
+
+
 }
