@@ -5,18 +5,23 @@ import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.ui.contract.NoteContract;
+import com.pasich.mynotes.utils.SchedulerProvider.SchedulerProvider;
 
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class NotePresenter extends BasePresenterActivity<NoteContract.view>
         implements NoteContract.presenter {
 
 
     @Inject
-    public NotePresenter(DataManager dataManager) {
-        super(dataManager);
+    public NotePresenter(SchedulerProvider schedulerProvider,
+                         CompositeDisposable compositeDisposable,
+                         DataManager dataManager) {
+        super(schedulerProvider, compositeDisposable, dataManager);
     }
 
 

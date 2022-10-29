@@ -1,24 +1,32 @@
 package com.pasich.mynotes.ui.presenter;
 
-import android.util.Log;
+import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.ui.contract.MainContract;
+import com.pasich.mynotes.utils.SchedulerProvider.SchedulerProvider;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 public class MainPresenter extends BasePresenterActivity<MainContract.view> implements MainContract.presenter {
 
 
     @Inject
-    public MainPresenter(DataManager dataManager) {
-        super(dataManager);
+    public MainPresenter(SchedulerProvider schedulerProvider,
+                         CompositeDisposable compositeDisposable,
+                         DataManager dataManager) {
+        super(schedulerProvider, compositeDisposable, dataManager);
     }
 
     @Override
@@ -68,7 +76,6 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
             }
 
 
-            Log.wtf("pasic", "deleteTag: ");
             getDataManager().deleteTag(tag);
         }
     }
@@ -81,25 +88,32 @@ public class MainPresenter extends BasePresenterActivity<MainContract.view> impl
 
     @Override
     public void clickTag(Tag tag, int position) {
-     /*   try {
             if (tag.getSystemAction() == 1) {
-                if (getTagsRepository().getCountTagAll() >= MAX_TAG_COUNT) {
-                    getView().startToastCheckCountTags();
-                } else getView().startCreateTagDialog();
+                getDataManager().getCountTagAll()
+                        .subscribeOn(getSchedulerProvider().io()).
+                        observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                getCompositeDisposable().add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+                                if (integer >= MAX_TAG_COUNT) {
+                                    getView().startToastCheckCountTags();
+                                } else getView().startCreateTagDialog();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        });
             } else {
                 getView().selectTagUser(position);
-               // notesRepository.setNotesAll(tag.getSystemAction() == 2 ? notesRepository.getNotes() : notesRepository.getNotesFromTag(tag.getNameTag()));
 
-
-                //position,
-                //                        tag.getSystemAction() == 2 ?
-                //                                (List<Note>) notesRepository.getNotesAll()
-                //                                :
-                //                                notesRepository.getNotesFromTag(tag.getNameTag())
             }
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }*/
     }
 
 

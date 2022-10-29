@@ -16,6 +16,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Singleton
 public class AppDataManger implements DataManager {
@@ -70,7 +71,7 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public Observable<Integer> getCountTagAll() {
+    public Single<Integer> getCountTagAll() {
         return dbHelper.getCountTagAll();
     }
 

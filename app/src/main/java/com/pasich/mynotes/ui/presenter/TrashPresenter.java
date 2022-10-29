@@ -5,19 +5,22 @@ import com.pasich.mynotes.base.activity.BasePresenterActivity;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.ui.contract.TrashContract;
+import com.pasich.mynotes.utils.SchedulerProvider.SchedulerProvider;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 
 public class TrashPresenter extends BasePresenterActivity<TrashContract.view>
         implements TrashContract.presenter {
 
 
-    public TrashPresenter(DataManager dataManager) {
-        super(dataManager);
-
+    public TrashPresenter(SchedulerProvider schedulerProvider,
+                          CompositeDisposable compositeDisposable,
+                          DataManager dataManager) {
+        super(schedulerProvider, compositeDisposable, dataManager);
     }
-
 
 
     @Override

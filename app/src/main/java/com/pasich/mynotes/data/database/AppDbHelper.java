@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 @Singleton
@@ -37,8 +38,8 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Observable<Integer> getCountTagAll() {
-        return Observable.fromCallable(() -> appDatabase.tagsDao().getCountAllTag());
+    public Single<Integer> getCountTagAll() {
+        return Single.fromCallable(() -> appDatabase.tagsDao().getCountAllTag());
     }
 
     @Override

@@ -15,12 +15,15 @@ import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
+import com.pasich.mynotes.utils.SchedulerProvider.AppSchedulerProvider;
+import com.pasich.mynotes.utils.SchedulerProvider.SchedulerProvider;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 
 @Module
 public class ActivityModule {
@@ -40,6 +43,17 @@ public class ActivityModule {
     @Provides
     AppCompatActivity provideActivity() {
         return activity;
+    }
+
+
+    @Provides
+    CompositeDisposable provideCompositeDisposable() {
+        return new CompositeDisposable();
+    }
+
+    @Provides
+    SchedulerProvider provideScheduleProvider() {
+        return new AppSchedulerProvider();
     }
 
     @Provides
