@@ -3,8 +3,11 @@ package com.pasich.mynotes.utils.activity;
 
 import android.graphics.Typeface;
 
+import com.pasich.mynotes.di.scope.PerActivity;
+
 import javax.inject.Inject;
 
+@PerActivity
 public class NoteUtils {
 
 

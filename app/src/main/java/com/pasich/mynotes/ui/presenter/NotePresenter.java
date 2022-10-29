@@ -8,10 +8,13 @@ import com.pasich.mynotes.ui.contract.NoteContract;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.inject.Inject;
+
 public class NotePresenter extends BasePresenterActivity<NoteContract.view>
         implements NoteContract.presenter {
 
 
+    @Inject
     public NotePresenter(DataManager dataManager) {
         super(dataManager);
     }
@@ -24,10 +27,8 @@ public class NotePresenter extends BasePresenterActivity<NoteContract.view>
         getView().changeTextSizeOffline();
         getView().settingsActionBar();
         getView().initTypeActivity();
-        getView().createSpeechRecognizer();
         getView().initListeners();
         getView().initListenerSpeechRecognizer();
-        getView().createActionPanelNote();
     }
 
 

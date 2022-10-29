@@ -7,30 +7,34 @@ import android.os.Build;
 
 import androidx.core.content.ContextCompat;
 
+import com.pasich.mynotes.di.scope.ActivityContext;
+
 import javax.inject.Inject;
 
 public class PermissionManager {
+
+    private final Context context;
+
     @Inject
-    public PermissionManager() {
+    public PermissionManager(@ActivityContext Context context) {
+        this.context = context;
     }
 
     /**
      * Запросить разрешение на использование микрофона
      */
-    public boolean checkPermissionVoice(Context context) {
-        boolean check = false;
+    public boolean checkPermissionVoice() {
         AudioPermission audioPermission = (AudioPermission) context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
-
-                check = true;
+                return true;
             } else {
                 audioPermission.openShouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO);
                 audioPermission.openRequestPermissions(new String[]{Manifest.permission.RECORD_AUDIO});
+                return false;
             }
         } else {
-            check = true;
+            return true;
         }
-        return check;
     }
 }

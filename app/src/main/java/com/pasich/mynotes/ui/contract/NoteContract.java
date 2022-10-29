@@ -15,10 +15,7 @@ public interface NoteContract {
 
     interface view extends BaseViewActivity, ActionBar, NoteActivityView, ActivitySettings, AudioPermission {
 
-
         void initTypeActivity();
-
-        void createSpeechRecognizer();
 
         void closeNoteActivity();
 
@@ -30,7 +27,6 @@ public interface NoteContract {
 
         void loadingSourceNote();
 
-        void createActionPanelNote();
     }
 
     interface presenter extends ActivityPresenter<view> {

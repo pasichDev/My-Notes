@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.Editable;
 import android.view.Menu;
@@ -21,13 +20,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
+import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNewNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
@@ -39,59 +38,47 @@ import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
+import javax.inject.Inject;
+
 public class NoteActivity extends BaseActivity implements NoteContract.view {
 
+    @Inject
+    public ActivityNoteBinding binding;
+    @Inject
+    public NoteContract.presenter notePresenter;
+    @Inject
+    public SpeechRecognizer speechRecognizer;
+    @Inject
+    public NoteUtils noteUtils;
+    @Inject
+    public PermissionManager permissionManager;
+    @Inject
+    public Intent speechRecognizerIntent;
 
-    public NoteContract.presenter notePresenter;// @Inject
-    public PermissionManager permissionManager;// @Inject
-    public NoteUtils noteUtils;// @Inject
     private String shareText, tagNote;
     private int idKey;
-    private boolean newNoteKey;
     private Note mNote;
-    private SpeechRecognizer speechRecognizer;
-    private Intent speechRecognizerIntent;
-    private ActivityNoteBinding binding;
-    private boolean exitNoSave = false;
-
-    public NoteActivity() {
-        notePresenter = null;
-        permissionManager = new PermissionManager();
-        noteUtils = new NoteUtils();
-    }
+    private boolean exitNoSave = false, newNoteKey;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(NoteActivity.this, R.layout.activity_note);
-        //   init();
+        //   binding = DataBindingUtil.setContentView(NoteActivity.this, R.layout.activity_note);
+        getActivityComponent().inject(this);
         notePresenter.attachView(this);
         notePresenter.viewIsReady();
 
-
-    }
-
-    /*
-
-    @Override
-    public void init() {
         binding.setPresenter((NotePresenter) notePresenter);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
         this.shareText = getIntent().getStringExtra("shareText");
         this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
-        this.speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
     }
 
-*/
-    @Override
-    public void createActionPanelNote() {
-    }
 
     @Override
     public void initTypeActivity() {
@@ -103,11 +90,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
     }
 
-    @Override
-    public void createSpeechRecognizer() {
-        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM).putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault()).putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
-
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -118,7 +100,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                     speechRecognizer.stopListening();
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (permissionManager.checkPermissionVoice(this)) {
+                    if (permissionManager.checkPermissionVoice()) {
                         speechRecognizer.startListening(speechRecognizerIntent);
                     }
                 }

@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,7 +53,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements MainContract.view {
 
-
+    @Inject
+    public ActivityMainBinding mActivityBinding;
     @Inject
     public MainContract.presenter mainPresenter;
     @Inject
@@ -78,14 +78,10 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     @Inject
     public SpacesItemDecoration itemDecorationNotes;
 
-    private ActivityMainBinding mActivityBinding;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
-
         getActivityComponent().inject(this);
         mainPresenter.attachView(this);
         mainPresenter.viewIsReady();
