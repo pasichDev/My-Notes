@@ -34,10 +34,11 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         getView().settingsSearchView();
         getView().settingsTagsList();
         getView().settingsNotesList();
-
-        getView().loadingData(getDataManager().getTags(), null);
-
+        getView().loadingData(getDataManager().getTags(),
+                getDataManager().getNotes(),
+                getDataManager().getSortParam());
         getView().initListeners();
+
     }
 
 
@@ -76,7 +77,9 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
             }
 
 
-            getDataManager().deleteTag(tag);
+            getDataManager().deleteTag(tag)
+                    .subscribeOn(getSchedulerProvider().io())
+                    .subscribe();
         }
     }
 

@@ -8,7 +8,6 @@ import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
 
-import io.reactivex.Completable;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class NewTagDialogPresenter extends AppBasePresenter<NewTagDialogContract.view>
@@ -27,7 +26,7 @@ public class NewTagDialogPresenter extends AppBasePresenter<NewTagDialogContract
 
     @Override
     public void saveTag(String nameNewTag) {
-        Completable.fromAction(() -> getDataManager().addTag(new Tag().create(nameNewTag)))
+        getDataManager().addTag(new Tag().create(nameNewTag))
                 .subscribeOn(getSchedulerProvider().io())
                 .subscribe();
     }

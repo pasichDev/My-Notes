@@ -5,6 +5,7 @@ import com.pasich.mynotes.data.database.model.Tag;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -12,7 +13,7 @@ public interface DbTagsHelper {
     /**
      * Tags
      */
-    Observable<List<Tag>> getTags();
+    Flowable<List<Tag>> getTags();
 
     Observable<List<Tag>> getTagsUser();
 
@@ -20,7 +21,7 @@ public interface DbTagsHelper {
 
     Completable addTag(Tag tag);
 
-    void deleteTag(Tag tag);
+    Completable deleteTag(Tag tag);
 
     Completable updateTag(Tag tag);
 }

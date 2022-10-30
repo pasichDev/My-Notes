@@ -15,4 +15,5 @@ public interface BaseView {
   void onError(String message, View view);
 
   void onError(@StringRes int resID, View view);
+
 }

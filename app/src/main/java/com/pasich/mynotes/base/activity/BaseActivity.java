@@ -19,6 +19,7 @@ import com.pasich.mynotes.di.module.ActivityModule;
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     private ActivityComponent activityComponent;
+    public boolean oneStartActivity = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

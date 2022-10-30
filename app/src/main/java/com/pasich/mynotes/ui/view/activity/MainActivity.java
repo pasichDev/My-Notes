@@ -7,11 +7,9 @@ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -45,11 +43,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseActivity implements MainContract.view {
@@ -89,6 +84,19 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!oneStartActivity) {
+
+            /*
+              Здесь реализовать подгрузку данных при первом старте активности
+             */
+        }
+        oneStartActivity = true;
+    }
+
 
     @Override
     public void sortButton() {
@@ -161,8 +169,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     public void settingsTagsList() {
 
         mActivityBinding.listTags.addItemDecoration(itemDecorationTags);
-        mActivityBinding.listTags.setLayoutManager(
-                new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         mActivityBinding.listTags.setAdapter(tagsAdapter);
 
@@ -179,39 +186,15 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
 
     @Override
-    public void loadingData(Observable<List<Tag>> tagList, LiveData<List<Note>> noteList) {
+    public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
 
+        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).observeOn(AndroidSchedulers.mainThread()).subscribe(tags -> tagsAdapter.submitList(tags)));
 
-        tagList.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Tag>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.wtf("pasic", "onSubscribe: ");
-                    }
+        mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).observeOn(AndroidSchedulers.mainThread()).subscribe(notes -> {
+            mNoteAdapter.sortList(notes, sortParam);
+            showEmptyTrash(!(notes.size() >= 1));
 
-                    @Override
-                    public void onNext(List<Tag> tags) {
-                        tagsAdapter.submitList(tags);
-                        Log.wtf("pasic", "onNext: ");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.wtf("pasic", "onError: ");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.wtf("pasic", "onComplete: ");
-                    }
-                });
-
-
-        //  noteList.observe(this, notes -> {
-        //      mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
-        //       showEmptyTrash(!(notes.size() >= 1));
-        //    });
-        //  tagList.observe(this, tags -> tagsAdapter.submitList(tags));
+        }));
     }
 
 
@@ -250,7 +233,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
     @Override
     public void deleteTag(Tag tag, boolean deleteNotes) {
-            mainPresenter.deleteTag(tag, deleteNotes);
+        mainPresenter.deleteTag(tag, deleteNotes);
 
     }
 

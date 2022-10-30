@@ -11,10 +11,13 @@ import com.pasich.mynotes.data.database.model.Tag;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
+
 @Dao
 public interface TagsDao {
   @Query("SELECT * FROM tags")
-  List<Tag> getTags();
+  Flowable<List<Tag>> getTags();
 
   @Query("SELECT * FROM tags where systemAction = 0")
   List<Tag> getTagsUser();

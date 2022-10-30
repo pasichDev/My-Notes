@@ -11,12 +11,14 @@ import com.pasich.mynotes.data.database.model.Note;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 @Dao
 public interface NoteDao {
 
 
   @Query("SELECT * FROM notes")
-  List<Note> getNotesAll();
+  Flowable<List<Note>> getNotesAll();
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   long addNote(Note note);

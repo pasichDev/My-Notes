@@ -1,7 +1,5 @@
 package com.pasich.mynotes.ui.contract;
 
-import androidx.lifecycle.LiveData;
-
 import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
@@ -16,7 +14,7 @@ import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 
 public interface MainContract {
 
@@ -39,7 +37,7 @@ public interface MainContract {
 
         void selectTagUser(int position);
 
-        void loadingData(Observable<List<Tag>> tagList, LiveData<List<Note>> noteList);
+        void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam);
 
         void openNoteEdit(int idNote);
 

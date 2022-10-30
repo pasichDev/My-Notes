@@ -24,11 +24,12 @@ public abstract class AppBasePresenter<T extends BaseView> implements BasePresen
         return dataManager;
     }
 
+    @Override
     public CompositeDisposable getCompositeDisposable() {
         return compositeDisposable;
     }
 
-
+    @Override
     public SchedulerProvider getSchedulerProvider() {
         return schedulerProvider;
     }

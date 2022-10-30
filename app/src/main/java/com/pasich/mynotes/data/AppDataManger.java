@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -51,6 +52,11 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
+    public String getSortParam() {
+        return preferencesHelper.getSortParam();
+    }
+
+    @Override
     public String getTypeFaceNoteActivity() {
         return preferencesHelper.getTypeFaceNoteActivity();
     }
@@ -61,7 +67,7 @@ public class AppDataManger implements DataManager {
      */
 
     @Override
-    public Observable<List<Tag>> getTags() {
+    public Flowable<List<Tag>> getTags() {
         return dbHelper.getTags();
     }
 
@@ -81,8 +87,8 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public void deleteTag(Tag tag) {
-        dbHelper.deleteTag(tag);
+    public Completable deleteTag(Tag tag) {
+        return dbHelper.deleteTag(tag);
     }
 
     @Override
@@ -128,7 +134,7 @@ public class AppDataManger implements DataManager {
      * Notes
      */
     @Override
-    public Observable<List<Note>> getNotes() {
+    public Flowable<List<Note>> getNotes() {
         return dbHelper.getNotes();
     }
 

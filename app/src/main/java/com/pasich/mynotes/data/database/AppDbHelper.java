@@ -12,9 +12,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 
 @Singleton
 public class AppDbHelper implements DbHelper {
@@ -28,8 +28,8 @@ public class AppDbHelper implements DbHelper {
 
 
     @Override
-    public Observable<List<Tag>> getTags() {
-        return Observable.fromCallable(() -> appDatabase.tagsDao().getTags());
+    public Flowable<List<Tag>> getTags() {
+        return appDatabase.tagsDao().getTags();
     }
 
     @Override
@@ -48,10 +48,8 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public void deleteTag(Tag tag) {
-        Completable.fromAction(() -> appDatabase.tagsDao().deleteTag(tag)).
-                subscribeOn(Schedulers.io())
-                .subscribe();
+    public Completable deleteTag(Tag tag) {
+        return Completable.fromAction(() -> appDatabase.tagsDao().deleteTag(tag));
     }
 
     @Override
@@ -103,8 +101,8 @@ public class AppDbHelper implements DbHelper {
      * Notes
      */
     @Override
-    public Observable<List<Note>> getNotes() {
-        return Observable.fromCallable(() -> appDatabase.noteDao().getNotesAll());
+    public Flowable<List<Note>> getNotes() {
+        return appDatabase.noteDao().getNotesAll();
     }
 
     @Override

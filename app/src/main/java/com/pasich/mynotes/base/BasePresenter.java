@@ -1,17 +1,23 @@
 package com.pasich.mynotes.base;
 
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.utils.rx.SchedulerProvider;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public interface BasePresenter<V extends BaseView> {
 
-  void attachView(V mVIew);
+    void attachView(V mVIew);
 
-  void viewIsReady();
+    void viewIsReady();
 
-  void detachView();
+    void detachView();
 
-  void destroy();
+    void destroy();
 
-  DataManager getDataManager();
+    DataManager getDataManager();
 
+    CompositeDisposable getCompositeDisposable();
+
+    SchedulerProvider getSchedulerProvider();
 }

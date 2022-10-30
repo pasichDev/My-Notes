@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 public interface DbNotesHelper {
@@ -14,7 +15,7 @@ public interface DbNotesHelper {
      * Notes
      */
 
-    Observable<List<Note>> getNotes();
+    Flowable<List<Note>> getNotes();
 
     Observable<List<Note>> getNotesForTag(String nameTag);
 
