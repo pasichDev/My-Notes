@@ -25,9 +25,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import io.reactivex.CompletableObserver;
-import io.reactivex.disposables.Disposable;
-
 public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialogContract.view {
 
 
@@ -53,7 +50,13 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
         }
 
         binding.includedInput.outlinedTextField.requestFocus();
-        binding.includedInput.outlinedTextField.setEndIconOnClickListener(v -> saveTag());
+        binding.includedInput.outlinedTextField.setEndIconOnClickListener(v -> {
+            mPresenter.saveTag(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString());
+            dismiss();
+
+        });
+
+
         binding.includedInput.nameTag.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) return saveTag();
             else return false;
@@ -97,11 +100,14 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
     }
 
 
+
     private boolean saveTag() {
         final boolean[] returns = {false};
-        if (!errorText) {
+         /*
+ if (!errorText) {
 
-            mPresenter.saveTag(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString()).subscribeOn(mPresenter.getSchedulerProvider().io()).subscribe(new CompletableObserver() {
+            mPresenter.saveTag(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString())
+                    .subscribe(new CompletableObserver() {
                 @Override
                 public void onSubscribe(Disposable d) {
                     mPresenter.getCompositeDisposable().add(d);
@@ -121,7 +127,8 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
 
         }
         return returns[0];
-
+*/
+        return false;
     }
 
 

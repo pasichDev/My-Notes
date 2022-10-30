@@ -24,8 +24,11 @@ public class NewTagDialogPresenter extends AppBasePresenter<NewTagDialogContract
         getView().initListeners();
     }
 
+
     @Override
-    public Completable saveTag(String nameNewTag) {
-        return Completable.fromRunnable(() -> getDataManager().addTag(new Tag().create(nameNewTag)));
+    public void saveTag(String nameNewTag) {
+        Completable.fromAction(() -> getDataManager().addTag(new Tag().create(nameNewTag)))
+                .subscribeOn(getSchedulerProvider().io())
+                .subscribe();
     }
 }

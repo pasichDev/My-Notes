@@ -70,8 +70,7 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
 
 
     public ActivityComponent getActivityComponent() {
-        if (activity != null)
-            return activity.getActivityComponent();
+        if (activity != null) return activity.getActivityComponent();
         return null;
     }
 
