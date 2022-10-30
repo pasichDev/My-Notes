@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.SchedulerProvider;
+package com.pasich.mynotes.utils.rx;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;

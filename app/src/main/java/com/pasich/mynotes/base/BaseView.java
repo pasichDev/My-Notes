@@ -1,10 +1,10 @@
-package com.pasich.mynotes.base.activity;
+package com.pasich.mynotes.base;
 
 import android.view.View;
 
 import androidx.annotation.StringRes;
 
-public interface BaseViewActivity {
+public interface BaseView {
 
   void initListeners();
 

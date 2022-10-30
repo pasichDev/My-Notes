@@ -1,11 +1,11 @@
-package com.pasich.mynotes.base.activity;
+package com.pasich.mynotes.base;
 
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.utils.SchedulerProvider.SchedulerProvider;
+import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public abstract class BasePresenterActivity<T extends BaseViewActivity> implements ActivityPresenter<T> {
+public abstract class AppBasePresenter<T extends BaseView> implements BasePresenter<T> {
 
     private final SchedulerProvider schedulerProvider;
     private final CompositeDisposable compositeDisposable;
@@ -13,7 +13,7 @@ public abstract class BasePresenterActivity<T extends BaseViewActivity> implemen
     private T view;
 
 
-    public BasePresenterActivity(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
+    public AppBasePresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         this.schedulerProvider = schedulerProvider;
         this.compositeDisposable = compositeDisposable;
         this.dataManager = dataManager;

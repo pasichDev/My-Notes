@@ -2,24 +2,19 @@ package com.pasich.mynotes.ui.contract.dialog;
 
 import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
-import com.pasich.mynotes.data.database.model.Note;
 
-import java.util.List;
+import io.reactivex.Completable;
 
 
-public interface SearchDialogContract {
+public interface NewTagDialogContract {
 
     interface view extends BaseView {
 
-        void settingsListResult();
-
-        void createListenerSearch(List<Note> mNotes);
-
-        void initFabButton();
     }
 
     interface presenter extends BasePresenter<view> {
 
+        Completable saveTag(String nameNewTag);
 
     }
 }

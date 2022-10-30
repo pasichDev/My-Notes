@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.DialogSearchBinding;
 import com.pasich.mynotes.ui.contract.dialog.SearchDialogContract;
@@ -25,7 +25,7 @@ import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchDialog extends BottomSheetDialogFragment implements SearchDialogContract.view {
+public class SearchDialog extends BaseDialogBottomSheets implements SearchDialogContract.view {
 
     private final SearchDialogPresenter searchDialogPresenter; // @Inject
     private DialogSearchBinding binding;
@@ -34,7 +34,7 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
     private FloatingActionButton fabNewNote;
 
     public SearchDialog() {
-        this.searchDialogPresenter = new SearchDialogPresenter();
+        this.searchDialogPresenter = null;
     }
 
     @NonNull
@@ -45,7 +45,9 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
 
         searchDialogPresenter.attachView(this);
         searchDialogPresenter.viewIsReady();
-
+        fabNewNote.hide();
+        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+        binding.actionSearch.requestFocus();
 
         return builder;
     }
@@ -63,12 +65,7 @@ public class SearchDialog extends BottomSheetDialogFragment implements SearchDia
         this.fabNewNote = requireActivity().findViewById(R.id.newNotesButton);
     }
 
-    @Override
-    public void init() {
-        fabNewNote.hide();
-        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        binding.actionSearch.requestFocus();
-    }
+
 
     @Override
     public void initListeners() {

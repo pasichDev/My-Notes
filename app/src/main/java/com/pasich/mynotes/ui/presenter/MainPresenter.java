@@ -2,12 +2,12 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
-import com.pasich.mynotes.base.activity.BasePresenterActivity;
+import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.ui.contract.MainContract;
-import com.pasich.mynotes.utils.SchedulerProvider.SchedulerProvider;
+import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
-public class MainPresenter extends BasePresenterActivity<MainContract.view> implements MainContract.presenter {
+public class MainPresenter extends AppBasePresenter<MainContract.view> implements MainContract.presenter {
 
 
     @Inject

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.view.helloUI.HelloActivity">
+        tools:context=".ui.helloUI.HelloActivity">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
-            android:name="com.pasich.mynotes.ui.view.helloUI.fragments.HelloFragment"
+            android:name="com.pasich.mynotes.ui.helloUI.fragments.HelloFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

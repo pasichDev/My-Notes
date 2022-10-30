@@ -1,8 +1,8 @@
 package com.pasich.mynotes.ui.contract;
 
 
-import com.pasich.mynotes.base.activity.ActivityPresenter;
-import com.pasich.mynotes.base.activity.BaseViewActivity;
+import com.pasich.mynotes.base.BasePresenter;
+import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.ActionBar;
 import com.pasich.mynotes.base.view.ActivitySettings;
 import com.pasich.mynotes.base.view.NoteActivityView;
@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 public interface NoteContract {
 
-    interface view extends BaseViewActivity, ActionBar, NoteActivityView, ActivitySettings, AudioPermission {
+    interface view extends BaseView, ActionBar, NoteActivityView, ActivitySettings, AudioPermission {
 
         void initTypeActivity();
 
@@ -29,7 +29,7 @@ public interface NoteContract {
 
     }
 
-    interface presenter extends ActivityPresenter<view> {
+    interface presenter extends BasePresenter<view> {
         void closeActivity();
 
         void loadingData(int idNote);

@@ -15,9 +15,9 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.DialogAddTagToNoteBinding;
@@ -29,7 +29,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 
-public class TagDialog extends BottomSheetDialogFragment implements TagDialogContract.view {
+public class TagDialog extends BaseDialogBottomSheets implements TagDialogContract.view {
 
     private final Note note;
     private final TagDialogPresenter dialogPresenter;  // @Inject
@@ -40,7 +40,7 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
 
     public TagDialog(Note note) {
         this.note = note;
-        this.dialogPresenter = new TagDialogPresenter();
+        this.dialogPresenter = null;
 
     }
 
@@ -51,7 +51,8 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
         builder.setContentView(binding.getRoot());
 
 
-        init();
+        initTitle();
+        binding.chipGroupSystem.setVisibility(View.VISIBLE);
         dialogPresenter.attachView(this);
         dialogPresenter.viewIsReady();
         return builder;
@@ -78,12 +79,6 @@ public class TagDialog extends BottomSheetDialogFragment implements TagDialogCon
         }
     }
 
-
-    @Override
-    public void init() {
-        initTitle();
-        binding.chipGroupSystem.setVisibility(View.VISIBLE);
-    }
 
     @Override
     public void initListeners() {

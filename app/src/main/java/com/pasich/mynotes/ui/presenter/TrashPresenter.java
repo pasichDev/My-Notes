@@ -1,18 +1,18 @@
 package com.pasich.mynotes.ui.presenter;
 
 
-import com.pasich.mynotes.base.activity.BasePresenterActivity;
+import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.ui.contract.TrashContract;
-import com.pasich.mynotes.utils.SchedulerProvider.SchedulerProvider;
+import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
 
 
-public class TrashPresenter extends BasePresenterActivity<TrashContract.view>
+public class TrashPresenter extends AppBasePresenter<TrashContract.view>
         implements TrashContract.presenter {
 
 

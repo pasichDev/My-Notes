@@ -2,8 +2,8 @@ package com.pasich.mynotes.ui.contract;
 
 import androidx.lifecycle.LiveData;
 
-import com.pasich.mynotes.base.activity.ActivityPresenter;
-import com.pasich.mynotes.base.activity.BaseViewActivity;
+import com.pasich.mynotes.base.BasePresenter;
+import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
@@ -20,7 +20,7 @@ import io.reactivex.Observable;
 
 public interface MainContract {
 
-    interface view extends BaseViewActivity, TagView, NoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
+    interface view extends BaseView, TagView, NoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
         void settingsSearchView();
 
         void settingsNotesList();
@@ -54,7 +54,7 @@ public interface MainContract {
 
 
     @PerActivity
-    interface presenter extends ActivityPresenter<view> {
+    interface presenter extends BasePresenter<view> {
         void newNotesClick();
 
         void moreActivityClick();

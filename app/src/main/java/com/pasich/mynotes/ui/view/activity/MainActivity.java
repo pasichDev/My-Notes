@@ -27,6 +27,7 @@ import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
@@ -275,7 +276,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
     @Override
     public void startCreateTagDialog() {
-        //     new NewTagDialog(dataManager.getTagsRepository()).show(getSupportFragmentManager(), "New Tag");
+        new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
     }
 
     @Override

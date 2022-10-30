@@ -1,20 +1,24 @@
 package com.pasich.mynotes.ui.presenter.dialog;
 
 
-import com.pasich.mynotes.base.dialog.BasePresenterDialog;
+import com.pasich.mynotes.base.AppBasePresenter;
+import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.ui.contract.dialog.TagDialogContract;
+import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import java.util.concurrent.ExecutionException;
 
+import io.reactivex.disposables.CompositeDisposable;
 
-public class TagDialogPresenter extends BasePresenterDialog<TagDialogContract.view>
+
+public class TagDialogPresenter extends AppBasePresenter<TagDialogContract.view>
         implements TagDialogContract.presenter {
 
 
-    public TagDialogPresenter() {
+    public TagDialogPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
+        super(schedulerProvider, compositeDisposable, dataManager);
     }
-
 
     @Override
     public void viewIsReady() {
@@ -38,10 +42,15 @@ public class TagDialogPresenter extends BasePresenterDialog<TagDialogContract.vi
 
     }
 
+    @Override
+    public DataManager getDataManager() {
+        return null;
+    }
+
 
     @Override
     public void editTagNote(String nameTag, int noteId) {
-     //   notesRepository.setTagNote(nameTag, noteId);
+        //   notesRepository.setTagNote(nameTag, noteId);
     }
 
     @Override

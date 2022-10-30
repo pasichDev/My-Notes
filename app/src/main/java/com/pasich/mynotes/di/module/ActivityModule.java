@@ -13,11 +13,13 @@ import com.pasich.mynotes.di.scope.ActivityContext;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
+import com.pasich.mynotes.ui.contract.dialog.NewTagDialogContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
-import com.pasich.mynotes.utils.SchedulerProvider.AppSchedulerProvider;
-import com.pasich.mynotes.utils.SchedulerProvider.SchedulerProvider;
+import com.pasich.mynotes.ui.presenter.dialog.NewTagDialogPresenter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
+import com.pasich.mynotes.utils.rx.AppSchedulerProvider;
+import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Named;
 
@@ -65,7 +67,6 @@ public class ActivityModule {
     @Provides
     @PerActivity
     ActivityMainBinding providerActivityMainBinding(AppCompatActivity activity) {
-
         return DataBindingUtil.setContentView(activity, R.layout.activity_main);
     }
 
@@ -96,5 +97,10 @@ public class ActivityModule {
         return presenter;
     }
 
+    @Provides
+    @PerActivity
+    NewTagDialogContract.presenter providerNewTagDialogPresenter(NewTagDialogPresenter presenter) {
+        return presenter;
+    }
 
 }

@@ -11,11 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.MyApp;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.di.component.DaggerActivityComponent;
 import com.pasich.mynotes.di.module.ActivityModule;
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseViewActivity {
+public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     private ActivityComponent activityComponent;
 
