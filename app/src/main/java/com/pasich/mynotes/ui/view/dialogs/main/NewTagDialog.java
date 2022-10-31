@@ -12,8 +12,6 @@ import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogNewTagBinding;
@@ -36,10 +34,9 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireContext(), R.style.InputsDialog);
-        binding = DialogNewTagBinding.inflate(getLayoutInflater());//
-        builder.setContentView(binding.getRoot());//
-        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);///
+        binding = DialogNewTagBinding.inflate(getLayoutInflater());
+        requireDialog().setContentView(binding.getRoot());
+
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
@@ -50,19 +47,17 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
         }
 
         binding.includedInput.outlinedTextField.requestFocus();
-        binding.includedInput.outlinedTextField.setEndIconOnClickListener(v -> {
-            mPresenter.saveTag(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString());
-            dismiss();
-
-        });
+        binding.includedInput.outlinedTextField.setEndIconOnClickListener(v -> saveTag());
 
 
         binding.includedInput.nameTag.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) return saveTag();
-            else return false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                saveTag();
+                return true;
+            } else return false;
         });
 
-        return builder;
+        return requireDialog();
     }
 
 
@@ -100,35 +95,11 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
     }
 
 
-
-    private boolean saveTag() {
-        final boolean[] returns = {false};
-         /*
- if (!errorText) {
-
-            mPresenter.saveTag(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString())
-                    .subscribe(new CompletableObserver() {
-                @Override
-                public void onSubscribe(Disposable d) {
-                    mPresenter.getCompositeDisposable().add(d);
-                }
-
-                @Override
-                public void onComplete() {
-                    dismiss();
-                    returns[0] = true;
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    returns[0] = false;
-                }
-            });
-
+    private void saveTag() {
+        if (!errorText) {
+            mPresenter.saveTag(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString());
+            dismiss();
         }
-        return returns[0];
-*/
-        return false;
     }
 
 
