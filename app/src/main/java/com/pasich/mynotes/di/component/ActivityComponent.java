@@ -7,6 +7,8 @@ import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.view.activity.MainActivity;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 
 import dagger.Component;
@@ -23,4 +25,8 @@ public interface ActivityComponent {
     void inject(TrashActivity activity);
 
     void inject(NewTagDialog dialog);
+
+    void inject(ChoiceTagDialog dialog);
+
+    void inject(DeleteTagDialog dialog);
 }

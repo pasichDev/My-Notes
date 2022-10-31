@@ -3,6 +3,7 @@ package com.pasich.mynotes.base.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Vibrator;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -76,6 +77,16 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
 
     }
 
+    @Override
+    public void vibrateOpenDialog(boolean vibrate) {
+        if (vibrate) {
+            Vibrator vibrator = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(100L);
+            }
+        }
+    }
 
     public ActivityComponent getActivityComponent() {
         if (activity != null) return activity.getActivityComponent();

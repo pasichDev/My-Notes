@@ -11,12 +11,16 @@ import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.di.scope.ActivityContext;
 import com.pasich.mynotes.di.scope.PerActivity;
+import com.pasich.mynotes.ui.contract.ChoiceTagDialogContract;
+import com.pasich.mynotes.ui.contract.DeleteTagDialogContract;
 import com.pasich.mynotes.ui.contract.MainContract;
+import com.pasich.mynotes.ui.contract.NewTagDialogContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
-import com.pasich.mynotes.ui.contract.dialog.NewTagDialogContract;
+import com.pasich.mynotes.ui.presenter.ChoiceTagDialogPresenter;
+import com.pasich.mynotes.ui.presenter.DeleteTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
+import com.pasich.mynotes.ui.presenter.NewTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
-import com.pasich.mynotes.ui.presenter.dialog.NewTagDialogPresenter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.rx.AppSchedulerProvider;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
@@ -101,6 +105,20 @@ public class ActivityModule {
     @PerActivity
     NewTagDialogContract.presenter providerNewTagDialogPresenter(NewTagDialogPresenter presenter) {
         return presenter;
+
     }
+
+    @Provides
+    @PerActivity
+    ChoiceTagDialogContract.presenter providerChoiceTagDialogPresenter(ChoiceTagDialogPresenter presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    DeleteTagDialogContract.presenter providerDeleteTagDialogPresenter(DeleteTagDialogPresenter presenter) {
+        return presenter;
+    }
+
 
 }

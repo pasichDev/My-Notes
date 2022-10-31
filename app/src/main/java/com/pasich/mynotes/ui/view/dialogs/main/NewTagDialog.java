@@ -16,8 +16,8 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogNewTagBinding;
 import com.pasich.mynotes.di.component.ActivityComponent;
-import com.pasich.mynotes.ui.contract.dialog.NewTagDialogContract;
-import com.pasich.mynotes.ui.presenter.dialog.NewTagDialogPresenter;
+import com.pasich.mynotes.ui.contract.NewTagDialogContract;
+import com.pasich.mynotes.ui.presenter.NewTagDialogPresenter;
 
 import java.util.Objects;
 

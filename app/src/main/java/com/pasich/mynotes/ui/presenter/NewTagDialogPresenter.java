@@ -1,9 +1,9 @@
-package com.pasich.mynotes.ui.presenter.dialog;
+package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.ui.contract.dialog.NewTagDialogContract;
+import com.pasich.mynotes.ui.contract.NewTagDialogContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;

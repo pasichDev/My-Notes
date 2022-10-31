@@ -1,8 +1,8 @@
-package com.pasich.mynotes.ui.presenter.dialog;
+package com.pasich.mynotes.ui.presenter;
 
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.ui.contract.dialog.SearchDialogContract;
+import com.pasich.mynotes.ui.contract.SearchDialogContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import io.reactivex.disposables.CompositeDisposable;

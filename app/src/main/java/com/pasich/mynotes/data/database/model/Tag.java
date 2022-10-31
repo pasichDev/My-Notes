@@ -88,4 +88,9 @@ public class Tag {
     public void setVisibility(int arg0) {
         this.visibility = arg0;
     }
+
+    public Tag setVisibilityReturn(int arg0) {
+        this.visibility = arg0;
+        return this;
+    }
 }

@@ -1,68 +1,86 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.view.TagView;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.utils.override.DialogOpenVibrate;
+import com.pasich.mynotes.di.component.ActivityComponent;
+import com.pasich.mynotes.ui.contract.ChoiceTagDialogContract;
+import com.pasich.mynotes.ui.presenter.ChoiceTagDialogPresenter;
 
-public class ChoiceTagDialog extends DialogOpenVibrate {
+import javax.inject.Inject;
 
-    private final Integer[] keysNoteInfo;
-    private final Tag tag;
+public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTagDialogContract.view {
 
-    public ChoiceTagDialog(Tag tag, Integer[] keysNoteInfo) {
-        this.keysNoteInfo = keysNoteInfo;
-        this.tag = tag;
+    private Tag mTag;
+    @Inject
+    public ChoiceTagDialogPresenter mPresenter;
+    private SwitchCompat switchVisibility;
+
+
+    public ChoiceTagDialog(Tag mTag) {
+        this.mTag = mTag;
     }
 
+    @SuppressLint("StringFormatMatches")
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
-        final TagView tagView = (TagView) getContext();
-        final int countNotes = keysNoteInfo[0];
-        builder.setContentView(R.layout.dialog_choice_tag);
+        vibrateOpenDialog(true);
+        requireDialog().setContentView(R.layout.dialog_choice_tag);
 
-        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
-        assert title != null;
-        title.setText(tag.getNameTag());
+        MaterialTextView title = requireDialog().findViewById(R.id.headTextDialog);
+        switchVisibility = requireDialog().findViewById(R.id.switchVisibilityTag);
+        MaterialTextView infoItem = requireDialog().findViewById(R.id.noteInfo);
 
-        MaterialTextView infoItem = builder.findViewById(R.id.noteInfo);
-        assert infoItem != null;
-        infoItem.setText(
-                getString(R.string.layoutStringInfoTags, String.valueOf(countNotes)));
-
-
-        builder.findViewById(R.id.deleteTagLayout).setOnClickListener(v -> {
-            if (countNotes == 0) {
-                assert tagView != null;
-                tagView.deleteTag(tag, false);
-            } else {
-                new DeleteTagDialog(countNotes, tag)
-                        .show(getParentFragmentManager(), "deleteTag");
-            }
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            mPresenter.attachView(this);
+            mPresenter.viewIsReady();
+        } else {
             dismiss();
+        }
+
+
+        title.setText(mTag.getNameTag());
+        switchVisibility.setChecked(mTag.getVisibility() == 1);
+        infoItem.setText(getString(R.string.layoutStringInfoTags, mPresenter.getLoadCountNotesForTag(mTag.getNameTag())));
+
+
+        return requireDialog();
+    }
+
+    @Override
+    public void initListeners() {
+        requireDialog().findViewById(R.id.deleteTagLayout).setOnClickListener(v -> {
+            mPresenter.deleteTagInitial(mTag);
+
         });
 
-        SwitchCompat switchVisibility = builder.findViewById(R.id.switchVisibilityTag);
-        assert switchVisibility != null;
-        switchVisibility.setChecked(tag.getVisibility() == 1);
-        switchVisibility.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> {
-                    assert tagView != null;
-                    tag.setVisibility(isChecked ? 1 : 0);
-                    tagView.editVisibility(tag);
-                });
-        return builder;
+
+        switchVisibility.setOnCheckedChangeListener((buttonView, isChecked) -> mPresenter.editVisibilityTag(mTag.setVisibilityReturn(isChecked ? 1 : 0)));
     }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        requireDialog().findViewById(R.id.deleteTagLayout).setOnClickListener(null);
+        switchVisibility.setOnCheckedChangeListener(null);
+        mTag = null;
+    }
+
+    @Override
+    public void startDeleteTagDialog() {
+        new DeleteTagDialog(mTag).show(getChildFragmentManager(), "deleteTag");
+    }
+
 }

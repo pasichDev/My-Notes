@@ -5,7 +5,6 @@ import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
-import com.pasich.mynotes.base.view.TagView;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.di.scope.PerActivity;
@@ -18,7 +17,7 @@ import io.reactivex.Flowable;
 
 public interface MainContract {
 
-    interface view extends BaseView, TagView, NoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
+    interface view extends BaseView, NoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
         void settingsSearchView();
 
         void settingsNotesList();
@@ -29,7 +28,7 @@ public interface MainContract {
 
         void startCreateTagDialog();
 
-        void choiceTagDialog(Tag tag, Integer[] arg);
+        void choiceTagDialog(Tag tag);
 
         void choiceNoteDialog(Note note, int position);
 
@@ -57,9 +56,6 @@ public interface MainContract {
 
         void moreActivityClick();
 
-        void deleteTag(Tag tag, boolean deleteNotes);
-
-        void editVisibility(Tag tag);
 
         void clickTag(Tag tag, int position);
 

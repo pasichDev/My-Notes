@@ -111,8 +111,8 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Observable<Integer> getCountNotesTag(String nameTag) {
-        return Observable.fromCallable(() -> appDatabase.noteDao().getCountNotesTag(nameTag));
+    public Single<Integer> getCountNotesTag(String nameTag) {
+        return Single.fromCallable(() -> appDatabase.noteDao().getCountNotesTag(nameTag));
     }
 
     @Override

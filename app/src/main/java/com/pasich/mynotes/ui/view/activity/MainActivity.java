@@ -34,6 +34,7 @@ import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.activity.MainUtils;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
+import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
@@ -135,7 +136,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
             }
         });
 
-/*        mNoteAdapter.setOnItemClickListener(new OnItemClickListener<Note>() {
+        mNoteAdapter.setOnItemClickListener(new OnItemClickListener<Note>() {
 
             @Override
             public void onClick(int position, Note model) {
@@ -153,9 +154,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         });
 
 
-
- */
     }
+
 
 
     @Override
@@ -231,6 +231,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     }
 
 
+    /*
     @Override
     public void deleteTag(Tag tag, boolean deleteNotes) {
         mainPresenter.deleteTag(tag, deleteNotes);
@@ -241,7 +242,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     public void editVisibility(Tag tag) {
         mainPresenter.editVisibility(tag);
     }
-
+*/
     @Override
     public void newNotesButton() {
         Tag tagSelected = tagsAdapter.getTagSelected();
@@ -263,8 +264,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     }
 
     @Override
-    public void choiceTagDialog(Tag tag, Integer[] arg) {
-        new ChoiceTagDialog(tag, arg).show(getSupportFragmentManager(), "ChoiceDialog");
+    public void choiceTagDialog(Tag tag) {
+        new ChoiceTagDialog(tag).show(getSupportFragmentManager(), "ChoiceDialog");
     }
 
     @Override

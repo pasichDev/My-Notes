@@ -9,6 +9,7 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface DbNotesHelper {
     /**
@@ -19,7 +20,7 @@ public interface DbNotesHelper {
 
     Observable<List<Note>> getNotesForTag(String nameTag);
 
-    Observable<Integer> getCountNotesTag(String nameTag);
+    Single<Integer> getCountNotesTag(String nameTag);
 
     Observable<Note> getNoteForId(int idNote);
 

@@ -30,6 +30,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
                         .getApplicationComponent()).build();
     }
 
+    @Override
+    public void vibrateOpenDialog(boolean vibrate) {
+
+    }
+
 
     @Override
     public void showMessage(String message) {

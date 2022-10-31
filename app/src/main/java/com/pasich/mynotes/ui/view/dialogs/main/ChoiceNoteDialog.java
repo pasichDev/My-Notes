@@ -12,12 +12,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.dialog.DialogOpenVibrate;
 import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.DialogChoiceNoteBinding;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;
-import com.pasich.mynotes.utils.override.DialogOpenVibrate;
 
 public class ChoiceNoteDialog extends DialogOpenVibrate {
 

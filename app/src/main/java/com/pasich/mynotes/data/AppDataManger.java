@@ -144,7 +144,7 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public Observable<Integer> getCountNotesTag(String nameTag) {
+    public Single<Integer> getCountNotesTag(String nameTag) {
         return dbHelper.getCountNotesTag(nameTag);
     }
 

@@ -13,10 +13,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 
 public class MainPresenter extends AppBasePresenter<MainContract.view> implements MainContract.presenter {
@@ -56,80 +53,33 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         if (isViewAttached()) getView().moreActivity();
     }
 
-    @Override
-    public void deleteTag(Tag tag, boolean deleteNotes) {
-        if (getDataManager() != null) {
-            if (!deleteNotes) {
-            /*    for (Note note : getDataManager().getNotesFroTag(tag.getNameTag())) {
-                    note.setTag("");
-                    getDataManager().updateNote(note);
-                }
 
-             */
-            } else {
-             /*   for (Note note : getDataManager().getNotesFroTag(tag.getNameTag())) {
-                    getDataManager().moveToTrash(note);
-                    getDataManager().deleteNote(note);
-                }
-
-              */
-
-            }
-
-
-            getDataManager().deleteTag(tag)
-                    .subscribeOn(getSchedulerProvider().io())
-                    .subscribe();
-        }
-    }
-
-
-    @Override
-    public void editVisibility(Tag tag) {
-        //  if (getDataManager() != null) getTagsRepository().updateTag(tag);
-    }
 
     @Override
     public void clickTag(Tag tag, int position) {
-            if (tag.getSystemAction() == 1) {
-                getDataManager().getCountTagAll()
-                        .subscribeOn(getSchedulerProvider().io()).
-                        observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new SingleObserver<Integer>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                getCompositeDisposable().add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Integer integer) {
+        if (tag.getSystemAction() == 1) {
+            getCompositeDisposable().add(
+                    getDataManager().getCountTagAll()
+                            .subscribeOn(getSchedulerProvider().io())
+                            .subscribe(integer -> {
                                 if (integer >= MAX_TAG_COUNT) {
                                     getView().startToastCheckCountTags();
                                 } else getView().startCreateTagDialog();
-                            }
+                            })
+            );
 
-                            @Override
-                            public void onError(Throwable e) {
 
-                            }
-                        });
-            } else {
-                getView().selectTagUser(position);
+        } else {
+            getView().selectTagUser(position);
 
-            }
+        }
     }
 
 
     @Override
     public void clickLongTag(Tag tag) {
         if (tag.getSystemAction() == 0) {
-            Integer[] keysNote = new Integer[0];
-            //    try {
-//                keysNote = new Integer[]{getNotesRepository().getCountNoteTag(tag.getNameTag())};
-            //   } catch (ExecutionException | InterruptedException e) {
-            //     e.printStackTrace();
-            //      }
-            getView().choiceTagDialog(tag, new Integer[]{0});
+            getView().choiceTagDialog(tag);
         }
     }
 
