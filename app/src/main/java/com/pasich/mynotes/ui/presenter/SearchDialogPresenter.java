@@ -25,20 +25,8 @@ public class SearchDialogPresenter extends AppBasePresenter<SearchDialogContract
         getView().initListeners();
     }
 
-    @Override
-    public void detachView() {
 
-    }
 
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public DataManager getDataManager() {
-        return null;
-    }
 
 
 }
