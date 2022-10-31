@@ -21,11 +21,11 @@ import javax.inject.Inject;
 
 public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTagDialogContract.view {
 
-    private Tag mTag;
+    private final Tag mTag;
     @Inject
     public ChoiceTagDialogPresenter mPresenter;
     private SwitchCompat switchVisibility;
-
+    private MaterialTextView infoItem;
 
     public ChoiceTagDialog(Tag mTag) {
         this.mTag = mTag;
@@ -38,14 +38,16 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         requireDialog().setContentView(R.layout.dialog_choice_tag);
 
         MaterialTextView title = requireDialog().findViewById(R.id.headTextDialog);
+        infoItem = requireDialog().findViewById(R.id.noteInfo);
         switchVisibility = requireDialog().findViewById(R.id.switchVisibilityTag);
-        MaterialTextView infoItem = requireDialog().findViewById(R.id.noteInfo);
+
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
             mPresenter.attachView(this);
             mPresenter.viewIsReady();
+            mPresenter.getLoadCountNotesForTag(mTag.getNameTag());
         } else {
             dismiss();
         }
@@ -53,17 +55,23 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
 
         title.setText(mTag.getNameTag());
         switchVisibility.setChecked(mTag.getVisibility() == 1);
-        infoItem.setText(getString(R.string.layoutStringInfoTags, mPresenter.getLoadCountNotesForTag(mTag.getNameTag())));
 
 
         return requireDialog();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        infoItem.setText(getString(R.string.layoutStringInfoTags, String.valueOf(mPresenter.getCountNotesForTag())));
     }
 
     @Override
     public void initListeners() {
         requireDialog().findViewById(R.id.deleteTagLayout).setOnClickListener(v -> {
             mPresenter.deleteTagInitial(mTag);
-
+            dismiss();
         });
 
 
@@ -75,8 +83,8 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         super.onDismiss(dialog);
         requireDialog().findViewById(R.id.deleteTagLayout).setOnClickListener(null);
         switchVisibility.setOnCheckedChangeListener(null);
-        mTag = null;
     }
+
 
     @Override
     public void startDeleteTagDialog() {

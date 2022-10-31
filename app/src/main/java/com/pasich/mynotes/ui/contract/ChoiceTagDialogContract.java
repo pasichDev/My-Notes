@@ -13,7 +13,7 @@ public interface ChoiceTagDialogContract {
     }
 
     interface presenter extends BasePresenter<view> {
-        int getLoadCountNotesForTag(String nameTag);
+        void getLoadCountNotesForTag(String nameTag);
 
         void editVisibilityTag(Tag tag);
 

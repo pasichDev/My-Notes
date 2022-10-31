@@ -9,13 +9,12 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
+import com.pasich.mynotes.base.dialog.SearchBaseDialogBottomSheets;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.DialogSearchBinding;
+import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.SearchDialogContract;
 import com.pasich.mynotes.ui.presenter.SearchDialogPresenter;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
@@ -25,32 +24,41 @@ import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchDialog extends BaseDialogBottomSheets implements SearchDialogContract.view {
+import javax.inject.Inject;
 
-    private final SearchDialogPresenter searchDialogPresenter; // @Inject
+import io.reactivex.Flowable;
+
+public class SearchDialog extends SearchBaseDialogBottomSheets implements SearchDialogContract.view {
+
+    @Inject
+    SearchDialogPresenter mPresenter;
+    @Inject
+    SearchNotesAdapter searchNotesAdapter;
+
     private DialogSearchBinding binding;
-    private BottomSheetDialog builder;
-    private SearchNotesAdapter searchNotesAdapter;  // @Inject
     private FloatingActionButton fabNewNote;
 
-    public SearchDialog() {
-        this.searchDialogPresenter = null;
-    }
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        builder = new BottomSheetDialog(requireContext(), R.style.SearchDialog);
         binding = DialogSearchBinding.inflate(getLayoutInflater());
-        builder.setContentView(binding.getRoot());
+        requireDialog().setContentView(binding.getRoot());
 
-        searchDialogPresenter.attachView(this);
-        searchDialogPresenter.viewIsReady();
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            mPresenter.attachView(this);
+            mPresenter.viewIsReady();
+        } else {
+            dismiss();
+        }
+
         fabNewNote.hide();
-        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         binding.actionSearch.requestFocus();
 
-        return builder;
+        return requireDialog();
     }
+
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
@@ -62,9 +70,8 @@ public class SearchDialog extends BaseDialogBottomSheets implements SearchDialog
 
     @Override
     public void initFabButton() {
-        this.fabNewNote = requireActivity().findViewById(R.id.newNotesButton);
+        this.fabNewNote = getBaseActivity().findViewById(R.id.newNotesButton);
     }
-
 
 
     @Override
@@ -100,38 +107,41 @@ public class SearchDialog extends BaseDialogBottomSheets implements SearchDialog
     public void onDestroy() {
         super.onDestroy();
         binding = null;
-        builder = null;
         searchNotesAdapter = null;
-        searchDialogPresenter.detachView();
+        mPresenter.detachView();
 
     }
 
     @Override
     public void settingsListResult() {
         binding.resultsList.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true));
-
         binding.resultsList.addItemDecoration(new SpacesItemDecoration(25));
-        searchNotesAdapter = new SearchNotesAdapter();
         binding.resultsList.setAdapter(searchNotesAdapter);
-
 
     }
 
     @Override
-    public void createListenerSearch(List<Note> mNotes) {
-        binding.actionSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+    public void createListenerSearch(Flowable<List<Note>> mNotes) {
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
+        mPresenter.getCompositeDisposable().add(
+                mNotes
+                        .subscribeOn(mPresenter.getSchedulerProvider().io())
+                        .subscribe(notes ->
+                                binding.actionSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                    @Override
+                                    public boolean onQueryTextSubmit(String query) {
+                                        return false;
+                                    }
 
-                filter(newText, mNotes);
-                return false;
-            }
-        });
+                                    @Override
+                                    public boolean onQueryTextChange(String newText) {
+                                        filter(newText, notes);
+                                        return false;
+                                    }
+                                }))
+
+
+        );
 
 
     }

@@ -16,11 +16,13 @@ import com.pasich.mynotes.ui.contract.DeleteTagDialogContract;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NewTagDialogContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
+import com.pasich.mynotes.ui.contract.SearchDialogContract;
 import com.pasich.mynotes.ui.presenter.ChoiceTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.DeleteTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NewTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
+import com.pasich.mynotes.ui.presenter.SearchDialogPresenter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.rx.AppSchedulerProvider;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
@@ -117,6 +119,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     DeleteTagDialogContract.presenter providerDeleteTagDialogPresenter(DeleteTagDialogPresenter presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    SearchDialogContract.presenter providerSearchDialogPresenter(SearchDialogPresenter presenter) {
         return presenter;
     }
 

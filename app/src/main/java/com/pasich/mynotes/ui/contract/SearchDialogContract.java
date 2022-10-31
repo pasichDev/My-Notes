@@ -6,6 +6,8 @@ import com.pasich.mynotes.data.database.model.Note;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 
 public interface SearchDialogContract {
 
@@ -13,7 +15,7 @@ public interface SearchDialogContract {
 
         void settingsListResult();
 
-        void createListenerSearch(List<Note> mNotes);
+        void createListenerSearch(Flowable<List<Note>> mNotes);
 
         void initFabButton();
     }

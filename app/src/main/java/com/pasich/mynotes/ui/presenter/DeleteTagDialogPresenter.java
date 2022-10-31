@@ -27,7 +27,10 @@ public class DeleteTagDialogPresenter extends AppBasePresenter<DeleteTagDialogCo
     @Override
     public int getLoadCountNotesForTag(String nameTag) {
         final int[] count = {0};
-        getCompositeDisposable().add(getDataManager().getCountNotesTag(nameTag).subscribeOn(getSchedulerProvider().io()).subscribe(integer -> count[0] = integer));
+        getCompositeDisposable().add(getDataManager()
+                .getCountNotesTag(nameTag)
+                .subscribeOn(getSchedulerProvider().io())
+                .subscribe(integer -> count[0] = integer));
         return count[0];
     }
 

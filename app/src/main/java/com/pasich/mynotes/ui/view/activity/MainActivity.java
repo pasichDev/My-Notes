@@ -3,7 +3,6 @@ package com.pasich.mynotes.ui.view.activity;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +27,7 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
@@ -45,7 +45,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
 public class MainActivity extends BaseActivity implements MainContract.view {
@@ -167,10 +166,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
     @Override
     public void settingsTagsList() {
-
         mActivityBinding.listTags.addItemDecoration(itemDecorationTags);
         mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-
         mActivityBinding.listTags.setAdapter(tagsAdapter);
 
     }
@@ -188,13 +185,21 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
 
-        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).observeOn(AndroidSchedulers.mainThread()).subscribe(tags -> tagsAdapter.submitList(tags)));
+        mainPresenter.getCompositeDisposable()
+                .add(
+                        tagList
+                                .subscribeOn(mainPresenter.getSchedulerProvider().io())
+                                //    .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(tags -> tagsAdapter.submitList(tags)));
 
-        mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).observeOn(AndroidSchedulers.mainThread()).subscribe(notes -> {
-            mNoteAdapter.sortList(notes, sortParam);
-            showEmptyTrash(!(notes.size() >= 1));
+        mainPresenter.getCompositeDisposable()
+                .add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io())
+                        //   .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(notes -> {
+                            mNoteAdapter.sortList(notes, sortParam);
+                            showEmptyTrash(!(notes.size() >= 1));
 
-        }));
+                        }));
     }
 
 
@@ -224,25 +229,12 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
 
-    @SuppressLint("StringFormatMatches")
     @Override
     public void startToastCheckCountTags() {
-        onError(getString(R.string.countTagsError, MAX_TAG_COUNT), mActivityBinding.newNotesButton);
+        onError(getString(R.string.countTagsError, String.valueOf(MAX_TAG_COUNT)), mActivityBinding.newNotesButton);
     }
 
 
-    /*
-    @Override
-    public void deleteTag(Tag tag, boolean deleteNotes) {
-        mainPresenter.deleteTag(tag, deleteNotes);
-
-    }
-
-    @Override
-    public void editVisibility(Tag tag) {
-        mainPresenter.editVisibility(tag);
-    }
-*/
     @Override
     public void newNotesButton() {
         Tag tagSelected = tagsAdapter.getTagSelected();
@@ -251,11 +243,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
 
     @Override
     public void moreActivity() {
-        //   if (getAction()) actionUtils.closeActionPanel();
-        //   new AboutDialog().show(getSupportFragmentManager(), "more activity");
-
-        finish();
-        startActivity(new Intent(MainActivity.this, MainActivity.class));
+        if (getAction()) actionUtils.closeActionPanel();
+        new AboutDialog().show(getSupportFragmentManager(), "more activity");
     }
 
     @Override

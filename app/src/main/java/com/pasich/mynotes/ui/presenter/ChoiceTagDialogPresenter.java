@@ -1,8 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
 
-import android.util.Log;
-
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Tag;
@@ -14,6 +12,8 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class ChoiceTagDialogPresenter extends AppBasePresenter<ChoiceTagDialogContract.view> implements ChoiceTagDialogContract.presenter {
+
+    private int countNotesForTag;
 
     @Inject
     public ChoiceTagDialogPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
@@ -27,10 +27,13 @@ public class ChoiceTagDialogPresenter extends AppBasePresenter<ChoiceTagDialogCo
 
 
     @Override
-    public int getLoadCountNotesForTag(String nameTag) {
-        final int[] count = {0};
-        getCompositeDisposable().add(getDataManager().getCountNotesTag(nameTag).subscribeOn(getSchedulerProvider().io()).subscribe(integer -> count[0] = integer));
-        return count[0];
+    public void getLoadCountNotesForTag(String nameTag) {
+        getCompositeDisposable()
+                .add(getDataManager()
+                        .getCountNotesTag(nameTag)
+                        .subscribeOn(getSchedulerProvider().io())
+                        .subscribe(integer -> countNotesForTag = integer));
+
     }
 
     @Override
@@ -40,10 +43,12 @@ public class ChoiceTagDialogPresenter extends AppBasePresenter<ChoiceTagDialogCo
 
     @Override
     public void deleteTagInitial(Tag tag) {
-
-        Log.wtf("pasic", "deleteTagInitial: " + getLoadCountNotesForTag(tag.getNameTag()));
-        if (getLoadCountNotesForTag(tag.getNameTag()) == 0)
+        if (getCountNotesForTag() == 0)
             getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io()).subscribe());
         else getView().startDeleteTagDialog();
+    }
+
+    public int getCountNotesForTag() {
+        return countNotesForTag;
     }
 }
