@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/infoItem"
-    android:background="@drawable/background_info_view_dialog"
     android:padding="4dp">
 
     <TextView

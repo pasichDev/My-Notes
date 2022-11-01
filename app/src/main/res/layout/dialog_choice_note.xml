@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/action_panel_activate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:background="@drawable/background_bottom_sheets"
+        android:orientation="vertical">
 
-        <ImageView
+        <LinearLayout
+            android:id="@+id/action_panel_activate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_ripple_top_dialog"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
             style="@style/iconDialogList"
             android:contentDescription="@string/selectAll"
             android:src="@drawable/ic_check_box" />
@@ -117,9 +124,10 @@
             android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
-    <include
-        android:id="@+id/includeInfo"
-        layout="@layout/view_info_item" />
+        <include
+            android:id="@+id/includeInfo"
+            layout="@layout/view_info_item" />
 
 
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>
