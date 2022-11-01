@@ -13,6 +13,7 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
+import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 
 import dagger.Component;
 
@@ -35,4 +36,6 @@ public interface ActivityComponent {
     void inject(DeleteTagDialog dialog);
 
     void inject(SearchDialog dialog);
+
+    void inject(CleanTrashDialog dialog);
 }

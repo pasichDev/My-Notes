@@ -6,6 +6,7 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
@@ -191,17 +192,14 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                 .add(
                         tagList
                                 .subscribeOn(mainPresenter.getSchedulerProvider().io())
-                                //    .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(tags -> tagsAdapter.submitList(tags)));
 
         mainPresenter.getCompositeDisposable()
                 .add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io())
-                        //   .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(notes -> {
                             mNoteAdapter.sortList(notes, sortParam);
-                            showEmptyTrash(!(notes.size() >= 1));
-
-                        }));
+                            runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
+                        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
     }
 
 

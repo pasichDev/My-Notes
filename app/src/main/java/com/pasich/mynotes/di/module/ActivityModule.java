@@ -16,6 +16,7 @@ import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.contract.dialogs.ChoiceTagDialogContract;
+import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.SearchDialogContract;
@@ -23,6 +24,7 @@ import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.ChoiceTagDialogPresenter;
+import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.DeleteTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.NewTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.SearchDialogPresenter;
@@ -148,6 +150,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     SearchDialogContract.presenter providerSearchDialogPresenter(SearchDialogPresenter presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    ClearTrashDialogContract.presenter providerClearTrashDialogPresenter(ClearTrashDialogPresenter presenter) {
         return presenter;
     }
 
