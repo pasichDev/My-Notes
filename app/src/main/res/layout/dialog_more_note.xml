@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include
-        android:id="@+id/view_settings_note"
-        layout="@layout/view_settings_note" />
-    <include
-        android:id="@+id/seekbar_view"
-        layout="@layout/view_seekbar_size_text" />
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="newNote"
+            type="boolean" />
+
+        <variable
+            name="valuesText"
+            type="boolean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/view_settings_note"
+            layout="@layout/view_settings_note" />
+
+        <include
+            android:id="@+id/seekbar_view"
+            layout="@layout/view_seekbar_size_text" />
 
 
     <LinearLayout
@@ -26,7 +42,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="8dp"
-            android:visibility="gone">
+            android:visibility="@{valuesText ?  View.VISIBLE :View.GONE , default = gone}">
 
             <ImageView
                 style="@style/iconDialogList"
@@ -65,6 +81,7 @@
                 android:textSize="@dimen/textSizeDialog" />
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/addShortCutLauncher"
             android:layout_width="match_parent"
@@ -72,7 +89,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="8dp"
-            android:visibility="gone">
+            android:visibility="@{newNote ? View.GONE : View.VISIBLE, default = gone}">
 
             <ImageView
                 style="@style/iconDialogList"
@@ -95,7 +112,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="8dp"
-            android:visibility="gone">
+            android:visibility="@{valuesText ?  View.VISIBLE :View.GONE , default = gone}">
 
             <ImageView
                 style="@style/iconDialogList"
@@ -119,6 +136,7 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
+            android:visibility="@{newNote ? View.GONE : View.VISIBLE, default = gone}"
             android:padding="8dp">
 
             <ImageView
@@ -164,4 +182,6 @@
             layout="@layout/view_info_item" />
 
     </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+
+</layout>

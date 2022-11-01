@@ -15,4 +15,6 @@ public interface PreferenceHelper {
     int getSizeTextNoteActivity();
 
     String getSortParam();
+
+    void editSizeTextNoteActivity(int value);
 }

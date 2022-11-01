@@ -1,11 +1,13 @@
 package com.pasich.mynotes.base.view;
 
-public interface ActivitySettings {
+public interface MoreNoteDialogView {
 
     void changeTextStyle();
 
     void changeTextSizeOnline(int sizeText);
 
     void changeTextSizeOffline();
+
+    void closeActivityNotSaved();
 
 }

@@ -44,6 +44,12 @@ public class AppPreferencesHelper implements PreferenceHelper {
     }
 
     @Override
+    public void editSizeTextNoteActivity(int value) {
+        getDefaultPreferences().setInt(ARGUMENT_PREFERENCE_TEXT_SIZE, value);
+
+    }
+
+    @Override
     public String getTypeFaceNoteActivity() {
         return getDefaultPreferences().getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE);
     }

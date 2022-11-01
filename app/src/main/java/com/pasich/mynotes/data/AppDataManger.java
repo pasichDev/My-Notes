@@ -57,6 +57,11 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
+    public void editSizeTextNoteActivity(int value) {
+        preferencesHelper.editSizeTextNoteActivity(value);
+    }
+
+    @Override
     public String getTypeFaceNoteActivity() {
         return preferencesHelper.getTypeFaceNoteActivity();
     }

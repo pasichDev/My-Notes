@@ -9,10 +9,12 @@ import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.view.activity.MainActivity;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
+import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 
 import dagger.Component;
@@ -38,4 +40,8 @@ public interface ActivityComponent {
     void inject(SearchDialog dialog);
 
     void inject(CleanTrashDialog dialog);
+
+    void inject(ChoiceNoteDialog dialog);
+
+    void inject(MoreNoteDialog dialog);
 }

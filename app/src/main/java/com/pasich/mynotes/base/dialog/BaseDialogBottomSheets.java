@@ -1,7 +1,6 @@
 package com.pasich.mynotes.base.dialog;
 
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Vibrator;
 import android.view.View;
@@ -42,7 +41,7 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
 
     @Nullable
     @Override
-    public Dialog getDialog() {
+    public BottomSheetDialog getDialog() {
         return this.mDialog;
     }
 

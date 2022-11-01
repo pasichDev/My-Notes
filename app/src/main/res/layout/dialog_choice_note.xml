@@ -117,7 +117,9 @@
             android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>
 
-    <include layout="@layout/view_info_item" />
+    <include
+        android:id="@+id/includeInfo"
+        layout="@layout/view_info_item" />
 
 
 </LinearLayout>

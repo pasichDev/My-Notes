@@ -1,9 +1,10 @@
 package com.pasich.mynotes.base.view;
 
+
 import com.pasich.mynotes.data.database.model.Note;
 
-public interface NoteActivityView {
+public interface ChoiceNoteView {
 
-  void deleteNote(Note note);
+    void actionStartNote(Note note, int position);
 
 }

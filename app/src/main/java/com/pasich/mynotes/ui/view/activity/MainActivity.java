@@ -27,7 +27,6 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
@@ -209,20 +208,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
-    public void deleteNote(Note note) {
-        mainPresenter.deleteNote(note);
-    }
-
-    @Override
     public void actionStartNote(Note note, int position) {
         selectItemAction(note, position);
     }
-
-    @Override
-    public void tagNoteSelected(Note note) {
-        new TagDialog(note).show(getSupportFragmentManager(), "EditDIalog");
-    }
-
 
     @Override
     public void openNoteEdit(int idNote) {

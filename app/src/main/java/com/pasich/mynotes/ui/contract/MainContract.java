@@ -2,8 +2,8 @@ package com.pasich.mynotes.ui.contract;
 
 import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
+import com.pasich.mynotes.base.view.ChoiceNoteView;
 import com.pasich.mynotes.base.view.MainSortView;
-import com.pasich.mynotes.base.view.NoteView;
 import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
@@ -17,7 +17,7 @@ import io.reactivex.Flowable;
 
 public interface MainContract {
 
-    interface view extends BaseView, NoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
+    interface view extends BaseView, ChoiceNoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
         void settingsSearchView();
 
         void settingsNotesList();

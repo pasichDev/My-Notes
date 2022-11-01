@@ -1,6 +1,7 @@
 package com.pasich.mynotes.ui.view.dialogs.trash;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,5 +50,12 @@ public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTra
 
     }
 
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        presenter.detachView();
+        requireDialog().findViewById(R.id.yesCleanTrash).setOnClickListener(null);
+        requireDialog().findViewById(R.id.cancel).setOnClickListener(null);
 
+    }
 }

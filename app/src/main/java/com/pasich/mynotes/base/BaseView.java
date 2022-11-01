@@ -18,4 +18,5 @@ public interface BaseView {
 
     void vibrateOpenDialog(boolean vibrate);
 
+
 }

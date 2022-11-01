@@ -28,7 +28,6 @@ import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
-import com.pasich.mynotes.ui.view.dialogs.note.MoreNewNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
 import com.pasich.mynotes.utils.SearchSourceNote;
@@ -199,8 +198,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         binding.valueNote.requestFocus();
         if (!newNoteKey) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.toggleSoftInputFromWindow(
-                    binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
+            inputMethodManager.toggleSoftInputFromWindow(binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
         }
 
     }
@@ -227,9 +225,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             notePresenter.closeActivity();
         }
         if (item.getItemId() == R.id.moreBut) {
-            if (newNoteKey)
-                new MoreNewNoteDialog(new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime())).show(getSupportFragmentManager(), "MoreNote");
-            else new MoreNoteDialog(mNote).show(getSupportFragmentManager(), "MoreNote");
+
+            new MoreNoteDialog(newNoteKey ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : mNote, newNoteKey).show(getSupportFragmentManager(), "MoreNote");
+
         }
 
 
@@ -269,7 +267,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         this.mNote = note;
 
     }
-
 
 
     @Override
@@ -336,13 +333,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
     }
 
-
-    @Override
-    public void deleteNote(Note note) {
-        notePresenter.deleteNote(note);
-        finish();
-    }
-
     @Override
     public void closeActivityNotSaved() {
         exitNoSave = true;
@@ -352,13 +342,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void changeTextStyle() {
-
-
-        //      binding.valueNote.setTypeface(null,
-        //              noteUtils.getTypeFace(dataManager.getDefaultPreference()
-        //                       .getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)));
-
-
+        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(notePresenter.getDataManager().getTypeFaceNoteActivity()));
     }
 
     @Override
@@ -369,8 +353,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void changeTextSizeOffline() {
-        //   changeTextSizeOnline(dataManager.
-        //             getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
+        changeTextSizeOnline(notePresenter.getDataManager().getSizeTextNoteActivity());
     }
 
 
