@@ -22,9 +22,9 @@ public interface DbNotesHelper {
 
     Single<Integer> getCountNotesTag(String nameTag);
 
-    Observable<Note> getNoteForId(int idNote);
+    Single<Note> getNoteForId(int idNote);
 
-    Completable addNote(Note note);
+    Observable<Long> addNote(Note note);
 
     Completable deleteNote(Note note);
 

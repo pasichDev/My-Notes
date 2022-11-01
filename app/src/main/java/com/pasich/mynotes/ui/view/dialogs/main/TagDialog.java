@@ -21,8 +21,8 @@ import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.DialogAddTagToNoteBinding;
-import com.pasich.mynotes.ui.contract.TagDialogContract;
-import com.pasich.mynotes.ui.presenter.TagDialogPresenter;
+import com.pasich.mynotes.ui.contract.dialogs.TagDialogContract;
+import com.pasich.mynotes.ui.presenter.dialogs.TagDialogPresenter;
 
 import java.util.List;
 import java.util.Objects;

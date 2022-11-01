@@ -149,12 +149,12 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public Observable<Note> getNoteForId(int idNote) {
+    public Single<Note> getNoteForId(int idNote) {
         return dbHelper.getNoteForId(idNote);
     }
 
     @Override
-    public Completable addNote(Note note) {
+    public Observable<Long> addNote(Note note) {
         return dbHelper.addNote(note);
     }
 

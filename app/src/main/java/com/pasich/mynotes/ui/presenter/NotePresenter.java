@@ -7,29 +7,25 @@ import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
-import java.util.concurrent.ExecutionException;
-
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class NotePresenter extends AppBasePresenter<NoteContract.view>
-        implements NoteContract.presenter {
+public class NotePresenter extends AppBasePresenter<NoteContract.view> implements NoteContract.presenter {
 
 
     @Inject
-    public NotePresenter(SchedulerProvider schedulerProvider,
-                         CompositeDisposable compositeDisposable,
-                         DataManager dataManager) {
+    public NotePresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
     }
 
 
-
     @Override
     public void viewIsReady() {
-        getView().changeTextStyle();
-        getView().changeTextSizeOffline();
+        getView().changeTextStyle();//
+        getView().changeTextSizeOffline();//
+
+
         getView().settingsActionBar();
         getView().initTypeActivity();
         getView().initListeners();
@@ -54,7 +50,7 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view>
 
     @Override
     public void loadingData(int idNote) {
-        //     getView().loadingNote(notesRepository.getNoteFromId(idNote));
+        getCompositeDisposable().add(getDataManager().getNoteForId(idNote).subscribeOn(getSchedulerProvider().io()).subscribe(note -> getView().loadingNote(note)));
 
     }
 
@@ -64,22 +60,19 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view>
     }
 
     @Override
-    public long createNote(Note note) {
-        //  return notesRepository.addNote(note);
-        return 0;
+    public void createNote(Note note) {
+        getCompositeDisposable().add(getDataManager().addNote(note).subscribeOn(getSchedulerProvider().io())
+                .subscribe(aLong -> getView().editIdNoteCreated(aLong)));
     }
 
     @Override
     public void saveNote(Note note) {
-        //   notesRepository.updateNote(note);
+        getCompositeDisposable().add(getDataManager().updateNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override
     public void deleteNote(Note note) {
-        synchronized (this) {
-            /// data.getTrashRepository().moveToTrash(note);
-        }
-        // notesRepository.deleteNote(note);
+        getCompositeDisposable().add(getDataManager().deleteNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override
@@ -87,10 +80,4 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view>
         getView().loadingSourceNote();
     }
 
-
-    @Override
-    public Note loadingNote(int idNote) throws ExecutionException, InterruptedException {
-        //   return notesRepository.getNoteFromId(idNote);
-        return null;
-    }
 }

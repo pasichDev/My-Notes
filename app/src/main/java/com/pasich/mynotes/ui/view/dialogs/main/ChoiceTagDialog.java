@@ -14,8 +14,8 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.di.component.ActivityComponent;
-import com.pasich.mynotes.ui.contract.ChoiceTagDialogContract;
-import com.pasich.mynotes.ui.presenter.ChoiceTagDialogPresenter;
+import com.pasich.mynotes.ui.contract.dialogs.ChoiceTagDialogContract;
+import com.pasich.mynotes.ui.presenter.dialogs.ChoiceTagDialogPresenter;
 
 import javax.inject.Inject;
 

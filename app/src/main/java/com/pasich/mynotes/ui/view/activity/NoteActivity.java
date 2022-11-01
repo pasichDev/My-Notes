@@ -39,7 +39,6 @@ import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -67,16 +66,18 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //   binding = DataBindingUtil.setContentView(NoteActivity.this, R.layout.activity_note);
         getActivityComponent().inject(this);
-        notePresenter.attachView(this);
-        notePresenter.viewIsReady();
 
         binding.setPresenter((NotePresenter) notePresenter);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
         this.shareText = getIntent().getStringExtra("shareText");
         this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
+
+        notePresenter.attachView(this);
+        notePresenter.viewIsReady();
+
+
     }
 
 
@@ -165,6 +166,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         else Toast.makeText(this, getString(R.string.notSource), Toast.LENGTH_SHORT).show();
 
 
+    }
+
+    @Override
+    public void editIdNoteCreated(long idNote) {
+        this.mNote.setId(Math.toIntExact(idNote));
     }
 
 
@@ -265,6 +271,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
+
     @Override
     public void closeNoteActivity() {
 
@@ -285,13 +292,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
         if (newNoteKey) {
-            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ", mValue, mThisDate, tagNote);
 
-            try {
-                this.mNote = notePresenter.loadingNote((int) notePresenter.createNote(note));
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
+            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ", mValue, mThisDate, tagNote);
+            this.mNote = note;
+            notePresenter.createNote(note);
+
+
             this.newNoteKey = false;
         } else if (!mValue.equals(mNote.getValue()) || !mTitle.equals(mNote.getTitle())) {
 
@@ -366,7 +372,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         //   changeTextSizeOnline(dataManager.
         //             getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
     }
-
 
 
 }

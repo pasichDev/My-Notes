@@ -56,7 +56,6 @@ public interface MainContract {
 
         void moreActivityClick();
 
-
         void clickTag(Tag tag, int position);
 
         void clickLongTag(Tag tag);

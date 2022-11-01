@@ -12,8 +12,8 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.di.component.ActivityComponent;
-import com.pasich.mynotes.ui.contract.DeleteTagDialogContract;
-import com.pasich.mynotes.ui.presenter.DeleteTagDialogPresenter;
+import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
+import com.pasich.mynotes.ui.presenter.dialogs.DeleteTagDialogPresenter;
 
 import javax.inject.Inject;
 

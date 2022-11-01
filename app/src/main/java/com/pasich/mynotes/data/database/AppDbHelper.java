@@ -116,13 +116,13 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Observable<Note> getNoteForId(int idNote) {
-        return Observable.fromCallable(() -> appDatabase.noteDao().getNoteForId(idNote));
+    public Single<Note> getNoteForId(int idNote) {
+        return Single.fromCallable(() -> appDatabase.noteDao().getNoteForId(idNote));
     }
 
     @Override
-    public Completable addNote(Note note) {
-        return Completable.fromAction(() -> appDatabase.noteDao().addNote(note));
+    public Observable<Long> addNote(Note note) {
+        return Observable.fromCallable(() -> appDatabase.noteDao().addNote(note));
     }
 
     @Override

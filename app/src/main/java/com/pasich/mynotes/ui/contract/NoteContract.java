@@ -9,8 +9,6 @@ import com.pasich.mynotes.base.view.NoteActivityView;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 
-import java.util.concurrent.ExecutionException;
-
 public interface NoteContract {
 
     interface view extends BaseView, ActionBar, NoteActivityView, ActivitySettings, AudioPermission {
@@ -27,6 +25,7 @@ public interface NoteContract {
 
         void loadingSourceNote();
 
+        void editIdNoteCreated(long idNote);
     }
 
     interface presenter extends BasePresenter<view> {
@@ -36,14 +35,12 @@ public interface NoteContract {
 
         void activateEditNote();
 
-        long createNote(Note note) throws ExecutionException, InterruptedException;
+        void createNote(Note note);
 
         void saveNote(Note note);
 
         void deleteNote(Note note);
 
         void sourceNote();
-
-        Note loadingNote(int idNote) throws ExecutionException, InterruptedException;
     }
 }

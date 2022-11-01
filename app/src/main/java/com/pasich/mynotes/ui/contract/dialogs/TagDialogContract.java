@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.contract;
+package com.pasich.mynotes.ui.contract.dialogs;
 
 import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;

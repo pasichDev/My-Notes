@@ -1,10 +1,10 @@
-package com.pasich.mynotes.ui.presenter;
+package com.pasich.mynotes.ui.presenter.dialogs;
 
 
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.ui.contract.ChoiceTagDialogContract;
+import com.pasich.mynotes.ui.contract.dialogs.ChoiceTagDialogContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
@@ -18,6 +18,12 @@ public class ChoiceTagDialogPresenter extends AppBasePresenter<ChoiceTagDialogCo
     @Inject
     public ChoiceTagDialogPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        countNotesForTag = 0;
     }
 
     @Override

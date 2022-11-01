@@ -21,7 +21,7 @@ public interface NoteDao {
   Flowable<List<Note>> getNotesAll();
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
-  long addNote(Note note);
+  Long addNote(Note note);
 
   @Update
   void updateNote(Note note);
