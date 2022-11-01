@@ -83,6 +83,7 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         super.onDismiss(dialog);
         requireDialog().findViewById(R.id.deleteTagLayout).setOnClickListener(null);
         switchVisibility.setOnCheckedChangeListener(null);
+        mPresenter.destroy();
     }
 
 
