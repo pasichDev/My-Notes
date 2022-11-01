@@ -12,9 +12,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class TrashAdapter<VM extends ViewDataBinding> extends GenericAdapter<TrashNote, VM> {
 
 
+    @Inject
     public TrashAdapter(@NonNull DiffUtilTrash diffCallback, int layoutId, GenericAdapterCallback<VM, TrashNote> bindingInterface) {
         super(diffCallback, layoutId, bindingInterface);
     }

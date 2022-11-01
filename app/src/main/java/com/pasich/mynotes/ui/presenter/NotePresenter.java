@@ -61,7 +61,8 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
 
     @Override
     public void createNote(Note note) {
-        getCompositeDisposable().add(getDataManager().addNote(note).subscribeOn(getSchedulerProvider().io())
+        getCompositeDisposable().add(getDataManager().addNote(note)
+                .subscribeOn(getSchedulerProvider().io())
                 .subscribe(aLong -> getView().editIdNoteCreated(aLong)));
     }
 

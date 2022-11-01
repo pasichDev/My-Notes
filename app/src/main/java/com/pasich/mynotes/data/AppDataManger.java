@@ -100,7 +100,7 @@ public class AppDataManger implements DataManager {
      * Trash
      */
     @Override
-    public Observable<List<TrashNote>> getTrashNotesLoad() {
+    public Flowable<List<TrashNote>> getTrashNotesLoad() {
         return dbHelper.getTrashNotesLoad();
     }
 
@@ -114,15 +114,12 @@ public class AppDataManger implements DataManager {
         return dbHelper.moveToTrash(notes);
     }
 
-    @Override
-    public Completable deleteTrashNote(TrashNote note) {
-        return dbHelper.deleteTrashNote(note);
-    }
 
     @Override
-    public Completable deleteTrashNote(ArrayList<TrashNote> notes) {
-        return dbHelper.deleteTrashNote(notes);
+    public Completable deleteTrashNotes(List<TrashNote> note) {
+        return dbHelper.deleteTrashNotes(note);
     }
+
 
     @Override
     public Completable deleteAll() {
@@ -153,10 +150,12 @@ public class AppDataManger implements DataManager {
         return dbHelper.getNoteForId(idNote);
     }
 
+
     @Override
-    public Observable<Long> addNote(Note note) {
+    public Single<Long> addNote(Note note) {
         return dbHelper.addNote(note);
     }
+
 
     @Override
     public Completable deleteNote(Note note) {
@@ -174,7 +173,7 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public Completable moveToNotes(ArrayList<TrashNote> notes) {
+    public Completable moveToNotes(List<Note> notes) {
         return dbHelper.moveToNotes(notes);
     }
 

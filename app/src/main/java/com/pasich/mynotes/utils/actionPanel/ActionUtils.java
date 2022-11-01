@@ -6,12 +6,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
+import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
-
+@PerActivity
 public class ActionUtils {
     private static boolean ACTION_ON = false;
     private final ActionPanelBinding binding;
@@ -19,7 +19,7 @@ public class ActionUtils {
     private final ManagerViewAction managerViewAction;
 
     @Inject
-    public ActionUtils(@Named("MainActivityRootLayout") CoordinatorLayout view) {
+    public ActionUtils(CoordinatorLayout view) {
         this.mViewRoot = view;
         this.binding = ActionPanelBinding.bind(view.findViewById(R.id.actionInclude));
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();

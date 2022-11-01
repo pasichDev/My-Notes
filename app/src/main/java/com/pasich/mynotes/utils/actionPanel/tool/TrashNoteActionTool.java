@@ -4,17 +4,22 @@ import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.setAction;
 
 import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
+import com.pasich.mynotes.utils.adapters.TrashAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class TrashNoteActionTool {
 
     private final ArrayList<TrashNote> ArrayChecked = new ArrayList<>();
-    private GenericAdapter tAdapter;
+    private final GenericAdapter tAdapter;
 
-    public void createObject(GenericAdapter adapter) {
+    @Inject
+    public TrashNoteActionTool(TrashAdapter<ItemNoteTrashBinding> adapter) {
         this.tAdapter = adapter;
     }
 

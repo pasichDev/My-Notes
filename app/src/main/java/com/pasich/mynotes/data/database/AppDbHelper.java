@@ -61,8 +61,8 @@ public class AppDbHelper implements DbHelper {
      * Trash
      */
     @Override
-    public Observable<List<TrashNote>> getTrashNotesLoad() {
-        return Observable.fromCallable(() -> appDatabase.trashDao().getTrash());
+    public Flowable<List<TrashNote>> getTrashNotesLoad() {
+        return appDatabase.trashDao().getTrash();
     }
 
     @Override
@@ -79,17 +79,10 @@ public class AppDbHelper implements DbHelper {
         });
     }
 
-    @Override
-    public Completable deleteTrashNote(TrashNote note) {
-        return Completable.fromAction(() -> appDatabase.trashDao().deleteNote(note));
-    }
 
     @Override
-    public Completable deleteTrashNote(ArrayList<TrashNote> notes) {
-        return Completable.fromRunnable(() -> {
-            for (TrashNote note : notes)
-                appDatabase.trashDao().deleteNote(note);
-        });
+    public Completable deleteTrashNotes(List<TrashNote> note) {
+        return null;
     }
 
     @Override
@@ -121,8 +114,8 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Observable<Long> addNote(Note note) {
-        return Observable.fromCallable(() -> appDatabase.noteDao().addNote(note));
+    public Single<Long> addNote(Note note) {
+        return Single.fromCallable(() -> appDatabase.noteDao().addNote(note));
     }
 
     @Override
@@ -132,7 +125,7 @@ public class AppDbHelper implements DbHelper {
 
     @Override
     public Completable deleteNote(ArrayList<Note> notes) {
-        return Completable.fromRunnable(() -> {
+        return Completable.fromAction(() -> {
             for (Note note : notes)
                 appDatabase.noteDao().deleteNote(note);
         });
@@ -144,11 +137,8 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Completable moveToNotes(ArrayList<TrashNote> notes) {
-        return Completable.fromRunnable(() -> {
-            for (TrashNote note : notes)
-                appDatabase.noteDao().addNote(new Note().create(note.getTitle(), note.getValue(), note.getDate()));
-        });
+    public Completable moveToNotes(List<Note> notes) {
+        return Completable.fromAction(() -> appDatabase.noteDao().addNotes(notes));
     }
 
     @Override

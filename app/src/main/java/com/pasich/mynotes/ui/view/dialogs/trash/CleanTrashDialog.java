@@ -13,8 +13,6 @@ import com.pasich.mynotes.R;
 public class CleanTrashDialog extends BottomSheetDialogFragment {
 
 
-    public CleanTrashDialog() {
-    }
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {

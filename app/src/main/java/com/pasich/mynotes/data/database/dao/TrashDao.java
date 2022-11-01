@@ -10,17 +10,21 @@ import com.pasich.mynotes.data.database.model.TrashNote;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 @Dao
 public interface TrashDao {
   @Query("SELECT * FROM trash")
-  List<TrashNote> getTrash();
-
+  Flowable<List<TrashNote>> getTrash();
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   void moveToTrash(TrashNote note);
 
   @Delete
   void deleteNote(TrashNote note);
+
+  @Delete
+  void deleteNotes(List<TrashNote> note);
 
   @Query("DELETE FROM trash")
   void deleteAll();

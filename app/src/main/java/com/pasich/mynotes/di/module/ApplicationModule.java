@@ -56,9 +56,41 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    AppDatabase providesAppDatabase(@ApplicationContext Context context, @DatabaseInfo String dbName) {
-        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, dbName).build();
+    AppDatabase providesAppDatabase(@ApplicationContext Context context,
+                                    @DatabaseInfo String dbName) {
+        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, dbName)
+                //  .addCallback(sRoomDatabaseCallback)
+                .build();
     }
+
+
+    /*
+    @Provides
+    @DatabaseInfo
+    RoomDatabase.Callback providerRoomDatabaseCallback(DataManager dataManager){
+        return new RoomDatabase.Callback() {
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+                Runnable runnable = () -> {
+                    dataManager.deleteAll();
+                    dataManager.addTag(new Tag().create("", 1));
+                    dataManager.addTag(new Tag().create("allNotes", 2));
+                };
+
+
+                Executors.newSingleThreadExecutor().execute(runnable);
+            }
+
+            @Override
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                super.onOpen(db);
+            }
+        };
+    }
+
+
+     */
 
 
     @Provides

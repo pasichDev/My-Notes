@@ -7,21 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 
 public interface DbTrashHelper {
     /**
      * Trash
      */
-    Observable<List<TrashNote>> getTrashNotesLoad();
+    Flowable<List<TrashNote>> getTrashNotesLoad();
 
     Completable moveToTrash(Note note);
 
     Completable moveToTrash(ArrayList<Note> notes);
 
-    Completable deleteTrashNote(TrashNote note);
-
-    Completable deleteTrashNote(ArrayList<TrashNote> notes);
+    Completable deleteTrashNotes(List<TrashNote> note);
 
     Completable deleteAll();
 }

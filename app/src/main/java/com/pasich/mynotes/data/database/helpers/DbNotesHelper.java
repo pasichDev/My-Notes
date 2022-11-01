@@ -1,7 +1,6 @@
 package com.pasich.mynotes.data.database.helpers;
 
 import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.TrashNote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public interface DbNotesHelper {
 
     Single<Note> getNoteForId(int idNote);
 
-    Observable<Long> addNote(Note note);
+    Single<Long> addNote(Note note);
 
     Completable deleteNote(Note note);
 
@@ -32,7 +31,7 @@ public interface DbNotesHelper {
 
     Completable updateNote(Note note);
 
-    Completable moveToNotes(ArrayList<TrashNote> notes);
+    Completable moveToNotes(List<Note> notes);
 
     Completable setTagNote(String nameTag, int idNote);
 

@@ -39,9 +39,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     }
 
 
-    @Override
-    public void destroy() {
-    }
+
 
     @Override
     public void newNotesClick() {
@@ -91,10 +89,12 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
 
     @Override
     public void deleteNote(Note note) {
-        if (getDataManager() != null) {
-            //    getTrashRepository().moveToTrash(note);
-            //      getNotesRepository().deleteNote(note);
-        }
+        getCompositeDisposable().add(getDataManager().moveToTrash(note)
+                .subscribeOn(getSchedulerProvider().io())
+                .subscribe());
+        getCompositeDisposable().add(getDataManager().deleteNote(note)
+                .subscribeOn(getSchedulerProvider().io())
+                .subscribe());
     }
 
     @Override

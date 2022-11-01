@@ -31,6 +31,7 @@ import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
+import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.activity.MainUtils;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
@@ -47,7 +48,7 @@ import javax.inject.Named;
 import io.reactivex.Flowable;
 
 
-public class MainActivity extends BaseActivity implements MainContract.view {
+public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
 
     @Inject
     public ActivityMainBinding mActivityBinding;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     public TagsAdapter tagsAdapter;
     @Inject
     public StaggeredGridLayoutManager staggeredGridLayoutManager;
+    @Named("ActionUtilsMain")
     @Inject
     public ActionUtils actionUtils;
     @Inject
