@@ -14,6 +14,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class TrashPresenter extends AppBasePresenter<TrashContract.view>
@@ -62,8 +63,13 @@ public class TrashPresenter extends AppBasePresenter<TrashContract.view>
 
         if (newNotes.size() > 0) {
             getDataManager().moveToNotes(newNotes)
-                    .subscribeOn(getSchedulerProvider().io())
+                    .subscribeOn(Schedulers.newThread())
                     .subscribe();
+            /*    getDataManager().deleteTrashNotes(notes)
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe();
+
+             */
         }
 /**
  * getDataManager().deleteTrashNotes(notes)
