@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,7 +38,6 @@ public class SourceNoteDialog extends BaseDialogBottomSheets {
 
         binding.dialogInfo.noteInfo.setText(getString(R.string.infoDialogSource));
 
-        binding.titleInclude.closeDialog.setVisibility(View.VISIBLE);
         binding.mListSource.setAdapter(mSourceAdapter);
 
         initListeners();
@@ -52,7 +50,6 @@ public class SourceNoteDialog extends BaseDialogBottomSheets {
         super.onDismiss(dialog);
         binding.mListSource.setOnItemLongClickListener(null);
         binding.mListSource.setOnItemClickListener(null);
-        binding.titleInclude.closeDialog.setOnClickListener(null);
     }
 
     @Override
@@ -87,6 +84,5 @@ public class SourceNoteDialog extends BaseDialogBottomSheets {
                     }
                 });
 
-        binding.titleInclude.closeDialog.setOnClickListener(v -> dismiss());
     }
 }

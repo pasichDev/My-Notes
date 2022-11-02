@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="6dp">
 
         <ImageView
             android:id="@+id/imageSource"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
+            android:padding="6dp"
             android:text="@{ChoiceModel.source}"
             android:textSize="@dimen/textSizeDialog" />
     </LinearLayout>

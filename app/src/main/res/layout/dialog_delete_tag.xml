@@ -1,79 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include layout="@layout/dialog_message" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/deleteTag"
+        style="@style/rootDialogLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/deleteTag"
-            android:src="@drawable/ic_tag_delete" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <include
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/deleteTag" />
-    </LinearLayout>
+            android:layout_width="match_parent"
+            layout="@layout/dialog_message" />
 
-
-    <LinearLayout
-        android:id="@+id/deleteTagAndNotes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        android:padding="8dp">
-
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/deleteTagAndNotes"
-            android:src="@drawable/ic_delete_notes_tag" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/deleteTag"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/deleteTagAndNotes" />
-    </LinearLayout>
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:padding="@dimen/paddingItems">
 
-    <LinearLayout
-        android:id="@+id/cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="8dp">
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/deleteTag"
+                android:src="@drawable/ic_tag_delete" />
 
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/cancel"
-            android:src="@drawable/ic_close_search_view" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/paddingItems"
+                android:text="@string/deleteTag"
+                android:textSize="@dimen/textSizeItems" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:id="@+id/deleteTagAndNotes"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/cancel" />
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems"
+            android:visibility="gone">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/deleteTagAndNotes"
+                android:src="@drawable/ic_delete_notes_tag" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/paddingItems"
+                android:text="@string/deleteTagAndNotes"
+                android:textSize="@dimen/textSizeItems" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/cancel"
+                android:src="@drawable/ic_close_search_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/paddingItems"
+                android:text="@string/cancel"
+                android:textSize="@dimen/textSizeItems" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
-</LinearLayout>
+</FrameLayout>

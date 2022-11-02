@@ -124,4 +124,8 @@
     </style>
 
 
+    <style name="rootDialogLayout">
+        <item name="android:background">@drawable/background_bottom_sheets</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
 </resources>

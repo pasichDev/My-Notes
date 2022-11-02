@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/colorPrimaryBackground">
+    android:color="@android:color/darker_gray">
     <item
         android:id="@android:id/mask"
         android:gravity="center">
         <shape android:shape="rectangle">
-            <corners android:radius="15dp" />
-            <solid android:color="@color/colorLightDark" />
+            <corners
+                android:topLeftRadius="22dp"
+                android:topRightRadius="22dp" />
+            <solid android:color="@android:color/background_light" />
 
         </shape>
 

@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.view.dialogs.settings;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_TELEGRAM_DEVELOP;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ public class FeedbackDialog extends BottomSheetDialogFragment {
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
+        final BottomSheetDialog builder = new BottomSheetDialog(requireActivity(), R.style.InputsDialog);
         builder.setContentView(R.layout.dialog_feedback);
 
         MaterialTextView textTitle = builder.findViewById(R.id.headTextDialog);
@@ -39,5 +40,12 @@ public class FeedbackDialog extends BottomSheetDialogFragment {
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        requireDialog().findViewById(R.id.telegramSend).setOnClickListener(null);
+        requireDialog().findViewById(R.id.emailSend).setOnClickListener(null);
     }
 }

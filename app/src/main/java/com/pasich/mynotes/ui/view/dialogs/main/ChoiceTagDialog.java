@@ -7,12 +7,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
 
-import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.databinding.DialogChoiceTagBinding;
 import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.ChoiceTagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.ChoiceTagDialogPresenter;
@@ -21,11 +20,10 @@ import javax.inject.Inject;
 
 public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTagDialogContract.view {
 
-    private final Tag mTag;
     @Inject
     public ChoiceTagDialogPresenter mPresenter;
-    private SwitchCompat switchVisibility;
-    private MaterialTextView infoItem;
+    private DialogChoiceTagBinding binding;
+    private final Tag mTag;
 
     public ChoiceTagDialog(Tag mTag) {
         this.mTag = mTag;
@@ -35,12 +33,8 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         vibrateOpenDialog(true);
-        requireDialog().setContentView(R.layout.dialog_choice_tag);
-
-        MaterialTextView title = requireDialog().findViewById(R.id.headTextDialog);
-        infoItem = requireDialog().findViewById(R.id.noteInfo);
-        switchVisibility = requireDialog().findViewById(R.id.switchVisibilityTag);
-
+        binding = DialogChoiceTagBinding.inflate(getLayoutInflater());
+        requireDialog().setContentView(binding.getRoot());
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
@@ -53,8 +47,8 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         }
 
 
-        title.setText(mTag.getNameTag());
-        switchVisibility.setChecked(mTag.getVisibility() == 1);
+        binding.includeHead.headTextDialog.setText(mTag.getNameTag());
+        binding.switchVisibilityTag.setChecked(mTag.getVisibility() == 1);
 
 
         return requireDialog();
@@ -64,7 +58,7 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
     @Override
     public void onStart() {
         super.onStart();
-        infoItem.setText(getString(R.string.layoutStringInfoTags, String.valueOf(mPresenter.getCountNotesForTag())));
+        binding.includedInfo.noteInfo.setText(getString(R.string.layoutStringInfoTags, String.valueOf(mPresenter.getCountNotesForTag())));
     }
 
     @Override
@@ -75,21 +69,21 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         });
 
 
-        switchVisibility.setOnCheckedChangeListener((buttonView, isChecked) -> mPresenter.editVisibilityTag(mTag.setVisibilityReturn(isChecked ? 1 : 0)));
+        binding.switchVisibilityTag.setOnCheckedChangeListener((buttonView, isChecked) -> mPresenter.editVisibilityTag(mTag.setVisibilityReturn(isChecked ? 1 : 0)));
     }
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         requireDialog().findViewById(R.id.deleteTagLayout).setOnClickListener(null);
-        switchVisibility.setOnCheckedChangeListener(null);
+        binding.switchVisibilityTag.setOnCheckedChangeListener(null);
         mPresenter.destroy();
     }
 
 
     @Override
     public void startDeleteTagDialog() {
-        new DeleteTagDialog(mTag).show(getChildFragmentManager(), "deleteTag");
+        new DeleteTagDialog(mTag).show(getParentFragmentManager(), "deleteTag");
     }
 
 }

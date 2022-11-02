@@ -1,11 +1,9 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_FORMAT_VALUE;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -138,9 +136,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
                 noteList.subscribeOn(trashPresenter.getSchedulerProvider().io())
                         .subscribe(trashNotes -> {
                             mNotesTrashAdapter.sortListTrash(trashNotes);
-                            if (!(trashNotes.size() >= 1)) runOnUiThread(this::showEmptyTrash);
-                        }, throwable -> {
-                            Log.wtf(TAG, "settingsNotesList: " + throwable);
+                             if (trashNotes.size() == 0) runOnUiThread(this::showEmptyTrash);
                         }));
     }
 

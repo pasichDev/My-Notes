@@ -28,7 +28,7 @@ public class ChooseSortDialog extends DialogFragment {
     @Deprecated
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
+        final BottomSheetDialog builder = new BottomSheetDialog(requireContext(), R.style.InputsDialog);
         this.binding = DialogChooseSortBinding.inflate(getLayoutInflater());
         this.sortView = (MainSortView) getContext();
         this.sortParam = PowerPreference.getDefaultFile().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF);
