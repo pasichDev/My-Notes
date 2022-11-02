@@ -181,5 +181,7 @@
     <string name="feature_newFetures_info" translatable="false">Приложение получило много полезных функций, как перевод заметок, множественный выбор, ярлык заметки на рабочий стол, и многое другое. Со временем количество новых функций будет расти. (Виджет, синхронизации с Google)</string>
 
     <string name="chooseNote" translatable="false">Действия над выбраной заметкой</string>
+    <string name="contentDescrChangeStyleText" translatable="false">Изменить стиль текста</string>
+
 
 </resources>

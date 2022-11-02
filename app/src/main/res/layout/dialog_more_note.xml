@@ -18,22 +18,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <include
-            android:id="@+id/view_settings_note"
-            layout="@layout/view_settings_note" />
-
-        <include
-            android:id="@+id/seekbar_view"
-            layout="@layout/view_seekbar_size_text" />
-
-
         <LinearLayout
-            android:id="@+id/groupLayouts"
-            style="@style/rootDialogLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <include
+                android:id="@+id/settingsActivity"
+                layout="@layout/view_seekbar_size_text" />
+
+
+            <LinearLayout
+                android:id="@+id/groupLayouts"
+                style="@style/rootDialogLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <include
                 android:id="@+id/includeHead"
@@ -60,29 +60,6 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/paddingItems"
                 android:text="@string/share"
-                android:textSize="@dimen/textSizeItems" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/changeSettingsVIew"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:padding="@dimen/paddingItems"
-            android:visibility="visible">
-
-            <ImageView
-                style="@style/iconDialogList"
-                android:contentDescription="@string/changeSettingsLayout"
-                android:src="@drawable/ic_change_view" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/paddingItems"
-                android:text="@string/changeSettingsLayout"
                 android:textSize="@dimen/textSizeItems" />
 
         </LinearLayout>
@@ -182,10 +159,11 @@
             </LinearLayout>
 
 
-            <include
-                android:id="@+id/note_info"
-                layout="@layout/view_info_item" />
+                <include
+                    android:id="@+id/note_info"
+                    layout="@layout/view_info_item" />
 
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 </layout>

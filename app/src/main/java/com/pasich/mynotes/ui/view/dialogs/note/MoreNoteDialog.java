@@ -36,7 +36,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     public MoreNoteDialogPresenter mPresenter;
     private DialogMoreNoteBinding binding;
     private MoreNoteDialogView activitySettings;
-    private SeekBar seekBar;
+    private TextStylePreferences textStylePreferences;
 
 
     public MoreNoteDialog(Note note, boolean newNoteActivity) {
@@ -49,8 +49,8 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         activitySettings = (MoreNoteDialogView) getContext();
         binding = DialogMoreNoteBinding.inflate(getLayoutInflater());
+        textStylePreferences = new TextStylePreferences(binding.settingsActivity.textStyleItem);
         requireDialog().setContentView(binding.getRoot());
-        seekBar = binding.seekbarView.seekBarSize;
         final ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
@@ -59,7 +59,6 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         } else {
             dismiss();
         }
-
 
         binding.includeHead.headTextDialog.setText(mNote.getTitle().length() != 0 ? mNote.getTitle() : getString(R.string.chooseNote));
         binding.setNewNote(newNoteActivity);
@@ -72,16 +71,13 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
     @Override
     public void setSeekBarValue(int value) {
-        seekBar.setMax(18);
-        seekBar.setProgress(value - PREF_SIZE_TEXT);
+        binding.settingsActivity.seekBarSize.setMax(18);
+        binding.settingsActivity.seekBarSize.setProgress(value - PREF_SIZE_TEXT);
     }
 
     @Override
     public void initListeners() {
-        binding.noSave.setOnClickListener(v -> {
-            activitySettings.closeActivityNotSaved();
-            dismiss();
-        });
+        binding.noSave.setOnClickListener(v -> activitySettings.closeActivityNotSaved());
 
 
         if (mNote.getValue().length() >= 2) {
@@ -110,27 +106,18 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             });
         }
 
-        binding.changeSettingsVIew.setOnClickListener(v -> {
-            binding.groupLayouts.setVisibility(View.GONE);
-            binding.viewSettingsNote.rootView.setVisibility(View.VISIBLE);
-        });
 
-        binding.viewSettingsNote.textStyleItem.setOnClickListener(v -> {
-            new TextStylePreferences(binding.viewSettingsNote.textStyleItem).changeArgument();
+        binding.settingsActivity.textStyleItem.setOnClickListener(v -> {
+            textStylePreferences.changeArgument();
             activitySettings.changeTextStyle();
         });
 
-        binding.viewSettingsNote.editSizeText.setOnClickListener(v -> {
-            binding.viewSettingsNote.rootView.setVisibility(View.GONE);
-            binding.seekbarView.rootView.setVisibility(View.VISIBLE);
-            binding.seekbarView.valueSeek.setText(String.valueOf(seekBar.getProgress() + PREF_SIZE_TEXT));
-        });
 
-        binding.seekbarView.seekBarSize.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+        binding.settingsActivity.seekBarSize.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
             @Override
             protected void changeProgress(int progress) {
                 int size = progress + PREF_SIZE_TEXT;
-                binding.seekbarView.valueSeek.setText(String.valueOf(size));
+                binding.settingsActivity.valueSeek.setText(String.valueOf(size));
                 activitySettings.changeTextSizeOnline(size);
             }
 
@@ -151,10 +138,8 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         binding.translateNote.setOnClickListener(null);
         binding.addShortCutLauncher.setOnClickListener(null);
         binding.moveToTrash.setOnClickListener(null);
-        binding.changeSettingsVIew.setOnClickListener(null);
-        binding.seekbarView.seekBarSize.setOnSeekBarChangeListener(null);
-        binding.viewSettingsNote.textStyleItem.setOnClickListener(null);
-        binding.viewSettingsNote.editSizeText.setOnClickListener(null);
+        binding.settingsActivity.seekBarSize.setOnSeekBarChangeListener(null);
+        binding.settingsActivity.textStyleItem.setOnClickListener(null);
     }
 
 

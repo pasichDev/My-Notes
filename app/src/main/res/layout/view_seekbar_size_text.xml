@@ -5,8 +5,29 @@
     style="@style/rootDialogLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:visibility="gone"
     android:orientation="horizontal">
+
+
+    <ImageButton
+        android:id="@+id/textStyleItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/actionButtonStyle"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:src="@drawable/ic_style_normal"
+        android:contentDescription="@string/contentDescrChangeStyleText" />
+
+    <ImageButton
+        android:id="@+id/fullScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/actionButtonStyle"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:src="@drawable/ic_fullscreen" />
 
     <SeekBar
         android:layout_marginStart="8dp"
@@ -14,15 +35,17 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:padding="20dp" />
+        android:gravity="center_vertical"
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/valueSeek"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textSize="16sp"
+        android:gravity="center_vertical"
         android:layout_marginEnd="10dp"
-        android:padding="20dp" />
+        android:paddingHorizontal="20dp" />
 
 
 </LinearLayout>
