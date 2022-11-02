@@ -9,13 +9,18 @@
         style="@style/rootDialogLayout"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/includeHead"
+            layout="@layout/view_head_dialog" />
+
         <LinearLayout
             android:id="@+id/action_panel_activate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_ripple_top_dialog"
+            android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
-            android:padding="@dimen/paddingItems">
+            android:paddingHorizontal="@dimen/paddingItems"
+            android:paddingBottom="@dimen/paddingItems">
 
             <ImageView
                 style="@style/iconDialogList"

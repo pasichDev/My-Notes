@@ -72,7 +72,7 @@
     <string name="cleanTrashMessage" translatable="false">Вы действительно хотите очистить корзину? Все заметки будут навсегда удаленны.</string>
 
     <string name="tag" translatable="false">Метка</string>
-    <string name="selectAll" translatable="false">Выбрать несколько элементов</string>
+    <string name="selectAll" translatable="false">Выбрать эту, и еще несколько заметок</string>
     <string name="selectTagForNote" translatable="false">Добавить метку</string>
     <string name="editSelectTagForNote" translatable="false">Изменить метку</string>
 
@@ -179,4 +179,7 @@
 
     <string name="feature_newFetures_title" translatable="false">Новые функции </string>
     <string name="feature_newFetures_info" translatable="false">Приложение получило много полезных функций, как перевод заметок, множественный выбор, ярлык заметки на рабочий стол, и многое другое. Со временем количество новых функций будет расти. (Виджет, синхронизации с Google)</string>
+
+    <string name="chooseNote" translatable="false">Действия над выбраной заметкой</string>
+
 </resources>

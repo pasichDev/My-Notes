@@ -60,6 +60,8 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             dismiss();
         }
 
+
+        binding.includeHead.headTextDialog.setText(mNote.getTitle().length() != 0 ? mNote.getTitle() : getString(R.string.chooseNote));
         binding.setNewNote(newNoteActivity);
         binding.setValuesText(mNote.getValue().length() > 5);
         binding.noteInfo.noteInfo.setText(getString(R.string.layoutStringInfoCountSymbols, String.valueOf(mNote.getValue().length())));

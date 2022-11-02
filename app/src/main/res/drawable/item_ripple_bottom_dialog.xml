@@ -6,8 +6,8 @@
         android:gravity="center">
         <shape android:shape="rectangle">
             <corners
-                android:topLeftRadius="22dp"
-                android:topRightRadius="22dp" />
+                android:bottomLeftRadius="30dp"
+                android:bottomRightRadius="30dp" />
             <solid android:color="@android:color/background_light" />
 
         </shape>

@@ -32,18 +32,22 @@
             android:id="@+id/groupLayouts"
             style="@style/rootDialogLayout"
             android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/includeHead"
+                layout="@layout/view_head_dialog" />
 
 
-        <LinearLayout
-            android:id="@+id/share"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:padding="@dimen/paddingItems"
-            android:visibility="@{valuesText ?  View.VISIBLE :View.GONE , default = gone}">
+            <LinearLayout
+                android:id="@+id/share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:padding="@dimen/paddingItems"
+                android:visibility="@{valuesText ?  View.VISIBLE :View.GONE , default = gone}">
 
             <ImageView
                 style="@style/iconDialogList"
