@@ -12,9 +12,14 @@ public interface DeleteTagDialogContract {
     }
 
     interface presenter extends BasePresenter<view> {
-        int getLoadCountNotesForTag(String nameTag);
+        void getLoadCountNotesForTag(String nameTag);
 
-        void deleteTag(Tag tag, boolean deleteNotes);
+        void deleteTagUnchecked(Tag tag);
+
+        void deleteTagAndNotes(Tag tag);
+
+        int getCountNotesForTag();
+
 
     }
 }

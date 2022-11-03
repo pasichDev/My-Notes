@@ -1,7 +1,11 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -20,9 +24,11 @@ import javax.inject.Inject;
 
 public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTagDialogContract.view {
 
-    private final Tag tag;
+    private Tag tag;
     @Inject
     public DeleteTagDialogPresenter mPresenter;
+    private LinearLayout deleteTagAndNotes;
+
 
     public DeleteTagDialog(Tag tag) {
         this.tag = tag;
@@ -33,11 +39,13 @@ public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTag
         requireDialog().setContentView(R.layout.dialog_delete_tag);
         MaterialTextView title = requireDialog().findViewById(R.id.headTextDialog);
         MaterialTextView message = requireDialog().findViewById(R.id.textMessageDialog);
+        deleteTagAndNotes = requireDialog().findViewById(R.id.deleteTagAndNotes);
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
             mPresenter.attachView(this);
             mPresenter.viewIsReady();
+            mPresenter.getLoadCountNotesForTag(tag.getNameTag());
         } else {
             dismiss();
         }
@@ -48,25 +56,38 @@ public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTag
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        Log.wtf(TAG, "onStart: " + mPresenter.getCountNotesForTag());
+        deleteTagAndNotes.setVisibility(mPresenter.getCountNotesForTag() > 0 ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
     public void initListeners() {
         requireDialog().findViewById(R.id.deleteTag).setOnClickListener(v -> {
-            //   assert tagView != null;
-            //   tagView.deleteTag(tag, false);
+            mPresenter.deleteTagUnchecked(tag);
             dismiss();
         });
 
-        if (mPresenter.getLoadCountNotesForTag(tag.getNameTag()) != 0) {
-            LinearLayout deleteTagAndNotes = requireDialog().findViewById(R.id.deleteTagAndNotes);
-            assert deleteTagAndNotes != null;
-            deleteTagAndNotes.setVisibility(View.VISIBLE);
-            deleteTagAndNotes.setOnClickListener(v -> {
-                //       assert tagView != null;
-                //       tagView.deleteTag(tag, true);
-                dismiss();
-            });
 
-        }
+        deleteTagAndNotes.setOnClickListener(v -> {
+            mPresenter.deleteTagAndNotes(tag);
+            dismiss();
+        });
+
+
         requireDialog().findViewById(R.id.cancel).setOnClickListener(v -> dismiss());
 
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        mPresenter.destroy();
+        deleteTagAndNotes = null;
+        tag = null;
+        requireDialog().findViewById(R.id.deleteTag).setOnClickListener(null);
+        deleteTagAndNotes.setOnClickListener(null);
+        requireDialog().findViewById(R.id.cancel).setOnClickListener(null);
     }
 }

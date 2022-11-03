@@ -35,4 +35,8 @@ public interface DbNotesHelper {
 
     Completable setTagNote(String nameTag, int idNote);
 
+    Completable deleteTagForNotes(String nameTag);
+
+    Completable deleteTagAndNotes(String nameTag);
+
 }

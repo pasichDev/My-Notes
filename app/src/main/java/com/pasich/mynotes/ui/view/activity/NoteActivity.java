@@ -100,6 +100,21 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initListeners();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.notesTitle.addTextChangedListener(null);
+        if (!exitNoSave && binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
+    }
+
+
     @Override
     public void initTypeActivity() {
         if (newNoteKey) {
@@ -254,12 +269,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         return true;
     }
 
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (!exitNoSave && binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
-    }
 
     @Override
     public void onDestroy() {

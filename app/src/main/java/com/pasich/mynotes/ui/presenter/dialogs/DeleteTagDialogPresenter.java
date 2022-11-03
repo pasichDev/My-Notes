@@ -13,6 +13,8 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class DeleteTagDialogPresenter extends AppBasePresenter<DeleteTagDialogContract.view> implements DeleteTagDialogContract.presenter {
 
+    private int countNotesForTag;
+
     @Inject
     public DeleteTagDialogPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
@@ -25,40 +27,33 @@ public class DeleteTagDialogPresenter extends AppBasePresenter<DeleteTagDialogCo
 
 
     @Override
-    public int getLoadCountNotesForTag(String nameTag) {
-        final int[] count = {0};
-        getCompositeDisposable().add(getDataManager()
-                .getCountNotesTag(nameTag)
-                .subscribeOn(getSchedulerProvider().io())
-                .subscribe(integer -> count[0] = integer));
-        return count[0];
+    public void getLoadCountNotesForTag(String nameTag) {
+        getCompositeDisposable().add(getDataManager().getCountNotesTag(nameTag).subscribeOn(getSchedulerProvider().io()).subscribe(this::setCountNotesForTag));
+
     }
 
+    @Override
+    public void deleteTagUnchecked(Tag tag) {
+        getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io()).subscribe(() -> getCompositeDisposable().add(getDataManager().deleteTagForNotes(tag.getNameTag()).subscribeOn(getSchedulerProvider().io()).subscribe())));
+    }
 
     @Override
-    public void deleteTag(Tag tag, boolean deleteNotes) {
-        if (getDataManager() != null) {
-            if (!deleteNotes) {
-            /*    for (Note note : getDataManager().getNotesFroTag(tag.getNameTag())) {
-                    note.setTag("");
-                    getDataManager().updateNote(note);
-                }
+    public void deleteTagAndNotes(Tag tag) {
+        getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io()).subscribe(() -> getCompositeDisposable().add(getDataManager().deleteTagAndNotes(tag.getNameTag()).subscribeOn(getSchedulerProvider().io()).subscribe())));
+    }
 
-             */
-            } else {
-             /*   for (Note note : getDataManager().getNotesFroTag(tag.getNameTag())) {
-                    getDataManager().moveToTrash(note);
-                    getDataManager().deleteNote(note);
-                }
+    @Override
+    public int getCountNotesForTag() {
+        return this.countNotesForTag;
+    }
 
-              */
+    public void setCountNotesForTag(int count) {
+        this.countNotesForTag = count;
+    }
 
-            }
-
-
-            getCompositeDisposable().add(getDataManager().deleteTag(tag)
-                    .subscribeOn(getSchedulerProvider().io())
-                    .subscribe());
-        }
+    @Override
+    public void destroy() {
+        super.destroy();
+        countNotesForTag = 0;
     }
 }

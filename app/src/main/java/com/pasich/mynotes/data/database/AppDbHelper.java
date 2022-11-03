@@ -145,4 +145,14 @@ public class AppDbHelper implements DbHelper {
     public Completable setTagNote(String nameTag, int idNote) {
         return Completable.fromAction(() -> appDatabase.noteDao().setTagNote(nameTag, idNote));
     }
+
+    @Override
+    public Completable deleteTagForNotes(String nameTag) {
+        return Completable.fromAction(() -> appDatabase.noteDao().deleteTagForNotes(nameTag));
+    }
+
+    @Override
+    public Completable deleteTagAndNotes(String nameTag) {
+        return Completable.fromAction(() -> appDatabase.noteDao().deleteTagAndNotes(nameTag));
+    }
 }

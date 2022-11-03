@@ -67,6 +67,17 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initListeners();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mNotesTrashAdapter.setOnItemClickListener(null);
+    }
 
     @Override
     public void initListeners() {
@@ -118,8 +129,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         if (item.getItemId() == android.R.id.home) {
             if (getAction()) {
                 actionUtils.closeActionPanel();
-            } else
-                finish();
+            } else finish();
         }
 
         return true;
@@ -132,12 +142,10 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         binding.ListTrash.setLayoutManager(new StaggeredGridLayoutManager(ARGUMENT_DEFAULT_FORMAT_VALUE, LinearLayoutManager.VERTICAL));
         binding.ListTrash.setAdapter(mNotesTrashAdapter);
 
-        trashPresenter.getCompositeDisposable().add(
-                noteList.subscribeOn(trashPresenter.getSchedulerProvider().io())
-                        .subscribe(trashNotes -> {
-                            mNotesTrashAdapter.sortListTrash(trashNotes);
-                             if (trashNotes.size() == 0) runOnUiThread(this::showEmptyTrash);
-                        }));
+        trashPresenter.getCompositeDisposable().add(noteList.subscribeOn(trashPresenter.getSchedulerProvider().io()).subscribe(trashNotes -> {
+            mNotesTrashAdapter.sortListTrash(trashNotes);
+            if (trashNotes.size() == 0) runOnUiThread(this::showEmptyTrash);
+        }));
     }
 
 

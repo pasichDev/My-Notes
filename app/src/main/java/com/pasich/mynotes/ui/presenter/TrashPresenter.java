@@ -33,7 +33,6 @@ public class TrashPresenter extends AppBasePresenter<TrashContract.view>
     public void viewIsReady() {
         getView().settingsActionBar();
         getView().settingsNotesList(getDataManager().getTrashNotesLoad());
-        getView().initListeners();
         getView().initActionUtils();
     }
 

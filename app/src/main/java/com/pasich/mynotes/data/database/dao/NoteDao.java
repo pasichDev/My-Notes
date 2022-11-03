@@ -45,5 +45,9 @@ public interface NoteDao {
   @Query("UPDATE NOTES SET tag=:tag WHERE id=:noteID")
   void setTagNote(String tag, int noteID);
 
+  @Query("UPDATE NOTES SET tag='' WHERE tag=:tag")
+  void deleteTagForNotes(String tag);
 
+  @Query("DELETE FROM NOTES WHERE tag=:tag")
+  void deleteTagAndNotes(String tag);
 }

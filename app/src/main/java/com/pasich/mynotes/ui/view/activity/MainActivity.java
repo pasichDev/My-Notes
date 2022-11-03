@@ -88,17 +88,30 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (!oneStartActivity) {
-
-            /*
-              Здесь реализовать подгрузку данных при первом старте активности
-             */
-        }
-        oneStartActivity = true;
+    protected void onStart() {
+        super.onStart();
+        initListeners();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        tagsAdapter.setOnItemClickListener(null);
+        mNoteAdapter.setOnItemClickListener(null);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mainPresenter.detachView();
+        if (isFinishing()) {
+            variablesNull();
+            mainPresenter.destroy();
+
+
+        }
+    }
 
     @Override
     public void sortButton() {
@@ -153,10 +166,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
         });
-
-
     }
-
 
 
     @Override
@@ -187,18 +197,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
 
-        mainPresenter.getCompositeDisposable()
-                .add(
-                        tagList
-                                .subscribeOn(mainPresenter.getSchedulerProvider().io())
-                                .subscribe(tags -> tagsAdapter.submitList(tags)));
+        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(tags -> tagsAdapter.submitList(tags)));
 
-        mainPresenter.getCompositeDisposable()
-                .add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io())
-                        .subscribe(notes -> {
-                            mNoteAdapter.sortList(notes, sortParam);
-                            runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
-                        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+        mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
+            mNoteAdapter.sortList(notes, sortParam);
+            runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
+        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
     }
 
 
@@ -214,11 +218,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void openNoteEdit(int idNote) {
-        startActivity(new Intent(this, NoteActivity.class
-        ).putExtra("NewNote", false)
-                .putExtra("idNote", idNote)
-                .putExtra("shareText", "")
-                .putExtra("tagNote", ""));
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
 
     @Override
@@ -349,14 +349,5 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mainPresenter.addNote(newNote);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mainPresenter.detachView();
-        if (isFinishing()) {
-            variablesNull();
-            mainPresenter.destroy();
 
-        }
-    }
 }
