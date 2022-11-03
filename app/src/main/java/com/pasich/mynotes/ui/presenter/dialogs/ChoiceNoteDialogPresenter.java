@@ -26,6 +26,7 @@ public class ChoiceNoteDialogPresenter extends AppBasePresenter<ChoiceNoteDialog
 
     @Override
     public void viewIsReady() {
+        getView().loadingTagsOfChips(getDataManager().getTagsUser());
         getView().initListeners();
     }
 
@@ -37,5 +38,23 @@ public class ChoiceNoteDialogPresenter extends AppBasePresenter<ChoiceNoteDialog
                         .subscribeOn(getSchedulerProvider().io())
                         .subscribe()
         );
+    }
+
+    @Override
+    public void removeTagNote(int idNote) {
+        getCompositeDisposable()
+                .add(getDataManager()
+                        .setTagNote("", idNote)
+                        .subscribeOn(getSchedulerProvider().io())
+                        .subscribe());
+    }
+
+    @Override
+    public void editTagNote(String nameTag, int idNote) {
+        getCompositeDisposable()
+                .add(getDataManager()
+                        .setTagNote(nameTag, idNote)
+                        .subscribeOn(getSchedulerProvider().io())
+                        .subscribe());
     }
 }

@@ -33,8 +33,8 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Observable<List<Tag>> getTagsUser() {
-        return Observable.fromCallable(() -> appDatabase.tagsDao().getTagsUser());
+    public Flowable<List<Tag>> getTagsUser() {
+        return appDatabase.tagsDao().getTagsUser();
     }
 
     @Override

@@ -183,5 +183,5 @@
     <string name="chooseNote" translatable="false">Действия над выбраной заметкой</string>
     <string name="contentDescrChangeStyleText" translatable="false">Изменить стиль текста</string>
 
-
+    <string name="tagHastag" translatable="false">#%1$s</string>
 </resources>

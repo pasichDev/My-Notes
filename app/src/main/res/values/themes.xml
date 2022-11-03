@@ -96,6 +96,23 @@
         <item name="android:textColor">?attr/colorAccentIcon</item>
     </style>
 
+
+    <style name="ChipStyleCustomChoiceNote" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipEndPadding">0dp</item>
+        <item name="chipStartPadding">0dp</item>
+        <item name="chipBackgroundColor">@android:color/transparent</item>
+        <item name="chipSurfaceColor">@android:color/transparent</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">?attr/colorAccentIcon</item>
+        <item name="android:textAppearance">@style/BoldText</item>
+    </style>
+
+
+    <style name="BoldText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
     <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
     </style>
@@ -137,5 +154,11 @@
         <item name="android:layout_margin">15dp</item>
     </style>
 
-
+    <style name="rootDialogLayoutTop">
+        <item name="android:background">@drawable/background_bottom_sheets</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+    </style>
 </resources>

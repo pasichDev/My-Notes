@@ -6,7 +6,6 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public interface DbTagsHelper {
@@ -15,7 +14,7 @@ public interface DbTagsHelper {
      */
     Flowable<List<Tag>> getTags();
 
-    Observable<List<Tag>> getTagsUser();
+    Flowable<List<Tag>> getTagsUser();
 
     Single<Integer> getCountTagAll();
 

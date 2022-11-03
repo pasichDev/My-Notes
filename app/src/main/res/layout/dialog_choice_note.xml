@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <FrameLayout
+        style="@style/rootDialogLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,29 +68,6 @@
 
     </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/tagLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:padding="@dimen/paddingItems">
-
-            <ImageView
-                style="@style/iconDialogList"
-                android:contentDescription="@string/tag"
-                android:src="@drawable/ic_tag" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/paddingItems"
-                android:text="@string/tag"
-                android:textSize="@dimen/textSizeItems" />
-
-    </LinearLayout>
-
     <LinearLayout
         android:id="@+id/addNoteForDesktop"
         android:layout_width="match_parent"
@@ -125,12 +111,55 @@
                 android:padding="@dimen/paddingItems"
                 android:text="@string/trashNotes"
                 android:textSize="@dimen/textSizeItems" />
+        </LinearLayout>
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="15dp"
+            android:paddingStart="5dp"
+            android:paddingVertical="5dp"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/ChipStyleCustomChoiceNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIconVisible="true"
+                    app:iconStartPadding="10dp"
+                    app:iconEndPadding="10dp"
+                    app:chipIconSize="24dp"
+                    app:textStartPadding="0dp"
+                    app:textEndPadding="0dp"
+                    app:chipBackgroundColor="@android:color/transparent"
+                    app:chipIcon="@drawable/ic_add_tag_dialog" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/deleteTagForNote"
+                    style="@style/ChipStyleCustomChoiceNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIconVisible="true"
+                    app:iconStartPadding="10dp"
+                    app:iconEndPadding="10dp"
+                    app:chipIconSize="24dp"
+                    app:textStartPadding="0dp"
+                    app:textEndPadding="0dp"
+                    android:background="@android:color/transparent"
+                    app:chipIcon="@drawable/ic_delete_notes_tag" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
     </LinearLayout>
 
-        <include
-            android:id="@+id/includeInfo"
-            layout="@layout/view_info_item" />
 
-
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

@@ -77,7 +77,7 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public Observable<List<Tag>> getTagsUser() {
+    public Flowable<List<Tag>> getTagsUser() {
         return dbHelper.getTagsUser();
     }
 

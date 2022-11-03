@@ -20,7 +20,7 @@ public interface TagsDao {
   Flowable<List<Tag>> getTags();
 
   @Query("SELECT * FROM tags where systemAction = 0")
-  List<Tag> getTagsUser();
+  Flowable<List<Tag>> getTagsUser();
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void addTag(Tag tag);
