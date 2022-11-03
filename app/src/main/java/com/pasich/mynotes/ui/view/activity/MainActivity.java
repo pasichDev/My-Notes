@@ -90,14 +90,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     protected void onStart() {
         super.onStart();
-        initListeners();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        tagsAdapter.setOnItemClickListener(null);
-        mNoteAdapter.setOnItemClickListener(null);
     }
 
 
@@ -108,7 +105,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         if (isFinishing()) {
             variablesNull();
             mainPresenter.destroy();
-
+            tagsAdapter.setOnItemClickListener(null);
+            mNoteAdapter.setOnItemClickListener(null);
 
         }
     }

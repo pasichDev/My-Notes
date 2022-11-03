@@ -31,6 +31,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         getView().settingsTagsList();
         getView().settingsNotesList();
         getView().loadingData(getDataManager().getTags(), getDataManager().getNotes(), getDataManager().getSortParam());
+        getView().initListeners();
     }
 
 

@@ -30,6 +30,7 @@ public class TrashPresenter extends AppBasePresenter<TrashContract.view> impleme
         getView().settingsActionBar();
         getView().settingsNotesList(getDataManager().getTrashNotesLoad());
         getView().initActionUtils();
+        getView().initListeners();
     }
 
     @Override

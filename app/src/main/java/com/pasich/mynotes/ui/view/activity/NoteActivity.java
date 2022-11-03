@@ -104,13 +104,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     protected void onStart() {
         super.onStart();
-        initListeners();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        binding.notesTitle.addTextChangedListener(null);
         if (!exitNoSave && binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
     }
 
@@ -279,6 +277,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             speechRecognizer.destroy();
             speechRecognizer = null;
             speechRecognizerIntent = null;
+            binding.notesTitle.addTextChangedListener(null);
         }
     }
 

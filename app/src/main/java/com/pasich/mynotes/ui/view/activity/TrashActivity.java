@@ -71,13 +71,11 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     @Override
     protected void onStart() {
         super.onStart();
-        initListeners();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mNotesTrashAdapter.setOnItemClickListener(null);
     }
 
     @Override
@@ -107,6 +105,8 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         super.onDestroy();
         trashPresenter.detachView();
         if (isFinishing()) {
+
+            mNotesTrashAdapter.setOnItemClickListener(null);
             trashPresenter.destroy();
         }
     }

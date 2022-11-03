@@ -26,6 +26,7 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
         getView().changeTextSizeOffline();
         getView().settingsActionBar();
         getView().initTypeActivity();
+        getView().initListeners();
     }
 
 
