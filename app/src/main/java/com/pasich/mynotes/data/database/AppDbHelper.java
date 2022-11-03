@@ -65,20 +65,6 @@ public class AppDbHelper implements DbHelper {
         return appDatabase.trashDao().getTrash();
     }
 
-    @Override
-    public Completable moveToTrash(Note note) {
-        return Completable.fromAction(() -> appDatabase.trashDao().moveToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate())));
-    }
-
-    @Override
-    public Completable moveToTrash(ArrayList<Note> notes) {
-        return Completable.fromRunnable(() -> {
-            for (Note note : notes)
-                appDatabase.trashDao().moveToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()));
-
-        });
-    }
-
 
     @Override
     public Completable deleteTrashNotes(List<TrashNote> note) {
@@ -89,6 +75,27 @@ public class AppDbHelper implements DbHelper {
     public Completable deleteAll() {
         return Completable.fromAction(() -> appDatabase.trashDao().deleteAll());
     }
+
+    @Override
+    public Completable moveNoteToTrash(TrashNote tNote, Note mNote) {
+        return Completable.fromAction(() -> appDatabase.transactionsNote().transferNoteToTrash(tNote, mNote));
+    }
+
+    @Override
+    public Completable deleteTagForNotes(Tag tag) {
+        return Completable.fromAction(() -> appDatabase.transactionsNote().deleteTagForNotes(tag));
+    }
+
+    @Override
+    public Completable deleteTagAndNotes(Tag tag) {
+        return Completable.fromAction(() -> appDatabase.transactionsNote().deleteTagAndNotes(tag));
+    }
+
+    @Override
+    public Completable transferNoteOutTrash(TrashNote tNote, Note mNote) {
+        return Completable.fromAction(() -> appDatabase.transactionsNote().transferNoteOutTrash(tNote, mNote));
+    }
+
 
     /**
      * Notes
@@ -146,13 +153,4 @@ public class AppDbHelper implements DbHelper {
         return Completable.fromAction(() -> appDatabase.noteDao().setTagNote(nameTag, idNote));
     }
 
-    @Override
-    public Completable deleteTagForNotes(String nameTag) {
-        return Completable.fromAction(() -> appDatabase.noteDao().deleteTagForNotes(nameTag));
-    }
-
-    @Override
-    public Completable deleteTagAndNotes(String nameTag) {
-        return Completable.fromAction(() -> appDatabase.noteDao().deleteTagAndNotes(nameTag));
-    }
 }

@@ -197,7 +197,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
 
-        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(tags -> tagsAdapter.submitList(tags)));
+        mainPresenter.getCompositeDisposable()
+                .add(
+                        tagList
+                                .subscribeOn(mainPresenter.getSchedulerProvider().io())
+                                .subscribe(tags -> tagsAdapter.submitList(tags)
+                                        , throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
         mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
             mNoteAdapter.sortList(notes, sortParam);

@@ -34,12 +34,12 @@ public class DeleteTagDialogPresenter extends AppBasePresenter<DeleteTagDialogCo
 
     @Override
     public void deleteTagUnchecked(Tag tag) {
-        getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io()).subscribe(() -> getCompositeDisposable().add(getDataManager().deleteTagForNotes(tag.getNameTag()).subscribeOn(getSchedulerProvider().io()).subscribe())));
+        getCompositeDisposable().add(getDataManager().deleteTagForNotes(tag).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override
     public void deleteTagAndNotes(Tag tag) {
-        getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io()).subscribe(() -> getCompositeDisposable().add(getDataManager().deleteTagAndNotes(tag.getNameTag()).subscribeOn(getSchedulerProvider().io()).subscribe())));
+        getCompositeDisposable().add(getDataManager().deleteTagAndNotes(tag).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override

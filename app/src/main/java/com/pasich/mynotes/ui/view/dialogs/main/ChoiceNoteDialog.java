@@ -55,7 +55,7 @@ public class ChoiceNoteDialog extends BaseDialogBottomSheets implements ChoiceNo
         } else {
             dismiss();
         }
-        binding.includeHead.headTextDialog.setText(note.getTitle().length() != 0 ? note.getTitle() : getString(R.string.chooseNote));
+        binding.includeHead.headTextDialog.setText(note.getTitle().length() > 1 ? note.getTitle() : getString(R.string.chooseNote));
         binding.deleteTagForNote.setVisibility(note.getTag().length() >= 2 ? View.VISIBLE : View.GONE);
         return requireDialog();
     }

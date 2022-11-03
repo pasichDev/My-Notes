@@ -3,7 +3,10 @@ package com.pasich.mynotes.di.module;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.pasich.mynotes.data.AppDataManger;
 import com.pasich.mynotes.data.DataManager;
@@ -56,31 +59,24 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    AppDatabase providesAppDatabase(@ApplicationContext Context context,
-                                    @DatabaseInfo String dbName) {
-        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, dbName)
-                //  .addCallback(sRoomDatabaseCallback)
-                .build();
+    AppDatabase providesAppDatabase(@ApplicationContext Context context, @DatabaseInfo RoomDatabase.Callback sRoomDatabaseCallback, @DatabaseInfo String dbName) {
+        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, dbName).addCallback(sRoomDatabaseCallback).build();
     }
 
 
-    /*
     @Provides
     @DatabaseInfo
-    RoomDatabase.Callback providerRoomDatabaseCallback(DataManager dataManager){
+    RoomDatabase.Callback providerRoomDatabaseCallback() {
         return new RoomDatabase.Callback() {
+
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
-                Runnable runnable = () -> {
-                    dataManager.deleteAll();
-                    dataManager.addTag(new Tag().create("", 1));
-                    dataManager.addTag(new Tag().create("allNotes", 2));
-                };
+                db.execSQL("INSERT INTO  tags (name,visibility,systemAction) VALUES ('',0,1)");
+                db.execSQL("INSERT INTO  tags (name,visibility,systemAction) VALUES ('allNotes',0,2)");
 
-
-                Executors.newSingleThreadExecutor().execute(runnable);
             }
+
 
             @Override
             public void onOpen(@NonNull SupportSQLiteDatabase db) {
@@ -88,9 +84,6 @@ public class ApplicationModule {
             }
         };
     }
-
-
-     */
 
 
     @Provides

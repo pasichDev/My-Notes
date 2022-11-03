@@ -4,6 +4,7 @@ import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_FORMAT_VALUE;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -145,7 +146,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         trashPresenter.getCompositeDisposable().add(noteList.subscribeOn(trashPresenter.getSchedulerProvider().io()).subscribe(trashNotes -> {
             mNotesTrashAdapter.sortListTrash(trashNotes);
             if (trashNotes.size() == 0) runOnUiThread(this::showEmptyTrash);
-        }));
+        }, throwable -> Log.wtf("MyNotes", "settingsNotesList", throwable)));
     }
 
 
@@ -191,8 +192,6 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     }
 
-
-    //ошибка удаления нескольких елементов
     @Override
     public void restoreNotes() {
         trashPresenter.restoreNotesArray(trashNoteActionTool.getArrayChecked());

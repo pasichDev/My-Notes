@@ -6,6 +6,7 @@ import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
@@ -20,9 +21,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
 
 
     @Inject
-    public MainPresenter(SchedulerProvider schedulerProvider,
-                         CompositeDisposable compositeDisposable,
-                         DataManager dataManager) {
+    public MainPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
     }
 
@@ -31,12 +30,8 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         getView().settingsSearchView();
         getView().settingsTagsList();
         getView().settingsNotesList();
-        getView().loadingData(getDataManager().getTags(),
-                getDataManager().getNotes(),
-                getDataManager().getSortParam());
+        getView().loadingData(getDataManager().getTags(), getDataManager().getNotes(), getDataManager().getSortParam());
     }
-
-
 
 
     @Override
@@ -50,19 +45,14 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     }
 
 
-
     @Override
     public void clickTag(Tag tag, int position) {
         if (tag.getSystemAction() == 1) {
-            getCompositeDisposable().add(
-                    getDataManager().getCountTagAll()
-                            .subscribeOn(getSchedulerProvider().io())
-                            .subscribe(integer -> {
-                                if (integer >= MAX_TAG_COUNT) {
-                                    getView().startToastCheckCountTags();
-                                } else getView().startCreateTagDialog();
-                            })
-            );
+            getCompositeDisposable().add(getDataManager().getCountTagAll().subscribeOn(getSchedulerProvider().io()).subscribe(integer -> {
+                if (integer >= MAX_TAG_COUNT) {
+                    getView().startToastCheckCountTags();
+                } else getView().startCreateTagDialog();
+            }));
 
 
         } else {
@@ -86,32 +76,16 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
 
 
     @Override
-    public void deleteNote(Note note) {
-        getCompositeDisposable().add(getDataManager().moveToTrash(note)
-                .subscribeOn(getSchedulerProvider().io())
-                .subscribe());
-        getCompositeDisposable().add(getDataManager().deleteNote(note)
-                .subscribeOn(getSchedulerProvider().io())
-                .subscribe());
-    }
-
-    @Override
     public void deleteNotesArray(ArrayList<Note> notes) {
-        if (getDataManager() != null) {
-            //     getTrashRepository().moveToTrash(notes);
-            //       getNotesRepository().deleteNote(notes);
+        for (Note note : notes) {
+            getCompositeDisposable().add(getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note).subscribeOn(getSchedulerProvider().io()).subscribe());
         }
     }
 
     @Override
+    @Deprecated
     public void addNote(Note note) {
-      /*  try {
-            getNotesRepository().addNote(note);
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-       */
+        getCompositeDisposable().add(getDataManager().addNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override

@@ -11,10 +11,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.DialogRestoreBackupBinding;
@@ -28,7 +26,8 @@ import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class RestoreBackupDialog extends BottomSheetDialogFragment {
+@Deprecated
+public class RestoreBackupDialog extends BaseDialogBottomSheets {
 
 
     private DialogRestoreBackupBinding binding;
@@ -43,20 +42,21 @@ public class RestoreBackupDialog extends BottomSheetDialogFragment {
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireActivity());
         binding = DialogRestoreBackupBinding.inflate(getLayoutInflater());
         restoreNotesBackupOld = (RestoreNotesBackupOld) requireContext();
 
-        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        builder.getBehavior().setHideable(false);
-        builder.setContentView(binding.getRoot());
+
+        assert getDialog() != null;
+        getDialog().getBehavior().setHideable(false);
+
+
+        requireDialog().setContentView(binding.getRoot());
 
         binding.titleView.headTextDialog.setText(getString(R.string.restoreBackup));
         binding.setStep(1);
 
-        binding.openArchive.setOnClickListener(v -> openArchiveBackupIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/zip")));
-
-        return builder;
+        initListeners();
+        return requireDialog();
     }
 
 
@@ -104,9 +104,7 @@ public class RestoreBackupDialog extends BottomSheetDialogFragment {
                         stringBuilder.append('\n');
                     }
                     if (stringBuilder.length() >= 2) {
-                        restoreNotesBackupOld.saveNoteRestore(new Note().create(
-                                titleFile.length >= 1 ? titleFile[titleFile.length - 1] : titleFile[0],
-                                String.valueOf(stringBuilder), new Date().getTime()));
+                        restoreNotesBackupOld.saveNoteRestore(new Note().create(titleFile.length >= 1 ? titleFile[titleFile.length - 1] : titleFile[0], String.valueOf(stringBuilder), new Date().getTime()));
                         count = count + 1;
                     }
                 }
@@ -122,4 +120,9 @@ public class RestoreBackupDialog extends BottomSheetDialogFragment {
         return count;
     }
 
+    @Override
+    public void initListeners() {
+        binding.openArchive.setOnClickListener(v -> openArchiveBackupIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/zip")));
+
+    }
 }

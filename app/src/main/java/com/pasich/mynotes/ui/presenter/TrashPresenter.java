@@ -9,7 +9,6 @@ import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,14 +16,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class TrashPresenter extends AppBasePresenter<TrashContract.view>
-        implements TrashContract.presenter {
+public class TrashPresenter extends AppBasePresenter<TrashContract.view> implements TrashContract.presenter {
 
 
     @Inject
-    public TrashPresenter(SchedulerProvider schedulerProvider,
-                          CompositeDisposable compositeDisposable,
-                          DataManager dataManager) {
+    public TrashPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
     }
 
@@ -54,28 +50,9 @@ public class TrashPresenter extends AppBasePresenter<TrashContract.view>
 
     @Override
     public void restoreNotesArray(ArrayList<TrashNote> notes) {
-
-        List<Note> newNotes = new ArrayList<>();
-        for (TrashNote note : notes) {
-            newNotes.add(new Note().create(note.getTitle(), note.getValue(), note.getDate()));
+        for (TrashNote tNote : notes) {
+            getDataManager().transferNoteOutTrash(tNote, new Note().create(tNote.getTitle(), tNote.getValue(), tNote.getDate())).subscribeOn(Schedulers.newThread()).subscribe();
         }
-
-        if (newNotes.size() > 0) {
-            getDataManager().moveToNotes(newNotes)
-                    .subscribeOn(Schedulers.newThread())
-                    .subscribe();
-            /*    getDataManager().deleteTrashNotes(notes)
-                    .subscribeOn(Schedulers.newThread())
-                    .subscribe();
-
-             */
-        }
-/**
- * getDataManager().deleteTrashNotes(notes)
- *                                     .subscribeOn(AndroidSchedulers.mainThread())
- *                                     .subscribe();
- */
-
     }
 
 }

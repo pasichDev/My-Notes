@@ -4,6 +4,7 @@ package com.pasich.mynotes.ui.presenter.dialogs;
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.ui.contract.dialogs.ChoiceNoteDialogContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
@@ -34,27 +35,18 @@ public class ChoiceNoteDialogPresenter extends AppBasePresenter<ChoiceNoteDialog
     @Override
     public void deleteNote(Note note) {
         getCompositeDisposable().add(
-                getDataManager().deleteNote(note)
+                getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note)
                         .subscribeOn(getSchedulerProvider().io())
-                        .subscribe()
-        );
+                        .subscribe());
     }
 
     @Override
     public void removeTagNote(int idNote) {
-        getCompositeDisposable()
-                .add(getDataManager()
-                        .setTagNote("", idNote)
-                        .subscribeOn(getSchedulerProvider().io())
-                        .subscribe());
+        getCompositeDisposable().add(getDataManager().setTagNote("", idNote).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override
     public void editTagNote(String nameTag, int idNote) {
-        getCompositeDisposable()
-                .add(getDataManager()
-                        .setTagNote(nameTag, idNote)
-                        .subscribeOn(getSchedulerProvider().io())
-                        .subscribe());
+        getCompositeDisposable().add(getDataManager().setTagNote(nameTag, idNote).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 }

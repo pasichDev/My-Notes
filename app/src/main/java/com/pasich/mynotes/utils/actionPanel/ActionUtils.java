@@ -23,7 +23,7 @@ public class ActionUtils {
         this.mViewRoot = view;
         this.binding = ActionPanelBinding.bind(view.findViewById(R.id.actionInclude));
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
-        setListener();
+
     }
 
     /**
@@ -61,6 +61,7 @@ public class ActionUtils {
     private void activateActionPanel() {
         managerViewAction.activateActionPanel();
         mViewRoot.findViewById(R.id.actionInclude).setVisibility(View.VISIBLE);
+        setListener();
     }
 
     /**

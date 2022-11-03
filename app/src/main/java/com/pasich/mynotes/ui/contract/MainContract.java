@@ -62,10 +62,9 @@ public interface MainContract {
 
         void clickNote(int idNote);
 
-        void deleteNote(Note note);
-
         void deleteNotesArray(ArrayList<Note> notes);
 
+        @Deprecated
         void addNote(Note note);
 
         void sortButton();

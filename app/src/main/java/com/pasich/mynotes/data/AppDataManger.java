@@ -109,16 +109,6 @@ public class AppDataManger implements DataManager {
         return dbHelper.getTrashNotesLoad();
     }
 
-    @Override
-    public Completable moveToTrash(Note note) {
-        return dbHelper.moveToTrash(note);
-    }
-
-    @Override
-    public Completable moveToTrash(ArrayList<Note> notes) {
-        return dbHelper.moveToTrash(notes);
-    }
-
 
     @Override
     public Completable deleteTrashNotes(List<TrashNote> note) {
@@ -129,6 +119,26 @@ public class AppDataManger implements DataManager {
     @Override
     public Completable deleteAll() {
         return dbHelper.deleteAll();
+    }
+
+    @Override
+    public Completable moveNoteToTrash(TrashNote tNote, Note mNote) {
+        return dbHelper.moveNoteToTrash(tNote, mNote);
+    }
+
+    @Override
+    public Completable deleteTagForNotes(Tag tag) {
+        return dbHelper.deleteTagForNotes(tag);
+    }
+
+    @Override
+    public Completable deleteTagAndNotes(Tag tag) {
+        return dbHelper.deleteTagAndNotes(tag);
+    }
+
+    @Override
+    public Completable transferNoteOutTrash(TrashNote tNote, Note mNote) {
+        return dbHelper.transferNoteOutTrash(tNote, mNote);
     }
 
 
@@ -187,13 +197,4 @@ public class AppDataManger implements DataManager {
         return dbHelper.setTagNote(nameTag, idNote);
     }
 
-    @Override
-    public Completable deleteTagForNotes(String nameTag) {
-        return dbHelper.deleteTagForNotes(nameTag);
-    }
-
-    @Override
-    public Completable deleteTagAndNotes(String nameTag) {
-        return dbHelper.deleteTagAndNotes(nameTag);
-    }
 }

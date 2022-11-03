@@ -1,11 +1,9 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
-import static android.content.ContentValues.TAG;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -58,7 +56,6 @@ public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTag
     @Override
     public void onStart() {
         super.onStart();
-        Log.wtf(TAG, "onStart: " + mPresenter.getCountNotesForTag());
         deleteTagAndNotes.setVisibility(mPresenter.getCountNotesForTag() > 0 ? View.VISIBLE : View.GONE);
     }
 
@@ -84,10 +81,10 @@ public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTag
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         mPresenter.destroy();
-        deleteTagAndNotes = null;
-        tag = null;
         requireDialog().findViewById(R.id.deleteTag).setOnClickListener(null);
         deleteTagAndNotes.setOnClickListener(null);
         requireDialog().findViewById(R.id.cancel).setOnClickListener(null);
+        tag = null;
+        deleteTagAndNotes = null;
     }
 }
