@@ -69,16 +69,14 @@ public class ChoiceNoteDialog extends BaseDialogBottomSheets implements ChoiceNo
         binding.actionPanelActivate.setOnClickListener(null);
         binding.shareLinearLayout.setOnClickListener(null);
         binding.moveToTrash.setOnClickListener(null);
+        binding.deleteTagForNote.setOnClickListener(null);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             binding.addNoteForDesktop.setOnClickListener(null);
     }
 
     @Override
     public void loadingTagsOfChips(Flowable<List<Tag>> tagsList) {
-        mPresenter.getCompositeDisposable().add(
-                tagsList.subscribeOn(mPresenter.getSchedulerProvider().io())
-                        .subscribe(tags -> requireActivity().runOnUiThread(() -> createChipsTag(tags)))
-        );
+        mPresenter.getCompositeDisposable().add(tagsList.subscribeOn(mPresenter.getSchedulerProvider().io()).subscribe(tags -> requireActivity().runOnUiThread(() -> createChipsTag(tags))));
 
 
     }

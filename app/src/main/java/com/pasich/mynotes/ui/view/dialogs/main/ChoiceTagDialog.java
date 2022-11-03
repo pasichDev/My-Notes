@@ -1,7 +1,5 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
-
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -20,16 +18,15 @@ import javax.inject.Inject;
 
 public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTagDialogContract.view {
 
+    private final Tag mTag;
     @Inject
     public ChoiceTagDialogPresenter mPresenter;
     private DialogChoiceTagBinding binding;
-    private final Tag mTag;
 
     public ChoiceTagDialog(Tag mTag) {
         this.mTag = mTag;
     }
 
-    @SuppressLint("StringFormatMatches")
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         vibrateOpenDialog(true);

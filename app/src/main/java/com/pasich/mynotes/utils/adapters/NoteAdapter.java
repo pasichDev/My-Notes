@@ -9,6 +9,7 @@ import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallback;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,8 +27,9 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
 
 
     public void sortList(String arg) {
-        Collections.sort(getCurrentList(), new NoteComparator().getComparator(arg));
-        submitList(getCurrentList());
+        ArrayList<Note> newList = new ArrayList<>(getCurrentList());
+        Collections.sort(newList, new NoteComparator().getComparator(arg));
+        submitList(newList);
     }
 
     public void sortList(List<Note> notesList, String arg) {
