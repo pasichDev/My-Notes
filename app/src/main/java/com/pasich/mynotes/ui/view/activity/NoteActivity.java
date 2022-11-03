@@ -1,12 +1,7 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static android.speech.SpeechRecognizer.isRecognitionAvailable;
-import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_SIZE;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_SIZE;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.Editable;
 import android.view.Menu;
@@ -26,83 +20,100 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
-import com.pasich.mynotes.di.note.NoteActivityModule;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
-import com.pasich.mynotes.ui.view.dialogs.note.MoreNewNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
 import com.pasich.mynotes.utils.base.simplifications.TextWatcher;
-import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
-public class NoteActivity extends AppCompatActivity implements NoteContract.view, AudioPermission {
+public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Inject
-    public DataManager dataManager;
+    public ActivityNoteBinding binding;
     @Inject
     public NoteContract.presenter notePresenter;
     @Inject
-    public PermissionManager permissionManager;
+    public SpeechRecognizer speechRecognizer;
     @Inject
     public NoteUtils noteUtils;
+    @Inject
+    public PermissionManager permissionManager;
+    @Inject
+    public Intent speechRecognizerIntent;
 
     private String shareText, tagNote;
     private int idKey;
-    private boolean newNoteKey;
     private Note mNote;
-    private SpeechRecognizer speechRecognizer;
-    private Intent speechRecognizerIntent;
-    private ActivityNoteBinding binding;
-    private boolean exitNoSave = false;
+    private boolean exitNoSave = false, newNoteKey;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(NoteActivity.this, R.layout.activity_note);
-        init();
-        notePresenter.attachView(this);
-        notePresenter.setDataManager(dataManager);
-        notePresenter.viewIsReady();
 
+        getActivityComponent().inject(this);
 
-    }
-
-
-    @Override
-    public void init() {
-        getApp().getComponentsHolder().getActivityComponent(getClass(), new NoteActivityModule()).inject(NoteActivity.this);
         binding.setPresenter((NotePresenter) notePresenter);
         this.idKey = getIntent().getIntExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
         this.shareText = getIntent().getStringExtra("shareText");
         this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
-        this.speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+
+        notePresenter.attachView(this);
+        notePresenter.viewIsReady();
+
+        //    hideSystemBars();
+    }
+
+    /**
+     * Метод для поддержки віреза экрана нужно использовать вместе с параметром в theme.xml
+     */
+    private void hideSystemBars() {
+        WindowInsetsControllerCompat windowInsetsController =
+                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
+        if (windowInsetsController == null) {
+            return;
+        }
+        // Configure the behavior of the hidden system bars
+        windowInsetsController.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        );
+        // Hide both the status bar and the navigation bar
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
     }
 
 
     @Override
-    public void createActionPanelNote() {
-     }
+    protected void onStart() {
+        super.onStart();
+        initListeners();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.notesTitle.addTextChangedListener(null);
+        if (!exitNoSave && binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
+    }
+
 
     @Override
     public void initTypeActivity() {
@@ -114,11 +125,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         }
     }
 
-    @Override
-    public void createSpeechRecognizer() {
-        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM).putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault()).putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
-
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -129,7 +135,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
                     speechRecognizer.stopListening();
                 }
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (permissionManager.checkPermissionVoice(this)) {
+                    if (permissionManager.checkPermissionVoice()) {
                         speechRecognizer.startListening(speechRecognizerIntent);
                     }
                 }
@@ -196,6 +202,11 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     }
 
+    @Override
+    public void editIdNoteCreated(long idNote) {
+        this.mNote.setId(Math.toIntExact(idNote));
+    }
+
 
     @SuppressLint("SetTextI18n")
     private void saveSpeechToText(ArrayList<String> result) {
@@ -222,8 +233,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         binding.valueNote.requestFocus();
         if (!newNoteKey) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.toggleSoftInputFromWindow(
-                    binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
+            inputMethodManager.toggleSoftInputFromWindow(binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
         }
 
     }
@@ -250,9 +260,9 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
             notePresenter.closeActivity();
         }
         if (item.getItemId() == R.id.moreBut) {
-            if (newNoteKey)
-                new MoreNewNoteDialog(new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime())).show(getSupportFragmentManager(), "MoreNote");
-            else new MoreNoteDialog(mNote).show(getSupportFragmentManager(), "MoreNote");
+
+            new MoreNoteDialog(newNoteKey ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : mNote, newNoteKey).show(getSupportFragmentManager(), "MoreNote");
+
         }
 
 
@@ -261,18 +271,11 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
 
     @Override
-    public void onStop() {
-        super.onStop();
-        if (!exitNoSave && binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         notePresenter.detachView();
         if (isFinishing()) {
             notePresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
             speechRecognizer.destroy();
             speechRecognizer = null;
             speechRecognizerIntent = null;
@@ -315,13 +318,12 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
         if (newNoteKey) {
-            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ", mValue, mThisDate, tagNote);
 
-            try {
-                this.mNote = notePresenter.loadingNote((int) notePresenter.createNote(note));
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
+            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ", mValue, mThisDate, tagNote);
+            this.mNote = note;
+            notePresenter.createNote(note);
+
+
             this.newNoteKey = false;
         } else if (!mValue.equals(mNote.getValue()) || !mTitle.equals(mNote.getTitle())) {
 
@@ -360,13 +362,6 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
         }
     }
 
-
-    @Override
-    public void deleteNote(Note note) {
-        notePresenter.deleteNote(note);
-        finish();
-    }
-
     @Override
     public void closeActivityNotSaved() {
         exitNoSave = true;
@@ -376,7 +371,7 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void changeTextStyle() {
-        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)));
+        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(notePresenter.getDataManager().getTypeFaceNoteActivity()));
     }
 
     @Override
@@ -387,9 +382,8 @@ public class NoteActivity extends AppCompatActivity implements NoteContract.view
 
     @Override
     public void changeTextSizeOffline() {
-        changeTextSizeOnline(dataManager.getDefaultPreference().getInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE));
+        changeTextSizeOnline(notePresenter.getDataManager().getSizeTextNoteActivity());
     }
-
 
 
 }

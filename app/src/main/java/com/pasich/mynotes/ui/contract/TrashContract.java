@@ -1,29 +1,29 @@
 package com.pasich.mynotes.ui.contract;
 
 
-import androidx.lifecycle.LiveData;
-
-import com.pasich.mynotes.base.MyPresenter;
+import com.pasich.mynotes.base.BasePresenter;
+import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.ActionBar;
-import com.pasich.mynotes.base.view.MyView;
-import com.pasich.mynotes.data.trash.TrashNote;
+import com.pasich.mynotes.data.database.model.TrashNote;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 
 public interface TrashContract {
 
-    interface view extends MyView, ActionBar {
+    interface view extends BaseView, ActionBar {
 
-        void settingsNotesList(int countColumn, LiveData<List<TrashNote>> noteList);
+        void settingsNotesList(Flowable<List<TrashNote>> noteList);
 
         void cleanTrashDialogShow();
 
         void initActionUtils();
     }
 
-    interface presenter extends MyPresenter<view> {
+    interface presenter extends BasePresenter<view> {
         void cleanTrashDialogStart();
 
         void restoreNotesArray(ArrayList<TrashNote> notes);

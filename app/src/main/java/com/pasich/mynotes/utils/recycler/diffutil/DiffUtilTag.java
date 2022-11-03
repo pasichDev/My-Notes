@@ -3,9 +3,17 @@ package com.pasich.mynotes.utils.recycler.diffutil;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.di.scope.PerActivity;
 
+import javax.inject.Inject;
+
+@PerActivity
 public class DiffUtilTag extends DiffUtil.ItemCallback<Tag> {
+
+    @Inject
+    public DiffUtilTag() {
+    }
 
     @Override
     public boolean areItemsTheSame(@NonNull Tag oldItem, @NonNull Tag newItem) {

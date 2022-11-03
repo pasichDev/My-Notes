@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils.adapters;
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 
-import com.pasich.mynotes.data.trash.TrashNote;
+import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallback;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
@@ -12,9 +12,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class TrashAdapter<VM extends ViewDataBinding> extends GenericAdapter<TrashNote, VM> {
 
 
+    @Inject
     public TrashAdapter(@NonNull DiffUtilTrash diffCallback, int layoutId, GenericAdapterCallback<VM, TrashNote> bindingInterface) {
         super(diffCallback, layoutId, bindingInterface);
     }

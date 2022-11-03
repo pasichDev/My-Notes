@@ -1,6 +1,6 @@
 package com.pasich.mynotes.utils;
 
-import com.pasich.mynotes.data.model.SourceModel;
+import com.pasich.mynotes.data.database.model.Source;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class SearchSourceNote {
 
     private final String textString;
-    private final ArrayList<SourceModel> listArray = new ArrayList<>();
+    private final ArrayList<Source> listArray = new ArrayList<>();
 
     public SearchSourceNote(String textString) {
         this.textString = textString;
@@ -19,18 +19,18 @@ public class SearchSourceNote {
 
     public void loadData() {
         for (String link : this.getLinks()) {
-            listArray.add(new SourceModel(link, "Url"));
+            listArray.add(new Source(link, "Url"));
         }
         for (String mail : getMail()) {
-            listArray.add(new SourceModel(mail, "Mail"));
+            listArray.add(new Source(mail, "Mail"));
         }
 
         for (String number : getPhoneNumber()) {
-            listArray.add(new SourceModel(number, "Tel"));
+            listArray.add(new Source(number, "Tel"));
         }
     }
 
-    public ArrayList<SourceModel> getListArray() {
+    public ArrayList<Source> getListArray() {
         return listArray;
     }
 

@@ -3,8 +3,8 @@ package com.pasich.mynotes.ui.view.dialogs.main;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_SORT;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,8 +27,7 @@ public class ChooseSortDialog extends DialogFragment {
     @NonNull
     @Deprecated
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
+        final BottomSheetDialog builder = new BottomSheetDialog(requireContext(), R.style.InputsDialog);
         this.binding = DialogChooseSortBinding.inflate(getLayoutInflater());
         this.sortView = (MainSortView) getContext();
         this.sortParam = PowerPreference.getDefaultFile().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF);
@@ -57,7 +56,6 @@ public class ChooseSortDialog extends DialogFragment {
         }
     }
 
-    @SuppressLint("ResourceType")
     public void selectedAutoItem(String param) {
         int colorBackground = R.color.colorPrimary;
         int colorText = R.color.colorPrimaryVariantBlue;
@@ -83,5 +81,13 @@ public class ChooseSortDialog extends DialogFragment {
         }
     }
 
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        binding.DataSort.setOnClickListener(null);
+        binding.DataReserve.setOnClickListener(null);
+        binding.TitleSort.setOnClickListener(null);
+        binding.TitleReserve.setOnClickListener(null);
 
+    }
 }

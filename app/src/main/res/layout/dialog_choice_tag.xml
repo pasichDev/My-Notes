@@ -1,64 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include layout="@layout/view_head_dialog" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/deleteTagLayout"
+        style="@style/rootDialogLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="vertical">
 
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/deleteTag"
-            android:src="@drawable/ic_delete_note" />
+        <include
+            android:id="@+id/includeHead"
+            layout="@layout/view_head_dialog" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/deleteTagLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/deleteTag" />
-    </LinearLayout>
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
 
-    <LinearLayout
-        android:id="@+id/switchVisibTag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="8dp">
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/deleteTag"
-            android:src="@drawable/ic_tag" />
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/deleteTag"
+                android:src="@drawable/ic_delete_note" />
 
-        <TextView
-            android:layout_width="0dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/paddingItems"
+                android:text="@string/deleteTag"
+                android:textSize="@dimen/textSizeItems" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/switchVisibTag"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/textSizeDialog"
-            android:text="@string/visibilityNotesToTag" />
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/deleteTag"
+                android:src="@drawable/ic_tag" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:padding="@dimen/paddingItems"
+                android:text="@string/visibilityNotesToTag"
+                android:textSize="@dimen/textSizeItems" />
 
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switchVisibilityTag"
-            android:layout_width="wrap_content"
-            android:padding="8dp"
-            android:layout_height="wrap_content" />
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchVisibilityTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/paddingItems" />
+        </LinearLayout>
+
+
+        <include
+            android:id="@+id/includedInfo"
+            layout="@layout/view_info_item" />
+
+
     </LinearLayout>
-
-
-    <include layout="@layout/view_info_item" />
-
-
-</LinearLayout>
+</FrameLayout>

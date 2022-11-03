@@ -7,17 +7,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ItemResultBinding;
+import com.pasich.mynotes.di.scope.PerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@PerActivity
 public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.ViewHolder> {
 
     private List<Note> listNotes = new ArrayList<>();
     private SetItemClickListener mOnItemClickListener;
-    private int lastPosition = -1;
+
 
     public void setItemClickListener(SetItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;

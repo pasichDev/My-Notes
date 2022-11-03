@@ -1,28 +1,24 @@
 package com.pasich.mynotes.ui.presenter;
 
 
-import com.pasich.mynotes.base.PresenterBase;
+import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.notes.source.NotesRepository;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.ui.contract.NoteContract;
+import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
-import java.util.concurrent.ExecutionException;
+import javax.inject.Inject;
 
-public class NotePresenter extends PresenterBase<NoteContract.view>
-        implements NoteContract.presenter {
+import io.reactivex.disposables.CompositeDisposable;
 
-    private DataManager data;
-    private NotesRepository notesRepository;
+public class NotePresenter extends AppBasePresenter<NoteContract.view> implements NoteContract.presenter {
 
-    public NotePresenter() {
+
+    @Inject
+    public NotePresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
+        super(schedulerProvider, compositeDisposable, dataManager);
     }
 
-    @Override
-    public void setDataManager(DataManager dataManager) {
-        data = dataManager;
-        notesRepository = data.getNotesRepository();
-    }
 
     @Override
     public void viewIsReady() {
@@ -30,10 +26,6 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
         getView().changeTextSizeOffline();
         getView().settingsActionBar();
         getView().initTypeActivity();
-        getView().createSpeechRecognizer();
-        getView().initListeners();
-        getView().initListenerSpeechRecognizer();
-        getView().createActionPanelNote();
     }
 
 
@@ -54,11 +46,8 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
 
     @Override
     public void loadingData(int idNote) {
-        try {
-            getView().loadingNote(notesRepository.getNoteFromId(idNote));
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        getCompositeDisposable().add(getDataManager().getNoteForId(idNote).subscribeOn(getSchedulerProvider().io()).subscribe(note -> getView().loadingNote(note)));
+
     }
 
     @Override
@@ -67,21 +56,20 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
     }
 
     @Override
-    public long createNote(Note note) throws ExecutionException, InterruptedException {
-        return notesRepository.addNote(note);
+    public void createNote(Note note) {
+        getCompositeDisposable().add(getDataManager().addNote(note)
+                .subscribeOn(getSchedulerProvider().io())
+                .subscribe(aLong -> getView().editIdNoteCreated(aLong)));
     }
 
     @Override
     public void saveNote(Note note) {
-        notesRepository.updateNote(note);
+        getCompositeDisposable().add(getDataManager().updateNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override
     public void deleteNote(Note note) {
-        synchronized (this) {
-            data.getTrashRepository().moveToTrash(note);
-        }
-        notesRepository.deleteNote(note);
+        getCompositeDisposable().add(getDataManager().deleteNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override
@@ -89,9 +77,4 @@ public class NotePresenter extends PresenterBase<NoteContract.view>
         getView().loadingSourceNote();
     }
 
-
-    @Override
-    public Note loadingNote(int idNote) throws ExecutionException, InterruptedException {
-        return notesRepository.getNoteFromId(idNote);
-    }
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="Note"
-            type="com.pasich.mynotes.data.trash.TrashNote" />
+            type="com.pasich.mynotes.data.database.model.TrashNote" />
     </data>
 
     <LinearLayout

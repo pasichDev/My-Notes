@@ -1,25 +1,22 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
+import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_FORMAT_VALUE;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.trash.TrashNote;
+import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
-import com.pasich.mynotes.di.trash.TrashActivityModule;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
@@ -29,48 +26,58 @@ import com.pasich.mynotes.utils.actionPanel.tool.TrashNoteActionTool;
 import com.pasich.mynotes.utils.adapters.TrashAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
 
 import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-public class TrashActivity extends AppCompatActivity implements TrashContract.view, ManagerViewAction<TrashNote> {
+import io.reactivex.Flowable;
 
-    private ActivityTrashBinding binding;
 
-    private TrashAdapter<ItemNoteTrashBinding> mNotesTrashAdapter;
+public class TrashActivity extends BaseActivity implements TrashContract.view, ManagerViewAction<TrashNote> {
+
     @Inject
-    public TrashContract.presenter trashPresenter;
+    public TrashPresenter trashPresenter;
     @Inject
-    public DataManager dataManager;
-    @Inject
-    public ActionUtils actionUtils;
+    public ActivityTrashBinding binding;
+
     @Inject
     public TrashNoteActionTool trashNoteActionTool;
 
+    @Inject
+    public TrashAdapter<ItemNoteTrashBinding> mNotesTrashAdapter;
+
+    @Named("ActionUtilsTrash")
+    @Inject
+    public ActionUtils actionUtils;
+
+    @Named("NotesItemSpaceDecoration")
+    @Inject
+    public SpacesItemDecoration itemDecorationNotes;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(TrashActivity.this, R.layout.activity_trash);
-        init();
-
+        getActivityComponent().inject(this);
         trashPresenter.attachView(this);
-        trashPresenter.setDataManager(dataManager);
         trashPresenter.viewIsReady();
-
+        binding.setPresenter((TrashPresenter) trashPresenter);
 
     }
 
     @Override
-    public void init() {
-        getApp()
-                .getComponentsHolder()
-                .getActivityComponent(getClass(), new TrashActivityModule())
-                .inject(TrashActivity.this);
-        binding.setPresenter((TrashPresenter) trashPresenter);
+    protected void onStart() {
+        super.onStart();
+        initListeners();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mNotesTrashAdapter.setOnItemClickListener(null);
     }
 
     @Override
@@ -86,6 +93,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
             }
         });
+
     }
 
     @Override
@@ -100,7 +108,6 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         trashPresenter.detachView();
         if (isFinishing()) {
             trashPresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
         }
     }
 
@@ -123,8 +130,7 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
         if (item.getItemId() == android.R.id.home) {
             if (getAction()) {
                 actionUtils.closeActionPanel();
-            } else
-                finish();
+            } else finish();
         }
 
         return true;
@@ -132,24 +138,15 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
 
     @Override
-    public void settingsNotesList(int countColumn, LiveData<List<TrashNote>> noteList) {
-        binding.ListTrash.addItemDecoration(new SpacesItemDecoration(15));
-        binding.ListTrash.setLayoutManager(
-                new StaggeredGridLayoutManager(countColumn, LinearLayoutManager.VERTICAL));
-        mNotesTrashAdapter = new TrashAdapter<>(new DiffUtilTrash(),
-                R.layout.item_note_trash,
-                (binder, model) -> {
-                    binder.setNote(model);
-                    binding.executePendingBindings();
-                });
-
+    public void settingsNotesList(Flowable<List<TrashNote>> noteList) {
+        binding.ListTrash.addItemDecoration(itemDecorationNotes);
+        binding.ListTrash.setLayoutManager(new StaggeredGridLayoutManager(ARGUMENT_DEFAULT_FORMAT_VALUE, LinearLayoutManager.VERTICAL));
         binding.ListTrash.setAdapter(mNotesTrashAdapter);
-        noteList.observe(
-                this,
-                notes -> {
-                    mNotesTrashAdapter.sortListTrash(notes);
-                    if (!(notes.size() >= 1)) showEmptyTrash();
-                });
+
+        trashPresenter.getCompositeDisposable().add(noteList.subscribeOn(trashPresenter.getSchedulerProvider().io()).subscribe(trashNotes -> {
+            mNotesTrashAdapter.sortListTrash(trashNotes);
+            if (trashNotes.size() == 0) runOnUiThread(this::showEmptyTrash);
+        }, throwable -> Log.wtf("MyNotes", "settingsNotesList", throwable)));
     }
 
 
@@ -160,13 +157,11 @@ public class TrashActivity extends AppCompatActivity implements TrashContract.vi
 
     @Override
     public void cleanTrashDialogShow() {
-        new CleanTrashDialog(dataManager.getTrashRepository()).show(getSupportFragmentManager(), "CLeanTrash");
+        new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
     }
 
     @Override
     public void initActionUtils() {
-        actionUtils.createObject(binding.getRoot().findViewById(R.id.activity_trash));
-        trashNoteActionTool.createObject(mNotesTrashAdapter);
         actionUtils.setTrash();
     }
 

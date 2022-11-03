@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
 
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
@@ -20,7 +23,8 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     private OnItemClickListenerTag mOnItemClickListener;
     private Tag mTagSelected;
 
-    public TagsAdapter(@NonNull DiffUtil.ItemCallback<Tag> diffCallback) {
+    @Inject
+    public TagsAdapter(@NonNull @Named("Tag") DiffUtil.ItemCallback<Tag> diffCallback) {
         super(diffCallback);
     }
 

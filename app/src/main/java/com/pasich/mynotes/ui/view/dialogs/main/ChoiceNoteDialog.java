@@ -1,63 +1,117 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
-import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
-
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.textview.MaterialTextView;
+import com.google.android.material.chip.Chip;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.view.NoteView;
-import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
+import com.pasich.mynotes.base.view.ChoiceNoteView;
+import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.DialogChoiceNoteBinding;
+import com.pasich.mynotes.di.component.ActivityComponent;
+import com.pasich.mynotes.ui.contract.dialogs.ChoiceNoteDialogContract;
+import com.pasich.mynotes.ui.presenter.dialogs.ChoiceNoteDialogPresenter;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;
-import com.pasich.mynotes.utils.override.DialogOpenVibrate;
 
-public class ChoiceNoteDialog extends DialogOpenVibrate {
+import java.util.List;
 
-    private final Note note;
-    private final int positionItem;
+import javax.inject.Inject;
+
+import io.reactivex.Flowable;
+
+public class ChoiceNoteDialog extends BaseDialogBottomSheets implements ChoiceNoteDialogContract.view {
+
+    @Inject
+    public ChoiceNoteDialogPresenter mPresenter;
+    private Note note;
+    private int positionItem;
+    private DialogChoiceNoteBinding binding;
+    private ChoiceNoteView noteView;
 
     public ChoiceNoteDialog(Note note, int position) {
         this.note = note;
         this.positionItem = position;
+
+
     }
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog mDialog = new BottomSheetDialog(requireActivity());
-        final NoteView noteView = (NoteView) getContext();
-        mDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        com.pasich.mynotes.databinding.DialogChoiceNoteBinding binding = DialogChoiceNoteBinding.inflate(getLayoutInflater());
+        noteView = (ChoiceNoteView) getContext();
+        binding = DialogChoiceNoteBinding.inflate(getLayoutInflater());
+        requireDialog().setContentView(binding.getRoot());
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            mPresenter.attachView(this);
+            mPresenter.viewIsReady();
+        } else {
+            dismiss();
+        }
+        binding.includeHead.headTextDialog.setText(note.getTitle().length() > 1 ? note.getTitle() : getString(R.string.chooseNote));
+        binding.deleteTagForNote.setVisibility(note.getTag().length() >= 2 ? View.VISIBLE : View.GONE);
+        return requireDialog();
+    }
 
-        mDialog.setContentView(binding.getRoot());
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        mPresenter.detachView();
+        positionItem = 0;
+        note = null;
+        binding.actionPanelActivate.setOnClickListener(null);
+        binding.shareLinearLayout.setOnClickListener(null);
+        binding.moveToTrash.setOnClickListener(null);
+        binding.deleteTagForNote.setOnClickListener(null);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            binding.addNoteForDesktop.setOnClickListener(null);
+    }
+
+    @Override
+    public void loadingTagsOfChips(Flowable<List<Tag>> tagsList) {
+        mPresenter.getCompositeDisposable().add(tagsList.subscribeOn(mPresenter.getSchedulerProvider().io()).subscribe(tags -> requireActivity().runOnUiThread(() -> createChipsTag(tags))));
 
 
-        MaterialTextView infoItem = mDialog.findViewById(R.id.noteInfo);
-        assert infoItem != null;
-        infoItem.setText(getString(R.string.layoutStringInfo, lastDayEditNote(note.getDate()), String.valueOf(note.getValue().length())));
+    }
 
-        binding.actionPanelActivate.setOnClickListener(view ->
-        {
+    private void createChipsTag(List<Tag> tags) {
+        for (Tag tag : tags) {
+            if (!note.getTag().equals(tag.getNameTag())) {
+                Chip newChip = (Chip) getLayoutInflater().inflate(R.layout.layout_chip_entry, binding.chipGroupSystem, false);
+                newChip.setText(getString(R.string.tagHastag, tag.getNameTag()));
+                binding.chipGroupSystem.addView(newChip);
+                newChip.setOnClickListener(view -> selectedTag(tag.getNameTag()));
+            }
+        }
+
+
+    }
+
+
+    private void selectedTag(String nameChip) {
+        if (!nameChip.equals(note.getTag())) {
+            mPresenter.editTagNote(nameChip, note.getId());
+            dismiss();
+        }
+    }
+
+
+    @Override
+    public void initListeners() {
+        binding.actionPanelActivate.setOnClickListener(view -> {
             assert noteView != null;
             noteView.actionStartNote(note, positionItem);
             dismiss();
         });
         binding.shareLinearLayout.setOnClickListener(view -> {
-                    new ShareUtils(note, getActivity()).shareNotes();
-                    dismiss();
-                }
-        );
-
-        binding.tagLinearLayout.setOnClickListener(view -> {
-            assert noteView != null;
-            noteView.tagNoteSelected(note);
+            new ShareUtils(note, getActivity()).shareNotes();
             dismiss();
         });
 
@@ -70,12 +124,14 @@ public class ChoiceNoteDialog extends DialogOpenVibrate {
         }
 
         binding.moveToTrash.setOnClickListener(view -> {
-            assert noteView != null;
-            noteView.deleteNote(note);
+            mPresenter.deleteNote(note);
+            dismiss();
+        });
+        binding.deleteTagForNote.setOnClickListener(view -> {
+            mPresenter.removeTagNote(note.getId());
             dismiss();
         });
 
-        return mDialog;
     }
 
 }

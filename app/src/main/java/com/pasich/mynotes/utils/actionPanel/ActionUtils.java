@@ -2,66 +2,28 @@ package com.pasich.mynotes.utils.actionPanel;
 
 import android.view.View;
 
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
+import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
+import javax.inject.Inject;
 
+@PerActivity
 public class ActionUtils {
-
     private static boolean ACTION_ON = false;
-    private ActionPanelBinding binding;
-    private CoordinatorLayout mViewRoot;
-    private ManagerViewAction managerViewAction;
+    private final ActionPanelBinding binding;
+    private final CoordinatorLayout mViewRoot;
+    private final ManagerViewAction managerViewAction;
 
-
-    public void createObject(CoordinatorLayout view) {
+    @Inject
+    public ActionUtils(CoordinatorLayout view) {
         this.mViewRoot = view;
         this.binding = ActionPanelBinding.bind(view.findViewById(R.id.actionInclude));
         this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
-        addActionPanel();
-        setListener();
-    }
 
-
-    private void setListener() {
-        binding.closeActionPanel.setOnClickListener(v -> closeActionPanel());
-        binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes());
-        binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes());
-        binding.actionPanelRestore.setOnClickListener(v -> managerViewAction.restoreNotes());
-    }
-
-    private void addActionPanel() {
-        // mViewRoot.addView(binding.getRoot());
-        //   binding.actionPanel.setVisibility(View.GONE);
-        //    createConstraintSetActionPanel();
-    }
-
-    private void createConstraintSetActionPanel() {
-        ConstraintSet set = new ConstraintSet();
-        set.constrainHeight(binding.actionPanel.getId(), ConstraintSet.WRAP_CONTENT);
-        set.constrainWidth(binding.actionPanel.getId(), ConstraintSet.WRAP_CONTENT);
-
-        set.connect(
-                binding.actionPanel.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 50);
-        set.connect(
-                binding.actionPanel.getId(),
-                ConstraintSet.BOTTOM,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.BOTTOM,
-                50);
-
-        //   set.applyTo(mViewRoot);
-
-    }
-
-    public void setTrash() {
-        binding.actionPanelShare.setVisibility(View.GONE);
-        binding.actionPanelDelete.setVisibility(View.GONE);
-        binding.actionPanelRestore.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -80,12 +42,26 @@ public class ActionUtils {
         ACTION_ON = arg;
     }
 
+    private void setListener() {
+        binding.closeActionPanel.setOnClickListener(v -> closeActionPanel());
+        binding.actionPanelDelete.setOnClickListener(v -> managerViewAction.deleteNotes());
+        binding.actionPanelShare.setOnClickListener(v -> managerViewAction.shareNotes());
+        binding.actionPanelRestore.setOnClickListener(v -> managerViewAction.restoreNotes());
+    }
+
+    public void setTrash() {
+        binding.actionPanelShare.setVisibility(View.GONE);
+        binding.actionPanelDelete.setVisibility(View.GONE);
+        binding.actionPanelRestore.setVisibility(View.VISIBLE);
+    }
+
     /**
      * Activate the visibility of the action panel
      */
     private void activateActionPanel() {
         managerViewAction.activateActionPanel();
         mViewRoot.findViewById(R.id.actionInclude).setVisibility(View.VISIBLE);
+        setListener();
     }
 
     /**
@@ -105,6 +81,10 @@ public class ActionUtils {
     }
 
     public void closeActionPanel() {
+        binding.closeActionPanel.setOnClickListener(null);
+        binding.actionPanelDelete.setOnClickListener(null);
+        binding.actionPanelShare.setOnClickListener(null);
+        binding.actionPanelRestore.setOnClickListener(null);
         managerViewAction.toolCleanChecked();
         deactivationActionPanel();
         setAction(false);

@@ -1,35 +1,25 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static com.pasich.mynotes.di.App.getApp;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_SORT;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
-import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
-import com.pasich.mynotes.di.main.MainActivityModule;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
@@ -37,7 +27,6 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.TagDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
@@ -50,16 +39,19 @@ import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-public class MainActivity extends AppCompatActivity implements MainContract.view, ManagerViewAction<Note>, RestoreNotesBackupOld {
+import io.reactivex.Flowable;
 
+
+public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
+
+    @Inject
+    public ActivityMainBinding mActivityBinding;
     @Inject
     public MainContract.presenter mainPresenter;
     @Inject
@@ -67,46 +59,58 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     @Inject
     public FormatListUtils formatList;
     @Inject
-    public DataManager dataManager;
+    public NoteActionTool noteActionTool;
+    @Inject
+    public TagsAdapter tagsAdapter;
+    @Inject
+    public StaggeredGridLayoutManager staggeredGridLayoutManager;
+    @Named("ActionUtilsMain")
     @Inject
     public ActionUtils actionUtils;
     @Inject
-    public NoteActionTool noteActionTool;
-
-
-    private ActivityMainBinding mActivityBinding;
-    private TagsAdapter tagsAdapter;
-    private StaggeredGridLayoutManager gridLayoutManager;
-    private NoteAdapter<ItemNoteBinding> mNoteAdapter;
+    public NoteAdapter<ItemNoteBinding> mNoteAdapter;
+    @Named("TagsItemSpaceDecoration")
+    @Inject
+    public SpacesItemDecoration itemDecorationTags;
+    @Named("NotesItemSpaceDecoration")
+    @Inject
+    public SpacesItemDecoration itemDecorationNotes;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
-        init();
-
+        getActivityComponent().inject(this);
         mainPresenter.attachView(this);
-        mainPresenter.setDataManager(dataManager);
         mainPresenter.viewIsReady();
-
-
-    }
-
-
-    @Override
-    public void init() {
-        getApp().getComponentsHolder().getActivityComponent(getClass(), new MainActivityModule()).inject(MainActivity.this);
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
-        gridLayoutManager = new StaggeredGridLayoutManager(dataManager.getDefaultPreference().getInt("formatParam", 1), LinearLayoutManager.VERTICAL);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initListeners();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        tagsAdapter.setOnItemClickListener(null);
+        mNoteAdapter.setOnItemClickListener(null);
     }
 
 
     @Override
-    public void initActionUtils() {
-        actionUtils.createObject(mActivityBinding.getRoot().findViewById(R.id.activity_main));
-        noteActionTool.createObject(mNoteAdapter);
+    protected void onDestroy() {
+        super.onDestroy();
+        mainPresenter.detachView();
+        if (isFinishing()) {
+            variablesNull();
+            mainPresenter.destroy();
+
+
+        }
     }
 
     @Override
@@ -115,10 +119,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void formatButton() {
+    public void formatButton(int countSpan) {
         if (!getAction()) {
             formatList.formatNote();
-            gridLayoutManager.setSpanCount(dataManager.getDefaultPreference().getInt("formatParam", 1));
+            staggeredGridLayoutManager.setSpanCount(countSpan);
         }
     }
 
@@ -162,8 +166,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
         });
-
-
     }
 
 
@@ -176,25 +178,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void settingsTagsList() {
-
-        mActivityBinding.listTags.addItemDecoration(new SpacesItemDecoration(5));
+        mActivityBinding.listTags.addItemDecoration(itemDecorationTags);
         mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-
-        tagsAdapter = new TagsAdapter(new DiffUtilTag());
         mActivityBinding.listTags.setAdapter(tagsAdapter);
-        // tagsAdapter.onCurrentListChanged();
 
     }
 
     @Override
     public void settingsNotesList() {
-        mActivityBinding.listNotes.addItemDecoration(new SpacesItemDecoration(15));
-        mActivityBinding.listNotes.setLayoutManager(gridLayoutManager);
-        mNoteAdapter = new NoteAdapter<ItemNoteBinding>(new DiffUtilNote(), R.layout.item_note, (binder, model) -> {
-            binder.setNote(model);
-            mActivityBinding.executePendingBindings();
-        });
-
+        mActivityBinding.listNotes.addItemDecoration(itemDecorationNotes);
+        mActivityBinding.listNotes.setLayoutManager(staggeredGridLayoutManager);
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
 
 
@@ -202,13 +195,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
 
     @Override
-    public void loadingData(LiveData<List<Tag>> tagList, LiveData<List<Note>> noteList) {
+    public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
 
-        noteList.observe(this, notes -> {
-            mNoteAdapter.sortList(notes, dataManager.getDefaultPreference().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF));
-            showEmptyTrash(!(notes.size() >= 1));
-        });
-        tagList.observe(this, tags -> tagsAdapter.submitList(tags));
+        mainPresenter.getCompositeDisposable()
+                .add(
+                        tagList
+                                .subscribeOn(mainPresenter.getSchedulerProvider().io())
+                                .subscribe(tags -> tagsAdapter.submitList(tags)
+                                        , throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+
+        mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
+            mNoteAdapter.sortList(notes, sortParam);
+            runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
+        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
     }
 
 
@@ -218,46 +217,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     }
 
     @Override
-    public void deleteNote(Note note) {
-        mainPresenter.deleteNote(note);
-    }
-
-    @Override
     public void actionStartNote(Note note, int position) {
         selectItemAction(note, position);
     }
-
-    @Override
-    public void tagNoteSelected(Note note) {
-        new TagDialog(note).show(getSupportFragmentManager(), "EditDIalog");
-    }
-
 
     @Override
     public void openNoteEdit(int idNote) {
         startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
 
-    @SuppressLint("StringFormatMatches")
     @Override
     public void startToastCheckCountTags() {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.countTagsError, MAX_TAG_COUNT), Snackbar.LENGTH_LONG).show();
+        onError(getString(R.string.countTagsError, String.valueOf(MAX_TAG_COUNT)), mActivityBinding.newNotesButton);
     }
 
-
-    @Override
-    public void deleteTag(Tag tag, boolean deleteNotes) {
-        try {
-            mainPresenter.deleteTag(tag, deleteNotes);
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void editVisibility(Tag tag) {
-        mainPresenter.editVisibility(tag);
-    }
 
     @Override
     public void newNotesButton() {
@@ -269,17 +242,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
     public void moreActivity() {
         if (getAction()) actionUtils.closeActionPanel();
         new AboutDialog().show(getSupportFragmentManager(), "more activity");
-
     }
 
     @Override
     public void startCreateTagDialog() {
-        new NewTagDialog(dataManager.getTagsRepository()).show(getSupportFragmentManager(), "New Tag");
+        new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
     }
 
     @Override
-    public void choiceTagDialog(Tag tag, Integer[] arg) {
-        new ChoiceTagDialog(tag, arg).show(getSupportFragmentManager(), "ChoiceDialog");
+    public void choiceTagDialog(Tag tag) {
+        new ChoiceTagDialog(tag).show(getSupportFragmentManager(), "ChoiceDialog");
     }
 
     @Override
@@ -369,12 +341,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
 
     @Override
     public void errorProcessRestore() {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.errorEmptyNotesRestore), BaseTransientBottomBar.LENGTH_LONG).show();
+        onError(R.string.errorEmptyNotesRestore, mActivityBinding.newNotesButton);
     }
 
     @Override
     public void successfullyProcessRestore(int countNotes) {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.successfullyRestoreNotes, countNotes), BaseTransientBottomBar.LENGTH_LONG).show();
+        onError(getString(R.string.successfullyRestoreNotes, countNotes), mActivityBinding.newNotesButton);
     }
 
     @Override
@@ -382,14 +354,5 @@ public class MainActivity extends AppCompatActivity implements MainContract.view
         mainPresenter.addNote(newNote);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mainPresenter.detachView();
-        if (isFinishing()) {
-            variablesNull();
-            mainPresenter.destroy();
-            getApp().getComponentsHolder().releaseActivityComponent(getClass());
-        }
-    }
+
 }

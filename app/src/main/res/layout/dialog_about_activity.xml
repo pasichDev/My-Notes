@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
         android:orientation="horizontal"
-        android:padding="4dp">
+        android:padding="@dimen/paddingItems">
 
         <ImageView
             style="@style/iconDialogList"
@@ -22,9 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
+            android:padding="@dimen/paddingItems"
             android:text="@string/trashDeleteNotes"
-            android:textSize="@dimen/textSizeDialog" />
+            android:textSize="@dimen/textSizeItems" />
     </LinearLayout>
 
     <LinearLayout
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
         android:orientation="horizontal"
-        android:padding="4dp">
+        android:padding="@dimen/paddingItems">
 
         <ImageView
             style="@style/iconDialogList"
@@ -44,9 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
+            android:padding="@dimen/paddingItems"
             android:text="@string/restoreOldBackups"
-            android:textSize="@dimen/textSizeDialog" />
+            android:textSize="@dimen/textSizeItems" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
         android:orientation="horizontal"
-        android:padding="4dp">
+        android:padding="@dimen/paddingItems">
 
         <ImageView
             style="@style/iconDialogList"
@@ -66,9 +66,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
+            android:padding="@dimen/paddingItems"
             android:text="@string/shareApp"
-            android:textSize="@dimen/textSizeDialog" />
+            android:textSize="@dimen/textSizeItems" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
         android:orientation="horizontal"
-        android:padding="4dp">
+        android:padding="@dimen/paddingItems">
 
         <ImageView
             style="@style/iconDialogList"
@@ -88,9 +88,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
+            android:padding="@dimen/paddingItems"
             android:text="@string/ratingApp"
-            android:textSize="@dimen/textSizeDialog" />
+            android:textSize="@dimen/textSizeItems" />
 
     </LinearLayout>
 
@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
         android:orientation="horizontal"
-        android:padding="4dp">
+        android:padding="@dimen/paddingItems">
 
         <ImageView
             style="@style/iconDialogList"
@@ -111,9 +111,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
+            android:padding="@dimen/paddingItems"
             android:text="@string/settingsTitleContacts"
-            android:textSize="@dimen/textSizeDialog" />
+            android:textSize="@dimen/textSizeItems" />
 
     </LinearLayout>
 
@@ -124,7 +124,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_selected_item_round"
         android:orientation="horizontal"
-        android:padding="4dp">
+        android:padding="@dimen/paddingItems">
 
         <ImageView
             style="@style/iconDialogList"
@@ -135,9 +135,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
+            android:padding="@dimen/paddingItems"
             android:text="@string/whatUpdate"
-            android:textSize="@dimen/textSizeDialog" />
+            android:textSize="@dimen/textSizeItems" />
     </LinearLayout>
 
 

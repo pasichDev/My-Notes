@@ -57,7 +57,7 @@ ext {
 }
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.2.0'
@@ -69,14 +69,20 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompilerVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
 
-    //room
-    implementation "androidx.room:room-runtime:$roomVersion"
-    annotationProcessor "androidx.room:room-compiler:$roomVersion"
-    testImplementation "androidx.room:room-compiler-processing-testing:$roomVersion"
-
 
     //powerPreferences
     implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"
+
+
+    //animationCircle delete for next version
     implementation 'me.relex:circleindicator:2.1.6'
+
+
+    // reactive
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    implementation 'androidx.room:room-rxjava2:2.4.3'
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    testImplementation "androidx.room:room-compiler-processing-testing:$roomVersion"
+
 }
 

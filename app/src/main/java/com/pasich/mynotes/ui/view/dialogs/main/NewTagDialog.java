@@ -7,76 +7,80 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.tags.Tag;
-import com.pasich.mynotes.data.tags.source.TagsRepository;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogNewTagBinding;
+import com.pasich.mynotes.di.component.ActivityComponent;
+import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
+import com.pasich.mynotes.ui.presenter.dialogs.NewTagDialogPresenter;
 
 import java.util.Objects;
 
-public class NewTagDialog extends BottomSheetDialogFragment {
+import javax.inject.Inject;
 
-    private TagsRepository repository;
+public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialogContract.view {
+
+
+    @Inject
+    public NewTagDialogPresenter mPresenter;
     private DialogNewTagBinding binding;
     private boolean errorText = true;
 
-    public NewTagDialog(TagsRepository repository) {
-        this.repository = repository;
-    }
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireContext(), R.style.InputsDialog);
         binding = DialogNewTagBinding.inflate(getLayoutInflater());
-        builder.setContentView(binding.getRoot());
-        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        binding.titleInclud.headTextDialog.setText(R.string.addTag);
+        requireDialog().setContentView(binding.getRoot());
 
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            mPresenter.attachView(this);
+            mPresenter.viewIsReady();
+        } else {
+            dismiss();
+        }
 
         binding.includedInput.outlinedTextField.requestFocus();
-        binding.titleInclud.closeDialog.setVisibility(View.VISIBLE);
-        binding.titleInclud.closeDialog.setOnClickListener(v -> dismiss());
-
         binding.includedInput.outlinedTextField.setEndIconOnClickListener(v -> saveTag());
+
+
         binding.includedInput.nameTag.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 saveTag();
                 return true;
-            }
-            return false;
+            } else return false;
         });
 
-        binding.includedInput.nameTag.addTextChangedListener(
-                new TextWatcher() {
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        validateText(s.toString().trim().length());
-                    }
-                });
-
-        return builder;
+        return requireDialog();
     }
 
+
+    @Override
+    public void initListeners() {
+        binding.includedInput.nameTag.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateText(s.toString().trim().length());
+            }
+        });
+    }
 
     private void validateText(int length) {
         if (length >= MAX_NAME_TAG) {
@@ -93,7 +97,7 @@ public class NewTagDialog extends BottomSheetDialogFragment {
 
     private void saveTag() {
         if (!errorText) {
-            repository.addTag(new Tag().create(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString()));
+            mPresenter.saveTag(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString());
             dismiss();
         }
     }
@@ -102,7 +106,7 @@ public class NewTagDialog extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        repository = null;
+        binding.includedInput.nameTag.addTextChangedListener(null);
         requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 

@@ -1,22 +1,23 @@
 package com.pasich.mynotes.ui.contract;
 
-import androidx.lifecycle.LiveData;
-
-import com.pasich.mynotes.base.MyPresenter;
+import com.pasich.mynotes.base.BasePresenter;
+import com.pasich.mynotes.base.BaseView;
+import com.pasich.mynotes.base.view.ChoiceNoteView;
 import com.pasich.mynotes.base.view.MainSortView;
-import com.pasich.mynotes.base.view.MyView;
-import com.pasich.mynotes.base.view.NoteView;
-import com.pasich.mynotes.base.view.TagView;
-import com.pasich.mynotes.data.notes.Note;
-import com.pasich.mynotes.data.tags.Tag;
+import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
+import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.di.scope.PerActivity;
+import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+
+import io.reactivex.Flowable;
 
 public interface MainContract {
 
-    interface view extends MyView, TagView, NoteView, MainSortView {
+    interface view extends BaseView, ChoiceNoteView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
         void settingsSearchView();
 
         void settingsNotesList();
@@ -27,7 +28,7 @@ public interface MainContract {
 
         void startCreateTagDialog();
 
-        void choiceTagDialog(Tag tag, Integer[] arg);
+        void choiceTagDialog(Tag tag);
 
         void choiceNoteDialog(Note note, int position);
 
@@ -35,29 +36,25 @@ public interface MainContract {
 
         void selectTagUser(int position);
 
-        void loadingData(LiveData<List<Tag>> tagList, LiveData<List<Note>> noteList);
+        void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam);
 
         void openNoteEdit(int idNote);
 
         void startToastCheckCountTags();
 
-        void initActionUtils();
-
         void sortButton();
 
-        void formatButton();
+        void formatButton(int countSpan);
 
         void startSearchDialog();
     }
 
-    interface presenter extends MyPresenter<view> {
+
+    @PerActivity
+    interface presenter extends BasePresenter<view> {
         void newNotesClick();
 
         void moreActivityClick();
-
-        void deleteTag(Tag tag, boolean deleteNotes) throws ExecutionException, InterruptedException;
-
-        void editVisibility(Tag tag);
 
         void clickTag(Tag tag, int position);
 
@@ -65,10 +62,9 @@ public interface MainContract {
 
         void clickNote(int idNote);
 
-        void deleteNote(Note note);
-
         void deleteNotesArray(ArrayList<Note> notes);
 
+        @Deprecated
         void addNote(Note note);
 
         void sortButton();

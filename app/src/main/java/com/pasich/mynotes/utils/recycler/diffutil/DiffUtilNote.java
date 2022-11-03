@@ -3,9 +3,17 @@ package com.pasich.mynotes.utils.recycler.diffutil;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.pasich.mynotes.data.notes.Note;
+import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.di.scope.PerActivity;
 
+import javax.inject.Inject;
+
+@PerActivity
 public class DiffUtilNote extends DiffUtil.ItemCallback<Note> {
+
+    @Inject
+    public DiffUtilNote() {
+    }
 
     @Override
     public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {

@@ -1,41 +1,61 @@
 package com.pasich.mynotes.ui.view.dialogs.trash;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.trash.source.TrashRepository;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
+import com.pasich.mynotes.di.component.ActivityComponent;
+import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
+import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
 
-public class CleanTrashDialog extends BottomSheetDialogFragment {
+import javax.inject.Inject;
 
-    private final TrashRepository repository;
+public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTrashDialogContract.view {
 
-    public CleanTrashDialog(TrashRepository repository) {
-        this.repository = repository;
-    }
+    @Inject
+    public ClearTrashDialogPresenter presenter;
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireContext());
-        builder.setContentView(R.layout.dialog_clean_trash);
+        requireDialog().setContentView(R.layout.dialog_clean_trash);
+        MaterialTextView title = requireDialog().findViewById(R.id.headTextDialog);
+        MaterialTextView message = requireDialog().findViewById(R.id.textMessageDialog);
 
-        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            presenter.attachView(this);
+            presenter.viewIsReady();
+        } else {
+            dismiss();
+        }
+
         title.setText(R.string.trashClean);
-
-        MaterialTextView message = builder.findViewById(R.id.textMessageDialog);
         message.setText(R.string.cleanTrashMessage);
+        return requireDialog();
+    }
 
-        builder.findViewById(R.id.yesCleanTrash).setOnClickListener(v -> {
-            repository.deleteAll();
+    @Override
+    public void initListeners() {
+        requireDialog().findViewById(R.id.yesCleanTrash).setOnClickListener(v -> {
+            presenter.clearTrash();
             dismiss();
         });
-        builder.findViewById(R.id.cancel).setOnClickListener(v -> dismiss());
+        requireDialog().findViewById(R.id.cancel).setOnClickListener(v -> dismiss());
 
-        return builder;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        presenter.detachView();
+        requireDialog().findViewById(R.id.yesCleanTrash).setOnClickListener(null);
+        requireDialog().findViewById(R.id.cancel).setOnClickListener(null);
+
     }
 }

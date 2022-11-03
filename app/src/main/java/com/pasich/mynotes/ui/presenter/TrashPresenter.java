@@ -1,36 +1,34 @@
 package com.pasich.mynotes.ui.presenter;
 
 
-import com.pasich.mynotes.base.PresenterBase;
+import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.notes.source.NotesRepository;
-import com.pasich.mynotes.data.trash.TrashNote;
-import com.pasich.mynotes.data.trash.source.TrashRepository;
+import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.ui.contract.TrashContract;
+import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
 
-public class TrashPresenter extends PresenterBase<TrashContract.view>
-        implements TrashContract.presenter {
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
-    private TrashRepository trashRepository;
-    private NotesRepository notesRepository;
 
-    public TrashPresenter() {
+public class TrashPresenter extends AppBasePresenter<TrashContract.view> implements TrashContract.presenter {
+
+
+    @Inject
+    public TrashPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
+        super(schedulerProvider, compositeDisposable, dataManager);
     }
 
-    @Override
-    public void setDataManager(DataManager dataManager) {
-        trashRepository = dataManager.getTrashRepository();
-        notesRepository = dataManager.getNotesRepository();
-    }
 
     @Override
     public void viewIsReady() {
         getView().settingsActionBar();
-        getView().settingsNotesList(1, trashRepository.getNotes());
-        getView().initListeners();
+        getView().settingsNotesList(getDataManager().getTrashNotesLoad());
         getView().initActionUtils();
     }
 
@@ -52,9 +50,8 @@ public class TrashPresenter extends PresenterBase<TrashContract.view>
 
     @Override
     public void restoreNotesArray(ArrayList<TrashNote> notes) {
-        if (trashRepository != null && notesRepository != null) {
-            notesRepository.moveToNotes(notes);
-            trashRepository.deleteNote(notes);
+        for (TrashNote tNote : notes) {
+            getDataManager().transferNoteOutTrash(tNote, new Note().create(tNote.getTitle(), tNote.getValue(), tNote.getDate())).subscribeOn(Schedulers.newThread()).subscribe();
         }
     }
 

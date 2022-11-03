@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
   private final int space;
 
@@ -13,7 +14,8 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
     this.space = space;
   }
 
-  @Override
+
+    @Override
   public void getItemOffsets(
       Rect outRect,
       @NonNull View view,

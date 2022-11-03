@@ -1,58 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        layout="@layout/view_head_dialog" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/telegramSend"
+        style="@style/rootDialogLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/telegram"
-            android:src="@drawable/ic_telegram" />
+        <include layout="@layout/view_head_dialog" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/telegramSend"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:text="@string/telegram_nick"
-            android:textSize="@dimen/textSizeDialog" />
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/telegram"
+                android:src="@drawable/ic_telegram" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/paddingItems"
+                android:text="@string/telegram_nick"
+                android:textSize="@dimen/textSizeItems" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/emailSend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/ratingApp"
-            android:src="@drawable/ic_email" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/emailSend"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:text="@string/email_address"
-            android:textSize="@dimen/textSizeDialog" />
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/ratingApp"
+                android:src="@drawable/ic_email" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/paddingItems"
+                android:text="@string/email_address"
+                android:textSize="@dimen/textSizeItems" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
-</LinearLayout>
+</FrameLayout>
