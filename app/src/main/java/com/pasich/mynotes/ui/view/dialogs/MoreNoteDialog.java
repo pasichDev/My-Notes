@@ -216,7 +216,9 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
     private void selectedTag(String nameChip) {
         if (!nameChip.equals(mNote.getTag())) {
+
             mPresenter.editTagNote(nameChip, mNote.getId());
+            if (activityNote) activitySettings.changeTag(nameChip);
             dismiss();
         }
     }

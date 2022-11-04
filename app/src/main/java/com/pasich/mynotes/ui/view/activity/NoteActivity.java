@@ -224,11 +224,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         binding.notesTitle.setText(note.getTitle().length() >= 2 ? note.getTitle() : "");
         binding.valueNote.setText(note.getValue());
         binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(note.getDate())));
-        if (note.getTag().length() >= 1) {
-            binding.titleToolbarTag.setText(getString(R.string.tagHastag, note.getTag()));
-        } else {
-            binding.titleToolbarTag.setVisibility(View.GONE);
-        }
+        changeTag(note.getTag());
         this.mNote = note;
 
     }
@@ -288,6 +284,15 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void closeActivityNotSaved() {
         exitNoSave = true;
         finish();
+    }
+
+    @Override
+    public void changeTag(String nameTag) {
+        if (nameTag.length() >= 1) {
+            binding.titleToolbarTag.setText(getString(R.string.tagHastag, nameTag));
+        } else {
+            binding.titleToolbarTag.setVisibility(View.GONE);
+        }
     }
 
 

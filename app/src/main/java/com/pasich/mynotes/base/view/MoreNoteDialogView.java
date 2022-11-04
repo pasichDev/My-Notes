@@ -10,4 +10,6 @@ public interface MoreNoteDialogView {
 
     void closeActivityNotSaved();
 
+    void changeTag(String nameTag);
+
 }
