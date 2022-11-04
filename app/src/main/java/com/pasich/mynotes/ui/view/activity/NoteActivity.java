@@ -2,7 +2,6 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -31,7 +30,6 @@ import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
 import com.pasich.mynotes.utils.base.simplifications.TextWatcher;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -108,7 +106,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void initListeners() {
 
@@ -140,13 +137,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void editIdNoteCreated(long idNote) {
         this.mNote.setId(Math.toIntExact(idNote));
-    }
-
-
-    @SuppressLint("SetTextI18n")
-    private void saveSpeechToText(ArrayList<String> result) {
-        binding.valueNote.setText(binding.valueNote.getText().toString() + " " + result.get(0));
-        binding.valueNote.setSelection(binding.valueNote.getText().toString().length());
     }
 
 
@@ -290,6 +280,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void changeTag(String nameTag) {
         if (nameTag.length() >= 1) {
             binding.titleToolbarTag.setText(getString(R.string.tagHastag, nameTag));
+            binding.titleToolbarTag.setVisibility(View.VISIBLE);
         } else {
             binding.titleToolbarTag.setVisibility(View.GONE);
         }

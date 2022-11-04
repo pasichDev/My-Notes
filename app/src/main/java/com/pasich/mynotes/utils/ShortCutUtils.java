@@ -50,6 +50,7 @@ public class ShortCutUtils {
                             NoteActivity.class)
                             .putExtra("NewNote", false)
                             .putExtra("idNote", note.getId())
+                            .putExtra("shareText", "")
                             .putExtra("tagNote", ""))
                     .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher_notes_shortcut));
 
