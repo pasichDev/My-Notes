@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -39,6 +41,7 @@ import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
+import com.pasich.mynotes.utils.recycler.SwipeToDeleteCallback;
 
 import java.util.List;
 
@@ -85,7 +88,46 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mainPresenter.viewIsReady();
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
 
+        //  enableSwipeToDeleteAndUndo();
     }
+
+
+    private void enableSwipeToDeleteAndUndo() {
+        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
+                final int position = viewHolder.getAdapterPosition();
+                final Note item = mNoteAdapter.getCurrentList().get(position);
+
+                mNoteAdapter.notifyItemRemoved(position);
+
+                showMessage("Item was removed from the list.");
+
+            /*    Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        mAdapter.restoreItem(item, position);
+                        recyclerView.scrollToPosition(position);
+                    }
+                });
+
+             */
+
+                //       snackbar.setActionTextColor(Color.YELLOW);
+                //        snackbar.show();
+
+            }
+        };
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchhelper.attachToRecyclerView(mActivityBinding.listNotes);
+    }
+
 
     @Override
     protected void onStart() {
