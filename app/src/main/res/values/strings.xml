@@ -168,4 +168,6 @@
     <string name="contentDescrChangeStyleText" translatable="false">Изменить стиль текста</string>
 
     <string name="tagHastag" translatable="false">#%1$s</string>
+    <string name="copyNoteEdits" translatable="false">Редактировать копию</string>
+
 </resources>

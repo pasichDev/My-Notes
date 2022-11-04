@@ -222,7 +222,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         binding.valueNote.setText(note.getValue());
         binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(note.getDate())));
         if (note.getTag().length() >= 1) {
-            binding.titleToolbarTag.setText(note.getTag());
+            binding.titleToolbarTag.setText(getString(R.string.tagHastag, note.getTag()));
         } else {
             binding.titleToolbarTag.setVisibility(View.GONE);
         }

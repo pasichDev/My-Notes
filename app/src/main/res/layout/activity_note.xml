@@ -53,6 +53,7 @@
                         android:layout_gravity="center"
                         android:textSize="16sp"
                         android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryVariant"
                         tools:text="tag_name" />
 
                     <TextView
@@ -88,7 +89,8 @@
                     android:layout_marginTop="10dp"
                     android:autofillHints="no"
                     android:background="@null"
-
+                    android:autoLink="all"
+                    android:linksClickable="true"
                     android:fontFamily="@font/railway_medium"
                     android:hint="@string/noteTitle"
                     android:inputType="textMultiLine"
