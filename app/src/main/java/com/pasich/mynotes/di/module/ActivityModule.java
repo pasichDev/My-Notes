@@ -15,7 +15,6 @@ import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.contract.TrashContract;
-import com.pasich.mynotes.ui.contract.dialogs.ChoiceNoteDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.ChoiceTagDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
@@ -24,7 +23,6 @@ import com.pasich.mynotes.ui.contract.dialogs.SearchDialogContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
-import com.pasich.mynotes.ui.presenter.dialogs.ChoiceNoteDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.ChoiceTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.DeleteTagDialogPresenter;
@@ -137,7 +135,6 @@ public class ActivityModule {
 
     }
 
-
     @Provides
     @PerActivity
     ChoiceTagDialogContract.presenter providerChoiceTagDialogPresenter(ChoiceTagDialogPresenter presenter) {
@@ -159,12 +156,6 @@ public class ActivityModule {
     @Provides
     @PerActivity
     ClearTrashDialogContract.presenter providerClearTrashDialogPresenter(ClearTrashDialogPresenter presenter) {
-        return presenter;
-    }
-
-    @Provides
-    @PerActivity
-    ChoiceNoteDialogContract.presenter providerChoiceNoteDialogPresenter(ChoiceNoteDialogPresenter presenter) {
         return presenter;
     }
 

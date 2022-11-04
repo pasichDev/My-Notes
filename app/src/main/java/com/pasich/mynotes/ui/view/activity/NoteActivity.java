@@ -24,8 +24,8 @@ import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
+import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
-import com.pasich.mynotes.ui.view.dialogs.note.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
@@ -196,7 +196,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
         if (item.getItemId() == R.id.moreBut) {
 
-            new MoreNoteDialog(newNoteKey ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : mNote, newNoteKey).show(getSupportFragmentManager(), "MoreNote");
+            new MoreNoteDialog(
+                    newNoteKey ?
+                            new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString()
+                                    , new Date().getTime()) : mNote, newNoteKey, true, 0).show(getSupportFragmentManager(), "MoreNote");
 
         }
 

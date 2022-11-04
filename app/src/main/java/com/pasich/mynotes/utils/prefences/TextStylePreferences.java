@@ -6,14 +6,21 @@ import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREF
 import android.widget.ImageButton;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.di.scope.PerActivity;
 import com.preference.PowerPreference;
 
+import javax.inject.Inject;
+
+@PerActivity
 public class TextStylePreferences {
 
-    private final ImageButton mButton;
+    private ImageButton mButton;
 
+    @Inject
+    public TextStylePreferences() {
+    }
 
-    public TextStylePreferences(ImageButton button) {
+    public void addButton(ImageButton button) {
         this.mButton = button;
         mButton.setImageResource(getLoadSrcDrawable(getArgPreference()));
     }
@@ -24,22 +31,24 @@ public class TextStylePreferences {
 
 
     public void changeArgument() {
-        switch (getArgPreference()) {
-            case ARGUMENT_DEFAULT_TEXT_STYLE:
-                //selected italic
-                mButton.setImageResource(getLoadSrcDrawable("italic"));
-                PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, "italic");
-                break;
-            case "italic":
-                //selected bold
-                mButton.setImageResource(getLoadSrcDrawable("bold"));
-                PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, "bold");
-                break;
-            case "bold":
-                //selected normal
-                mButton.setImageResource(getLoadSrcDrawable("normal"));
-                PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE);
-                break;
+        if (mButton != null) {
+            switch (getArgPreference()) {
+                case ARGUMENT_DEFAULT_TEXT_STYLE:
+                    //selected italic
+                    mButton.setImageResource(getLoadSrcDrawable("italic"));
+                    PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, "italic");
+                    break;
+                case "italic":
+                    //selected bold
+                    mButton.setImageResource(getLoadSrcDrawable("bold"));
+                    PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, "bold");
+                    break;
+                case "bold":
+                    //selected normal
+                    mButton.setImageResource(getLoadSrcDrawable("normal"));
+                    PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE);
+                    break;
+            }
         }
     }
 

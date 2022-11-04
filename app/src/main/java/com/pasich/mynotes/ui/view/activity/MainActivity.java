@@ -24,7 +24,7 @@ import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
@@ -88,7 +88,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mainPresenter.viewIsReady();
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
 
-        //  enableSwipeToDeleteAndUndo();
     }
 
 
@@ -296,7 +295,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void choiceNoteDialog(Note note, int position) {
-        new ChoiceNoteDialog(note, position).show(getSupportFragmentManager(), "ChoiceDialog");
+        new MoreNoteDialog(note, false, false, position).show(getSupportFragmentManager(), "ChoiceDialog");
     }
 
 
