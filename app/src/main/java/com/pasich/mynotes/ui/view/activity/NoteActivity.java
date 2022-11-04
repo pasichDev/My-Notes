@@ -1,21 +1,15 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.speech.SpeechRecognizer.isRecognitionAvailable;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.speech.SpeechRecognizer;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -36,7 +30,6 @@ import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
 import com.pasich.mynotes.utils.base.simplifications.TextWatcher;
-import com.pasich.mynotes.utils.permissionManager.PermissionManager;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,13 +44,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Inject
     public NoteContract.presenter notePresenter;
     @Inject
-    public SpeechRecognizer speechRecognizer;
-    @Inject
     public NoteUtils noteUtils;
-    @Inject
-    public PermissionManager permissionManager;
-    @Inject
-    public Intent speechRecognizerIntent;
 
     private String shareText, tagNote;
     private int idKey;
@@ -87,15 +74,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
      * Метод для поддержки віреза экрана нужно использовать вместе с параметром в theme.xml
      */
     private void hideSystemBars() {
-        WindowInsetsControllerCompat windowInsetsController =
-                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
+        WindowInsetsControllerCompat windowInsetsController = ViewCompat.getWindowInsetsController(getWindow().getDecorView());
         if (windowInsetsController == null) {
             return;
         }
         // Configure the behavior of the hidden system bars
-        windowInsetsController.setSystemBarsBehavior(
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        );
+        windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         // Hide both the status bar and the navigation bar
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
     }
@@ -127,19 +111,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void initListeners() {
-        if (isRecognitionAvailable(getApplicationContext())) {
-            binding.speechStart.setOnTouchListener((view, motionEvent) -> {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    speechRecognizer.stopListening();
-                }
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (permissionManager.checkPermissionVoice()) {
-                        speechRecognizer.startListening(speechRecognizerIntent);
-                    }
-                }
-                return false;
-            });
-        }
 
         binding.notesTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -155,40 +126,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     }
 
-    @Override
-    public void initListenerSpeechRecognizer() {
-        speechRecognizer.setRecognitionListener(new com.pasich.mynotes.utils.base.simplifications.SpeechRecognizer() {
-            @Override
-            public void startListener() {
-                binding.recordMessges.setVisibility(View.VISIBLE);
-                binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information));
-
-            }
-
-            @Override
-            public void errorDebug(int i) {
-                binding.recordMessges.setVisibility(View.GONE);
-                binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
-
-                int textError = R.string.error;
-                if (i == 7) textError = R.string.emptySpeec;
-                else if (i == 2) textError = R.string.errorInternetConectSpeech;
-                Toast.makeText(getApplicationContext(), getString(textError), Toast.LENGTH_LONG).show();
-                speechRecognizer.stopListening();
-
-            }
-
-            @Override
-            public void saveText(Bundle bundle) {
-                binding.recordMessges.setVisibility(View.GONE);
-                binding.recordMessges.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.item_add_record_information_reverse));
-                saveSpeechToText(bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
-
-            }
-        });
-
-
-    }
 
     @Override
     public void loadingSourceNote() {
@@ -215,7 +152,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void settingsActionBar() {
-        setSupportActionBar(binding.toolbarActionbar.toolbarActionbar);
+        setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
@@ -274,9 +211,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.detachView();
         if (isFinishing()) {
             notePresenter.destroy();
-            speechRecognizer.destroy();
-            speechRecognizer = null;
-            speechRecognizerIntent = null;
             binding.notesTitle.addTextChangedListener(null);
         }
     }
@@ -286,11 +220,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void loadingNote(Note note) {
         binding.notesTitle.setText(note.getTitle().length() >= 2 ? note.getTitle() : "");
         binding.valueNote.setText(note.getValue());
-        binding.toolbarActionbar.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(note.getDate())));
+        binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(note.getDate())));
         if (note.getTag().length() >= 1) {
-            binding.toolbarActionbar.titleToolbarTag.setText(note.getTag());
+            binding.titleToolbarTag.setText(note.getTag());
         } else {
-            binding.toolbarActionbar.titleToolbarTag.setVisibility(View.GONE);
+            binding.titleToolbarTag.setVisibility(View.GONE);
         }
         this.mNote = note;
 
@@ -346,20 +280,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
     }
 
-
-    @Override
-    public void openShouldShowRequestPermissionRationale(String permission) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            shouldShowRequestPermissionRationale(permission);
-        }
-    }
-
-    @Override
-    public void openRequestPermissions(@NonNull String[] permissions) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, 22);
-        }
-    }
 
     @Override
     public void closeActivityNotSaved() {

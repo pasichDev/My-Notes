@@ -6,8 +6,6 @@
 
     <string name="interpunct" translatable="false">·</string>
     <string name="NewNote"> Create note </string>
-    <string name="title_activity_settings"> Settings </string>
-    <string name="settings"> Settings </string>
     <string name="trashNotes">Move to trash</string>
     <string name="trashN"> Trash </string>
     <string name="trashClean">Trash Clean</string>
@@ -17,21 +15,17 @@
     <string name="shareNull">Nothing to share!</string>
     <string name="telegram">Open developer contacts</string>
     <string name="whatUpdate">Whats new?</string>
-    <string name="save">Save</string>
 
-    <string name="errorInternetConectSpeech"> No internet connection. Check the internet availability. </string>
     <string name="error_TTS"> Speech service not found </string>
     <string name="error_TTS_Message"> To use voice input, you need to install the Speech Services by Google app. </string>
     <string name="errorPermisions"> Access error </string>
     <string name="errorPermisions_Message"> To be able to use this function, you need to grant permission to record audio.
     To do this, open the About app -> Permissions menu and allow using the microphone </string>
 
-    <string name="holdOnSpeec"> Hold and talk </string>
     <string name="notes"> Notes </string>
     <string name="noSave"> Close without saving </string>
     <string name="infoAppPrefences"> About App </string>
     <string name="ratingApp"> Rate this app </string>
-    <string name="emptySpeec"> Can\'t hear you please try again </string>
     <string name="exitWhat">To exit, you need to repeat the action</string>
 
     <string name="notFoundPlayMarket">Missing Play Market app</string>
@@ -58,7 +52,6 @@
 
     <string name="close" translatable="false">Закрыть</string>
     <string name="addTag" translatable="false">Добавить метку</string>
-    <string name="createTag" translatable="false">Создать метку</string>
     <string name="deleteTag" translatable="false">Удалить метку</string>
     <string name="deleteTagAndNotes" translatable="false">Удалить метку и отмеченные заметки</string>
 
@@ -71,15 +64,9 @@
     <string name="deleteSelectTagTextMassage" translatable="false">Вы действительно хотите удалить метку? После удаления метка пропадет у всех отмеченных заметках.</string>
     <string name="cleanTrashMessage" translatable="false">Вы действительно хотите очистить корзину? Все заметки будут навсегда удаленны.</string>
 
-    <string name="tag" translatable="false">Метка</string>
     <string name="selectAll" translatable="false">Выбрать эту, и еще несколько заметок</string>
-    <string name="selectTagForNote" translatable="false">Добавить метку</string>
-    <string name="editSelectTagForNote" translatable="false">Изменить метку</string>
 
     <string name="createNewTag" translatable="false">Введите название метки</string>
-
-    <string name="emptyListMain" translatable="false">Здесь будуть ваши заметки.</string>
-    <string name="emptyListTrash" translatable="false">Корзина пустая</string>
 
     <string name="sort_Date_Increase" translatable="false">Дате изменения: сначала новые</string>
     <string name="sort_Date_Decrease" translatable="false">Дате изменения: сначала старые</string>
@@ -90,7 +77,6 @@
     <string name="visibilityNotesToTag" translatable="false">Скрыть метку</string>
 
 
-    <string name="layoutStringInfo" translatable="false">%1$s | %2$s символов</string>
     <string name="layoutStringInfoCountSymbols" translatable="false">%1$s символов</string>
 
 
@@ -119,10 +105,8 @@
     <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
     <string name="infoDialogSource" translatable="false">Чтобы скопировать текст вложения нажмите и удерживайте</string>
 
-    <string name="changeSettingsLayout" translatable="false">Настроить отображение</string>
     <string name="lastDateEditNote" translatable="false">Последнее изменение: %1$s </string>
     <string name="restore" translatable="false">Восстановить заметки</string>
-    <string name="showActionPanel" translatable="false">Спятать/Показать ActionPanel</string>
 
     <string name="help" translatable="false">Помощь</string>
     <string name="trashDeleteNotes" translatable="false">Удаленные заметки (Корзина)</string>

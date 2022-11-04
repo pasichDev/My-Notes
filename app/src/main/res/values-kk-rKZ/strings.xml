@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name">Менің жазбаларым</string>
     <string name="NewNote">Жаңа ескертпе</string>
-    <string name="title_activity_settings">Параметрлер</string>
-    <string name="settings">Параметрлер</string>
     <string name="trashNotes">Себетке жылжыту</string>
     <string name="trashN">Себет</string>
     <string name="trashClean" >Себетті босату</string>
@@ -12,19 +10,15 @@
     <string name="cancel" >Болдырмау</string>
     <string name ="shareNull" >Бөлісетін ештеңе жоқ!</string >
     <string name ="whatUpdate" >Не жаңалық?</string >
-    <string name="save">Сақтау</string>
-    <string name="errorInternetConectSpeech">Интернет қосылымы жоқ. Интернет желісінің қолжетімділігін тексеріңіз.</string>
     <string name = "error_TTS">Сөйлеу қызметі табылмады</string>
     <string name="error_TTS_Message">Дауыспен енгізуді пайдалану үшін Google Speech Services қолданбасын орнату қажет. </string>
     <string name="errorPermisions">Рұқсат қатесі</string>
     <string name="errorPermisions_Message">Бұл мүмкіндікті пайдалану үшін дыбыс жазуға рұқсат беру керек.
     Ол үшін қолданба туралы -> Рұқсаттар мәзірін ашыңыз және микрофонды пайдалануға рұқсат етіңіз</string>
-    <string name = "holdOnSpeec">Ұстаңыз және сөйлеңіз</string>
     <string name = "notes">Ескертпелер</string>
     <string name="noSave">Сақтамай жабу</string>
     <string name = "infoAppPrefences">Қолданба туралы</string>
     <string name="ratingApp">Қолданбаны бағалау</string>
-    <string name = "emptySpeec">Қайталап көргеніңізді есту мүмкін емес</string>
     <string name = "exitWhat">Шығу үшін әрекетті қайталау керек</string>
 
     <string name="updateNowM">- Қосылды: ескертпе тіркемелері, бұл терезеде ескертпелерде пайдаланылатын сілтемелерді, телефон нөмірлерін, электрондық пошталарды көре аласыз \n

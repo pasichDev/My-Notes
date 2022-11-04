@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name"> Moje notatki </string>
     <string name="NewNote"> Utwórz notatkę </string>
-    <string name="title_activity_settings"> Ustawienia </string>
-    <string name="settings"> Ustawienia </string>
     <string name="trashNotes">Przenieś do koszyka</string>
     <string name="trashN"> Kosz </string>
     <string name="trashClean"> Wyczyść kosz </string>
@@ -12,19 +10,15 @@
     <string name="cancel"> Cofnij </string>
     <string name="shareNull"> Opróżnij Kosz! </string>
     <string name="whatUpdate"> Co nowego? </string>
-    <string name="save"> Zapisz </string>
-    <string name="errorInternetConectSpeech"> Brak połączenia internetowego. Sprawdź dostępność Internetu. </string>
     <string name="error_TTS"> Nie znaleziono usługi rozpoznawania mowy </string>
     <string name="error_TTS_Message"> Aby używać wprowadzania głosowego, musisz zainstalować aplikację Google Speech Services. </string>
     <string name="errorPermisions"> Błąd dostępu </string>
     <string name="errorPermisions_Message"> Aby móc korzystać z tej funkcji, musisz przyznać uprawnienia do nagrywania dźwięku.
     Aby to zrobić, przejdź do menu Informacje -> Uprawnienia i zezwól na użycie mikrofonu </string>
-    <string name="holdOnSpeec"> Przytrzymaj i mów </string>
     <string name="notes"> Notatki </string>
     <string name="noSave"> Zamknij bez zapisywania </string>
     <string name="infoAppPrefences"> Informacje </string>
     <string name="ratingApp"> Oceń aplikację </string>
-    <string name="emptySpeec"> Nie słyszę, proszę spróbuj ponownie .. </string>
     <string name="exitWhat">Aby wyjść, musisz powtórzyć czynność</string>
 
     <string name="updateNowM">

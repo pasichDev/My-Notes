@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name">Мои Заметки</string>
     <string name="NewNote">Создать заметку</string>
-    <string name="title_activity_settings">Настройки</string>
-    <string name="settings">Настройки</string>
     <string name="trashNotes">Переместить в корзину</string>
     <string name="trashN">Корзина</string>
     <string name="trashClean">Очистить корзину</string>
@@ -12,20 +10,16 @@
     <string name="cancel">Отменить</string>
     <string name="shareNull">Нечем делиться!</string>
     <string name="whatUpdate">Что нового?</string>
-    <string name="save">Сохранить</string>
 
-    <string name="errorInternetConectSpeech">Отсутствует подключение к интернету. Проверьте доступность интернет сети.</string>
     <string name="error_TTS">Служба распознавания речи не найдена</string>
     <string name="error_TTS_Message">Чтобы использовать голосовой ввод, вам нужно установить приложение Speech Services by Google. </string>
     <string name="errorPermisions">Ошибка доступа</string>
     <string name="errorPermisions_Message">Для возможности использовать данную функцию, вам нужно предоставить разрешение на запись аудио.
     Для этого откройте меню О приложении -> Разрешения и разрешите использовать микрофон</string>
-    <string name="holdOnSpeec">Удерживайте и говорите</string>
     <string name="notes">Заметки</string>
     <string name="noSave">Закрыть без сохранения</string>
     <string name="infoAppPrefences">О приложении</string>
     <string name="ratingApp">Оценить приложение</string>
-    <string name="emptySpeec">Вас не слышно повторите попытку</string>
     <string name="exitWhat">Для выхода, нужно повторить действие</string>
 
     <string name="updateNowM">

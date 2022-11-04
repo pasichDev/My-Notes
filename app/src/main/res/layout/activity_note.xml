@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -18,30 +18,63 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/noteLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.view.activity.NoteActivity">
 
-        <include
-            android:id="@+id/toolbar_actionbar"
-            layout="@layout/view_toolbar_note" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fitsSystemWindows="true">
 
 
-        <io.github.scrollmanageotherview.ScrollManageView
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:layout_collapseMode="pin">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_toolbar_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="tag_name" />
+
+                    <TextView
+                        android:id="@+id/title_toolbar_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        tools:text="data_name" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:id_dependence="@+id/actionPanelNote"
-            app:orientationHideDependence="horizontal"
+            android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
-            android:nestedScrollingEnabled="false"
+            android:nestedScrollingEnabled="true"
             android:scrollbarSize="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar">
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,76 +119,27 @@
                     android:textColor="@drawable/textview_colors" />
 
             </LinearLayout>
-        </io.github.scrollmanageotherview.ScrollManageView>
+        </ScrollView>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/recordMessges"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/editActive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_delete_note" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_gravity="bottom|end"
+            android:layout_margin="15dp"
+            android:contentDescription="@string/NewNote"
+            android:onClick="@{(view) -> presenter.activateEditNote()}"
+            android:visibility="@{activateEdit ? View.GONE : View.VISIBLE}"
+            app:backgroundTint="?attr/colorPrimaryBackground"
+            app:elevation="7dp"
+            app:layout_anchor="@id/scrollView"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
+            app:srcCompat="@drawable/ic_edit"
+            app:tint="@color/white" />
 
 
-        <LinearLayout
-            android:id="@+id/actionPanelNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_action_panel"
-            android:orientation="horizontal"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:padding="4dp">
-
-            <ImageButton
-                android:id="@+id/sourceStart"
-                style="@style/iconDialogList"
-                android:contentDescription="@string/sourceNotes"
-                android:onClick="@{(view) -> presenter.sourceNote()}"
-                app:srcCompat="@drawable/ic_source"
-                app:tint="@color/white"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <ImageButton
-                android:id="@+id/editActive"
-                style="@style/iconDialogList"
-                android:contentDescription="@string/editSelectTagForNote"
-                android:onClick="@{(view) -> presenter.activateEditNote()}"
-                android:visibility="@{activateEdit ? View.GONE : View.VISIBLE}"
-                app:srcCompat="@drawable/ic_edit"
-                app:tint="@color/white"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <ImageButton
-                android:id="@+id/speechStart"
-                style="@style/iconDialogList"
-                android:contentDescription="@string/holdOnSpeec"
-                android:visibility="@{activateEdit ? View.VISIBLE : View.GONE}"
-                app:srcCompat="@drawable/ic_mic"
-                app:tint="@color/white"
-                tools:ignore="TouchTargetSizeCheck" />
-        </LinearLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

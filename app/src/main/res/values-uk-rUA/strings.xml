@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name"> Мої Нотатки </string>
     <string name="NewNote"> Створити нотатку </string>
-    <string name="title_activity_settings"> Налаштування </string>
-    <string name="settings"> Налаштування </string>
     <string name="trashNotes">Перемістити до корзини</string>
     <string name="trashN"> Кошик </string>
     <string name="trashClean">Очистити корзину</string>
@@ -12,19 +10,15 @@
     <string name="cancel">Відмінити</string>
     <string name="shareNull">Пуста корзина!</string>
     <string name="whatUpdate">Що нового?</string>
-    <string name="save">Зберегти</string>
-    <string name="errorInternetConectSpeech">Відсутнє підключення до інтернету. Перевірте доступність інтернет-мережi.</string>
     <string name="error_TTS">Служба розпізнавання мовлення не знайдена</string>
     <string name="error_TTS_Message">Щоб використовувати голосовий ввiд, вам потрібно встановити додаток Speech Services від Google. </string>
     <string name="errorPermisions">Помилка доступу</string>
     <string name="errorPermisions_Message">Для можливості використовувати цю функцію, вам потрібно надати дозвіл на запис аудіо.
     Для цього відкрийте меню Про додаток -> Дозволи та дозвольте використовувати мікрофон</string>
-    <string name="holdOnSpeec">Утримуйте і говорiть</string>
     <string name="notes">Нотатки</string>
     <string name="noSave">Закрити без збереження</string>
     <string name="infoAppPrefences">Про додаток</string>
     <string name="ratingApp">Оцінити додаток</string>
-    <string name="emptySpeec">Вас не чути, спробуйте ще раз..</string>
     <string name="exitWhat">Для виходу потрібно повторити дію</string>
 
     <string name="updateNowM">- Додано: Вкладення нотаток, у цьому вікні можна побачити посилання, номери телефонів, адреси email які використовуються в нотатках \n

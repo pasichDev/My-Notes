@@ -6,11 +6,10 @@ import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.ActionBar;
 import com.pasich.mynotes.base.view.MoreNoteDialogView;
 import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.utils.permissionManager.AudioPermission;
 
 public interface NoteContract {
 
-    interface view extends BaseView, ActionBar, MoreNoteDialogView, AudioPermission {
+    interface view extends BaseView, ActionBar, MoreNoteDialogView {
 
         void initTypeActivity();
 
@@ -19,8 +18,6 @@ public interface NoteContract {
         void activatedActivity();
 
         void loadingNote(Note note);
-
-        void initListenerSpeechRecognizer();
 
         void loadingSourceNote();
 

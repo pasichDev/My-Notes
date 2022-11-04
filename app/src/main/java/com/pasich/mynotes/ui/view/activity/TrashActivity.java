@@ -1,16 +1,12 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
-import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_FORMAT_VALUE;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
@@ -64,7 +60,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         getActivityComponent().inject(this);
         trashPresenter.attachView(this);
         trashPresenter.viewIsReady();
-        binding.setPresenter((TrashPresenter) trashPresenter);
+        binding.setPresenter(trashPresenter);
 
     }
 
@@ -140,9 +136,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     @Override
     public void settingsNotesList(Flowable<List<TrashNote>> noteList) {
         binding.ListTrash.addItemDecoration(itemDecorationNotes);
-        binding.ListTrash.setLayoutManager(new StaggeredGridLayoutManager(ARGUMENT_DEFAULT_FORMAT_VALUE, LinearLayoutManager.VERTICAL));
         binding.ListTrash.setAdapter(mNotesTrashAdapter);
-
         trashPresenter.getCompositeDisposable().add(noteList.subscribeOn(trashPresenter.getSchedulerProvider().io()).subscribe(trashNotes -> {
             mNotesTrashAdapter.sortListTrash(trashNotes);
             if (trashNotes.size() == 0) runOnUiThread(this::showEmptyTrash);
