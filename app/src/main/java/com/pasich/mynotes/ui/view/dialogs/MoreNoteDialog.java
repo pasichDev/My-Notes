@@ -167,7 +167,10 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             }
             binding.moveToTrash.setOnClickListener(v -> {
                 mPresenter.deleteNote(mNote);
-                dismiss();
+                if (!activityNote) dismiss();
+                else {
+                    activitySettings.closeActivityNotSaved();
+                }
             });
         }
 
