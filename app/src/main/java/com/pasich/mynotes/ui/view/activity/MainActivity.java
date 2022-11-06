@@ -236,12 +236,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
 
-        mainPresenter.getCompositeDisposable()
-                .add(
-                        tagList
-                                .subscribeOn(mainPresenter.getSchedulerProvider().io())
-                                .subscribe(tags -> tagsAdapter.submitList(tags)
-                                        , throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(tags -> tagsAdapter.submitList(tags), throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
         mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
             mNoteAdapter.sortList(notes, sortParam);
@@ -274,7 +269,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void newNotesButton() {
         Tag tagSelected = tagsAdapter.getTagSelected();
-        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("shareText", "").putExtra("tagNote", tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag()), ActivityOptions.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, "robot").toBundle());
+        String tagName = tagSelected == null ? "" : tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag();
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", tagName), ActivityOptions.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, "robot").toBundle());
     }
 
     @Override

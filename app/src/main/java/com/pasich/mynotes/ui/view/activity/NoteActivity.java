@@ -57,15 +57,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         getActivityComponent().inject(this);
 
         binding.setPresenter((NotePresenter) notePresenter);
-        this.idKey = getIntent().getIntExtra("idNote", 0);
-        this.tagNote = getIntent().getStringExtra("tagNote");
-        this.shareText = getIntent().getStringExtra("shareText");
-        this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
-
         notePresenter.attachView(this);
         notePresenter.viewIsReady();
 
-        //    hideSystemBars();
     }
 
     /**
@@ -80,6 +74,19 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         // Hide both the status bar and the navigation bar
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+    }
+
+
+    @Override
+    public void initParam() {
+        this.idKey = getIntent().getIntExtra("idNote", 0);
+
+        this.tagNote = getIntent().getStringExtra("tagNote");
+        if (tagNote == null) this.tagNote = "";
+        this.shareText = getIntent().getStringExtra("shareText");
+        if (shareText == null) this.shareText = "";
+        this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
+
     }
 
 
@@ -186,10 +193,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
         if (item.getItemId() == R.id.moreBut) {
 
-            new MoreNoteDialog(
-                    newNoteKey ?
-                            new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString()
-                                    , new Date().getTime()) : mNote, newNoteKey, true, 0).show(getSupportFragmentManager(), "MoreNote");
+            new MoreNoteDialog(newNoteKey ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : mNote, newNoteKey, true, 0).show(getSupportFragmentManager(), "MoreNote");
 
         }
 

@@ -11,6 +11,8 @@ public interface NoteContract {
 
     interface view extends BaseView, ActionBar, MoreNoteDialogView {
 
+        void initParam();
+
         void initTypeActivity();
 
         void closeNoteActivity();
