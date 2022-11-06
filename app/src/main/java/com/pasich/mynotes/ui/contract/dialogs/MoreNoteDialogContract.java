@@ -19,6 +19,7 @@ public interface MoreNoteDialogContract {
 
         void initInterfaces();
 
+        void callableCopyNote(Long newNoteId);
     }
 
     interface presenter extends BasePresenter<view> {
@@ -29,5 +30,7 @@ public interface MoreNoteDialogContract {
         void removeTagNote(int idNote);
 
         void editTagNote(String nameTag, int idNote);
+
+        void copyNote(Note note, boolean noteActivity);
     }
 }

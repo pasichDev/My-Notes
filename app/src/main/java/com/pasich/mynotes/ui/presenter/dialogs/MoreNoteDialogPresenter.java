@@ -56,4 +56,15 @@ public class MoreNoteDialogPresenter extends AppBasePresenter<MoreNoteDialogCont
     public void editTagNote(String nameTag, int idNote) {
         getCompositeDisposable().add(getDataManager().setTagNote(nameTag, idNote).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
+
+    @Override
+    public void copyNote(Note note, boolean noteActivity) {
+        getCompositeDisposable()
+                .add(
+                        getDataManager().copyNotes(note,
+                                        new Note().create(note.getTitle() + "(2)", note.getValue(), note.getDate()), noteActivity)
+                                .subscribeOn(getSchedulerProvider().io())
+                                .subscribe((aLong, throwable) -> getView().callableCopyNote(aLong))
+                );
+    }
 }

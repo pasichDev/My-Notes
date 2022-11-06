@@ -113,6 +113,11 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     }
 
     @Override
+    public void callableCopyNote(Long newNoteId) {
+
+    }
+
+    @Override
     public void initListeners() {
 
         if (activityNote) {
@@ -172,6 +177,11 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
                     activitySettings.closeActivityNotSaved();
                 }
             });
+
+            binding.copyNote.setOnClickListener(v -> {
+                mPresenter.copyNote(mNote, activityNote);
+                dismiss();
+            });
         }
 
     }
@@ -196,6 +206,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             binding.addShortCutLauncher.setOnClickListener(null);
         }
         binding.moveToTrash.setOnClickListener(null);
+        binding.copyNote.setOnClickListener(null);
         binding.share.setOnClickListener(null);
     }
 

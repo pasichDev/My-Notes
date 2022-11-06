@@ -6,13 +6,20 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
 
+import io.reactivex.Single;
+
 @Dao
 public abstract class Transactions {
+
+
+    @Update
+    public abstract void updateNote(Note note);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public abstract void moveToTrash(TrashNote note);
@@ -34,7 +41,7 @@ public abstract class Transactions {
     public abstract void copyNoteToTrashFunctionDeleteTag(String tag);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    public abstract void addNote(Note note);
+    public abstract Single<Long> addNote(Note note);
 
 
     @Delete
@@ -85,5 +92,18 @@ public abstract class Transactions {
         deleteTag(tag);
     }
 
+    /**
+     * Удаление метки и вместе с ней заметки
+     */
+    @Transaction
+    public void copyNotes(Note oNote, Note nNote, boolean noteActivity) {
+        if (noteActivity) updateNote(oNote);
+
+    }
+
+    public Single<Long> copyNotesCallBack(Note oNote, Note nNote, boolean noteActivity) {
+        copyNotes(oNote, nNote, noteActivity);
+        return addNote(nNote);
+    }
 
 }

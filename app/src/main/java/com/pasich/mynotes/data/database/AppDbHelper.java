@@ -96,6 +96,11 @@ public class AppDbHelper implements DbHelper {
         return Completable.fromAction(() -> appDatabase.transactionsNote().transferNoteOutTrash(tNote, mNote));
     }
 
+    @Override
+    public Single<Long> copyNotes(Note oNote, Note nNote, boolean noteActivity) {
+        return appDatabase.transactionsNote().copyNotesCallBack(oNote, nNote, noteActivity);
+    }
+
 
     /**
      * Notes

@@ -5,6 +5,7 @@ import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
 
 import io.reactivex.Completable;
+import io.reactivex.Single;
 
 public interface DbTransactionsHelper {
 
@@ -15,4 +16,6 @@ public interface DbTransactionsHelper {
     Completable deleteTagAndNotes(Tag tag);
 
     Completable transferNoteOutTrash(TrashNote tNote, Note mNote);
+
+    Single<Long> copyNotes(Note oNote, Note nNote, boolean noteActivity);
 }
