@@ -52,7 +52,7 @@ public class ShortCutUtils {
                             .putExtra("idNote", note.getId())
                             .putExtra("shareText", "")
                             .putExtra("tagNote", ""))
-                    .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher_notes_shortcut));
+                    .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher_note));
 
 
             ShortcutInfo pinShortcutInfo = pinShortcutBuilder.build();
