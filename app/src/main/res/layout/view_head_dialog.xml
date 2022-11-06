@@ -10,7 +10,7 @@
         style="@style/headDialogText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tool:text="NameTag"
+        tool:text="DialogTitle"
         android:gravity="center" />
 
 </FrameLayout>
