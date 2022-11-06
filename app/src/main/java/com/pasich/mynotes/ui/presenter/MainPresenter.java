@@ -96,7 +96,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
 
     @Override
     public void formatButton() {
-        getView().formatButton(getDataManager().getFormatCount());
+        getView().formatButton();
     }
 
     @Override

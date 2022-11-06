@@ -44,7 +44,7 @@ public interface MainContract {
 
         void sortButton();
 
-        void formatButton(int countSpan);
+        void formatButton();
 
         void startSearchDialog();
     }

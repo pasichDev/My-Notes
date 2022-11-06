@@ -158,10 +158,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
-    public void formatButton(int countSpan) {
+    public void formatButton() {
         if (!getAction()) {
             formatList.formatNote();
-            staggeredGridLayoutManager.setSpanCount(countSpan);
+            staggeredGridLayoutManager.setSpanCount(mainPresenter.getDataManager().getFormatCount());
         }
     }
 
