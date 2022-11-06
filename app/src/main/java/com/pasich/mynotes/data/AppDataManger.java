@@ -141,10 +141,6 @@ public class AppDataManger implements DataManager {
         return dbHelper.transferNoteOutTrash(tNote, mNote);
     }
 
-    @Override
-    public Single<Long> copyNotes(Note oNote, Note nNote, boolean noteActivity) {
-        return dbHelper.copyNotes(oNote, nNote, noteActivity);
-    }
 
 
     /**

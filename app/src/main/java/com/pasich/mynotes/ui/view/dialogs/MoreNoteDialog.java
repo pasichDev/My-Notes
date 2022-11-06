@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Build;
@@ -12,8 +13,8 @@ import androidx.annotation.NonNull;
 import com.google.android.material.chip.Chip;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
-import com.pasich.mynotes.base.view.ChoiceNoteView;
 import com.pasich.mynotes.base.view.MoreNoteDialogView;
+import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.DialogMoreNoteBinding;
@@ -51,7 +52,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
      * Interfaces
      */
     private MoreNoteDialogView activitySettings;
-    private ChoiceNoteView noteView;
+    private MoreNoteMainActivityView noteView;
 
     public MoreNoteDialog(Note note, boolean newNoteActivity, boolean activityNote, int position) {
         this.mNote = note;
@@ -107,14 +108,18 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             activitySettings = (MoreNoteDialogView) getContext();
             noteView = null;
         } else {
-            noteView = (ChoiceNoteView) getContext();
+            noteView = (MoreNoteMainActivityView) getContext();
             activitySettings = null;
         }
     }
 
     @Override
-    public void callableCopyNote(Long newNoteId) {
-
+    public void callableCopyNote(long newNoteId) {
+        if (activityNote) {
+            activitySettings.openCopyNote(Math.toIntExact(newNoteId));
+        } else {
+            noteView.openCopyNote(Math.toIntExact(newNoteId));
+        }
     }
 
     @Override
@@ -225,9 +230,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
                 }
 
 
-                newChip.setOnCheckedChangeListener(((buttonView, isChecked) -> {
-                    selectedTag(tag.getNameTag(), isChecked);
-                }));
+                newChip.setOnCheckedChangeListener(((buttonView, isChecked) -> selectedTag(tag.getNameTag(), isChecked)));
             }
         } else {
             binding.chipGroupSystem.setVisibility(View.GONE);

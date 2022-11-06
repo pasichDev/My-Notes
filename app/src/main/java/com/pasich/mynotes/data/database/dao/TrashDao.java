@@ -15,12 +15,8 @@ public interface TrashDao {
   @Query("SELECT * FROM trash")
   Flowable<List<TrashNote>> getTrash();
 
-
   @Delete
   void deleteNote(TrashNote note);
-
-  @Delete
-  void deleteNotes(List<TrashNote> note);
 
   @Query("DELETE FROM trash")
   void deleteAll();

@@ -12,7 +12,6 @@ import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
 
-import io.reactivex.Single;
 
 @Dao
 public abstract class Transactions {
@@ -41,7 +40,7 @@ public abstract class Transactions {
     public abstract void copyNoteToTrashFunctionDeleteTag(String tag);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    public abstract Single<Long> addNote(Note note);
+    public abstract long addNote(Note note);
 
 
     @Delete
@@ -101,9 +100,5 @@ public abstract class Transactions {
 
     }
 
-    public Single<Long> copyNotesCallBack(Note oNote, Note nNote, boolean noteActivity) {
-        copyNotes(oNote, nNote, noteActivity);
-        return addNote(nNote);
-    }
 
 }

@@ -3,8 +3,10 @@ package com.pasich.mynotes.base.view;
 
 import com.pasich.mynotes.data.database.model.Note;
 
-public interface ChoiceNoteView {
+public interface MoreNoteMainActivityView {
 
     void actionStartNote(Note note, int position);
+
+    void openCopyNote(int idNote);
 
 }

@@ -1,11 +1,13 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -288,6 +290,16 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         } else {
             binding.titleToolbarTag.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void openCopyNote(int idNote) {
+
+        Log.wtf(TAG, "openCopyNote: " + idNote);
+        notePresenter.getCompositeDisposable().dispose();
+        idKey = idNote;
+        notePresenter.loadingData(idNote);
+        Log.wtf(TAG, "openCopyNote: " + mNote.id);
     }
 
 

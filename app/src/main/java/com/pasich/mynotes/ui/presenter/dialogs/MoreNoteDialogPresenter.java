@@ -1,12 +1,18 @@
 package com.pasich.mynotes.ui.presenter.dialogs;
 
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.ui.contract.dialogs.MoreNoteDialogContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
+
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -59,12 +65,22 @@ public class MoreNoteDialogPresenter extends AppBasePresenter<MoreNoteDialogCont
 
     @Override
     public void copyNote(Note note, boolean noteActivity) {
+
+        if (noteActivity) {
+            getCompositeDisposable()
+                    .add(getDataManager()
+                            .updateNote(note)
+                            .subscribeOn(getSchedulerProvider().io())
+                            .subscribe());
+        }
         getCompositeDisposable()
-                .add(
-                        getDataManager().copyNotes(note,
-                                        new Note().create(note.getTitle() + "(2)", note.getValue(), note.getDate()), noteActivity)
-                                .subscribeOn(getSchedulerProvider().io())
-                                .subscribe((aLong, throwable) -> getView().callableCopyNote(aLong))
-                );
+                .add(getDataManager()
+                        .addNote(new Note().create(note.getTitle() + " (2)",
+                                note.getValue() + " ",
+                                new Date().getTime()))
+                        .subscribeOn(getSchedulerProvider().io())
+                        .subscribe((aLong) -> getView().callableCopyNote(aLong),
+                                (throwable -> Log.wtf(TAG, "copyNote: " + throwable))));
+
     }
 }

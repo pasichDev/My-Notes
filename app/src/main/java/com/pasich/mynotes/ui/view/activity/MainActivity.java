@@ -256,6 +256,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
+    public void openCopyNote(int idNote) {
+        openNoteEdit(idNote);
+    }
+
+    @Override
     public void openNoteEdit(int idNote) {
         startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
