@@ -214,12 +214,20 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     private void createChipsTag(List<Tag> tags) {
         if (tags.size() != 0) {
             for (Tag tag : tags) {
-                if (!mNote.getTag().equals(tag.getNameTag())) {
-                    Chip newChip = (Chip) getLayoutInflater().inflate(R.layout.layout_chip_entry, binding.chipGroupSystem, false);
-                    newChip.setText(getString(R.string.tagHastag, tag.getNameTag()));
+
+                Chip newChip = (Chip) getLayoutInflater().inflate(R.layout.layout_chip_entry, binding.chipGroupSystem, false);
+                newChip.setText(getString(R.string.tagHastag, tag.getNameTag()));
+                if (mNote.getTag().equals(tag.getNameTag())) {
+                    newChip.setChecked(true);
+                    binding.chipGroupSystem.addView(newChip, 0);
+                } else {
                     binding.chipGroupSystem.addView(newChip);
-                    newChip.setOnClickListener(view -> selectedTag(tag.getNameTag()));
                 }
+
+
+                newChip.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+                    selectedTag(tag.getNameTag(), isChecked);
+                }));
             }
         } else {
             binding.chipGroupSystem.setVisibility(View.GONE);
@@ -228,12 +236,15 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     }
 
 
-    private void selectedTag(String nameChip) {
-        if (!nameChip.equals(mNote.getTag())) {
+    private void selectedTag(String nameChip, boolean checked) {
+        if (checked) {
 
             mPresenter.editTagNote(nameChip, mNote.getId());
             if (activityNote) activitySettings.changeTag(nameChip);
-            dismiss();
+        } else {
+
+            mPresenter.removeTagNote(mNote.getId());
+            if (activityNote) activitySettings.changeTag("");
         }
     }
 
