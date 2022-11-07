@@ -6,11 +6,9 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -112,22 +110,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
 
+                //      View itemView = viewHolder.itemView;
+                //   float height = itemView.getY();
                 if (direction == ItemTouchHelper.LEFT) {
                     selectItemAction(mNoteAdapter.getCurrentList().get(position), position);
-                    //  final Model deletedModel = imageModelArrayList.get(position);
-                    final int deletedPosition = position;
-                    //     adapter.removeItem(position);
-                    // showing snack bar with Undo option
-                    //   Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), " removed from Recyclerview!", Snackbar.LENGTH_LONG);
-                    //      snackbar.setAction("UNDO", new View.OnClickListener() {
-                    //          @Override
-                    //          public void onClick(View view) {
-                    // undo is selected, restore the deleted item
-                    //      adapter.restoreItem(deletedModel, deletedPosition);
-                    //          }
-                    //      });
-                    //       snackbar.setActionTextColor(Color.YELLOW);
-                    //       snackbar.show();
+                    //   mNoteAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+
                 } else {
                     //  final Model deletedModel = imageModelArrayList.get(position);
                     //    final int deletedPosition = position;
@@ -158,18 +146,20 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                     float width = height / 3;
 
                     if (dX > 0) {
-                        p.setColor(Color.parseColor("#388E3C"));
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
-                        c.drawRect(background, p);
-                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_note);
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
+                        //  p.setColor(Color.parseColor("#388E3C"));
+                        //    RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
+                        //     c.drawRect(background, p);
+                        //     icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_note);
+                        //     RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
                         //  c.drawBitmap(icon,null,icon_dest,p);
                     } else {
-                        p.setColor(Color.parseColor("#D32F2F"));
-                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
-                        c.drawRect(background, p);
-                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_note);
-                        RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
+
+                        //       Log.wtf(TAG, "draw: " + itemView.getY());
+                        //     p.setColor(Color.parseColor("#D32F2F"));
+                        //       RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                        //       c.drawRect(background, p);
+                        //       icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_note);
+                        //       RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
                         //    c.drawBitmap(icon,null,icon_dest,p);
                     }
                 }
@@ -410,7 +400,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         }
 
         actionUtils.manageActionPanel(noteActionTool.getCountCheckedItem());
-        mNoteAdapter.notifyItemChanged(position, 22);
+        mNoteAdapter.notifyItemChanged(position);
     }
 
     @Override
