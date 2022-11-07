@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pasich.mynotes.R;
 
 
-abstract public class SwipeToDeleteCallback extends ItemTouchHelper.Callback {
+abstract public class SwipeToListNotesCallback extends ItemTouchHelper.Callback {
 
     Context mContext;
     private Paint mClearPaint;
@@ -29,7 +29,7 @@ abstract public class SwipeToDeleteCallback extends ItemTouchHelper.Callback {
     private int intrinsicHeight;
 
 
-    protected SwipeToDeleteCallback(Context context) {
+    protected SwipeToListNotesCallback(Context context) {
         mContext = context;
         mBackground = new ColorDrawable();
         backgroundColor = Color.parseColor("#b80f0a");

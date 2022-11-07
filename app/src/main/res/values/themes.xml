@@ -57,7 +57,7 @@
 
 
     <style name="snackbar_button" parent="Widget.Material3.Button.TextButton.Snackbar">
-        <item name="android:textColor">?attr/colorPrimaryBackground</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
 

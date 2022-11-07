@@ -95,8 +95,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -225,6 +223,23 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+
+                float sWidthRecycler = recyclerView.getWidth() / 2F;
+                if (dX > 0) {
+                    if (dX > sWidthRecycler) {
+                        viewHolder.itemView.setAlpha(0.5F);
+                    } else {
+                        viewHolder.itemView.setAlpha(1);
+                    }
+                } else {
+                    if (dX > -sWidthRecycler) {
+                        viewHolder.itemView.setAlpha(1);
+                    } else {
+                        viewHolder.itemView.setAlpha(0.5F);
+                    }
+                }
+
 
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
