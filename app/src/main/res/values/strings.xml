@@ -169,5 +169,7 @@
 
     <string name="tagHastag" translatable="false">#%1$s</string>
     <string name="copyNoteEdits" translatable="false">Редактировать копию</string>
+    <string name="noteMoveTrashSnackbar" translatable="false">Заметку перемещено в корзину</string>
+    <string name="noteRestoreSnackbar" translatable="false">Восстановить</string>
 
 </resources>

@@ -84,6 +84,14 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     }
 
     @Override
+    public void deleteNote(Note note) {
+        getCompositeDisposable().add(
+                getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note)
+                        .subscribeOn(getSchedulerProvider().io())
+                        .subscribe());
+    }
+
+    @Override
     @Deprecated
     public void addNote(Note note) {
         getCompositeDisposable().add(getDataManager().addNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());

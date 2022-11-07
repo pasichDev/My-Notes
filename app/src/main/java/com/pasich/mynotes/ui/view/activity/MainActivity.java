@@ -5,10 +5,7 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -83,6 +80,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Inject
     public SpacesItemDecoration itemDecorationNotes;
 
+    private Note backupDeleteNote;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,7 +94,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         enableSwipe();
     }
 
-    Paint p = new Paint();
 
     private void enableSwipe() {
 
@@ -110,27 +108,20 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
 
-                //      View itemView = viewHolder.itemView;
-                //   float height = itemView.getY();
                 if (direction == ItemTouchHelper.LEFT) {
                     selectItemAction(mNoteAdapter.getCurrentList().get(position), position);
-                    //   mNoteAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
 
                 } else {
-                    //  final Model deletedModel = imageModelArrayList.get(position);
-                    //    final int deletedPosition = position;
-                    //    adapter.removeItem(position);
-                    // showing snack bar with Undo option
-                    Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), " removed from Recyclerview!", Snackbar.LENGTH_LONG);
-                    snackbar.setAction("UNDO", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
 
-                            // undo is selected, restore the deleted item
-                            //     adapter.restoreItem(deletedModel, deletedPosition);
-                        }
+                    Note sNote = mNoteAdapter.getCurrentList().get(position);
+                    backupDeleteNote = sNote;
+                    mainPresenter.deleteNote(sNote);
+                    Snackbar snackbar = Snackbar.make(
+                            mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
+                    snackbar.setAction(getString(R.string.restore), view -> {
+                        mainPresenter.addNote(backupDeleteNote);
                     });
-                    snackbar.setActionTextColor(Color.YELLOW);
+
                     snackbar.show();
                 }
             }
@@ -138,37 +129,14 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
-                Bitmap icon;
-                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-
-                    View itemView = viewHolder.itemView;
-                    float height = (float) itemView.getBottom() - (float) itemView.getTop();
-                    float width = height / 3;
-
-                    if (dX > 0) {
-                        //  p.setColor(Color.parseColor("#388E3C"));
-                        //    RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
-                        //     c.drawRect(background, p);
-                        //     icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_note);
-                        //     RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
-                        //  c.drawBitmap(icon,null,icon_dest,p);
-                    } else {
-
-                        //       Log.wtf(TAG, "draw: " + itemView.getY());
-                        //     p.setColor(Color.parseColor("#D32F2F"));
-                        //       RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
-                        //       c.drawRect(background, p);
-                        //       icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_note);
-                        //       RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
-                        //    c.drawBitmap(icon,null,icon_dest,p);
-                    }
-                }
+                // добавить по мере свайпа прозрачность
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(mActivityBinding.listNotes);
     }
+
 
     @Override
     protected void onStart() {
@@ -419,6 +387,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     private void variablesNull() {
         mNoteAdapter = null;
         tagsAdapter = null;
+        backupDeleteNote = null;
     }
 
     @Override

@@ -64,7 +64,6 @@ public interface MainContract {
 
         void deleteNotesArray(ArrayList<Note> notes);
 
-        @Deprecated
         void addNote(Note note);
 
         void sortButton();
@@ -72,5 +71,7 @@ public interface MainContract {
         void formatButton();
 
         void startSearchDialog();
+
+        void deleteNote(Note note);
     }
 }

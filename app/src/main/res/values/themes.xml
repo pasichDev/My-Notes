@@ -40,6 +40,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
+        <!-- Style to use for action button within a Snackbar in this theme. -->
+        <item name="snackbarButtonStyle">@style/snackbar_button</item>
 
     </style>
 
@@ -51,6 +53,11 @@
         <item name="colorLight">@color/darkLight</item>
         <item name="android:statusBarColor">?attr/colorPrimaryBackground</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+
+    <style name="snackbar_button" parent="Widget.Material3.Button.TextButton.Snackbar">
+        <item name="android:textColor">?attr/colorPrimaryBackground</item>
     </style>
 
 
