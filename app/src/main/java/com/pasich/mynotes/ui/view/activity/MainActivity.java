@@ -5,7 +5,6 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +42,7 @@ import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
+import com.pasich.mynotes.utils.recycler.SwipeToListNotesCallback;
 
 import java.util.List;
 
@@ -196,15 +196,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mActivityBinding.listNotes.setLayoutManager(staggeredGridLayoutManager);
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new SwipeToListNotesCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT) {
@@ -220,30 +214,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                     snackbar.show();
                 }
             }
-
-            @Override
-            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-
-                float sWidthRecycler = recyclerView.getWidth() / 2F;
-                if (dX > 0) {
-                    if (dX > sWidthRecycler) {
-                        viewHolder.itemView.setAlpha(0.5F);
-                    } else {
-                        viewHolder.itemView.setAlpha(1);
-                    }
-                } else {
-                    if (dX > -sWidthRecycler) {
-                        viewHolder.itemView.setAlpha(1);
-                    } else {
-                        viewHolder.itemView.setAlpha(0.5F);
-                    }
-                }
-
-
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            }
         };
+
 
         new ItemTouchHelper(simpleItemTouchCallback).attachToRecyclerView(mActivityBinding.listNotes);
 
