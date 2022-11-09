@@ -22,21 +22,8 @@ abstract public class SwipeToListNotesCallback extends ItemTouchHelper.SimpleCal
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
-
-        float sWidthRecycler = recyclerView.getWidth() / 2F;
-        if (dX > 0) {
-            if (dX > sWidthRecycler) {
-                viewHolder.itemView.setAlpha(0.5F);
-            } else {
-                viewHolder.itemView.setAlpha(1);
-            }
-        } else {
-            if (dX > -sWidthRecycler) {
-                viewHolder.itemView.setAlpha(1);
-            } else {
-                viewHolder.itemView.setAlpha(0.5F);
-            }
-        }
+        final float alpha = 1.0f - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
+        viewHolder.itemView.setAlpha(alpha);
 
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
