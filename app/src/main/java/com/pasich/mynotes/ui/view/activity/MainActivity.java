@@ -198,6 +198,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new SwipeToListNotesCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
+            public boolean isItemViewSwipeEnabled() {
+                return !getAction() && mainPresenter.getDataManager().getFormatCount() == 1;
+            }
+
+            @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
 
@@ -348,7 +353,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         }
 
         actionUtils.manageActionPanel(noteActionTool.getCountCheckedItem());
-        mNoteAdapter.notifyItemChanged(position);
+        mNoteAdapter.notifyItemChanged(position, 22);
     }
 
     @Override
