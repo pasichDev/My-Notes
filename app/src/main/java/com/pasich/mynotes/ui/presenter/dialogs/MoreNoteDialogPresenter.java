@@ -77,7 +77,7 @@ public class MoreNoteDialogPresenter extends AppBasePresenter<MoreNoteDialogCont
                 .add(getDataManager()
                         .addNote(new Note().create(note.getTitle() + " (2)",
                                 note.getValue() + " ",
-                                new Date().getTime()))
+                                new Date().getTime(), note.getTag()))
                         .subscribeOn(getSchedulerProvider().io())
                         .subscribe((aLong) -> getView().callableCopyNote(aLong),
                                 (throwable -> Log.wtf(TAG, "copyNote: " + throwable))));
