@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.databinding.FragmentFinishBinding;
+import com.pasich.mynotes.ui.helloUI.tool.SavesNotes;
+import com.preference.PowerPreference;
+import com.preference.Preference;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -37,6 +40,9 @@ public class FinishFragment extends Fragment {
 
     private final int BUFFER = 80000;
     private String nameBackup;
+    private Handler mHandler;
+    private FragmentFinishBinding binding;
+    private SavesNotes savesNotes;
     ActivityResultLauncher<Intent> startIntentExport = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             Intent data = result.getData();
@@ -46,12 +52,11 @@ public class FinishFragment extends Fragment {
             }
         }
     });
-    private Handler mHandler;
-    private FragmentFinishBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        savesNotes = (SavesNotes) getContext();
         mHandler = new Handler(Looper.getMainLooper());
         nameBackup = "MyNotes_Backup_" + new SimpleDateFormat("d_M", Locale.getDefault()).format(new Date().getTime()) + ".zip";
         initBackup();
@@ -129,8 +134,26 @@ public class FinishFragment extends Fragment {
         binding.blockFinish.setVisibility(View.GONE);
         binding.textProgress.setVisibility(View.GONE);
 
-        // Здесь нужно прогнать перенос заметок в категории
-        // а также нужно поправить переференси
+        Runnable r = () -> {
+            removesPreferences();
+            saveNotes();
+
+        };
+        mHandler.postDelayed(r, 3000);
+
+    }
+
+
+    private void removesPreferences() {
+        Preference preference = PowerPreference.getDefaultFile();
+        preference.remove("spechLaunguage");
+        preference.remove("setSpechOutputText");
+        preference.remove("autoSave");
+        preference.remove("swipeToExit");
+
+    }
+
+    private void saveNotes() {
 
     }
 
