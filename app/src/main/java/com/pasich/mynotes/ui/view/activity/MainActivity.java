@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             @Override
             public void onClick(int position, Note model) {
                 if (!getAction()) mainPresenter.clickNote(model.id);
-                else selectItemAction(model, position);
+                else selectItemAction(model, position, true);
 
             }
 
@@ -207,7 +207,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                 int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT) {
-                    selectItemAction(mNoteAdapter.getCurrentList().get(position), position);
+                    selectItemAction(mNoteAdapter.getCurrentList().get(position), position, false);
 
 
                 } else {
@@ -248,7 +248,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void actionStartNote(Note note, int position) {
-        selectItemAction(note, position);
+        selectItemAction(note, position, true);
     }
 
     @Override
@@ -344,7 +344,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
     @Override
-    public void selectItemAction(Note note, int position) {
+    public void selectItemAction(Note note, int position, boolean payloads) {
         if (note.getChecked()) {
             note.setChecked(false);
             if (!noteActionTool.isCheckedItemFalse(note)) actionUtils.closeActionPanel();
@@ -354,7 +354,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         }
 
         actionUtils.manageActionPanel(noteActionTool.getCountCheckedItem());
-        mNoteAdapter.notifyItemChanged(position, 22);
+        if (payloads) mNoteAdapter.notifyItemChanged(position, 22);
+        else mNoteAdapter.notifyItemChanged(position);
     }
 
     @Override

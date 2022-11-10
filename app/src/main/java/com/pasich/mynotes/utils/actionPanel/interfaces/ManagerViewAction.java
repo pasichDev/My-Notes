@@ -8,5 +8,5 @@ public interface ManagerViewAction<T> extends MangerActionTool {
 
     void toolCleanChecked();
 
-    void selectItemAction(T note, int position);
+    void selectItemAction(T note, int position, boolean payloads);
 }

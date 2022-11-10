@@ -79,7 +79,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         mNotesTrashAdapter.setOnItemClickListener(new OnItemClickListener<TrashNote>() {
             @Override
             public void onClick(int position, TrashNote model) {
-                selectItemAction(model, position);
+                selectItemAction(model, position, true);
             }
 
             @Override
@@ -193,7 +193,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     }
 
     @Override
-    public void selectItemAction(TrashNote note, int position) {
+    public void selectItemAction(TrashNote note, int position, boolean payloads) {
         if (note.getChecked()) {
             note.setChecked(false);
             if (!trashNoteActionTool.isCheckedItemFalse(note)) actionUtils.closeActionPanel();
