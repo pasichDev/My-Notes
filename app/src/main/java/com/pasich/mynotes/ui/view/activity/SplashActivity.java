@@ -3,7 +3,6 @@ package com.pasich.mynotes.ui.view.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -13,6 +12,8 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.helloUI.HelloActivity;
 import com.pasich.mynotes.utils.base.simplifications.AnimationListener;
 import com.preference.PowerPreference;
+
+import java.util.Objects;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
@@ -42,14 +43,9 @@ public class SplashActivity extends AppCompatActivity {
 
     private void startNextActivity() {
         boolean getFirstStart = PowerPreference.getDefaultFile().getBoolean("firstrun", false);
-        if (getFirstStart) {
-
-            Log.wtf("pasic", "start spl: ");
+        if (!getFirstStart && getCountFiles() >= 1) {
             startActivity(new Intent(SplashActivity.this, HelloActivity.class));
-            PowerPreference.getDefaultFile().setBoolean("firstrun", true);
         } else {
-
-            Log.wtf("pasic", "start main: ");
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
         }
 
@@ -57,5 +53,8 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
+    public int getCountFiles() {
+        return Objects.requireNonNull(getFilesDir().listFiles()).length;
+    }
 
 }

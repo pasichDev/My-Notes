@@ -55,15 +55,7 @@ public class Debug_CreatesTestNotes {
     }
 
     public int getCountFiles() {
-        File[] files = HOME_DIRECTORY.listFiles();
-        int count = 0;
-
-        assert files != null;
-        for (File ignored : files) {
-            count = count + 1;
-
-        }
-        return count;
+        return Objects.requireNonNull(mContext.getFilesDir().listFiles()).length;
     }
 
 

@@ -1,6 +1,8 @@
 package com.pasich.mynotes.ui.helloUI.fragments;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,12 +41,11 @@ import java.util.zip.ZipOutputStream;
 
 public class FinishFragment extends Fragment {
 
-    private boolean finishHello = false;
     private final int BUFFER = 80000;
+    private boolean finishHello = false;
     private String nameBackup;
     private Handler mHandler;
     private FragmentFinishBinding binding;
-    private SavesNotes savesNotes;
     ActivityResultLauncher<Intent> startIntentExport = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             Intent data = result.getData();
@@ -54,11 +55,12 @@ public class FinishFragment extends Fragment {
             }
         }
     });
+    private SavesNotes savesNotes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // savesNotes = (SavesNotes) getContext();
+        savesNotes = (SavesNotes) getParentFragment();
         mHandler = new Handler(Looper.getMainLooper());
         nameBackup = "MyNotes_Backup_" + new SimpleDateFormat("d_M", Locale.getDefault()).format(new Date().getTime()) + ".zip";
         initBackup();
@@ -79,7 +81,7 @@ public class FinishFragment extends Fragment {
         binding.backupSave.setOnClickListener(null);
         binding.Finish.setOnClickListener(null);
         deleteOldBackup();
-        if (!finishHello) PowerPreference.getDefaultFile().setBoolean("firstrun", false);
+        if (finishHello) PowerPreference.getDefaultFile().setBoolean("firstrun", true);
 
     }
 
@@ -91,6 +93,7 @@ public class FinishFragment extends Fragment {
             FileOutputStream outputStream = new FileOutputStream(descriptor.getFileDescriptor());
             copyFile(new File(requireContext().getFilesDir() + "/" + nameBackup), outputStream);
             descriptor.close();
+
             binding.backupSave.setVisibility(View.GONE);
             binding.Finish.setEnabled(true);
         } catch (IOException e) {
@@ -101,8 +104,9 @@ public class FinishFragment extends Fragment {
 
 
     private void deleteOldBackup() {
-        if (new File(requireContext().getFilesDir() + "/" + nameBackup).exists()) {
-            new File((requireContext().getFilesDir() + "/" + nameBackup)).delete();
+        final File deleteBackup = new File((requireContext().getFilesDir() + "/" + nameBackup));
+        if (deleteBackup.exists()) {
+            deleteBackup.delete();
         }
     }
 
@@ -110,9 +114,22 @@ public class FinishFragment extends Fragment {
     private void initBackup() {
         mHandler.postDelayed(() -> {
             createBackup();
-            binding.progressLayout.setVisibility(View.GONE);
 
-            binding.blockFinish.setVisibility(View.VISIBLE);
+            binding.progressLayout.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    binding.progressLayout.setVisibility(View.GONE);
+                }
+            });
+
+            binding.blockFinish.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    binding.blockFinish.setVisibility(View.VISIBLE);
+                }
+            });
         }, 3000);
     }
 
