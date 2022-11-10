@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.ui.helloUI.HelloActivity;
+import com.pasich.mynotes.utils.Debug_CreatesTestNotes;
 import com.pasich.mynotes.utils.base.simplifications.AnimationListener;
 
 @SuppressLint("CustomSplashScreen")
@@ -42,6 +43,8 @@ public class SplashActivity extends AppCompatActivity {
 
   private void startNextActivity() {
       //   startActivity(new Intent(SplashActivity.this, MainActivity.class));
+
+      new Debug_CreatesTestNotes(this).initTestNotes();
       startActivity(new Intent(SplashActivity.this, HelloActivity.class));
       finish();
   }

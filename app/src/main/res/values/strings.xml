@@ -141,7 +141,7 @@
     <string name="v2_0_10" translatable="false">v2.0.10</string>
     <string name="Hello_text_info" translatable="false">Мы отнимем у вас несколько минут, чтобы настроить приложение, а также расскажем что сделали нового для вас.</string>
 
-    <string name="skip" translatable="false">Пропрустить</string>
+    <string name="skip" translatable="false">Пропустить</string>
     <string name="Finish_text_Title" translatable="false">Завершение настройки</string>
     <string name="Finish_text_button_save_backup" translatable="false">Сохранить рез. копию</string>
     <string name="finish" translatable="false">Завершить</string>
