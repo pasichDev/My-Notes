@@ -25,7 +25,6 @@ public class HelloActivity extends AppCompatActivity implements HelloTool {
         setContentView(binding.getRoot());
         debug_createsTestNotes = new Debug_CreatesTestNotes(this);
 
-        debug_createsTestNotes.initTestNotes();
 
     }
 
@@ -39,18 +38,17 @@ public class HelloActivity extends AppCompatActivity implements HelloTool {
      */
     @Override
     public void nextFragment(int step) {
-        int mStep = step + 1;
         if (step == 1) {
-            openFragment(new FeaturesFragment(), step);
+            openFragment(new FeaturesFragment());
         } else if (step == 2) {
-            openFragment(new FinishFragment(), step);
+            openFragment(new FinishFragment());
         }
 
 
     }
 
 
-    private void openFragment(Fragment nextFragment, int step) {
+    private void openFragment(Fragment nextFragment) {
         getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.fragment_container_view, nextFragment, null).commit();
 
     }
@@ -58,7 +56,6 @@ public class HelloActivity extends AppCompatActivity implements HelloTool {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        debug_createsTestNotes.clear();
     }
 
 }

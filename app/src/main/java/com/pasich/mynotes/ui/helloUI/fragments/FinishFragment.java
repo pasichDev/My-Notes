@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.databinding.FragmentFinishBinding;
 import com.pasich.mynotes.ui.helloUI.tool.SavesNotes;
+import com.pasich.mynotes.ui.view.activity.MainActivity;
 import com.preference.PowerPreference;
 import com.preference.Preference;
 
@@ -38,6 +39,7 @@ import java.util.zip.ZipOutputStream;
 
 public class FinishFragment extends Fragment {
 
+    private boolean finishHello = false;
     private final int BUFFER = 80000;
     private String nameBackup;
     private Handler mHandler;
@@ -56,7 +58,7 @@ public class FinishFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        savesNotes = (SavesNotes) getContext();
+        // savesNotes = (SavesNotes) getContext();
         mHandler = new Handler(Looper.getMainLooper());
         nameBackup = "MyNotes_Backup_" + new SimpleDateFormat("d_M", Locale.getDefault()).format(new Date().getTime()) + ".zip";
         initBackup();
@@ -77,6 +79,7 @@ public class FinishFragment extends Fragment {
         binding.backupSave.setOnClickListener(null);
         binding.Finish.setOnClickListener(null);
         deleteOldBackup();
+        if (!finishHello) PowerPreference.getDefaultFile().setBoolean("firstrun", false);
 
     }
 
@@ -99,20 +102,18 @@ public class FinishFragment extends Fragment {
 
     private void deleteOldBackup() {
         if (new File(requireContext().getFilesDir() + "/" + nameBackup).exists()) {
-            File oldBAckup = new File((requireContext().getFilesDir() + "/" + nameBackup));
-            oldBAckup.delete();
+            new File((requireContext().getFilesDir() + "/" + nameBackup)).delete();
         }
     }
 
 
     private void initBackup() {
-        Runnable r = () -> {
+        mHandler.postDelayed(() -> {
             createBackup();
             binding.progressLayout.setVisibility(View.GONE);
 
             binding.blockFinish.setVisibility(View.VISIBLE);
-        };
-        mHandler.postDelayed(r, 3000);
+        }, 3000);
     }
 
 
@@ -134,12 +135,11 @@ public class FinishFragment extends Fragment {
         binding.blockFinish.setVisibility(View.GONE);
         binding.textProgress.setVisibility(View.GONE);
 
-        Runnable r = () -> {
+        mHandler.postDelayed(() -> {
             removesPreferences();
             saveNotes();
 
-        };
-        mHandler.postDelayed(r, 3000);
+        }, 3000);
 
     }
 
@@ -155,8 +155,19 @@ public class FinishFragment extends Fragment {
 
     private void saveNotes() {
 
+        mHandler.post(() -> {
+
+            closeHelloTool();
+
+        });
+
     }
 
+    private void closeHelloTool() {
+        finishHello = true;
+        requireActivity().finish();
+        startActivity(new Intent(getActivity(), MainActivity.class));
+    }
 
     public void copyFile(@NonNull File source, @NonNull FileOutputStream outputStream) throws IOException {
         try (InputStream inputStream = new FileInputStream(source)) {
