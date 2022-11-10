@@ -17,32 +17,34 @@
             android:layout_marginHorizontal="32dp"
             android:src="@drawable/finish_image_fragment" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Finish_text_Title"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:fontFamily="@font/railway_medium"
+            android:gravity="center"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/helloColorInfo"
+            android:text="@string/Finish_text_Info"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:layout_gravity="center" />
+
+
         <LinearLayout
             android:id="@+id/blockFinish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Finish_text_Title"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:fontFamily="@font/railway_medium"
-                android:gravity="center"
-                android:layout_gravity="center" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/helloColorInfo"
-                android:text="@string/Finish_text_Info"
-                android:gravity="center"
-                android:layout_margin="20dp"
-                android:layout_gravity="center" />
 
             <Button
                 android:id="@+id/backupSave"
@@ -64,6 +66,30 @@
                 android:padding="15dp"
                 android:text="@string/finish" />
         </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/progressLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp" />
+
+            <TextView
+                android:id="@+id/textProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:text="@string/loadingProgress" />
+        </LinearLayout>
+
     </LinearLayout>
 
 
