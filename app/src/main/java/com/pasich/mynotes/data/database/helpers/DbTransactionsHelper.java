@@ -16,4 +16,6 @@ public interface DbTransactionsHelper {
 
     Completable transferNoteOutTrash(TrashNote tNote, Note mNote);
 
+    Completable restoreNote(Note mNote);
+
 }

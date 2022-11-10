@@ -141,6 +141,10 @@ public class AppDataManger implements DataManager {
         return dbHelper.transferNoteOutTrash(tNote, mNote);
     }
 
+    @Override
+    public Completable restoreNote(Note mNote) {
+        return dbHelper.restoreNote(mNote);
+    }
 
 
     /**

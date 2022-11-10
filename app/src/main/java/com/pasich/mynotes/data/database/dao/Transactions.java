@@ -42,6 +42,8 @@ public abstract class Transactions {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public abstract long addNote(Note note);
 
+    @Query("DELETE FROM trash WHERE value=:text ")
+    public abstract void deleteNoteForText(String text);
 
     @Delete
     public abstract void deleteTrashNotes(TrashNote note);
@@ -100,5 +102,13 @@ public abstract class Transactions {
 
     }
 
+    /**
+     * Восстановление заметки и удаление из корзины через текст
+     */
+    @Transaction
+    public void restoreNote(Note nNote) {
+        addNote(nNote);
+        deleteNoteForText(nNote.getValue());
 
+    }
 }

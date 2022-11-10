@@ -73,5 +73,7 @@ public interface MainContract {
         void startSearchDialog();
 
         void deleteNote(Note note);
+
+        void restoreNote(Note nNote);
     }
 }

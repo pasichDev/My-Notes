@@ -209,13 +209,14 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                 if (direction == ItemTouchHelper.LEFT) {
                     selectItemAction(mNoteAdapter.getCurrentList().get(position), position);
 
+
                 } else {
 
                     Note sNote = mNoteAdapter.getCurrentList().get(position);
                     backupDeleteNote = sNote;
                     mainPresenter.deleteNote(sNote);
                     Snackbar snackbar = Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
-                    snackbar.setAction(getString(R.string.restore), view -> mainPresenter.addNote(backupDeleteNote));
+                    snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote));
                     snackbar.show();
                 }
             }

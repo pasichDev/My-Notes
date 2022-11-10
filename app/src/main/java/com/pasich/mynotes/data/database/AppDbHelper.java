@@ -96,6 +96,10 @@ public class AppDbHelper implements DbHelper {
         return Completable.fromAction(() -> appDatabase.transactionsNote().transferNoteOutTrash(tNote, mNote));
     }
 
+    @Override
+    public Completable restoreNote(Note mNote) {
+        return Completable.fromAction(() -> appDatabase.transactionsNote().restoreNote(mNote));
+    }
 
 
     /**
