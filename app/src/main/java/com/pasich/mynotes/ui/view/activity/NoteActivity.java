@@ -14,9 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
@@ -62,21 +59,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.viewIsReady();
 
     }
-
-    /**
-     * Метод для поддержки віреза экрана нужно использовать вместе с параметром в theme.xml
-     */
-    private void hideSystemBars() {
-        WindowInsetsControllerCompat windowInsetsController = ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController == null) {
-            return;
-        }
-        // Configure the behavior of the hidden system bars
-        windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-        // Hide both the status bar and the navigation bar
-        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
-    }
-
 
     @Override
     public void initParam() {
@@ -294,8 +276,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void openCopyNote(int idNote) {
         finish();
-        startActivity(new Intent(NoteActivity.this, NoteActivity.class)
-                .putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
+        startActivity(new Intent(NoteActivity.this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
 
 

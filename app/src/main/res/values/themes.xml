@@ -2,15 +2,6 @@
 
     <style name="ThemeBlue" parent="Theme.Material3.Light.NoActionBar">
 
-        <!--
-        Вот параметр для віреза экрана
-
-        <item name="android:windowLayoutInDisplayCutoutMode">
-            shortEdges
-        </item>
- default, shortEdges, or never -->
-
-
         <!-- Цвет линков для едит текст -->
         <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
 
