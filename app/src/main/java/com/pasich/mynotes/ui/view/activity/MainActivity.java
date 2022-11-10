@@ -366,7 +366,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
-//        mNoteAdapter.showTagNotes(tagsAdapter.getTagSelected().getNameTag());
 
     }
 
