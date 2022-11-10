@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.helloUI.fragments.FinishFragment">
 
-    <ImageButton
-        android:id="@+id/backFragmentFeatures"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="?android:attr/actionButtonStyle"
-        android:src="@drawable/ic_back_hello"
-        android:padding="10dp"
-        android:layout_margin="10dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

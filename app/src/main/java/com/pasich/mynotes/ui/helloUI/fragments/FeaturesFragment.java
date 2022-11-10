@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -25,6 +26,7 @@ public class FeaturesFragment extends Fragment {
     private ViewPager2 listFeatures;
     private final ArrayList<Features> listFeaturesArray = new ArrayList<>();
     private CircleIndicator3 indicator;
+    private Button skipButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,10 +49,9 @@ public class FeaturesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_features, container, false);
-        //  view.findViewById(R.id.backFragment).setOnClickListener(v -> helloTool.backFragment(2));
-        // view.findViewById(R.id.backupFragmentNext).setOnClickListener(v -> helloTool.nextFragment(2));
         listFeatures = view.findViewById(R.id.featuresViewPage);
         indicator = view.findViewById(R.id.indicatorViewPager);
+        skipButton = view.findViewById(R.id.nextButton);
         initFeaturesList();
         return view;
 
@@ -62,6 +63,7 @@ public class FeaturesFragment extends Fragment {
         listFeatures.setPageTransformer(new ZoomOutPageTransformer());
         indicator.setViewPager(listFeatures);
 
+        skipButton.setOnClickListener(v -> helloTool.nextFragment(2));
         featuresPageAdapter.registerAdapterDataObserver(indicator.getAdapterDataObserver());
 
         listFeatures.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -72,7 +74,7 @@ public class FeaturesFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-
+                if (position == 3) skipButton.setText(R.string.Hello_next);
                 super.onPageSelected(position);
             }
 

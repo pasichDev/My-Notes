@@ -16,7 +16,17 @@
         android:layout_gravity="bottom"
         android:layout_margin="30dp"
         android:id="@+id/indicatorViewPager"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         app:ci_drawable="@drawable/indicator_selected"
+        app:ci_gravity="start|center"
         android:layout_height="48dp" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+        android:layout_margin="30dp"
+        android:text="@string/skip" />
 </FrameLayout>
