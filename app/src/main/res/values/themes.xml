@@ -11,6 +11,9 @@
  default, shortEdges, or never -->
 
 
+        <!-- Цвет линков для едит текст -->
+        <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
+
         <!-- Цвет фона дилоговых окон, цвет поля ввода-->
         <item name="colorPrimary">@color/colorPrimaryBackground</item>
 
