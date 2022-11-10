@@ -15,11 +15,9 @@ public class Debug_CreatesTestNotes {
 
     private final Context mContext;
 
-    private final File HOME_DIRECTORY;
 
     public Debug_CreatesTestNotes(Context context) {
         this.mContext = context;
-        this.HOME_DIRECTORY = context.getFilesDir();
     }
 
 
