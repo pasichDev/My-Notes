@@ -228,9 +228,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
     public void snackBarRestoreNote() {
-        Snackbar snackbar = Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
-        snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote));
-        snackbar.show();
+        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote))
+                .show();
     }
 
     @Override
