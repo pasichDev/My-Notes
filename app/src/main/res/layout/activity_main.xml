@@ -27,6 +27,7 @@
             android:id="@+id/appBarMainActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             app:layout_behavior=".utils.behavior.FixedAppBarLayoutBehavior"
             android:orientation="vertical">
 
