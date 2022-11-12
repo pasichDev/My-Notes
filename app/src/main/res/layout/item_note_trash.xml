@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@{Note.checked ? @drawable/item_note_checked :  @drawable/selector_item_note_unchecked}"
+        android:padding="15dp"
         android:orientation="vertical">
 
         <TextView

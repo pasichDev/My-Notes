@@ -2,34 +2,40 @@ package com.pasich.mynotes.ui.helloUI;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.databinding.ActivityHelloBinding;
+import com.pasich.mynotes.ui.contract.HelloContract;
 import com.pasich.mynotes.ui.helloUI.fragments.FeaturesFragment;
 import com.pasich.mynotes.ui.helloUI.fragments.FinishFragment;
 import com.pasich.mynotes.ui.helloUI.tool.HelloTool;
-import com.pasich.mynotes.utils.Debug_CreatesTestNotes;
+import com.pasich.mynotes.ui.helloUI.tool.SavesNotes;
+import com.pasich.mynotes.ui.presenter.HelloPresenter;
 
-public class HelloActivity extends AppCompatActivity implements HelloTool {
+import javax.inject.Inject;
 
+public class HelloActivity extends BaseActivity implements HelloTool, SavesNotes, HelloContract {
+
+    @Inject
+    public HelloPresenter mPresenter;
     private ActivityHelloBinding binding;
 
-    private Debug_CreatesTestNotes debug_createsTestNotes;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHelloBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        debug_createsTestNotes = new Debug_CreatesTestNotes(this);
-
+        getActivityComponent().inject(this);
 
     }
 
 
     /**
+     * Метод который реализует переключение между метками
      * 1 (step) - hello
      * 2 (step) - features
      * 3 (step) - backup and finish
@@ -58,4 +64,18 @@ public class HelloActivity extends AppCompatActivity implements HelloTool {
         super.onDestroy();
     }
 
+    @Override
+    public void initListeners() {
+
+    }
+
+    @Override
+    public void saveNote(Note note) {
+        mPresenter.addNote(note);
+    }
+
+    @Override
+    public void saveTrash(TrashNote note) {
+        mPresenter.addTrashNote(note);
+    }
 }
