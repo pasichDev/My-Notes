@@ -238,7 +238,9 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
                 newChip.setOnCheckedChangeListener(((buttonView, isChecked) -> selectedTag(tag.getNameTag(), isChecked)));
             }
         } else {
-            binding.chipGroupSystem.setVisibility(View.GONE);
+            binding.scrollChips.setVisibility(View.GONE);
+            binding.noSave.setBackground(requireActivity().getDrawable(R.drawable.item_ripple_border));
+
         }
 
     }
