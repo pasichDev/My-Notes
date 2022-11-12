@@ -61,6 +61,7 @@ public class HelloActivity extends BaseActivity implements HelloTool, SavesNotes
 
     @Override
     protected void onDestroy() {
+        mPresenter.detachView();
         super.onDestroy();
     }
 

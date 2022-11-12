@@ -4,7 +4,6 @@ import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
@@ -13,8 +12,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.database.model.Note;
@@ -22,7 +19,6 @@ import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
-import com.pasich.mynotes.ui.view.dialogs.error.PermissionsError;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
@@ -189,10 +185,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void onDestroy() {
         super.onDestroy();
         notePresenter.detachView();
-        if (isFinishing()) {
-            notePresenter.destroy();
-            binding.notesTitle.addTextChangedListener(null);
-        }
+        binding.notesTitle.addTextChangedListener(null);
+
     }
 
 
@@ -243,16 +237,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             }
 
             notePresenter.saveNote(mNote);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 22) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                new PermissionsError().show(getSupportFragmentManager(), "permissionError");
-            }
         }
     }
 

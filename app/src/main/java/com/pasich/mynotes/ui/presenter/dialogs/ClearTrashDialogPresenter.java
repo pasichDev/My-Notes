@@ -18,10 +18,6 @@ public class ClearTrashDialogPresenter extends AppBasePresenter<ClearTrashDialog
         super(schedulerProvider, compositeDisposable, dataManager);
     }
 
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
 
     @Override
     public void viewIsReady() {

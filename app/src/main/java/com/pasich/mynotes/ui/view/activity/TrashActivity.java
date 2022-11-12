@@ -100,11 +100,8 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     protected void onDestroy() {
         super.onDestroy();
         trashPresenter.detachView();
-        if (isFinishing()) {
+        mNotesTrashAdapter.setOnItemClickListener(null);
 
-            mNotesTrashAdapter.setOnItemClickListener(null);
-            trashPresenter.destroy();
-        }
     }
 
 

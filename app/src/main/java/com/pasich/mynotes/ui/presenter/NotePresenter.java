@@ -32,15 +32,6 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
 
 
     @Override
-    public void detachView() {
-    }
-
-    @Override
-    public void destroy() {
-    }
-
-
-    @Override
     public void closeActivity() {
         getView().closeNoteActivity();
 

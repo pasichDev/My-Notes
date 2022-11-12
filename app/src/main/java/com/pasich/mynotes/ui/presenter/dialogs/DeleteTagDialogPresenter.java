@@ -51,9 +51,10 @@ public class DeleteTagDialogPresenter extends AppBasePresenter<DeleteTagDialogCo
         this.countNotesForTag = count;
     }
 
+
     @Override
-    public void destroy() {
-        super.destroy();
+    public void detachView() {
+        super.detachView();
         countNotesForTag = 0;
     }
 }

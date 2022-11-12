@@ -26,10 +26,6 @@ public class MoreNoteDialogPresenter extends AppBasePresenter<MoreNoteDialogCont
         super(schedulerProvider, compositeDisposable, dataManager);
     }
 
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
 
     @Override
     public void viewIsReady() {
@@ -42,10 +38,7 @@ public class MoreNoteDialogPresenter extends AppBasePresenter<MoreNoteDialogCont
 
     @Override
     public void deleteNote(Note note) {
-        getCompositeDisposable().add(
-                getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note)
-                        .subscribeOn(getSchedulerProvider().io())
-                        .subscribe());
+        getCompositeDisposable().add(getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override
@@ -67,20 +60,9 @@ public class MoreNoteDialogPresenter extends AppBasePresenter<MoreNoteDialogCont
     public void copyNote(Note note, boolean noteActivity) {
 
         if (noteActivity) {
-            getCompositeDisposable()
-                    .add(getDataManager()
-                            .updateNote(note)
-                            .subscribeOn(getSchedulerProvider().io())
-                            .subscribe());
+            getCompositeDisposable().add(getDataManager().updateNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
         }
-        getCompositeDisposable()
-                .add(getDataManager()
-                        .addNote(new Note().create(note.getTitle() + " (2)",
-                                note.getValue() + " ",
-                                new Date().getTime(), note.getTag()))
-                        .subscribeOn(getSchedulerProvider().io())
-                        .subscribe((aLong) -> getView().callableCopyNote(aLong),
-                                (throwable -> Log.wtf(TAG, "copyNote: " + throwable))));
+        getCompositeDisposable().add(getDataManager().addNote(new Note().create(note.getTitle() + " (2)", note.getValue() + " ", new Date().getTime(), note.getTag())).subscribeOn(getSchedulerProvider().io()).subscribe((aLong) -> getView().callableCopyNote(aLong), (throwable -> Log.wtf(TAG, "copyNote: " + throwable))));
 
     }
 }

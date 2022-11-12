@@ -64,7 +64,9 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         fabNewNote.show();
-        onDestroy();
+        binding = null;
+        searchNotesAdapter = null;
+        mPresenter.detachView();
 
     }
 
@@ -104,15 +106,6 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
 
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
-        searchNotesAdapter = null;
-        mPresenter.detachView();
-
-    }
-
-    @Override
     public void settingsListResult() {
         binding.resultsList.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true));
         binding.resultsList.addItemDecoration(new SpacesItemDecoration(25));
@@ -123,22 +116,18 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
     @Override
     public void createListenerSearch(Flowable<List<Note>> mNotes) {
 
-        mPresenter.getCompositeDisposable().add(
-                mNotes
-                        .subscribeOn(mPresenter.getSchedulerProvider().io())
-                        .subscribe(notes ->
-                                binding.actionSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                                    @Override
-                                    public boolean onQueryTextSubmit(String query) {
-                                        return false;
-                                    }
+        mPresenter.getCompositeDisposable().add(mNotes.subscribeOn(mPresenter.getSchedulerProvider().io()).subscribe(notes -> binding.actionSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
 
-                                    @Override
-                                    public boolean onQueryTextChange(String newText) {
-                                        filter(newText, notes);
-                                        return false;
-                                    }
-                                }))
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        filter(newText, notes);
+                        return false;
+                    }
+                }))
 
 
         );

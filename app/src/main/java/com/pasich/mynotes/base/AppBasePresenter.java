@@ -53,9 +53,4 @@ public abstract class AppBasePresenter<T extends BaseView> implements BasePresen
         return view != null;
     }
 
-    @Override
-    public void destroy() {
-        compositeDisposable.dispose();
-        view = null;
-    }
 }

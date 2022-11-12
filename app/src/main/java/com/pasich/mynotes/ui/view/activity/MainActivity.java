@@ -110,13 +110,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     protected void onDestroy() {
         super.onDestroy();
         mainPresenter.detachView();
-        if (isFinishing()) {
-            variablesNull();
-            mainPresenter.destroy();
-            tagsAdapter.setOnItemClickListener(null);
-            mNoteAdapter.setOnItemClickListener(null);
+        variablesNull();
+        tagsAdapter.setOnItemClickListener(null);
+        mNoteAdapter.setOnItemClickListener(null);
 
-        }
     }
 
     @Override
@@ -228,9 +225,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
     public void snackBarRestoreNote() {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote))
-                .show();
+        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG).setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote)).show();
     }
 
     @Override

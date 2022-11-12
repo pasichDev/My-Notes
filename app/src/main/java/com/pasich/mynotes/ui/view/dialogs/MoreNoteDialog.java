@@ -198,6 +198,8 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
+
+        mPresenter.detachView();
         if (activityNote) {
             binding.noSave.setOnClickListener(null);
             binding.translateNote.setOnClickListener(null);
@@ -209,7 +211,6 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             binding.actionPanelActivate.setOnClickListener(null);
             positionItem = 0;
         }
-        mPresenter.destroy();
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             binding.addShortCutLauncher.setOnClickListener(null);

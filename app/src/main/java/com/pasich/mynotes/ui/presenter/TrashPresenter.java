@@ -33,16 +33,6 @@ public class TrashPresenter extends AppBasePresenter<TrashContract.view> impleme
         getView().initListeners();
     }
 
-    @Override
-    public void detachView() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
 
     @Override
     public void cleanTrashDialogStart() {

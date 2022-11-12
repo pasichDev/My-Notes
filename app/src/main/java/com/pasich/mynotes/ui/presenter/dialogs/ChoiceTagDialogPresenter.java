@@ -20,9 +20,11 @@ public class ChoiceTagDialogPresenter extends AppBasePresenter<ChoiceTagDialogCo
         super(schedulerProvider, compositeDisposable, dataManager);
     }
 
+
     @Override
-    public void destroy() {
-        super.destroy();
+    public void detachView() {
+        super.detachView();
+
         countNotesForTag = 0;
     }
 
@@ -34,11 +36,7 @@ public class ChoiceTagDialogPresenter extends AppBasePresenter<ChoiceTagDialogCo
 
     @Override
     public void getLoadCountNotesForTag(String nameTag) {
-        getCompositeDisposable()
-                .add(getDataManager()
-                        .getCountNotesTag(nameTag)
-                        .subscribeOn(getSchedulerProvider().io())
-                        .subscribe(integer -> countNotesForTag = integer));
+        getCompositeDisposable().add(getDataManager().getCountNotesTag(nameTag).subscribeOn(getSchedulerProvider().io()).subscribe(integer -> countNotesForTag = integer));
 
     }
 

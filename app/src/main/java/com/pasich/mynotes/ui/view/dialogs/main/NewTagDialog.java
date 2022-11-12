@@ -106,6 +106,7 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
+        mPresenter.detachView();
         binding.includedInput.nameTag.addTextChangedListener(null);
         requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }

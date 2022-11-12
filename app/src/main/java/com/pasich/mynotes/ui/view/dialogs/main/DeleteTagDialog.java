@@ -80,7 +80,7 @@ public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTag
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        mPresenter.destroy();
+        mPresenter.detachView();
         requireDialog().findViewById(R.id.deleteTag).setOnClickListener(null);
         deleteTagAndNotes.setOnClickListener(null);
         requireDialog().findViewById(R.id.cancel).setOnClickListener(null);

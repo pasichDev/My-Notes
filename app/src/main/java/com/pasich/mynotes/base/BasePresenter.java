@@ -13,8 +13,6 @@ public interface BasePresenter<V extends BaseView> {
 
     void detachView();
 
-    void destroy();
-
     DataManager getDataManager();
 
     CompositeDisposable getCompositeDisposable();
