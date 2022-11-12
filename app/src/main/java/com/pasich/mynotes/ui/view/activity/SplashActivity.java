@@ -9,9 +9,7 @@ import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.ui.helloUI.HelloActivity;
 import com.pasich.mynotes.utils.base.simplifications.AnimationListener;
-import com.preference.PowerPreference;
 
 import java.util.Objects;
 
@@ -42,12 +40,13 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void startNextActivity() {
-        boolean getFirstStart = PowerPreference.getDefaultFile().getBoolean("firstrun", false);
-        if (!getFirstStart && getCountFiles() >= 1) {
-            startActivity(new Intent(SplashActivity.this, HelloActivity.class));
-        } else {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        }
+        //Этот метод еще нужно изучить
+        //     boolean getFirstStart = PowerPreference.getDefaultFile().getBoolean("firstrun", false);
+        //     if (!getFirstStart && getCountFiles() >= 1) {
+        //        startActivity(new Intent(SplashActivity.this, HelloActivity.class));
+        //    } else {
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        //   }
 
 
         finish();

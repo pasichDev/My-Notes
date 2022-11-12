@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import com.google.android.material.chip.Chip;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
-import com.pasich.mynotes.base.view.MoreNoteDialogView;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
+import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.DialogMoreNoteBinding;
@@ -51,8 +51,8 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     /**
      * Interfaces
      */
-    private MoreNoteDialogView activitySettings;
-    private MoreNoteMainActivityView noteView;
+    private MoreNoteNoteActivityView noteActivity;
+    private MoreNoteMainActivityView mainActivity;
 
     public MoreNoteDialog(Note note, boolean newNoteActivity, boolean activityNote, int position) {
         this.mNote = note;
@@ -105,20 +105,20 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     @Override
     public void initInterfaces() {
         if (activityNote) {
-            activitySettings = (MoreNoteDialogView) getContext();
-            noteView = null;
+            noteActivity = (MoreNoteNoteActivityView) getContext();
+            mainActivity = null;
         } else {
-            noteView = (MoreNoteMainActivityView) getContext();
-            activitySettings = null;
+            mainActivity = (MoreNoteMainActivityView) getContext();
+            noteActivity = null;
         }
     }
 
     @Override
     public void callableCopyNote(long newNoteId) {
         if (activityNote) {
-            activitySettings.openCopyNote(Math.toIntExact(newNoteId));
+            noteActivity.openCopyNote(Math.toIntExact(newNoteId));
         } else {
-            noteView.openCopyNote(Math.toIntExact(newNoteId));
+            mainActivity.openCopyNote(Math.toIntExact(newNoteId));
         }
     }
 
@@ -126,30 +126,30 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     public void initListeners() {
 
         if (activityNote) {
-            binding.noSave.setOnClickListener(v -> activitySettings.closeActivityNotSaved());
+            binding.noSave.setOnClickListener(v -> noteActivity.closeActivityNotSaved());
             binding.settingsActivity.seekBarSize.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
                 @Override
                 protected void changeProgress(int progress) {
                     int size = progress + PREF_SIZE_TEXT;
                     binding.settingsActivity.valueSeek.setText(String.valueOf(size));
-                    activitySettings.changeTextSizeOnline(size);
+                    noteActivity.changeTextSizeOnline(size);
                 }
 
                 @Override
                 protected void stopChangeProgress(SeekBar seekBar) {
-                    activitySettings.changeTextSizeOnline(seekBar.getProgress() + PREF_SIZE_TEXT);
+                    noteActivity.changeTextSizeOnline(seekBar.getProgress() + PREF_SIZE_TEXT);
                     mPresenter.editSizeText(seekBar.getProgress() + PREF_SIZE_TEXT);
                 }
             });
             binding.settingsActivity.textStyleItem.setOnClickListener(v -> {
                 textStylePreferences.changeArgument();
-                activitySettings.changeTextStyle();
+                noteActivity.changeTextStyle();
             });
 
         } else {
             binding.actionPanelActivate.setOnClickListener(view -> {
-                assert noteView != null;
-                noteView.actionStartNote(mNote, positionItem);
+                assert mainActivity != null;
+                mainActivity.actionStartNote(mNote, positionItem);
                 dismiss();
             });
         }
@@ -177,10 +177,14 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             }
             binding.moveToTrash.setOnClickListener(v -> {
                 mPresenter.deleteNote(mNote);
-                if (!activityNote) dismiss();
-                else {
-                    activitySettings.closeActivityNotSaved();
+
+                if (!activityNote) {
+                    mainActivity.callbackDeleteNote(mNote);
+                    dismiss();
+                } else {
+                    noteActivity.closeActivityNotSaved();
                 }
+
             });
 
             binding.copyNote.setOnClickListener(v -> {
@@ -199,9 +203,9 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             binding.translateNote.setOnClickListener(null);
             binding.settingsActivity.seekBarSize.setOnSeekBarChangeListener(null);
             binding.settingsActivity.textStyleItem.setOnClickListener(null);
-            activitySettings = null;
+            noteActivity = null;
         } else {
-            noteView = null;
+            mainActivity = null;
             binding.actionPanelActivate.setOnClickListener(null);
             positionItem = 0;
         }
@@ -243,11 +247,11 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         if (checked) {
 
             mPresenter.editTagNote(nameChip, mNote.getId());
-            if (activityNote) activitySettings.changeTag(nameChip);
+            if (activityNote) noteActivity.changeTag(nameChip);
         } else {
 
             mPresenter.removeTagNote(mNote.getId());
-            if (activityNote) activitySettings.changeTag("");
+            if (activityNote) noteActivity.changeTag("");
         }
     }
 

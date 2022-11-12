@@ -1,6 +1,6 @@
 package com.pasich.mynotes.base.view;
 
-public interface MoreNoteDialogView {
+public interface MoreNoteNoteActivityView {
 
     void changeTextStyle();
 

@@ -215,9 +215,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                     Note sNote = mNoteAdapter.getCurrentList().get(position);
                     backupDeleteNote = sNote;
                     mainPresenter.deleteNote(sNote);
-                    Snackbar snackbar = Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
-                    snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote));
-                    snackbar.show();
+                    snackBarRestoreNote();
                 }
             }
         };
@@ -228,6 +226,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     }
 
+
+    public void snackBarRestoreNote() {
+        Snackbar snackbar = Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
+        snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote));
+        snackbar.show();
+    }
 
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
@@ -254,6 +258,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void openCopyNote(int idNote) {
         openNoteEdit(idNote);
+    }
+
+    @Override
+    public void callbackDeleteNote(Note mNote) {
+        backupDeleteNote = mNote;
+        snackBarRestoreNote();
     }
 
     @Override
