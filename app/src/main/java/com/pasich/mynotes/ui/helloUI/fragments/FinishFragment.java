@@ -18,6 +18,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.databinding.FragmentFinishBinding;
 import com.pasich.mynotes.ui.helloUI.tool.SavesNotes;
 import com.pasich.mynotes.ui.view.activity.MainActivity;
@@ -26,10 +28,12 @@ import com.preference.Preference;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -60,7 +64,7 @@ public class FinishFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        savesNotes = (SavesNotes) getParentFragment();
+        savesNotes = (SavesNotes) getContext();
         mHandler = new Handler(Looper.getMainLooper());
         nameBackup = "MyNotes_Backup_" + new SimpleDateFormat("d_M", Locale.getDefault()).format(new Date().getTime()) + ".zip";
         initBackup();
@@ -115,21 +119,22 @@ public class FinishFragment extends Fragment {
         mHandler.postDelayed(() -> {
             createBackup();
 
-            binding.progressLayout.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+            binding.progressBar.progressLayout.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    binding.progressLayout.setVisibility(View.GONE);
+                    binding.progressBar.progressLayout.setVisibility(View.GONE);
+                    binding.blockFinish.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationStart(animation);
+                            binding.blockFinish.setVisibility(View.VISIBLE);
+                        }
+                    });
                 }
             });
 
-            binding.blockFinish.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    binding.blockFinish.setVisibility(View.VISIBLE);
-                }
-            });
+
         }, 3000);
     }
 
@@ -148,15 +153,31 @@ public class FinishFragment extends Fragment {
     }
 
     private void finishHello() {
-        binding.progressLayout.setVisibility(View.VISIBLE);
-        binding.blockFinish.setVisibility(View.GONE);
-        binding.textProgress.setVisibility(View.GONE);
+        binding.blockFinish.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                binding.blockFinish.setVisibility(View.GONE);
+                binding.progressBar.progressLayout.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
 
-        mHandler.postDelayed(() -> {
-            removesPreferences();
-            saveNotes();
+                        binding.progressBar.textProgress.setVisibility(View.GONE);
+                        binding.progressBar.progressLayout.setVisibility(View.VISIBLE);
+                        mHandler.postDelayed(() -> {
+                            removesPreferences();
+                            try {
+                                searchNotesAndSave();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }, 3000);
+                    }
+                });
+            }
+        });
 
-        }, 3000);
 
     }
 
@@ -167,24 +188,62 @@ public class FinishFragment extends Fragment {
         preference.remove("setSpechOutputText");
         preference.remove("autoSave");
         preference.remove("swipeToExit");
-
     }
 
-    private void saveNotes() {
-
-        mHandler.post(() -> {
-
-            closeHelloTool();
-
-        });
-
-    }
 
     private void closeHelloTool() {
         finishHello = true;
         requireActivity().finish();
         startActivity(new Intent(getActivity(), MainActivity.class));
     }
+
+
+    public void searchNotesAndSave() throws IOException {
+        File[] files = requireContext().getFilesDir().listFiles();
+
+        // Добавляем файлы
+        assert files != null;
+        for (File file : files) {
+            // Добавим файлы но не папки
+            if (!file.isDirectory() && file.getName().endsWith(".txt")) {
+                //Здесь записуем только фвйлы с корня
+                readFile(file, true);
+            } else
+
+                // Добавим папки и подпапки
+                if (file.isDirectory()) {
+                    File[] fileDI = new File(requireContext().getFilesDir() + "/" + file.getName() + "/").listFiles();
+                    assert fileDI != null;
+                    for (File fileNameIsDir : fileDI) {
+                        if (fileNameIsDir.getName().endsWith(".txt")) {
+                            readFile(file, !fileNameIsDir.equals("trash"));
+                        }
+                    }
+                }
+        }
+
+
+        closeHelloTool();
+    }
+
+
+    private void readFile(File file, boolean note) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            stringBuilder.append(line);
+            stringBuilder.append('\n');
+        }
+        if (stringBuilder.length() >= 2) {
+            if (note)
+                savesNotes.saveNote(new Note().create(file.getName().replaceAll(".txt", ""), String.valueOf(stringBuilder), file.lastModified()));
+            else
+                savesNotes.saveTrash(new TrashNote().create(file.getName().replaceAll(".txt", ""), String.valueOf(stringBuilder), file.lastModified()));
+        }
+        file.delete();
+    }
+
 
     public void copyFile(@NonNull File source, @NonNull FileOutputStream outputStream) throws IOException {
         try (InputStream inputStream = new FileInputStream(source)) {
