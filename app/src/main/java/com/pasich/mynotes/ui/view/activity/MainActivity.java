@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             }
         });
 
-        mNoteAdapter.setOnItemClickListener(new OnItemClickListener<Note>() {
+        mNoteAdapter.setOnItemClickListener(new OnItemClickListener<>() {
 
             @Override
             public void onClick(int position, Note model) {
@@ -225,7 +225,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
     public void snackBarRestoreNote() {
-        Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG).setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote)).show();
+        Snackbar snackbar = Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
+        snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote));
+        if (mActivityBinding.newNotesButton.getY() >= mActivityBinding.activityMain.getHeight()) {
+            snackbar.setAnchorView(mActivityBinding.newNotesButton);
+        }
+        snackbar.show();
     }
 
     @Override
