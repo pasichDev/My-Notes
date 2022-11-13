@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.chip.Chip;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
+import com.pasich.mynotes.base.simplifications.OnSeekBarChangeListener;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.data.database.model.Note;
@@ -24,8 +25,7 @@ import com.pasich.mynotes.ui.presenter.dialogs.MoreNoteDialogPresenter;
 import com.pasich.mynotes.utils.GoogleTranslationIntent;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.ShortCutUtils;
-import com.pasich.mynotes.utils.base.simplifications.OnSeekBarChangeListener;
-import com.pasich.mynotes.utils.prefences.TextStylePreferences;
+import com.pasich.mynotes.utils.tool.TextStyleTool;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     @Inject
     public MoreNoteDialogPresenter mPresenter;
     @Inject
-    public TextStylePreferences textStylePreferences;
+    public TextStyleTool textStylePreferences;
     private int positionItem;
     private DialogMoreNoteBinding binding;
 

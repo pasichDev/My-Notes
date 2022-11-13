@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.ui.helloUI.util;
 
 import android.view.View;
 
@@ -15,12 +15,10 @@ public class ZoomOutPageTransformer implements ViewPager2.PageTransformer {
         int pageWidth = view.getWidth();
         int pageHeight = view.getHeight();
 
-        if (position < -1) { // [-Infinity,-1)
-            // This page is way off-screen to the left.
+        if (position < -1) {
             view.setAlpha(0f);
 
-        } else if (position <= 1) { // [-1,1]
-            // Modify the default slide transition to shrink the page as well
+        } else if (position <= 1) {
             float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
             float vertMargin = pageHeight * (1 - scaleFactor) / 2;
             float horzMargin = pageWidth * (1 - scaleFactor) / 2;
@@ -30,7 +28,6 @@ public class ZoomOutPageTransformer implements ViewPager2.PageTransformer {
                 view.setTranslationX(-horzMargin + vertMargin / 2);
             }
 
-            // Scale the page down (between MIN_SCALE and 1)
             view.setScaleX(scaleFactor);
             view.setScaleY(scaleFactor);
 
@@ -39,8 +36,7 @@ public class ZoomOutPageTransformer implements ViewPager2.PageTransformer {
                     (scaleFactor - MIN_SCALE) /
                             (1 - MIN_SCALE) * (1 - MIN_ALPHA));
 
-        } else { // (1,+Infinity]
-            // This page is way off-screen to the right.
+        } else {
             view.setAlpha(0f);
         }
     }

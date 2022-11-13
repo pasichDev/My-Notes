@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.utils.base.simplifications.AnimationListener;
+import com.pasich.mynotes.base.simplifications.AnimationListener;
 
 import java.util.Objects;
 

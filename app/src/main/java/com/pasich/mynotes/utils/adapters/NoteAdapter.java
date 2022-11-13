@@ -12,12 +12,14 @@ import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 
 public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note, VM> {
 
+    private List<Note> defaultList = new ArrayList<>();
 
     @Inject
     public NoteAdapter(@NonNull DiffUtilNote diffCallback, int layoutId, GenericAdapterCallback<VM, Note> bindingInterface) {
@@ -36,6 +38,25 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         Collections.sort(notesList, new NoteComparator().getComparator(arg));
         submitList(notesList);
 
+    }
+
+
+    public void showTagNotes(String tag) {
+        if (defaultList.size() == 0) defaultList = new ArrayList<>(getCurrentList());
+        List<Note> newList = new ArrayList<>(defaultList);
+
+        if (tag.equals("allNotes")) {
+            submitList(defaultList);
+        } else {
+            Iterator<Note> itr = newList.iterator();
+            while (itr.hasNext()) {
+                Note note = itr.next();
+                if (!note.getTag().equals(tag)) {
+                    itr.remove();
+                }
+            }
+            submitList(newList);
+        }
     }
 
 

@@ -11,6 +11,7 @@ import javax.inject.Inject;
 @PerActivity
 public class DiffUtilNote extends DiffUtil.ItemCallback<Note> {
 
+
     @Inject
     public DiffUtilNote() {
     }

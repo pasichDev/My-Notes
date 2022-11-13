@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.base.simplifications.TextWatcher;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
@@ -22,7 +23,6 @@ import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
 import com.pasich.mynotes.utils.SearchSourceNote;
 import com.pasich.mynotes.utils.activity.NoteUtils;
-import com.pasich.mynotes.utils.base.simplifications.TextWatcher;
 
 import java.util.Date;
 import java.util.Objects;

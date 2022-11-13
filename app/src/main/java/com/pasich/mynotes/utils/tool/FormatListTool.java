@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.utils.tool;
 
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_FORMAT_VALUE;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_FORMAT;
@@ -10,11 +10,11 @@ import com.preference.PowerPreference;
 
 import javax.inject.Inject;
 
-public class FormatListUtils {
+public class FormatListTool {
     private ImageButton buttonFormat;
 
     @Inject
-    public FormatListUtils() {
+    public FormatListTool() {
     }
 
     public void init(ImageButton button) {

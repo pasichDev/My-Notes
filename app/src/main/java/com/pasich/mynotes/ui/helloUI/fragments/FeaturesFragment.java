@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Features;
 import com.pasich.mynotes.ui.helloUI.tool.HelloTool;
-import com.pasich.mynotes.utils.ZoomOutPageTransformer;
+import com.pasich.mynotes.ui.helloUI.util.ZoomOutPageTransformer;
 import com.pasich.mynotes.utils.adapters.FeaturesPageAdapter;
 
 import java.util.ArrayList;

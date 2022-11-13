@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.prefences;
+package com.pasich.mynotes.utils.tool;
 
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE;
@@ -12,12 +12,12 @@ import com.preference.PowerPreference;
 import javax.inject.Inject;
 
 @PerActivity
-public class TextStylePreferences {
+public class TextStyleTool {
 
     private ImageButton mButton;
 
     @Inject
-    public TextStylePreferences() {
+    public TextStyleTool() {
     }
 
     public void addButton(ImageButton button) {

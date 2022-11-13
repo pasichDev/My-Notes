@@ -31,7 +31,6 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
-import com.pasich.mynotes.utils.FormatListUtils;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
@@ -43,6 +42,7 @@ import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.SwipeToListNotesCallback;
+import com.pasich.mynotes.utils.tool.FormatListTool;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Inject
     public MainUtils utils;
     @Inject
-    public FormatListUtils formatList;
+    public FormatListTool formatList;
     @Inject
     public NoteActionTool noteActionTool;
     @Inject
@@ -237,7 +237,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
-
         mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(tags -> tagsAdapter.submitList(tags), throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
         mDisposiable = noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
@@ -380,19 +379,27 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
-
         String nameTag = tagsAdapter.getTagSelected() == null ? "" : tagsAdapter.getTagSelected().getNameTag();
 
-        mDisposiable.dispose();
+        mNoteAdapter.showTagNotes(nameTag);
+/**
+ * Тут логика в том что можно использовать два метода
+ * но в первом методе  когда используем переключения с помощю скрівания заметок
+ * есть баг когда создаешь или удаляешь (а именно юзаешь обсервер) то появляються все заметки
+ * можно использовать ограничение в методе diffUtill
+ */
+        //      mDisposiable.dispose();
 
 
-        mainPresenter.getCompositeDisposable().add(
+  /*      mainPresenter.getCompositeDisposable().add(
                 mainPresenter.getDataManager().getNotesForTag(nameTag)
                         .subscribeOn(mainPresenter.getSchedulerProvider().io())
                         .subscribe(notes -> {
                             mNoteAdapter.submitList(notes);
                             runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
                         }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+
+   */
 
     }
 

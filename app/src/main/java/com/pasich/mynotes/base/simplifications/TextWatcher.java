@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.base.simplifications;
+package com.pasich.mynotes.base.simplifications;
 
 import android.text.Editable;
 

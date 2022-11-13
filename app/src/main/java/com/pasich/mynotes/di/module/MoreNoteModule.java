@@ -2,7 +2,7 @@ package com.pasich.mynotes.di.module;
 
 
 import com.pasich.mynotes.di.scope.PerActivity;
-import com.pasich.mynotes.utils.prefences.TextStylePreferences;
+import com.pasich.mynotes.utils.tool.TextStyleTool;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,8 +13,8 @@ public class MoreNoteModule {
 
     @Provides
     @PerActivity
-    TextStylePreferences providesTextStyle() {
-        return new TextStylePreferences();
+    TextStyleTool providesTextStyle() {
+        return new TextStyleTool();
     }
 
 }
