@@ -9,14 +9,15 @@
         android:id="@+id/imageFeature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp" />
+        android:layout_marginHorizontal="32dp"
+        android:contentDescription="@string/srcfeatures" />
 
     <TextView
         android:id="@+id/titleFeature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textSize="18sp"
         android:fontFamily="@font/railway_medium"
@@ -30,8 +31,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/helloColorInfo"
         android:gravity="center"
-        android:layout_margin="20dp"
-        android:layout_gravity="center" />
+        android:layout_margin="20dp" />
 
 
 </LinearLayout>
