@@ -17,4 +17,6 @@ public interface DbTrashHelper {
 
     Completable deleteAll();
 
+    Completable addTrashNote(TrashNote note);
+
 }

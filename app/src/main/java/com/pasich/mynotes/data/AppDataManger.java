@@ -122,6 +122,11 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
+    public Completable addTrashNote(TrashNote note) {
+        return dbHelper.addTrashNote(note);
+    }
+
+    @Override
     public Completable moveNoteToTrash(TrashNote tNote, Note mNote) {
         return dbHelper.moveNoteToTrash(tNote, mNote);
     }

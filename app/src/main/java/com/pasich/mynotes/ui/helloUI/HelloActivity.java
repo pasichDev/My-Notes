@@ -15,7 +15,6 @@ import com.pasich.mynotes.ui.helloUI.fragments.FinishFragment;
 import com.pasich.mynotes.ui.helloUI.tool.HelloTool;
 import com.pasich.mynotes.ui.helloUI.tool.SavesNotes;
 import com.pasich.mynotes.ui.presenter.HelloPresenter;
-import com.pasich.mynotes.utils.Debug_CreatesTestNotes;
 
 import javax.inject.Inject;
 
@@ -25,7 +24,6 @@ public class HelloActivity extends BaseActivity implements HelloTool, SavesNotes
     public HelloPresenter mPresenter;
     private ActivityHelloBinding binding;
 
-    Debug_CreatesTestNotes createsTestNotes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,10 +31,6 @@ public class HelloActivity extends BaseActivity implements HelloTool, SavesNotes
         binding = ActivityHelloBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getActivityComponent().inject(this);
-
-        createsTestNotes = new Debug_CreatesTestNotes(this);
-        createsTestNotes.initTestNotes();
-
     }
 
 
@@ -69,7 +63,6 @@ public class HelloActivity extends BaseActivity implements HelloTool, SavesNotes
     protected void onDestroy() {
         mPresenter.detachView();
         super.onDestroy();
-        createsTestNotes.clear();
     }
 
     @Override

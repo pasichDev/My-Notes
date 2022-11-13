@@ -77,6 +77,11 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
+    public Completable addTrashNote(TrashNote note) {
+        return Completable.fromAction(() -> appDatabase.trashDao().addNote(note));
+    }
+
+    @Override
     public Completable moveNoteToTrash(TrashNote tNote, Note mNote) {
         return Completable.fromAction(() -> appDatabase.transactionsNote().transferNoteToTrash(tNote, mNote));
     }

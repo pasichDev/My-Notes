@@ -33,6 +33,7 @@ public class HelloPresenter extends AppBasePresenter<HelloContract.view> impleme
 
     @Override
     public void addTrashNote(TrashNote note) {
+        getCompositeDisposable().add(getDataManager().addTrashNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
 
     }
 

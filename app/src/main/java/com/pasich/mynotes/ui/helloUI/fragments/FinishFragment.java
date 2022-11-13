@@ -1,6 +1,8 @@
 package com.pasich.mynotes.ui.helloUI.fragments;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,7 +173,7 @@ public class FinishFragment extends Fragment {
                             try {
                                 searchNotesAndSave();
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                Log.wtf(TAG, "onAnimationStart: " + e);
                             }
                         }, 3000);
                     }
@@ -208,18 +211,17 @@ public class FinishFragment extends Fragment {
             if (!file.isDirectory() && file.getName().endsWith(".txt")) {
                 //Здесь записуем только фвйлы с корня
                 readFile(file, true);
-            } else
-
-                // Добавим папки и подпапки
-                if (file.isDirectory()) {
-                    File[] fileDI = new File(requireContext().getFilesDir() + "/" + file.getName() + "/").listFiles();
-                    assert fileDI != null;
-                    for (File fileNameIsDir : fileDI) {
-                        if (fileNameIsDir.getName().endsWith(".txt")) {
-                            readFile(file, !fileNameIsDir.equals("trash"));
-                        }
+            } else if (file.isDirectory()) {
+                File[] fileDI = new File(requireContext().getFilesDir() + "/" + file.getName() + "/").listFiles();
+                assert fileDI != null;
+                for (File fileNameIsDir : fileDI) {
+                    if (fileNameIsDir.getName().endsWith(".txt")) {
+                        readFile(fileNameIsDir, !file.getName().equals("trash"));
                     }
                 }
+            }
+
+
         }
 
 
