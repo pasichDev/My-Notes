@@ -161,6 +161,11 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
+    public Flowable<List<Note>> getNotesFromTag(String nameTag) {
+        return dbHelper.getNotesFromTag(nameTag);
+    }
+
+    @Override
     public Observable<List<Note>> getNotesForTag(String nameTag) {
         return dbHelper.getNotesForTag(nameTag);
     }

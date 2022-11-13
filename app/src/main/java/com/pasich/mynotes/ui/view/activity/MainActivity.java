@@ -50,6 +50,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.reactivex.Flowable;
+import io.reactivex.disposables.Disposable;
 
 
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
@@ -83,6 +84,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     private Note backupDeleteNote;
 
 
+    private Disposable mDisposiable;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -238,10 +240,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
         mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(tags -> tagsAdapter.submitList(tags), throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
-        mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
+        mDisposiable = noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
             mNoteAdapter.sortList(notes, sortParam);
             runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
-        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable));
+        mainPresenter.getCompositeDisposable().add(mDisposiable);
+
     }
 
 
@@ -376,6 +380,19 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
+
+        String nameTag = tagsAdapter.getTagSelected() == null ? "" : tagsAdapter.getTagSelected().getNameTag();
+
+        mDisposiable.dispose();
+
+
+        mainPresenter.getCompositeDisposable().add(
+                mainPresenter.getDataManager().getNotesForTag(nameTag)
+                        .subscribeOn(mainPresenter.getSchedulerProvider().io())
+                        .subscribe(notes -> {
+                            mNoteAdapter.submitList(notes);
+                            runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
+                        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
     }
 

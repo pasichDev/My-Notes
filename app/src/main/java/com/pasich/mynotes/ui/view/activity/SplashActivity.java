@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.ui.helloUI.HelloActivity;
 import com.pasich.mynotes.utils.base.simplifications.AnimationListener;
 
 import java.util.Objects;
@@ -44,9 +43,9 @@ public class SplashActivity extends AppCompatActivity {
         //Этот метод еще нужно изучить
         //     boolean getFirstStart = PowerPreference.getDefaultFile().getBoolean("firstrun", false);
         //     if (!getFirstStart && getCountFiles() >= 1) {
-        startActivity(new Intent(SplashActivity.this, HelloActivity.class));
+        //    startActivity(new Intent(SplashActivity.this, HelloActivity.class));
         //    } else {
-        //  startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
         //   }
 
 

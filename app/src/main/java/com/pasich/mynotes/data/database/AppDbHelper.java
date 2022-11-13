@@ -116,6 +116,11 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
+    public Flowable<List<Note>> getNotesFromTag(String nameTag) {
+        return appDatabase.noteDao().getNotesFromTag(nameTag);
+    }
+
+    @Override
     public Observable<List<Note>> getNotesForTag(String nameTag) {
         return Observable.fromCallable(() -> appDatabase.noteDao().getNotesForTag(nameTag));
     }
