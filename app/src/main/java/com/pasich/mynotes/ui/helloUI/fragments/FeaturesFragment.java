@@ -34,9 +34,9 @@ public class FeaturesFragment extends Fragment {
         helloTool = (HelloTool) getContext();
 
         listFeaturesArray.add(new Features().create(R.string.feature_desing_title,
-                R.drawable.features_desing, R.string.feature_desing_info, true));
+                R.drawable.feature_desing, R.string.feature_desing_info, true));
         listFeaturesArray.add(new Features().create(R.string.feature_tags_title,
-                R.drawable.features_tags, R.string.feature_tags_info, false));
+                R.drawable.feature_tag, R.string.feature_tags_info, false));
 
         listFeaturesArray.add(new Features().create(R.string.feature_create_title,
                 R.drawable.feature_creates, R.string.feature_create_info, false));

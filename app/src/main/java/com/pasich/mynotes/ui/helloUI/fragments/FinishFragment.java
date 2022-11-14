@@ -123,11 +123,11 @@ public class FinishFragment extends Fragment {
         mHandler.postDelayed(() -> {
             createBackup();
 
-            binding.progressBar.progressLayout.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+            binding.progressLayout.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    binding.progressBar.progressLayout.setVisibility(View.GONE);
+                    binding.progressLayout.setVisibility(View.GONE);
                     binding.blockFinish.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationStart(Animator animation) {
@@ -162,13 +162,13 @@ public class FinishFragment extends Fragment {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 binding.blockFinish.setVisibility(View.GONE);
-                binding.progressBar.progressLayout.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                binding.progressLayout.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationStart(Animator animation) {
                         super.onAnimationStart(animation);
 
-                        binding.progressBar.textProgress.setVisibility(View.GONE);
-                        binding.progressBar.progressLayout.setVisibility(View.VISIBLE);
+                        binding.textProgress.setVisibility(View.GONE);
+                        binding.progressLayout.setVisibility(View.VISIBLE);
                         mHandler.postDelayed(() -> {
                             removesPreferences();
                             try {

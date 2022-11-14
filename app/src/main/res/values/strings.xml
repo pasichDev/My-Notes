@@ -172,5 +172,6 @@
     <string name="noteMoveTrashSnackbar" translatable="false">Заметку перемещено в корзину</string>
     <string name="noteRestoreSnackbar" translatable="false">Восстановить</string>
     <string name="srcfeatures" translatable="false">SrcFeatures</string>
+    <string name="icon_desinger" translatable="false">Icon designer: @storyset </string>
 
 </resources>
