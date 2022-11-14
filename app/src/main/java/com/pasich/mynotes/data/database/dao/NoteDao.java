@@ -20,9 +20,6 @@ public interface NoteDao {
   @Query("SELECT * FROM notes")
   Flowable<List<Note>> getNotesAll();
 
-  @Query("SELECT * FROM notes WHERE tag=:nameTag")
-  Flowable<List<Note>> getNotesFromTag(String nameTag);
-
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   Long addNote(Note note);
 

@@ -237,14 +237,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
-        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(tags -> tagsAdapter.submitList(tags), throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+        mainPresenter.getCompositeDisposable().add(
+                tagList.subscribeOn(mainPresenter.getSchedulerProvider().io())
+                        .subscribe(tags -> tagsAdapter.submitList(tags),
+                                throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)
+                        ));
 
         mDisposiable = noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
-            mNoteAdapter.sortList(notes, sortParam);
+            mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
             runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
         }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable));
         mainPresenter.getCompositeDisposable().add(mDisposiable);
-
     }
 
 
@@ -379,28 +382,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
-        String nameTag = tagsAdapter.getTagSelected() == null ? "" : tagsAdapter.getTagSelected().getNameTag();
-
-        mNoteAdapter.showTagNotes(nameTag);
-/**
- * Тут логика в том что можно использовать два метода
- * но в первом методе  когда используем переключения с помощю скрівания заметок
- * есть баг когда создаешь или удаляешь (а именно юзаешь обсервер) то появляються все заметки
- * можно использовать ограничение в методе diffUtill
- */
-        //      mDisposiable.dispose();
-
-
-  /*      mainPresenter.getCompositeDisposable().add(
-                mainPresenter.getDataManager().getNotesForTag(nameTag)
-                        .subscribeOn(mainPresenter.getSchedulerProvider().io())
-                        .subscribe(notes -> {
-                            mNoteAdapter.submitList(notes);
-                            runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
-                        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
-
-   */
-
+        mNoteAdapter.filter(tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
     }
 
 

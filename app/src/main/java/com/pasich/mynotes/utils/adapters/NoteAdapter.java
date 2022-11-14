@@ -1,6 +1,10 @@
 package com.pasich.mynotes.utils.adapters;
 
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 
@@ -12,7 +16,6 @@ import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,7 +27,6 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
     @Inject
     public NoteAdapter(@NonNull DiffUtilNote diffCallback, int layoutId, GenericAdapterCallback<VM, Note> bindingInterface) {
         super(diffCallback, layoutId, bindingInterface);
-
     }
 
 
@@ -34,28 +36,29 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         submitList(newList);
     }
 
-    public void sortList(List<Note> notesList, String arg) {
+    public void sortList(List<Note> notesList, String arg, String tagSelected) {
         Collections.sort(notesList, new NoteComparator().getComparator(arg));
-        submitList(notesList);
-
+        defaultList = notesList;
+        filter(tagSelected);
     }
 
 
-    public void showTagNotes(String tag) {
-        if (defaultList.size() == 0) defaultList = new ArrayList<>(getCurrentList());
-        List<Note> newList = new ArrayList<>(defaultList);
+    public void filter(String tagSelected) {
+        ArrayList<Note> newFilter = new ArrayList<>();
 
-        if (tag.equals("allNotes")) {
+        if (tagSelected.equals("allNotes")) {
             submitList(defaultList);
         } else {
-            Iterator<Note> itr = newList.iterator();
-            while (itr.hasNext()) {
-                Note note = itr.next();
-                if (!note.getTag().equals(tag)) {
-                    itr.remove();
+
+            Log.wtf(TAG, "default: " + defaultList.size());
+            for (Note item : defaultList) {
+
+                if (item.getTag().equals(tagSelected)) {
+                    newFilter.add(item);
                 }
             }
-            submitList(newList);
+            submitList(newFilter);
+
         }
     }
 
@@ -64,8 +67,8 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         private final Comparator<Note> COMPARE_BY_TITLE_REVERSE = (e1, e2) -> e2.getTitle().toLowerCase().compareTo(e1.getTitle().toLowerCase());
         private final Comparator<Note> COMPARE_BY_TITLE_SORT = (e1, e2) -> e1.getTitle().toLowerCase().compareTo(e2.getTitle().toLowerCase());
 
-        private final Comparator<Note> COMPARE_BY_DATE_REVERSE = (e1, e2) -> Math.toIntExact((long) (e1.getDate() - e2.getDate()));
-        private final Comparator<Note> COMPARE_BY_DATE_SORT = (e1, e2) -> Math.toIntExact((long) (e2.getDate() - e1.getDate()));
+        private final Comparator<Note> COMPARE_BY_DATE_REVERSE = (e1, e2) -> Math.toIntExact(e1.getDate() - e2.getDate());
+        private final Comparator<Note> COMPARE_BY_DATE_SORT = (e1, e2) -> Math.toIntExact(e2.getDate() - e1.getDate());
 
 
         public Comparator<Note> getComparator(String arg) {
