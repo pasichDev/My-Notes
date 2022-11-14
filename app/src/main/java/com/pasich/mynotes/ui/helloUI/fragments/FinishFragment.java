@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.databinding.FragmentFinishBinding;
 import com.pasich.mynotes.ui.helloUI.tool.SavesNotes;
@@ -210,15 +211,20 @@ public class FinishFragment extends Fragment {
             // Добавим файлы но не папки
             if (!file.isDirectory() && file.getName().endsWith(".txt")) {
                 //Здесь записуем только фвйлы с корня
-                readFile(file, true);
+                readFile(file, true, "");
             } else if (file.isDirectory()) {
+                if (!file.getName().equals("trash")) {
+                    savesNotes.createTag(new Tag().create(file.getName()));
+                }
                 File[] fileDI = new File(requireContext().getFilesDir() + "/" + file.getName() + "/").listFiles();
                 assert fileDI != null;
                 for (File fileNameIsDir : fileDI) {
                     if (fileNameIsDir.getName().endsWith(".txt")) {
-                        readFile(fileNameIsDir, !file.getName().equals("trash"));
+                        readFile(fileNameIsDir, !file.getName().equals("trash"), file.getName());
                     }
                 }
+
+                file.delete();
             }
 
 
@@ -229,7 +235,7 @@ public class FinishFragment extends Fragment {
     }
 
 
-    private void readFile(File file, boolean note) throws IOException {
+    private void readFile(File file, boolean note, String nameTag) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String line;
@@ -239,7 +245,11 @@ public class FinishFragment extends Fragment {
         }
         if (stringBuilder.length() >= 2) {
             if (note)
-                savesNotes.saveNote(new Note().create(file.getName().replaceAll(".txt", ""), String.valueOf(stringBuilder), file.lastModified()));
+                savesNotes.saveNote(new Note().create(
+                        file.getName().replaceAll(".txt", ""),
+                        String.valueOf(stringBuilder), file.lastModified(),
+                        nameTag
+                ));
             else
                 savesNotes.saveTrash(new TrashNote().create(file.getName().replaceAll(".txt", ""), String.valueOf(stringBuilder), file.lastModified()));
         }

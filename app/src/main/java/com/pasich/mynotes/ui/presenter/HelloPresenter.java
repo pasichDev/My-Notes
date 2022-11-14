@@ -4,6 +4,7 @@ package com.pasich.mynotes.ui.presenter;
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.ui.contract.HelloContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
@@ -34,6 +35,12 @@ public class HelloPresenter extends AppBasePresenter<HelloContract.view> impleme
     @Override
     public void addTrashNote(TrashNote note) {
         getCompositeDisposable().add(getDataManager().addTrashNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
+
+    }
+
+    @Override
+    public void createTag(Tag tag) {
+        getCompositeDisposable().add(getDataManager().addTag(tag).subscribeOn(getSchedulerProvider().io()).subscribe());
 
     }
 

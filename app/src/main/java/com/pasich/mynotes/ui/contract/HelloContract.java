@@ -6,6 +6,7 @@ import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
 import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
@@ -23,5 +24,7 @@ public interface HelloContract {
         void addNote(Note note);
 
         void addTrashNote(TrashNote note);
+
+        void createTag(Tag tag);
     }
 }

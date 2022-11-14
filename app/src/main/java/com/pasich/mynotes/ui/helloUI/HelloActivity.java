@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
 import com.pasich.mynotes.databinding.ActivityHelloBinding;
 import com.pasich.mynotes.ui.contract.HelloContract;
@@ -78,5 +79,11 @@ public class HelloActivity extends BaseActivity implements HelloTool, SavesNotes
     @Override
     public void saveTrash(TrashNote note) {
         mPresenter.addTrashNote(note);
+    }
+
+    @Override
+    public void createTag(Tag tag) {
+        mPresenter.createTag(tag);
+
     }
 }
