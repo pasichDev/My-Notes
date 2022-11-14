@@ -8,8 +8,7 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
+            style="@style/imageViewHello"
             android:src="@drawable/hello_update_fragment" />
 
         <TextView
@@ -22,6 +21,7 @@
             android:fontFamily="@font/railway_medium"
             android:gravity="center"
             android:layout_gravity="center" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,5 +51,5 @@
             android:layout_gravity="bottom"
             android:padding="15dp"
             android:text="@string/Hello_next" />
-    </LinearLayout>
+</LinearLayout>
 
