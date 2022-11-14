@@ -1,10 +1,6 @@
 package com.pasich.mynotes.utils.adapters;
 
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 
@@ -49,8 +45,6 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         if (tagSelected.equals("allNotes")) {
             submitList(defaultList);
         } else {
-
-            Log.wtf(TAG, "default: " + defaultList.size());
             for (Note item : defaultList) {
 
                 if (item.getTag().equals(tagSelected)) {
@@ -58,7 +52,6 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
                 }
             }
             submitList(newFilter);
-
         }
     }
 

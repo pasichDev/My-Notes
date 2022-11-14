@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class GenericAdapter<T, VM extends ViewDataBinding> extends ListAdapter<T, GenericAdapter.RecyclerViewHolder> {
     private final int layoutId;
     private final GenericAdapterCallback<VM, T> bindingInterface;
-    private OnItemClickListener<T> mOnItemClickListener;
+    public OnItemClickListener<T> mOnItemClickListener;
 
     protected GenericAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback, int layoutId, GenericAdapterCallback<VM, T> bindingInterface) {
         super(diffCallback);

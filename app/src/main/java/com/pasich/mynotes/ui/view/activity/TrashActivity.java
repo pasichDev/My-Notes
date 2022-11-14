@@ -20,7 +20,6 @@ import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.TrashNoteActionTool;
 import com.pasich.mynotes.utils.adapters.TrashAdapter;
-import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.List;
@@ -76,17 +75,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     @Override
     public void initListeners() {
-        mNotesTrashAdapter.setOnItemClickListener(new OnItemClickListener<TrashNote>() {
-            @Override
-            public void onClick(int position, TrashNote model) {
-                selectItemAction(model, position, true);
-            }
-
-            @Override
-            public void onLongClick(int position, TrashNote model) {
-
-            }
-        });
+        mNotesTrashAdapter.setOnItemClickListener((position, model) -> selectItemAction(model, position, true));
 
     }
 
@@ -172,16 +161,6 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         trashNoteActionTool.checkedClean();
     }
 
-
-    @Override
-    public void deleteNotes() {
-
-    }
-
-    @Override
-    public void shareNotes() {
-
-    }
 
     @Override
     public void restoreNotes() {

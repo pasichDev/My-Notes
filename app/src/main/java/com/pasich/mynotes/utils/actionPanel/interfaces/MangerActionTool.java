@@ -2,9 +2,15 @@ package com.pasich.mynotes.utils.actionPanel.interfaces;
 
 public interface MangerActionTool {
 
-    void deleteNotes();
+    default void deleteNotes() {
 
-    void shareNotes();
+    }
 
-    void restoreNotes();
+    default void shareNotes() {
+
+    }
+
+    default void restoreNotes() {
+
+    }
 }

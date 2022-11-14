@@ -50,7 +50,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.reactivex.Flowable;
-import io.reactivex.disposables.Disposable;
 
 
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
@@ -84,7 +83,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     private Note backupDeleteNote;
 
 
-    private Disposable mDisposiable;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,8 +111,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         super.onDestroy();
         mainPresenter.detachView();
         variablesNull();
-        tagsAdapter.setOnItemClickListener(null);
-        mNoteAdapter.setOnItemClickListener(null);
+        //   tagsAdapter.setOnItemClickListener(null);
+        //   mNoteAdapter.setOnItemClickListener(null);
 
     }
 
@@ -168,7 +166,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             public void onLongClick(int position, Note model) {
                 if (!getAction()) choiceNoteDialog(model, position);
             }
-
 
         });
     }
@@ -243,11 +240,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                                 throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)
                         ));
 
-        mDisposiable = noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
+        mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
             mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
             runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
-        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable));
-        mainPresenter.getCompositeDisposable().add(mDisposiable);
+        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
     }
 
 
@@ -352,12 +348,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         new ShareUtils(valueShare.toString(), this).shareText();
         actionUtils.closeActionPanel();
     }
-
-    @Override
-    public void restoreNotes() {
-
-    }
-
 
     @Override
     public void selectItemAction(Note note, int position, boolean payloads) {
