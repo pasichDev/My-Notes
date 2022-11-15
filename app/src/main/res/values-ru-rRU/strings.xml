@@ -29,7 +29,6 @@
 
     <string name="telegram">Открыть контакты разработчика</string>
     <string name="error">Ошибка</string>
-    <string name="notSource">В данной заметке нет вложений</string>
     <string name="notSupportedShare" translatable="false">Этот контент не поддерживается.</string>
     <string name="notFoundPlayMarket">Отсутствует приложение Play Market</string>
     <string name="copyX">"Скопировано "</string>

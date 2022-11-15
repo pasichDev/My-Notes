@@ -38,7 +38,6 @@
 
     <string name="notSupportedShare">This content is not supported.</string>
     <string name="error">Error</string>
-    <string name="notSource">This note has no attachments.</string>
     <string name="copyX">Copied</string>
     <string name="cd_format">Format notes</string>
 
@@ -88,13 +87,10 @@
 
     <string name="translateNote" translatable="false">Перевести заметку</string>
 
-    <string name="sourceNotes" translatable="false">Вложения</string>
-
 
     <string name="hintTextNote" translatable="false">Текст</string>
 
     <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
-    <string name="infoDialogSource" translatable="false">Чтобы скопировать текст вложения нажмите и удерживайте</string>
 
     <string name="lastDateEditNote" translatable="false">Последнее изменение: %1$s </string>
     <string name="restore" translatable="false">Восстановить заметки</string>
