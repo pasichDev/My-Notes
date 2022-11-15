@@ -24,6 +24,10 @@
 
     <string name="notFoundPlayMarket">Missing Play Market app</string>
 
+    <string name="notSupportedShare">This content is not supported.</string>
+    <string name="error">Error</string>
+    <string name="copyX">Copied</string>
+    <string name="cd_format">Format notes</string>
 
     <string name="updateNowM">
 - Added: Note attachments, in this window you can see links, phone numbers, emails that are used in notes \n
@@ -35,11 +39,6 @@
 - A lot of optimization has been carried out, and work with the code for the stability of the application.
     </string>
 
-
-    <string name="notSupportedShare">This content is not supported.</string>
-    <string name="error">Error</string>
-    <string name="copyX">Copied</string>
-    <string name="cd_format">Format notes</string>
 
     <string name="search" translatable="false">Поиск в заметках </string>
 
