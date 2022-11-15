@@ -10,11 +10,6 @@
     <string name="cancel"> Cofnij </string>
     <string name="shareNull"> Opróżnij Kosz! </string>
     <string name="whatUpdate"> Co nowego? </string>
-    <string name="error_TTS"> Nie znaleziono usługi rozpoznawania mowy </string>
-    <string name="error_TTS_Message"> Aby używać wprowadzania głosowego, musisz zainstalować aplikację Google Speech Services. </string>
-    <string name="errorPermisions"> Błąd dostępu </string>
-    <string name="errorPermisions_Message"> Aby móc korzystać z tej funkcji, musisz przyznać uprawnienia do nagrywania dźwięku.
-    Aby to zrobić, przejdź do menu Informacje -> Uprawnienia i zezwól na użycie mikrofonu </string>
     <string name="notes"> Notatki </string>
     <string name="noSave"> Zamknij bez zapisywania </string>
     <string name="infoAppPrefences"> Informacje </string>

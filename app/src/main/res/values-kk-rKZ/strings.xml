@@ -10,11 +10,6 @@
     <string name="cancel" >Болдырмау</string>
     <string name ="shareNull" >Бөлісетін ештеңе жоқ!</string >
     <string name ="whatUpdate" >Не жаңалық?</string >
-    <string name = "error_TTS">Сөйлеу қызметі табылмады</string>
-    <string name="error_TTS_Message">Дауыспен енгізуді пайдалану үшін Google Speech Services қолданбасын орнату қажет. </string>
-    <string name="errorPermisions">Рұқсат қатесі</string>
-    <string name="errorPermisions_Message">Бұл мүмкіндікті пайдалану үшін дыбыс жазуға рұқсат беру керек.
-    Ол үшін қолданба туралы -> Рұқсаттар мәзірін ашыңыз және микрофонды пайдалануға рұқсат етіңіз</string>
     <string name = "notes">Ескертпелер</string>
     <string name="noSave">Сақтамай жабу</string>
     <string name = "infoAppPrefences">Қолданба туралы</string>

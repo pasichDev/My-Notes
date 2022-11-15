@@ -16,12 +16,6 @@
     <string name="telegram">Open developer contacts</string>
     <string name="whatUpdate">Whats new?</string>
 
-    <string name="error_TTS"> Speech service not found </string>
-    <string name="error_TTS_Message"> To use voice input, you need to install the Speech Services by Google app. </string>
-    <string name="errorPermisions"> Access error </string>
-    <string name="errorPermisions_Message"> To be able to use this function, you need to grant permission to record audio.
-    To do this, open the About app -> Permissions menu and allow using the microphone </string>
-
     <string name="notes"> Notes </string>
     <string name="noSave"> Close without saving </string>
     <string name="infoAppPrefences"> About App </string>
@@ -75,9 +69,6 @@
 
     <string name="sortHead" translatable="false">Cортировать по:</string>
     <string name="visibilityNotesToTag" translatable="false">Скрыть метку</string>
-
-
-    <string name="layoutStringInfoCountSymbols" translatable="false">%1$s символов</string>
 
 
     <string name="layoutStringInfoTags" translatable="false">Отмечено %1$s заметок</string>
@@ -170,7 +161,6 @@
     <string name="tagHastag" translatable="false">#%1$s</string>
     <string name="copyNoteEdits" translatable="false">Редактировать копию</string>
     <string name="noteMoveTrashSnackbar" translatable="false">Заметку перемещено в корзину</string>
-    <string name="noteRestoreSnackbar" translatable="false">Восстановить</string>
     <string name="srcfeatures" translatable="false">SrcFeatures</string>
     <string name="icon_desinger" translatable="false">Icon designer: @storyset </string>
 

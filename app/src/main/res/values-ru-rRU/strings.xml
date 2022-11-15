@@ -11,11 +11,6 @@
     <string name="shareNull">Нечем делиться!</string>
     <string name="whatUpdate">Что нового?</string>
 
-    <string name="error_TTS">Служба распознавания речи не найдена</string>
-    <string name="error_TTS_Message">Чтобы использовать голосовой ввод, вам нужно установить приложение Speech Services by Google. </string>
-    <string name="errorPermisions">Ошибка доступа</string>
-    <string name="errorPermisions_Message">Для возможности использовать данную функцию, вам нужно предоставить разрешение на запись аудио.
-    Для этого откройте меню О приложении -> Разрешения и разрешите использовать микрофон</string>
     <string name="notes">Заметки</string>
     <string name="noSave">Закрыть без сохранения</string>
     <string name="infoAppPrefences">О приложении</string>
