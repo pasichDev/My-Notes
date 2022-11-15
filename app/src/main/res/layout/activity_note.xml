@@ -102,9 +102,9 @@
                     android:textStyle="bold"
                     tools:ignore="TouchTargetSizeCheck" />
 
+
                 <EditText
                     android:id="@+id/valueNote"
-                    android:linksClickable="true"
                     android:autoLink="web|email|phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

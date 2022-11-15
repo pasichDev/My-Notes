@@ -65,9 +65,4 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
         getCompositeDisposable().add(getDataManager().deleteNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
-    @Override
-    public void sourceNote() {
-        getView().loadingSourceNote();
-    }
-
 }

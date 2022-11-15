@@ -21,8 +21,6 @@ public interface NoteContract {
 
         void loadingNote(Note note);
 
-        void loadingSourceNote();
-
         void editIdNoteCreated(long idNote);
     }
 
@@ -39,6 +37,5 @@ public interface NoteContract {
 
         void deleteNote(Note note);
 
-        void sourceNote();
     }
 }

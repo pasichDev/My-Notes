@@ -20,8 +20,8 @@ import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
-import com.pasich.mynotes.ui.view.dialogs.note.SourceNoteDialog;
-import com.pasich.mynotes.utils.SearchSourceNote;
+import com.pasich.mynotes.ui.view.dialogs.note.LinkInfoDialog;
+import com.pasich.mynotes.utils.CustomLinkMovementMethod;
 import com.pasich.mynotes.utils.activity.NoteUtils;
 
 import java.util.Date;
@@ -114,16 +114,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
 
     @Override
-    public void loadingSourceNote() {
-        SearchSourceNote searchSourceNote = new SearchSourceNote(binding.valueNote.getText().toString());
-        if (searchSourceNote.getCountSource() >= 1)
-            new SourceNoteDialog(searchSourceNote).show(getSupportFragmentManager(), "SourcesNoteDialog");
-        else Toast.makeText(this, getString(R.string.notSource), Toast.LENGTH_SHORT).show();
-
-
-    }
-
-    @Override
     public void editIdNoteCreated(long idNote) {
         this.mNote.setId(Math.toIntExact(idNote));
     }
@@ -197,6 +187,41 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void loadingNote(Note note) {
         binding.notesTitle.setText(note.getTitle().length() >= 2 ? note.getTitle() : "");
         binding.valueNote.setText(note.getValue());
+        binding.valueNote.setMovementMethod(new CustomLinkMovementMethod() {
+            @Override
+            protected void onClickLink(String link, int type) {
+                link = link.replaceAll("mailto:", "")
+                        .replaceAll("tel:", "");
+
+                new LinkInfoDialog(link, type).show(getSupportFragmentManager(), "LinkInfoDIalog");
+
+                // new MaterialAlertDialogBuilder(NoteActivity.this, R.style.AlertDialogTheme)
+                //   .setTitle(link)
+                //    .setView(R.layout.dialog_info_link)
+                     /*   .setNegativeButton(R.string.button_edit, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton(R.string.button_phone, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setNeutralButton(R.string.button_copy, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+
+                      */
+                //      .show();
+            }
+
+        });
         binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(note.getDate())));
         changeTag(note.getTag());
         this.mNote = note;
@@ -236,9 +261,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             if (!mNote.getTitle().contentEquals(mTitle)) mNote.setTitle(mTitle);
             if (!mNote.getValue().contentEquals(mValue)) {
                 mNote.setValue(mValue);
-                mNote.setDate(mThisDate);
             }
 
+            mNote.setDate(mThisDate);
             notePresenter.saveNote(mNote);
         }
     }

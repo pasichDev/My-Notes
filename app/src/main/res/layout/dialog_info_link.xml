@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/headTextDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="start"
+        android:padding="@dimen/paddingItems"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tool:text="DialogTitle" />
+
 
     <LinearLayout
-        style="@style/rootDialogLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
-        <include layout="@layout/view_head_dialog" />
 
         <FrameLayout
-            android:id="@+id/DataSort"
+            android:id="@+id/edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
@@ -24,64 +38,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/sort_Date_Increase"
+                android:text="@string/button_edit"
                 android:textSize="@dimen/textSizeItems" />
 
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/DataReserve"
+            android:id="@+id/copy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:padding="@dimen/paddingItems">
 
             <TextView
-                android:id="@+id/DataReserveText"
                 style="@style/marginDialogItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/sort_Date_Decrease"
+                android:text="@string/button_copy"
                 android:textSize="@dimen/textSizeItems" />
+
         </FrameLayout>
 
-
         <FrameLayout
-            android:id="@+id/TitleSort"
+            android:id="@+id/action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:padding="@dimen/paddingItems">
 
             <TextView
-                android:id="@+id/TitleSortText"
+                android:id="@+id/actionButton"
                 style="@style/marginDialogItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center_vertical"
-                android:text="@string/sort_Title_Increase"
                 android:textSize="@dimen/textSizeItems" />
-        </FrameLayout>
 
-
-        <FrameLayout
-            android:id="@+id/TitleReserve"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/paddingItems">
-
-            <TextView
-                android:id="@+id/TitleReserveText"
-                style="@style/marginDialogItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="center_vertical"
-                android:text="@string/sort_Title_Decrease"
-                android:textSize="@dimen/textSizeItems" />
         </FrameLayout>
     </LinearLayout>
-</FrameLayout>
+
+
+</LinearLayout>

@@ -164,4 +164,10 @@
     <string name="srcfeatures" translatable="false">SrcFeatures</string>
     <string name="icon_desinger" translatable="false">Icon designer: @storyset </string>
 
+
+    <string name="button_edit" translatable="false">Редактировать</string>
+    <string name="button_copy" translatable="false">Копировать</string>
+    <string name="button_phone" translatable="false">Позвонить</string>
+    <string name="button_mail" translatable="false">Написать</string>
+    <string name="button_url" translatable="false">Перейти</string>
 </resources>
