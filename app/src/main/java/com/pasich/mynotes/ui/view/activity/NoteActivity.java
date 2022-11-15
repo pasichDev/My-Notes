@@ -85,6 +85,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void initTypeActivity() {
         if (newNoteKey) {
             activatedActivity();
+            if (tagNote.length() >= 2) changeTag(tagNote);
+            binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(new Date().getTime())));
+
             if (shareText != null && shareText.length() > 5) binding.valueNote.setText(shareText);
         } else if (idKey >= 1) {
             notePresenter.loadingData(idKey);
