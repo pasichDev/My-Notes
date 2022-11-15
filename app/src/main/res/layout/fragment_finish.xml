@@ -39,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:padding="20dp"
+        android:padding="5dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
@@ -64,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_gravity="bottom"
             android:visibility="visible">
 
             <ProgressBar

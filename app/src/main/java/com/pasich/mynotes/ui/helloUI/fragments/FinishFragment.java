@@ -3,8 +3,6 @@ package com.pasich.mynotes.ui.helloUI.fragments;
 
 import static android.content.ContentValues.TAG;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -122,21 +120,8 @@ public class FinishFragment extends Fragment {
     private void initBackup() {
         mHandler.postDelayed(() -> {
             createBackup();
-
-            binding.progressLayout.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    binding.progressLayout.setVisibility(View.GONE);
-                    binding.blockFinish.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            super.onAnimationStart(animation);
-                            binding.blockFinish.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-            });
+            binding.progressLayout.setVisibility(View.GONE);
+            binding.blockFinish.setVisibility(View.VISIBLE);
 
 
         }, 3000);
@@ -157,33 +142,21 @@ public class FinishFragment extends Fragment {
     }
 
     private void finishHello() {
-        binding.blockFinish.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                binding.blockFinish.setVisibility(View.GONE);
-                binding.progressLayout.animate().alpha(1.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        super.onAnimationStart(animation);
 
-                        binding.textProgress.setVisibility(View.GONE);
-                        binding.progressLayout.setVisibility(View.VISIBLE);
-                        mHandler.postDelayed(() -> {
-                            removesPreferences();
-                            try {
-                                searchNotesAndSave();
-                            } catch (IOException e) {
-                                Log.wtf(TAG, "onAnimationStart: " + e);
-                            }
-                        }, 3000);
-                    }
-                });
+        binding.blockFinish.setVisibility(View.GONE);
+        binding.textProgress.setVisibility(View.GONE);
+        binding.progressLayout.setVisibility(View.VISIBLE);
+        mHandler.postDelayed(() -> {
+            removesPreferences();
+            try {
+                searchNotesAndSave();
+            } catch (IOException e) {
+                Log.wtf(TAG, "onAnimationStart: " + e);
             }
-        });
-
+        }, 3000);
 
     }
+
 
 
     private void removesPreferences() {
