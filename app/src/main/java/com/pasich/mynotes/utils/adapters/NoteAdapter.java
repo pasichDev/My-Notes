@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 
 import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallback;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
@@ -19,10 +20,20 @@ import javax.inject.Inject;
 public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note, VM> {
 
     private List<Note> defaultList = new ArrayList<>();
+    private List<String> nameTagsHidden = new ArrayList<>();
+
 
     @Inject
     public NoteAdapter(@NonNull DiffUtilNote diffCallback, int layoutId, GenericAdapterCallback<VM, Note> bindingInterface) {
         super(diffCallback, layoutId, bindingInterface);
+    }
+
+
+    public void setNameTagsHidden(List<Tag> tagList) {
+        nameTagsHidden.clear();
+        for (Tag tag : tagList) {
+            if (tag.getVisibility() == 1) nameTagsHidden.add(tag.getNameTag());
+        }
     }
 
 
@@ -43,8 +54,19 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         ArrayList<Note> newFilter = new ArrayList<>();
 
         if (tagSelected.equals("allNotes")) {
-            submitList(defaultList);
-            return defaultList.size();
+            for (Note item : defaultList) {
+                if (!nameTagsHidden.contains(item.getTag())) {
+                    newFilter.add(item);
+                }
+            }
+
+            if (nameTagsHidden.size() >= 1) {
+                submitList(newFilter);
+                return newFilter.size();
+            } else {
+                submitList(defaultList);
+                return defaultList.size();
+            }
         } else {
             for (Note item : defaultList) {
 

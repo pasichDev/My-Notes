@@ -110,8 +110,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         super.onDestroy();
         mainPresenter.detachView();
         variablesNull();
-        //   tagsAdapter.setOnItemClickListener(null);
-        //   mNoteAdapter.setOnItemClickListener(null);
 
     }
 
@@ -236,7 +234,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
         mainPresenter.getCompositeDisposable().add(
                 tagList.subscribeOn(mainPresenter.getSchedulerProvider().io())
-                        .subscribe(tags -> tagsAdapter.submitList(tags),
+                        .subscribe(tags -> {
+                                    tagsAdapter.submitList(tags);
+                                    mNoteAdapter.setNameTagsHidden(tags);
+                                },
                                 throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)
                         ));
 
@@ -244,7 +245,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                 .subscribeOn(mainPresenter.getSchedulerProvider().io())
                 .subscribe(notes -> {
                     int countNotes = mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-                    Log.wtf("pasic", "loadingData: " + countNotes);
                     runOnUiThread(() -> showEmptyTrash(!(countNotes >= 1)));
 
                 }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));

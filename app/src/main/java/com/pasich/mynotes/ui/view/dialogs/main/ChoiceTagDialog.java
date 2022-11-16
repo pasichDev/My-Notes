@@ -58,7 +58,7 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         super.onStart();
         int countNotes = mPresenter.getCountNotesForTag();
         if (countNotes == 0) {
-            binding.deleteTagLayout.setBackground(getActivity().getDrawable(R.drawable.item_ripple_border));
+            binding.switchVisibTag.setBackground(getActivity().getDrawable(R.drawable.item_ripple_border));
             binding.includedInfo.getRoot().setVisibility(View.GONE);
         }
         binding.includedInfo.noteInfo.setText(getString(R.string.layoutStringInfoTags, String.valueOf(countNotes)));
