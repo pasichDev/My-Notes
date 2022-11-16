@@ -96,11 +96,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-
+    <!-- Стиль switch  -->
     <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
     </style>
-
+    <!-- Стиль switch  -->
     <style name="ThemeOverlay.App.Switch" parent="">
         <item name="colorOnSurface">@color/colorPrimaryBackground</item>
         <item name="colorSecondary">@color/colorPrimary</item>
@@ -114,17 +114,14 @@
         <item name="fontFamily">@font/railway_medium</item>
     </style>
 
-
-    <style name="SearchDialog" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:colorBackground">@android:color/transparent</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
+    <!-- Стиль SearchBottomSheetsDialog  -->
+    <style name="SearchDialog" parent="BottomSheetsStyleCustom">
         <item name="android:windowCloseOnTouchOutside">false</item>
         <item name="behavior_draggable">false</item>
         <item name="behavior_hideable">false</item>
     </style>
 
+    <!-- Стиль CustomBottomSheets  -->
     <style name="BottomSheetsStyleCustom" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">false</item>
@@ -132,12 +129,13 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
-
+    <!-- Стиль rootView BottomSheets  -->
     <style name="rootDialogLayout">
         <item name="android:background">@drawable/background_bottom_sheets</item>
         <item name="android:layout_margin">15dp</item>
     </style>
 
+    <!-- Стиль rootView BottomSheets (NoteSettings)  -->
     <style name="rootDialogLayoutTop">
         <item name="android:background">@drawable/background_bottom_sheets</item>
         <item name="android:layout_marginBottom">0dp</item>
@@ -146,6 +144,7 @@
         <item name="android:layout_marginEnd">15dp</item>
     </style>
 
+    <!-- Стиль для картинок из экрана приветсвий  -->
     <style name="imageViewHello">
         <item name="android:contentDescription">@string/srcfeatures</item>
         <item name="android:layout_height">0dp</item>
