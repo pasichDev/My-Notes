@@ -46,16 +46,8 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
             dismiss();
         }
 
-        binding.includedInput.outlinedTextField.requestFocus();
-        binding.includedInput.outlinedTextField.setEndIconOnClickListener(v -> saveTag());
+        binding.outlinedTextField.requestFocus();
 
-
-        binding.includedInput.nameTag.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                saveTag();
-                return true;
-            } else return false;
-        });
 
         return requireDialog();
     }
@@ -63,7 +55,16 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
 
     @Override
     public void initListeners() {
-        binding.includedInput.nameTag.addTextChangedListener(new TextWatcher() {
+        binding.outlinedTextField.setEndIconOnClickListener(v -> saveTag());
+
+
+        binding.nameTag.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                saveTag();
+                return true;
+            } else return false;
+        });
+        binding.nameTag.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -83,21 +84,21 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
     }
 
     private void validateText(int length) {
-        if (length >= MAX_NAME_TAG) {
+        if (length >= MAX_NAME_TAG + 1) {
             errorText = true;
-            binding.includedInput.outlinedTextField.setError(getString(R.string.errorNewTagInput, MAX_NAME_TAG));
-        } else if (length == MAX_NAME_TAG - 1) {
+            binding.outlinedTextField.setError(getString(R.string.errorNewTagInput, MAX_NAME_TAG));
+        } else if (length == (MAX_NAME_TAG + 1) - 1) {
             errorText = false;
-            binding.includedInput.outlinedTextField.setError(null);
+            binding.outlinedTextField.setError(null);
         }
         if (length < 1) errorText = true;
-        else if (length < MAX_NAME_TAG - 1) errorText = false;
+        else if (length < (MAX_NAME_TAG + 1) - 1) errorText = false;
     }
 
 
     private void saveTag() {
         if (!errorText) {
-            mPresenter.saveTag(Objects.requireNonNull(binding.includedInput.nameTag.getText()).toString());
+            mPresenter.saveTag(Objects.requireNonNull(binding.nameTag.getText()).toString());
             dismiss();
         }
     }
@@ -107,7 +108,7 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         mPresenter.detachView();
-        binding.includedInput.nameTag.addTextChangedListener(null);
+        binding.nameTag.addTextChangedListener(null);
         requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
