@@ -24,9 +24,9 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mDialog = new BottomSheetDialog(requireContext(), R.style.InputsDialog);
+        mDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheetsStyleCustom);
 
-        mDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);///
+        mDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         if (context instanceof BaseActivity) {
             activity = (BaseActivity) context;
         }
@@ -92,7 +92,4 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
         return null;
     }
 
-    public BaseActivity getBaseActivity() {
-        return activity;
-    }
 }

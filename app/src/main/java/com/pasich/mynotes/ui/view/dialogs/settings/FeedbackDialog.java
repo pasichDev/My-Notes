@@ -20,7 +20,7 @@ public class FeedbackDialog extends BottomSheetDialogFragment {
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireActivity(), R.style.InputsDialog);
+        final BottomSheetDialog builder = new BottomSheetDialog(requireActivity(), R.style.BottomSheetsStyleCustom);
         com.pasich.mynotes.databinding.DialogFeedbackBinding binding = DialogFeedbackBinding.inflate(getLayoutInflater());
         builder.setContentView(binding.getRoot());
 

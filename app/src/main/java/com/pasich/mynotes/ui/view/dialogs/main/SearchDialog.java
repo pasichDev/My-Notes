@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.AnimationUtils;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -82,7 +83,12 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
             binding.actionSearch.clearFocus();
             dismiss();
         });
-        searchNotesAdapter.setItemClickListener(idNote -> startActivity(new Intent(requireActivity(), NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", "")));
+        searchNotesAdapter.setItemClickListener((idNote, view) -> {
+            view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click_scale));
+            startActivity(new Intent(requireActivity(), NoteActivity.class)
+                    .putExtra("NewNote", false).putExtra("idNote", idNote)
+                    .putExtra("shareText", "").putExtra("tagNote", ""));
+        });
 
 
     }

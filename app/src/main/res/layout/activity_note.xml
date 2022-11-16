@@ -52,7 +52,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textSize="16sp"
-                        android:textStyle="bold"
                         android:textColor="@color/colorPrimaryVariant"
                         tools:text="tag_name" />
 

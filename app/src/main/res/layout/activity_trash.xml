@@ -38,7 +38,7 @@
                 android:background="@android:color/transparent"
                 android:fitsSystemWindows="true"
                 app:expandedTitleMarginStart="20dp"
-                app:expandedTitleTextAppearance="@style/TextAppearanceTitleActivity"
+                app:expandedTitleTextAppearance="@style/headActivityText"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title="@string/trashN">
 

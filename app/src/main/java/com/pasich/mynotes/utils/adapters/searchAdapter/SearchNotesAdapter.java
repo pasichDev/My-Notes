@@ -43,7 +43,8 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
         ViewHolder view = new SearchNotesAdapter.ViewHolder(ItemResultBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
         if (mOnItemClickListener != null) {
-            view.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(getData().get(view.getAdapterPosition()).getId()));
+            view.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(
+                    getData().get(view.getAdapterPosition()).getId(), view.ItemBinding.itemNote));
         }
 
         return view;

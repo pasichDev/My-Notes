@@ -2,8 +2,7 @@
 
     <style name="ThemeBlue" parent="Theme.Material3.Light.NoActionBar">
 
-        <!-- Цвет линков для едит текст -->
-        <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
+
 
         <!-- Цвет фона дилоговых окон, цвет поля ввода-->
         <item name="colorPrimary">@color/colorPrimaryBackground</item>
@@ -13,30 +12,21 @@
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
         <item name="colorBackground">@color/white</item>
         <item name="colorLight">@color/darkLight</item>
-
-
-        <!-- Цвет фона дилоговых окон-->
         <item name="colorSurface">@color/white</item>
-
-        <!-- Цвет switchmaterial.SwitchMaterial -->
-        <item name="switchStyle">@style/Widget.App.Switch</item>
-
-
         <item name="colorAccent">@color/colorPrimaryBackground</item>
-
-
         <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
-
-
         <item name="colorControlNormal">@color/black</item>
-
         <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
+
+        <!-- Цвет линков для едит текст -->
+        <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
         <!-- Style to use for action button within a Snackbar in this theme. -->
         <item name="snackbarButtonStyle">@style/snackbar_button</item>
-
+        <!-- Цвет switchmaterial.SwitchMaterial -->
+        <item name="switchStyle">@style/Widget.App.Switch</item>
 
     </style>
 
@@ -51,11 +41,13 @@
     </style>
 
 
+    <!-- Стиль кнопки восстановить в SnackBar -->
     <style name="snackbar_button" parent="Widget.Material3.Button.TextButton.Snackbar">
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
 
+    <!-- Стиль для заголовка активности -->
     <style name="headActivityText">
         <item name="fontFamily">@font/railway_medium</item>
         <item name="android:textColor">@color/black</item>
@@ -63,27 +55,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearanceTitleActivity">
-        <item name="fontFamily">@font/railway_medium</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">26sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="headDialogText">
-        <item name="fontFamily">@font/railway_medium</item>
-        <item name="android:textColor">@color/black</item>
+    <!-- Стиль для заголовка BottomSheetsDialog -->
+    <style name="headDialogText" parent="headActivityText">
         <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
-
-    <style name="iconDialogList" parent="marginDialogItem">
-        <item name="android:layout_width">26dp</item>
-        <item name="android:layout_height">26dp</item>
-        <item name="android:background">@null</item>
-    </style>
-
+    <!-- Позиционирование елементов в BottomSheetsDialog -->
     <style name="marginDialogItem">
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
@@ -91,24 +68,30 @@
         <item name="android:layout_marginEnd">12dp</item>
     </style>
 
-    <style name="ChipStyleCustom" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor">@color/white</item>
-        <item name="chipStrokeColor">?attr/colorAccentIcon</item>
-        <item name="chipStrokeWidth">1dp</item>
-        <item name="android:textColor">?attr/colorAccentIcon</item>
+    <!-- Стиль иконок в BottomSheetsDialog -->
+    <style name="iconDialogList" parent="marginDialogItem">
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:background">@null</item>
     </style>
 
 
-    <style name="ChipStyleCustomChoiceNote" parent="Widget.MaterialComponents.Chip.Choice">
+    <!-- Основной стиль меток в Chip -->
+    <style name="ChipStyleCustom" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipEndPadding">5dp</item>
         <item name="chipStartPadding">5dp</item>
         <item name="chipBackgroundColor">@color/chip_background_color</item>
         <item name="chipStrokeWidth">0dp</item>
         <item name="android:textColor">?attr/colorAccentIcon</item>
-        <item name="android:textAppearance">@style/BoldText</item>
     </style>
 
 
+    <!-- Стиль меток chip в для MoreNoteDialog  -->
+    <style name="ChipStyleCustomChoiceNote" parent="ChipStyleCustom">
+        <item name="android:textAppearance">@style/BoldText</item>
+    </style>
+
+    <!-- Стиль жирного шрифта  -->
     <style name="BoldText" parent="TextAppearance.AppCompat.Small">
         <item name="android:textStyle">bold</item>
     </style>
@@ -142,7 +125,7 @@
         <item name="behavior_hideable">false</item>
     </style>
 
-    <style name="InputsDialog" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="BottomSheetsStyleCustom" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>

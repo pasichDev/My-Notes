@@ -162,6 +162,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             notePresenter.closeActivity();
+
         }
         if (item.getItemId() == R.id.moreBut) {
 
@@ -190,35 +191,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         binding.valueNote.setMovementMethod(new CustomLinkMovementMethod() {
             @Override
             protected void onClickLink(String link, int type) {
-                link = link.replaceAll("mailto:", "")
-                        .replaceAll("tel:", "");
+                link = link.replaceAll("mailto:", "").replaceAll("tel:", "");
 
                 new LinkInfoDialog(link, type).show(getSupportFragmentManager(), "LinkInfoDIalog");
 
-                // new MaterialAlertDialogBuilder(NoteActivity.this, R.style.AlertDialogTheme)
-                //   .setTitle(link)
-                //    .setView(R.layout.dialog_info_link)
-                     /*   .setNegativeButton(R.string.button_edit, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton(R.string.button_phone, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        })
-                        .setNeutralButton(R.string.button_copy, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        })
-
-                      */
-                //      .show();
             }
 
         });
@@ -241,7 +217,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         if (shareText.length() >= 2)
             Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
 
-        finish();
+        finishAfterTransition();
     }
 
     private void saveNote() {
@@ -272,7 +248,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void closeActivityNotSaved() {
         exitNoSave = true;
-        finish();
+        finishAfterTransition();
     }
 
     @Override
@@ -287,7 +263,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void openCopyNote(int idNote) {
-        finish();
+        finishAfterTransition();
         startActivity(new Intent(NoteActivity.this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
 

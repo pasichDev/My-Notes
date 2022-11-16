@@ -81,9 +81,8 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         }
 
         binding.includeHead.headTextDialog.setText(mNote.getTitle().length() > 1 ? mNote.getTitle() : getString(R.string.chooseNote));
-        binding.includeHead.headTextDialog.setVisibility(newNoteActivity ? View.GONE : View.VISIBLE);
+        binding.includeHead.getRoot().setVisibility(newNoteActivity ? View.GONE : View.VISIBLE);
         binding.settingsActivity.rootView.setVisibility(activityNote ? View.VISIBLE : View.GONE);
-
         return requireDialog();
     }
 
