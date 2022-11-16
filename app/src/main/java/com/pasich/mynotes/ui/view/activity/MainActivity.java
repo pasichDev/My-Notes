@@ -237,17 +237,20 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                         .subscribe(tags -> {
                                     tagsAdapter.submitList(tags);
                                     mNoteAdapter.setNameTagsHidden(tags);
+
+                                    mainPresenter.getCompositeDisposable().add(noteList
+                                            .subscribeOn(mainPresenter.getSchedulerProvider().io())
+                                            .subscribe(notes -> {
+                                                int countNotes = mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+                                                runOnUiThread(() -> showEmptyTrash(!(countNotes >= 1)));
+
+                                            }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+
                                 },
                                 throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)
                         ));
 
-        mainPresenter.getCompositeDisposable().add(noteList
-                .subscribeOn(mainPresenter.getSchedulerProvider().io())
-                .subscribe(notes -> {
-                    int countNotes = mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-                    runOnUiThread(() -> showEmptyTrash(!(countNotes >= 1)));
 
-                }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
     }
 
 
