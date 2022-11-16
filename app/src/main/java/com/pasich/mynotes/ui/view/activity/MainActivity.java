@@ -232,23 +232,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam) {
-        mainPresenter.getCompositeDisposable().add(
-                tagList.subscribeOn(mainPresenter.getSchedulerProvider().io())
-                        .subscribe(tags -> {
-                                    tagsAdapter.submitList(tags);
-                                    mNoteAdapter.setNameTagsHidden(tags);
+        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(tags -> {
+            tagsAdapter.submitList(tags);
+            mNoteAdapter.setNameTagsHidden(tags);
 
-                                    mainPresenter.getCompositeDisposable().add(noteList
-                                            .subscribeOn(mainPresenter.getSchedulerProvider().io())
-                                            .subscribe(notes -> {
-                                                int countNotes = mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-                                                runOnUiThread(() -> showEmptyTrash(!(countNotes >= 1)));
+            mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
+                int countNotes = mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+                runOnUiThread(() -> showEmptyTrash(!(countNotes >= 1)));
 
-                                            }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+            }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
-                                },
-                                throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)
-                        ));
+        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
 
     }
@@ -290,8 +284,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public void newNotesButton() {
         Tag tagSelected = tagsAdapter.getTagSelected();
         String tagName = tagSelected == null ? "" : tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag();
-        startActivity(new Intent(this, NoteActivity.class)
-                .putExtra("NewNote", true).putExtra("tagNote", tagName));
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", tagName));
     }
 
     @Override
