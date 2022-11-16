@@ -32,18 +32,19 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         submitList(newList);
     }
 
-    public void sortList(List<Note> notesList, String arg, String tagSelected) {
+    public int sortList(List<Note> notesList, String arg, String tagSelected) {
         Collections.sort(notesList, new NoteComparator().getComparator(arg));
         defaultList = notesList;
-        filter(tagSelected);
+        return filter(tagSelected);
     }
 
 
-    public void filter(String tagSelected) {
+    public int filter(String tagSelected) {
         ArrayList<Note> newFilter = new ArrayList<>();
 
         if (tagSelected.equals("allNotes")) {
             submitList(defaultList);
+            return defaultList.size();
         } else {
             for (Note item : defaultList) {
 
@@ -51,8 +52,11 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
                     newFilter.add(item);
                 }
             }
+
             submitList(newFilter);
+            return newFilter.size();
         }
+
     }
 
 

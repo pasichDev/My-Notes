@@ -187,10 +187,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void settingsNotesList() {
+
+        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mActivityBinding.listNotes.addItemDecoration(itemDecorationNotes);
         mActivityBinding.listNotes.setLayoutManager(staggeredGridLayoutManager);
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
-
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new SwipeToListNotesCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean isItemViewSwipeEnabled() {
@@ -239,10 +240,14 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                                 throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)
                         ));
 
-        mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
-            mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-            runOnUiThread(() -> showEmptyTrash(!(notes.size() >= 1)));
-        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+        mainPresenter.getCompositeDisposable().add(noteList
+                .subscribeOn(mainPresenter.getSchedulerProvider().io())
+                .subscribe(notes -> {
+                    int countNotes = mNoteAdapter.sortList(notes, sortParam, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+                    Log.wtf("pasic", "loadingData: " + countNotes);
+                    runOnUiThread(() -> showEmptyTrash(!(countNotes >= 1)));
+
+                }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
     }
 
 
@@ -372,7 +377,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
-        mNoteAdapter.filter(tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+        showEmptyTrash(!(mNoteAdapter.filter(tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag()) >= 1));
     }
 
 
