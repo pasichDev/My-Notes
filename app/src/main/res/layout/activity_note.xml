@@ -99,6 +99,8 @@
                     android:paddingEnd="20dp"
                     android:textColor="@drawable/textview_colors"
                     android:textStyle="bold"
+                    android:enabled="@{activateEdit, default=false}"
+
                     tools:ignore="TouchTargetSizeCheck" />
 
 
