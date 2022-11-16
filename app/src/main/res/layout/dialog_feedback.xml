@@ -9,7 +9,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/view_head_dialog" />
+
+        <include layout="@layout/dialog_message" />
 
         <LinearLayout
             android:id="@+id/telegramSend"

@@ -14,22 +14,27 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.databinding.DialogFeedbackBinding;
 
 public class FeedbackDialog extends BottomSheetDialogFragment {
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final BottomSheetDialog builder = new BottomSheetDialog(requireActivity(), R.style.InputsDialog);
-        builder.setContentView(R.layout.dialog_feedback);
+        com.pasich.mynotes.databinding.DialogFeedbackBinding binding = DialogFeedbackBinding.inflate(getLayoutInflater());
+        builder.setContentView(binding.getRoot());
 
-        MaterialTextView textTitle = builder.findViewById(R.id.headTextDialog);
-        assert textTitle != null;
-        textTitle.setText(R.string.writeMe);
+        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
+        MaterialTextView message = builder.findViewById(R.id.textMessageDialog);
 
+        assert title != null;
+        title.setText(R.string.writeMe);
+        assert message != null;
+        message.setText(R.string.mesFeedback);
 
-        builder.findViewById(R.id.telegramSend).setOnClickListener(v ->
+        binding.telegramSend.setOnClickListener(v ->
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_TELEGRAM_DEVELOP))));
-        builder.findViewById(R.id.emailSend).setOnClickListener(v -> sendEmail());
+        binding.emailSend.setOnClickListener(v -> sendEmail());
         return builder;
     }
 
