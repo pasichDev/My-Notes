@@ -24,13 +24,14 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
 
-        <!-- Цвет линков для едит текст -->
+        <!-- Цвет линков для EditText -->
         <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
         <!-- Style to use for action button within a Snackbar in this theme. -->
         <item name="snackbarButtonStyle">@style/snackbar_button</item>
         <!-- Цвет switchmaterial.SwitchMaterial -->
         <item name="switchStyle">@style/Widget.App.Switch</item>
-
+        <!-- Цвет выделение текста -->
+        <item name="android:textColorHighlight">@color/colorPrimaryVariant</item>
     </style>
 
 
