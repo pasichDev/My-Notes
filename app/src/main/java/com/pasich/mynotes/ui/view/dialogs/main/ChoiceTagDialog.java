@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.view.dialogs.main;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -55,7 +56,12 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
     @Override
     public void onStart() {
         super.onStart();
-        binding.includedInfo.noteInfo.setText(getString(R.string.layoutStringInfoTags, String.valueOf(mPresenter.getCountNotesForTag())));
+        int countNotes = mPresenter.getCountNotesForTag();
+        if (countNotes == 0) {
+            binding.deleteTagLayout.setBackground(getActivity().getDrawable(R.drawable.item_ripple_border));
+            binding.includedInfo.getRoot().setVisibility(View.GONE);
+        }
+        binding.includedInfo.noteInfo.setText(getString(R.string.layoutStringInfoTags, String.valueOf(countNotes)));
     }
 
     @Override
