@@ -9,5 +9,5 @@ public class TagSettings {
   /**
    * Max counts tag
    */
-  public static final int MAX_TAG_COUNT = 10;
+  public static final int MAX_TAG_COUNT = 15;
 }
