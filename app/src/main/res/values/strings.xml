@@ -66,7 +66,7 @@
     <string name="sort_Title_Decrease" translatable="false">Названии: от Я-А</string>
 
     <string name="sortHead" translatable="false">Cортировать по:</string>
-    <string name="visibilityNotesToTag" translatable="false">Скрыть метку</string>
+    <string name="visibilityNotesToTag" translatable="false">Скрывать заметки</string>
 
 
     <string name="layoutStringInfoTags" translatable="false">Отмечено %1$s заметок</string>
@@ -92,7 +92,7 @@
     <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
 
     <string name="lastDateEditNote" translatable="false">Последнее изменение: %1$s </string>
-    <string name="restore" translatable="false">Восстановить заметки</string>
+    <string name="restore" translatable="false">Восстановить</string>
 
     <string name="help" translatable="false">Помощь</string>
     <string name="trashDeleteNotes" translatable="false">Удаленные заметки (Корзина)</string>

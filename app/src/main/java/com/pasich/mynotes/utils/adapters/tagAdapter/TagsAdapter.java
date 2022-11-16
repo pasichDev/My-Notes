@@ -111,14 +111,6 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         notifyItemChanged(position, PAYLOAD_SET_SELECTED);
     }
 
-    @Deprecated
-    public void autChoseTag(String nameTag) {
-        if (getCurrentList().size() >= 1) {
-            int positionTag = getTagForName(nameTag);
-            getItem(positionTag).setSelected(true);
-            notifyItemChanged(positionTag, PAYLOAD_SET_SELECTED);
-        }
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ItemTagBinding ItemBinding;
