@@ -3,18 +3,21 @@
     <style name="ThemeBlue" parent="Theme.Material3.Light.NoActionBar">
 
 
+        <!-- Рассмотреть на замену -->
+
+        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
+
+        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
+        <item name="colorBackground">@color/white</item>
+
+        <item name="colorLight">@color/darkLight</item>
 
         <!-- Цвет фона дилоговых окон, цвет поля ввода-->
         <item name="colorPrimary">@color/colorPrimaryBackground</item>
 
-
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
-        <item name="colorBackground">@color/white</item>
-        <item name="colorLight">@color/darkLight</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorAccent">@color/colorPrimaryBackground</item>
-        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
         <item name="colorControlNormal">@color/black</item>
         <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
         <item name="android:statusBarColor">@android:color/transparent</item>

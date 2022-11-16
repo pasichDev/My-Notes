@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.simplifications.AnimationListener;
+import com.pasich.mynotes.ui.helloUI.HelloActivity;
 
 import java.util.Objects;
 
@@ -27,25 +28,24 @@ public class SplashActivity extends AppCompatActivity {
     private void startAnimation() {
 
 
-            Animation mAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.spalsh_start_activity_animation);
-            mAnimation.setAnimationListener(new AnimationListener() {
-                @Override
-                public void animationEnd() {
-                    startNextActivity();
-                }
-            });
-            findViewById(R.id.splashImage).startAnimation(mAnimation);
+        Animation mAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.spalsh_start_activity_animation);
+        mAnimation.setAnimationListener(new AnimationListener() {
+            @Override
+            public void animationEnd() {
+                startNextActivity();
+            }
+        });
+        findViewById(R.id.splashImage).startAnimation(mAnimation);
 
     }
 
 
     private void startNextActivity() {
-        //Этот метод еще нужно изучить
-        //     boolean getFirstStart = PowerPreference.getDefaultFile().getBoolean("firstrun", false);
-        //     if (!getFirstStart && getCountFiles() >= 1) {
-        //   startActivity(new Intent(SplashActivity.this, HelloActivity.class));
+        //   boolean getFirstStart = PowerPreference.getDefaultFile().getBoolean("firstrun", false);
+        //   if (!getFirstStart && getCountFiles() >= 1) {
+        startActivity(new Intent(SplashActivity.this, HelloActivity.class));
         //    } else {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        //     startActivity(new Intent(SplashActivity.this, MainActivity.class));
         //   }
 
 

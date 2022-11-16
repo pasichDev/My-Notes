@@ -149,6 +149,7 @@
 
     <string name="feature_newFetures_title" translatable="false">Новые функции </string>
     <string name="feature_newFetures_info" translatable="false">Приложение получило много полезных функций, как перевод заметок, множественный выбор, ярлык заметки на рабочий стол, и многое другое. Со временем количество новых функций будет расти. (Виджет, синхронизации с Google)</string>
+    <string name="hello_finishTextTwo" translatable="false">Резервную копию сохранено. После нажатия кнопки завершить запуститься новая версия приложения. В редких случаях могут быть сбои, перезапустите приложение или напишите мне в разделе обратная связь.</string>
 
     <string name="chooseNote" translatable="false">Действия над выбраной заметкой</string>
     <string name="contentDescrChangeStyleText" translatable="false">Изменить стиль текста</string>

@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
@@ -100,11 +101,13 @@ public class FinishFragment extends Fragment {
             copyFile(new File(requireContext().getFilesDir() + "/" + nameBackup), outputStream);
             descriptor.close();
 
-            binding.backupSave.setVisibility(View.GONE);
-            binding.Finish.setEnabled(true);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        binding.backupSave.setVisibility(View.GONE);
+        binding.textFinish.setText(R.string.hello_finishTextTwo);
+        binding.Finish.setEnabled(true);
 
     }
 
@@ -165,6 +168,7 @@ public class FinishFragment extends Fragment {
         preference.remove("setSpechOutputText");
         preference.remove("autoSave");
         preference.remove("swipeToExit");
+        preference.remove("sortPref");
     }
 
 
@@ -186,7 +190,7 @@ public class FinishFragment extends Fragment {
                 //Здесь записуем только фвйлы с корня
                 readFile(file, true, "");
             } else if (file.isDirectory()) {
-                if (!file.getName().equals("trash")) {
+                if (!file.getName().equals("trash") && !file.getName().equals("VoiceNotes")) {
                     savesNotes.createTag(new Tag().create(file.getName()));
                 }
                 File[] fileDI = new File(requireContext().getFilesDir() + "/" + file.getName() + "/").listFiles();
