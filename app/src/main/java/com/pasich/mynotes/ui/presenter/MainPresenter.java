@@ -20,6 +20,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class MainPresenter extends AppBasePresenter<MainContract.view> implements MainContract.presenter {
 
 
+
     @Inject
     public MainPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
@@ -30,7 +31,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         getView().settingsSearchView();
         getView().settingsTagsList();
         getView().settingsNotesList();
-        getView().loadingData(getDataManager().getTags(), getDataManager().getNotes(), getDataManager().getSortParam());
+        getView().loadingData(getDataManager().getTags(), getDataManager().getNotes());
         getView().initListeners();
     }
 
@@ -98,6 +99,11 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
                         .subscribeOn(getSchedulerProvider().io())
                         .subscribe()
         );
+    }
+
+    @Override
+    public String getSortParam() {
+        return getDataManager().getSortParam();
     }
 
     @Override

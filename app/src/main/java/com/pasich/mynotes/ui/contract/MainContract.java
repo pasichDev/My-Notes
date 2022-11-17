@@ -36,7 +36,7 @@ public interface MainContract {
 
         void selectTagUser(int position);
 
-        void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList, String sortParam);
+        void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList);
 
         void openNoteEdit(int idNote);
 
@@ -75,5 +75,7 @@ public interface MainContract {
         void deleteNote(Note note);
 
         void restoreNote(Note nNote);
+
+        String getSortParam();
     }
 }

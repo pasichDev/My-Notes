@@ -1,11 +1,13 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -217,7 +219,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         if (shareText.length() >= 2)
             Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
 
-        finishAfterTransition();
+        finish();
     }
 
     private void saveNote() {
@@ -230,14 +232,21 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             this.mNote = note;
             notePresenter.createNote(note);
 
-
+            Log.wtf(TAG, "saveNote:  new" + newNoteKey);
             this.newNoteKey = false;
+
         } else if (!mValue.equals(mNote.getValue()) || !mTitle.equals(mNote.getTitle())) {
 
             if (!mNote.getTitle().contentEquals(mTitle)) mNote.setTitle(mTitle);
             if (!mNote.getValue().contentEquals(mValue)) {
                 mNote.setValue(mValue);
             }
+            Log.wtf(TAG, "saveNote:  save " + mValue.equals(mNote.getValue()) + "/" + mTitle.equals(mNote.getTitle()));
+
+
+            Log.wtf(TAG, "saveNote:  title input" + mNote.getValue());
+            Log.wtf(TAG, "saveNote:  title Model" + mValue);
+
 
             mNote.setDate(mThisDate);
             notePresenter.saveNote(mNote);
@@ -248,7 +257,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void closeActivityNotSaved() {
         exitNoSave = true;
-        finishAfterTransition();
+        finish();
     }
 
     @Override
@@ -263,7 +272,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void openCopyNote(int idNote) {
-        finishAfterTransition();
+        finish();
         startActivity(new Intent(NoteActivity.this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
 
