@@ -4,8 +4,6 @@
     <data>
 
         <import type="android.view.View" />
-
-
         <variable
             name="Note"
             type="com.pasich.mynotes.data.database.model.Note" />
@@ -21,36 +19,19 @@
 
         <TextView
             android:id="@+id/nameNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:fontFamily="@font/railway_medium"
-            android:maxLines="@integer/countLinesNoteTitle"
+            style="@style/itemNoteTitle"
             android:text="@{Note.title}"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
             android:visibility="@{Note.title.length() >= 2 ? View.VISIBLE : View.GONE }" />
 
         <TextView
             android:id="@+id/previewNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:gravity="center_vertical"
-            android:maxLines="@integer/maxLinesItemNoteValue"
+            style="@style/itemNotePreview"
             android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}" />
 
 
         <TextView
             android:id="@+id/tagNote"
-            style="@style/ChipStyleCustom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
+            style="@style/itemNoteTag"
             android:text="@{'#'+Note.tag}"
             android:visibility="@{Note.tag.length() >= 1 ? View.VISIBLE : View.GONE}" />
     </LinearLayout>

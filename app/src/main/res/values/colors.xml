@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- Цвет обводки для item.RecyclerView -->
+    <color name="darkLight">#cdcdcd</color>
     <color name="white">#FFFFFFFF</color>
-
+    <color name="black">#000000</color>
+    <color name="colorTitleDark">#DDDDDD</color>
 
     <color name="colorClick">#E4E4E4</color>
-
-    <color name="black">#000000</color>
-
-
-    <color name="darkLight">#cdcdcd</color>
     <color name="colorPrimary">#e5f2ff</color>
     <color name="colorPrimaryVariant">#6995D1</color>
     <color name="colorPrimaryVariantBlue">#508EE0</color>
     <color name="colorPrimaryBackground">#4996fd</color>
-
     <color name="helloColorInfo">#4B4B4B</color>
 
 </resources>

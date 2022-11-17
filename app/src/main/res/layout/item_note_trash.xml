@@ -14,31 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@{Note.checked ? @drawable/item_note_checked :  @drawable/selector_item_note_unchecked}"
-        android:padding="15dp"
+        android:padding="@dimen/marginItemsNote"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/nameNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:fontFamily="@font/railway_medium"
-            android:maxLines="@integer/countLinesNoteTitle"
+            style="@style/itemNoteTitle"
             android:text="@{Note.title}"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
             android:visibility="@{Note.title.length() >= 2 ? View.VISIBLE : View.GONE }" />
 
         <TextView
             android:id="@+id/previewNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:gravity="center_vertical"
-            android:maxLines="@integer/maxLinesItemNoteValue"
+            style="@style/itemNotePreview"
             android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}" />
     </LinearLayout>
 </layout>

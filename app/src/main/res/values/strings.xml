@@ -169,6 +169,7 @@
 
 
     <string name="mesFeedback" translatable="false">Вы можете связаться с автором приложения по контактам которые указаны ниже. Если вы нашли ошибки или хотите предложить улучшения по работе приложения обращайтесь по указанных  контактам.</string>
+    <string name="plus" translatable="false">+</string>
 
 
 </resources>

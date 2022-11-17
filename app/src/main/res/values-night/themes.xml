@@ -1,5 +1,197 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="ThemeBlue" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimaryBackground</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorPrimaryVariant</item>
+
+        <!-- Цвет обводки для item.RecyclerView -->
+        <item name="colorStrokeItemRecyclerView">@color/darkLight</item>
 
 
+        <!-- Custom colors -->
+        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
+        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
+        <item name="colorBackground">@color/black</item>
+
+        <!-- Цвет фона дилоговых окон, цвет поля ввода-->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorAccent">@color/colorPrimaryBackground</item>
+        <item name="colorControlNormal">@color/white</item>
+
+        <!-- Цвет текста заголовков-->
+        <item name="colorTitle">@color/colorTitleDark</item>
+
+        <!-- Цвет и настройки статусбара и навбара -->
+        <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
+
+
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+
+        <!-- Цвет линков для EditText -->
+        <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
+        <!-- Style to use for action button within a Snackbar in this theme. -->
+        <item name="snackbarButtonStyle">@style/snackbar_button</item>
+        <!-- Цвет switchmaterial.SwitchMaterial -->
+        <item name="switchStyle">@style/Widget.App.Switch</item>
+        <!-- Цвет выделение текста -->
+        <item name="android:textColorHighlight">@color/colorPrimaryVariant</item>
+    </style>
+
+
+    <!-- SplashStyle-->
+    <style name="ThemeBlueSplash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryBackground</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+
+    <!-- Стиль кнопки восстановить в SnackBar -->
+    <style name="snackbar_button" parent="Widget.Material3.Button.TextButton.Snackbar">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+
+    <!-- Стиль для заголовка активности -->
+    <style name="headActivityText">
+        <item name="fontFamily">@font/railway_medium</item>
+        <item name="android:textColor">?attr/colorTitle</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Стиль для заголовка BottomSheetsDialog -->
+    <style name="headDialogText" parent="headActivityText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?attr/colorTitle</item>
+    </style>
+
+    <!-- Позиционирование елементов в BottomSheetsDialog -->
+    <style name="marginDialogItem">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+    </style>
+
+    <!-- Стиль иконок в BottomSheetsDialog -->
+    <style name="iconDialogList" parent="marginDialogItem">
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:background">@null</item>
+    </style>
+
+
+    <!-- Основной стиль меток в Chip -->
+    <style name="ChipStyleCustom" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipEndPadding">5dp</item>
+        <item name="chipStartPadding">5dp</item>
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">?attr/colorAccentIcon</item>
+    </style>
+
+
+    <!-- Стиль меток chip в для MoreNoteDialog  -->
+    <style name="ChipStyleCustomChoiceNote" parent="ChipStyleCustom">
+        <item name="android:textAppearance">@style/BoldText</item>
+    </style>
+
+    <!-- Стиль жирного шрифта  -->
+    <style name="BoldText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Стиль switch  -->
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+    <!-- Стиль switch  -->
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorOnSurface">@color/colorPrimaryBackground</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+    </style>
+
+    <style name="styleAboutButtonBottom" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">@font/railway_medium</item>
+    </style>
+
+    <!-- Стиль SearchBottomSheetsDialog  -->
+    <style name="SearchDialog" parent="BottomSheetsStyleCustom">
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="behavior_draggable">false</item>
+        <item name="behavior_hideable">false</item>
+    </style>
+
+    <!-- Стиль CustomBottomSheets  -->
+    <style name="BottomSheetsStyleCustom" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <!-- Стиль rootView BottomSheets  -->
+    <style name="rootDialogLayout">
+        <item name="android:background">@drawable/background_bottom_sheets</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
+    <!-- Стиль rootView BottomSheets (NoteSettings)  -->
+    <style name="rootDialogLayoutTop">
+        <item name="android:background">@drawable/background_bottom_sheets</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+    </style>
+
+    <!-- Стиль для картинок из экрана приветсвий  -->
+    <style name="imageViewHello">
+        <item name="android:contentDescription">@string/srcfeatures</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="itemNoteTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:fontFamily">@font/railway_medium</item>
+        <item name="android:maxLines">@integer/countLinesNoteTitle</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorTitle</item>
+    </style>
+
+    <style name="itemNotePreview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:maxLines">@integer/maxLinesItemNoteValue</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="itemNoteTag" parent="ChipStyleCustom">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+    </style>
 
 </resources>
