@@ -12,7 +12,7 @@ import com.pasich.mynotes.ui.view.activity.MainActivity;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTag.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;

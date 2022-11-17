@@ -25,7 +25,7 @@ import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTag.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
@@ -299,7 +299,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void choiceTagDialog(Tag tag) {
-        new ChoiceTagDialog(tag).show(getSupportFragmentManager(), "ChoiceDialog");
+        new ChoiceTagDialog(tag, tag1 -> {
+            if (tagsAdapter.getTagSelected() == tag1)
+                selectTagUser(tagsAdapter.getTagForName("allNotes"));
+        }).show(getSupportFragmentManager(), "ChoiceDialog");
     }
 
     @Override

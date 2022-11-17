@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.main;
+package com.pasich.mynotes.ui.view.dialogs.main.ChoiceTag;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
@@ -14,18 +15,21 @@ import com.pasich.mynotes.databinding.DialogChoiceTagBinding;
 import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.ChoiceTagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.ChoiceTagDialogPresenter;
+import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 
 import javax.inject.Inject;
 
 public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTagDialogContract.view {
 
     private final Tag mTag;
+    private final ChoiceTagHandler choiceTagHandler;
     @Inject
     public ChoiceTagDialogPresenter mPresenter;
     private DialogChoiceTagBinding binding;
 
-    public ChoiceTagDialog(Tag mTag) {
+    public ChoiceTagDialog(Tag mTag, ChoiceTagHandler choiceTagHandler) {
         this.mTag = mTag;
+        this.choiceTagHandler = choiceTagHandler;
     }
 
     @NonNull
@@ -58,7 +62,7 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         super.onStart();
         int countNotes = mPresenter.getCountNotesForTag();
         if (countNotes == 0) {
-            binding.switchVisibTag.setBackground(getActivity().getDrawable(R.drawable.item_ripple_border));
+            binding.switchVisibTag.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.item_ripple_border));
             binding.includedInfo.getRoot().setVisibility(View.GONE);
         }
         binding.includedInfo.noteInfo.setText(getString(R.string.layoutStringInfoTags, String.valueOf(countNotes)));
@@ -67,6 +71,7 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
     @Override
     public void initListeners() {
         requireDialog().findViewById(R.id.deleteTagLayout).setOnClickListener(v -> {
+            choiceTagHandler.changeChoiceTagDelete(mTag);
             mPresenter.deleteTagInitial(mTag);
             dismiss();
         });
