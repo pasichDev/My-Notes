@@ -62,7 +62,10 @@ public class MoreNoteDialogPresenter extends AppBasePresenter<MoreNoteDialogCont
         if (noteActivity) {
             getCompositeDisposable().add(getDataManager().updateNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
         }
-        getCompositeDisposable().add(getDataManager().addNote(new Note().create(note.getTitle() + " (2)", note.getValue() + " ", new Date().getTime(), note.getTag())).subscribeOn(getSchedulerProvider().io()).subscribe((aLong) -> getView().callableCopyNote(aLong), (throwable -> Log.wtf(TAG, "copyNote: " + throwable))));
+
+        getCompositeDisposable().add(getDataManager()
+                .addNote(new Note().create(note.getTitle() + " (2)", note.getValue() + " ", new Date().getTime(), note.getTag()), true)
+                .subscribeOn(getSchedulerProvider().io()).subscribe((aLong) -> getView().callableCopyNote(aLong), (throwable -> Log.wtf(TAG, "copyNote: " + throwable))));
 
     }
 }

@@ -178,8 +178,8 @@ public class AppDataManger implements DataManager {
 
 
     @Override
-    public Single<Long> addNote(Note note) {
-        return dbHelper.addNote(note);
+    public Single<Long> addNote(Note note, boolean copyNote) {
+        return dbHelper.addNote(note, copyNote);
     }
 
 

@@ -29,7 +29,7 @@ public class HelloPresenter extends AppBasePresenter<HelloContract.view> impleme
 
     @Override
     public void addNote(Note note) {
-        getCompositeDisposable().add(getDataManager().addNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
+        getCompositeDisposable().add(getDataManager().addNote(note, false).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override

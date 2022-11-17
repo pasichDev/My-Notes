@@ -109,7 +109,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     @Override
     @Deprecated
     public void addNote(Note note) {
-        getCompositeDisposable().add(getDataManager().addNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
+        getCompositeDisposable().add(getDataManager().addNote(note, false).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
     @Override
