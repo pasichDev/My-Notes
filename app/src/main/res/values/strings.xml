@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name"> My Notes </string>
-    <string name="telegram_nick" translatable="false">"@"pasichDev</string>
-    <string name="email_address" translatable="false">pasichDev@gmail.com</string>
-
-    <string name="interpunct" translatable="false">·</string>
     <string name="NewNote"> Create note </string>
     <string name="trashNotes">Move to trash</string>
     <string name="trashN"> Trash </string>
@@ -15,15 +10,12 @@
     <string name="shareNull">Nothing to share!</string>
     <string name="telegram">Open developer contacts</string>
     <string name="whatUpdate">Whats new?</string>
-
     <string name="notes"> Notes </string>
     <string name="noSave"> Close without saving </string>
     <string name="infoAppPrefences"> About App </string>
     <string name="ratingApp"> Rate this app </string>
     <string name="exitWhat">To exit, you need to repeat the action</string>
-
     <string name="notFoundPlayMarket">Missing Play Market app</string>
-
     <string name="notSupportedShare">This content is not supported.</string>
     <string name="error">Error</string>
     <string name="copyX">Copied</string>
@@ -40,136 +32,98 @@
     </string>
 
 
-    <string name="search" translatable="false">Поиск в заметках </string>
-
-    <string name="close" translatable="false">Закрыть</string>
-    <string name="addTag" translatable="false">Добавить метку</string>
-    <string name="deleteTag" translatable="false">Удалить метку</string>
-    <string name="deleteTagAndNotes" translatable="false">Удалить метку и отмеченные заметки</string>
-
-    <string name="countTagsError" translatable="false">Нельзя создать больше %1$s меток</string>
-
-    <string name="allNotes" translatable="false">Все заметки </string>
-    <string name="more" translatable="false">Больше</string>
-    <string name="noteTitle" translatable="false">Название</string>
-    <string name="deleteSelectTag" translatable="false">Удаление метки</string>
-    <string name="deleteSelectTagTextMassage" translatable="false">Вы действительно хотите удалить метку? После удаления метка пропадет у всех отмеченных заметках.</string>
-    <string name="cleanTrashMessage" translatable="false">Вы действительно хотите очистить корзину? Все заметки будут навсегда удаленны.</string>
-
-    <string name="selectAll" translatable="false">Выбрать эту, и еще несколько заметок</string>
-
-    <string name="createNewTag" translatable="false">Введите название метки</string>
-
-    <string name="sort_Date_Increase" translatable="false">Дате изменения: сначала новые</string>
-    <string name="sort_Date_Decrease" translatable="false">Дате изменения: сначала старые</string>
-    <string name="sort_Title_Increase" translatable="false">Названии: от А-Я</string>
-    <string name="sort_Title_Decrease" translatable="false">Названии: от Я-А</string>
-
-    <string name="sortHead" translatable="false">Cортировать по:</string>
-    <string name="visibilityNotesToTag" translatable="false">Скрывать заметки</string>
-
-
-    <string name="layoutStringInfoTags" translatable="false">Отмечено %1$s заметок</string>
-
-
-    <string name="settingsTitleContacts" translatable="false">Обратная связь</string>
-
-    <string name="shareApp" translatable="false">Поделиться приложением</string>
-    <string name="privacyApp" translatable="false">Политика Конфиденциальности</string>
-
-    <string name="shareAppText" translatable="false"> Рекомендую "Мои Заметки" /n
+    <string name="search">Search notes </string>
+    <string name="close">Close</string>
+    <string name="addTag">Add Tag</string>
+    <string name="deleteTag">Delete Tag</string>
+    <string name="deleteTagAndNotes">Delete tag and tagged notes</string>
+    <string name="countTagsError">Cannot create more than %1$s tags</string>
+    <string name="allNotes">All Notes </string>
+    <string name="more">More</string>
+    <string name="noteTitle">Title</string>
+    <string name="deleteSelectTag">Delete tag</string>
+    <string name="deleteSelectTagTextMassage">Are you sure you want to delete the tag? After deletion, the tag will disappear from all marked notes.</string>
+    <string name="cleanTrashMessage">Are you sure you want to empty the Trash? All notes will be permanently deleted.</string>
+    <string name="selectAll">Select this and some more notes</string>
+    <string name="createNewTag">Enter tag name</string>
+    <string name="sort_Date_Increase">Date modified: newest first</string>
+    <string name="sort_Date_Decrease">Date changed: old first</string>
+    <string name="sort_Title_Increase">Title: A-Z</string>
+    <string name="sort_Title_Decrease">Title: Z-A</string>
+    <string name="sortHead">Sort by:</string>
+    <string name="visibilityNotesToTag">Hide notes</string>
+    <string name="layoutStringInfoTags">%1$s notes marked</string>
+    <string name="settingsTitleContacts">Contact Us</string>
+    <string name="shareApp">Share App</string>
+    <string name="privacyApp">Privacy Policy</string>
+    <string name="shareAppText"> Recommend "My Notes" /n
     https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
-
-
-    <string name="addShortCutLauncher" translatable="false">Добавить ярлык на рабочий стол</string>
-    <string name="addShortCutSuccessfully" translatable="false">Добавления ярлыка выполнено успешно</string>
-
-    <string name="translateNote" translatable="false">Перевести заметку</string>
-
-
-    <string name="hintTextNote" translatable="false">Текст</string>
-
-    <string name="notInstaledAppTranslate" translatable="false">Для использования этой функции нужно установить Google Translator</string>
-
-    <string name="lastDateEditNote" translatable="false">Последнее изменение: %1$s </string>
-    <string name="restore" translatable="false">Восстановить</string>
-
-    <string name="help" translatable="false">Помощь</string>
-    <string name="trashDeleteNotes" translatable="false">Удаленные заметки (Корзина)</string>
-    <string name="restoreOldBackups" translatable="false">Восстановить заметки</string>
-
-
-    <string name="writeMe" translatable="false">Мои контакты</string>
-    <string name="noteSaved" translatable="false">Заметку сохранено</string>
-
-
-    <string name="restoreBackup" translatable="false">Восстановить заметки</string>
-    <string name="restoreBackupMessages" translatable="false">В этом окне вы можете восстановить заметки из старых резервных копий.
-        Эта функция будет поддерживаться ещё несколько обновлений, потом она будет удалена,
-        а на замену придет синхронизация з Google.
+    <string name="addShortCutLauncher">Add shortcut to desktop</string>
+    <string name="addShortCutSuccessfully">Shortcut added successfully</string>
+    <string name="translateNote">Translate note</string>
+    <string name="hintTextNote">Text</string>
+    <string name="notInstaledAppTranslate">Google Translator must be installed to use this feature</string>
+    <string name="lastDateEditNote">Last edit: %1$s </string>
+    <string name="restore">Restore</string>
+    <string name="help">Help</string>
+    <string name="trashDeleteNotes">Deleted Notes (Trash)</string>
+    <string name="restoreOldBackups">Restore Notes</string>
+    <string name="writeMe">My contacts</string>
+    <string name="noteSaved">Note saved</string>
+    <string name="restoreBackup">Restore Notes</string>
+    <string name="restoreBackupMessages">In this window, you can restore notes from old backups.
+        This feature will be supported for a few more updates before it will be removed.
+        and sync with Google will come to replace it.
     </string>
-    <string name="restoreBackupMessageTwo" translatable="false">  Новые заметки будут добавленные до уже существующих, а дубликаты будут проигнорированые!</string>
-    <string name="selectedArchive" translatable="false">Выбрать рез. копию</string>
-    <string name="loadingProgress" translatable="false">Ожидайте, идет обработка данных</string>
-
-    <string name="errorEmptyNotesRestore" translatable="false">Ошибка: Данный архив либо поврежден, или не содержит заметок</string>
-    <string name="successfullyRestoreNotes" translatable="false">Успешно: Заметок восстановленно: %1$d </string>
-
-    <string name="searchNotesFromTitle" translatable="false">Введите заголовок заметки</string>
-
-    <string name="errorNewTagInput" translatable="false">Ошибка: Максимальное количество символов которое может содержать название метки  %1$d </string>
-
-    <string name="emptyTrash" translatable="false">Здесь отображаються удаленные вами заметки</string>
-    <string name="emptyNotes" translatable="false">Здесь будут отображаться созданные вами заметки</string>
-
-    <string name="Hello_next" translatable="false">Продолжить</string>
-    <string name="Hello_text_Title" translatable="false">Вас приветствует новая версия My Notes</string>
-    <string name="v2_0_10" translatable="false">v2.0.10</string>
-    <string name="Hello_text_info" translatable="false">Мы отнимем у вас несколько минут, чтобы настроить приложение, а также расскажем что сделали нового для вас.</string>
-
-    <string name="skip" translatable="false">Пропустить</string>
-    <string name="Finish_text_Title" translatable="false">Завершение настройки</string>
-    <string name="Finish_text_button_save_backup" translatable="false">Сохранить рез. копию</string>
-    <string name="finish" translatable="false">Завершить</string>
-    <string name="Finish_text_Info" translatable="false">Чтобы завершить настройку приложения нужно сохранить рез. копию ваших заметок. Мы это делаем на случай того, если при запуске новой версии произойдет сбой.</string>
-
-
-    <string name="feature_desing_title" translatable="false">Новый дизайн</string>
-    <string name="feature_desing_info" translatable="false">Новый дизайн вмещает в себя удобность и простоту. Каждое взаимодействие между пользователем и приложением продуманно до мелочей.</string>
-
-    <string name="feature_tags_title" translatable="false">Метки, Поиск</string>
-    <string name="feature_tags_info" translatable="false">Вместо папок реализовано метки. Теперь можно на каждую заметку повесить метку, чтобы в нужное время ничего не потерять.
-        А панель поиска всегда поможет быстро, найти нужную заметку по ее названию.</string>
-
-
-    <string name="feature_create_title" translatable="false">Приложение пересоздано с нуля</string>
-    <string name="feature_create_info" translatable="false">Последнее обновление выпущено 5 месяцев назад, но все эти 5 месяцев я занимался разработкой новой версии которая написана с нуля. Я учел все ошибки которые допустил в старых версиях, и теперь могу твердить что приложение работает стабильно.
+    <string name="restoreBackupMessageTwo"> New notes will be added before existing ones and duplicates will be ignored!</string>
+    <string name="selectedArchive">Select res. copy</string>
+    <string name="loadingProgress">Please wait, processing data</string>
+    <string name="errorEmptyNotesRestore">Error: This archive is either corrupted or contains no notes</string>
+    <string name="successfullyRestoreNotes">Successfully: Notes restored: %1$d </string>
+    <string name="searchNotesFromTitle">Enter note title</string>
+    <string name="errorNewTagInput">Error: The maximum number of characters a tag name can contain is %1$d </string>
+    <string name="emptyTrash">Your deleted notes are displayed here</string>
+    <string name="emptyNotes">Notes you create will appear here</string>
+    <string name="chooseNote">Actions on the selected note</string>
+    <string name="contentDescrChangeStyleText">Change text style</string>
+    <string name="copyNoteEdits">Edit copy</string>
+    <string name="noteMoveTrashSnackbar">Note moved to trash</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_copy">Copy</string>
+    <string name="button_phone">Call</string>
+    <string name="button_mail">Write</string>
+    <string name="button_url">Go to</string>
+    <string name="mesFeedback">You can contact the author of the app using the contacts below. If you find errors or want to suggest improvements to the application, please contact the specified contacts.</string>
+    <!-- Clean next version -->
+    <string name="Hello_next">Continue</string>
+    <string name="Hello_text_Title">Welcome to the new version of My Notes</string>
+    <string name="Hello_text_info">We\'ll take a few minutes to set up the app and tell you what\'s new for you.</string>
+    <string name="skip">Skip</string>
+    <string name="Finish_text_Title">Finishing setup</string>
+    <string name="Finish_text_button_save_backup">Save Res. copy</string>
+    <string name="finish">Finish</string>
+    <string name="Finish_text_Info">To complete the application setup, you need to save the cut. a copy of your notes. We do this in case the launch of the new version fails.</string>
+    <string name="feature_desing_title">New design</string>
+    <string name="feature_desing_info">The new design embraces convenience and simplicity. Every interaction between the user and the application is thought out to the smallest detail.</string>
+    <string name="feature_tags_title">Tags, Search</string>
+    <string name="feature_tags_info">Tags have been implemented instead of folders. Now you can put a label on each note so that you don’t lose anything at the right time.
+        And the search bar will always help you quickly find the note you need by its name.</string>
+    <string name="feature_create_title">Application re-created from scratch</string>
+    <string name="feature_create_info">The last update was released 5 months ago, but all these 5 months I have been developing a new version that is written from scratch. I took into account all the mistakes that I made in the old versions, and now I can repeat that the application is working stably.
     </string>
-
-
-    <string name="feature_newFetures_title" translatable="false">Новые функции </string>
-    <string name="feature_newFetures_info" translatable="false">Приложение получило много полезных функций, как перевод заметок, множественный выбор, ярлык заметки на рабочий стол, и многое другое. Со временем количество новых функций будет расти. (Виджет, синхронизации с Google)</string>
-    <string name="hello_finishTextTwo" translatable="false">Резервную копию сохранено. После нажатия кнопки завершить запуститься новая версия приложения. В редких случаях могут быть сбои, перезапустите приложение или напишите мне в разделе обратная связь.</string>
-
-    <string name="chooseNote" translatable="false">Действия над выбраной заметкой</string>
-    <string name="contentDescrChangeStyleText" translatable="false">Изменить стиль текста</string>
-
-    <string name="tagHastag" translatable="false">#%1$s</string>
-    <string name="copyNoteEdits" translatable="false">Редактировать копию</string>
-    <string name="noteMoveTrashSnackbar" translatable="false">Заметку перемещено в корзину</string>
+    <string name="feature_newFetures_title">New Features</string>
+    <string name="feature_newFetures_info">The app has received a lot of useful features like note translation, multiple selection, note desktop shortcut, and more. Over time, the number of new features will grow. (Widget, Google Sync)</string>
+    <string name="hello_finishTextTwo">Backup saved. After clicking the finish button, a new version of the application will start. In rare cases, there may be crashes, restart the application or write to me in the feedback section.</string>
     <string name="srcfeatures" translatable="false">SrcFeatures</string>
-    <string name="icon_desinger" translatable="false">Icon designer: @storyset </string>
 
 
-    <string name="button_edit" translatable="false">Редактировать</string>
-    <string name="button_copy" translatable="false">Копировать</string>
-    <string name="button_phone" translatable="false">Позвонить</string>
-    <string name="button_mail" translatable="false">Написать</string>
-    <string name="button_url" translatable="false">Перейти</string>
-
-
-    <string name="mesFeedback" translatable="false">Вы можете связаться с автором приложения по контактам которые указаны ниже. Если вы нашли ошибки или хотите предложить улучшения по работе приложения обращайтесь по указанных  контактам.</string>
+    <!-- Strings that are not translated  -->
+    <string name="v2_0_10" translatable="false">v2.0.10</string>
     <string name="plus" translatable="false">+</string>
-
-
+    <string name="icon_desinger" translatable="false">Icon designer: @storyset </string>
+    <string name="tagHastag" translatable="false">#%1$s</string>
+    <string name="app_name"> My Notes </string>
+    <string name="telegram_nick" translatable="false">"@"pasichDev</string>
+    <string name="email_address" translatable="false">pasichDev@gmail.com</string>
+    <string name="interpunct" translatable="false">·</string>
 </resources>
