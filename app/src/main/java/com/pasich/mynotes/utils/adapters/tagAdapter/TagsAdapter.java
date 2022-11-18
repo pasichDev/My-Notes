@@ -22,6 +22,7 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     private final int PAYLOAD_SET_SELECTED = 1;
     private OnItemClickListenerTag mOnItemClickListener;
     private Tag mTagSelected;
+    private boolean oneCheckedAllNotes = false;
 
     @Inject
     public TagsAdapter(@NonNull @Named("Tag") DiffUtil.ItemCallback<Tag> diffCallback) {
@@ -63,7 +64,11 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Tag tag = getItem(position);
         holder.ItemBinding.setTag(tag);
-        if (tag.getSystemAction() == 2) mTagSelected = tag.setSelectedReturn(true);
+        if (!oneCheckedAllNotes && tag.getSystemAction() == 2) {
+            mTagSelected = tag.setSelectedReturn(true);
+            oneCheckedAllNotes = true;
+        }
+
         holder.ItemBinding.setCheckedTag(tag.getSelected());
 
     }
@@ -100,6 +105,7 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         return 0;
     }
 
+
     /**
      * Метод который реализует выбор метки
      *
@@ -120,5 +126,6 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
             ItemBinding = binding;
         }
     }
+
 
 }
