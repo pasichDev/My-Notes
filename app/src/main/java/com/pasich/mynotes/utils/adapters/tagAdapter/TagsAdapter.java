@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -71,6 +72,28 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
         holder.ItemBinding.setCheckedTag(tag.getSelected());
 
+    }
+
+    @Override
+    public void submitList(@Nullable List<Tag> list) {
+
+        assert list != null;
+        Collections.sort(list, (o1, o2) -> {
+
+            int x1 = o1.getSystemAction();
+            int x2 = o2.getSystemAction();
+
+
+            if (o2.getSystemAction() == 1) x2 = x2 + 2;
+            int sComp = Math.toIntExact(x2 - x1);
+
+            if (sComp != 0) {
+                return sComp;
+            }
+
+            return Math.toIntExact(o2.getId() - o1.getId());
+        });
+        super.submitList(list);
     }
 
     @Override
