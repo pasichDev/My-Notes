@@ -1,13 +1,11 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -226,30 +224,34 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         long mThisDate = new Date().getTime();
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
+
         if (newNoteKey) {
 
             Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ", mValue, mThisDate, tagNote);
             this.mNote = note;
             notePresenter.createNote(note);
 
-            Log.wtf(TAG, "saveNote:  new" + newNoteKey);
             this.newNoteKey = false;
 
-        } else if (!mValue.equals(mNote.getValue()) || !mTitle.equals(mNote.getTitle())) {
+        } else if (!mValue.equals(mNote.getValue()) || !mTitle.equals(mNote.getTitle()) && mTitle.trim().length() >= 1) {
 
-            if (!mNote.getTitle().contentEquals(mTitle)) mNote.setTitle(mTitle);
+            boolean x1 = false;
+
+            if (!mNote.getTitle().contentEquals(mTitle)) {
+                mNote.setTitle(mTitle);
+                x1 = true;
+            }
             if (!mNote.getValue().contentEquals(mValue)) {
                 mNote.setValue(mValue);
+                x1 = true;
             }
-            Log.wtf(TAG, "saveNote:  save " + mValue.equals(mNote.getValue()) + "/" + mTitle.equals(mNote.getTitle()));
 
 
-            Log.wtf(TAG, "saveNote:  title input" + mNote.getValue());
-            Log.wtf(TAG, "saveNote:  title Model" + mValue);
+            if (x1) {
+                mNote.setDate(mThisDate);
+                notePresenter.saveNote(mNote);
+            }
 
-
-            mNote.setDate(mThisDate);
-            notePresenter.saveNote(mNote);
         }
     }
 
