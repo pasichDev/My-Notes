@@ -27,15 +27,15 @@
 
     <string name="search">Пошук у нотатках </string>
     <string name="close">Закрити</string>
-    <string name="addTag">Додати мітку</string>
-    <string name="deleteTag">Видалити мітку</string>
-    <string name="deleteTagAndNotes">Видалити мітку та зазначені нотатки</string>
+    <string name="addTag">Додати тег</string>
+    <string name="deleteTag">Видалити тег</string>
+    <string name="deleteTagAndNotes">Видалити тег та зазначені нотатки</string>
     <string name="countTagsError">Не можна створити більше %1$s тегів</string>
     <string name="allNotes">Всі нотатки </string>
     <string name="more">Більше</string>
     <string name="noteTitle">Назва</string>
-    <string name="deleteSelectTag">Видалення мітки</string>
-    <string name="deleteSelectTagTextMassage">Ви дійсно хочете видалити мітку? Після видалення позначка зникне у всіх зазначених нотатках.</string>
+    <string name="deleteSelectTag">Видалення тега</string>
+    <string name="deleteSelectTagTextMassage">Ви дійсно хочете видалити тег? Після видалення позначка зникне у всіх зазначених нотатках.</string>
     <string name="cleanTrashMessage">Ви дійсно хочете очистити кошик? Всі нотатки будуть видалені назавжди.</string>
     <string name="selectAll">Вибрати цю і ще декілька нотаток</string>
     <string name="createNewTag">Введіть назву тега</string>
@@ -99,8 +99,8 @@
     <string name="Finish_text_Info">Щоб завершити налаштування програми, потрібно зберегти рез. копію ваших нотаток. Ми це робимо на випадок, якщо при запуску нової версії відбудеться збій.</string>
     <string name="feature_desing_title">Новий дизайн</string>
     <string name="feature_desing_info">Новий дизайн вміщує зручність і простоту. Кожна взаємодія між користувачем та програмою продумана до дрібниць.</string>
-    <string name="feature_tags_title">Мітки, Пошук</string>
-    <string name="feature_tags_info">Замість папок реалізовано мітки. Тепер можна на кожну замітку повісити мітку, щоб у потрібний час нічого не втратити.
+    <string name="feature_tags_title">Теги, Пошук</string>
+    <string name="feature_tags_info">Замість папок реалізовано теги. Тепер можна на кожну замітку повісити тег, щоб у потрібний час нічого не втратити.
         А панель пошуку завжди допоможе швидко знайти потрібну замітку за її назвою.</string>
     <string name="feature_create_title">Додаток перестворено з нуля</string>
     <string name="feature_create_info">Останнє оновлення випущено 5 місяців тому, але всі ці 5 місяців я займався розробкою нової версії, яка написана з нуля. Я врахував всі помилки, які припустився в старих версіях, і тепер можу твердити, що програма працює стабільно.
