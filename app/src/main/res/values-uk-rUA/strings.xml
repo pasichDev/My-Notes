@@ -87,7 +87,7 @@
     <string name="chooseNote">Дії над вибраною нотаткою</string>
     <string name="contentDescrChangeStyleText">Змінити стиль тексту</string>
     <string name="copyNoteEdits">Редагувати копію нотатки</string>
-    <string name="noteMoveTrashSnackbar">Нотатка переміщена в кошик</string>
+    <string name="noteMoveTrashSnackbar">Нотатку переміщена в кошик</string>
     <string name="button_edit">Редагувати</string>
     <string name="button_copy">Копіювати</string>
     <string name="button_phone">Зателефонувати</string>
