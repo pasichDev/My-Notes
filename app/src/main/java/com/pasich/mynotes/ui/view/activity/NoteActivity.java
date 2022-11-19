@@ -226,17 +226,14 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         String mValue = binding.valueNote.getText().toString();
 
         if (newNoteKey) {
-
-            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : " ", mValue, mThisDate, tagNote);
+            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : "", mValue, mThisDate, tagNote);
             this.mNote = note;
             notePresenter.createNote(note);
 
             this.newNoteKey = false;
 
-        } else if (!mValue.equals(mNote.getValue()) || !mTitle.equals(mNote.getTitle()) && mTitle.trim().length() >= 1) {
-
+        } else if (!mValue.equals(mNote.getValue()) || !mTitle.equals(mNote.getTitle())) {
             boolean x1 = false;
-
             if (!mNote.getTitle().contentEquals(mTitle)) {
                 mNote.setTitle(mTitle);
                 x1 = true;
@@ -245,7 +242,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 mNote.setValue(mValue);
                 x1 = true;
             }
-
 
             if (x1) {
                 mNote.setDate(mThisDate);
