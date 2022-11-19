@@ -21,15 +21,7 @@
     <string name="copyX">Copied</string>
     <string name="cd_format">Format notes</string>
 
-    <string name="updateNowM">
-- Added: Note attachments, in this window you can see links, phone numbers, emails that are used in notes \n
-- Added: New switch for sorting notes. \n
-- Added: new function for formatting notes by model List>Table \n
-- Added: Bottom panel \n
-- Fixed bugs in the shopping cart.\n
-- Fixed: an error in the title of notes, the process of switching to a new logic for choosing names has also been launched. \n
-- A lot of optimization has been carried out, and work with the code for the stability of the application.
-    </string>
+    <string name="updateNowM">A large-scale update was carried out, or rather, the application was rewritten from scratch. This version adds more features and fixes a lot of bugs. One person is working on the project, and therefore it is very difficult to track all the errors and errors. I would be very happy if you would report them. This is not the last update this year, more updates with errors, and if there is a pattern in the application, new features will appear. Thanks for the consumed app!</string>
 
 
     <string name="search">Search notes </string>
