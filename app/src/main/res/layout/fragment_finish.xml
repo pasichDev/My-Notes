@@ -49,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:textColor="?attr/colorTitle"
             android:text="@string/Finish_text_button_save_backup" />
 
         <Button
@@ -56,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:textColor="?attr/colorTitle"
             android:enabled="false"
                 android:text="@string/finish" />
         </LinearLayout>
