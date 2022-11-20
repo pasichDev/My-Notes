@@ -195,7 +195,7 @@
                 android:id="@+id/noSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@{newNote ? @drawable/item_ripple_border : @drawable/item_ripple_click }"
+                android:background="?android:attr/selectableItemBackground"
                 android:orientation="horizontal"
                 android:visibility="@{activityNote ? View.VISIBLE : View.GONE, default = gone}"
                 android:padding="@dimen/paddingItems">

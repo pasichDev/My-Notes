@@ -74,6 +74,8 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
     }
 
+
+    //error
     @Override
     public void submitList(@Nullable List<Tag> list) {
 
