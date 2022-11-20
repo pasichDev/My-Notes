@@ -8,6 +8,6 @@
     <attr name="colorStrokeItemRecyclerView" format="reference|color" />
     <!-- Цвет текста заголовков-->
     <attr name="colorTitle" format="reference|color" />
-    <attr name="colorTextCustom" format="reference|color" />
+    <attr name="colorValueCustom" format="reference|color" />
 
 </resources>

@@ -22,6 +22,7 @@
 
         <!-- Цвет текста заголовков-->
         <item name="colorTitle">@color/colorTitleDark</item>
+        <item name="colorValueCustom">@color/colorValueDark</item>
 
         <!-- Цвет и настройки статусбара и навбара -->
         <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
@@ -119,7 +120,7 @@
 
     <style name="styleAboutButtonBottom" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
         <item name="android:layout_margin">2dp</item>
-        <item name="android:textColor">?attr/colorTitle</item>
+        <item name="android:textColor">?attr/colorValueCustom</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">10dp</item>
         <item name="fontFamily">@font/railway_medium</item>
@@ -185,6 +186,7 @@
         <item name="android:layout_marginBottom">3dp</item>
         <item name="android:maxLines">@integer/maxLinesItemNoteValue</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">?attr/colorValueCustom</item>
     </style>
 
     <style name="itemNoteTag" parent="ChipStyleCustom">

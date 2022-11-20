@@ -5,6 +5,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
     <color name="colorTitleDark">#DDDDDD</color>
+    <color name="colorValueDark">#bcbcbc</color>
+
 
     <color name="colorClick">#E4E4E4</color>
     <color name="colorPrimary">#e5f2ff</color>
