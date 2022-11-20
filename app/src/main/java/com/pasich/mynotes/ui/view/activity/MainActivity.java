@@ -231,17 +231,33 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList) {
-        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(tags -> {
-            tagsAdapter.submitList(tags);
-            mNoteAdapter.setNameTagsHidden(tags);
+        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io())
+                .subscribe(tags -> {
 
-            mainPresenter.getCompositeDisposable().add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io()).subscribe(notes -> {
-                int countNotes = mNoteAdapter.sortList(notes, mainPresenter.getSortParam(), tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-                runOnUiThread(() -> showEmptyTrash(!(countNotes >= 1)));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tagsAdapter.submitList(tags);
+                            mNoteAdapter.setNameTagsHidden(tags);
+                        }
+                    });
 
-            }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+                    mainPresenter.getCompositeDisposable()
+                            .add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io())
+                                    .subscribe(notes -> {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                int countNotes = mNoteAdapter.sortList(notes, mainPresenter.getSortParam(),
+                                                        tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+                                                showEmptyTrash(!(countNotes >= 1));
+                                            }
+                                        });
 
-        }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+
+                                    }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+
+                }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
 
     }
