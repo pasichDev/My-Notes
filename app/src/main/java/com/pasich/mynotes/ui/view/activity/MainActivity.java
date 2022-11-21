@@ -345,6 +345,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void deleteNotes() {
+        if (noteActionTool.getArrayChecked().size() == mNoteAdapter.getItemCount()) {
+            mActivityBinding.appBarMainActivity.setExpanded(true);
+
+        }
         mainPresenter.deleteNotesArray(noteActionTool.getArrayChecked());
         actionUtils.closeActionPanel();
     }

@@ -132,6 +132,9 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     private void showEmptyTrash() {
         binding.setEmptyNotesTrash(true);
+        if (getResources().getDisplayMetrics().density < 2.2)
+            binding.includeEmpty.imageEmpty.setVisibility(View.GONE);
+
         binding.includeEmpty.emptyViewTrash.setVisibility(View.VISIBLE);
     }
 
