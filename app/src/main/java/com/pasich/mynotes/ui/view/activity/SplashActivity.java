@@ -27,12 +27,11 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startAnimation() {
-
-
         Animation mAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.spalsh_start_activity_animation);
         mAnimation.setAnimationListener(new AnimationListener() {
             @Override
             public void animationEnd() {
+
                 startNextActivity();
             }
         });
