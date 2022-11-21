@@ -234,28 +234,18 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io())
                 .subscribe(tags -> {
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tagsAdapter.submitList(tags);
-                            mNoteAdapter.setNameTagsHidden(tags);
-                        }
+                    runOnUiThread(() -> {
+                        tagsAdapter.submitList(tags);
+                        mNoteAdapter.setNameTagsHidden(tags);
                     });
 
                     mainPresenter.getCompositeDisposable()
                             .add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io())
-                                    .subscribe(notes -> {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                int countNotes = mNoteAdapter.sortList(notes, mainPresenter.getSortParam(),
-                                                        tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-                                                showEmptyTrash(!(countNotes >= 1));
-                                            }
-                                        });
-
-
-                                    }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
+                                    .subscribe(notes -> runOnUiThread(() -> {
+                                        int countNotes = mNoteAdapter.sortList(notes, mainPresenter.getSortParam(),
+                                                tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+                                        showEmptyTrash(!(countNotes >= 1));
+                                    }), throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
                 }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
 
@@ -265,6 +255,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     private void showEmptyTrash(boolean flag) {
         mActivityBinding.setEmptyNotes(flag);
+        if (getResources().getDisplayMetrics().density < 2.2)
+            mActivityBinding.includeEmpty.imageEmpty.setVisibility(View.GONE);
         mActivityBinding.includeEmpty.emptyViewNote.setVisibility(flag ? View.VISIBLE : View.GONE);
     }
 
