@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
+import com.pasich.mynotes.databinding.DialogCleanTrashBinding;
 import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
@@ -19,12 +20,14 @@ public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTra
 
     @Inject
     public ClearTrashDialogPresenter presenter;
+    private DialogCleanTrashBinding binding;
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        requireDialog().setContentView(R.layout.dialog_clean_trash);
-        MaterialTextView title = requireDialog().findViewById(R.id.headTextDialog);
-        MaterialTextView message = requireDialog().findViewById(R.id.textMessageDialog);
+        binding = DialogCleanTrashBinding.inflate(getLayoutInflater());
+        requireDialog().setContentView(binding.getRoot());
+        MaterialTextView title = binding.getRoot().findViewById(R.id.headTextDialog);
+        MaterialTextView message = binding.getRoot().findViewById(R.id.textMessageDialog);
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
@@ -42,11 +45,11 @@ public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTra
 
     @Override
     public void initListeners() {
-        requireDialog().findViewById(R.id.yesCleanTrash).setOnClickListener(v -> {
+        binding.yesCleanTrash.setOnClickListener(v -> {
             presenter.clearTrash();
             dismiss();
         });
-        requireDialog().findViewById(R.id.cancel).setOnClickListener(v -> dismiss());
+        binding.cancel.setOnClickListener(v -> dismiss());
 
     }
 
@@ -54,8 +57,8 @@ public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTra
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         presenter.detachView();
-        requireDialog().findViewById(R.id.yesCleanTrash).setOnClickListener(null);
-        requireDialog().findViewById(R.id.cancel).setOnClickListener(null);
+        binding.yesCleanTrash.setOnClickListener(null);
+        binding.cancel.setOnClickListener(null);
 
     }
 }
