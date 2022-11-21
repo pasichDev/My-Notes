@@ -86,8 +86,8 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         private final Comparator<Note> COMPARE_BY_TITLE_REVERSE = (e1, e2) -> e2.getTitle().toLowerCase().compareTo(e1.getTitle().toLowerCase());
         private final Comparator<Note> COMPARE_BY_TITLE_SORT = (e1, e2) -> e1.getTitle().toLowerCase().compareTo(e2.getTitle().toLowerCase());
 
-        private final Comparator<Note> COMPARE_BY_DATE_REVERSE = (e1, e2) -> Math.toIntExact(e1.getDate() - e2.getDate());
-        private final Comparator<Note> COMPARE_BY_DATE_SORT = (e1, e2) -> Math.toIntExact(e2.getDate() - e1.getDate());
+        private final Comparator<Note> COMPARE_BY_DATE_REVERSE = (e1, e2) -> Long.compare(e1.getDate(), e2.getDate());
+        private final Comparator<Note> COMPARE_BY_DATE_SORT = (e1, e2) -> Long.compare(e2.getDate(), e1.getDate());
 
 
         public Comparator<Note> getComparator(String arg) {

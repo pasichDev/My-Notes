@@ -16,9 +16,9 @@
         <item name="colorBackground">@color/black</item>
 
         <!-- Цвет фона дилоговых окон, цвет поля ввода-->
-        <item name="colorSurface">@color/white</item>
+        <item name="colorSurface">@color/colorDarkThemeSurface</item>
         <item name="colorAccent">@color/colorPrimaryBackground</item>
-        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlNormal">@color/colorTitleDark</item>
 
         <!-- Цвет текста заголовков-->
         <item name="colorTitle">@color/colorTitleDark</item>
