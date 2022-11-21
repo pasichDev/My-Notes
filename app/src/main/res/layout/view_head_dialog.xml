@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tool:text="DialogTitle"
+        android:maxLines="1"
+        android:layout_marginHorizontal="10dp"
         android:textColor="?attr/colorTitle"
         android:gravity="center" />
 

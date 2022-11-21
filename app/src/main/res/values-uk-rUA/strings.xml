@@ -29,13 +29,13 @@
     <string name="close">Закрити</string>
     <string name="addTag">Додати тег</string>
     <string name="deleteTag">Видалити тег</string>
-    <string name="deleteTagAndNotes">Видалити тег та зазначені нотатки</string>
+    <string name="deleteTagAndNotes">Видалити тег та позначені нотатки</string>
     <string name="countTagsError">Не можна створити більше %1$s тегів</string>
     <string name="allNotes">Всі нотатки </string>
     <string name="more">Більше</string>
     <string name="noteTitle">Назва</string>
     <string name="deleteSelectTag">Видалення тега</string>
-    <string name="deleteSelectTagTextMassage">Ви дійсно хочете видалити тег? Після видалення позначка зникне у всіх зазначених нотатках.</string>
+    <string name="deleteSelectTagTextMassage">Ви дійсно хочете видалити тег? Після видалення позначка зникне у всіх позначених нотатках.</string>
     <string name="cleanTrashMessage">Ви дійсно хочете очистити кошик? Всі нотатки будуть видалені назавжди.</string>
     <string name="selectAll">Вибрати цю і ще декілька нотаток</string>
     <string name="createNewTag">Введіть назву тега</string>
@@ -45,7 +45,7 @@
     <string name="sort_Title_Decrease">Назвою: від Я-А</string>
     <string name="sortHead">Сортувати за:</string>
     <string name="visibilityNotesToTag">Приховувати нотатки</string>
-    <string name="layoutStringInfoTags">Зазначено %1$s нотаток</string>
+    <string name="layoutStringInfoTags">Позначено %1$s нотаток</string>
     <string name="settingsTitleContacts">Зворотній зв\'язок</string>
     <string name="shareApp">Поділитись додатком</string>
     <string name="privacyApp">Політика конфіденційності</string>

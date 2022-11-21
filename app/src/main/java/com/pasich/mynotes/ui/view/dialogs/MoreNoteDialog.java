@@ -1,10 +1,13 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -80,12 +83,18 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             dismiss();
         }
 
-        binding.includeHead.headTextDialog.setText(mNote.getTitle().length() > 1 ? mNote.getTitle() : getString(R.string.chooseNote));
-        binding.includeHead.getRoot().setVisibility(newNoteActivity ? View.GONE : View.VISIBLE);
+        addTitle();
         binding.settingsActivity.rootView.setVisibility(activityNote ? View.VISIBLE : View.GONE);
         return requireDialog();
     }
 
+    public void addTitle() {
+        binding.includeHead.headTextDialog.setText(mNote.getTitle().length() > 1 ? mNote.getTitle() : getString(R.string.chooseNote));
+        Log.wtf(TAG, "onCreateDialog: " + binding.includeHead.headTextDialog.getTextSize());
+        binding.includeHead.getRoot().setVisibility(newNoteActivity ? View.GONE : View.VISIBLE);
+
+
+    }
 
     @Override
     public void setSeekBarValue(int value) {

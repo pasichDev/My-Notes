@@ -91,7 +91,8 @@
                     android:padding="10dp"
                     android:text="@string/search"
                     android:textColor="@color/darkLight"
-                    android:textSize="18sp" />
+                    android:textSize="16dp"
+                    tools:ignore="SpUsage" />
 
                 <ImageButton
                     android:id="@+id/sortButton"
