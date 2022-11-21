@@ -70,7 +70,8 @@
             android:id="@+id/TitleReserve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
+
+            android:background="@drawable/item_bottom_ripple"
             android:padding="@dimen/paddingItems">
 
             <TextView

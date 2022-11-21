@@ -65,7 +65,7 @@
             android:id="@+id/cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/item_bottom_ripple"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
 

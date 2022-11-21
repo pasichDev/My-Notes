@@ -20,6 +20,7 @@ public interface MoreNoteDialogContract {
         void initInterfaces();
 
         void callableCopyNote(long newNoteId);
+
     }
 
     interface presenter extends BasePresenter<view> {
