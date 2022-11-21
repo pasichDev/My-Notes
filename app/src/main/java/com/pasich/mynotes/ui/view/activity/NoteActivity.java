@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -54,6 +55,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.attachView(this);
         notePresenter.viewIsReady();
 
+
+        //   android:windowSoftInputMode="stateHidden"
+
     }
 
     @Override
@@ -90,6 +94,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
             if (shareText != null && shareText.length() > 5) binding.valueNote.setText(shareText);
         } else if (idKey >= 1) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             notePresenter.loadingData(idKey);
         }
     }
