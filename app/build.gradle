@@ -11,13 +11,12 @@ android {
         dataBinding true
     }
 
-
     defaultConfig {
         applicationId "com.pasich.mynotes"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 10
-        versionName '2.0.10'
+        versionCode 11
+        versionName '2.0.11'
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
