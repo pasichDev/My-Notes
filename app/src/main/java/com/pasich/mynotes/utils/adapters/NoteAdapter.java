@@ -19,8 +19,8 @@ import javax.inject.Inject;
 
 public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note, VM> {
 
+    private final List<String> nameTagsHidden = new ArrayList<>();
     private List<Note> defaultList = new ArrayList<>();
-    private List<String> nameTagsHidden = new ArrayList<>();
 
 
     @Inject
@@ -29,11 +29,13 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
     }
 
 
-    public void setNameTagsHidden(List<Tag> tagList) {
+    public int setNameTagsHidden(List<Tag> tagList, String nameTag) {
         nameTagsHidden.clear();
         for (Tag tag : tagList) {
             if (tag.getVisibility() == 1) nameTagsHidden.add(tag.getNameTag());
         }
+        if (nameTag.equals("allNotes")) return updateFromVisibilityTags();
+        else return 1;
     }
 
 
@@ -47,6 +49,22 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         Collections.sort(notesList, new NoteComparator().getComparator(arg));
         defaultList = notesList;
         return filter(tagSelected);
+    }
+
+
+    public int updateFromVisibilityTags() {
+
+        ArrayList<Note> newList = new ArrayList<>();
+        if (defaultList.size() >= 1) {
+            for (Note item : defaultList) {
+                if (!nameTagsHidden.contains(item.getTag())) {
+                    newList.add(item);
+                }
+            }
+            submitList(newList);
+        }
+        return newList.size();
+
     }
 
 

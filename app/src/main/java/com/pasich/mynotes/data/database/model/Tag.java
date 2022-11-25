@@ -7,13 +7,7 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(
-        tableName = "tags",
-        indices = {
-                @Index(
-                        value = {"name"},
-                        unique = true)
-        })
+@Entity(tableName = "tags", indices = {@Index(value = {"name"}, unique = true)})
 public class Tag {
 
     @PrimaryKey(autoGenerate = true)
@@ -52,12 +46,12 @@ public class Tag {
         return this.nameTag;
     }
 
-    public long getId() {
-        return this.id;
-    }
-
     public void setNameTag(@NonNull String newNameTag) {
         this.nameTag = newNameTag;
+    }
+
+    public long getId() {
+        return this.id;
     }
 
     public int getSystemAction() {

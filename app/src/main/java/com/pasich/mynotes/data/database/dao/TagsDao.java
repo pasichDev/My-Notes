@@ -13,7 +13,6 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 
-
 @Dao
 public interface TagsDao {
   @Query("SELECT * FROM tags")
@@ -34,6 +33,4 @@ public interface TagsDao {
   @Delete
   void deleteTag(Tag tag);
 
-  @Query("DELETE FROM tags")
-  void deleteAll();
 }

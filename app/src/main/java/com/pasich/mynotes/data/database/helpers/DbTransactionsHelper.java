@@ -18,4 +18,5 @@ public interface DbTransactionsHelper {
 
     Completable restoreNote(Note mNote);
 
+
 }

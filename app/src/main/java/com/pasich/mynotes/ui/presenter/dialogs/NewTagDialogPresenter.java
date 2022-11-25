@@ -10,8 +10,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class NewTagDialogPresenter extends AppBasePresenter<NewTagDialogContract.view>
-        implements NewTagDialogContract.presenter {
+public class NewTagDialogPresenter extends AppBasePresenter<NewTagDialogContract.view> implements NewTagDialogContract.presenter {
 
     @Inject
     public NewTagDialogPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
@@ -26,8 +25,11 @@ public class NewTagDialogPresenter extends AppBasePresenter<NewTagDialogContract
 
     @Override
     public void saveTag(String nameNewTag) {
-        getDataManager().addTag(new Tag().create(nameNewTag))
+        getCompositeDisposable().add(getDataManager().addTag(new Tag().create(nameNewTag))
                 .subscribeOn(getSchedulerProvider().io())
-                .subscribe();
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe());
     }
+
+
 }

@@ -5,7 +5,6 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
@@ -48,7 +47,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import io.reactivex.Flowable;
 
 
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
@@ -230,26 +228,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
-    public void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList) {
-        mainPresenter.getCompositeDisposable().add(tagList.subscribeOn(mainPresenter.getSchedulerProvider().io())
-                .subscribe(tags -> {
+    public void loadingNotes(List<Note> noteList) {
+        int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(),
+                tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+        showEmptyTrash(!(countNotes >= 1));
+    }
 
-                    runOnUiThread(() -> {
-                        tagsAdapter.submitList(tags);
-                        mNoteAdapter.setNameTagsHidden(tags);
-                    });
-
-                    mainPresenter.getCompositeDisposable()
-                            .add(noteList.subscribeOn(mainPresenter.getSchedulerProvider().io())
-                                    .subscribe(notes -> runOnUiThread(() -> {
-                                        int countNotes = mNoteAdapter.sortList(notes, mainPresenter.getSortParam(),
-                                                tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-                                        showEmptyTrash(!(countNotes >= 1));
-                                    }), throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
-
-                }, throwable -> Log.wtf("MyNotes", "LoadingDataError", throwable)));
-
-
+    @Override
+    public void loadingTags(List<Tag> tagList) {
+        tagsAdapter.submitList(tagList);
+        int countNotes = mNoteAdapter.setNameTagsHidden(tagList, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+        showEmptyTrash(!(countNotes >= 1));
     }
 
 
@@ -308,8 +297,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void choiceTagDialog(Tag tag) {
         new ChoiceTagDialog(tag, tag1 -> {
+
             if (tagsAdapter.getTagSelected() == tag1)
                 selectTagUser(tagsAdapter.getTagForName("allNotes"));
+
         }).show(getSupportFragmentManager(), "ChoiceDialog");
     }
 
