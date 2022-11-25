@@ -9,24 +9,23 @@ import com.pasich.mynotes.data.database.model.TrashNote;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Flowable;
-
 
 public interface TrashContract {
 
     interface view extends BaseView, ActionBar {
 
-        void settingsNotesList(Flowable<List<TrashNote>> noteList);
+        void settingsNotesList();
 
         void cleanTrashDialogShow();
 
-        void initActionUtils();
+        void loadData(List<TrashNote> trashList);
     }
 
     interface presenter extends BasePresenter<view> {
         void cleanTrashDialogStart();
 
+        void loadingTrash();
+
         void restoreNotesArray(ArrayList<TrashNote> notes);
     }
 }
-;

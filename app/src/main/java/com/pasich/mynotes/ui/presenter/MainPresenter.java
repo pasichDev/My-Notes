@@ -2,6 +2,8 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.util.Log;
+
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
@@ -20,7 +22,6 @@ import io.reactivex.disposables.CompositeDisposable;
 public class MainPresenter extends AppBasePresenter<MainContract.view> implements MainContract.presenter {
 
 
-
     @Inject
     public MainPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
@@ -31,8 +32,14 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         getView().settingsSearchView();
         getView().settingsTagsList();
         getView().settingsNotesList();
-        getView().loadingData(getDataManager().getTags(), getDataManager().getNotes());
+        loadingData();
         getView().initListeners();
+    }
+
+    @Override
+    public void loadingData() {
+        getCompositeDisposable().add(getDataManager().getTags().subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe((tagList) -> getView().loadingTags(tagList), throwable -> Log.e("com.pasich.myNotes", "loadTags", throwable)));
+        getCompositeDisposable().add(getDataManager().getNotes().subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe((noteList) -> getView().loadingNotes(noteList), throwable -> Log.e("com.pasich.myNotes", "loadNotes", throwable)));
     }
 
 
@@ -50,7 +57,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     @Override
     public void clickTag(Tag tag, int position) {
         if (tag.getSystemAction() == 1) {
-            getCompositeDisposable().add(getDataManager().getCountTagAll().subscribeOn(getSchedulerProvider().io()).subscribe(integer -> {
+            getCompositeDisposable().add(getDataManager().getCountTagAll().subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(integer -> {
                 if (integer >= MAX_TAG_COUNT) {
                     getView().startToastCheckCountTags();
                 } else getView().startCreateTagDialog();
@@ -80,26 +87,20 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     @Override
     public void deleteNotesArray(ArrayList<Note> notes) {
         for (Note note : notes) {
-            getCompositeDisposable().add(getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note).subscribeOn(getSchedulerProvider().io()).subscribe());
+            getCompositeDisposable().add(getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe());
         }
     }
 
     @Override
     public void deleteNote(Note note) {
-        getCompositeDisposable().add(
-                getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note)
-                        .subscribeOn(getSchedulerProvider().io())
-                        .subscribe());
+        getCompositeDisposable().add(getDataManager().moveNoteToTrash(new TrashNote().create(note.getTitle(), note.getValue(), note.getDate()), note).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe());
     }
 
     @Override
     public void restoreNote(Note nNote) {
-        getCompositeDisposable().add(
-                getDataManager().restoreNote(nNote)
-                        .subscribeOn(getSchedulerProvider().io())
-                        .subscribe()
-        );
+        getCompositeDisposable().add(getDataManager().restoreNote(nNote).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe());
     }
+
 
     @Override
     public String getSortParam() {
@@ -109,7 +110,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     @Override
     @Deprecated
     public void addNote(Note note) {
-        getCompositeDisposable().add(getDataManager().addNote(note, false).subscribeOn(getSchedulerProvider().io()).subscribe());
+        getCompositeDisposable().add(getDataManager().addNote(note, false).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe());
     }
 
     @Override

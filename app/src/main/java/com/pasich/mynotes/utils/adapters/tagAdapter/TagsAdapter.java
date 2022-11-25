@@ -36,8 +36,9 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
 
     public Tag getTagSelected() {
-        return this.mTagSelected;
+        return this.mTagSelected == null ? new Tag().create("allNotes") : this.mTagSelected;
     }
+
 
     public void setTagSelected(@Nullable Tag selected) {
         this.mTagSelected = selected;
@@ -75,7 +76,6 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     }
 
 
-    //error
     @Override
     public void submitList(@Nullable List<Tag> list) {
 

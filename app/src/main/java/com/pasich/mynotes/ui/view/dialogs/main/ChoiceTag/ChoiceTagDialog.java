@@ -38,6 +38,10 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         binding = DialogChoiceTagBinding.inflate(getLayoutInflater());
         requireDialog().setContentView(binding.getRoot());
 
+
+        binding.includeHead.headTextDialog.setText(mTag.getNameTag());
+        binding.switchVisibilityTag.setChecked(mTag.getVisibility() == 1);
+
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
@@ -49,8 +53,6 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
         }
 
 
-        binding.includeHead.headTextDialog.setText(mTag.getNameTag());
-        binding.switchVisibilityTag.setChecked(mTag.getVisibility() == 1);
 
 
         return requireDialog();
@@ -76,8 +78,8 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
             dismiss();
         });
 
-
-        binding.switchVisibilityTag.setOnCheckedChangeListener((buttonView, isChecked) -> mPresenter.editVisibilityTag(mTag.setVisibilityReturn(isChecked ? 1 : 0)));
+        binding.switchVisibilityTag.setOnCheckedChangeListener((buttonView, isChecked) -> mPresenter.editVisibilityTag(mTag.setVisibilityReturn(isChecked ? 1 : 0))
+        );
     }
 
     @Override
@@ -93,5 +95,6 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
     public void startDeleteTagDialog() {
         new DeleteTagDialog(mTag).show(getParentFragmentManager(), "deleteTag");
     }
+
 
 }

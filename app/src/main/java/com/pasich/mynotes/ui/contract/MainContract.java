@@ -13,8 +13,6 @@ import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Flowable;
-
 public interface MainContract {
 
     interface view extends BaseView, MoreNoteMainActivityView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
@@ -36,7 +34,13 @@ public interface MainContract {
 
         void selectTagUser(int position);
 
-        void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList);
+
+        void loadingNotes(List<Note> noteList);
+
+        void loadingTags(List<Tag> tagList);
+
+
+        // void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList);
 
         void openNoteEdit(int idNote);
 
@@ -47,6 +51,7 @@ public interface MainContract {
         void formatButton();
 
         void startSearchDialog();
+
     }
 
 
@@ -75,6 +80,8 @@ public interface MainContract {
         void deleteNote(Note note);
 
         void restoreNote(Note nNote);
+
+        void loadingData();
 
         String getSortParam();
     }

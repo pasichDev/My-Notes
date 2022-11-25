@@ -1,5 +1,9 @@
 package com.pasich.mynotes.utils.recycler.diffutil;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -17,11 +21,12 @@ public class DiffUtilTag extends DiffUtil.ItemCallback<Tag> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Tag oldItem, @NonNull Tag newItem) {
-        return oldItem.getId() == (newItem.getId());
+        return oldItem.getId() == newItem.getId();
     }
 
     @Override
     public boolean areContentsTheSame(@NonNull Tag oldItem, @NonNull Tag newItem) {
+        Log.wtf(TAG, "areContentsTheSame: " + oldItem.getNameTag() + "/" + newItem.getNameTag());
         return oldItem.getNameTag().equals(newItem.getNameTag());
     }
 }

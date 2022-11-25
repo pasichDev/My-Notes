@@ -3,7 +3,6 @@ package com.pasich.mynotes.ui.view.activity;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +26,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import io.reactivex.Flowable;
 
 
 public class TrashActivity extends BaseActivity implements TrashContract.view, ManagerViewAction<TrashNote> {
@@ -60,7 +57,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         trashPresenter.attachView(this);
         trashPresenter.viewIsReady();
         binding.setPresenter(trashPresenter);
-
+        actionUtils.setTrash();
     }
 
     @Override
@@ -120,13 +117,16 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
 
     @Override
-    public void settingsNotesList(Flowable<List<TrashNote>> noteList) {
+    public void settingsNotesList() {
         binding.ListTrash.addItemDecoration(itemDecorationNotes);
         binding.ListTrash.setAdapter(mNotesTrashAdapter);
-        trashPresenter.getCompositeDisposable().add(noteList.subscribeOn(trashPresenter.getSchedulerProvider().io()).subscribe(trashNotes -> {
-            mNotesTrashAdapter.sortListTrash(trashNotes);
-            if (trashNotes.size() == 0) runOnUiThread(this::showEmptyTrash);
-        }, throwable -> Log.wtf("MyNotes", "settingsNotesList", throwable)));
+
+    }
+
+    @Override
+    public void loadData(List<TrashNote> trashList) {
+        mNotesTrashAdapter.sortListTrash(trashList);
+        if (trashList.size() == 0) showEmptyTrash();
     }
 
 
@@ -141,11 +141,6 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     @Override
     public void cleanTrashDialogShow() {
         new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
-    }
-
-    @Override
-    public void initActionUtils() {
-        actionUtils.setTrash();
     }
 
 

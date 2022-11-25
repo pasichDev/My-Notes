@@ -42,13 +42,18 @@ public class ChoiceTagDialogPresenter extends AppBasePresenter<ChoiceTagDialogCo
 
     @Override
     public void editVisibilityTag(Tag tag) {
-        getCompositeDisposable().add(getDataManager().updateTag(tag).subscribeOn(getSchedulerProvider().io()).subscribe());
+        getCompositeDisposable().add(
+                getDataManager().updateTag(tag)
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
+                        .subscribe());
     }
 
     @Override
     public void deleteTagInitial(Tag tag) {
         if (getCountNotesForTag() == 0)
-            getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io()).subscribe());
+            getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui()).subscribe());
         else getView().startDeleteTagDialog();
     }
 

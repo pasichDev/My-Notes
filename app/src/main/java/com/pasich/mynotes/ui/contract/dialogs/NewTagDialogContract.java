@@ -13,6 +13,5 @@ public interface NewTagDialogContract {
     interface presenter extends BasePresenter<view> {
 
         void saveTag(String nameNewTag);
-
     }
 }

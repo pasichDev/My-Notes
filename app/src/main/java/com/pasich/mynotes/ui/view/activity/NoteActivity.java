@@ -192,7 +192,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void loadingNote(Note note) {
         binding.notesTitle.setText(note.getTitle().length() >= 2 ? note.getTitle() : "");
-        binding.valueNote.setText(note.getValue());
+        binding.valueNote.setText(note.getValue() == null ? "" : note.getValue());
         binding.valueNote.setMovementMethod(new CustomLinkMovementMethod() {
             @Override
             protected void onClickLink(String link, int type) {

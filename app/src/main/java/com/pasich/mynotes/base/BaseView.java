@@ -16,7 +16,9 @@ public interface BaseView {
 
     void onError(@StringRes int resID, View view);
 
-    void vibrateOpenDialog(boolean vibrate);
+    default void vibrateOpenDialog(boolean vibrate) {
+
+    }
 
 
 }

@@ -10,6 +10,7 @@ public interface ChoiceTagDialogContract {
     interface view extends BaseView {
 
         void startDeleteTagDialog();
+
     }
 
     interface presenter extends BasePresenter<view> {

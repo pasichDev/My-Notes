@@ -1,6 +1,8 @@
 package com.pasich.mynotes.ui.presenter;
 
 
+import android.util.Log;
+
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
@@ -28,8 +30,8 @@ public class TrashPresenter extends AppBasePresenter<TrashContract.view> impleme
     @Override
     public void viewIsReady() {
         getView().settingsActionBar();
-        getView().settingsNotesList(getDataManager().getTrashNotesLoad());
-        getView().initActionUtils();
+        getView().settingsNotesList();
+        loadingTrash();
         getView().initListeners();
     }
 
@@ -37,6 +39,16 @@ public class TrashPresenter extends AppBasePresenter<TrashContract.view> impleme
     @Override
     public void cleanTrashDialogStart() {
         if (isViewAttached()) getView().cleanTrashDialogShow();
+    }
+
+    @Override
+    public void loadingTrash() {
+        getCompositeDisposable().add(
+                getDataManager().getTrashNotesLoad()
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
+                        .subscribe(trashNoteList -> getView().loadData(trashNoteList),
+                                throwable -> Log.wtf("MyNotes", "trashLoad", throwable)));
     }
 
     @Override

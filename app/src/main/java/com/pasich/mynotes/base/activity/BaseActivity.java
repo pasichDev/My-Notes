@@ -19,7 +19,6 @@ import com.pasich.mynotes.di.module.ActivityModule;
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     private ActivityComponent activityComponent;
-    public boolean oneStartActivity = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,11 +27,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         activityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this)).applicationComponent(((MyApp) getApplication())
                         .getApplicationComponent()).build();
-    }
-
-    @Override
-    public void vibrateOpenDialog(boolean vibrate) {
-
     }
 
 
