@@ -15,8 +15,8 @@ android {
         applicationId "com.pasich.mynotes"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 11
-        versionName '2.0.11'
+        versionCode 12
+        versionName '2.0.12'
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
