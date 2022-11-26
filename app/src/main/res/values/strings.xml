@@ -27,7 +27,7 @@
     <string name="search">Search notes </string>
     <string name="close">Close</string>
     <string name="addTag">Add Tag</string>
-    <string name="deleteTag">Delete Tag</string>
+    <string name="deleteTag">Delete</string>
     <string name="deleteTagAndNotes">Delete tag and tagged notes</string>
     <string name="countTagsError">Cannot create more than %1$s tags</string>
     <string name="allNotes">All Notes </string>
@@ -86,6 +86,9 @@
     <string name="button_mail">Write</string>
     <string name="button_url">Go to</string>
     <string name="mesFeedback">You can contact the author of the app using the contacts below. If you find errors or want to suggest improvements to the application, please contact the specified contacts.</string>
+
+    <string name="renameTag" translatable="false">Переименовать</string>
+
     <!-- Clean next version -->
     <string name="Hello_next">Continue</string>
     <string name="Hello_text_Title">Welcome to the new version of My Notes</string>

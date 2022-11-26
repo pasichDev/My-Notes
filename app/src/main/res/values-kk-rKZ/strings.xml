@@ -26,7 +26,7 @@
     <string name="search">Ескертпелердегі іздеу</string>
     <string name="close">Жабу</string>
     <string name="addTag">Тег қосу</string>
-    <string name="deleteTag">Текті жою</string>
+    <string name="deleteTag">Текті</string>
     <string name="deleteTagAndNotes">Тег пен тегтелген жазбаларды жою</string>
     <string name="countTagsError">%1$s тегтен артық жасау мүмкін емес</string>
     <string name="allNotes">Барлық ескертпелер</string>

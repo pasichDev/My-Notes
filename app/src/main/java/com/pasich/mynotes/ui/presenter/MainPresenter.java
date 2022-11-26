@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.presenter;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.util.Log;
+import android.view.View;
 
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
@@ -72,9 +73,9 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
 
 
     @Override
-    public void clickLongTag(Tag tag) {
+    public void clickLongTag(Tag tag, View mView) {
         if (tag.getSystemAction() == 0) {
-            getView().choiceTagDialog(tag);
+            getView().choiceTagDialog(tag, mView);
         }
     }
 
@@ -99,6 +100,20 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     @Override
     public void restoreNote(Note nNote) {
         getCompositeDisposable().add(getDataManager().restoreNote(nNote).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe());
+    }
+
+    @Override
+    public void deleteTag(Tag tag) {
+        getCompositeDisposable().add(getDataManager()
+                .getCountNotesTag(tag.getNameTag())
+                .subscribeOn(getSchedulerProvider().io())
+                .subscribe(integer -> {
+                    if (integer == 0)
+                        getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io())
+                                .observeOn(getSchedulerProvider().ui()).subscribe());
+                    else getView().startDeleteTagDialog(tag);
+                }));
+
     }
 
 

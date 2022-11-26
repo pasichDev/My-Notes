@@ -3,10 +3,17 @@ package com.pasich.mynotes.ui.view.activity;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -24,8 +31,8 @@ import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTag.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
@@ -46,7 +53,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
 
 
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
@@ -130,6 +136,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         new SearchDialog().show(getSupportFragmentManager(), "SearchDialog");
     }
 
+    @Override
+    public void startDeleteTagDialog(Tag tag) {
+        new DeleteTagDialog(tag).show(getSupportFragmentManager(), "deleteTag");
+    }
+
 
     @Override
     public void initListeners() {
@@ -142,9 +153,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             }
 
             @Override
-            public void onLongClick(int position) {
+            public void onLongClick(int position, View mView) {
                 if (!getAction())
-                    mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position));
+                    mainPresenter.clickLongTag(tagsAdapter.getCurrentList().get(position), mView);
             }
         });
 
@@ -229,8 +240,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void loadingNotes(List<Note> noteList) {
-        int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(),
-                tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+        int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(), tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
         showEmptyTrash(!(countNotes >= 1));
     }
 
@@ -295,14 +305,27 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
-    public void choiceTagDialog(Tag tag) {
-        new ChoiceTagDialog(tag, tag1 -> {
+    public void choiceTagDialog(Tag tag, View mView) {
 
-            if (tagsAdapter.getTagSelected() == tag1)
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.view_popup_tag, null);
+
+
+        PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+        tagPopupMenu.setBackgroundDrawable(new ColorDrawable(Color.WHITE)); //заменить на ситсемні цвет
+        tagPopupMenu.setElevation(20);
+        tagPopupMenu.showAsDropDown(mView, 0, 50);
+
+        view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
+            if (tagsAdapter.getTagSelected() == tag)
                 selectTagUser(tagsAdapter.getTagForName("allNotes"));
+            mainPresenter.deleteTag(tag);
+            tagPopupMenu.dismiss();
+        });
+        view.findViewById(R.id.renameTag).setOnClickListener(v -> tagPopupMenu.dismiss());
 
-        }).show(getSupportFragmentManager(), "ChoiceDialog");
     }
+
 
     @Override
     public void choiceNoteDialog(Note note, int position) {

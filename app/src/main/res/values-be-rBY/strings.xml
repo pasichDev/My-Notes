@@ -27,7 +27,7 @@
     <string name="search">Пошук у нататках </string>
     <string name="close">Закрыць</string>
     <string name="addTag">Дадаць пазнаку</string>
-    <string name="deleteTag">Выдаліць пазнаку</string>
+    <string name="deleteTag">Выдаліць</string>
     <string name="deleteTagAndNotes">Выдаліць пазнаку і адзначаныя нататкі</string>
     <string name="countTagsError">Нельга стварыць больш %1$s пазнак</string>
     <string name="allNotes">Усе нататкі </string>

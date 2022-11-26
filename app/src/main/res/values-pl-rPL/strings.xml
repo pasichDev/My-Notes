@@ -27,7 +27,7 @@
     <string name="search">Szukaj w notatkach</string>
     <string name="close">Zamknij</string>
     <string name="addTag">Dodaj tag</string>
-    <string name="deleteTag">Usuń znacznik</string>
+    <string name="deleteTag">Usuń</string>
     <string name="deleteTagAndNotes">Usuń tag i oznaczone notatki</string>
     <string name="countTagsError">Nie można utworzyć więcej niż %1$s tagów</string>
     <string name="allNotes">Wszystkie notatki</string>

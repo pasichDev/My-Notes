@@ -54,7 +54,7 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
             view.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(view.getAdapterPosition()));
 
             view.itemView.setOnLongClickListener(v -> {
-                mOnItemClickListener.onLongClick(view.getAdapterPosition());
+                mOnItemClickListener.onLongClick(view.getAdapterPosition(), view.itemView);
                 return false;
             });
 

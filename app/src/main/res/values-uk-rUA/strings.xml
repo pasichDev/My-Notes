@@ -28,7 +28,7 @@
     <string name="search">Пошук у нотатках </string>
     <string name="close">Закрити</string>
     <string name="addTag">Додати тег</string>
-    <string name="deleteTag">Видалити тег</string>
+    <string name="deleteTag">Видалити</string>
     <string name="deleteTagAndNotes">Видалити тег та позначені нотатки</string>
     <string name="countTagsError">Не можна створити більше %1$s тегів</string>
     <string name="allNotes">Всі нотатки </string>

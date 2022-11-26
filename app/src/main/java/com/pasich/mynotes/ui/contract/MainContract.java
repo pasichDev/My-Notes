@@ -1,5 +1,7 @@
 package com.pasich.mynotes.ui.contract;
 
+import android.view.View;
+
 import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
@@ -26,7 +28,7 @@ public interface MainContract {
 
         void startCreateTagDialog();
 
-        void choiceTagDialog(Tag tag);
+        void choiceTagDialog(Tag tag, View mView);
 
         void choiceNoteDialog(Note note, int position);
 
@@ -34,13 +36,9 @@ public interface MainContract {
 
         void selectTagUser(int position);
 
-
         void loadingNotes(List<Note> noteList);
 
         void loadingTags(List<Tag> tagList);
-
-
-        // void loadingData(Flowable<List<Tag>> tagList, Flowable<List<Note>> noteList);
 
         void openNoteEdit(int idNote);
 
@@ -52,6 +50,7 @@ public interface MainContract {
 
         void startSearchDialog();
 
+        void startDeleteTagDialog(Tag tag);
     }
 
 
@@ -63,7 +62,7 @@ public interface MainContract {
 
         void clickTag(Tag tag, int position);
 
-        void clickLongTag(Tag tag);
+        void clickLongTag(Tag tag, View mView);
 
         void clickNote(int idNote);
 
@@ -80,6 +79,9 @@ public interface MainContract {
         void deleteNote(Note note);
 
         void restoreNote(Note nNote);
+
+        void deleteTag(Tag tag);
+
 
         void loadingData();
 

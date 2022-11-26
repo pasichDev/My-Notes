@@ -29,7 +29,7 @@
     <string name="search">Поиск в заметках </string>
     <string name="close">Закрыть</string>
     <string name="addTag">Добавить метку</string>
-    <string name="deleteTag">Удалить метку</string>
+    <string name="deleteTag">Удалить</string>
     <string name="deleteTagAndNotes">Удалить метку и отмеченные заметки</string>
     <string name="countTagsError">Нельзя создать больше %1$s меток</string>
     <string name="allNotes">Все заметки </string>
