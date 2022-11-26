@@ -314,7 +314,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         tagPopupMenu.setBackgroundDrawable(new ColorDrawable(Color.WHITE)); //заменить на ситсемні цвет
         tagPopupMenu.setElevation(20);
-        tagPopupMenu.showAsDropDown(mView, 0, 50);
+
+        tagPopupMenu.showAsDropDown(mView, 0, 40);
 
         view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
             if (tagsAdapter.getTagSelected() == tag)
@@ -324,6 +325,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         });
         view.findViewById(R.id.renameTag).setOnClickListener(v -> tagPopupMenu.dismiss());
 
+        tagPopupMenu.setOnDismissListener(() -> {
+            view.findViewById(R.id.deleteTag).setOnClickListener(null);
+            view.findViewById(R.id.renameTag).setOnClickListener(null);
+
+        });
     }
 
 
