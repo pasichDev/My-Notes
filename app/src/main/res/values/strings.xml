@@ -127,4 +127,11 @@
 
     <string name="hiddeTagSnack" translatable="false">Заметки отмеченные данной меткой не будут отображаться в общем списке</string>
     <string name="visibleTagSnack" translatable="false">Заметки отмеченные данной меткой будут отображаться в общем списке</string>
+
+
+    <string name="noteWidget_Title" translatable="false">Создать виджет</string>
+    <string name="widget_desc" translatable="false">Для создания виджета вам нужно выбрать заметку которая будет отображаться в будующем виджете.</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+
 </resources>

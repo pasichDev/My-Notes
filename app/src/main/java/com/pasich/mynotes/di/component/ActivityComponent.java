@@ -10,6 +10,7 @@ import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.helloUI.HelloActivity;
 import com.pasich.mynotes.ui.view.activity.MainActivity;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
+import com.pasich.mynotes.ui.view.activity.NoteWidgetConfigureActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
@@ -30,6 +31,8 @@ public interface ActivityComponent {
     void inject(NoteActivity activity);
 
     void inject(TrashActivity activity);
+
+    void inject(NoteWidgetConfigureActivity activity);
 
     void inject(NameTagDialog dialog);
 
