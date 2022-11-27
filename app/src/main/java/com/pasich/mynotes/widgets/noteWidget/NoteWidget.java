@@ -3,21 +3,27 @@ package com.pasich.mynotes.widgets.noteWidget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.widget.RemoteViews;
 
-import com.pasich.mynotes.ui.view.activity.NoteWidgetConfigureActivity;
+import com.pasich.mynotes.R;
 
 public class NoteWidget extends AppWidgetProvider {
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                        int appWidgetId) {
 
-        CharSequence widgetText = NoteWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        //  CharSequence widgetText = NoteWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.note_widget);
+
+        views.setTextViewText(R.id.widget_note_title, "test");
+        views.setTextViewText(R.id.widget_note_value, "tesfgdfgdfgdfgdfgdgdgdgt");
         // Construct the RemoteViews object
         //  RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.note_widget);
         //  views.setTextViewText(R.id.appwidget_text, widgetText);
 
         // Instruct the widget manager to update the widget
         //   appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override

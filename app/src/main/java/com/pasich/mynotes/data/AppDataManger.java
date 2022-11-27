@@ -177,7 +177,7 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public Single<Note> getNoteForId(int idNote) {
+    public Single<Note> getNoteForId(long idNote) {
         return dbHelper.getNoteForId(idNote);
     }
 

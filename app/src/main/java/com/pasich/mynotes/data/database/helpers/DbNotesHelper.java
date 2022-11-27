@@ -21,7 +21,7 @@ public interface DbNotesHelper {
 
     Single<Integer> getCountNotesTag(String nameTag);
 
-    Single<Note> getNoteForId(int idNote);
+    Single<Note> getNoteForId(long idNote);
 
     Single<Long> addNote(Note note, boolean copyNote);
 

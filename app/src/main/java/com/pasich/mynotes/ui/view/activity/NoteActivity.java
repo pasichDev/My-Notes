@@ -40,7 +40,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public NoteUtils noteUtils;
 
     private String shareText, tagNote;
-    private int idKey;
+    private long idKey;
     private Note mNote;
     private boolean exitNoSave = false, newNoteKey;
 
@@ -55,15 +55,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.attachView(this);
         notePresenter.viewIsReady();
 
-
-        //   android:windowSoftInputMode="stateHidden"
-
     }
 
     @Override
     public void initParam() {
-        this.idKey = getIntent().getIntExtra("idNote", 0);
-
+        this.idKey = getIntent().getLongExtra("idNote", 0);
         this.tagNote = getIntent().getStringExtra("tagNote");
         if (tagNote == null) this.tagNote = "";
         this.shareText = getIntent().getStringExtra("shareText");

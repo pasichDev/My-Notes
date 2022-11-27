@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -39,39 +38,13 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
     public StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     private NoteWidgetConfigureBinding binding;
+    private static final String PREF_PREFIX_KEY = "noteWidgetId_";
+    int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
 
     public NoteWidgetConfigureActivity() {
         super();
     }
-
-    //   private static final String PREFS_NAME = "com.pasich.mynotes.widget.noteWidget.NoteWidget";
-    private static final String PREF_PREFIX_KEY = "noteWidgetId_";
-
-    int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
-
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            final Context context = NoteWidgetConfigureActivity.this;
-
-            // When the button is clicked, store the string locally
-            //  String widgetText = mAppWidgetText.getText().toString();
-            //   saveTitlePref(context, mAppWidgetId, widgetText);
-
-            // It is the responsibility of the configuration activity to update the app widget
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            NoteWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
-
-            // Make sure we pass back the original appWidgetId
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
-        }
-    };
-
-
 
 
     // Read the prefix from the SharedPreferences object for this widget.
@@ -116,7 +89,6 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
         // If this activity was started with an intent without an app widget ID, finish with an error.
         if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
-            return;
         }
     }
 
@@ -163,9 +135,10 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
         finish();
     }
 
-    // Write the prefix to the SharedPreferences object for this widget
     static void saveWidgetPref(int appWidgetId, long noteId) {
         PowerPreference.getDefaultFile().setLong(PREF_PREFIX_KEY + appWidgetId, noteId);
 
     }
+
+
 }

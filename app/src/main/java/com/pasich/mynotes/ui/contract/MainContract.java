@@ -40,7 +40,7 @@ public interface MainContract {
 
         void loadingTags(List<Tag> tagList);
 
-        void openNoteEdit(int idNote);
+        void openNoteEdit(long idNote);
 
         void startToastCheckCountTags();
 

@@ -7,6 +7,8 @@ import com.pasich.mynotes.di.scope.PerActivity;
 
 import java.util.List;
 
+import io.reactivex.Single;
+
 public interface NoteWidgetConfigureContract {
 
     interface view extends BaseView {
@@ -21,6 +23,8 @@ public interface NoteWidgetConfigureContract {
     interface presenter extends BasePresenter<view> {
 
         void loadNotes();
+
+        Single loadNote(long idNote);
 
     }
 }

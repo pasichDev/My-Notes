@@ -38,7 +38,7 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
     }
 
     @Override
-    public void loadingData(int idNote) {
+    public void loadingData(long idNote) {
         getCompositeDisposable().add(getDataManager().getNoteForId(idNote).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(note -> getView().loadingNote(note)));
 
     }

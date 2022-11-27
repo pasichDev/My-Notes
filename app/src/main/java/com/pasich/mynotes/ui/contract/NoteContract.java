@@ -27,7 +27,7 @@ public interface NoteContract {
     interface presenter extends BasePresenter<view> {
         void closeActivity();
 
-        void loadingData(int idNote);
+        void loadingData(long idNote);
 
         void activateEditNote();
 

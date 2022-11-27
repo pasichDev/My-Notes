@@ -10,7 +10,9 @@ import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 public class NoteWidgetConfigurePresenter extends AppBasePresenter<NoteWidgetConfigureContract.view> implements NoteWidgetConfigureContract.presenter {
@@ -32,5 +34,17 @@ public class NoteWidgetConfigurePresenter extends AppBasePresenter<NoteWidgetCon
     @Override
     public void loadNotes() {
         getCompositeDisposable().add(getDataManager().getNotes().subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe((noteList) -> getView().loadingNotes(noteList), throwable -> Log.e("com.pasich.myNotes", "loadNotes", throwable)));
+    }
+
+    @Override
+    public Single loadNote(long idNote) {
+        Single single =
+                getDataManager()
+                        .getNoteForId(idNote)
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui());
+        getCompositeDisposable().add((Disposable) single);
+        return single;
+
     }
 }

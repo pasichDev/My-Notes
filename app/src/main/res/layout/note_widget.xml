@@ -1,62 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Widget.MyNotes.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
-    android:theme="@style/ThemeBlue.AppWidgetContainer">
+    android:theme="@style/ThemeBlue.AppWidgetContainer"
+    android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <TextView
+        android:id="@+id/widget_note_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:fontFamily="@font/railway_medium"
+        android:hint="@string/noteTitle"
+        android:maxLength="@integer/maxLengthNotesTitle"
+        android:maxLines="@integer/countLinesNoteTitle"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@drawable/selector_color_title"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/widget_note_value"
+        android:autoLink="web|email|phone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:nestedScrollingEnabled="true"
-        android:scrollbarSize="0dp">
+        android:background="#00FFFFFF"
+        android:hint="@string/hintTextNote"
+        android:maxLength="@integer/maxLengthNotesTextValue"
+        android:minHeight="100dp"
+        android:padding="20dp"
+        android:textColor="@drawable/selector_color_value" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/notesTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:autofillHints="no"
-                android:background="@null"
-                android:autoLink="all"
-                android:linksClickable="true"
-                android:fontFamily="@font/railway_medium"
-                android:hint="@string/noteTitle"
-                android:inputType="textMultiLine"
-                android:maxLength="@integer/maxLengthNotesTitle"
-                android:maxLines="@integer/countLinesNoteTitle"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:textColor="@drawable/selector_color_title"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck" />
-
-
-            <EditText
-                android:id="@+id/valueNote"
-                android:autoLink="web|email|phone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autofillHints="no"
-                android:background="#00FFFFFF"
-                android:gravity="start|top"
-                android:hint="@string/hintTextNote"
-                android:inputType="textAutoComplete|text|textCapSentences|textMultiLine"
-                android:longClickable="true"
-                android:maxLength="@integer/maxLengthNotesTextValue"
-                android:minHeight="100dp"
-                android:padding="20dp"
-                android:textColor="@drawable/selector_color_value" />
-
-        </LinearLayout>
-    </ScrollView>
-
-</RelativeLayout>
+</LinearLayout>

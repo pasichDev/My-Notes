@@ -131,7 +131,7 @@
 
     <string name="noteWidget_Title" translatable="false">Создать виджет</string>
     <string name="widget_desc" translatable="false">Для создания виджета вам нужно выбрать заметку которая будет отображаться в будующем виджете.</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
+
+    <string name="widgetDesc" translatable="false"> widgetTranslabte</string>
 
 </resources>

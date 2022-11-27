@@ -42,7 +42,7 @@ public interface NoteDao {
   List<Note> getNotesForTag(String nameTag);
 
   @Query("SELECT * FROM notes WHERE id=:idNote")
-  Note getNoteForId(int idNote);
+  Note getNoteForId(long idNote);
 
   @Query("UPDATE NOTES SET tag=:tag WHERE id=:noteID")
   void setTagNote(String tag, int noteID);
