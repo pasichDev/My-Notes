@@ -78,7 +78,8 @@ public class ChoiceTagDialog extends BaseDialogBottomSheets implements ChoiceTag
             dismiss();
         });
 
-        binding.switchVisibilityTag.setOnCheckedChangeListener((buttonView, isChecked) -> mPresenter.editVisibilityTag(mTag.setVisibilityReturn(isChecked ? 1 : 0))
+        binding.switchVisibilityTag.setOnCheckedChangeListener((buttonView, isChecked) ->
+                mPresenter.editVisibilityTag(mTag.setVisibilityReturn(isChecked ? 1 : 0))
         );
     }
 

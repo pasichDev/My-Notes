@@ -14,22 +14,35 @@ import androidx.annotation.NonNull;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
+import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.DialogNewTagBinding;
 import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
-import com.pasich.mynotes.ui.presenter.dialogs.NewTagDialogPresenter;
+import com.pasich.mynotes.ui.presenter.dialogs.NameTagDialogPresenter;
 
 import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialogContract.view {
+public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialogContract.view {
 
 
+    private final Tag mTag;
     @Inject
-    public NewTagDialogPresenter mPresenter;
+    public NameTagDialogPresenter mPresenter;
     private DialogNewTagBinding binding;
     private boolean errorText = true;
+
+
+    public NameTagDialog() {
+        this.mTag = null;
+
+    }
+
+    public NameTagDialog(Tag tag) {
+
+        this.mTag = tag;
+    }
 
 
     @NonNull
@@ -42,11 +55,15 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
             component.inject(this);
             mPresenter.attachView(this);
             mPresenter.viewIsReady();
+
+            if (getTag() != null && getTag().equals("RenameTag") && mTag != null) {
+                binding.nameTag.setText(mTag.getNameTag());
+            }
+
+            binding.outlinedTextField.requestFocus();
         } else {
             dismiss();
         }
-
-        binding.outlinedTextField.requestFocus();
 
 
         return requireDialog();
@@ -98,7 +115,13 @@ public class NewTagDialog extends BaseDialogBottomSheets implements NewTagDialog
 
     private void saveTag() {
         if (!errorText) {
-            mPresenter.saveTag(Objects.requireNonNull(binding.nameTag.getText()).toString());
+            if (getTag() != null && getTag().equals("RenameTag") && mTag != null) {
+
+                mPresenter.editNameTag(Objects.requireNonNull(binding.nameTag.getText()).toString(), mTag);
+            } else {
+
+                mPresenter.saveTag(Objects.requireNonNull(binding.nameTag.getText()).toString());
+            }
             dismiss();
         }
     }

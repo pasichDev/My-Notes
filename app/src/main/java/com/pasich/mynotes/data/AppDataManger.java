@@ -151,6 +151,11 @@ public class AppDataManger implements DataManager {
         return dbHelper.restoreNote(mNote);
     }
 
+    @Override
+    public Completable renameTag(Tag mTag, String oldName) {
+        return dbHelper.renameTag(mTag, oldName);
+    }
+
 
     /**
      * Notes

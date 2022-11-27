@@ -28,7 +28,7 @@ import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.ChoiceTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.DeleteTagDialogPresenter;
-import com.pasich.mynotes.ui.presenter.dialogs.NewTagDialogPresenter;
+import com.pasich.mynotes.ui.presenter.dialogs.NameTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.SearchDialogPresenter;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
@@ -138,7 +138,7 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    NewTagDialogContract.presenter providerNewTagDialogPresenter(NewTagDialogPresenter presenter) {
+    NewTagDialogContract.presenter providerNewTagDialogPresenter(NameTagDialogPresenter presenter) {
         return presenter;
 
     }

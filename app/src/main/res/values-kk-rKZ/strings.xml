@@ -42,7 +42,6 @@
     <string name="sort_Title_Increase">Тақырып: A-Z</string>
     <string name="sort_Title_Decrease">Тақырып: Z-A</string>
     <string name="sortHead">Сұрыптау:</string>
-    <string name="visibilityNotesToTag">Ескертпелерді жасыру</string>
     <string name="layoutStringInfoTags">%1$s ескертпесі белгіленген</string>
     <string name="settingsTitleContacts">Бізбен байланысыңыз</string>
     <string name="shareApp">Қолданбаны ортақ пайдалану</string>

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -33,7 +34,7 @@ import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.NewTagDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.ShareUtils;
@@ -301,7 +302,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void startCreateTagDialog() {
-        new NewTagDialog().show(getSupportFragmentManager(), "New Tag");
+        new NameTagDialog().show(getSupportFragmentManager(), "New Tag");
     }
 
     @Override
@@ -310,12 +311,15 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.view_popup_tag, null);
 
+        TextView textVisibility = view.findViewById(R.id.textVisibilityTag);
+        textVisibility.setText(tag.getVisibility() == 1 ? R.string.visibleTag : R.string.hiddeTag);
+
 
         PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         tagPopupMenu.setBackgroundDrawable(new ColorDrawable(Color.WHITE)); //заменить на ситсемні цвет
         tagPopupMenu.setElevation(20);
-
         tagPopupMenu.showAsDropDown(mView, 0, 40);
+
 
         view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
             if (tagsAdapter.getTagSelected() == tag)
@@ -323,11 +327,21 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             mainPresenter.deleteTag(tag);
             tagPopupMenu.dismiss();
         });
-        view.findViewById(R.id.renameTag).setOnClickListener(v -> tagPopupMenu.dismiss());
+        view.findViewById(R.id.renameTag).setOnClickListener(v -> {
+            new NameTagDialog(tag).show(getSupportFragmentManager(), "RenameTag");
+            tagPopupMenu.dismiss();
+        });
+        view.findViewById(R.id.visibleTag).setOnClickListener(v -> {
+            mainPresenter.editVisibleTag(tag.setVisibilityReturn(tag.getVisibility() == 1 ? 0 : 1));
+            onError(tag.getVisibility() == 1 ? R.string.hiddeTagSnack : R.string.visibleTagSnack, mActivityBinding.newNotesButton);
+            tagPopupMenu.dismiss();
+        });
+
 
         tagPopupMenu.setOnDismissListener(() -> {
             view.findViewById(R.id.deleteTag).setOnClickListener(null);
             view.findViewById(R.id.renameTag).setOnClickListener(null);
+            view.findViewById(R.id.visibleTag).setOnClickListener(null);
 
         });
     }

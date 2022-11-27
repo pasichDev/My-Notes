@@ -116,6 +116,15 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
 
     }
 
+    @Override
+    public void editVisibleTag(Tag tag) {
+        getCompositeDisposable().add(
+                getDataManager().updateTag(tag)
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
+                        .subscribe());
+    }
+
 
     @Override
     public String getSortParam() {

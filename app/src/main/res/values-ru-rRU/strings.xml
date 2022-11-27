@@ -45,7 +45,6 @@
     <string name="sort_Title_Increase">Названии: от А-Я</string>
     <string name="sort_Title_Decrease">Названии: от Я-А</string>
     <string name="sortHead">Cортировать по:</string>
-    <string name="visibilityNotesToTag">Скрывать заметки</string>
     <string name="layoutStringInfoTags">Отмечено %1$s заметок</string>
     <string name="settingsTitleContacts">Обратная связь</string>
     <string name="shareApp">Поделиться приложением</string>

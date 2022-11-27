@@ -106,6 +106,11 @@ public class AppDbHelper implements DbHelper {
         return Completable.fromAction(() -> appDatabase.transactionsNote().restoreNote(mNote));
     }
 
+    @Override
+    public Completable renameTag(Tag mTag, String oldName) {
+        return Completable.fromAction(() -> appDatabase.transactionsNote().renameTag(mTag, oldName));
+    }
+
 
     /**
      * Notes

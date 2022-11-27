@@ -82,6 +82,7 @@ public interface MainContract {
 
         void deleteTag(Tag tag);
 
+        void editVisibleTag(Tag tag);
 
         void loadingData();
 

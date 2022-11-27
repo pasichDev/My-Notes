@@ -44,7 +44,6 @@
     <string name="sort_Title_Increase">Назвою: від А-Я</string>
     <string name="sort_Title_Decrease">Назвою: від Я-А</string>
     <string name="sortHead">Сортувати за:</string>
-    <string name="visibilityNotesToTag">Приховувати нотатки</string>
     <string name="layoutStringInfoTags">Позначено %1$s нотаток</string>
     <string name="settingsTitleContacts">Зворотній зв\'язок</string>
     <string name="shareApp">Поділитись додатком</string>

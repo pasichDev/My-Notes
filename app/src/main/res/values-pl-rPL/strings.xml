@@ -43,7 +43,6 @@
     <string name="sort_Title_Increase">Tytuł: A-Z</string>
     <string name="sort_Title_Decrease">Tytuł: Z-A</string>
     <string name="sortHead">Sortuj według:</string>
-    <string name="visibilityNotesToTag">Ukryj notatki</string>
     <string name="layoutStringInfoTags">%1$s notatki zaznaczone</string>
     <string name="settingsTitleContacts">Skontaktuj się z nami</string>
     <string name="shareApp">Udostępnij aplikację</string>

@@ -16,6 +16,11 @@ import com.pasich.mynotes.data.database.model.TrashNote;
 @Dao
 public abstract class Transactions {
 
+    @Update
+    public abstract void updateTag(Tag tag);
+
+    @Query("UPDATE NOTES SET tag=:newTag WHERE tag=:oldTag")
+    public abstract void renameTagNotes(String oldTag, String newTag);
 
     @Update
     public abstract void updateNote(Note note);
@@ -109,6 +114,16 @@ public abstract class Transactions {
     public void restoreNote(Note nNote) {
         addNote(nNote);
         deleteNoteForText(nNote.getValue());
+
+    }
+
+    /**
+     * Метод переименования метки
+     */
+    @Transaction
+    public void renameTag(Tag mTag, String oldName) {
+        updateTag(mTag);
+        renameTagNotes(oldName, mTag.getNameTag());
 
     }
 }
