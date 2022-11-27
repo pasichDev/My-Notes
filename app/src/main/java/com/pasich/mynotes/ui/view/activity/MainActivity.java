@@ -6,8 +6,6 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -316,7 +314,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
         PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-        tagPopupMenu.setBackgroundDrawable(new ColorDrawable(Color.WHITE)); //заменить на ситсемні цвет
         tagPopupMenu.setElevation(20);
         tagPopupMenu.showAsDropDown(mView, 0, 40);
 
@@ -333,7 +330,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         });
         view.findViewById(R.id.visibleTag).setOnClickListener(v -> {
             mainPresenter.editVisibleTag(tag.setVisibilityReturn(tag.getVisibility() == 1 ? 0 : 1));
-            onError(tag.getVisibility() == 1 ? R.string.hiddeTagSnack : R.string.visibleTagSnack, mActivityBinding.newNotesButton);
             tagPopupMenu.dismiss();
         });
 

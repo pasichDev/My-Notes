@@ -12,7 +12,6 @@ import com.pasich.mynotes.ui.view.activity.MainActivity;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.ChoiceTag.ChoiceTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
@@ -34,7 +33,6 @@ public interface ActivityComponent {
 
     void inject(NameTagDialog dialog);
 
-    void inject(ChoiceTagDialog dialog);
 
     void inject(DeleteTagDialog dialog);
 
