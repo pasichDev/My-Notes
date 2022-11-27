@@ -23,6 +23,7 @@ public class NoteWidgetConfigurePresenter extends AppBasePresenter<NoteWidgetCon
 
     @Override
     public void viewIsReady() {
+        getView().initListNotes();
         loadNotes();
         getView().initListeners();
     }

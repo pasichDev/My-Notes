@@ -1,12 +1,11 @@
 package com.pasich.mynotes.ui.view.activity;
 
+
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -19,6 +18,7 @@ import com.pasich.mynotes.ui.presenter.NoteWidgetConfigurePresenter;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.widgets.noteWidget.NoteWidget;
+import com.preference.PowerPreference;
 
 import java.util.List;
 
@@ -38,18 +38,26 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
     @Inject
     public StaggeredGridLayoutManager staggeredGridLayoutManager;
 
+    private NoteWidgetConfigureBinding binding;
 
-    private static final String PREFS_NAME = "com.pasich.mynotes.widget.noteWidget.NoteWidget";
-    private static final String PREF_PREFIX_KEY = "appwidget_";
+
+    public NoteWidgetConfigureActivity() {
+        super();
+    }
+
+    //   private static final String PREFS_NAME = "com.pasich.mynotes.widget.noteWidget.NoteWidget";
+    private static final String PREF_PREFIX_KEY = "noteWidgetId_";
+
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    EditText mAppWidgetText;
+
+
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = NoteWidgetConfigureActivity.this;
 
             // When the button is clicked, store the string locally
-            String widgetText = mAppWidgetText.getText().toString();
-            saveTitlePref(context, mAppWidgetId, widgetText);
+            //  String widgetText = mAppWidgetText.getText().toString();
+            //   saveTitlePref(context, mAppWidgetId, widgetText);
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -62,18 +70,9 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
             finish();
         }
     };
-    private NoteWidgetConfigureBinding binding;
 
-    public NoteWidgetConfigureActivity() {
-        super();
-    }
 
-    // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, String text) {
-        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
-        prefs.apply();
-    }
+
 
     // Read the prefix from the SharedPreferences object for this widget.
     // If there is no preference saved, get the default from a resource
@@ -89,20 +88,15 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
     }
 
     public static void deleteTitlePref(Context context, int appWidgetId) {
-        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.remove(PREF_PREFIX_KEY + appWidgetId);
-        prefs.apply();
+        //   SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        //  prefs.remove(PREF_PREFIX_KEY + appWidgetId);
+        //    prefs.apply();
     }
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
-
-        // Set the result to CANCELED.  This will cause the widget host to cancel
-        // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
-
         binding = NoteWidgetConfigureBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getActivityComponent().inject(this);
@@ -110,8 +104,6 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
         mPresenter.viewIsReady();
 
 
-        //   mAppWidgetText = binding.appwidgetText;
-        //  binding.addButton.setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -126,25 +118,54 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
             finish();
             return;
         }
+    }
 
-        //  mAppWidgetText.setText(loadTitlePref(NoteWidgetConfigureActivity.this, mAppWidgetId));
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     @Override
     public void initListeners() {
-        binding.listNotes.addItemDecoration(itemDecorationNotes);
-        binding.listNotes.setLayoutManager(staggeredGridLayoutManager);
-        binding.listNotes.setAdapter(mNoteAdapter);
-
+        mNoteAdapter.setOnItemClickListener((position, model) -> {
+            createWidget(model.id);
+        });
     }
 
     @Override
     public void initListNotes() {
+        binding.listNotes.addItemDecoration(itemDecorationNotes);
+        binding.listNotes.setLayoutManager(staggeredGridLayoutManager);
+        binding.listNotes.setAdapter(mNoteAdapter);
+
 
     }
 
     @Override
     public void loadingNotes(List<Note> noteList) {
         mNoteAdapter.sortList(noteList, "", "allNotes");
+    }
+
+    void createWidget(long noteId) {
+        final Context context = NoteWidgetConfigureActivity.this;
+
+        saveWidgetPref(mAppWidgetId, noteId);
+        // It is the responsibility of the configuration activity to update the app widget
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        NoteWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+
+        // Make sure we pass back the original appWidgetId
+        Intent resultValue = new Intent();
+        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+        setResult(RESULT_OK, resultValue);
+        finish();
+    }
+
+    // Write the prefix to the SharedPreferences object for this widget
+    static void saveWidgetPref(int appWidgetId, long noteId) {
+        PowerPreference.getDefaultFile().setLong(PREF_PREFIX_KEY + appWidgetId, noteId);
+
     }
 }
