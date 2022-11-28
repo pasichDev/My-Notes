@@ -36,12 +36,17 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
     public NoteAdapter<ItemNoteBinding> mNoteAdapter;
     @Inject
     public StaggeredGridLayoutManager staggeredGridLayoutManager;
-    private NoteWidgetConfigureBinding binding;
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    private NoteWidgetConfigureBinding binding;
 
 
     public NoteWidgetConfigureActivity() {
         super();
+    }
+
+    static void saveWidgetPref(int appWidgetId, long noteId) {
+        PowerPreference.getDefaultFile().setLong(WidgetConstants.PREF_PREFIX_KEY + appWidgetId, noteId);
+
     }
 
     @Override
@@ -55,13 +60,11 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
         mPresenter.viewIsReady();
 
 
-
         // Find the widget id from the intent.
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-            mAppWidgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+            mAppWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
         // If this activity was started with an intent without an app widget ID, finish with an error.
@@ -69,7 +72,6 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
             finish();
         }
     }
-
 
     @Override
     protected void onDestroy() {
@@ -107,11 +109,6 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
         setResult(RESULT_OK, resultValue);
         finish();
-    }
-
-    static void saveWidgetPref(int appWidgetId, long noteId) {
-        PowerPreference.getDefaultFile().setLong(WidgetConstants.PREF_PREFIX_KEY + appWidgetId, noteId);
-
     }
 
 }
