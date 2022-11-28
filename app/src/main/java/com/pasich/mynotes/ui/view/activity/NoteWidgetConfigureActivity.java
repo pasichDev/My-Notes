@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +14,7 @@ import com.pasich.mynotes.databinding.NoteWidgetConfigureBinding;
 import com.pasich.mynotes.ui.contract.NoteWidgetConfigureContract;
 import com.pasich.mynotes.ui.presenter.NoteWidgetConfigurePresenter;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
+import com.pasich.mynotes.utils.constants.WidgetConstants;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.widgets.noteWidget.NoteWidget;
 import com.preference.PowerPreference;
@@ -36,34 +36,12 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
     public NoteAdapter<ItemNoteBinding> mNoteAdapter;
     @Inject
     public StaggeredGridLayoutManager staggeredGridLayoutManager;
-
     private NoteWidgetConfigureBinding binding;
-    private static final String PREF_PREFIX_KEY = "noteWidgetId_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
 
     public NoteWidgetConfigureActivity() {
         super();
-    }
-
-
-    // Read the prefix from the SharedPreferences object for this widget.
-    // If there is no preference saved, get the default from a resource
-    public static String loadTitlePref(Context context, int appWidgetId) {
-        // SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        //   String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
-        //   if (titleValue != null) {
-        //       return titleValue;
-        //   } else {
-        //       return context.getString(R.string.appwidget_text);
-        //
-        return "";
-    }
-
-    public static void deleteTitlePref(Context context, int appWidgetId) {
-        //   SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        //  prefs.remove(PREF_PREFIX_KEY + appWidgetId);
-        //    prefs.apply();
     }
 
     @Override
@@ -101,9 +79,7 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
 
     @Override
     public void initListeners() {
-        mNoteAdapter.setOnItemClickListener((position, model) -> {
-            createWidget(model.id);
-        });
+        mNoteAdapter.setOnItemClickListener((position, model) -> createWidget(model));
     }
 
     @Override
@@ -120,25 +96,22 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
         mNoteAdapter.sortList(noteList, "", "allNotes");
     }
 
-    void createWidget(long noteId) {
+    void createWidget(Note note) {
         final Context context = NoteWidgetConfigureActivity.this;
+        final Intent resultValue = new Intent();
+        final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        saveWidgetPref(mAppWidgetId, noteId);
-        // It is the responsibility of the configuration activity to update the app widget
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        NoteWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
 
-        // Make sure we pass back the original appWidgetId
-        Intent resultValue = new Intent();
+        saveWidgetPref(mAppWidgetId, note.id);
+        NoteWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId, note);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
         setResult(RESULT_OK, resultValue);
         finish();
     }
 
     static void saveWidgetPref(int appWidgetId, long noteId) {
-        PowerPreference.getDefaultFile().setLong(PREF_PREFIX_KEY + appWidgetId, noteId);
+        PowerPreference.getDefaultFile().setLong(WidgetConstants.PREF_PREFIX_KEY + appWidgetId, noteId);
 
     }
-
 
 }

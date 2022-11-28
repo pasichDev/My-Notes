@@ -196,4 +196,16 @@
         <item name="android:layout_marginBottom">3dp</item>
     </style>
 
+    <style name="ThemeBlue.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+
+        <item name="appWidgetRadius">16dp</item>
+        <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+
+    <style name="ThemeBlue.AppNoteWidgetContainer" parent="ThemeBlue.AppWidgetContainerParent">
+        <item name="colorTitle">@color/colorTitleDark</item>
+        <item name="colorValueCustom">@color/colorValueDark</item>
+        <item name="colorSurface">@color/colorDarkThemeSurface</item>
+        <item name="appWidgetPadding">5dp</item>
+    </style>
 </resources>

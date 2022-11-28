@@ -1,8 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Widget.MyNotes.AppWidget.Container"
+    android:id="@+id/widgetLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/ThemeBlue.AppWidgetContainer"
+    android:theme="@style/ThemeBlue.AppNoteWidgetContainer"
+    android:backgroundTint="?attr/colorSurface"
     android:orientation="vertical">
 
     <TextView
@@ -15,9 +17,10 @@
         android:hint="@string/noteTitle"
         android:maxLength="@integer/maxLengthNotesTitle"
         android:maxLines="@integer/countLinesNoteTitle"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textColor="@drawable/selector_color_title"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="20sp"
+        android:textColor="?attr/colorTitle"
         android:textStyle="bold" />
 
 
@@ -30,7 +33,7 @@
         android:hint="@string/hintTextNote"
         android:maxLength="@integer/maxLengthNotesTextValue"
         android:minHeight="100dp"
-        android:padding="20dp"
-        android:textColor="@drawable/selector_color_value" />
+        android:padding="10dp"
+        android:textColor="?attr/colorValueCustom" />
 
 </LinearLayout>

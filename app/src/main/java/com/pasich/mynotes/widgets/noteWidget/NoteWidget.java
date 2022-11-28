@@ -1,54 +1,63 @@
 package com.pasich.mynotes.widgets.noteWidget;
 
+
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.utils.constants.WidgetConstants;
+import com.preference.PowerPreference;
 
 public class NoteWidget extends AppWidgetProvider {
 
-    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                       int appWidgetId) {
 
-        //  CharSequence widgetText = NoteWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                       int appWidgetId, Note note) {
+
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.note_widget);
 
-        views.setTextViewText(R.id.widget_note_title, "test");
-        views.setTextViewText(R.id.widget_note_value, "tesfgdfgdfgdfgdfgdgdgdgt");
-        // Construct the RemoteViews object
-        //  RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.note_widget);
-        //  views.setTextViewText(R.id.appwidget_text, widgetText);
 
-        // Instruct the widget manager to update the widget
-        //   appWidgetManager.updateAppWidget(appWidgetId, views);
+        String title = note.getTitle();
+        String value = note.getValue();
+
+        views.setViewVisibility(R.id.widget_note_title, title.length() >= 2 ? View.VISIBLE : View.GONE);
+        views.setTextViewText(R.id.widget_note_title, title != null && title.length() >= 2 ? title : "");
+        views.setTextViewText(R.id.widget_note_value, value != null && value.length() >= 2 ? value : "");
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
+
+    }
+
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+            PowerPreference.getDefaultFile().remove(WidgetConstants.PREF_PREFIX_KEY + appWidgetId);
         }
     }
 
     @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
-        // When the user deletes the widget, delete the preference associated with it.
-        //   for (int appWidgetId : appWidgetIds) {
-        //       NoteWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
-        //   }
-    }
-
-    @Override
     public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
+
     }
 
     @Override
     public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
+
     }
 }
