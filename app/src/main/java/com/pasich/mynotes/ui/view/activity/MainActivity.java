@@ -325,7 +325,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
         PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         tagPopupMenu.setElevation(20);
-        tagPopupMenu.showAsDropDown(mView, mView.getWidth() + view.getMeasuredWidth(), 30, Gravity.START);
+        tagPopupMenu.showAsDropDown(mView, mView.getWidth() / 3, 30, Gravity.START);
 
 
         view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
