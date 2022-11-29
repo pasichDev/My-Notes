@@ -6,7 +6,9 @@ import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -312,10 +314,19 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         TextView textVisibility = view.findViewById(R.id.textVisibilityTag);
         textVisibility.setText(tag.getVisibility() == 1 ? R.string.visibleTag : R.string.hiddeTag);
 
+        int widthDisplayCenter = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
+
+        if (mView.getX() > widthDisplayCenter) {
+            view.setBackground(getDrawable(R.drawable.background_popup_tag_right));
+        } else {
+            view.setBackground(getDrawable(R.drawable.background_popup_tag_left));
+        }
+
 
         PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         tagPopupMenu.setElevation(20);
-        tagPopupMenu.showAsDropDown(mView, 0, 40);
+        tagPopupMenu.showAsDropDown(mView, mView.getWidth() + view.getMeasuredWidth(), 30, Gravity.START);
+
 
         view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
             if (tagsAdapter.getTagSelected() == tag)
@@ -339,6 +350,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             view.findViewById(R.id.visibleTag).setOnClickListener(null);
 
         });
+    }
+
+
+    private int getLocationDependence(float startDependenceX) {
+        int displayWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        int widthDisplayCenter = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
+
+        if (startDependenceX > widthDisplayCenter) return 1;
+        else return 0;
+
+
     }
 
 
