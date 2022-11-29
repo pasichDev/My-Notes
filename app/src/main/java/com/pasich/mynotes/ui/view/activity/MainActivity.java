@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -311,6 +312,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.view_popup_tag, null);
 
         TextView textVisibility = view.findViewById(R.id.textVisibilityTag);
+        ImageView imageTagVisible = view.findViewById(R.id.imageTagVisible);
+
+        imageTagVisible.setImageResource(tag.getVisibility() == 1 ? R.drawable.ic_tag_visible : R.drawable.ic_tag_hidden);
         textVisibility.setText(tag.getVisibility() == 1 ? R.string.visibleTag : R.string.hiddeTag);
 
         int widthDisplayCenter = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
@@ -327,6 +331,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         /**
          * Нужно реализовать привильній отступ от правой метки
          * на левую вроде все работает
+         * + заменить иконку
          */
 
 
