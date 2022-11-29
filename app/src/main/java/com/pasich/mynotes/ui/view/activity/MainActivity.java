@@ -317,7 +317,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         tagPopupMenu.setElevation(20);
         tagPopupMenu.showAsDropDown(mView, 0, 40);
 
-
         view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
             if (tagsAdapter.getTagSelected() == tag)
                 selectTagUser(tagsAdapter.getTagForName("allNotes"));
