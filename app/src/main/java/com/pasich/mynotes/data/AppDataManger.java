@@ -152,8 +152,8 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public Completable renameTag(Tag mTag, String oldName) {
-        return dbHelper.renameTag(mTag, oldName);
+    public Completable renameTag(Tag mTag, String newName) {
+        return dbHelper.renameTag(mTag, newName);
     }
 
 

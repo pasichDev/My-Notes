@@ -18,6 +18,6 @@ public interface DbTransactionsHelper {
 
     Completable restoreNote(Note mNote);
 
-    Completable renameTag(Tag mTag, String oldName);
+    Completable renameTag(Tag mTag, String newName);
 
 }

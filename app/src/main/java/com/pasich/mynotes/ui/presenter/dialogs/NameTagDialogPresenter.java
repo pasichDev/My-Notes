@@ -33,10 +33,10 @@ public class NameTagDialogPresenter extends AppBasePresenter<NewTagDialogContrac
 
     @Override
     public void editNameTag(String nameNewTag, Tag mTag) {
-        String oldName = mTag.getNameTag();
-        mTag.setNameTag(nameNewTag);
+        //   String oldName = mTag.getNameTag();
+        //   mTag.setNameTag(nameNewTag);
         getCompositeDisposable().add(getDataManager()
-                .renameTag(mTag, oldName)
+                .renameTag(mTag, nameNewTag)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe());
