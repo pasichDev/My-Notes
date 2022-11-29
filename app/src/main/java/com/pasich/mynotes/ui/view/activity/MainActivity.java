@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -315,17 +314,27 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         textVisibility.setText(tag.getVisibility() == 1 ? R.string.visibleTag : R.string.hiddeTag);
 
         int widthDisplayCenter = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
+        int xof;
 
         if (mView.getX() > widthDisplayCenter) {
             view.setBackground(getDrawable(R.drawable.background_popup_tag_right));
+            xof = (int) -(Resources.getSystem().getDisplayMetrics().widthPixels - mView.getX());
         } else {
             view.setBackground(getDrawable(R.drawable.background_popup_tag_left));
+            xof = mView.getWidth() / 3;
         }
+
+        /**
+         * Нужно реализовать привильній отступ от правой метки
+         * на левую вроде все работает
+         */
 
 
         PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         tagPopupMenu.setElevation(20);
-        tagPopupMenu.showAsDropDown(mView, mView.getWidth() / 3, 30, Gravity.START);
+
+
+        tagPopupMenu.showAsDropDown(mView, xof, 30);
 
 
         view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
