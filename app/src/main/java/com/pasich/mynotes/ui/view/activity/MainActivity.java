@@ -1,22 +1,12 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -38,6 +28,8 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
+import com.pasich.mynotes.ui.view.dialogs.popupWindowsTag.PopupWindowsTag;
+import com.pasich.mynotes.ui.view.dialogs.popupWindowsTag.PopupWindowsTagOnClickListener;
 import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
@@ -309,82 +301,27 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void choiceTagDialog(Tag tag, View mView) {
+        new PopupWindowsTag(getLayoutInflater(), mView, tag, new PopupWindowsTagOnClickListener() {
+            @Override
+            public void deleteTag() {
+                if (tagsAdapter.getTagSelected() == tag)
+                    selectTagUser(tagsAdapter.getTagForName("allNotes"));
+                mainPresenter.deleteTag(tag);
+            }
 
-        final int widthDisplay = Resources.getSystem().getDisplayMetrics().widthPixels;
-        final int widthMView = mView.getWidth();
+            @Override
+            public void renameTag() {
+                new NameTagDialog(tag).show(getSupportFragmentManager(), "RenameTag");
+            }
 
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.view_popup_tag, null);
-
-        TextView textVisibility = view.findViewById(R.id.textVisibilityTag);
-        ImageView imageTagVisible = view.findViewById(R.id.imageTagVisible);
-
-        imageTagVisible.setImageResource(tag.getVisibility() == 1 ? R.drawable.ic_tag_visible : R.drawable.ic_tag_hidden);
-        textVisibility.setText(tag.getVisibility() == 1 ? R.string.visibleTag : R.string.hiddeTag);
-
-        int widthDisplayCenter = widthDisplay / 2;
-        int xof = 0;
-
-        if (mView.getX() > widthDisplayCenter) {
-            view.setBackground(getDrawable(R.drawable.background_popup_tag_right));
-            xof = (int) -((widthDisplay - mView.getX()) + widthMView / 1.5);
-        } else {
-            view.setBackground(getDrawable(R.drawable.background_popup_tag_left));
-            xof = widthMView / 3;
-        }
-
-
-        /**
-         * Нужно реализовать привильній отступ от правой метки
-         * на левую вроде все работает
-         * + заменить иконку
-         */
-
-
-        PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-        tagPopupMenu.setElevation(20);
-
-        Log.wtf(TAG, "choiceTagDialog:" + tagPopupMenu.getContentView().getRootView().getWidth());
-        tagPopupMenu.showAsDropDown(mView, xof, 30);
-
-
-        Log.wtf(TAG, "choiceTagDialog:" + view.getWidth());
-        view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
-            if (tagsAdapter.getTagSelected() == tag)
-                selectTagUser(tagsAdapter.getTagForName("allNotes"));
-            mainPresenter.deleteTag(tag);
-            tagPopupMenu.dismiss();
+            @Override
+            public void visibleEditTag() {
+                mainPresenter.editVisibleTag(tag.setVisibilityReturn(tag.getVisibility() == 1 ? 0 : 1));
+            }
         });
-        view.findViewById(R.id.renameTag).setOnClickListener(v -> {
-            new NameTagDialog(tag).show(getSupportFragmentManager(), "RenameTag");
-            tagPopupMenu.dismiss();
-        });
-        view.findViewById(R.id.visibleTag).setOnClickListener(v -> {
-            mainPresenter.editVisibleTag(tag.setVisibilityReturn(tag.getVisibility() == 1 ? 0 : 1));
-            tagPopupMenu.dismiss();
-        });
-
-
-        tagPopupMenu.setOnDismissListener(() -> {
-            view.findViewById(R.id.deleteTag).setOnClickListener(null);
-            view.findViewById(R.id.renameTag).setOnClickListener(null);
-            view.findViewById(R.id.visibleTag).setOnClickListener(null);
-
-        });
-    }
-
-
-    private int getLocationDependence(float startDependenceX) {
-        int displayWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        int widthDisplayCenter = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
-
-        if (startDependenceX > widthDisplayCenter) return 1;
-        else return 0;
 
 
     }
-
 
     @Override
     public void choiceNoteDialog(Note note, int position) {
