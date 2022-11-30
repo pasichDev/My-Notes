@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -308,6 +310,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void choiceTagDialog(Tag tag, View mView) {
 
+        final int widthDisplay = Resources.getSystem().getDisplayMetrics().widthPixels;
+        final int widthMView = mView.getWidth();
+
+
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.view_popup_tag, null);
 
@@ -317,16 +323,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         imageTagVisible.setImageResource(tag.getVisibility() == 1 ? R.drawable.ic_tag_visible : R.drawable.ic_tag_hidden);
         textVisibility.setText(tag.getVisibility() == 1 ? R.string.visibleTag : R.string.hiddeTag);
 
-        int widthDisplayCenter = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
-        int xof;
+        int widthDisplayCenter = widthDisplay / 2;
+        int xof = 0;
 
         if (mView.getX() > widthDisplayCenter) {
             view.setBackground(getDrawable(R.drawable.background_popup_tag_right));
-            xof = (int) -(Resources.getSystem().getDisplayMetrics().widthPixels - mView.getX());
+            xof = (int) -((widthDisplay - mView.getX()) + widthMView / 1.5);
         } else {
             view.setBackground(getDrawable(R.drawable.background_popup_tag_left));
-            xof = mView.getWidth() / 3;
+            xof = widthMView / 3;
         }
+
 
         /**
          * Нужно реализовать привильній отступ от правой метки
@@ -338,10 +345,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         PopupWindow tagPopupMenu = new PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         tagPopupMenu.setElevation(20);
 
-
+        Log.wtf(TAG, "choiceTagDialog:" + tagPopupMenu.getContentView().getRootView().getWidth());
         tagPopupMenu.showAsDropDown(mView, xof, 30);
 
 
+        Log.wtf(TAG, "choiceTagDialog:" + view.getWidth());
         view.findViewById(R.id.deleteTag).setOnClickListener(v -> {
             if (tagsAdapter.getTagSelected() == tag)
                 selectTagUser(tagsAdapter.getTagForName("allNotes"));

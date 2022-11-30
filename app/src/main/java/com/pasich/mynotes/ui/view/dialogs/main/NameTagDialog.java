@@ -58,6 +58,7 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
 
             if (getTag() != null && getTag().equals("RenameTag") && mTag != null) {
                 binding.nameTag.setText(mTag.getNameTag());
+                binding.outlinedTextField.setEndIconDrawable(requireActivity().getDrawable(R.drawable.ic_rename));
             }
 
             binding.outlinedTextField.requestFocus();
