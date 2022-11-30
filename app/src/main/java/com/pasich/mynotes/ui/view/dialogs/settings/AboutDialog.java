@@ -5,8 +5,6 @@ import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_PRIVACY_POLI
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -14,63 +12,67 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.utils.ShareUtils;
 
 public class AboutDialog extends DialogFragment {
 
+    private DialogAboutActivityBinding binding;
+
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Dialog builder = new Dialog(requireContext());
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
+        binding = DialogAboutActivityBinding.inflate(getLayoutInflater());
+        builder.setView(binding.getRoot());
+        //  builder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        builder.setContentView(R.layout.dialog_about_activity);
-        builder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-
-        builder.findViewById(R.id.trashActivityLayout).setOnClickListener(v -> {
+        binding.trashActivityLayout.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), TrashActivity.class));
             dismiss();
         });
 
 
-        builder.findViewById(R.id.privacyApp).setOnClickListener(v -> {
+        binding.privacyApp.setOnClickListener(v -> {
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_PRIVACY_POLICY));
             requireContext().startActivity(i);
             dismiss();
         });
 
-        builder.findViewById(R.id.help).setOnClickListener(v -> {
+        binding.help.setOnClickListener(v -> {
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_HOW_TO_USE));
             requireContext().startActivity(i);
             dismiss();
         });
 
-        builder.findViewById(R.id.shareApp).setOnClickListener(v -> {
+        binding.shareApp.setOnClickListener(v -> {
             new ShareUtils(getString(R.string.shareAppText), getActivity()).shareText();
             dismiss();
         });
-        builder.findViewById(R.id.ratingApp).setOnClickListener(v -> {
+        binding.ratingApp.setOnClickListener(v -> {
             openIntentGooglePlay();
             dismiss();
 
         });
 
-        builder.findViewById(R.id.whatUpdate).setOnClickListener(v -> {
+        binding.whatUpdate.setOnClickListener(v -> {
             new WhatUpdateDialog().show(getParentFragmentManager(), "WhatsUpdate");
             dismiss();
         });
 
-        builder.findViewById(R.id.feedback).setOnClickListener(v -> {
+        binding.feedback.setOnClickListener(v -> {
             new FeedbackDialog().show(getParentFragmentManager(), "WhatsUpdate");
             dismiss();
         });
-        builder.findViewById(R.id.restoreOldBackups).setOnClickListener(v -> {
+        binding.restoreOldBackups.setOnClickListener(v -> {
             new RestoreBackupDialog().show(getParentFragmentManager(), "WhatsUpdate");
             dismiss();
         });
 
-        return builder;
+        return builder.create();
     }
 
     private void openIntentGooglePlay() {

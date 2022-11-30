@@ -58,7 +58,7 @@
     <string name="lastDateEditNote">Відредаговано: %1$s</string>
     <string name="restore">Відновити</string>
     <string name="help">Допомога</string>
-    <string name="trashDeleteNotes">Виддалені нотатки (Кошик)</string>
+    <string name="trashDeleteNotes">Видалені нотатки (Кошик)</string>
     <string name="restoreOldBackups">Відновити нотатки</string>
     <string name="writeMe">Мої контакти</string>
     <string name="noteSaved">Нотатка збережена</string>

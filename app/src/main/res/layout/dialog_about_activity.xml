@@ -31,7 +31,6 @@
         android:id="@+id/restoreOldBackups"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:padding="@dimen/paddingItems">
@@ -54,7 +53,6 @@
         android:id="@+id/shareApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:padding="@dimen/paddingItems">
@@ -77,7 +75,6 @@
         android:id="@+id/ratingApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:padding="@dimen/paddingItems">
@@ -101,7 +98,6 @@
         android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:padding="@dimen/paddingItems">
