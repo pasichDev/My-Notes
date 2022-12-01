@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.base.activity.BaseActivity;
@@ -105,10 +106,14 @@ public class NoteWidgetConfigureActivity extends BaseActivity implements NoteWid
 
 
         saveWidgetPref(mAppWidgetId, note.id);
-        NoteWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId, note);
+        NoteWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
         setResult(RESULT_OK, resultValue);
         finish();
     }
 
+
+    public static long getIdNoteWidget(Context context, int appWidgetId) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getLong(WidgetConstants.PREF_PREFIX_KEY + appWidgetId, 0);
+    }
 }
