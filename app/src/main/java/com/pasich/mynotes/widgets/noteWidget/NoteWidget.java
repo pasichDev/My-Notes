@@ -1,9 +1,11 @@
 package com.pasich.mynotes.widgets.noteWidget;
 
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -11,6 +13,7 @@ import android.widget.RemoteViews;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DatabaseWidget;
 import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.ui.view.activity.NoteActivity;
 import com.pasich.mynotes.ui.view.activity.NoteWidgetConfigureActivity;
 import com.pasich.mynotes.utils.constants.WidgetConstants;
 import com.preference.PowerPreference;
@@ -26,8 +29,10 @@ public class NoteWidget extends AppWidgetProvider {
 
         final long idNote = NoteWidgetConfigureActivity.getIdNoteWidget(context, appWidgetId);
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.note_widget);
-
+        final Intent intent = new Intent(context, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", "");
+        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Note mNote = null;
+
         try {
             mNote = getNoteFromId(idNote, context);
         } catch (ExecutionException | InterruptedException e) {
@@ -40,9 +45,11 @@ public class NoteWidget extends AppWidgetProvider {
             String title = mNote.getTitle();
             String value = mNote.getValue();
             views.setViewVisibility(R.id.widget_note_title, title.length() >= 2 ? View.VISIBLE : View.GONE);
-            views.setTextViewText(R.id.widget_note_title, title != null && title.length() >= 2 ? title : "");
+            views.setTextViewText(R.id.widget_note_title, title.length() >= 2 ? title : "");
             views.setTextViewText(R.id.widget_note_value, value != null && value.length() >= 2 ? value : "");
         }
+        views.setOnClickPendingIntent(R.id.widgetLayout, pendingIntent);
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
