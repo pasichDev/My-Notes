@@ -8,6 +8,8 @@
     <color name="colorTitleDark">#DDDDDD</color>
     <color name="colorValueDark">#bcbcbc</color>
 
+    <color name="colorControlHighlight">#D4E0EF</color>
+    <color name="colorControlHighlightNight">#202D39</color>
 
     <color name="colorClick">#E4E4E4</color>
     <color name="colorPrimary">#e5f2ff</color>
@@ -15,6 +17,8 @@
     <color name="colorPrimaryVariantBlue">#508EE0</color>
     <color name="colorPrimaryBackground">#4996fd</color>
     <color name="helloColorInfo">#4B4B4B</color>
+
+
     <color name="light_blue_50">#FFE1F5FE</color>
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>

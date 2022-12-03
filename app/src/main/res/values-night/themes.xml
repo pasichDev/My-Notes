@@ -9,6 +9,8 @@
         <!-- Цвет обводки для item.RecyclerView -->
         <item name="colorStrokeItemRecyclerView">@color/darkLight</item>
 
+        <!-- Цвет ripple -->
+        <item name="colorControlHighlight">@color/colorControlHighlightNight</item>
 
         <!-- Custom colors -->
         <item name="colorAccentIcon">@color/colorPrimaryVariant</item>

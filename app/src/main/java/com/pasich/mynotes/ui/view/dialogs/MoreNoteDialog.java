@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.google.android.material.chip.Chip;
 import com.pasich.mynotes.R;
@@ -103,7 +104,17 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
     @Override
     public void loadingTagsOfChips(Flowable<List<Tag>> tagsList) {
-        mPresenter.getCompositeDisposable().add(tagsList.subscribeOn(mPresenter.getSchedulerProvider().io()).subscribe(tags -> requireActivity().runOnUiThread(() -> createChipsTag(tags))));
+        mPresenter.getCompositeDisposable().add(tagsList.subscribeOn(mPresenter.getSchedulerProvider().io()).observeOn(mPresenter.getSchedulerProvider().ui()).subscribe(this::createChipsTag));
+
+        if (binding.chipGroupSystem.getChildCount() == 0 && !newNoteActivity) {
+            if (activityNote)
+                binding.noSave.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.item_bottom_ripple));
+            else
+                binding.moveToTrash.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.item_bottom_ripple));
+
+        } else if (newNoteActivity) {
+            binding.noSave.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.item_bottom_new_ripple));
+        }
 
     }
 
@@ -240,13 +251,10 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
                     binding.chipGroupSystem.addView(newChip);
                 }
 
-
                 newChip.setOnCheckedChangeListener(((buttonView, isChecked) -> selectedTag(tag.getNameTag(), isChecked)));
             }
         } else {
             binding.scrollChips.setVisibility(View.GONE);
-            binding.noSave.setBackground(requireActivity().getDrawable(R.drawable.item_ripple_border));
-
         }
 
     }
