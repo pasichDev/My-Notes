@@ -83,8 +83,8 @@
 
     <!-- Стиль иконок в BottomSheetsDialog -->
     <style name="iconDialogList" parent="marginDialogItem">
-        <item name="android:layout_width">22dp</item>
-        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
         <item name="android:background">@null</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginEnd">20dp</item>

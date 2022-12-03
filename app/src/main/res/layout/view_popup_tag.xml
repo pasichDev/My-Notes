@@ -80,7 +80,7 @@
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginVertical="8dp"
                 android:contentDescription="@string/deleteTag"
-                android:src="@drawable/ic_tag" />
+                android:src="@drawable/ic_hide" />
 
             <TextView
                 android:id="@+id/textVisibilityTag"

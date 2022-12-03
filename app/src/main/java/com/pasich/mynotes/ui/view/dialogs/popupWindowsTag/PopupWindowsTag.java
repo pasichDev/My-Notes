@@ -57,7 +57,7 @@ public class PopupWindowsTag {
 
 
     private void editVisibleConfiguration() {
-        mBinding.imageTagVisible.setImageResource(mTag.getVisibility() == 1 ? R.drawable.ic_tag_visible : R.drawable.ic_tag_hidden);
+        mBinding.imageTagVisible.setImageResource(mTag.getVisibility() == 1 ? R.drawable.ic_show : R.drawable.ic_hide);
         mBinding.textVisibilityTag.setText(mTag.getVisibility() == 1 ? R.string.visibleTag : R.string.hiddeTag);
 
 

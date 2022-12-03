@@ -121,8 +121,8 @@
     <string name="email_address" translatable="false">pasichDev@gmail.com</string>
     <string name="interpunct" translatable="false">·</string>
 
-    <string name="hiddeTag" translatable="false">Скрыть</string>
-    <string name="visibleTag" translatable="false">Отображать</string>
+    <string name="hiddeTag" translatable="false">Скрыть заметки</string>
+    <string name="visibleTag" translatable="false">Отображать заметки</string>
 
 
     <string name="hiddeTagSnack" translatable="false">Заметки отмеченные данной меткой не будут отображаться в общем списке</string>
