@@ -44,7 +44,7 @@ public class PopupWindowsTag {
         int xof, widthDisplayCenter = widthDisplay / 2;
         if (mAnchor.getX() > widthDisplayCenter) {
             mBinding.getRoot().setBackground(ContextCompat.getDrawable(mBinding.getRoot().getContext(), R.drawable.background_popup_tag_right));
-            xof = -mBinding.getRoot().getMeasuredWidth();
+            xof = (int) (-mBinding.getRoot().getMeasuredWidth() * 0.9);
         } else {
             mBinding.getRoot().setBackground(ContextCompat.getDrawable(mBinding.getRoot().getContext(), R.drawable.background_popup_tag_left));
             xof = widthAnchor / 3;
