@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs.popupWindowsTag;
 
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Vibrator;
@@ -32,6 +33,8 @@ public class PopupWindowsTag {
         this.widthAnchor = anchor.getWidth();
         this.mPopupWindows = new PopupWindow(mBinding.getRoot(), RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
 
+        mBinding.getRoot().measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         onVibrate();
         onSettingsView();
     }
@@ -41,7 +44,7 @@ public class PopupWindowsTag {
         int xof, widthDisplayCenter = widthDisplay / 2;
         if (mAnchor.getX() > widthDisplayCenter) {
             mBinding.getRoot().setBackground(ContextCompat.getDrawable(mBinding.getRoot().getContext(), R.drawable.background_popup_tag_right));
-            xof = (int) -((widthDisplay - mAnchor.getX()) / 2 + widthAnchor);
+            xof = -mBinding.getRoot().getMeasuredWidth();
         } else {
             mBinding.getRoot().setBackground(ContextCompat.getDrawable(mBinding.getRoot().getContext(), R.drawable.background_popup_tag_left));
             xof = widthAnchor / 3;
