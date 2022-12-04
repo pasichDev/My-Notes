@@ -39,7 +39,6 @@
                 app:expandedTitleMarginStart="20dp"
                 app:expandedTitleTextAppearance="@style/headActivityText"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-
                 app:title="@string/trashN">
 
                 <androidx.appcompat.widget.Toolbar
