@@ -34,6 +34,7 @@
         android:theme="@style/ThemeBlue">
         <receiver
             android:name=".widgets.noteWidget.NoteWidget"
+            android:label="@string/widgetLabelNote"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

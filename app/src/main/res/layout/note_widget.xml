@@ -27,14 +27,12 @@
 
     <TextView
         android:id="@+id/widget_note_value"
-        android:autoLink="web|email|phone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00FFFFFF"
         android:hint="@string/hintTextNote"
         android:maxLength="@integer/maxLengthNotesTextValue"
         android:text="@string/widget_note_text"
-        android:minHeight="100dp"
         android:padding="10dp"
         android:textColor="?attr/colorValueCustom" />
 
