@@ -371,7 +371,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         for (Note note : noteActionTool.getArrayChecked()) {
             valueShare.append(note.getTitle()).append(System.getProperty("line.separator")).append(System.getProperty("line.separator")).append(note.getValue()).append(System.getProperty("line.separator")).append(System.getProperty("line.separator"));
         }
-        new ShareUtils(valueShare.toString(), this).shareText();
+        ShareUtils.shareNotes(this, valueShare.toString());
         actionUtils.closeActionPanel();
     }
 

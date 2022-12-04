@@ -175,7 +175,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         if (mNote.getValue().length() >= 2) {
             binding.share.setVisibility(View.VISIBLE);
             binding.share.setOnClickListener(v -> {
-                new ShareUtils(mNote, getActivity()).shareNotes();
+                ShareUtils.shareNotes(requireActivity(), mNote.getValue());
                 dismiss();
             });
             binding.translateNote.setVisibility(View.VISIBLE);
