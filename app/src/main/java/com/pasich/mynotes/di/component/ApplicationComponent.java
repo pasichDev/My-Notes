@@ -1,6 +1,5 @@
 package com.pasich.mynotes.di.component;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.pasich.mynotes.MyApp;
@@ -19,8 +18,6 @@ public interface ApplicationComponent {
 
     @ApplicationContext
     Context getContext();
-
-    Application getApplication();
 
     DataManager getDataManager();
 

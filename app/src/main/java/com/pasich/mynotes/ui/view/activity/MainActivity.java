@@ -3,8 +3,6 @@ package com.pasich.mynotes.ui.view.activity;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -45,7 +43,6 @@ import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.SwipeToListNotesCallback;
 import com.pasich.mynotes.utils.tool.FormatListTool;
-import com.pasich.mynotes.widgets.noteWidget.NoteWidget;
 
 import java.util.List;
 
@@ -110,19 +107,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        updateAllWidgets();
         mainPresenter.detachView();
         variablesNull();
 
     }
 
-    private void updateAllWidgets() {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, NoteWidget.class));
-        if (appWidgetIds.length > 0) {
-            new NoteWidget().onUpdate(this, appWidgetManager, appWidgetIds);
-        }
-    }
 
     @Override
     public void sortButton() {

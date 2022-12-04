@@ -252,7 +252,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
     }
 
-
     @Override
     public void closeActivityNotSaved() {
         exitNoSave = true;

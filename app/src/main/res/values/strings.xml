@@ -127,12 +127,4 @@
     <string name="hiddeTag" translatable="false">Скрыть заметки</string>
     <string name="visibleTag" translatable="false">Отображать заметки</string>
 
-
-    <string name="noteWidget_Title" translatable="false">Создать виджет</string>
-    <string name="widget_desc" translatable="false">Для создания виджета вам нужно выбрать заметку которая будет отображаться в будующем виджете.</string>
-
-    <string name="widgetDesc" translatable="false">Разместить заметку на главный экран</string>
-    <string name="widgetLabelNote" translatable="false">Заметка</string>
-
-
 </resources>
