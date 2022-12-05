@@ -106,6 +106,10 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     public void loadingTagsOfChips(Flowable<List<Tag>> tagsList) {
         mPresenter.getCompositeDisposable().add(tagsList.subscribeOn(mPresenter.getSchedulerProvider().io()).observeOn(mPresenter.getSchedulerProvider().ui()).subscribe(this::createChipsTag));
 
+
+    }
+
+    public void setRippleBottomLayout() {
         if (binding.chipGroupSystem.getChildCount() == 0 && !newNoteActivity) {
             if (activityNote)
                 binding.noSave.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.item_bottom_ripple));
@@ -115,7 +119,6 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         } else if (newNoteActivity) {
             binding.noSave.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.item_bottom_new_ripple));
         }
-
     }
 
     @Override
@@ -255,6 +258,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             }
         } else {
             binding.scrollChips.setVisibility(View.GONE);
+            setRippleBottomLayout();
         }
 
     }
