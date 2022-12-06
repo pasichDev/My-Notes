@@ -127,4 +127,8 @@
     <string name="hiddeTag" translatable="false">Скрыть заметки</string>
     <string name="visibleTag" translatable="false">Отображать заметки</string>
 
+    <string name="hintNameLabel" translatable="false">Название ярлыка</string>
+    <string name="titleDialogShortCut" translatable="false">Создать ярлык</string>
+    <string name="buttonCreateShortCut" translatable="false">Добавить ярлык на рабочий стол</string>
+
 </resources>

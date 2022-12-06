@@ -23,6 +23,10 @@ import com.pasich.mynotes.ui.view.activity.NoteActivity;
  * а также дабл трабл при создании ярлыка на устройствах Xiaomi спрашивает разрешение нужно отследить
  */
 
+
+//имья может содержать 25 символов
+
+
 @Deprecated
 public class ShortCutUtils {
 
@@ -57,6 +61,9 @@ public class ShortCutUtils {
 
 
             ShortcutInfo pinShortcutInfo = pinShortcutBuilder.build();
+
+
+            /** Здесь исключение кидает **/
 
             shortcutManager.requestPinShortcut(pinShortcutInfo,
                     PendingIntent.getBroadcast(context, 0,

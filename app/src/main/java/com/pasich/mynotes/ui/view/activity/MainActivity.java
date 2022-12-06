@@ -23,6 +23,7 @@ import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
+import com.pasich.mynotes.ui.view.dialogs.CreateShortcutDialog;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
@@ -90,6 +91,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
 
 
+        new CreateShortcutDialog().show(getSupportFragmentManager(), "CreateDialogShortCut");
     }
 
 
