@@ -14,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Label;
+import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.DialogShortcutBinding;
 import com.pasich.mynotes.utils.adapters.labelAdapter.LabelAdapter;
 import com.pasich.mynotes.utils.adapters.labelAdapter.SelectLabelListener;
@@ -25,6 +26,11 @@ import java.util.ArrayList;
 public class CreateShortcutDialog extends DialogFragment {
     private DialogShortcutBinding binding;
     private LabelAdapter labelAdapter;
+    private Note mNote;
+
+    public CreateShortcutDialog(Note note) {
+        this.mNote = note;
+    }
 
 
     @NonNull
@@ -39,10 +45,14 @@ public class CreateShortcutDialog extends DialogFragment {
         assert title != null;
         title.setText(R.string.titleDialogShortCut);
 
-
+        initialTitle();
         setListLabels();
 
         return builder;
+    }
+
+    private void initialTitle() {
+        binding.titleShortCut.setText(mNote.getTitle().length() >= 24 ? mNote.getTitle().substring(0, 24) : mNote.getTitle());
     }
 
 
@@ -65,15 +75,13 @@ public class CreateShortcutDialog extends DialogFragment {
     }
 
 
+
     private ArrayList<Label> getLabels() {
         ArrayList<Label> labels = new ArrayList<>();
-        labels.add(new Label(R.mipmap.ic_launcher, true));
-        labels.add(new Label(R.mipmap.ic_launcher_note));
-        labels.add(new Label(R.mipmap.ic_launcher_note));
-        labels.add(new Label(R.mipmap.ic_launcher_note));
-        labels.add(new Label(R.mipmap.ic_launcher_note));
-        labels.add(new Label(R.mipmap.ic_launcher_note));
-        labels.add(new Label(R.mipmap.ic_launcher_note));
+        labels.add(new Label(R.mipmap.ic_launcher));
+        labels.add(new Label(R.mipmap.ic_launcher_note, true));
+        labels.add(new Label(R.mipmap.ic_edit_note));
+        labels.add(new Label(R.mipmap.ic_edit_alert));
         return labels;
     }
 

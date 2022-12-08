@@ -25,7 +25,6 @@ import com.pasich.mynotes.ui.contract.dialogs.MoreNoteDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.MoreNoteDialogPresenter;
 import com.pasich.mynotes.utils.GoogleTranslationIntent;
 import com.pasich.mynotes.utils.ShareUtils;
-import com.pasich.mynotes.utils.ShortCutUtils;
 import com.pasich.mynotes.utils.tool.TextStyleTool;
 
 import java.util.List;
@@ -191,7 +190,9 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 binding.addShortCutLauncher.setVisibility(View.VISIBLE);
                 binding.addShortCutLauncher.setOnClickListener(v -> {
-                    ShortCutUtils.createShortCut(mNote, getContext());
+                    //     ShortCutUtils.createShortCut(mNote, getContext());
+
+                    new CreateShortcutDialog(mNote).show(getParentFragmentManager(), "CreateDialogShortCut");
                     dismiss();
                 });
             }
