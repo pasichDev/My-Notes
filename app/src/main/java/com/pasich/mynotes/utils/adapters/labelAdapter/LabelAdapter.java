@@ -21,9 +21,11 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
 
     private final ArrayList<Label> labels;
     private final Context context;
+    private final int PAYLOAD_SET_SELECTED = 99;
     private SelectLabelListener mSelectLabelListener;
     private Label mSelectLabel;
-    private final int PAYLOAD_SET_SELECTED = 99;
+    private boolean oneCheckedAll = false;
+
 
     public LabelAdapter(Context context, ArrayList<Label> list) {
         this.labels = list;
@@ -74,6 +76,10 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull LabelAdapter.ViewHolder holder, int position) {
         Label label = labels.get(position);
+        if (!oneCheckedAll && label.getImage() == R.mipmap.ic_launcher_note) {
+            mSelectLabel = label.setCheckReturn(true);
+            oneCheckedAll = true;
+        }
         holder.images.setImageResource(label.getImage());
         setCheckView(holder, label);
     }
@@ -84,9 +90,7 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads);
         } else {
-            if (payloads.contains(PAYLOAD_SET_SELECTED))
-                setCheckView(holder, labels.get(position));
-            //   holder.ItemBinding.setCheckedTag(getItem(position).getSelected());
+            if (payloads.contains(PAYLOAD_SET_SELECTED)) setCheckView(holder, labels.get(position));
         }
     }
 

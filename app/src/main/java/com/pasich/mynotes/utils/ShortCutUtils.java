@@ -40,6 +40,7 @@ public class ShortCutUtils {
         assert shortcutManager != null;
         if (shortcutManager.isRequestPinShortcutSupported()) {
 
+
             String titleLabel = note.getTitle().trim().length() >= 2 ?
                     note.getTitle() :
                     note.getValue().length() >= 10 ? note.getValue().substring(0, 10) : context.getString(R.string.notes);

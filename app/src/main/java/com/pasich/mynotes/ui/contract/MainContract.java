@@ -7,6 +7,7 @@ import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
+import com.pasich.mynotes.base.view.ShortCutView;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.di.scope.PerActivity;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public interface MainContract {
 
-    interface view extends BaseView, MoreNoteMainActivityView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld {
+    interface view extends BaseView, MoreNoteMainActivityView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld, ShortCutView {
         void settingsSearchView();
 
         void settingsNotesList();

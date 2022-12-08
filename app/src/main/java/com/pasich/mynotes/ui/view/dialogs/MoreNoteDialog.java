@@ -190,8 +190,6 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 binding.addShortCutLauncher.setVisibility(View.VISIBLE);
                 binding.addShortCutLauncher.setOnClickListener(v -> {
-                    //     ShortCutUtils.createShortCut(mNote, getContext());
-
                     new CreateShortcutDialog(mNote).show(getParentFragmentManager(), "CreateDialogShortCut");
                     dismiss();
                 });

@@ -129,6 +129,8 @@
 
     <string name="hintNameLabel" translatable="false">Название ярлыка</string>
     <string name="titleDialogShortCut" translatable="false">Создать ярлык</string>
+    <string name="functionNotSupport" translatable="false">Данная функция не поддерживаеться вашим устройством</string>
+    <string name="shortCutCreateFallDouble" translatable="false">Ярлык для данной заметки уже создан</string>
     <string name="buttonCreateShortCut" translatable="false">Добавить ярлык на рабочий стол</string>
 
 </resources>

@@ -5,12 +5,6 @@ public class Label {
     private final int Image;
     private boolean check;
 
-    public Label(int Image, boolean check) {
-        this.Image = Image;
-        this.check = check;
-    }
-
-
     public Label(int Image) {
         this.Image = Image;
         this.check = false;
@@ -22,10 +16,6 @@ public class Label {
 
     public boolean isCheck() {
         return check;
-    }
-
-    public void setCheck(boolean check) {
-        this.check = check;
     }
 
     public Label setCheckReturn(boolean check) {

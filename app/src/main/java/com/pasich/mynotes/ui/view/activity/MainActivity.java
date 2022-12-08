@@ -423,4 +423,13 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
 
+    @Override
+    public void createShortCut() {
+        onError(getString(R.string.addShortCutSuccessfully), mActivityBinding.newNotesButton);
+    }
+
+    @Override
+    public void shortCutDouble() {
+        onError(getString(R.string.shortCutCreateFallDouble), mActivityBinding.newNotesButton);
+    }
 }
