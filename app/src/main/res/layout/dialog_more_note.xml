@@ -103,7 +103,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems"
-            android:visibility="@{newNote ? View.GONE : View.VISIBLE, default = gone}">
+            android:visibility="gone">
 
             <ImageView
                 style="@style/iconDialogList"
