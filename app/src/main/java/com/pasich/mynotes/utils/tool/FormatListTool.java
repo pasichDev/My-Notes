@@ -50,8 +50,9 @@ public class FormatListTool {
      */
     private int getParamIco(int param) {
         if (param == 2) {
-            return R.drawable.ic_edit_format_tiles;
+            return R.drawable.ic_edit_format_list;
         }
-        return R.drawable.ic_edit_format_list;
+        return R.drawable.ic_edit_format_tiles;
+
     }
 }
