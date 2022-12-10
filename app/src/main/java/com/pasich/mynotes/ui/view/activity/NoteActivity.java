@@ -1,11 +1,13 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.service.controls.ControlsProviderService.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +68,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         if (shareText == null) this.shareText = "";
         this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
 
+        Log.wtf(TAG, "initParam: " + idKey);
     }
 
 

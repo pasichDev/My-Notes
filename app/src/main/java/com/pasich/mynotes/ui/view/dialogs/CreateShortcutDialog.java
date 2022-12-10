@@ -1,6 +1,8 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
 
+import static android.service.controls.ControlsProviderService.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -12,6 +14,7 @@ import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -113,11 +116,12 @@ public class CreateShortcutDialog extends DialogFragment {
                                 requireContext(),
                                 NoteActivity.class)
                                 .putExtra("NewNote", false)
-                                .putExtra("idNote", mNote.getId())
+                                .putExtra("idNote", Long.parseLong(String.valueOf(mNote.getId())))
                                 .putExtra("shareText", "")
                                 .putExtra("tagNote", ""))
                         .setIcon(Icon.createWithResource(requireContext(), labelAdapter.getSelectLabel().getImage())).build();
 
+                Log.wtf(TAG, "get id mNote: " + mNote.getId());
 
                 assert shortcutManager != null;
                 shortcutManager.requestPinShortcut(pinShortcutInfo, PendingIntent.getBroadcast(requireContext(), 0,
