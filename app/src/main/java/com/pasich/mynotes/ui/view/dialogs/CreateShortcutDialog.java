@@ -1,7 +1,5 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
-
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -13,6 +11,8 @@ import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +42,7 @@ public class CreateShortcutDialog extends DialogFragment {
     private LabelAdapter labelAdapter;
     private final Note mNote;
     private ShortCutView shortCutView;
+    private boolean errorText = true;
 
     public CreateShortcutDialog(Note note) {
         this.mNote = note;
@@ -89,13 +90,43 @@ public class CreateShortcutDialog extends DialogFragment {
     private void setListener() {
         labelAdapter.setSelectLabelListener(position -> labelAdapter.selectLabel(position));
         binding.createShortCut.setOnClickListener(v -> {
-            String titleShortCut = String.valueOf(binding.titleShortCut.getText());
-            if (titleShortCut.length() >= 1 && titleShortCut.length() < 25) {
-                createShortCut(titleShortCut);
+            if (!errorText) {
+                createShortCut(String.valueOf(binding.titleShortCut.getText()));
                 dismiss();
             }
 
         });
+
+        binding.titleShortCut.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateText(s.toString().trim().length());
+            }
+        });
+    }
+
+
+    private void validateText(int length) {
+        if (length >= 25 + 1) {
+            errorText = true;
+            binding.outlinedTextField.setError(getString(R.string.errorMaxNameShortCut));
+        } else if (length == (25 + 1) - 1) {
+            errorText = false;
+            binding.outlinedTextField.setError(null);
+        }
+        if (length < 1) errorText = true;
+        else if (length < (25 + 1) - 1) errorText = false;
     }
 
 
