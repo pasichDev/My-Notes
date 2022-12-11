@@ -92,6 +92,13 @@
     </style>
 
 
+    <!-- Стиль иконок в ActionPanel -->
+    <style name="iconActionPanel" parent="marginDialogItem">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
     <!-- Основной стиль меток в Chip -->
     <style name="ChipStyleCustom" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipEndPadding">5dp</item>

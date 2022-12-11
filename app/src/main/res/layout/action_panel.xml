@@ -12,14 +12,14 @@
 
     <ImageButton
         android:id="@+id/action_panel_share"
-        style="@style/iconDialogList"
+        style="@style/iconActionPanel"
         android:contentDescription="@string/share"
         android:src="@drawable/ic_share"
         app:tint="@color/white" />
 
     <ImageButton
         android:id="@+id/action_panel_restore"
-        style="@style/iconDialogList"
+        style="@style/iconActionPanel"
         android:contentDescription="@string/restore"
         android:src="@drawable/ic_restore_trash"
         android:visibility="gone"
@@ -27,14 +27,14 @@
 
     <ImageButton
         android:id="@+id/action_panel_delete"
-        style="@style/iconDialogList"
+        style="@style/iconActionPanel"
         android:contentDescription="@string/deleteSelectTag"
         android:src="@drawable/ic_delete_note"
         app:tint="@color/white" />
 
     <ImageButton
         android:id="@+id/closeActionPanel"
-        style="@style/iconDialogList"
+        style="@style/iconActionPanel"
         android:contentDescription="@string/close"
         android:src="@drawable/ic_close_search_view"
         app:tint="@color/white" />
