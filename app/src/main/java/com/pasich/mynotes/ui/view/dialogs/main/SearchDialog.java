@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.SearchBaseDialogBottomSheets;
+import com.pasich.mynotes.data.database.model.IndexFilter;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.DialogSearchBinding;
 import com.pasich.mynotes.di.component.ActivityComponent;
@@ -96,17 +97,23 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
 
     private void filter(String text, List<Note> allNotes) {
         ArrayList<Note> newFilter = new ArrayList<>();
+        ArrayList<IndexFilter> indexFilter = new ArrayList<>();
 
         for (Note item : allNotes) {
-            if (item.getTitle().toLowerCase().contains(text.toLowerCase()) && text.trim().length() >= 2) {
+            int indexTitle = item.getTitle().toLowerCase().indexOf(text.toLowerCase());
+            int indexValue = item.getValue().toLowerCase().indexOf(text.toLowerCase());
+
+            if (indexTitle != -1 || indexValue != -1) {
                 newFilter.add(item);
+                indexFilter.add(new IndexFilter(item.id, indexTitle, indexValue));
             }
+
         }
         if (newFilter.isEmpty()) {
             searchNotesAdapter.cleanResult();
         } else {
 
-            searchNotesAdapter.filterList(newFilter);
+            searchNotesAdapter.filterList(newFilter, text, indexFilter);
         }
     }
 
@@ -130,7 +137,10 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        filter(newText, notes);
+                        if (newText.length() >= 2) filter(newText, notes);
+                        else {
+                            searchNotesAdapter.cleanResult();
+                        }
                         return false;
                     }
                 }))
