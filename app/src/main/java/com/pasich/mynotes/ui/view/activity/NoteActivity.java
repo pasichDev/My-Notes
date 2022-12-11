@@ -239,7 +239,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 x1 = true;
             }
             if (!mNote.getValue().contentEquals(mValue)) {
-
                 mNote.setValue(mValue);
                 x1 = true;
             }
