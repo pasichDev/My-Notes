@@ -42,7 +42,7 @@ public class CreateShortcutDialog extends DialogFragment {
     private LabelAdapter labelAdapter;
     private final Note mNote;
     private ShortCutView shortCutView;
-    private boolean errorText = true;
+    private boolean errorText = false;
 
     public CreateShortcutDialog(Note note) {
         this.mNote = note;
