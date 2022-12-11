@@ -4,7 +4,7 @@
     <corners android:radius="@dimen/radiusBackgroundTag" />
     <stroke
         android:width="1dp"
-        android:color="?attr/colorStrokeItemRecyclerView" />
+        android:color="?attr/colorControlHighlight" />
 
 
 </shape>
