@@ -1,8 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,7 +8,6 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -90,13 +87,12 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
         addTitle();
         binding.settingsActivity.rootView.setVisibility(activityNote ? View.VISIBLE : View.GONE);
-
-        Log.wtf(TAG, "onCreateDialog: " + activityNote + "/");
         return requireDialog();
     }
 
     public void addTitle() {
-        binding.includeHead.headTextDialog.setText(mNote.getTitle().length() > 1 ? mNote.getTitle() : getString(R.string.chooseNote));
+        String title = mNote.getTitle().length() > 20 ? mNote.getTitle().substring(0, 20) + "..." : mNote.getTitle();
+        binding.includeHead.headTextDialog.setText(mNote.getTitle().length() > 1 ? title : getString(R.string.chooseNote));
         binding.includeHead.getRoot().setVisibility(newNoteActivity ? View.GONE : View.VISIBLE);
 
 

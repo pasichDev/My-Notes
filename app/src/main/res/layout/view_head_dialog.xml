@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tool="http://schemas.android.com/tools"
-    android:layout_marginVertical="20dp">
+    android:layout_marginVertical="15dp">
 
     <TextView
         android:id="@+id/headTextDialog"
