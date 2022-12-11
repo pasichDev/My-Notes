@@ -86,9 +86,7 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
         });
         searchNotesAdapter.setItemClickListener((idNote, view) -> {
             view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click_scale));
-            startActivity(new Intent(requireActivity(), NoteActivity.class)
-                    .putExtra("NewNote", false).putExtra("idNote", idNote)
-                    .putExtra("shareText", "").putExtra("tagNote", ""));
+            startActivity(new Intent(requireActivity(), NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
         });
 
 

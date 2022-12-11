@@ -1,20 +1,18 @@
 package com.pasich.mynotes.utils.adapters.searchAdapter;
 
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.IndexFilter;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ItemResultBinding;
@@ -64,19 +62,12 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Note note = listNotes.get(position);
         final IndexFilter indexFilter = searchNoteIndex(listNotes.get(position).getId());
-
-
         holder.ItemBinding.setNote(listNotes.get(position));
 
-
-        Log.wtf(TAG, "size == id: " + indexValue.size() + "/" + indexFilter.getIdNote());
-
         if (note.getId() == indexFilter.getIdNote()) {
-
-            Log.wtf(TAG, "id == id: " + note.getId() + "/" + indexFilter.getIndexTitle());
             if (indexFilter.getIndexTitle() != -1) {
                 Spannable titleNote = new SpannableString(note.getTitle());
-                titleNote.setSpan(new BackgroundColorSpan(Color.BLUE), indexFilter.getIndexTitle(), indexFilter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                titleNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryBackground)), indexFilter.getIndexTitle(), indexFilter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.ItemBinding.nameNote.setText(titleNote);
             } else {
                 holder.ItemBinding.nameNote.setText(note.getTitle());
@@ -86,25 +77,15 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
 
             if (indexFilter.getIndexValue() != -1) {
                 Spannable valueNote = new SpannableString(note.getValue());
-                valueNote.setSpan(new BackgroundColorSpan(Color.BLUE), indexFilter.getIndexValue(), indexFilter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                holder.ItemBinding.nameNote.setText(valueNote);
+                valueNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryBackground)), indexFilter.getIndexValue(), indexFilter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.ItemBinding.previewNote.setText(valueNote);
             } else {
                 holder.ItemBinding.previewNote.setText(note.getValue());
                 holder.ItemBinding.tagNote.setText(note.getTag());
             }
 
 
-        } else {
-            //здесь если индекс не совпадает просто добавим заметку
-            holder.ItemBinding.setNote(note);
         }
-
-
-        //  String title = listNotes.get(position).getTitle();
-        // if (textSearch.length() >= 2 && title.contains(textSearch.toLowerCase())) {
-
-
-        // }
     }
 
 
