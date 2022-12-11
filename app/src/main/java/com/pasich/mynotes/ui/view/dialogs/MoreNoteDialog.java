@@ -1,8 +1,11 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.chip.Chip;
 import com.pasich.mynotes.R;
@@ -28,6 +32,7 @@ import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.tool.TextStyleTool;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -186,14 +191,6 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
                 dismiss();
             });
 
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                binding.addShortCutLauncher.setVisibility(View.VISIBLE);
-                binding.addShortCutLauncher.setOnClickListener(v -> {
-                    new CreateShortcutDialog(mNote).show(getParentFragmentManager(), "CreateDialogShortCut");
-                    dismiss();
-                });
-            }
             binding.moveToTrash.setOnClickListener(v -> {
                 mPresenter.deleteNote(mNote);
 
@@ -210,9 +207,24 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
                 mPresenter.copyNote(mNote, activityNote);
                 dismiss();
             });
+
+
+            initCreateShortCut();
         }
 
     }
+
+
+    private void initCreateShortCut() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.addShortCutLauncher.setVisibility(isCreateShortCutId() ? View.GONE : View.VISIBLE);
+            binding.addShortCutLauncher.setOnClickListener(v -> {
+                new CreateShortcutDialog(mNote).show(getParentFragmentManager(), "CreateDialogShortCut");
+                dismiss();
+            });
+        }
+    }
+
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
@@ -262,6 +274,17 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
     }
 
+
+    @SuppressLint("NewApi")
+    private boolean isCreateShortCutId() {
+        List<ShortcutInfo> shortcutInfo = Objects.requireNonNull(ContextCompat.getSystemService(requireContext(), ShortcutManager.class
+        )).getPinnedShortcuts();
+        for (ShortcutInfo info : shortcutInfo) {
+            if (Long.parseLong(info.getId()) == mNote.getId())
+                return true;
+        }
+        return false;
+    }
 
     private void selectedTag(String nameChip, boolean checked) {
         if (checked) {
