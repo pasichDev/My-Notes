@@ -26,7 +26,7 @@
         <TextView
             android:id="@+id/previewNote"
             style="@style/itemNotePreview"
-            android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}" />
+           />
 
 
         <TextView

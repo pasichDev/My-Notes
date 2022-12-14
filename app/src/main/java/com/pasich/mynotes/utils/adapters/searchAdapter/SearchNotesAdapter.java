@@ -61,39 +61,28 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Note note = listNotes.get(position);
-        final IndexFilter indexFilter = searchNoteIndex(listNotes.get(position).getId());
         holder.ItemBinding.setNote(listNotes.get(position));
 
-        if (note.getId() == indexFilter.getIdNote()) {
-            if (indexFilter.getIndexTitle() != -1) {
-                Spannable titleNote = new SpannableString(note.getTitle());
-                titleNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryBackground)), indexFilter.getIndexTitle(), indexFilter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                holder.ItemBinding.nameNote.setText(titleNote);
-            } else {
-                holder.ItemBinding.nameNote.setText(note.getTitle());
-                holder.ItemBinding.tagNote.setText(note.getTag());
+        Spannable titleNote = new SpannableString(note.getTitle());
+        Spannable valueNote = new SpannableString(note.getValue());
+
+        for (IndexFilter filter : indexValue) {
+
+            if (filter.getIdNote() == listNotes.get(position).getId()) {
+                if (filter.getIndexTitle() != -1) {
+                    titleNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryBackground)), filter.getIndexTitle(), filter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+
+                if (filter.getIndexValue() != -1) {
+                    valueNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryBackground)), filter.getIndexValue(), filter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+
             }
-
-
-            if (indexFilter.getIndexValue() != -1) {
-                Spannable valueNote = new SpannableString(note.getValue());
-                valueNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryBackground)), indexFilter.getIndexValue(), indexFilter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                holder.ItemBinding.previewNote.setText(valueNote);
-            } else {
-                holder.ItemBinding.previewNote.setText(note.getValue());
-                holder.ItemBinding.tagNote.setText(note.getTag());
-            }
-
-
         }
-    }
 
-
-    private IndexFilter searchNoteIndex(long idNote) {
-        for (IndexFilter indexFilter : indexValue) {
-            if (indexFilter.getIdNote() == idNote) return indexFilter;
-        }
-        return new IndexFilter(0, -1, -1);
+        holder.ItemBinding.previewNote.setText(valueNote);
+        holder.ItemBinding.nameNote.setText(titleNote);
+        holder.ItemBinding.tagNote.setText(note.getTag());
     }
 
 

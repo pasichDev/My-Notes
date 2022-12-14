@@ -81,6 +81,7 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
     @Override
     public void initListeners() {
         binding.closeSearch.setOnClickListener(v -> {
+            searchNotesAdapter.cleanResult();
             binding.actionSearch.clearFocus();
             dismiss();
         });
@@ -100,12 +101,21 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
         for (Note item : allNotes) {
             int indexTitle = item.getTitle().toLowerCase().indexOf(text.toLowerCase());
             int indexValue = item.getValue().toLowerCase().indexOf(text.toLowerCase());
-
-            if (indexTitle != -1 || indexValue != -1) {
-                newFilter.add(item);
-                indexFilter.add(new IndexFilter(item.id, indexTitle, indexValue));
+            int countArrays = indexFilter.size();
+            while (indexTitle != -1) {
+                indexFilter.add(new IndexFilter(item.id, indexTitle, -1));
+                indexTitle = item.getTitle().toLowerCase().indexOf(text.toLowerCase(), indexTitle + 1);
             }
 
+            while (indexValue != -1) {
+                indexFilter.add(new IndexFilter(item.id, -1, indexValue));
+                indexValue = item.getValue().toLowerCase().indexOf(text.toLowerCase(), indexValue + 1);
+            }
+
+
+            if (indexFilter.size() != countArrays) {
+                newFilter.add(item);
+            }
         }
         if (newFilter.isEmpty()) {
             searchNotesAdapter.cleanResult();
