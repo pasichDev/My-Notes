@@ -72,7 +72,7 @@
     <string name="loadingProgress">Чекайте, йде обробка даних</string>
     <string name="errorEmptyNotesRestore">Помилка: Цей архів або пошкоджений, або не містить нотаток</string>
     <string name="successfullyRestoreNotes">Успішно: Нотаток відновлено: %1$d</string>
-    <string name="searchNotesFromTitle">Введіть заголовок нотатки</string>
+    <string name="searchNotesFromTitle">Почніть вводити текст</string>
     <string name="errorNewTagInput">Помилка: Максимальна кількість символів, яка може містити назва тега %1$d </string>
     <string name="emptyTrash">Тут відображатимуться видалені вами нотатки</string>
     <string name="emptyNotes">Тут відображатимуться створені вами нотатки</string>

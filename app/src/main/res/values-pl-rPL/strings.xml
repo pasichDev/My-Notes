@@ -71,7 +71,7 @@
     <string name="loadingProgress">Proszę czekać, dane są przetwarzane</string>
     <string name="errorEmptyNotesRestore">Błąd: to archiwum jest uszkodzone lub nie zawiera żadnych notatek</string>
     <string name="successfullyRestoreNotes">Pomyślnie: Notatki zostały przywrócone: %1$d </string>
-    <string name="searchNotesFromTitle">Wprowadź tytuł notatki</string>
+    <string name="searchNotesFromTitle">Zacznij pisać</string>
     <string name="errorNewTagInput">Błąd: Maksymalna liczba znaków, jaką może zawierać nazwa znacznika, to %1$d </string>
     <string name="emptyTrash">Twoje usunięte notatki są wyświetlane tutaj</string>
     <string name="emptyNotes">Notatki, które utworzysz, pojawią się tutaj</string>

@@ -71,7 +71,7 @@
     <string name="loadingProgress">Please wait, processing data</string>
     <string name="errorEmptyNotesRestore">Error: This archive is either corrupted or contains no notes</string>
     <string name="successfullyRestoreNotes">Successfully: Notes restored: %1$d </string>
-    <string name="searchNotesFromTitle">Enter note title</string>
+    <string name="searchNotesFromTitle">Start typing</string>
     <string name="errorNewTagInput">Error: The maximum number of characters a tag name can contain is %1$d </string>
     <string name="emptyTrash">Your deleted notes are displayed here</string>
     <string name="emptyNotes">Notes you create will appear here</string>

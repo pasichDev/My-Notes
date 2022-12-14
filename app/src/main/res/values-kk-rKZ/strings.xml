@@ -70,7 +70,7 @@
     <string name="loadingProgress">Күтіңіз, деректер өңделуде</string>
     <string name="errorEmptyNotesRestore">Қате: Бұл мұрағатта не бүлінген, не ескертпелер жоқ</string>
     <string name="successfullyRestoreNotes">Сәтті: ескертпелер қалпына келтірілді: %1$d </string>
-    <string name="searchNotesFromTitle">Ескертпе тақырыбын енгізіңіз</string>
+    <string name="searchNotesFromTitle">Теруді бастаңыз</string>
     <string name="errorNewTagInput">Қате: тег атауында болуы мүмкін таңбалардың ең көп саны – %1$d </string>
     <string name="emptyTrash">Жойылған ескертпелер осы жерде көрсетіледі</string>
     <string name="emptyNotes">Сіз жасаған ескертпелер осы жерде пайда болады</string>

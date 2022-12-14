@@ -71,7 +71,7 @@
     <string name="loadingProgress">Чакайце, ідзе апрацоўка дадзеных</string>
     <string name="errorEmptyNotesRestore">Памылка: Дадзены архіў або пашкоджаны, або не ўтрымлівае нататак</string>
     <string name="successfullyRestoreNotes">Паспяхова: Нататак адноўлена: %1$d </string>
-    <string name="searchNotesFromTitle">Увядзіце загаловак нататкі</string>
+    <string name="searchNotesFromTitle">Пачніце ўводзіць тэкст</string>
     <string name="errorNewTagInput">Памылка: Максімальная колькасць знакаў якая можа змяшчаць назву пазнакі %1$d </string>
     <string name="emptyTrash">Тут адлюстроўваюцца выдаленыя вамі нататкі</string>
     <string name="emptyNotes">Тут будуць адлюстроўвацца створаныя вамі нататкі</string>

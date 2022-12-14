@@ -73,7 +73,7 @@
     <string name="loadingProgress">Ожидайте, идет обработка данных</string>
     <string name="errorEmptyNotesRestore">Ошибка: Данный архив либо поврежден, или не содержит заметок</string>
     <string name="successfullyRestoreNotes">Успешно: Заметок восстановленно: %1$d </string>
-    <string name="searchNotesFromTitle">Введите заголовок заметки</string>
+    <string name="searchNotesFromTitle">Начните вводить текст</string>
     <string name="errorNewTagInput">Ошибка: Максимальное количество символов которое может содержать название метки  %1$d </string>
     <string name="emptyTrash">Здесь отображаються удаленные вами заметки</string>
     <string name="emptyNotes">Здесь будут отображаться созданные вами заметки</string>
