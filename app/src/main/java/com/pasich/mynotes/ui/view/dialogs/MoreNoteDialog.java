@@ -4,6 +4,8 @@ package com.pasich.mynotes.ui.view.dialogs;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
@@ -186,12 +188,8 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
                 ShareUtils.shareNotes(requireActivity(), mNote.getValue());
                 dismiss();
             });
-            binding.translateNote.setVisibility(View.VISIBLE);
-            binding.translateNote.setOnClickListener(v -> {
-                new GoogleTranslationIntent().startTranslation(requireActivity(), mNote.getValue());
-                dismiss();
-            });
 
+            initTranslate();
             binding.moveToTrash.setOnClickListener(v -> {
                 mPresenter.deleteNote(mNote);
 
@@ -215,6 +213,22 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
     }
 
+    private void initTranslate() {
+        PackageInfo pi = null;
+        try {
+            pi = requireActivity().getPackageManager().getPackageInfo(GoogleTranslationIntent.packageTranslator, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (pi != null) {
+            binding.translateNote.setVisibility(View.VISIBLE);
+            binding.translateNote.setOnClickListener(v -> {
+                new GoogleTranslationIntent().startTranslation(requireActivity(), mNote.getValue());
+                dismiss();
+            });
+        }
+    }
 
     private void initCreateShortCut() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

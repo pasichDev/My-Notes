@@ -13,11 +13,11 @@ import com.pasich.mynotes.R;
 
 public class GoogleTranslationIntent {
 
+   public static String packageTranslator = "com.google.android.apps.translate";
 
     public void startTranslation(Activity activity, String text) {
 
         PackageInfo pi = null;
-        String packageTranslator = "com.google.android.apps.translate";
         try {
             pi = activity.getPackageManager().getPackageInfo(packageTranslator, 0);
         } catch (PackageManager.NameNotFoundException e) {
