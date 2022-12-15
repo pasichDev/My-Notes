@@ -22,7 +22,7 @@
             app:endIconMode="custom"
             android:paddingTop="10dp"
             app:endIconDrawable="@drawable/ic_add_tag_dialog"
-            app:endIconTint="?attr/colorPrimary"
+            app:endIconTint="?attr/colorAccentIcon"
             app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/createNewTag"
                 android:maxLength="21"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:background="@drawable/background_search_view"
                 android:inputType="textImeMultiLine" />
 
