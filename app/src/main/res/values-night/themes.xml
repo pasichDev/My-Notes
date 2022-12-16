@@ -111,7 +111,7 @@
 
     <!-- Стиль меток chip в для MoreNoteDialog  -->
     <style name="ChipStyleCustomChoiceNote" parent="ChipStyleCustom">
-        <item name="android:textAppearance">@style/BoldText</item>
+
     </style>
 
     <!-- Стиль жирного шрифта  -->
