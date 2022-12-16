@@ -8,7 +8,6 @@
     <string name="share">Падзяліцца</string>
     <string name="yesCleanTrash" >Так, ачысціць</string>
     <string name="cancel" >Адмяніць</string>
-    <string name="shareNull" >Нячым дзяліцца!</string>
     <string name="whatUpdate">Што новага?</string>
     <string name="notes">Нататкі</string>
     <string name="noSave">Зачыніць без захавання</string>
@@ -43,7 +42,6 @@
     <string name="sort_Title_Increase">Назве: ад А-Я</string>
     <string name="sort_Title_Decrease">Назве: ад Я-А</string>
     <string name="sortHead">Картаваць па:</string>
-    <string name="layoutStringInfoTags">Адзначана %1$s нататак</string>
     <string name="settingsTitleContacts">Зваротная сувязь</string>
     <string name="shareApp">Падзяліцца дадаткам</string>
     <string name="privacyApp">Палітыка прыватнасці</string>
@@ -105,4 +103,13 @@
     <string name="feature_newFetures_title">Новыя функцыі </string>
     <string name="feature_newFetures_info">Дадатак атрымаў шмат карысных функцый, як пераклад нататак, множны выбар, цэтлік нататкі на працоўны стол, і шматлікае іншае. З часам колькасць новых функцый будзе расці. (Віджэт, сінхранізацыі з Google)</string>
     <string name="hello_finishTextTwo">Рэзервовую копію захавана. Пасля націску кнопкі завяршыць запусціцца новая версія прыкладання. У рэдкіх выпадках могуць быць збоі, перазапусціце прыкладанне або напішыце мне ў раздзеле зваротная сувязь.</string>
+    <string name="hiddeTag">Схаваць нататкі</string>
+    <string name="visibleTag">Адлюстроўваць нататкі</string>
+    <string name="hintNameLabel">Назва ярлыка</string>
+    <string name="titleDialogShortCut">Стварыць ярлык</string>
+    <string name="functionNotSupport">Гэтая функцыя не падтрымліваецца вашай прыладай</string>
+    <string name="shortCutCreateFallDouble">Ярлык для дадзенай нататкі ўжо створаны</string>
+    <string name="buttonCreateShortCut">Дадаць ярлык на працоўны стол</string>
+    <string name="errorMaxNameShortCut">Памылка ў назве ярлыка</string>
+    <string name="renameTag">Перайменаваць</string>
 </resources>

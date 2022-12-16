@@ -8,7 +8,6 @@
     <string name="share">Поделиться</string>
     <string name="yesCleanTrash">Да, очистить</string>
     <string name="cancel">Отменить</string>
-    <string name="shareNull">Нечем делиться!</string>
     <string name="whatUpdate">Что нового?</string>
 
     <string name="notes">Заметки</string>
@@ -45,7 +44,6 @@
     <string name="sort_Title_Increase">Названии: от А-Я</string>
     <string name="sort_Title_Decrease">Названии: от Я-А</string>
     <string name="sortHead">Cортировать по:</string>
-    <string name="layoutStringInfoTags">Отмечено %1$s заметок</string>
     <string name="settingsTitleContacts">Обратная связь</string>
     <string name="shareApp">Поделиться приложением</string>
     <string name="privacyApp">Политика Конфиденциальности</string>
@@ -109,5 +107,13 @@
     <string name="feature_newFetures_title">Новые функции </string>
     <string name="feature_newFetures_info">Приложение получило много полезных функций, как перевод заметок, множественный выбор, ярлык заметки на рабочий стол, и многое другое. Со временем количество новых функций будет расти. (Виджет, синхронизации с Google)</string>
     <string name="hello_finishTextTwo">Резервную копию сохранено. После нажатия кнопки завершить запуститься новая версия приложения. В редких случаях могут быть сбои, перезапустите приложение или напишите мне в разделе обратная связь.</string>
-
+    <string name="hiddeTag">Скрыть заметки</string>
+    <string name="visibleTag">Отображать заметки</string>
+    <string name="hintNameLabel">Название ярлыка</string>
+    <string name="titleDialogShortCut">Создать ярлык</string>
+    <string name="functionNotSupport">Данная функция не поддерживаеться вашим устройством</string>
+    <string name="shortCutCreateFallDouble">Ярлык для данной заметки уже создан</string>
+    <string name="buttonCreateShortCut">Добавить ярлык на рабочий стол</string>
+    <string name="errorMaxNameShortCut">Ошибка в названии ярлыка</string>
+    <string name="renameTag">Переименовать</string>
 </resources>

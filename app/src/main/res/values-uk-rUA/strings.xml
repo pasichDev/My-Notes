@@ -8,7 +8,6 @@
     <string name="share">Поділитися</string>
     <string name="yesCleanTrash">Так, очистити</string>
     <string name="cancel">Відмінити</string>
-    <string name="shareNull">Пуста корзина!</string>
     <string name="whatUpdate">Що нового?</string>
     <string name="notes">Нотатки</string>
     <string name="noSave">Закрити без збереження</string>
@@ -44,7 +43,6 @@
     <string name="sort_Title_Increase">Назвою: від А-Я</string>
     <string name="sort_Title_Decrease">Назвою: від Я-А</string>
     <string name="sortHead">Сортувати за:</string>
-    <string name="layoutStringInfoTags">Позначено %1$s нотаток</string>
     <string name="settingsTitleContacts">Зворотній зв\'язок</string>
     <string name="shareApp">Поділитись додатком</string>
     <string name="privacyApp">Політика конфіденційності</string>
@@ -108,4 +106,13 @@
     <string name="feature_newFetures_info">Додаток отримав багато корисних функцій, як переклад нотаток, множинний вибір, ярлик нотатки на робочий стіл, та багато іншого. Згодом кількість нових функцій зростатиме. (Віджет, синхронізація з Google)</string>
     <string name="hello_finishTextTwo">Резервну копію збережено. Після натискання кнопки завершити запустити нову версію програми. В окремих випадках можуть бути збої, перезапустіть програму або напишіть мені в розділі зворотний зв\'язок.</string>
 
+    <string name="hiddeTag">Приховати нотатки</string>
+    <string name="visibleTag">Відображати нотатки</string>
+    <string name="hintNameLabel">Назва ярлика</string>
+    <string name="titleDialogShortCut">Створити ярлик</string>
+    <string name="functionNotSupport">Ця функція не підтримується вашим пристроєм</string>
+    <string name="shortCutCreateFallDouble">Ярлик для цієї нотатки вже створено</string>
+    <string name="buttonCreateShortCut">Додати ярлик на робочий стіл</string>
+    <string name="errorMaxNameShortCut">Помилка у назві ярлика</string>
+    <string name="renameTag">Перейменувати</string>
 </resources>

@@ -8,7 +8,6 @@
     <string name="share">Бөлісу</string>
     <string name="yesCleanTrash">Иә, тазалаңыз</string>
     <string name="cancel">Болдырмау</string>
-    <string name="shareNull">Бөлісетін ештеңе жоқ!</string>
     <string name="whatUpdate">Не жаңалық?</string>
     <string name="notes">Ескертпелер</string>
     <string name="noSave">Сақтамай жабу</string>
@@ -42,7 +41,6 @@
     <string name="sort_Title_Increase">Тақырып: A-Z</string>
     <string name="sort_Title_Decrease">Тақырып: Z-A</string>
     <string name="sortHead">Сұрыптау:</string>
-    <string name="layoutStringInfoTags">%1$s ескертпесі белгіленген</string>
     <string name="settingsTitleContacts">Бізбен байланысыңыз</string>
     <string name="shareApp">Қолданбаны ортақ пайдалану</string>
     <string name="privacyApp">Құпиялылық саясаты</string>
@@ -104,4 +102,13 @@
     <string name="feature_newFetures_title">Жаңа мүмкіндіктер</string>
     <string name="feature_newFetures_info">Қолданба жазбаны аудару, бірнеше таңдау, жазба жұмыс үстеліндегі таңбаша және т.б. сияқты көптеген пайдалы мүмкіндіктерге ие болды. Уақыт өте келе жаңа мүмкіндіктердің саны артады. (Виджет, Google Sync)</string>
     <string name="hello_finishTextTwo">Сақтық көшірме сақталды. Аяқтау түймесін басқаннан кейін қолданбаның жаңа нұсқасы басталады. Сирек жағдайларда қателер болуы мүмкін, қолданбаны қайта іске қосыңыз немесе кері байланыс бөлімінде маған жазыңыз.</string>
+    <string name="hiddeTag">Ескертпелерді жасыру</string>
+    <string name="visibleTag">Ескертпелерді көрсету</string>
+    <string name="hintNameLabel">Жапсырма аты</string>
+    <string name="titleDialogShortCut">Таңбаша жасау</string>
+    <string name="functionNotSupport">Бұл функцияға құрылғыңыз қолдау көрсетпейді</string>
+    <string name="shortCutCreateFallDouble">Бұл ескертпе үшін белгі әлдеқашан жасалған</string>
+    <string name="buttonCreateShortCut">Жұмыс үстеліне төте жолды қосу</string>
+    <string name="errorMaxNameShortCut">Таңбаша атауындағы қате</string>
+    <string name="renameTag">Атын өзгерту</string>
 </resources>

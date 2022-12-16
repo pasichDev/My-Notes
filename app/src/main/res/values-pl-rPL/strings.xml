@@ -8,7 +8,6 @@
     <string name="share"> Udostępnij </string>
     <string name="yesCleanTrash"> Tak, wyczyść </string>
     <string name="cancel"> Cofnij </string>
-    <string name="shareNull"> Opróżnij Kosz! </string>
     <string name="whatUpdate"> Co nowego? </string>
     <string name="notes"> Notatki </string>
     <string name="noSave"> Zamknij bez zapisywania </string>
@@ -43,7 +42,6 @@
     <string name="sort_Title_Increase">Tytuł: A-Z</string>
     <string name="sort_Title_Decrease">Tytuł: Z-A</string>
     <string name="sortHead">Sortuj według:</string>
-    <string name="layoutStringInfoTags">%1$s notatki zaznaczone</string>
     <string name="settingsTitleContacts">Skontaktuj się z nami</string>
     <string name="shareApp">Udostępnij aplikację</string>
     <string name="privacyApp">Polityka prywatności</string>
@@ -105,5 +103,13 @@
     <string name="feature_newFetures_title">Nowe funkcje</string>
     <string name="feature_newFetures_info">Aplikacja otrzymała wiele przydatnych funkcji, takich jak tłumaczenie notatek, wielokrotny wybór, skrót do notatek na pulpicie i wiele innych. Z biegiem czasu liczba nowych funkcji będzie rosła. (Widżet, Google Sync)</string>
     <string name="hello_finishTextTwo">Kopia zapasowa została zapisana. Po kliknięciu przycisku Zakończ uruchomi się nowa wersja aplikacji. W rzadkich przypadkach mogą wystąpić awarie, uruchom ponownie aplikację lub napisz do mnie w sekcji opinii.</string>
-
+    <string name="hiddeTag">Ukryj notatki</string>
+    <string name="visibleTag">Pokaż notatki</string>
+    <string name="hintNameLabel">Nazwa etykiety</string>
+    <string name="titleDialogShortCut">Utwórz skrót</string>
+    <string name="functionNotSupport">Ta funkcja nie jest obsługiwana przez Twoje urządzenie</string>
+    <string name="shortCutCreateFallDouble">Etykieta została już utworzona dla tej notatki</string>
+    <string name="buttonCreateShortCut">Dodaj skrót do pulpitu</string>
+    <string name="errorMaxNameShortCut">Błąd w nazwie skrótu</string>
+    <string name="renameTag">Zmień nazwę</string>
 </resources>
