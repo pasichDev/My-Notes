@@ -236,18 +236,18 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void loadingNotes(List<Note> noteList) {
         int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(), tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-        showEmptyTrash(!(countNotes >= 1));
+        showEmptyNotes(!(countNotes >= 1));
     }
 
     @Override
     public void loadingTags(List<Tag> tagList) {
         tagsAdapter.submitList(tagList);
         int countNotes = mNoteAdapter.setNameTagsHidden(tagList, tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-        showEmptyTrash(!(countNotes >= 1));
+        showEmptyNotes(!(countNotes >= 1));
     }
 
 
-    private void showEmptyTrash(boolean flag) {
+    private void showEmptyNotes(boolean flag) {
         mActivityBinding.setEmptyNotes(flag);
         if (getResources().getDisplayMetrics().density < 2.2)
             mActivityBinding.includeEmpty.imageEmpty.setVisibility(View.GONE);
@@ -291,7 +291,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void moreActivity() {
         if (getAction()) actionUtils.closeActionPanel();
-        new AboutDialog().show(getSupportFragmentManager(), "more activity");
+        new AboutDialog().show(getSupportFragmentManager(), "MoreActivity");
     }
 
     @Override
@@ -397,7 +397,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void selectTagUser(int position) {
         tagsAdapter.chooseTag(position);
-        showEmptyTrash(!(mNoteAdapter.filter(tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag()) >= 1));
+        showEmptyNotes(!(mNoteAdapter.filter(tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag()) >= 1));
     }
 
 

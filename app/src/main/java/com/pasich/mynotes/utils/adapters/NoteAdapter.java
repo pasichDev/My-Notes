@@ -35,7 +35,7 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
             if (tag.getVisibility() == 1) nameTagsHidden.add(tag.getNameTag());
         }
         if (nameTag.equals("allNotes")) return updateFromVisibilityTags();
-        else return 1;
+        else return getItemCount();
     }
 
 
