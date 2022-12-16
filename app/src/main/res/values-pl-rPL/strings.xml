@@ -15,7 +15,10 @@
     <string name="ratingApp"> Oceń aplikację </string>
     <string name="exitWhat">Aby wyjść, musisz powtórzyć czynność</string>
 
-    <string name="updateNowM">Przeprowadzono aktualizację na dużą skalę, a raczej aplikację napisano od nowa. Ta wersja dodaje więcej funkcji i naprawia wiele błędów. Nad projektem pracuje jedna osoba, dlatego bardzo trudno jest wyśledzić wszystkie błędy i pomyłki. Byłbym bardzo szczęśliwy, gdybyś je zgłosił. To nie ostatnia aktualizacja w tym roku, kolejne aktualizacje z błędami, a jeśli w aplikacji pojawi się wzorzec, pojawią się nowe funkcje. Dzięki za pochłoniętą aplikację!</string>
+    <string name="updateNowM">- Naprawiono drobne błędy i dokonano optymalizacji. \n
+- Dodano rozszerzone okno do tworzenia skrótu. \n
+- Dodano możliwość zmiany nazwy etykiety. \n
+- Drobne poprawki projektowe.</string>
     <string name="telegram">Otwórz kontakty programistów</string>
     <string name="error">Błąd</string>
     <string name="notSupportedShare">Ta zawartość nie jest obsługiwana.</string>

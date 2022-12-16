@@ -20,7 +20,12 @@
     <string name="copyX">Copied</string>
     <string name="cd_format">Format notes</string>
 
-    <string name="updateNowM">A large-scale update was carried out, or rather, the application was rewritten from scratch. This version adds more features and fixes a lot of bugs. One person is working on the project, and therefore it is very difficult to track all the errors and errors. I would be very happy if you would report them. This is not the last update this year, more updates with errors, and if there is a pattern in the application, new features will appear. Thanks for the consumed app!</string>
+    <string name="updateNowM">
+- Fixed minor bugs and made optimization. \n
+- Added an extended window for creating a shortcut. \n
+- Added the ability to rename the label.  \n
+- Minor design fixes.
+    </string>
 
 
     <string name="search">Search notes </string>

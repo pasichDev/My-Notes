@@ -4,18 +4,21 @@
     <string name="NewNote">Стварыць нататку</string>
     <string name="trashNotes">Перамясціць у кошык</string>
     <string name="trashN">Кошык</string>
-    <string name="trashClean" >Ачысціць кошык</string>
+    <string name="trashClean">Ачысціць кошык</string>
     <string name="share">Падзяліцца</string>
-    <string name="yesCleanTrash" >Так, ачысціць</string>
-    <string name="cancel" >Адмяніць</string>
+    <string name="yesCleanTrash">Так, ачысціць</string>
+    <string name="cancel">Адмяніць</string>
     <string name="whatUpdate">Што новага?</string>
     <string name="notes">Нататкі</string>
     <string name="noSave">Зачыніць без захавання</string>
     <string name="infoAppPrefences">Аб дадатку</string>
     <string name="ratingApp">Ацаніць дадатак</string>
-    <string name = "exitWhat">Для выхаду, трэба паўтарыць дзеянне</string>
+    <string name="exitWhat">Для выхаду, трэба паўтарыць дзеянне</string>
 
-    <string name="updateNowM">Было праведзена маштабнае абнаўленне, а дакладней дадатак перапісана з нуля. У дадзенай версіі дададзена большая колькасць функцый і выпраўлена мноства памылак. Над праектам працуе адзін чалавек і таму адсачыць усе памылкі і памылкі вельмі складана. Я быў бы вельмі шчаслівы, калі б вы паведамілі пра іх. Гэта не апошняе абнаўленне ў гэтым годзе, яшчэ абнаўлення з узнікненнем памылак, а таксама калі будзе заканамернасць у працы прыкладання, з\'явяцца новыя функцыі. Дзякуй, што спажываецца дадатак!</string>
+    <string name="updateNowM">- Выпраўлена дробныя памылкі і зроблена аптымізацыю. \n
+- Дададзена пашыранае акно для стварэння цэтліка. \n
+- Дададзена магчымасць перайменаваць пазнаку. \n
+- Дробныя выпраўленні ў дызайне.</string>
     <string name="telegram">Адкрыць кантакты распрацоўніка</string>
     <string name="error">Памылка</string>
     <string name="notSupportedShare">Гэты кантэнт не падтрымліваецца.</string>
