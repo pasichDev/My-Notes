@@ -225,7 +225,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
 
-        String mNoteValue = mNote.getValue() == null ? "" : mNote.getValue();
+        String mNoteValue = "";
+
+        if (!newNoteKey) mNoteValue = mNote.getValue() == null ? "" : mNote.getValue();
 
         if (newNoteKey) {
             Note note = new Note().create(mTitle.length() >= 2 ? mTitle : "", mValue, mThisDate, tagNote);
