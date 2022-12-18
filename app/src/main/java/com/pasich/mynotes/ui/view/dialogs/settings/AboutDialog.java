@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
+import com.pasich.mynotes.ui.view.activity.ThemeActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 
 public class AboutDialog extends DialogFragment {
@@ -37,6 +38,11 @@ public class AboutDialog extends DialogFragment {
         binding.privacyApp.setOnClickListener(v -> {
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_PRIVACY_POLICY));
             requireContext().startActivity(i);
+            dismiss();
+        });
+
+        binding.themeApp.setOnClickListener(v -> {
+            startActivity(new Intent(requireActivity(), ThemeActivity.class));
             dismiss();
         });
 
@@ -96,7 +102,7 @@ public class AboutDialog extends DialogFragment {
         binding.ratingApp.setOnClickListener(null);
 
         binding.whatUpdate.setOnClickListener(null);
-
+        binding.themeApp.setOnClickListener(null);
         binding.feedback.setOnClickListener(null);
         binding.restoreOldBackups.setOnClickListener(null);
     }

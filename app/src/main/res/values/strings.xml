@@ -133,4 +133,7 @@
     <string name="buttonCreateShortCut">Add shortcut to desktop</string>
     <string name="errorMaxNameShortCut">Error in shortcut name</string>
     <string name="renameTag">Rename</string>
+
+
+    <string name="themeApp" translatable="false">Темы</string>
 </resources>

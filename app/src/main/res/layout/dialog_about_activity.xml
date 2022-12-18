@@ -28,6 +28,29 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/themeApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingItems">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/themeApp"
+            android:src="@drawable/ic_theme" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/paddingItems"
+            android:text="@string/themeApp"
+            android:textSize="@dimen/textSizeItems" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/restoreOldBackups"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

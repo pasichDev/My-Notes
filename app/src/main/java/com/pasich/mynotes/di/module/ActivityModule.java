@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
+import com.pasich.mynotes.databinding.ActivityThemeBinding;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.di.scope.ActivityContext;
 import com.pasich.mynotes.di.scope.PerActivity;
@@ -76,6 +77,12 @@ public class ActivityModule {
     @PerActivity
     ActivityNoteBinding providerActivityNoteBinding(AppCompatActivity activity) {
         return DataBindingUtil.setContentView(activity, R.layout.activity_note);
+    }
+
+    @Provides
+    @PerActivity
+    ActivityThemeBinding providerActivityThemeBinding(AppCompatActivity activity) {
+        return DataBindingUtil.setContentView(activity, R.layout.activity_theme);
     }
 
     @Provides
