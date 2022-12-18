@@ -5,10 +5,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.data.database.model.Theme;
 import com.pasich.mynotes.databinding.ActivityThemeBinding;
+import com.pasich.mynotes.utils.adapters.themeAdapter.ThemesAdapter;
+import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -17,6 +24,7 @@ public class ThemeActivity extends BaseActivity {
 
     @Inject
     public ActivityThemeBinding activityThemeBinding;
+    private ThemesAdapter mAdapter;
 
 
     @Override
@@ -26,7 +34,28 @@ public class ThemeActivity extends BaseActivity {
 
         setSupportActionBar(activityThemeBinding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        setListThemes();
     }
+
+
+    private void setListThemes() {
+        mAdapter = new ThemesAdapter(this, getThemes());
+        activityThemeBinding.themes.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        activityThemeBinding.themes.addItemDecoration(new SpacesItemDecoration(10));
+        activityThemeBinding.themes.setAdapter(mAdapter);
+        initListeners();
+    }
+
+
+    private ArrayList<Theme> getThemes() {
+        ArrayList<Theme> labels = new ArrayList<>();
+        labels.add(new Theme(R.drawable.theme_default, 0));
+        labels.add(new Theme(R.drawable.theme_default, 0));
+        labels.add(new Theme(R.drawable.theme_default, 0));
+        labels.add(new Theme(R.drawable.theme_default, 0));
+        return labels;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,6 +80,8 @@ public class ThemeActivity extends BaseActivity {
 
     @Override
     public void initListeners() {
-
+        mAdapter.setSelectLabelListener(position -> {
+            mAdapter.selectLabel(position);
+        });
     }
 }

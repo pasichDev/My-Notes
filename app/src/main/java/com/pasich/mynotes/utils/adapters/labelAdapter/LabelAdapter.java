@@ -22,6 +22,7 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
     private final ArrayList<Label> labels;
     private final Context context;
     private final int PAYLOAD_SET_SELECTED = 99;
+    private final Label DEFAULT_LABEL = new Label(R.mipmap.ic_launcher_note);
     private SelectLabelListener mSelectLabelListener;
     private Label mSelectLabel;
     private boolean oneCheckedAll = false;
@@ -39,17 +40,17 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
 
 
     public Label getSelectLabel() {
-        return this.mSelectLabel == null ? new Label(R.mipmap.ic_launcher_note) : this.mSelectLabel;
+        return this.mSelectLabel == null ? DEFAULT_LABEL : this.mSelectLabel;
     }
 
 
-    public void setTagSelected(@Nullable Label labelSelect) {
+    public void setLabelSelected(@Nullable Label labelSelect) {
         this.mSelectLabel = labelSelect;
     }
 
     public void selectLabel(int position) {
         notifyItemChanged(getCheckedPosition(getSelectLabel().setCheckReturn(false)), PAYLOAD_SET_SELECTED);
-        setTagSelected(labels.get(position).setCheckReturn(true));
+        setLabelSelected(labels.get(position).setCheckReturn(true));
         notifyItemChanged(position, PAYLOAD_SET_SELECTED);
     }
 
@@ -63,7 +64,6 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
     @Override
     public LabelAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewHolder view = new LabelAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_label, parent, false));
-
         if (mSelectLabelListener != null) {
             view.itemView.setOnClickListener(v -> mSelectLabelListener.onSelect(view.getAdapterPosition()));
 

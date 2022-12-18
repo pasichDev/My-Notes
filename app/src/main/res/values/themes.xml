@@ -69,6 +69,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- Стиль для параграфа -->
+    <style name="paragraphText">
+        <item name="fontFamily">@font/railway_medium</item>
+        <item name="android:textColor">?attr/colorTitle</item>
+        <item name="android:textSize">22sp</item>
+    </style>
     <!-- Стиль для заголовка BottomSheetsDialog -->
     <style name="headDialogText" parent="headActivityText">
         <item name="android:textSize">18sp</item>

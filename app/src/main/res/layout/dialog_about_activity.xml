@@ -37,7 +37,7 @@
 
         <ImageView
             style="@style/iconDialogList"
-            android:contentDescription="@string/themeApp"
+            android:contentDescription="@string/settingsInterface"
             android:src="@drawable/ic_theme" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/paddingItems"
-            android:text="@string/themeApp"
+            android:text="@string/settingsInterface"
             android:textSize="@dimen/textSizeItems" />
     </LinearLayout>
 

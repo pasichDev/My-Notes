@@ -135,5 +135,7 @@
     <string name="renameTag">Rename</string>
 
 
-    <string name="themeApp" translatable="false">Темы</string>
+    <string name="settingsInterface" translatable="false">Настройки интерфейса</string>
+    <string name="thema" translatable="false">Тема</string>
+    <string name="functional" translatable="false">Функции</string>
 </resources>

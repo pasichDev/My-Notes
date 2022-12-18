@@ -10,41 +10,77 @@
     </data>
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/activity_trash"
+    <LinearLayout
+        android:id="@+id/activity_theme"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="?attr/colorSurface"
         tools:context=".ui.view.activity.ThemeActivity">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:title="@string/settingsInterface"
+            app:layout_collapseMode="pin" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:fitsSystemWindows="true"
-            app:layout_behavior=".utils.behavior.FixedAppBarLayoutBehavior">
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <TextView
+                style="@style/paragraphText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:padding="6dp"
+                android:text="@string/thema" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/themes"
+                android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:fitsSystemWindows="true"
-                app:expandedTitleMarginStart="20dp"
-                app:expandedTitleTextAppearance="@style/headActivityText"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@string/themeApp">
+                android:layout_height="wrap_content"
+                android:scrollbars="none" />
+        </LinearLayout>
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@android:color/transparent"
-                    app:layout_collapseMode="pin" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical">
 
+            <TextView
+                style="@style/paragraphText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:padding="6dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/functional" />
 
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
+            <Switch
+                android:id="@+id/mmm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:text="Switch" />
 
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:text="Switch" />
+        </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>
