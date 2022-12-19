@@ -122,6 +122,7 @@
     <string name="telegram_nick" translatable="false">"@"pasichDev</string>
     <string name="email_address" translatable="false">pasichDev@gmail.com</string>
     <string name="interpunct" translatable="false">·</string>
+    <string name="theme_demo" translatable="false">Demo Screen Theme</string>
 
 
     <string name="hiddeTag">Hide notes</string>

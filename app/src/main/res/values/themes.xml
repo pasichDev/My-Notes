@@ -6,11 +6,9 @@
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/colorPrimaryVariant</item>
 
-        <!-- Цвет обводки для item.RecyclerView -->
-        <item name="colorStrokeItemRecyclerView">@color/darkLight</item>
 
         <!-- Цвет ripple -->
-        <item name="colorControlHighlight">@color/colorControlHighlight</item>
+        <item name="colorControlHighlight">@color/colorControlHighLight</item>
 
         <!-- Цвет текста заголовков-->
         <item name="colorTitle">@color/black</item>

@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Цвет обводки для item.RecyclerView -->
-    <color name="darkLight">#cdcdcd</color>
+
+    <!-- Default Colors-->
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
-    <color name="colorDarkThemeSurface">#1B1B1B</color>
-    <color name="colorTitleDark">#DDDDDD</color>
-    <color name="colorValueDark">#bcbcbc</color>
-    <color name="colorTextButtonCancel">#6E6D6D</color>
 
-    <color name="colorControlHighlight">#D4E0EF</color>
-    <color name="colorControlHighlightNight">#202D39</color>
-
-    <color name="colorClick">#E4E4E4</color>
+    <!-- Theme Default Colors-->
     <color name="colorPrimary">#e5f2ff</color>
     <color name="colorPrimaryVariant">#6995D1</color>
     <color name="colorPrimaryVariantBlue">#508EE0</color>
     <color name="colorPrimaryBackground">#4996fd</color>
+    <color name="colorDarkThemeSurface">#1B1B1B</color>
+    <color name="colorTitleDark">#DDDDDD</color>
+    <color name="colorValueDark">#bcbcbc</color>
+    <color name="colorTextButtonCancel">#6E6D6D</color>
+    <!-- Обводка item_note & ripple -->
+    <color name="colorControlHighLight">#D4E0EF</color>
+    <color name="colorControlHighlightNight">#202D39</color>
+    <!-- Theme GreyColor -->
+    <color name="colorClick">#E4E4E4</color>
+
+    <!-- Цвет  в Hello Activity (Deleted)-->
     <color name="helloColorInfo">#4B4B4B</color>
 
 

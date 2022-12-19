@@ -50,9 +50,9 @@ public class ThemeActivity extends BaseActivity {
     private ArrayList<Theme> getThemes() {
         ArrayList<Theme> labels = new ArrayList<>();
         labels.add(new Theme(R.drawable.theme_default, 0));
-        labels.add(new Theme(R.drawable.theme_default, 0));
-        labels.add(new Theme(R.drawable.theme_default, 0));
-        labels.add(new Theme(R.drawable.theme_default, 0));
+        labels.add(new Theme(R.drawable.theme_default, 1));
+        labels.add(new Theme(R.drawable.theme_default, 2));
+        labels.add(new Theme(R.drawable.theme_default, 3));
         return labels;
     }
 
@@ -81,7 +81,7 @@ public class ThemeActivity extends BaseActivity {
     @Override
     public void initListeners() {
         mAdapter.setSelectLabelListener(position -> {
-            mAdapter.selectLabel(position);
+            mAdapter.selectTheme(position);
         });
     }
 }

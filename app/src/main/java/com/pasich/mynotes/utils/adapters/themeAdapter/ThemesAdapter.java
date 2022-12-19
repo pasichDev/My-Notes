@@ -49,7 +49,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
         this.mSelectTheme = labelSelect;
     }
 
-    public void selectLabel(int position) {
+    public void selectTheme(int position) {
         notifyItemChanged(getCheckedPosition(getSelectTheme().setCheckReturn(false)), PAYLOAD_SET_SELECTED);
         setThemeSelected(themes.get(position).setCheckReturn(true));
         notifyItemChanged(position, PAYLOAD_SET_SELECTED);

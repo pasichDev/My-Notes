@@ -7,5 +7,6 @@
     <ImageView
         android:id="@+id/imageTheme"
         android:layout_width="128dp"
-        android:layout_height="160dp" />
+        android:layout_height="160dp"
+        android:contentDescription="@string/theme_demo" />
 </FrameLayout>

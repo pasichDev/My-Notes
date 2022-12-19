@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Theme Colors Default-->
     <attr name="colorPrimaryBackground" format="reference|color" />
     <attr name="colorBackground" format="reference|color" />
     <attr name="colorAccentIcon" format="reference|color" />
 
-    <!-- Цвет обводки для item.RecyclerView (Наверное нужно менять в темной теме)-->
-    <attr name="colorStrokeItemRecyclerView" format="reference|color" />
     <!-- Цвет текста заголовков-->
     <attr name="colorTitle" format="reference|color" />
     <attr name="colorValueCustom" format="reference|color" />
