@@ -7,12 +7,10 @@
 
     <!-- Theme Default Colors-->
 
-    <color name="colorPrimary">#e5f2ff</color>
-    <color name="colorPrimaryVariant">#6995D1</color>
-    <color name="colorPrimaryVariantBlue">#508EE0</color>
-
-    <!-- Primary-->
-    <color name="colorPrimaryBackground">#4996fd</color>
+    <color name="colorPrimary">#e5f2ff</color> <!-- Check-->
+    <color name="colorPrimaryVariant">#6995D1</color> <!-- Check-->
+    <color name="colorPrimaryVariantBlue">#508EE0</color>  <!-- Check-->
+    <color name="colorPrimaryBackground">#4996fd</color> <!-- Check-->
 
 
     <color name="colorDarkThemeSurface">#1B1B1B</color>
