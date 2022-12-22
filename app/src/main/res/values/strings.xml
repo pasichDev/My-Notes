@@ -123,6 +123,7 @@
     <string name="email_address" translatable="false">pasichDev@gmail.com</string>
     <string name="interpunct" translatable="false">·</string>
     <string name="theme_demo" translatable="false">Demo Screen Theme</string>
+    <string name="editNoteButton" translatable="false">EditNote</string>
 
 
     <string name="hiddeTag">Hide notes</string>

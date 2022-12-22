@@ -64,6 +64,19 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
+
+    <style name="fab_custom" parent="ThemeOverlay.Material3.FloatingActionButton.Primary">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="tint">?attr/colorOnPrimary</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="elevation">7dp</item>
+        <item name="layout_anchorGravity">bottom|right|end</item>
+        <item name="layout_dodgeInsetEdges">bottom</item>
+        <item name="layout_scrollFlags">scroll|exitUntilCollapsed|enterAlwaysCollapsed</item>
+    </style>
+
+
     <style name="DefaultThemeNew" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -98,8 +111,6 @@
         <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
 
-        <!-- Цвет ripple -->
-        <item name="colorControlHighlight">@color/colorControlHighLight</item>
         <!-- Цвет текста заголовков-->
         <item name="colorTitle">@color/black</item>
         <!-- Цвет текста заголовков-->
@@ -109,7 +120,7 @@
         <item name="colorAccent">@color/colorPrimaryBackground</item>
         <item name="colorControlNormal">@color/black</item>
         <!-- Цвет и настройки статусбара и навбара -->
-        <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
+        <item name="android:navigationBarColor">?attr/colorTertiary</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 

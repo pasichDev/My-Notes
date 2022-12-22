@@ -1,6 +1,7 @@
 package com.pasich.mynotes.base.activity;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.MyApp;
 import com.pasich.mynotes.R;
@@ -33,6 +35,17 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     public void selectTheme() {
 
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            setTheme(R.style.AppThemeDynamic);
+            DynamicColors.applyToActivitiesIfAvailable(getApplication());
+
+        } else {
+            setTheme(R.style.DefaultThemeNew);
+        }
+        // On Dynamic Color
+        // DynamicColors.applyToActivitiesIfAvailable(getApplication());
+        //  setTheme(R.style.AppThemeDynamic);
     }
 
     @Override
