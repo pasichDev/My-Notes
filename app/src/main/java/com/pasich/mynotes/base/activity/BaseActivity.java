@@ -23,12 +23,17 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        selectTheme();
         activityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this)).applicationComponent(((MyApp) getApplication())
                         .getApplicationComponent()).build();
     }
 
+
+    @Override
+    public void selectTheme() {
+
+    }
 
     @Override
     public void showMessage(String message) {

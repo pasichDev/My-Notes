@@ -139,4 +139,5 @@
     <string name="settingsInterface" translatable="false">Настройки интерфейса</string>
     <string name="thema" translatable="false">Тема</string>
     <string name="functional" translatable="false">Функции</string>
+    <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
 </resources>

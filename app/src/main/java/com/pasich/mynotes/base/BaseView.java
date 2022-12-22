@@ -8,6 +8,8 @@ public interface BaseView {
 
     void initListeners();
 
+    void selectTheme();
+
     void showMessage(String message);
 
     void showMessage(@StringRes int resID);

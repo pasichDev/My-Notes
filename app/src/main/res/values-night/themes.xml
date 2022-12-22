@@ -1,5 +1,30 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="AppThemeDynamic" parent="Theme.Material3.DynamicColors.DayNight">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- Custom colors -->
+        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
+        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
+
+        <!-- Цвет ripple -->
+        <item name="colorControlHighlight">@color/colorControlHighLight</item>
+        <!-- Цвет текста заголовков-->
+        <item name="colorTitle">@color/black</item>
+        <!-- Цвет текста заголовков-->
+        <item name="colorValueCustom">@color/black</item>
+
+        <!-- Цвет фона дилоговых окон, цвет поля ввода-->
+        <item name="colorAccent">@color/colorPrimaryBackground</item>
+        <item name="colorControlNormal">@color/black</item>
+        <!-- Цвет и настройки статусбара и навбара -->
+        <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+
     <style name="ThemeBlue" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimaryBackground</item>
@@ -13,7 +38,6 @@
         <!-- Custom colors -->
         <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
-        <item name="colorBackground">@color/colorDarkThemeSurface</item>
 
         <!-- Цвет фона дилоговых окон, цвет поля ввода-->
         <item name="colorSurface">@color/colorDarkThemeSurface</item>
@@ -46,7 +70,6 @@
     <!-- SplashStyle-->
     <style name="ThemeBlueSplash" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
-        <item name="colorBackground">@color/colorDarkThemeSurface</item>
         <item name="android:statusBarColor">?attr/colorPrimaryBackground</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
