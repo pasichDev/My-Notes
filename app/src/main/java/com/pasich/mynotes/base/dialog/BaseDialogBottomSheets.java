@@ -33,6 +33,11 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
     }
 
     @Override
+    public void selectTheme() {
+
+    }
+
+    @Override
     public void dismiss() {
         super.dismiss();
         mDialog = null;
