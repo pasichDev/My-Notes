@@ -49,9 +49,9 @@ public class ThemeActivity extends BaseActivity {
 
     private ArrayList<Theme> getThemes() {
         ArrayList<Theme> labels = new ArrayList<>();
-        labels.add(new Theme(R.drawable.theme_default, 0));
-        labels.add(new Theme(R.drawable.theme_default, 1));
-        labels.add(new Theme(R.drawable.theme_default, 2));
+        // labels.add(new Theme(R.drawable.theme_default, 0));
+        labels.add(new Theme(R.drawable.ic_theme_green, 1));
+        labels.add(new Theme(R.drawable.ic_theme_dark_blue, 2));
         labels.add(new Theme(R.drawable.theme_default, 3));
         return labels;
     }

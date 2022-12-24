@@ -4,7 +4,7 @@ public class Theme {
 
     private final int Image;
     private boolean check;
-    private int THEME_ID;
+    private final int THEME_ID;
 
     public Theme(int Image, int theme_id) {
         this.Image = Image;

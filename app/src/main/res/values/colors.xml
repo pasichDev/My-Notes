@@ -7,7 +7,7 @@
 
     <color name="colorBackgroundSplash">#4996fd</color>
 
-    <!-- Default ThemeColors-->
+    <!-- GreenTheme Colors -->
     <color name="green_theme_seed">#46825B</color>
     <color name="green_theme_no_background_light_primary">#006D3D</color>
     <color name="green_theme_no_background_light_onPrimary">#FFFFFF</color>
@@ -68,7 +68,7 @@
     <color name="green_theme_no_background_dark_surfaceTint">#7CDA9C</color>
     <color name="green_theme_no_background_dark_surfaceTintColor">#7CDA9C</color>
 
-
+    <!-- DarkBlue Theme Colors -->
     <color name="default_theme_seed">#4996fd</color>
     <color name="darkBlue_theme_no_background_light_primary">#005EB4</color>
     <color name="darkBlue_theme_no_background_light_onPrimary">#FFFFFF</color>
