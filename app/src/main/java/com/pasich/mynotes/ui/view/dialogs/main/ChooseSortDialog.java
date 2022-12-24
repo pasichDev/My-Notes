@@ -57,8 +57,8 @@ public class ChooseSortDialog extends DialogFragment {
     }
 
     public void selectedAutoItem(String param) {
-        int colorBackground = R.color.colorPrimary;
-        int colorText = R.color.colorPrimaryVariant;
+     /*   int colorBackground = R.attr.colorSurfaceInverse;
+        int colorText = R.attr.colorOnSurfaceInverse;
         switch (param) {
             case "DataSort":
                 binding.DataSort.setBackgroundColor(getResources().getColor(colorBackground));
@@ -79,6 +79,8 @@ public class ChooseSortDialog extends DialogFragment {
 
                 break;
         }
+
+      */
     }
 
     @Override

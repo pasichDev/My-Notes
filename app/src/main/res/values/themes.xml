@@ -1,68 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="ThemeBlue" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@android:color/transparent</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/colorPrimaryVariant</item>
-
-        <!-- Цвет ripple -->
-        <item name="colorControlHighlight">@color/colorControlHighLight</item>
-
-        <!-- Цвет фона дилоговых окон, цвет поля ввода-->
-        <item name="colorSurface">@color/white</item>
-        <!--  <item name="colorAccent">@color/colorPrimaryBackground</item> -->
-        <item name="colorControlNormal">@color/black</item>
-
-        <!-- Цвет и настройки статусбара и навбара -->
-        <item name="android:navigationBarColor">?attr/colorPrimary</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-
-
-        <!-- Цвет линков для EditText -->
-        <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
-        <!-- Style to use for action button within a Snackbar in this theme. -->
-        <item name="snackbarButtonStyle">@style/snackbar_button</item>
-        <!-- Цвет switchmaterial.SwitchMaterial -->
-        <!-- Цвет выделение текста -->
-        <item name="android:textColorHighlight">@color/colorPrimaryVariant</item>
-    </style>
-
-
-    <style name="AppThemeDynamic" parent="Theme.Material3.DynamicColors.Light">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-
-
-
-        <!-- Цвет и настройки статусбара и навбара -->
-        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-    </style>
-
-
-    <style name="fab_custom" parent="Widget.Material3.FloatingActionButton.Primary">
-        <item name="android:backgroundTint">?attr/colorPrimary</item>
-        <item name="tint">?attr/colorOnPrimary</item>
-        <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:layout_margin">15dp</item>
-        <item name="elevation">7dp</item>
-        <item name="layout_anchorGravity">bottom|right|end</item>
-        <item name="layout_dodgeInsetEdges">bottom</item>
-        <item name="layout_scrollFlags">scroll|exitUntilCollapsed|enterAlwaysCollapsed</item>
-    </style>
-
-    <style name="textTagAppearanceUncheck" parent="">
-        <item name="android:color">?attr/colorPrimary</item>
-    </style>
-
-    <style name="textTagAppearanceCheck" parent="">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-    </style>
-
-
     <style name="DefaultThemeNew" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -100,18 +37,48 @@
     </style>
 
 
+    <style name="AppThemeDynamic" parent="Theme.Material3.DynamicColors.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- Цвет и настройки статусбара и навбара -->
+        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <!-- SplashStyle-->
+    <style name="ThemeBlueSplash" parent="DefaultThemeNew">
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+    </style>
+
+
+    <style name="fab_custom" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="tint">?attr/colorOnPrimary</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="elevation">7dp</item>
+        <item name="layout_anchorGravity">bottom|right|end</item>
+        <item name="layout_dodgeInsetEdges">bottom</item>
+        <item name="layout_scrollFlags">scroll|exitUntilCollapsed|enterAlwaysCollapsed</item>
+    </style>
+
+    <style name="textTagAppearanceUncheck" parent="">
+        <item name="android:color">?attr/colorPrimary</item>
+    </style>
+
+    <style name="textTagAppearanceCheck" parent="">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+
     <style name="tag_checked">
         <item name="android:textColor">?attr/colorPrimaryContainer</item>
     </style>
 
     <style name="tag_unchecked">
         <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
-    </style>
-
-
-    <!-- SplashStyle-->
-    <style name="ThemeBlueSplash" parent="DefaultThemeNew">
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
     </style>
 
 

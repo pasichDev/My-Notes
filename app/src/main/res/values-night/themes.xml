@@ -1,5 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- SplashStyle-->
+    <style name="ThemeBlueSplash" parent="DefaultThemeNew">
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+    </style>
 
     <style name="AppThemeDynamic" parent="Theme.Material3.DynamicColors.Dark">
         <item name="windowActionBar">false</item>
@@ -32,41 +36,6 @@
     </style>
 
 
-    <style name="ThemeBlue" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/colorPrimaryVariant</item>
-
-
-        <!-- Цвет ripple -->
-        <item name="colorControlHighlight">@color/colorControlHighlightNight</item>
-
-        <!-- Цвет фона дилоговых окон, цвет поля ввода-->
-        <item name="colorSurface">@color/colorDarkThemeSurface</item>
-        <item name="colorControlNormal">@color/colorTitleDark</item>
-
-
-        <!-- Цвет и настройки статусбара и навбара -->
-        <item name="android:navigationBarColor">?attr/colorPrimary</item>
-
-
-        <item name="android:statusBarColor">@color/colorDarkThemeSurface</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-
-
-        <!-- Цвет линков для EditText -->
-        <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
-        <!-- Style to use for action button within a Snackbar in this theme. -->
-        <item name="snackbarButtonStyle">@style/snackbar_button</item>
-        <!-- Цвет выделение текста -->
-        <item name="android:textColorHighlight">@color/colorPrimaryVariant</item>
-    </style>
-
-
-    <!-- SplashStyle-->
-    <style name="ThemeBlueSplash" parent="DefaultThemeNew">
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
-    </style>
 
 
     <!-- Стиль кнопки восстановить в SnackBar -->
