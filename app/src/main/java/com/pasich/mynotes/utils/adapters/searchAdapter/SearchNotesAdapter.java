@@ -2,14 +2,18 @@ package com.pasich.mynotes.utils.adapters.searchAdapter;
 
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.color.MaterialColors;
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.IndexFilter;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.databinding.ItemResultBinding;
@@ -60,6 +64,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
         final Note note = listNotes.get(position);
         holder.ItemBinding.setNote(listNotes.get(position));
 
+        final int colorSpannable = MaterialColors.getColor(holder.itemView.getContext(), R.attr.colorSurfaceVariant, Color.GRAY);
         Spannable titleNote = new SpannableString(note.getTitle());
         Spannable valueNote = new SpannableString(note.getValue());
 
@@ -67,11 +72,13 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
 
             if (filter.getIdNote() == listNotes.get(position).getId()) {
                 if (filter.getIndexTitle() != -1) {
-             //       titleNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimary)), filter.getIndexTitle(), filter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    titleNote.setSpan(new BackgroundColorSpan(colorSpannable)
+                            , filter.getIndexTitle(), filter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
                 if (filter.getIndexValue() != -1) {
-                    //     valueNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimary)), filter.getIndexValue(), filter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    valueNote.setSpan(new BackgroundColorSpan(
+                            colorSpannable), filter.getIndexValue(), filter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
             }

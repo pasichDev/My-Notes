@@ -5,6 +5,7 @@ import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREF
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.MainSortView;
@@ -57,30 +59,31 @@ public class ChooseSortDialog extends DialogFragment {
     }
 
     public void selectedAutoItem(String param) {
-     /*   int colorBackground = R.attr.colorSurfaceInverse;
-        int colorText = R.attr.colorOnSurfaceInverse;
+        int colorBackground = MaterialColors.getColor(requireContext(), R.attr.colorSurfaceVariant, Color.GRAY);
+        int colorText = MaterialColors.getColor(requireContext(), R.attr.colorPrimary, Color.BLACK);
+
         switch (param) {
             case "DataSort":
-                binding.DataSort.setBackgroundColor(getResources().getColor(colorBackground));
-                binding.DataSortText.setTextColor(getResources().getColor(colorText));
+                binding.DataSort.setBackgroundColor(colorBackground);
+                binding.DataSortText.setTextColor(colorText);
                 break;
             case "DataReserve":
-                binding.DataReserve.setBackgroundColor(getResources().getColor(colorBackground));
-                binding.DataReserveText.setTextColor(getResources().getColor(colorText));
+                binding.DataReserve.setBackgroundColor(colorBackground);
+                binding.DataReserveText.setTextColor(colorText);
                 break;
             case "TitleSort":
-                binding.TitleSort.setBackgroundColor(getResources().getColor(colorBackground));
-                binding.TitleSortText.setTextColor(getResources().getColor(colorText));
+                binding.TitleSort.setBackgroundColor(colorBackground);
+                binding.TitleSortText.setTextColor(colorText);
 
                 break;
             case "TitleReserve":
-                binding.TitleReserve.setBackgroundColor(getResources().getColor(colorBackground));
-                binding.TitleReserveText.setTextColor(getResources().getColor(colorText));
+                binding.TitleReserve.setBackgroundColor(colorBackground);
+                binding.TitleReserveText.setTextColor(colorText);
 
                 break;
         }
 
-      */
+
     }
 
     @Override
