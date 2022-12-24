@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             DynamicColors.applyToActivitiesIfAvailable(getApplication());
 
         } else {
-            setTheme(R.style.DefaultThemeNew);
+            setTheme(R.style.ThemeGreenNoBackground);
         }
         // On Dynamic Color
         // DynamicColors.applyToActivitiesIfAvailable(getApplication());
