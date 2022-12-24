@@ -34,7 +34,7 @@
             android:fitsSystemWindows="true">
 
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -54,7 +54,7 @@
                         android:layout_gravity="center"
                         android:textSize="16sp"
                         android:visibility="gone"
-                        android:textColor="@color/colorPrimaryVariant"
+                        android:textColor="?attr/colorPrimary"
                         tools:text="tag_name" />
 
                     <TextView
@@ -65,7 +65,7 @@
                         android:textSize="14sp"
                         tools:text="data_name" />
                 </LinearLayout>
-            </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
 

@@ -22,7 +22,7 @@
             app:endIconMode="custom"
             android:paddingTop="10dp"
             app:endIconDrawable="@drawable/ic_add_tag_dialog"
-            app:endIconTint="?attr/colorAccentIcon"
+            app:endIconTint="?attr/colorPrimary"
             app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 

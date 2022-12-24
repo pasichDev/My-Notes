@@ -3,7 +3,6 @@
     <!-- Theme Colors Default-->
     <attr name="colorPrimaryBackground" format="reference|color" />
     <attr name="colorBackground" format="reference|color" />
-    <attr name="colorAccentIcon" format="reference|color" />
 
     <!-- Цвет текста заголовков-->
     <attr name="colorTitle" format="reference|color" />

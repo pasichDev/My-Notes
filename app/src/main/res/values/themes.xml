@@ -8,7 +8,6 @@
 
 
         <!-- Custom colors -->
-        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
 
         <!-- Цвет ripple -->
@@ -44,20 +43,18 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
+
         <!-- Custom colors -->
-        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
 
-        <!-- Цвет ripple -->
-        <item name="colorControlHighlight">@color/colorControlHighLight</item>
         <!-- Цвет текста заголовков-->
         <item name="colorTitle">@color/black</item>
         <!-- Цвет текста заголовков-->
         <item name="colorValueCustom">@color/black</item>
 
         <!-- Цвет фона дилоговых окон, цвет поля ввода-->
-        <item name="colorAccent">?attr/colorPrimary</item>
-        <item name="colorControlNormal">@color/black</item>
+        <!-- <item name="colorAccent">?attr/colorPrimary</item>
+      <item name="colorControlNormal">@color/black</item>-->
         <!-- Цвет и настройки статусбара и навбара -->
         <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -65,7 +62,7 @@
     </style>
 
 
-    <style name="fab_custom" parent="ThemeOverlay.Material3.FloatingActionButton.Primary">
+    <style name="fab_custom" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="android:backgroundTint">?attr/colorPrimary</item>
         <item name="tint">?attr/colorOnPrimary</item>
         <item name="android:layout_gravity">bottom|end</item>
@@ -74,6 +71,14 @@
         <item name="layout_anchorGravity">bottom|right|end</item>
         <item name="layout_dodgeInsetEdges">bottom</item>
         <item name="layout_scrollFlags">scroll|exitUntilCollapsed|enterAlwaysCollapsed</item>
+    </style>
+
+    <style name="textTagAppearanceUncheck" parent="">
+        <item name="android:color">?attr/colorPrimary</item>
+    </style>
+
+    <style name="textTagAppearanceCheck" parent="">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
 
@@ -108,7 +113,6 @@
 
 
         <!-- Custom colors -->
-        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
 
         <!-- Цвет текста заголовков-->
@@ -117,10 +121,10 @@
         <item name="colorValueCustom">@color/black</item>
 
         <!-- Цвет фона дилоговых окон, цвет поля ввода-->
-        <item name="colorAccent">@color/colorPrimaryBackground</item>
-        <item name="colorControlNormal">@color/black</item>
+        <!--   <item name="colorAccent">@color/colorPrimaryBackground</item>
+           <item name="colorControlNormal">@color/black</item>-->
         <!-- Цвет и настройки статусбара и навбара -->
-        <item name="android:navigationBarColor">?attr/colorTertiary</item>
+        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
@@ -193,6 +197,7 @@
     <style name="iconActionPanel" parent="marginDialogItem">
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
+        <item name="android:tint">?attr/colorOnPrimary</item>
         <item name="android:background">?selectableItemBackground</item>
     </style>
 
@@ -202,7 +207,7 @@
         <item name="chipStartPadding">5dp</item>
         <item name="chipBackgroundColor">@color/chip_background_color</item>
         <item name="chipStrokeWidth">0dp</item>
-        <item name="android:textColor">?attr/colorAccentIcon</item>
+        <item name="android:textColor">?attr/colorTertiary</item>
     </style>
 
 

@@ -4,6 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:chipSurfaceColor="@android:color/transparent"
     app:chipBackgroundColor="@color/chip_background_color"
-    app:rippleColor="@color/colorPrimaryBackground"
+    app:rippleColor="?attr/colorPrimary"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />

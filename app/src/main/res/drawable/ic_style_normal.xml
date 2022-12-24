@@ -2,9 +2,8 @@
     android:width="32dp"
     android:height="32dp"
     android:viewportWidth="48"
-    android:viewportHeight="48"
-    android:tint="?attr/colorAccentIcon">
-  <path
-      android:fillColor="@android:color/white"
-      android:pathData="M23,38.25V11.75H11.75V9.75H36.25V11.75H25V38.25Z" />
+    android:viewportHeight="48">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M23,38.25V11.75H11.75V9.75H36.25V11.75H25V38.25Z" />
 </vector>

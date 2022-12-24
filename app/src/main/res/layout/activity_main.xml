@@ -20,7 +20,7 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorSurface"
+        android:background="?android:colorBackground"
         tools:context=".ui.view.activity.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -46,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|start"
+                    android:textColor="?attr/colorOnSurface"
                     android:padding="6dp"
                     android:text="@string/notes" />
 
@@ -66,10 +67,9 @@
                 android:id="@+id/layoutSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/selector_search_view"
+                android:background="@drawable/background_search_view"
                 android:orientation="horizontal"
                 app:layout_scrollFlags="scroll|snap">
 
@@ -90,8 +90,8 @@
                     android:onClick="@{View -> presenter.startSearchDialog()}"
                     android:padding="10dp"
                     android:text="@string/search"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="16dp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14dp"
                     tools:ignore="SpUsage" />
 
                 <ImageButton

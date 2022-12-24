@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textview.MaterialTextView;
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
 
@@ -72,7 +74,7 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         }
 
         holder.ItemBinding.setCheckedTag(tag.getSelected());
-
+        editColorTextTag(tag, holder.ItemBinding.nameTag);
     }
 
 
@@ -103,9 +105,17 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads);
         } else {
-            if (payloads.contains(PAYLOAD_SET_SELECTED))
-                holder.ItemBinding.setCheckedTag(getItem(position).getSelected());
+            if (payloads.contains(PAYLOAD_SET_SELECTED)) {
+                Tag tag = getItem(position);
+                holder.ItemBinding.setCheckedTag(tag.getSelected());
+                editColorTextTag(tag, holder.ItemBinding.nameTag);
+            }
         }
+    }
+
+    private void editColorTextTag(Tag mTag, MaterialTextView textView) {
+        textView.setTextAppearance(mTag.getSelected() ? R.style.textTagAppearanceCheck : R.style.textTagAppearanceUncheck);
+
     }
 
     /**
