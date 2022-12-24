@@ -2,6 +2,7 @@
     android:height="32dp"
     android:viewportHeight="1024"
     android:viewportWidth="1024"
+    android:tint="?attr/colorPrimary"
     android:width="32dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <path

@@ -57,8 +57,6 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="20dp"
             android:padding="15dp"
-            android:text="@string/buttonCreateShortCut"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/colorPrimaryBackground" />
+            android:text="@string/buttonCreateShortCut" />
     </LinearLayout>
 </FrameLayout>

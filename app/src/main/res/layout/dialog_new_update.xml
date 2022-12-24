@@ -24,7 +24,6 @@
             android:textSize="@dimen/textSizeMessageItems" />
 
 
-        <include layout="@layout/button_info" />
 
     </LinearLayout>
 </FrameLayout>

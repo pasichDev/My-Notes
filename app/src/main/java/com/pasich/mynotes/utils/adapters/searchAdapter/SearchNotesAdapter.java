@@ -70,11 +70,11 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
 
             if (filter.getIdNote() == listNotes.get(position).getId()) {
                 if (filter.getIndexTitle() != -1) {
-                    titleNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryBackground)), filter.getIndexTitle(), filter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    titleNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimary)), filter.getIndexTitle(), filter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
                 if (filter.getIndexValue() != -1) {
-                    valueNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryBackground)), filter.getIndexValue(), filter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    valueNote.setSpan(new BackgroundColorSpan(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimary)), filter.getIndexValue(), filter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
             }
