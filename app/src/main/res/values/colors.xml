@@ -8,7 +8,7 @@
     <color name="colorBackgroundSplash">#4996fd</color>
 
     <!-- Default ThemeColors-->
-    <color name="seed">#46825B</color>
+    <color name="green_theme_seed">#46825B</color>
     <color name="green_theme_no_background_light_primary">#006D3D</color>
     <color name="green_theme_no_background_light_onPrimary">#FFFFFF</color>
     <color name="green_theme_no_background_light_primaryContainer">#97F7B6</color>
@@ -67,6 +67,67 @@
     <color name="green_theme_no_background_dark_shadow">#000000</color>
     <color name="green_theme_no_background_dark_surfaceTint">#7CDA9C</color>
     <color name="green_theme_no_background_dark_surfaceTintColor">#7CDA9C</color>
+
+
+    <color name="default_theme_seed">#4996fd</color>
+    <color name="darkBlue_theme_no_background_light_primary">#005EB4</color>
+    <color name="darkBlue_theme_no_background_light_onPrimary">#FFFFFF</color>
+    <color name="darkBlue_theme_no_background_light_primaryContainer">#D6E3FF</color>
+    <color name="darkBlue_theme_no_background_light_onPrimaryContainer">#001B3C</color>
+    <color name="darkBlue_theme_no_background_light_secondary">#006491</color>
+    <color name="darkBlue_theme_no_background_light_onSecondary">#FFFFFF</color>
+    <color name="darkBlue_theme_no_background_light_secondaryContainer">#C9E6FF</color>
+    <color name="darkBlue_theme_no_background_light_onSecondaryContainer">#001E2F</color>
+    <color name="darkBlue_theme_no_background_light_tertiary">#1B60A5</color>
+    <color name="darkBlue_theme_no_background_light_onTertiary">#FFFFFF</color>
+    <color name="darkBlue_theme_no_background_light_tertiaryContainer">#D4E3FF</color>
+    <color name="darkBlue_theme_no_background_light_onTertiaryContainer">#001C39</color>
+    <color name="darkBlue_theme_no_background_light_error">#BA1A1A</color>
+    <color name="darkBlue_theme_no_background_light_errorContainer">#FFDAD6</color>
+    <color name="darkBlue_theme_no_background_light_onError">#FFFFFF</color>
+    <color name="darkBlue_theme_no_background_light_onErrorContainer">#410002</color>
+    <color name="darkBlue_theme_no_background_light_background">#FDFBFF</color>
+    <color name="darkBlue_theme_no_background_light_onBackground">#1A1C1E</color>
+    <color name="darkBlue_theme_no_background_light_surface">#FDFBFF</color>
+    <color name="darkBlue_theme_no_background_light_onSurface">#1A1C1E</color>
+    <color name="darkBlue_theme_no_background_light_surfaceVariant">#E0E2EC</color>
+    <color name="darkBlue_theme_no_background_light_onSurfaceVariant">#43474E</color>
+    <color name="darkBlue_theme_no_background_light_outline">#74777F</color>
+    <color name="darkBlue_theme_no_background_light_inverseOnSurface">#F1F0F4</color>
+    <color name="darkBlue_theme_no_background_light_inverseSurface">#2F3033</color>
+    <color name="darkBlue_theme_no_background_light_inversePrimary">#A8C8FF</color>
+    <color name="darkBlue_theme_no_background_light_shadow">#000000</color>
+    <color name="darkBlue_theme_no_background_light_surfaceTint">#005EB4</color>
+    <color name="darkBlue_theme_no_background_light_surfaceTintColor">#005EB4</color>
+    <color name="darkBlue_theme_no_background_dark_primary">#A8C8FF</color>
+    <color name="darkBlue_theme_no_background_dark_onPrimary">#003062</color>
+    <color name="darkBlue_theme_no_background_dark_primaryContainer">#00468A</color>
+    <color name="darkBlue_theme_no_background_dark_onPrimaryContainer">#D6E3FF</color>
+    <color name="darkBlue_theme_no_background_dark_secondary">#8ACEFF</color>
+    <color name="darkBlue_theme_no_background_dark_onSecondary">#00344E</color>
+    <color name="darkBlue_theme_no_background_dark_secondaryContainer">#004B6F</color>
+    <color name="darkBlue_theme_no_background_dark_onSecondaryContainer">#C9E6FF</color>
+    <color name="darkBlue_theme_no_background_dark_tertiary">#A4C9FF</color>
+    <color name="darkBlue_theme_no_background_dark_onTertiary">#00315D</color>
+    <color name="darkBlue_theme_no_background_dark_tertiaryContainer">#004884</color>
+    <color name="darkBlue_theme_no_background_dark_onTertiaryContainer">#D4E3FF</color>
+    <color name="darkBlue_theme_no_background_dark_error">#FFB4AB</color>
+    <color name="darkBlue_theme_no_background_dark_errorContainer">#93000A</color>
+    <color name="darkBlue_theme_no_background_dark_onError">#690005</color>
+    <color name="darkBlue_theme_no_background_dark_onErrorContainer">#FFDAD6</color>
+    <color name="darkBlue_theme_no_background_dark_background">#1A1C1E</color>
+    <color name="darkBlue_theme_no_background_dark_onBackground">#E3E2E6</color>
+    <color name="darkBlue_theme_no_background_dark_surface">#1A1C1E</color>
+    <color name="darkBlue_theme_no_background_dark_onSurface">#E3E2E6</color>
+    <color name="darkBlue_theme_no_background_dark_surfaceVariant">#43474E</color>
+    <color name="darkBlue_theme_no_background_dark_onSurfaceVariant">#C4C6CF</color>
+    <color name="darkBlue_theme_no_background_dark_outline">#8E9099</color>
+    <color name="darkBlue_theme_no_background_dark_inverseOnSurface">#1A1C1E</color>
+    <color name="darkBlue_theme_no_background_dark_inverseSurface">#E3E2E6</color>
+    <color name="darkBlue_theme_no_background_dark_inversePrimary">#005EB4</color>
+    <color name="darkBlue_theme_no_background_dark_shadow">#000000</color>
+    <color name="darkBlue_theme_no_background_dark_surfaceTint">#A8C8FF</color>
+    <color name="darkBlue_theme_no_background_dark_surfaceTintColor">#A8C8FF</color>
 
 
     <!-- Цвет  в Hello Activity (Deleted)-->

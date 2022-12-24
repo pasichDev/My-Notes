@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:contentDescription="@string/search"
-                    android:onClick="@{View -> presenter.startSearchDialog()}"
+                    android:onClick="@{(view) -> presenter.startSearchDialog()}"
                     android:src="@drawable/ic_search" />
 
                 <TextView
@@ -86,7 +86,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:onClick="@{View -> presenter.startSearchDialog()}"
+                    android:onClick="@{(view) -> presenter.startSearchDialog()}"
                     android:padding="10dp"
                     android:text="@string/search"
                     android:textColor="?attr/colorOnSurfaceVariant"
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/sortHead"
-                    android:onClick="@{View -> presenter.sortButton()}"
+                    android:onClick="@{(view) -> presenter.sortButton()}"
                     android:src="@drawable/ic_sort" />
 
                 <ImageButton
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:contentDescription="@string/cd_format"
-                    android:onClick="@{View -> presenter.formatButton()}"
+                    android:onClick="@{(view) -> presenter.formatButton()}"
                     android:src="@drawable/ic_edit_format_list" />
 
 

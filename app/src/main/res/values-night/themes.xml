@@ -24,7 +24,7 @@
     </style>
 
     <!-- Theme Green no Background Dark -->
-    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="ThemeGreenNoBackground" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/green_theme_no_background_dark_primary</item>
         <item name="colorOnPrimary">@color/green_theme_no_background_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/green_theme_no_background_dark_primaryContainer
@@ -66,6 +66,64 @@
         <item name="colorSurfaceInverse">@color/green_theme_no_background_dark_inverseSurface</item>
         <item name="elevationOverlayColor">@color/green_theme_no_background_dark_surfaceTint</item>
         <item name="colorPrimaryInverse">@color/green_theme_no_background_dark_inversePrimary</item>
+        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <!-- Theme Dark_Blue no Background Light -->
+    <style name="ThemeDarkBlueNoBackground" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/darkBlue_theme_no_background_dark_primary</item>
+        <item name="colorOnPrimary">@color/darkBlue_theme_no_background_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">
+            @color/darkBlue_theme_no_background_dark_primaryContainer
+        </item>
+        <item name="colorOnPrimaryContainer">
+            @color/darkBlue_theme_no_background_dark_onPrimaryContainer
+        </item>
+        <item name="colorSecondary">@color/darkBlue_theme_no_background_dark_secondary</item>
+        <item name="colorOnSecondary">@color/darkBlue_theme_no_background_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">
+            @color/darkBlue_theme_no_background_dark_secondaryContainer
+        </item>
+        <item name="colorOnSecondaryContainer">
+            @color/darkBlue_theme_no_background_dark_onSecondaryContainer
+        </item>
+        <item name="colorTertiary">@color/darkBlue_theme_no_background_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/darkBlue_theme_no_background_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">
+            @color/darkBlue_theme_no_background_dark_tertiaryContainer
+        </item>
+        <item name="colorOnTertiaryContainer">
+            @color/darkBlue_theme_no_background_dark_onTertiaryContainer
+        </item>
+        <item name="colorError">@color/darkBlue_theme_no_background_dark_error</item>
+        <item name="colorErrorContainer">@color/darkBlue_theme_no_background_dark_errorContainer
+        </item>
+        <item name="colorOnError">@color/darkBlue_theme_no_background_dark_onError</item>
+        <item name="colorOnErrorContainer">
+            @color/darkBlue_theme_no_background_dark_onErrorContainer
+        </item>
+        <item name="android:colorBackground">@color/darkBlue_theme_no_background_dark_background
+        </item>
+        <item name="colorOnBackground">@color/darkBlue_theme_no_background_dark_onBackground</item>
+        <item name="colorSurface">@color/darkBlue_theme_no_background_dark_surface</item>
+        <item name="colorOnSurface">@color/darkBlue_theme_no_background_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/darkBlue_theme_no_background_dark_surfaceVariant
+        </item>
+        <item name="colorOnSurfaceVariant">
+            @color/darkBlue_theme_no_background_dark_onSurfaceVariant
+        </item>
+        <item name="colorOutline">@color/darkBlue_theme_no_background_dark_outline</item>
+        <item name="colorOnSurfaceInverse">
+            @color/darkBlue_theme_no_background_dark_inverseOnSurface
+        </item>
+        <item name="colorSurfaceInverse">@color/darkBlue_theme_no_background_dark_inverseSurface
+        </item>
+        <item name="elevationOverlayColor">@color/darkBlue_theme_no_background_dark_surfaceTint
+        </item>
+        <item name="colorPrimaryInverse">@color/darkBlue_theme_no_background_dark_inversePrimary
+        </item>
         <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
