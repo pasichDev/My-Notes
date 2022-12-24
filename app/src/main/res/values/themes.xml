@@ -73,25 +73,7 @@
         <item name="layout_dodgeInsetEdges">bottom</item>
         <item name="layout_scrollFlags">scroll|exitUntilCollapsed|enterAlwaysCollapsed</item>
     </style>
-
-    <style name="textTagAppearanceUncheck" parent="">
-        <item name="android:color">?attr/colorPrimary</item>
-    </style>
-
-    <style name="textTagAppearanceCheck" parent="">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-    </style>
-
-
-    <style name="tag_checked">
-        <item name="android:textColor">?attr/colorPrimaryContainer</item>
-    </style>
-
-    <style name="tag_unchecked">
-        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
-    </style>
-
-
+    
     <!-- Стиль кнопки восстановить в SnackBar -->
     <style name="snackbar_button" parent="Widget.Material3.Button.TextButton.Snackbar">
         <item name="android:textColor">?attr/colorPrimary</item>

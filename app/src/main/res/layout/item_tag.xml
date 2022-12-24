@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{tag.systemAction == 1 ? View.VISIBLE : View.GONE}"
-            android:textAppearance="@style/textTagAppearanceUncheck"
+            android:textColor="?attr/colorPrimary"
             android:textSize="20sp"
             android:contentDescription="@string/addTag"
             android:text="@string/plus"
