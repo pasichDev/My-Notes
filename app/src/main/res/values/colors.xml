@@ -5,6 +5,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
 
+    <color name="colorBackgroundSplash">#4996fd</color>
 
     <!-- Default ThemeColors-->
     <color name="seed">#4996fd</color>

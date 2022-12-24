@@ -1,5 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background, animated icon, and animation duration. -->
+        <item name="windowSplashScreenBackground">@color/colorBackgroundSplash</item>
+
+        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
+             animated drawable. One of these is required. -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <!-- Required for animated icons -->
+        <item name="windowSplashScreenAnimationDuration">500</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/DefaultThemeNew</item>
+    </style>
+
+
     <style name="DefaultThemeNew" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -46,12 +62,6 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
-
-    <!-- SplashStyle-->
-    <style name="ThemeBlueSplash" parent="DefaultThemeNew">
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
-    </style>
-
 
     <style name="fab_custom" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="android:backgroundTint">?attr/colorPrimary</item>
