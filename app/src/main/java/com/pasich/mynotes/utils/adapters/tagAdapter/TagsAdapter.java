@@ -1,5 +1,6 @@
 package com.pasich.mynotes.utils.adapters.tagAdapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Tag;
@@ -114,7 +116,10 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
     }
 
     private void editColorTextTag(Tag mTag, MaterialTextView textView) {
-        textView.setTextAppearance(mTag.getSelected() ? R.style.textTagAppearanceCheck : R.style.textTagAppearanceUncheck);
+        textView.setTextColor(
+                mTag.getSelected() ?
+                        MaterialColors.getColor(textView.getContext(), R.attr.colorOnPrimary, Color.WHITE) :
+                        MaterialColors.getColor(textView.getContext(), R.attr.colorPrimary, Color.BLUE));
 
     }
 

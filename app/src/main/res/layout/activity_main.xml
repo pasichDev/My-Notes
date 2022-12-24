@@ -91,7 +91,7 @@
                     android:padding="10dp"
                     android:text="@string/search"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     tools:ignore="SpUsage" />
 
                 <ImageButton
