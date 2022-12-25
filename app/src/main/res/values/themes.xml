@@ -25,9 +25,15 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
+    <!-- Base theme -->
+    <style name="themeBaseLight" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
 
     <!-- Theme Dark_Blue no Background Light -->
-    <style name="ThemeDarkBlueNoBackground" parent="Theme.Material3.Light.NoActionBar">
+    <style name="ThemeDarkBlueNoBackground" parent="@style/themeBaseLight">
         <item name="colorPrimary">@color/darkBlue_theme_no_background_light_primary</item>
         <item name="colorOnPrimary">@color/darkBlue_theme_no_background_light_onPrimary</item>
         <item name="colorPrimaryContainer">
@@ -79,15 +85,11 @@
         </item>
         <item name="colorPrimaryInverse">@color/darkBlue_theme_no_background_light_inversePrimary
         </item>
-        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-
     </style>
 
 
     <!-- Theme Green no Background Light -->
-    <style name="ThemeGreenNoBackground" parent="Theme.Material3.Light.NoActionBar">
+    <style name="ThemeGreenNoBackground" parent="@style/themeBaseLight">
         <item name="colorPrimary">@color/green_theme_no_background_light_primary</item>
         <item name="colorOnPrimary">@color/green_theme_no_background_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/green_theme_no_background_light_primaryContainer
@@ -134,10 +136,59 @@
         <item name="elevationOverlayColor">@color/green_theme_no_background_light_surfaceTint</item>
         <item name="colorPrimaryInverse">@color/green_theme_no_background_light_inversePrimary
         </item>
-        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
 
+
+    <style name="ThemeYellowNoBackground" parent="@style/themeBaseLight">
+        <item name="colorPrimary">@color/yellow_theme_no_background_light_primary</item>
+        <item name="colorOnPrimary">@color/yellow_theme_no_background_light_onPrimary</item>
+        <item name="colorPrimaryContainer">
+            @color/yellow_theme_no_background_light_primaryContainer
+        </item>
+        <item name="colorOnPrimaryContainer">
+            @color/yellow_theme_no_background_light_onPrimaryContainer
+        </item>
+        <item name="colorSecondary">@color/yellow_theme_no_background_light_secondary</item>
+        <item name="colorOnSecondary">@color/yellow_theme_no_background_light_onSecondary</item>
+        <item name="colorSecondaryContainer">
+            @color/yellow_theme_no_background_light_secondaryContainer
+        </item>
+        <item name="colorOnSecondaryContainer">
+            @color/yellow_theme_no_background_light_onSecondaryContainer
+        </item>
+        <item name="colorTertiary">@color/yellow_theme_no_background_light_tertiary</item>
+        <item name="colorOnTertiary">@color/yellow_theme_no_background_light_onTertiary</item>
+        <item name="colorTertiaryContainer">
+            @color/yellow_theme_no_background_light_tertiaryContainer
+        </item>
+        <item name="colorOnTertiaryContainer">
+            @color/yellow_theme_no_background_light_onTertiaryContainer
+        </item>
+        <item name="colorError">@color/yellow_theme_no_background_light_error</item>
+        <item name="colorErrorContainer">@color/yellow_theme_no_background_light_errorContainer
+        </item>
+        <item name="colorOnError">@color/yellow_theme_no_background_light_onError</item>
+        <item name="colorOnErrorContainer">
+            @color/yellow_theme_no_background_light_onErrorContainer
+        </item>
+        <item name="android:colorBackground">@color/yellow_theme_no_background_light_background
+        </item>
+        <item name="colorOnBackground">@color/yellow_theme_no_background_light_onBackground</item>
+        <item name="colorSurface">@color/yellow_theme_no_background_light_surface</item>
+        <item name="colorOnSurface">@color/yellow_theme_no_background_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/yellow_theme_no_background_light_surfaceVariant
+        </item>
+        <item name="colorOnSurfaceVariant">
+            @color/yellow_theme_no_background_light_onSurfaceVariant
+        </item>
+        <item name="colorOutline">@color/yellow_theme_no_background_light_outline</item>
+        <item name="colorOnSurfaceInverse">
+            @color/yellow_theme_no_background_light_inverseOnSurface
+        </item>
+        <item name="colorSurfaceInverse">@color/yellow_theme_no_background_light_inverseSurface
+        </item>
+        <item name="colorPrimaryInverse">@color/yellow_theme_no_background_light_inversePrimary
+        </item>
     </style>
 
     <style name="fab_custom" parent="Widget.Material3.FloatingActionButton.Primary">
