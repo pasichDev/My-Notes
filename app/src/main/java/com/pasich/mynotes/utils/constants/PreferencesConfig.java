@@ -13,4 +13,7 @@ public class PreferencesConfig {
     //FormatPrefix
     public static final String ARGUMENT_PREFERENCE_FORMAT = "formatParam";
     public static final int ARGUMENT_DEFAULT_FORMAT_VALUE = 1;
+    //THEME
+    public static final String ARGUMENT_PREFERENCE_THEME = "appTheme";
+    public static final int ARGUMENT_DEFAULT_THEME_VALUE = 0;
 }

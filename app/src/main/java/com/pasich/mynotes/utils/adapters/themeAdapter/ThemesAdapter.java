@@ -22,18 +22,22 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
     private final ArrayList<Theme> themes;
     private final Context context;
-    private final Theme Theme_DEFAULT = new Theme(R.drawable.theme_default, 0);
-    private final int PAYLOAD_SET_SELECTED = 44;
+    private final Theme Theme_DEFAULT = new Theme(R.drawable.theme_default, 0, R.style.themeBaseLight);
+    private final int PAYLOAD_SET_SELECTED = 44, selectThemeUser;
     private SelectThemesListener selectThemesListener;
     private Theme mSelectTheme;
     private boolean oneCheckedAll = false;
 
 
-    public ThemesAdapter(Context context, ArrayList<Theme> list) {
+    public ThemesAdapter(Context context, ArrayList<Theme> list, int idSelectThemeUser) {
         this.themes = list;
         this.context = context;
+        this.selectThemeUser = idSelectThemeUser;
     }
 
+    public ArrayList<Theme> getThemes() {
+        return themes;
+    }
 
     public void setSelectLabelListener(SelectThemesListener selectLabelListener) {
         this.selectThemesListener = selectLabelListener;
@@ -76,7 +80,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ThemesAdapter.ViewHolder holder, int position) {
         Theme theme = themes.get(position);
-        if (!oneCheckedAll && theme.getId() == 0) {
+        if (!oneCheckedAll && theme.getId() == selectThemeUser) {
             mSelectTheme = theme.setCheckReturn(true);
             oneCheckedAll = true;
         }
@@ -91,16 +95,36 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads);
         } else {
-            if (payloads.contains(PAYLOAD_SET_SELECTED)) setCheckView(holder, themes.get(position));
+            if (payloads.contains(PAYLOAD_SET_SELECTED)) {
+                setCheckView(holder, themes.get(position));
+            }
         }
     }
 
 
     private void setCheckView(ThemesAdapter.ViewHolder holder, Theme theme) {
         if (theme.isCheck()) {
-            holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check));
+            setCheckThemeViewToTheme(holder, theme);
         } else {
             holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_uncheck));
+        }
+    }
+
+
+    private void setCheckThemeViewToTheme(ThemesAdapter.ViewHolder holder, Theme theme) {
+        switch (theme.getId()) {
+            case 0:
+                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_green));
+                break;
+            case 1:
+                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_blue));
+                break;
+            case 2:
+                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_yellow));
+                break;
+            default:
+                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check));
+                break;
         }
     }
 

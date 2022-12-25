@@ -1,21 +1,24 @@
 package com.pasich.mynotes.ui.view.activity;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.database.model.Theme;
 import com.pasich.mynotes.databinding.ActivityThemeBinding;
+import com.pasich.mynotes.utils.ThemesArray;
 import com.pasich.mynotes.utils.adapters.themeAdapter.ThemesAdapter;
+import com.pasich.mynotes.utils.constants.PreferencesConfig;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
+import com.preference.PowerPreference;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -35,11 +38,21 @@ public class ThemeActivity extends BaseActivity {
         setSupportActionBar(activityThemeBinding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setListThemes();
+        initFunctions();
     }
 
 
+    private void initFunctions() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            activityThemeBinding.dynamicColor.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void setListThemes() {
-        mAdapter = new ThemesAdapter(this, getThemes());
+        mAdapter = new ThemesAdapter(this,
+                new ThemesArray().getThemes(),
+                PowerPreference.getDefaultFile()
+                        .getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE));
         activityThemeBinding.themes.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         activityThemeBinding.themes.addItemDecoration(new SpacesItemDecoration(10));
         activityThemeBinding.themes.setAdapter(mAdapter);
@@ -47,14 +60,7 @@ public class ThemeActivity extends BaseActivity {
     }
 
 
-    private ArrayList<Theme> getThemes() {
-        ArrayList<Theme> labels = new ArrayList<>();
-        // labels.add(new Theme(R.drawable.theme_default, 0));
-        labels.add(new Theme(R.drawable.ic_theme_green, 1));
-        labels.add(new Theme(R.drawable.ic_theme_darkblue, 2));
-        labels.add(new Theme(R.drawable.ic_theme_yellow, 3));
-        return labels;
-    }
+
 
 
     @Override
@@ -82,6 +88,11 @@ public class ThemeActivity extends BaseActivity {
     public void initListeners() {
         mAdapter.setSelectLabelListener(position -> {
             mAdapter.selectTheme(position);
+            PowerPreference.getDefaultFile()
+                    .setInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME,
+                            mAdapter.getThemes().get(position).getId());
         });
     }
+
+
 }
