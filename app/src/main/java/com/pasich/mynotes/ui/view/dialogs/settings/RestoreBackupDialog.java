@@ -125,4 +125,9 @@ public class RestoreBackupDialog extends BaseDialogBottomSheets {
         binding.openArchive.setOnClickListener(v -> openArchiveBackupIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/zip")));
 
     }
+
+    @Override
+    public void redrawActivity() {
+
+    }
 }

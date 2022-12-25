@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.settings;
+package com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog;
 
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_HOW_TO_USE;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_PRIVACY_POLICY;
@@ -16,12 +16,19 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
-import com.pasich.mynotes.ui.view.activity.ThemeActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
+import com.pasich.mynotes.ui.view.dialogs.settings.FeedbackDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.RestoreBackupDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.WhatUpdateDialog;
 
 public class AboutDialog extends DialogFragment {
 
     private DialogAboutActivityBinding binding;
+    private final AboutOpensActivity aboutOpensActivity;
+
+    public AboutDialog(AboutOpensActivity aboutOpensActivity) {
+        this.aboutOpensActivity = aboutOpensActivity;
+    }
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,7 +49,7 @@ public class AboutDialog extends DialogFragment {
         });
 
         binding.themeApp.setOnClickListener(v -> {
-            startActivity(new Intent(requireActivity(), ThemeActivity.class));
+            aboutOpensActivity.openThemeActivity();
             dismiss();
         });
 

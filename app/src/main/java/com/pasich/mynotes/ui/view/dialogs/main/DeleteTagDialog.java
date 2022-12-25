@@ -78,6 +78,11 @@ public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTag
     }
 
     @Override
+    public void redrawActivity() {
+
+    }
+
+    @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         mPresenter.detachView();

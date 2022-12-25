@@ -16,4 +16,7 @@ public class PreferencesConfig {
     //THEME
     public static final String ARGUMENT_PREFERENCE_THEME = "appTheme";
     public static final int ARGUMENT_DEFAULT_THEME_VALUE = 0;
+    //DynamicColors
+    public static final String ARGUMENT_PREFERENCE_DYNAMIC_COLOR = "dynamicColorEnable";
+    public static final boolean ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE = false;
 }

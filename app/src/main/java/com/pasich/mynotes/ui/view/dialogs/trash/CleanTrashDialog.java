@@ -54,6 +54,11 @@ public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTra
     }
 
     @Override
+    public void redrawActivity() {
+
+    }
+
+    @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         presenter.detachView();

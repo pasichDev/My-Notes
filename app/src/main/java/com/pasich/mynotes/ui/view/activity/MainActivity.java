@@ -1,19 +1,25 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
@@ -30,7 +36,8 @@ import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.popupWindowsTag.PopupWindowsTag;
 import com.pasich.mynotes.ui.view.dialogs.popupWindowsTag.PopupWindowsTagOnClickListener;
-import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutOpensActivity;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
@@ -40,9 +47,12 @@ import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
+import com.pasich.mynotes.utils.constants.PreferencesConfig;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.SwipeToListNotesCallback;
+import com.pasich.mynotes.utils.themesUtils.ThemesArray;
 import com.pasich.mynotes.utils.tool.FormatListTool;
+import com.preference.PowerPreference;
 
 import java.util.List;
 
@@ -79,7 +89,16 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public SpacesItemDecoration itemDecorationNotes;
 
     private Note backupDeleteNote;
+    ActivityResultLauncher<Intent> startThemeActivity =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        Intent data = result.getData();
+                        if (result.getResultCode() == 11) {
+                            this.redrawActivity();
+                        }
 
+                    });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -291,7 +310,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void moreActivity() {
         if (getAction()) actionUtils.closeActionPanel();
-        new AboutDialog().show(getSupportFragmentManager(), "MoreActivity");
+        new AboutDialog(new AboutOpensActivity() {
+            @Override
+            protected void openThemeActivity() {
+                startThemeActivity.launch(new Intent(MainActivity.this, ThemeActivity.class));
+            }
+        }).show(getSupportFragmentManager(), "MoreActivity");
     }
 
     @Override
@@ -431,5 +455,25 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void shortCutDouble() {
         onError(getString(R.string.shortCutCreateFallDouble), mActivityBinding.newNotesButton);
+    }
+
+    @Override
+    public void redrawActivity() {
+        super.redrawActivity();
+        int themeStyle = new ThemesArray().getThemeStyle(PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE));
+
+        setTheme(themeStyle);
+        recreate();
+
+        int colorPrimary = MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY);
+        int colorOnPrimary = MaterialColors.getColor(this, R.attr.colorOnPrimary, Color.GRAY);
+        int colorOnBackground = MaterialColors.getColor(this, R.attr.colorOnBackground, Color.GRAY);
+        int colorBackground = MaterialColors.getColor(this, android.R.attr.colorBackground, Color.GRAY);
+
+
+        mActivityBinding.activityMain.setBackgroundColor(colorBackground);
+
+        Log.wtf(TAG, "redrawActivity: adjuse ");
+        //mActivityBinding.newNotesButton.setBackgroundTi(colorPrimary);
     }
 }

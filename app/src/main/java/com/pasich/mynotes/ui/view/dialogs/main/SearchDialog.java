@@ -93,6 +93,11 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
 
     }
 
+    @Override
+    public void redrawActivity() {
+
+    }
+
 
     private void filter(String text, List<Note> allNotes) {
         ArrayList<Note> newFilter = new ArrayList<>();

@@ -10,6 +10,7 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
@@ -19,7 +20,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-
+@PerActivity
 public class MainPresenter extends AppBasePresenter<MainContract.view> implements MainContract.presenter {
 
 

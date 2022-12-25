@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.utils.themesUtils;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Theme;
