@@ -5,11 +5,12 @@ import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.ActionBar;
 import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
+import com.pasich.mynotes.base.view.ShortCutView;
 import com.pasich.mynotes.data.database.model.Note;
 
 public interface NoteContract {
 
-    interface view extends BaseView, ActionBar, MoreNoteNoteActivityView {
+    interface view extends BaseView, ActionBar, MoreNoteNoteActivityView, ShortCutView {
 
         void initParam();
 
