@@ -17,7 +17,6 @@ public class RoutingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
-
         super.onCreate(savedInstanceState);
 
         splashScreen.setKeepOnScreenCondition(() -> true);
