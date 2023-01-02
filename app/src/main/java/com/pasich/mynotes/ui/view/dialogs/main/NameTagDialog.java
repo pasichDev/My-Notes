@@ -101,10 +101,7 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
         });
     }
 
-    @Override
-    public void redrawActivity() {
 
-    }
 
     private void validateText(int length) {
         if (length >= MAX_NAME_TAG + 1) {

@@ -1,10 +1,14 @@
 package com.pasich.mynotes.ui.view.activity;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +37,7 @@ public class ThemeActivity extends BaseActivity {
     public ActivityThemeBinding activityThemeBinding;
     private ThemesAdapter mAdapter;
     private int themeIdStartActivity;
+    private boolean enableDynamic, themeDynamicStartActivity;
 
 
     @Override
@@ -40,7 +45,8 @@ public class ThemeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getActivityComponent().inject(this);
         themeIdStartActivity = PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE);
-
+        enableDynamic = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
+        themeDynamicStartActivity = enableDynamic;
         setSupportActionBar(activityThemeBinding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setListThemes();
@@ -88,8 +94,14 @@ public class ThemeActivity extends BaseActivity {
 
     private void finishActivity() {
         Theme mTheme = mAdapter.getSelectTheme();
+        boolean enableDynamicColor = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
+
+
         if (themeIdStartActivity != mTheme.getId()) {
-            setResult(11, new Intent().putExtra("updateThemeId", mAdapter.getSelectTheme().getId()));
+            setResult(11, new Intent().putExtra("updateThemeStyle", mAdapter.getSelectTheme().getTHEME_STYLE()));
+        }
+        if (themeDynamicStartActivity != enableDynamicColor) {
+            setResult(11, new Intent().putExtra("updateThemeStyle", R.style.AppThemeDynamic));
         }
         finish();
     }
@@ -97,25 +109,41 @@ public class ThemeActivity extends BaseActivity {
     @Override
     public void initListeners() {
         mAdapter.setSelectLabelListener(position -> {
-            Theme theme = mAdapter.getThemes().get(position);
-            mAdapter.selectTheme(position);
-            PowerPreference.getDefaultFile().setInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, theme.getId());
-            redrawActivity(theme);
+            if (!enableDynamic) {
+                Theme theme = mAdapter.getThemes().get(position);
+
+                Log.wtf(TAG, "initListeners: " + theme.getId());
+                mAdapter.selectTheme(position);
+                PowerPreference.getDefaultFile().setInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, theme.getId());
+                redrawActivity(theme.getTHEME_STYLE());
+            }
         });
-        activityThemeBinding.dynamicColor.setOnCheckedChangeListener((buttonView, isChecked) -> PowerPreference.getDefaultFile().setBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, isChecked));
+        activityThemeBinding.dynamicColor.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) redrawActivity(R.style.AppThemeDynamic);
+            PowerPreference.getDefaultFile().setBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, isChecked);
+            enableDynamic = isChecked;
+        });
     }
 
 
-    private void redrawActivity(Theme mTheme) {
+    public void redrawActivity(int themeStyle) {
+        super.redrawActivity(themeStyle);
         //install theme
-        setTheme(mTheme.getTHEME_STYLE());
+        setTheme(themeStyle);
         int colorOnBackground = MaterialColors.getColor(this, R.attr.colorOnBackground, Color.GRAY);
-        int colorBackground = MaterialColors.getColor(this, android.R.attr.colorBackground, Color.GRAY);
-        activityThemeBinding.activityTheme.setBackgroundColor(colorBackground);
+        activityThemeBinding.activityTheme.setBackgroundColor(MaterialColors.getColor(this, android.R.attr.colorBackground, Color.GRAY));
         activityThemeBinding.titleTheme.setTextColor(colorOnBackground);
         activityThemeBinding.titleFunc.setTextColor(colorOnBackground);
+        // materialSwitch
+        activityThemeBinding.dynamicColor.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorTertiary, Color.GRAY)));
+        activityThemeBinding.dynamicColor.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
+
+        // color navigation panel
+        getWindow().setNavigationBarColor(MaterialColors.getColor(this, R.attr.colorPrimaryInverse, Color.GRAY));
 
 
+        //test
+        activityThemeBinding.testscheck.setBackgroundColor(MaterialColors.getColor(this, android.R.attr.colorPrimary, Color.GRAY));
     }
 
 }

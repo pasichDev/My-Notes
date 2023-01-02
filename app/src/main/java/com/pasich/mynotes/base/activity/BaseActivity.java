@@ -91,10 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         snackbar.show();
     }
 
-    @Override
-    public void redrawActivity() {
 
-    }
 
     public ActivityComponent getActivityComponent() {
         return activityComponent;

@@ -5,7 +5,6 @@ import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
@@ -47,12 +45,9 @@ import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
-import com.pasich.mynotes.utils.constants.PreferencesConfig;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.SwipeToListNotesCallback;
-import com.pasich.mynotes.utils.themesUtils.ThemesArray;
 import com.pasich.mynotes.utils.tool.FormatListTool;
-import com.preference.PowerPreference;
 
 import java.util.List;
 
@@ -95,7 +90,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                     result -> {
                         Intent data = result.getData();
                         if (result.getResultCode() == 11) {
-                            this.redrawActivity();
+                            assert data != null;
+                            this.redrawActivity(data.getIntExtra("updateThemeStyle", 0));
                         }
 
                     });
@@ -458,20 +454,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
-    public void redrawActivity() {
-        super.redrawActivity();
-        int themeStyle = new ThemesArray().getThemeStyle(PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE));
-
+    public void redrawActivity(int themeStyle) {
+        super.redrawActivity(themeStyle);
         setTheme(themeStyle);
         recreate();
-
-        int colorPrimary = MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY);
-        int colorOnPrimary = MaterialColors.getColor(this, R.attr.colorOnPrimary, Color.GRAY);
-        int colorOnBackground = MaterialColors.getColor(this, R.attr.colorOnBackground, Color.GRAY);
-        int colorBackground = MaterialColors.getColor(this, android.R.attr.colorBackground, Color.GRAY);
-
-
-        mActivityBinding.activityMain.setBackgroundColor(colorBackground);
 
         Log.wtf(TAG, "redrawActivity: adjuse ");
         //mActivityBinding.newNotesButton.setBackgroundTi(colorPrimary);

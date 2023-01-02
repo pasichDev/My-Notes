@@ -213,10 +213,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
     }
 
-    @Override
-    public void redrawActivity() {
 
-    }
 
     private void initTranslate() {
         PackageInfo pi = null;

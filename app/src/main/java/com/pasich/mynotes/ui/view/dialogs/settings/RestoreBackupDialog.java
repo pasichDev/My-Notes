@@ -126,8 +126,5 @@ public class RestoreBackupDialog extends BaseDialogBottomSheets {
 
     }
 
-    @Override
-    public void redrawActivity() {
 
-    }
 }

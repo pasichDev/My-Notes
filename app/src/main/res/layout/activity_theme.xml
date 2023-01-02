@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|start"
                 android:padding="6dp"
-                android:text="@string/thema" />
+                android:text="@string/themes" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/themes"
@@ -49,6 +49,14 @@
                 android:layout_height="wrap_content"
                 android:overScrollMode="never" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/testscheck"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"
