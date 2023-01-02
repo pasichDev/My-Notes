@@ -113,13 +113,13 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
     private void setCheckThemeViewToTheme(ThemesAdapter.ViewHolder holder, Theme theme) {
         switch (theme.getId()) {
-            case 0:
+            case 1:
                 holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_green));
                 break;
-            case 1:
+            case 2:
                 holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_blue));
                 break;
-            case 2:
+            case 3:
                 holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_yellow));
                 break;
             default:

@@ -10,9 +10,9 @@ public class ThemesArray {
     private final ArrayList<Theme> themes = new ArrayList<>();
 
     private void initialThemes() {
-        themes.add(new Theme(R.drawable.ic_theme_green, 0, R.style.ThemeGreenNoBackground));
-        themes.add(new Theme(R.drawable.ic_theme_darkblue, 1, R.style.ThemeDarkBlueNoBackground));
-        themes.add(new Theme(R.drawable.ic_theme_yellow, 2, R.style.ThemeYellowNoBackground));
+        themes.add(new Theme(R.drawable.ic_theme_green, 1, R.style.ThemeGreenNoBackground));
+        themes.add(new Theme(R.drawable.ic_theme_darkblue, 2, R.style.ThemeDarkBlueNoBackground));
+        themes.add(new Theme(R.drawable.ic_theme_yellow, 3, R.style.ThemeYellowNoBackground));
     }
 
     public ArrayList<Theme> getThemes() {

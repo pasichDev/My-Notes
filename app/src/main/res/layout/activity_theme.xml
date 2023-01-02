@@ -51,14 +51,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/testscheck"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="vertical" />
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"

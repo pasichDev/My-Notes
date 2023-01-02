@@ -141,4 +141,5 @@
     <string name="themes" translatable="false">Темы</string>
     <string name="functional" translatable="false">Функции</string>
     <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
+    <string name="subtitleDynamicColorSwitch" translatable="false">Если Dynamic Color активировано, то вы не можете использовать тему приложения</string>
 </resources>
