@@ -19,12 +19,8 @@
             android:src="@drawable/ic_trash" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/paddingItems"
-            android:text="@string/trashDeleteNotes"
-            android:textSize="@dimen/textSizeItems" />
+            style="@style/itemTextBottomSheets"
+            android:text="@string/trashDeleteNotes" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,12 +37,8 @@
             android:src="@drawable/ic_theme" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/paddingItems"
-            android:text="@string/settingsInterface"
-            android:textSize="@dimen/textSizeItems" />
+            style="@style/itemTextBottomSheets"
+            android:text="@string/settingsInterface" />
     </LinearLayout>
 
 
@@ -64,12 +56,8 @@
             android:src="@drawable/ic_restore_old" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/paddingItems"
-            android:text="@string/restoreOldBackups"
-            android:textSize="@dimen/textSizeItems" />
+            style="@style/itemTextBottomSheets"
+            android:text="@string/restoreOldBackups" />
     </LinearLayout>
 
     <LinearLayout
@@ -86,12 +74,8 @@
             android:src="@drawable/ic_share" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/paddingItems"
-            android:text="@string/shareApp"
-            android:textSize="@dimen/textSizeItems" />
+            style="@style/itemTextBottomSheets"
+            android:text="@string/shareApp" />
     </LinearLayout>
 
     <LinearLayout
@@ -108,12 +92,8 @@
             android:src="@drawable/ic_like_rating" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/paddingItems"
-            android:text="@string/ratingApp"
-            android:textSize="@dimen/textSizeItems" />
+            style="@style/itemTextBottomSheets"
+            android:text="@string/ratingApp" />
 
     </LinearLayout>
 
@@ -131,12 +111,9 @@
             android:src="@drawable/ic_feedback" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            style="@style/itemTextBottomSheets"
             android:padding="@dimen/paddingItems"
-            android:text="@string/settingsTitleContacts"
-            android:textSize="@dimen/textSizeItems" />
+            android:text="@string/settingsTitleContacts" />
 
     </LinearLayout>
 
@@ -155,12 +132,8 @@
             android:src="@drawable/ic_about_dialog" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/paddingItems"
-            android:text="@string/whatUpdate"
-            android:textSize="@dimen/textSizeItems" />
+            style="@style/itemTextBottomSheets"
+            android:text="@string/whatUpdate" />
     </LinearLayout>
 
 

@@ -39,6 +39,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="20dp"
+                    android:textColor="?attr/colorOnSurface"
                     android:gravity="center"
                     android:text="@string/restoreBackupMessages"
                     android:textSize="@dimen/textSizeDialog" />
@@ -51,6 +52,7 @@
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
+                    android:textColor="?attr/colorOnSurface"
                     android:text="@string/restoreBackupMessageTwo"
                     android:textSize="@dimen/textSizeDialog"
                     android:textStyle="bold" />

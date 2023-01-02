@@ -64,12 +64,8 @@
                         android:src="@drawable/ic_check_box" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="@dimen/paddingItems"
-                        android:text="@string/selectAll"
-                        android:textSize="@dimen/textSizeItems" />
+                        style="@style/itemTextBottomSheets"
+                        android:text="@string/selectAll" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -86,13 +82,9 @@
                 android:contentDescription="@string/share"
                 android:src="@drawable/ic_share" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/paddingItems"
-                android:text="@string/share"
-                android:textSize="@dimen/textSizeItems" />
+                    <TextView
+                        style="@style/itemTextBottomSheets"
+                        android:text="@string/share" />
 
         </LinearLayout>
 
@@ -111,12 +103,8 @@
                 android:src="@drawable/ic_label" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/paddingItems"
-                android:text="@string/addShortCutLauncher"
-                android:textSize="@dimen/textSizeItems" />
+                style="@style/itemTextBottomSheets"
+                android:text="@string/addShortCutLauncher" />
         </LinearLayout>
 
                 <LinearLayout
@@ -134,12 +122,8 @@
                         android:src="@drawable/ic_translate" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                android:padding="@dimen/paddingItems"
-                android:text="@string/translateNote"
-                android:textSize="@dimen/textSizeItems" />
+                        style="@style/itemTextBottomSheets"
+                        android:text="@string/translateNote" />
 
         </LinearLayout>
 
@@ -158,12 +142,8 @@
                         android:src="@drawable/ic_copy" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="@dimen/paddingItems"
-                        android:text="@string/copyNoteEdits"
-                        android:textSize="@dimen/textSizeItems" />
+                        style="@style/itemTextBottomSheets"
+                        android:text="@string/copyNoteEdits" />
                 </LinearLayout>
 
 
@@ -181,13 +161,9 @@
                     android:contentDescription="@string/trashNotes"
                     android:src="@drawable/ic_delete_note" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:padding="@dimen/paddingItems"
-                    android:text="@string/trashNotes"
-                    android:textSize="@dimen/textSizeItems" />
+                    <TextView
+                        style="@style/itemTextBottomSheets"
+                        android:text="@string/trashNotes" />
         </LinearLayout>
 
 
@@ -206,12 +182,8 @@
                     android:src="@drawable/ic_close_search_view" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:padding="@dimen/paddingItems"
-                    android:text="@string/noSave"
-                    android:textSize="@dimen/textSizeItems" />
+                    style="@style/itemTextBottomSheets"
+                    android:text="@string/noSave" />
             </LinearLayout>
 
 

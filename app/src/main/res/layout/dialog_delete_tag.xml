@@ -29,12 +29,8 @@
                 android:src="@drawable/ic_tag_delete" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/paddingItems"
-                android:text="@string/deleteTag"
-                android:textSize="@dimen/textSizeItems" />
+                style="@style/itemTextBottomSheets"
+                android:text="@string/deleteTag" />
         </LinearLayout>
 
 
@@ -53,12 +49,8 @@
                 android:src="@drawable/ic_delete_notes_tag" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/paddingItems"
-                android:text="@string/deleteTagAndNotes"
-                android:textSize="@dimen/textSizeItems" />
+                style="@style/itemTextBottomSheets"
+                android:text="@string/deleteTagAndNotes" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,12 +67,8 @@
                 android:src="@drawable/ic_close_search_view" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/paddingItems"
-                android:text="@string/cancel"
-                android:textSize="@dimen/textSizeItems" />
+                style="@style/itemTextBottomSheets"
+                android:text="@string/cancel" />
 
         </LinearLayout>
 
