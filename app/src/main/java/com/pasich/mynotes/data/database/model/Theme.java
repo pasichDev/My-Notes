@@ -6,12 +6,14 @@ public class Theme {
     private boolean check;
     private final int THEME_ID;
     private final int THEME_STYLE;
+    private final int demoLogo;
 
-    public Theme(int Image, int theme_id, int theme_style) {
+    public Theme(int Image, int theme_id, int theme_style, int demoLogo) {
         this.Image = Image;
         this.check = false;
         this.THEME_ID = theme_id;
         this.THEME_STYLE = theme_style;
+        this.demoLogo = demoLogo;
     }
 
     public int getTHEME_STYLE() {
@@ -28,6 +30,10 @@ public class Theme {
 
     public boolean isCheck() {
         return check;
+    }
+
+    public int getDemoLogo() {
+        return demoLogo;
     }
 
     public Theme setCheckReturn(boolean check) {

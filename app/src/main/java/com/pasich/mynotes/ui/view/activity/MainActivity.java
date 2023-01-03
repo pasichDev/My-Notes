@@ -121,9 +121,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mainPresenter.detachView();
-        variablesNull();
-
+        if (isDestroyed()) {
+            mainPresenter.detachView();
+            variablesNull();
+        }
     }
 
 

@@ -33,14 +33,30 @@
             android:layout_marginHorizontal="20dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/titleTheme"
-                style="@style/paragraphText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start"
-                android:padding="6dp"
-                android:text="@string/themes" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/titleTheme"
+                    style="@style/paragraphText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:padding="6dp"
+                    android:text="@string/themes" />
+
+                <TextView
+                    android:id="@+id/countThemes"
+                    style="@style/paragraphText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:textSize="14sp"
+                    android:padding="6dp"
+                    android:text="@string/null_lit" />
+            </FrameLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/themes"

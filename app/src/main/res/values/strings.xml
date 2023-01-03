@@ -124,7 +124,7 @@
     <string name="interpunct" translatable="false">·</string>
     <string name="theme_demo" translatable="false">Demo Screen Theme</string>
     <string name="editNoteButton" translatable="false">EditNote</string>
-
+    <string name="null_lit" translatable="false">0</string>
 
     <string name="hiddeTag">Hide notes</string>
     <string name="visibleTag">Show notes</string>
@@ -142,4 +142,5 @@
     <string name="functional" translatable="false">Функции</string>
     <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
     <string name="subtitleDynamicColorSwitch" translatable="false">Если Dynamic Color активировано, то вы не можете использовать тему приложения</string>
+
 </resources>

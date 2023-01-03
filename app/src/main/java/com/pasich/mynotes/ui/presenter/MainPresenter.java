@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
+import static android.service.controls.ControlsProviderService.TAG;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.util.Log;
@@ -27,6 +28,7 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
     @Inject
     public MainPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
+        Log.wtf(TAG, "MainPresenter: restart");
     }
 
     @Override

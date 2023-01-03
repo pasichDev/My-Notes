@@ -22,7 +22,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
     private final ArrayList<Theme> themes;
     private final Context context;
-    private final Theme Theme_DEFAULT = new Theme(R.drawable.theme_default, 0, R.style.themeBaseLight);
+    private final Theme Theme_DEFAULT = new Theme(R.drawable.ic_theme_darkblue, 0, R.style.ThemeDarkBlueNoBackground, R.drawable.item_theme_check_blue);
     private final int PAYLOAD_SET_SELECTED = 44, selectThemeUser;
     private SelectThemesListener selectThemesListener;
     private Theme mSelectTheme;
@@ -104,7 +104,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
     private void setCheckView(ThemesAdapter.ViewHolder holder, Theme theme) {
         if (theme.isCheck()) {
-            setCheckThemeViewToTheme(holder, theme);
+            holder.item_theme.setBackground(AppCompatResources.getDrawable(context, theme.getDemoLogo()));
         } else {
             holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_uncheck));
         }
@@ -114,13 +114,13 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
     private void setCheckThemeViewToTheme(ThemesAdapter.ViewHolder holder, Theme theme) {
         switch (theme.getId()) {
             case 1:
-                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_green));
+                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, theme.getDemoLogo()));
                 break;
             case 2:
-                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_blue));
+                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, theme.getDemoLogo()));
                 break;
             case 3:
-                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check_yellow));
+                holder.item_theme.setBackground(AppCompatResources.getDrawable(context, theme.getDemoLogo()));
                 break;
             default:
                 holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_check));

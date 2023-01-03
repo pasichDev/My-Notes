@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -66,19 +67,23 @@ public class ChooseSortDialog extends DialogFragment {
             case "DataSort":
                 binding.DataSort.setBackgroundColor(colorBackground);
                 binding.DataSortText.setTextColor(colorText);
+                binding.DataSortCheck.setVisibility(View.VISIBLE);
                 break;
             case "DataReserve":
                 binding.DataReserve.setBackgroundColor(colorBackground);
                 binding.DataReserveText.setTextColor(colorText);
+                binding.DataReserveCheck.setVisibility(View.VISIBLE);
                 break;
             case "TitleSort":
                 binding.TitleSort.setBackgroundColor(colorBackground);
                 binding.TitleSortText.setTextColor(colorText);
+                binding.TitleSortCheck.setVisibility(View.VISIBLE);
 
                 break;
             case "TitleReserve":
                 binding.TitleReserve.setBackgroundColor(colorBackground);
                 binding.TitleReserveText.setTextColor(colorText);
+                binding.TitleReserveCheck.setVisibility(View.VISIBLE);
 
                 break;
         }

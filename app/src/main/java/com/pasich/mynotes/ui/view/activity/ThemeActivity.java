@@ -58,7 +58,7 @@ public class ThemeActivity extends BaseActivity {
         }
         activityThemeBinding.dynamicColor.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
         activityThemeBinding.dynamicColor.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
-
+        activityThemeBinding.countThemes.setText(String.valueOf(new ThemesArray().getThemes().size()));
     }
 
     private void setListThemes() {
