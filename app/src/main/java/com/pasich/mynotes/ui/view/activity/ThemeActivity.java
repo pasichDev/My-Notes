@@ -58,6 +58,9 @@ public class ThemeActivity extends BaseActivity {
         }
         activityThemeBinding.dynamicColor.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
         activityThemeBinding.dynamicColor.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
+        activityThemeBinding.tagEnable.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
+        activityThemeBinding.tagEnable.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
+
         activityThemeBinding.countThemes.setText(String.valueOf(new ThemesArray().getThemes().size()));
     }
 
@@ -140,6 +143,8 @@ public class ThemeActivity extends BaseActivity {
         // materialSwitch
         activityThemeBinding.dynamicColor.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
         activityThemeBinding.dynamicColor.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
+        activityThemeBinding.tagEnable.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
+        activityThemeBinding.tagEnable.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
 
         // color navigation panel
         getWindow().setNavigationBarColor(MaterialColors.getColor(this, R.attr.colorPrimaryInverse, Color.GRAY));
