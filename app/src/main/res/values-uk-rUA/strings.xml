@@ -8,17 +8,11 @@
     <string name="share">Поділитися</string>
     <string name="yesCleanTrash">Так, очистити</string>
     <string name="cancel">Відмінити</string>
-    <string name="whatUpdate">Що нового?</string>
     <string name="notes">Нотатки</string>
     <string name="noSave">Закрити без збереження</string>
-    <string name="infoAppPrefences">Про додаток</string>
     <string name="ratingApp">Оцінити додаток</string>
     <string name="exitWhat">Для виходу потрібно повторити дію</string>
 
-    <string name="updateNowM">- Виправлено дрібні помилки та зроблено оптимізацію.  \n
-- Додано розширене вікно для створення ярлика. \n
-- Додано можливість перейменувати тег. \n
-- Дрібні виправлення у дизайні.</string>
     <string name="telegram">Відкрити контакти розробника</string>
     <string name="error">Помилка</string>
     <string name="notSupportedShare">Цей вміст не підтримується.</string>

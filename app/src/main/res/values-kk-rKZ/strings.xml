@@ -8,17 +8,11 @@
     <string name="share">Бөлісу</string>
     <string name="yesCleanTrash">Иә, тазалаңыз</string>
     <string name="cancel">Болдырмау</string>
-    <string name="whatUpdate">Не жаңалық?</string>
     <string name="notes">Ескертпелер</string>
     <string name="noSave">Сақтамай жабу</string>
-    <string name="infoAppPrefences">Қолданба туралы</string>
     <string name="ratingApp">Қолданбаны бағалау</string>
     <string name="exitWhat">Шығу үшін әрекетті қайталау керек</string>
 
-    <string name="updateNowM">- Кішігірім қателер түзетілді және оңтайландырулар жасалды. \n
-- Жарлық жасау үшін кеңейтілген терезе қосылды. \n
-- Белгінің атын өзгерту мүмкіндігі қосылды. \n
-- Шағын дизайн түзетулері.</string>
     <string name="telegram">Әзірлеуші ​​контактілерін ашыңыз</string>
     <string name="error">Қате</string>
     <string name="notSupportedShare">Бұл мазмұнға қолдау көрсетілмейді.</string>

@@ -8,18 +8,11 @@
     <string name="share">Поделиться</string>
     <string name="yesCleanTrash">Да, очистить</string>
     <string name="cancel">Отменить</string>
-    <string name="whatUpdate">Что нового?</string>
 
     <string name="notes">Заметки</string>
     <string name="noSave">Закрыть без сохранения</string>
-    <string name="infoAppPrefences">О приложении</string>
     <string name="ratingApp">Оценить приложение</string>
     <string name="exitWhat">Для выхода, нужно повторить действие</string>
-
-    <string name="updateNowM">- Исправлено мелкие ошибки и произведено оптимизацию. \n
-- Добавлено расширенное окно для создания ярлыка. \n
-- Добавлено возможность переименовать метку. \n
-- Мелкие исправления в дизайне.</string>
 
     <string name="telegram">Открыть контакты разработчика</string>
     <string name="error">Ошибка</string>

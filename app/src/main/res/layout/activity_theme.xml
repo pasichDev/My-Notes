@@ -92,7 +92,13 @@
                 android:padding="10dp"
                 android:text="@string/onDynamicColor" />
 
-
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/tag_enable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:text="@string/offTags" />
         </LinearLayout>
 
     </LinearLayout>

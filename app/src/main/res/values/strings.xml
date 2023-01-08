@@ -8,10 +8,8 @@
     <string name="yesCleanTrash">Yes, clear</string>
     <string name="cancel">Cancel</string>
     <string name="telegram">Open developer contacts</string>
-    <string name="whatUpdate">Whats new?</string>
     <string name="notes"> Notes </string>
     <string name="noSave"> Close without saving </string>
-    <string name="infoAppPrefences"> About App </string>
     <string name="ratingApp"> Rate this app </string>
     <string name="exitWhat">To exit, you need to repeat the action</string>
     <string name="notFoundPlayMarket">Missing Play Market app</string>
@@ -19,13 +17,6 @@
     <string name="error">Error</string>
     <string name="copyX">Copied</string>
     <string name="cd_format">Format notes</string>
-
-    <string name="updateNowM">
-- Fixed minor bugs and made optimization. \n
-- Added an extended window for creating a shortcut. \n
-- Added the ability to rename the label.  \n
-- Minor design fixes.
-    </string>
 
 
     <string name="search">Search notes </string>
@@ -141,6 +132,6 @@
     <string name="themes" translatable="false">Темы</string>
     <string name="functional" translatable="false">Функции</string>
     <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
-    <string name="subtitleDynamicColorSwitch" translatable="false">Если Dynamic Color активировано, то вы не можете использовать тему приложения</string>
+    <string name="offTags" translatable="false">Выключить отображениие меток</string>
 
 </resources>

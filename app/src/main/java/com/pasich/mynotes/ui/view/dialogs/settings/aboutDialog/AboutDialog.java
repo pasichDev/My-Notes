@@ -19,7 +19,6 @@ import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.ui.view.dialogs.settings.FeedbackDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.RestoreBackupDialog;
-import com.pasich.mynotes.ui.view.dialogs.settings.WhatUpdateDialog;
 
 public class AboutDialog extends DialogFragment {
 
@@ -69,11 +68,6 @@ public class AboutDialog extends DialogFragment {
 
         });
 
-        binding.whatUpdate.setOnClickListener(v -> {
-            new WhatUpdateDialog().show(getParentFragmentManager(), "WhatsUpdate");
-            dismiss();
-        });
-
         binding.feedback.setOnClickListener(v -> {
             new FeedbackDialog().show(getParentFragmentManager(), "WhatsUpdate");
             dismiss();
@@ -107,8 +101,6 @@ public class AboutDialog extends DialogFragment {
 
         binding.shareApp.setOnClickListener(null);
         binding.ratingApp.setOnClickListener(null);
-
-        binding.whatUpdate.setOnClickListener(null);
         binding.themeApp.setOnClickListener(null);
         binding.feedback.setOnClickListener(null);
         binding.restoreOldBackups.setOnClickListener(null);

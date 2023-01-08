@@ -119,25 +119,6 @@
 
 
     <LinearLayout
-        android:id="@+id/whatUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
-
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/whatUpdate"
-            android:src="@drawable/ic_about_dialog" />
-
-        <TextView
-            style="@style/itemTextBottomSheets"
-            android:text="@string/whatUpdate" />
-    </LinearLayout>
-
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

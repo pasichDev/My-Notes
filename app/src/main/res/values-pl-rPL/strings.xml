@@ -8,17 +8,11 @@
     <string name="share"> Udostępnij </string>
     <string name="yesCleanTrash"> Tak, wyczyść </string>
     <string name="cancel"> Cofnij </string>
-    <string name="whatUpdate"> Co nowego? </string>
     <string name="notes"> Notatki </string>
     <string name="noSave"> Zamknij bez zapisywania </string>
-    <string name="infoAppPrefences"> Informacje </string>
     <string name="ratingApp"> Oceń aplikację </string>
     <string name="exitWhat">Aby wyjść, musisz powtórzyć czynność</string>
 
-    <string name="updateNowM">- Naprawiono drobne błędy i dokonano optymalizacji. \n
-- Dodano rozszerzone okno do tworzenia skrótu. \n
-- Dodano możliwość zmiany nazwy etykiety. \n
-- Drobne poprawki projektowe.</string>
     <string name="telegram">Otwórz kontakty programistów</string>
     <string name="error">Błąd</string>
     <string name="notSupportedShare">Ta zawartość nie jest obsługiwana.</string>
