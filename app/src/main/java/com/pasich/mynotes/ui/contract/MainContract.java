@@ -87,6 +87,10 @@ public interface MainContract {
 
         void loadingData();
 
+        Note getBackupDeleteNote();
+
+        void setBackupDeleteNote(Note backupDeleteNote);
+
         String getSortParam();
     }
 }

@@ -16,7 +16,6 @@ import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.HelloContract;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
-import com.pasich.mynotes.ui.contract.NoteWidgetConfigureContract;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
@@ -25,7 +24,6 @@ import com.pasich.mynotes.ui.contract.dialogs.SearchDialogContract;
 import com.pasich.mynotes.ui.presenter.HelloPresenter;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
-import com.pasich.mynotes.ui.presenter.NoteWidgetConfigurePresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.DeleteTagDialogPresenter;
@@ -134,12 +132,6 @@ public class ActivityModule {
     @Provides
     @PerActivity
     NoteContract.presenter providesNotePresenter(NotePresenter presenter) {
-        return presenter;
-    }
-
-    @Provides
-    @PerActivity
-    NoteWidgetConfigureContract.presenter providesNoteWidgetConfigure(NoteWidgetConfigurePresenter presenter) {
         return presenter;
     }
 

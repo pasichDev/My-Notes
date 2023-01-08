@@ -83,8 +83,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Inject
     public SpacesItemDecoration itemDecorationNotes;
 
-    private Note backupDeleteNote;
-    ActivityResultLauncher<Intent> startThemeActivity =
+    final private ActivityResultLauncher<Intent> startThemeActivity =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
                     result -> {
@@ -226,7 +225,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                 } else {
 
                     Note sNote = mNoteAdapter.getCurrentList().get(position);
-                    backupDeleteNote = sNote;
+                    mainPresenter.setBackupDeleteNote(sNote);
                     mainPresenter.deleteNote(sNote);
                     snackBarRestoreNote();
                 }
@@ -242,7 +241,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     public void snackBarRestoreNote() {
         Snackbar snackbar = Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
-        snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote));
+        snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(mainPresenter.getBackupDeleteNote()));
         if (mActivityBinding.newNotesButton.getY() >= mActivityBinding.activityMain.getHeight()) {
             snackbar.setAnchorView(mActivityBinding.newNotesButton);
         }
@@ -282,7 +281,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void callbackDeleteNote(Note mNote) {
-        backupDeleteNote = mNote;
+        mainPresenter.setBackupDeleteNote(mNote);
         snackBarRestoreNote();
     }
 
@@ -425,7 +424,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     private void variablesNull() {
         mNoteAdapter = null;
         tagsAdapter = null;
-        backupDeleteNote = null;
     }
 
     @Override

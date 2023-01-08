@@ -24,6 +24,7 @@ import io.reactivex.disposables.CompositeDisposable;
 @PerActivity
 public class MainPresenter extends AppBasePresenter<MainContract.view> implements MainContract.presenter {
 
+    private Note backupDeleteNote;
 
     @Inject
     public MainPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
@@ -155,5 +156,17 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         getView().startSearchDialog();
     }
 
+    public Note getBackupDeleteNote() {
+        return backupDeleteNote;
+    }
 
+    public void setBackupDeleteNote(Note backupDeleteNote) {
+        this.backupDeleteNote = backupDeleteNote;
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        backupDeleteNote = null;
+    }
 }

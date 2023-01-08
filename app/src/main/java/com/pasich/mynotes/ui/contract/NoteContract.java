@@ -1,6 +1,8 @@
 package com.pasich.mynotes.ui.contract;
 
 
+import android.content.Intent;
+
 import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.ActionBar;
@@ -28,6 +30,8 @@ public interface NoteContract {
     interface presenter extends BasePresenter<view> {
         void closeActivity();
 
+        void getLoadIntentData(Intent mIntent);
+
         void loadingData(long idNote);
 
         void activateEditNote();
@@ -38,5 +42,28 @@ public interface NoteContract {
 
         void deleteNote(Note note);
 
+        String getShareText();
+
+        void setShareText(String shareText);
+
+        long getIdKey();
+
+        void setIdKey(long idKey);
+
+        Note getNote();
+
+        void setNote(Note mNote);
+
+        String getTagNote();
+
+        void setTagNote(String tagNote);
+
+        boolean getExitNoteSave();
+
+        void setExitNoSave(boolean exitNoSave);
+
+        boolean getNewNotesKey();
+
+        void setNewNoteKey(boolean newNoteKey);
     }
 }
