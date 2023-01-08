@@ -22,9 +22,9 @@
     <color name="green_theme_no_background_light_errorContainer">#FFDAD6</color>
     <color name="green_theme_no_background_light_onError">#FFFFFF</color>
     <color name="green_theme_no_background_light_onErrorContainer">#410002</color>
-    <color name="green_theme_no_background_light_background">#FBFDF8</color>
+    <color name="green_theme_no_background_light_background">#FDFBFF</color>
     <color name="green_theme_no_background_light_onBackground">#191C19</color>
-    <color name="green_theme_no_background_light_surface">#FBFDF8</color>
+    <color name="green_theme_no_background_light_surface">#FDFBFF</color>
     <color name="green_theme_no_background_light_onSurface">#191C19</color>
     <color name="green_theme_no_background_light_surfaceVariant">#DCE5DB</color>
     <color name="green_theme_no_background_light_onSurfaceVariant">#414942</color>
@@ -49,9 +49,9 @@
     <color name="green_theme_no_background_dark_errorContainer">#93000A</color>
     <color name="green_theme_no_background_dark_onError">#690005</color>
     <color name="green_theme_no_background_dark_onErrorContainer">#FFDAD6</color>
-    <color name="green_theme_no_background_dark_background">#191C19</color>
+    <color name="green_theme_no_background_dark_background">#1A1C1E</color>
     <color name="green_theme_no_background_dark_onBackground">#E1E3DE</color>
-    <color name="green_theme_no_background_dark_surface">#191C19</color>
+    <color name="green_theme_no_background_dark_surface">#1A1C1E</color>
     <color name="green_theme_no_background_dark_onSurface">#E1E3DE</color>
     <color name="green_theme_no_background_dark_surfaceVariant">#414942</color>
     <color name="green_theme_no_background_dark_onSurfaceVariant">#C0C9BF</color>
