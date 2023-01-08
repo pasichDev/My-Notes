@@ -22,7 +22,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
     private final ArrayList<Theme> themes;
     private final Context context;
-    private final Theme Theme_DEFAULT = new Theme(R.drawable.ic_theme_darkblue, 0, R.style.ThemeDarkBlueNoBackground, R.drawable.item_theme_check_blue);
+    private final Theme Theme_DEFAULT = new Theme(R.drawable.ic_theme_darkblue, 0, R.style.BlueThemeNoBackground, R.drawable.item_theme_check_blue);
     private final int PAYLOAD_SET_SELECTED = 44, selectThemeUser;
     private SelectThemesListener selectThemesListener;
     private Theme mSelectTheme;
