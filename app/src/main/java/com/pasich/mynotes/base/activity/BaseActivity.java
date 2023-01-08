@@ -18,7 +18,7 @@ import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.di.component.DaggerActivityComponent;
 import com.pasich.mynotes.di.module.ActivityModule;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;
-import com.pasich.mynotes.utils.themesUtils.ThemesArray;
+import com.pasich.mynotes.utils.themes.ThemesArray;
 import com.preference.PowerPreference;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {

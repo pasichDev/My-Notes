@@ -1,6 +1,7 @@
 package com.pasich.mynotes.utils.activity;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.pasich.mynotes.R;
@@ -25,6 +26,14 @@ public class MainUtils {
         mSwipe = mSwipe + 1;
         if (mSwipe == 1) {
             Toast.makeText(activity, activity.getString(R.string.exitWhat), Toast.LENGTH_SHORT).show();
+            new Handler() {{
+                postDelayed(() -> {
+                    if (mSwipe == 1) {
+                        mSwipe = 0;
+                    }
+                }, 5000);
+            }};
+
         } else if (mSwipe == 2) {
             activity.finish();
             mSwipe = 0;

@@ -21,7 +21,7 @@ import com.pasich.mynotes.databinding.ActivityThemeBinding;
 import com.pasich.mynotes.utils.adapters.themeAdapter.ThemesAdapter;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.themesUtils.ThemesArray;
+import com.pasich.mynotes.utils.themes.ThemesArray;
 import com.preference.PowerPreference;
 
 import java.util.Objects;

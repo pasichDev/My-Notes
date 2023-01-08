@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.themesUtils;
+package com.pasich.mynotes.utils.themes;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Theme;
@@ -11,11 +11,11 @@ public class ThemesArray {
 
     private void initialThemes() {
 
-        themes.add(new Theme(R.drawable.ic_theme_darkblue, 2, R.style.BlueThemeNoBackground, R.drawable.item_theme_check_blue));
+        themes.add(new Theme(R.drawable.ic_theme_darkblue, 0, R.style.BlueThemeNoBackground, R.drawable.item_theme_check_blue));
         themes.add(new Theme(R.drawable.ic_theme_green, 1, R.style.GreenThemeNoBackground, R.drawable.item_theme_check_green));
-        themes.add(new Theme(R.drawable.ic_theme_red, 3, R.style.RedThemeNoBackground, R.drawable.item_theme_check_red));
-        themes.add(new Theme(R.drawable.ic_theme_yellow, 4, R.style.YellowThemeNoBackground, R.drawable.item_theme_check_yellow));
-        themes.add(new Theme(R.drawable.ic_theme_pink, 5, R.style.PinkThemeNoBackground, R.drawable.item_theme_check_pink));
+        themes.add(new Theme(R.drawable.ic_theme_red, 2, R.style.RedThemeNoBackground, R.drawable.item_theme_check_red));
+        themes.add(new Theme(R.drawable.ic_theme_yellow, 3, R.style.YellowThemeNoBackground, R.drawable.item_theme_check_yellow));
+        themes.add(new Theme(R.drawable.ic_theme_pink, 4, R.style.PinkThemeNoBackground, R.drawable.item_theme_check_pink));
     }
 
     public ArrayList<Theme> getThemes() {
