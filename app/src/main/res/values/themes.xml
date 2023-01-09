@@ -5,7 +5,7 @@
         <item name="windowSplashScreenBackground">@android:color/background_light</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
         <item name="windowSplashScreenAnimationDuration">500</item>
-        <item name="postSplashScreenTheme">@style/BlueThemeNoBackground</item>
+        <item name="postSplashScreenTheme">@style/DefaultThemeNoBackground</item>
     </style>
 
     <!-- Theme Dynamic -->
@@ -27,7 +27,7 @@
     </style>
 
     <!-- Theme Dark_Blue no Background Light -->
-    <style name="BlueThemeNoBackground" parent="@style/themeBaseLight">
+    <style name="DefaultThemeNoBackground" parent="@style/themeBaseLight">
         <item name="colorPrimary">@color/darkBlue_theme_no_background_light_primary</item>
         <item name="colorOnPrimary">@color/darkBlue_theme_no_background_light_onPrimary</item>
         <item name="colorPrimaryContainer">

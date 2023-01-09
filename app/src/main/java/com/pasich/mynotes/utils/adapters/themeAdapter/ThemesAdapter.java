@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Theme;
+import com.pasich.mynotes.utils.constants.PreferencesConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,18 +23,17 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
     private final ArrayList<Theme> themes;
     private final Context context;
-    private final Theme Theme_DEFAULT = new Theme(R.drawable.ic_theme_darkblue, 0, R.style.BlueThemeNoBackground, R.drawable.item_theme_check_blue);
-    private final int PAYLOAD_SET_SELECTED = 44, selectThemeUser;
+    private final int PAYLOAD_SET_SELECTED = 44;
     private SelectThemesListener selectThemesListener;
     private Theme mSelectTheme;
-    private boolean oneCheckedAll = false;
 
 
     public ThemesAdapter(Context context, ArrayList<Theme> list, int idSelectThemeUser) {
         this.themes = list;
         this.context = context;
-        this.selectThemeUser = idSelectThemeUser;
+        mSelectTheme = getThemeToId(idSelectThemeUser).setCheckReturn(true);
     }
+
 
     public ArrayList<Theme> getThemes() {
         return themes;
@@ -45,7 +45,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
 
     public Theme getSelectTheme() {
-        return this.mSelectTheme == null ? Theme_DEFAULT : this.mSelectTheme;
+        return this.mSelectTheme == null ? PreferencesConfig.Theme_DEFAULT : this.mSelectTheme;
     }
 
 
@@ -60,9 +60,16 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
     }
 
     public int getCheckedPosition(Theme theme) {
-        for (int i = 0; i < themes.size(); i++)
+        for (int i = 0; i < getThemes().size(); i++)
             if (themes.get(i).getId() == theme.getId()) return i;
         return 0;
+    }
+
+    public Theme getThemeToId(int mId) {
+        for (Theme mTheme : getThemes()) {
+            if (mTheme.getId() == mId) return mTheme;
+        }
+        return PreferencesConfig.Theme_DEFAULT;
     }
 
     @NonNull
@@ -79,12 +86,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ThemesAdapter.ViewHolder holder, int position) {
-        Theme theme = themes.get(position);
-        if (!oneCheckedAll && theme.getId() == selectThemeUser) {
-            mSelectTheme = theme.setCheckReturn(true);
-            oneCheckedAll = true;
-        }
-
+        Theme theme = getThemes().get(position);
         holder.images.setImageDrawable(AppCompatResources.getDrawable(context, theme.getImage()));
         setCheckView(holder, theme);
     }
