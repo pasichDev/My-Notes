@@ -1,15 +1,17 @@
 package com.pasich.mynotes.base.activity;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.color.DynamicColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.MyApp;
 import com.pasich.mynotes.R;
@@ -38,11 +40,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     public void selectTheme() {
         boolean dynamicColorEnabled = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (dynamicColorEnabled) {
                 setTheme(R.style.AppThemeDynamic);
-                DynamicColors.applyToActivitiesIfAvailable(getApplication());
             } else {
+                Log.wtf(TAG, "SET THEME API 33 NO DYNAIMcoLORS ");
                 setTheme(new ThemesArray()
                         .getThemeStyle(
                                 PowerPreference
@@ -90,7 +92,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         Snackbar snackbar = Snackbar.make(view == null ? findViewById(android.R.id.content) : view, message, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
-
 
 
     public ActivityComponent getActivityComponent() {

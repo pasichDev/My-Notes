@@ -2,6 +2,7 @@ package com.pasich.mynotes.utils.themes;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Theme;
+import com.pasich.mynotes.utils.constants.PreferencesConfig;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,6 @@ public class ThemesArray {
         for (Theme theme : getThemes()) {
             if (theme.getId() == themeID) return theme.getTHEME_STYLE();
         }
-        return getThemes().get(0).getTHEME_STYLE();
+        return PreferencesConfig.Theme_DEFAULT.getTHEME_STYLE();
     }
 }

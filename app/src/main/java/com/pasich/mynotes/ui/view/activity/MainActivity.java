@@ -1,12 +1,10 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
@@ -457,8 +455,5 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         super.redrawActivity(themeStyle);
         setTheme(themeStyle);
         recreate();
-
-        Log.wtf(TAG, "redrawActivity: adjuse ");
-        //mActivityBinding.newNotesButton.setBackgroundTi(colorPrimary);
     }
 }
