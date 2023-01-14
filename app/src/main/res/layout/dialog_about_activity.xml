@@ -5,6 +5,16 @@
     android:background="@drawable/dialog_center_background"
     android:orientation="vertical">
 
+
+    <include
+        android:id="@+id/login_page"
+        layout="@layout/view_login_page" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorControlHighlight" />
+
     <LinearLayout
         android:id="@+id/trashActivityLayout"
         android:layout_width="match_parent"
@@ -15,13 +25,33 @@
 
         <ImageView
             style="@style/iconDialogList"
-            android:contentDescription="@string/trashN"
-            android:src="@drawable/ic_trash" />
+            android:contentDescription="@string/trash"
+            android:src="@drawable/ic_trash_notes" />
 
         <TextView
             style="@style/itemTextBottomSheets"
-            android:text="@string/trashDeleteNotes" />
+            android:text="@string/trash" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingItems">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/reminder"
+            android:src="@drawable/ic_reminder" />
+
+        <TextView
+            style="@style/itemTextBottomSheets"
+            android:text="@string/reminder" />
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/themeApp"
@@ -34,16 +64,15 @@
         <ImageView
             style="@style/iconDialogList"
             android:contentDescription="@string/settingsInterface"
-            android:src="@drawable/ic_theme" />
+            android:src="@drawable/ic_interface_set" />
 
         <TextView
             style="@style/itemTextBottomSheets"
             android:text="@string/settingsInterface" />
     </LinearLayout>
 
-
     <LinearLayout
-        android:id="@+id/restoreOldBackups"
+        android:id="@+id/backups"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -52,16 +81,16 @@
 
         <ImageView
             style="@style/iconDialogList"
-            android:contentDescription="@string/restoreOldBackups"
-            android:src="@drawable/ic_restore_old" />
+            android:contentDescription="@string/settingsBackups"
+            android:src="@drawable/ic_backup_restore" />
 
         <TextView
             style="@style/itemTextBottomSheets"
-            android:text="@string/restoreOldBackups" />
+            android:text="@string/settingsBackups" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/shareApp"
+        android:id="@+id/aboutApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -70,54 +99,18 @@
 
         <ImageView
             style="@style/iconDialogList"
-            android:contentDescription="@string/shareApp"
-            android:src="@drawable/ic_share" />
+            android:contentDescription="@string/aboutApps"
+            android:src="@drawable/ic_about" />
 
         <TextView
             style="@style/itemTextBottomSheets"
-            android:text="@string/shareApp" />
+            android:text="@string/aboutApps" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ratingApp"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
-
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/ratingApp"
-            android:src="@drawable/ic_like_rating" />
-
-        <TextView
-            style="@style/itemTextBottomSheets"
-            android:text="@string/ratingApp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/feedback"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
-
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/ratingApp"
-            android:src="@drawable/ic_feedback" />
-
-        <TextView
-            style="@style/itemTextBottomSheets"
-            android:padding="@dimen/paddingItems"
-            android:text="@string/settingsTitleContacts" />
-
-    </LinearLayout>
-
-
+        android:layout_height="1dp"
+        android:background="?attr/colorControlHighlight" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

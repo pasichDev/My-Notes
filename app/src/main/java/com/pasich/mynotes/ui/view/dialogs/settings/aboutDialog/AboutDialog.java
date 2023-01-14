@@ -8,17 +8,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
+import com.pasich.mynotes.ui.view.activity.AboutActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
-import com.pasich.mynotes.ui.view.dialogs.settings.FeedbackDialog;
-import com.pasich.mynotes.ui.view.dialogs.settings.RestoreBackupDialog;
 
 public class AboutDialog extends DialogFragment {
 
@@ -58,36 +55,15 @@ public class AboutDialog extends DialogFragment {
             dismiss();
         });
 
-        binding.shareApp.setOnClickListener(v -> {
-            startActivity(Intent.createChooser(new Intent("android.intent.action.SEND").setType("plain/text").putExtra("android.intent.extra.TEXT", getString(R.string.shareAppText)), getString(R.string.share)));
-            dismiss();
-        });
-        binding.ratingApp.setOnClickListener(v -> {
-            openIntentGooglePlay();
-            dismiss();
-
-        });
-
-        binding.feedback.setOnClickListener(v -> {
-            new FeedbackDialog().show(getParentFragmentManager(), "WhatsUpdate");
-            dismiss();
-        });
-        binding.restoreOldBackups.setOnClickListener(v -> {
-            new RestoreBackupDialog().show(getParentFragmentManager(), "WhatsUpdate");
+        binding.aboutApp.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), AboutActivity.class);
+            requireContext().startActivity(i);
             dismiss();
         });
 
         return builder.create();
     }
 
-    private void openIntentGooglePlay() {
-        final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + requireContext().getPackageName()));
-        if (requireContext().getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0) {
-            startActivity(rateAppIntent);
-        } else {
-            Toast.makeText(getContext(), getString(R.string.notFoundPlayMarket), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
@@ -98,11 +74,7 @@ public class AboutDialog extends DialogFragment {
         binding.privacyApp.setOnClickListener(null);
 
         binding.help.setOnClickListener(null);
-
-        binding.shareApp.setOnClickListener(null);
-        binding.ratingApp.setOnClickListener(null);
+        binding.aboutApp.setOnClickListener(null);
         binding.themeApp.setOnClickListener(null);
-        binding.feedback.setOnClickListener(null);
-        binding.restoreOldBackups.setOnClickListener(null);
     }
 }

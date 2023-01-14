@@ -33,11 +33,15 @@
         android:roundIcon="@mipmap/ic_launcher_rounder"
         android:theme="@style/DefaultThemeNoBackground">
         <activity
+            android:name=".ui.view.activity.AboutActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.activity.ThemeActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -48,13 +52,14 @@
             android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:exported="true"
@@ -63,8 +68,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".ui.view.activity.TrashActivity"
@@ -84,7 +87,6 @@
             android:name=".ui.view.activity.NoteActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.view.activity.ShareActivity"
             android:exported="true"

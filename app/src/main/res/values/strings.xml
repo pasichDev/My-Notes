@@ -116,6 +116,8 @@
     <string name="theme_demo" translatable="false">Demo Screen Theme</string>
     <string name="editNoteButton" translatable="false">EditNote</string>
     <string name="null_lit" translatable="false">0</string>
+    <string name="developer" translatable="false">Andrii Pasichnik (pasichDev)</string>
+    <string name="versionAndCodeApp" translatable="false">My notes (v%1$s)</string>
 
     <string name="hiddeTag">Hide notes</string>
     <string name="visibleTag">Show notes</string>
@@ -129,6 +131,11 @@
 
 
     <string name="settingsInterface" translatable="false">Настройки интерфейса</string>
+    <string name="settingsBackups" translatable="false">Синхронизация и рез.копии</string>
+    <string name="aboutApps" translatable="false">О приложении</string>
+    <string name="trash" translatable="false">Корзина</string>
+    <string name="coffeBy" translatable="false">Купить разработчику кофе</string>
+    <string name="reminder" translatable="false">Напоминания</string>
     <string name="themes" translatable="false">Темы</string>
     <string name="functional" translatable="false">Функции</string>
     <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
