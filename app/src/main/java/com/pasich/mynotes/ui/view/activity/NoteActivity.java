@@ -108,9 +108,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         String[] texts = s.toString().split("\n"); //массив всех строчек
         String beforeString = texts.length > 3 ? texts[texts.length - 1] : texts[0];
-
         //это рабочий вариант
-
 /*
         String string = s.toString();
         if (string.length() > 0 && string.charAt(string.length() - 1) == '\n') {
