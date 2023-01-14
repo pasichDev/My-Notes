@@ -109,21 +109,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         String[] texts = s.toString().split("\n"); //массив всех строчек
         String beforeString = texts.length > 3 ? texts[texts.length - 1] : texts[0];
 
-
-        // Log.wtf(TAG, "autoCreatedList: " + texts.length + " ??/// " );
-
-/*
-
-        if(beforeString.substring(0, beforeString.length() >= 2 ? 1 : beforeString.length()).contains("-") && s.toString().contains("\n")){
-            Log.wtf(TAG, "yes - " );
-        }
-
-        if(texts[texts.length - 1].contains("\n")){
-            Log.wtf(TAG, "probell: " );
-        }
-
- */
-
         //это рабочий вариант
 
 /*
@@ -140,9 +125,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 binding.valueNote.setSelection(binding.valueNote.length());
             }
         }
-
-
-
  */
 
     }
