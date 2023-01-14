@@ -36,6 +36,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Inject
     public NoteContract.presenter notePresenter;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,18 +86,64 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void initListeners() {
-
         binding.notesTitle.addTextChangedListener(new TextWatcher() {
             @Override
             protected void changeText(Editable s) {
-
                 if (s.toString().contains("\n")) {
                     binding.notesTitle.setText(s.toString().replace('\n', ' ').trim());
                     binding.valueNote.requestFocus();
                 }
             }
         });
+        binding.valueNote.addTextChangedListener(new TextWatcher() {
+            @Override
+            protected void changeText(Editable s) {
+                autoCreatedList(s);
+            }
+        });
 
+    }
+
+    private void autoCreatedList(Editable s) {
+
+        String[] texts = s.toString().split("\n"); //массив всех строчек
+        String beforeString = texts.length > 3 ? texts[texts.length - 1] : texts[0];
+
+
+        // Log.wtf(TAG, "autoCreatedList: " + texts.length + " ??/// " );
+
+/*
+
+        if(beforeString.substring(0, beforeString.length() >= 2 ? 1 : beforeString.length()).contains("-") && s.toString().contains("\n")){
+            Log.wtf(TAG, "yes - " );
+        }
+
+        if(texts[texts.length - 1].contains("\n")){
+            Log.wtf(TAG, "probell: " );
+        }
+
+ */
+
+        //это рабочий вариант
+
+/*
+        String string = s.toString();
+        if (string.length() > 0 && string.charAt(string.length() - 1) == '\n') {
+            Log.wtf(TAG, "probell: " );
+
+            if(beforeString.substring(0, beforeString.length() >= 2 ? 1 : beforeString.length()).contains("-") && beforeString.length() == 2 ){
+            //    binding.valueNote.setText(s + beforeString.replace("- ", "").trim());
+            }
+            else if(beforeString.substring(0, beforeString.length() >= 2 ? 1 : beforeString.length()).contains("-") ){
+                Log.wtf(TAG, "yes - " );
+                binding.valueNote.setText(s  + "- ");
+                binding.valueNote.setSelection(binding.valueNote.length());
+            }
+        }
+
+
+
+ */
 
     }
 
