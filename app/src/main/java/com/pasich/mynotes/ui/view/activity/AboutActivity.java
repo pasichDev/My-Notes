@@ -5,22 +5,23 @@ import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_TELEGRAM_DEV
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.databinding.ActivityAboutBinding;
 
 import java.util.Objects;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     private ActivityAboutBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAboutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -37,7 +38,8 @@ public class AboutActivity extends AppCompatActivity {
         binding.ratingApp.setOnClickListener(null);
     }
 
-    private void initListener() {
+    @Override
+    public void initListeners() {
         binding.telegramSend.setOnClickListener(v ->
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_TELEGRAM_DEVELOP))));
         binding.emailSend.setOnClickListener(v -> sendEmail());
@@ -49,7 +51,7 @@ public class AboutActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         binding.versionApp.setText(getString(R.string.versionAndCodeApp, BuildConfig.VERSION_NAME));
-        initListener();
+        initListeners();
     }
 
     private void sendEmail() {
@@ -69,5 +71,27 @@ public class AboutActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.notFoundPlayMarket), Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return true;
+    }
+
 
 }
