@@ -322,12 +322,6 @@
     </style>
 
     <!-- Стиль иконок в AboutDialog -->
-    <style name="iconDialogListAbout" parent="iconDialogList">
-        <item name="android:layout_width">20dp</item>
-        <item name="android:layout_height">20dp</item>
-        <item name="android:layout_marginStart">20dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
-    </style>
 
     <!-- Стиль иконок в ActionPanel -->
     <style name="iconActionPanel" parent="marginDialogItem">
@@ -389,15 +383,6 @@
     </style>
 
     <!-- Стиль для картинок из экрана приветсвий  -->
-    <style name="imageViewHello">
-        <item name="android:contentDescription">@string/srcfeatures</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">2</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginEnd">32dp</item>
-        <item name="android:scaleType">fitCenter</item>
-    </style>
 
     <style name="itemNoteTitle">
         <item name="android:layout_width">wrap_content</item>

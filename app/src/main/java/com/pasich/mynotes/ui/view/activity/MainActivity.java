@@ -30,8 +30,8 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
-import com.pasich.mynotes.ui.view.dialogs.popupWindowsTag.PopupWindowsTag;
-import com.pasich.mynotes.ui.view.dialogs.popupWindowsTag.PopupWindowsTagOnClickListener;
+import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTag;
+import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTagOnClickListener;
 import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutDialog;
 import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutOpensActivity;
 import com.pasich.mynotes.utils.ShareUtils;
@@ -423,22 +423,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mNoteAdapter = null;
         tagsAdapter = null;
     }
-
-    @Override
-    public void errorProcessRestore() {
-        onError(R.string.errorEmptyNotesRestore, mActivityBinding.newNotesButton);
-    }
-
-    @Override
-    public void successfullyProcessRestore(int countNotes) {
-        onError(getString(R.string.successfullyRestoreNotes, countNotes), mActivityBinding.newNotesButton);
-    }
-
-    @Override
-    public void saveNoteRestore(Note newNote) {
-        mainPresenter.addNote(newNote);
-    }
-
 
     @Override
     public void createShortCut() {

@@ -38,7 +38,6 @@
     <string name="sort_Title_Increase">Тақырып: A-Z</string>
     <string name="sort_Title_Decrease">Тақырып: Z-A</string>
     <string name="sortHead">Сұрыптау:</string>
-    <string name="settingsTitleContacts">Бізбен байланысыңыз</string>
     <string name="shareApp">Қолданбаны ортақ пайдалану</string>
     <string name="privacyApp">Құпиялылық саясаты</string>
     <string name="shareAppText"> "Менің ескертпелерімді" ұсыныңыз /n
@@ -51,20 +50,7 @@
     <string name="lastDateEditNote">Соңғы өңдеу: %1$s </string>
     <string name="restore">Қалпына келтіру</string>
     <string name="help">Анықтама</string>
-    <string name="trashDeleteNotes">Жойылған ескертпелер (себет)</string>
-    <string name="restoreOldBackups">Ескертпелерді қалпына келтіру</string>
-    <string name="writeMe">Менің контактілерім</string>
     <string name="noteSaved">Ескертпе сақталды</string>
-    <string name="restoreBackup">Ескертпелерді қалпына келтіру</string>
-    <string name="restoreBackupMessages">Бұл терезеде ескі сақтық көшірмелерден жазбаларды қалпына келтіруге болады.
-        Бұл мүмкіндік жойылмас бұрын тағы бірнеше жаңартуларға қолдау көрсетеді.
-        және Google-мен синхрондау оның орнына келеді.
-    </string>
-    <string name="restoreBackupMessageTwo"> Жаңа ескертпелер бар ескертпелер алдында қосылады және көшірмелер еленбейді!</string>
-    <string name="selectedArchive">Res. көшіру</string>
-    <string name="loadingProgress">Күтіңіз, деректер өңделуде</string>
-    <string name="errorEmptyNotesRestore">Қате: Бұл мұрағатта не бүлінген, не ескертпелер жоқ</string>
-    <string name="successfullyRestoreNotes">Сәтті: ескертпелер қалпына келтірілді: %1$d </string>
     <string name="searchNotesFromTitle">Теруді бастаңыз</string>
     <string name="errorNewTagInput">Қате: тег атауында болуы мүмкін таңбалардың ең көп саны – %1$d </string>
     <string name="emptyTrash">Жойылған ескертпелер осы жерде көрсетіледі</string>
@@ -78,27 +64,7 @@
     <string name="button_phone">Қоңырау шалу</string>
     <string name="button_mail">Жазу</string>
     <string name="button_url">өтіңіз</string>
-    <string name="mesFeedback">Төменде тізімделген контактілерді пайдаланып қолданба авторымен байланысуға болады. Қателерді тапсаңыз немесе қолданбаны жақсартуды ұсынғыңыз келсе, көрсетілген контактілерге хабарласыңыз.</string>
     <!-- Келесі нұсқаны тазалау -->
-    <string name="Hello_next">Жалғастыру</string>
-    <string name="Hello_text_Title">Менің жазбаларымның жаңа нұсқасына қош келдіңіз</string>
-    <string name="Hello_text_info">Қолданбаны орнатуға және сіз үшін жаңалықты айтуға бірнеше минут кетеді.</string>
-    <string name="skip">Өткізу</string>
-    <string name="Finish_text_Title">Орнатуды аяқтау</string>
-    <string name="Finish_text_button_save_backup">Нұсқаны сақтау. көшіру</string>
-    <string name="finish">Аяқтау</string>
-    <string name="Finish_text_Info">Қолданбаны орнатуды аяқтау үшін кесуді сақтау керек. жазбаларыңыздың көшірмесі. Біз мұны жаңа нұсқаны іске қосу сәтсіз болған жағдайда жасаймыз.</string>
-    <string name="feature_desing_title">Жаңа дизайн</string>
-    <string name="feature_desing_info">Жаңа дизайн ыңғайлылық пен қарапайымдылықты қамтиды. Пайдаланушы мен қолданба арасындағы әрбір әрекеттестік ең ұсақ бөлшектерге дейін ойластырылған.</string>
-    <string name="feature_tags_title">Тегтер, Іздеу</string>
-    <string name="feature_tags_info">Тегтер қалталардың орнына орындалады. Енді сіз қажетті уақытта ештеңе жоғалтпау үшін әрбір жазбаға белгі қоюға болады.
-        Ал іздеу жолағы сізге қажет жазбаны аты бойынша жылдам табуға әрқашан көмектеседі.</string>
-    <string name="feature_create_title">Қолданба нөлден қайта жасалды</string>
-    <string name="feature_create_info">Соңғы жаңарту 5 ай бұрын шығарылды, бірақ осы 5 ай бойы мен нөлден бастап жазылған жаңа нұсқаны әзірледім. Мен ескі нұсқаларда жіберген барлық қателерді ескердім, енді қосымшаның тұрақты жұмыс істеп тұрғанын қайталай аламын.
-    </string>
-    <string name="feature_newFetures_title">Жаңа мүмкіндіктер</string>
-    <string name="feature_newFetures_info">Қолданба жазбаны аудару, бірнеше таңдау, жазба жұмыс үстеліндегі таңбаша және т.б. сияқты көптеген пайдалы мүмкіндіктерге ие болды. Уақыт өте келе жаңа мүмкіндіктердің саны артады. (Виджет, Google Sync)</string>
-    <string name="hello_finishTextTwo">Сақтық көшірме сақталды. Аяқтау түймесін басқаннан кейін қолданбаның жаңа нұсқасы басталады. Сирек жағдайларда қателер болуы мүмкін, қолданбаны қайта іске қосыңыз немесе кері байланыс бөлімінде маған жазыңыз.</string>
     <string name="hiddeTag">Ескертпелерді жасыру</string>
     <string name="visibleTag">Ескертпелерді көрсету</string>
     <string name="hintNameLabel">Жапсырма аты</string>

@@ -7,7 +7,6 @@ import com.pasich.mynotes.di.module.NoteActivityModule;
 import com.pasich.mynotes.di.module.SearchDialogModule;
 import com.pasich.mynotes.di.module.TrashActivityModule;
 import com.pasich.mynotes.di.scope.PerActivity;
-import com.pasich.mynotes.ui.helloUI.HelloActivity;
 import com.pasich.mynotes.ui.view.activity.MainActivity;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
 import com.pasich.mynotes.ui.view.activity.ThemeActivity;
@@ -23,8 +22,6 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, MainActivityModule.class, NoteActivityModule.class, SearchDialogModule.class, TrashActivityModule.class, MoreNoteModule.class})
 public interface ActivityComponent {
-
-    void inject(HelloActivity activity);
 
     void inject(MainActivity activity);
 

@@ -40,7 +40,6 @@
     <string name="sort_Title_Increase">Названии: от А-Я</string>
     <string name="sort_Title_Decrease">Названии: от Я-А</string>
     <string name="sortHead">Cортировать по:</string>
-    <string name="settingsTitleContacts">Обратная связь</string>
     <string name="shareApp">Поделиться приложением</string>
     <string name="privacyApp">Политика Конфиденциальности</string>
     <string name="shareAppText"> Рекомендую "Мои Заметки" /n
@@ -53,20 +52,7 @@
     <string name="lastDateEditNote">Последнее изменение: %1$s </string>
     <string name="restore">Восстановить</string>
     <string name="help">Помощь</string>
-    <string name="trashDeleteNotes">Удаленные заметки (Корзина)</string>
-    <string name="restoreOldBackups">Восстановить заметки</string>
-    <string name="writeMe">Мои контакты</string>
     <string name="noteSaved">Заметку сохранено</string>
-    <string name="restoreBackup">Восстановить заметки</string>
-    <string name="restoreBackupMessages">В этом окне вы можете восстановить заметки из старых резервных копий.
-        Эта функция будет поддерживаться ещё несколько обновлений, потом она будет удалена,
-        а на замену придет синхронизация з Google.
-    </string>
-    <string name="restoreBackupMessageTwo">  Новые заметки будут добавленные до уже существующих, а дубликаты будут проигнорированые!</string>
-    <string name="selectedArchive">Выбрать рез. копию</string>
-    <string name="loadingProgress">Ожидайте, идет обработка данных</string>
-    <string name="errorEmptyNotesRestore">Ошибка: Данный архив либо поврежден, или не содержит заметок</string>
-    <string name="successfullyRestoreNotes">Успешно: Заметок восстановленно: %1$d </string>
     <string name="searchNotesFromTitle">Начните вводить текст</string>
     <string name="errorNewTagInput">Ошибка: Максимальное количество символов которое может содержать название метки  %1$d </string>
     <string name="emptyTrash">Здесь отображаються удаленные вами заметки</string>
@@ -80,29 +66,9 @@
     <string name="button_phone">Позвонить</string>
     <string name="button_mail">Написать</string>
     <string name="button_url">Перейти</string>
-    <string name="mesFeedback">Вы можете связаться с автором приложения по контактам которые указаны ниже. Если вы нашли ошибки или хотите предложить улучшения по работе приложения обращайтесь по указанных  контактам.</string>
 
 
     <!-- Clean next version  -->
-    <string name="Hello_next">Продолжить</string>
-    <string name="Hello_text_Title">Вас приветствует новая версия My Notes</string>
-    <string name="Hello_text_info">Мы отнимем у вас несколько минут, чтобы настроить приложение, а также расскажем что сделали нового для вас.</string>
-    <string name="skip">Пропустить</string>
-    <string name="Finish_text_Title">Завершение настройки</string>
-    <string name="Finish_text_button_save_backup">Сохранить рез. копию</string>
-    <string name="finish">Завершить</string>
-    <string name="Finish_text_Info">Чтобы завершить настройку приложения нужно сохранить рез. копию ваших заметок. Мы это делаем на случай того, если при запуске новой версии произойдет сбой.</string>
-    <string name="feature_desing_title">Новый дизайн</string>
-    <string name="feature_desing_info">Новый дизайн вмещает в себя удобность и простоту. Каждое взаимодействие между пользователем и приложением продуманно до мелочей.</string>
-    <string name="feature_tags_title">Метки, Поиск</string>
-    <string name="feature_tags_info">Вместо папок реализовано метки. Теперь можно на каждую заметку повесить метку, чтобы в нужное время ничего не потерять.
-        А панель поиска всегда поможет быстро, найти нужную заметку по ее названию.</string>
-    <string name="feature_create_title">Приложение пересоздано с нуля</string>
-    <string name="feature_create_info">Последнее обновление выпущено 5 месяцев назад, но все эти 5 месяцев я занимался разработкой новой версии которая написана с нуля. Я учел все ошибки которые допустил в старых версиях, и теперь могу твердить что приложение работает стабильно.
-    </string>
-    <string name="feature_newFetures_title">Новые функции </string>
-    <string name="feature_newFetures_info">Приложение получило много полезных функций, как перевод заметок, множественный выбор, ярлык заметки на рабочий стол, и многое другое. Со временем количество новых функций будет расти. (Виджет, синхронизации с Google)</string>
-    <string name="hello_finishTextTwo">Резервную копию сохранено. После нажатия кнопки завершить запуститься новая версия приложения. В редких случаях могут быть сбои, перезапустите приложение или напишите мне в разделе обратная связь.</string>
     <string name="hiddeTag">Скрыть заметки</string>
     <string name="visibleTag">Отображать заметки</string>
     <string name="hintNameLabel">Название ярлыка</string>

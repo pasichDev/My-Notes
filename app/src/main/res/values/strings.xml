@@ -38,7 +38,6 @@
     <string name="sort_Title_Increase">Title: A-Z</string>
     <string name="sort_Title_Decrease">Title: Z-A</string>
     <string name="sortHead">Sort by:</string>
-    <string name="settingsTitleContacts">Contact Us</string>
     <string name="shareApp">Share App</string>
     <string name="privacyApp">Privacy Policy</string>
     <string name="shareAppText"> Recommend "My Notes" /n
@@ -51,20 +50,7 @@
     <string name="lastDateEditNote">Last edit: %1$s </string>
     <string name="restore">Restore</string>
     <string name="help">Help</string>
-    <string name="trashDeleteNotes">Deleted Notes (Trash)</string>
-    <string name="restoreOldBackups">Restore Notes</string>
-    <string name="writeMe">My contacts</string>
     <string name="noteSaved">Note saved</string>
-    <string name="restoreBackup">Restore Notes</string>
-    <string name="restoreBackupMessages">In this window, you can restore notes from old backups.
-        This feature will be supported for a few more updates before it will be removed.
-        and sync with Google will come to replace it.
-    </string>
-    <string name="restoreBackupMessageTwo"> New notes will be added before existing ones and duplicates will be ignored!</string>
-    <string name="selectedArchive">Select res. copy</string>
-    <string name="loadingProgress">Please wait, processing data</string>
-    <string name="errorEmptyNotesRestore">Error: This archive is either corrupted or contains no notes</string>
-    <string name="successfullyRestoreNotes">Successfully: Notes restored: %1$d </string>
     <string name="searchNotesFromTitle">Start typing</string>
     <string name="errorNewTagInput">Error: The maximum number of characters a tag name can contain is %1$d </string>
     <string name="emptyTrash">Your deleted notes are displayed here</string>
@@ -78,36 +64,13 @@
     <string name="button_phone">Call</string>
     <string name="button_mail">Write</string>
     <string name="button_url">Go to</string>
-    <string name="mesFeedback">You can contact the author of the app using the contacts below. If you find errors or want to suggest improvements to the application, please contact the specified contacts.</string>
 
 
     <!-- Clean next version -->
-    <string name="Hello_next">Continue</string>
-    <string name="Hello_text_Title">Welcome to the new version of My Notes</string>
-    <string name="Hello_text_info">We\'ll take a few minutes to set up the app and tell you what\'s new for you.</string>
-    <string name="skip">Skip</string>
-    <string name="Finish_text_Title">Finishing setup</string>
-    <string name="Finish_text_button_save_backup">Save Res. copy</string>
-    <string name="finish">Finish</string>
-    <string name="Finish_text_Info">To complete the application setup, you need to save the cut. a copy of your notes. We do this in case the launch of the new version fails.</string>
-    <string name="feature_desing_title">New design</string>
-    <string name="feature_desing_info">The new design embraces convenience and simplicity. Every interaction between the user and the application is thought out to the smallest detail.</string>
-    <string name="feature_tags_title">Tags, Search</string>
-    <string name="feature_tags_info">Tags have been implemented instead of folders. Now you can put a label on each note so that you don’t lose anything at the right time.
-        And the search bar will always help you quickly find the note you need by its name.</string>
-    <string name="feature_create_title">Application re-created from scratch</string>
-    <string name="feature_create_info">The last update was released 5 months ago, but all these 5 months I have been developing a new version that is written from scratch. I took into account all the mistakes that I made in the old versions, and now I can repeat that the application is working stably.
-    </string>
-    <string name="feature_newFetures_title">New Features</string>
-    <string name="feature_newFetures_info">The app has received a lot of useful features like note translation, multiple selection, note desktop shortcut, and more. Over time, the number of new features will grow. (Widget, Google Sync)</string>
-    <string name="hello_finishTextTwo">Backup saved. After clicking the finish button, a new version of the application will start. In rare cases, there may be crashes, restart the application or write to me in the feedback section.</string>
-    <string name="srcfeatures" translatable="false">SrcFeatures</string>
 
 
     <!-- Strings that are not translated  -->
-    <string name="v2_0_10" translatable="false">v2.0.10</string>
     <string name="plus" translatable="false">+</string>
-    <string name="icon_desinger" translatable="false">Icon designer: @storyset </string>
     <string name="tagHastag" translatable="false">#%1$s</string>
     <string name="app_name"> My Notes </string>
     <string name="telegram_nick" translatable="false">"@"pasichDev</string>

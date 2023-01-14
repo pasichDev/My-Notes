@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.popupWindowsTag;
+package com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag;
 
 public interface PopupWindowsTagOnClickListener {
 

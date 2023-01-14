@@ -68,14 +68,8 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompilerVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
 
-
     //powerPreferences
     implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"
-
-
-    //animationCircle delete for next version
-    implementation 'me.relex:circleindicator:2.1.6'
-
 
     // reactive
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
