@@ -96,10 +96,6 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/colorControlHighlight" />
 
     <LinearLayout
         android:id="@+id/shareApp"
@@ -138,25 +134,57 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorControlHighlight" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/railway_medium"
+        android:padding="6dp"
+        android:text="@string/coffeeByPlay"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:padding="6dp"
+        android:text="@string/coffeeByTextInfo"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="14sp" />
 
     <LinearLayout
-        android:id="@+id/cofeeBy"
+        android:id="@+id/monobankDonat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:padding="@dimen/paddingItems">
 
         <ImageView
             style="@style/iconDialogList"
-            android:contentDescription="@string/coffeBy"
-            android:src="@drawable/ic_cofee_by" />
+            android:contentDescription="@string/MonoBank_Donate"
+            android:src="@drawable/ic_monobank_donate" />
 
         <TextView
             style="@style/itemTextBottomSheets"
-            android:padding="@dimen/paddingItems"
-            android:text="@string/coffeBy" />
+            android:text="@string/MonoBank_Donate"
+            android:textColor="?attr/colorPrimary" />
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coffeeDev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:overScrollMode="never" />
 
 
 </LinearLayout>

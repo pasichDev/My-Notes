@@ -10,6 +10,7 @@ import com.pasich.mynotes.di.scope.PerActivity;
 import javax.inject.Inject;
 
 @PerActivity
+@Deprecated
 public class MainUtils {
     private int mSwipe = 0;
 

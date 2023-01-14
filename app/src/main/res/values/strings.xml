@@ -66,8 +66,6 @@
     <string name="button_url">Go to</string>
 
 
-    <!-- Clean next version -->
-
 
     <!-- Strings that are not translated  -->
     <string name="plus" translatable="false">+</string>
@@ -79,8 +77,11 @@
     <string name="theme_demo" translatable="false">Demo Screen Theme</string>
     <string name="editNoteButton" translatable="false">EditNote</string>
     <string name="null_lit" translatable="false">0</string>
+    <string name="contentCoffee" translatable="false">Coffee</string>
     <string name="developer" translatable="false">Andrii Pasichnik (pasichDev)</string>
     <string name="versionAndCodeApp" translatable="false">My notes (v%1$s)</string>
+    <string name="coffeePrice" translatable="false">%1$s$</string>
+    <string name="MonoBank_Donate" translatable="false">MonoBank Donate</string>
 
     <string name="hiddeTag">Hide notes</string>
     <string name="visibleTag">Show notes</string>
@@ -97,11 +98,17 @@
     <string name="settingsBackups" translatable="false">Синхронизация и рез.копии</string>
     <string name="aboutApps" translatable="false">О приложении</string>
     <string name="trash" translatable="false">Корзина</string>
-    <string name="coffeBy" translatable="false">Купить разработчику кофе</string>
+    <string name="coffeeBy" translatable="false">Купить разработчику кофе</string>
     <string name="reminder" translatable="false">Напоминания</string>
     <string name="themes" translatable="false">Темы</string>
     <string name="functional" translatable="false">Функции</string>
     <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
     <string name="offTags" translatable="false">Выключить отображениие меток</string>
+    <string name="coffeeByPlay" translatable="false">Поблагодарить разработчика</string>
+    <string name="coffeeByTextInfo" translatable="false">Мои заметки - это приложения без рекламы, и поставляется как бесплатный продукт. Приложение разрабатывает один человек, и поэтому некоторые обновление поставляются с опозданием. Вы можете поблагодарить разработчика, купив ему кофе или задонатить по спец ссылкам, которые будут отображаться снизу. Спасибо что используете это приложение!</string>
 
+    <string name="cupCoffee" translatable="false">Кружка коффе</string>
+    <string name="glassCoffee" translatable="false">Стакан коффе</string>
+    <string name="packCoffee" translatable="false">Упаковка коффе</string>
+    <string name="makerCoffee" translatable="false">Кофеварка</string>
 </resources>

@@ -34,7 +34,7 @@
         android:theme="@style/DefaultThemeNoBackground">
         <activity
             android:name=".ui.view.activity.AboutActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.view.activity.ThemeActivity"
             android:exported="true"
@@ -79,10 +79,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.helloUI.HelloActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.view.activity.NoteActivity"
             android:exported="true"

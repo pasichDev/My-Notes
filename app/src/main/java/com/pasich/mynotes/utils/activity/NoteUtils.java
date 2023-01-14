@@ -8,6 +8,7 @@ import com.pasich.mynotes.di.scope.PerActivity;
 import javax.inject.Inject;
 
 @PerActivity
+@Deprecated
 public class NoteUtils {
 
 
