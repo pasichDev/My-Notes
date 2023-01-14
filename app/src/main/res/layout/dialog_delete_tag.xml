@@ -26,7 +26,7 @@
             <ImageView
                 style="@style/iconDialogList"
                 android:contentDescription="@string/deleteTag"
-                android:src="@drawable/ic_tag_delete" />
+                android:src="@drawable/ic_trash_notes" />
 
             <TextView
                 style="@style/itemTextBottomSheets"
@@ -64,7 +64,7 @@
             <ImageView
                 style="@style/iconDialogList"
                 android:contentDescription="@string/cancel"
-                android:src="@drawable/ic_close_search_view" />
+                android:src="@drawable/ic_close" />
 
             <TextView
                 style="@style/itemTextBottomSheets"
