@@ -51,6 +51,10 @@ public interface MainContract {
         void startSearchDialog();
 
         void startDeleteTagDialog(Tag tag);
+
+        void exitWhat();
+
+        void finishActivityOtPresenter();
     }
 
 
@@ -91,5 +95,7 @@ public interface MainContract {
         void setBackupDeleteNote(Note backupDeleteNote);
 
         String getSortParam();
+
+        void closeApp();
     }
 }

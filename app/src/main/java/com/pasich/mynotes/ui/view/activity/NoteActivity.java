@@ -23,7 +23,6 @@ import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.LinkInfoDialog;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
-import com.pasich.mynotes.utils.activity.NoteUtils;
 
 import java.util.Date;
 import java.util.Objects;
@@ -36,8 +35,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public ActivityNoteBinding binding;
     @Inject
     public NoteContract.presenter notePresenter;
-    @Inject
-    public NoteUtils noteUtils;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -268,7 +265,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void changeTextStyle() {
-        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(notePresenter.getDataManager().getTypeFaceNoteActivity()));
+        binding.valueNote.setTypeface(null, notePresenter.getTypeFace(notePresenter.getDataManager().getTypeFaceNoteActivity()));
     }
 
     @Override

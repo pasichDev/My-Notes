@@ -98,7 +98,6 @@
     <string name="settingsBackups" translatable="false">Синхронизация и рез.копии</string>
     <string name="aboutApps" translatable="false">О приложении</string>
     <string name="trash" translatable="false">Корзина</string>
-    <string name="coffeeBy" translatable="false">Купить разработчику кофе</string>
     <string name="reminder" translatable="false">Напоминания</string>
     <string name="themes" translatable="false">Темы</string>
     <string name="functional" translatable="false">Функции</string>

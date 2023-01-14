@@ -13,7 +13,6 @@ import com.pasich.mynotes.databinding.ActivityThemeBinding;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.di.scope.ActivityContext;
 import com.pasich.mynotes.di.scope.PerActivity;
-import com.pasich.mynotes.ui.contract.HelloContract;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.contract.TrashContract;
@@ -21,7 +20,6 @@ import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.SearchDialogContract;
-import com.pasich.mynotes.ui.presenter.HelloPresenter;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
@@ -115,12 +113,6 @@ public class ActivityModule {
     @PerActivity
     CoordinatorLayout providerTrashLayout() {
         return activity.findViewById(R.id.activity_trash);
-    }
-
-    @Provides
-    @PerActivity
-    HelloContract.presenter providesHelloPresenter(HelloPresenter presenter) {
-        return presenter;
     }
 
     @Provides

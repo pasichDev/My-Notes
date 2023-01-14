@@ -38,7 +38,6 @@ import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
-import com.pasich.mynotes.utils.activity.MainUtils;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
@@ -59,8 +58,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public ActivityMainBinding mActivityBinding;
     @Inject
     public MainContract.presenter mainPresenter;
-    @Inject
-    public MainUtils utils;
     @Inject
     public FormatListTool formatList;
     @Inject
@@ -147,6 +144,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void startDeleteTagDialog(Tag tag) {
         new DeleteTagDialog(tag).show(getSupportFragmentManager(), "deleteTag");
+    }
+
+    @Override
+    public void
+    exitWhat() {
+        onError(R.string.exitWhat, mActivityBinding.newNotesButton);
+    }
+
+    @Override
+    public void finishActivityOtPresenter() {
+        finish();
     }
 
 
@@ -350,7 +358,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void onBackPressed() {
         if (getAction()) actionUtils.closeActionPanel();
-        else utils.CloseApp(MainActivity.this);
+        else mainPresenter.closeApp();
     }
 
 

@@ -2,6 +2,7 @@ package com.pasich.mynotes.ui.presenter;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
@@ -129,5 +130,19 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
 
     public void setExitNoSave(boolean exitNoSave) {
         this.exitNoSave = exitNoSave;
+    }
+
+    @Override
+    public int getTypeFace(String textStyle) {
+        switch (textStyle) {
+            case "italic":
+                return Typeface.ITALIC;
+            case "bold":
+                return Typeface.BOLD;
+            case "bold-italic":
+                return Typeface.BOLD_ITALIC;
+            default:
+                return Typeface.NORMAL;
+        }
     }
 }

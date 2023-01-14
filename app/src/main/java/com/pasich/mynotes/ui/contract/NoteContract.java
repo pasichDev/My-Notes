@@ -65,5 +65,7 @@ public interface NoteContract {
         boolean getNewNotesKey();
 
         void setNewNoteKey(boolean newNoteKey);
+
+        int getTypeFace(String textStyle);
     }
 }
