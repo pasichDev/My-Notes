@@ -2,6 +2,7 @@ package com.pasich.mynotes.ui.presenter;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
 import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
@@ -19,9 +21,11 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-
+@PerActivity
 public class MainPresenter extends AppBasePresenter<MainContract.view> implements MainContract.presenter {
 
+    private Note backupDeleteNote;
+    private int mSwipe = 0;
 
     @Inject
     public MainPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
@@ -152,5 +156,40 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         getView().startSearchDialog();
     }
 
+    public Note getBackupDeleteNote() {
+        return backupDeleteNote;
+    }
 
+    public void setBackupDeleteNote(Note backupDeleteNote) {
+        this.backupDeleteNote = backupDeleteNote;
+    }
+
+    /**
+     * Method The method that implements the closing of the application
+     */
+    @Override
+    public void closeApp() {
+        mSwipe = mSwipe + 1;
+        if (mSwipe == 1) {
+            getView().exitWhat();
+
+            Runnable runnable = () -> {
+                if (mSwipe == 1) {
+                    mSwipe = 0;
+                }
+            };
+            Handler handler = new Handler();
+            handler.postDelayed(runnable, 5000);
+
+        } else if (mSwipe == 2) {
+            getView().finishActivityOtPresenter();
+            mSwipe = 0;
+        }
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        backupDeleteNote = null;
+    }
 }

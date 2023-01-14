@@ -101,6 +101,8 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
         });
     }
 
+
+
     private void validateText(int length) {
         if (length >= MAX_NAME_TAG + 1) {
             errorText = true;

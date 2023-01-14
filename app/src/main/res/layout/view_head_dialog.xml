@@ -14,7 +14,7 @@
         android:maxLines="1"
         android:textSize="18sp"
         android:layout_marginHorizontal="10dp"
-        android:textColor="?attr/colorTitle"
+        android:textColor="?attr/colorOnSurface"
         android:gravity="center" />
 
 </FrameLayout>

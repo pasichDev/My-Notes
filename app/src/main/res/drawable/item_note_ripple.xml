@@ -6,8 +6,7 @@
         android:gravity="center">
         <shape android:shape="rectangle">
             <corners android:radius="@dimen/radiusBackgroundTag" />
-            <solid android:color="?attr/colorControlHighlight" />
-
+            <solid android:color="?attr/colorSurface" />
         </shape>
 
     </item>

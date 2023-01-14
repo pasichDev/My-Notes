@@ -1,6 +1,9 @@
 package com.pasich.mynotes.ui.presenter;
 
 
+import android.content.Intent;
+import android.graphics.Typeface;
+
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.model.Note;
@@ -12,6 +15,11 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class NotePresenter extends AppBasePresenter<NoteContract.view> implements NoteContract.presenter {
+
+    private String shareText, tagNote;
+    private long idKey;
+    private Note mNote;
+    private boolean exitNoSave = false, newNoteKey;
 
 
     @Inject
@@ -28,6 +36,7 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
         getView().settingsActionBar();
         getView().initTypeActivity();
         getView().initListeners();
+
     }
 
 
@@ -38,8 +47,20 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
     }
 
     @Override
+    public void getLoadIntentData(Intent mIntent) {
+        setIdKey(mIntent.getLongExtra("idNote", 0));
+        setTagNote(mIntent.getStringExtra("tagNote"));
+        setShareText(mIntent.getStringExtra("shareText"));
+        setNewNoteKey(mIntent.getBooleanExtra("NewNote", true));
+    }
+
+    @Override
     public void loadingData(long idNote) {
-        getCompositeDisposable().add(getDataManager().getNoteForId(idNote).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(note -> getView().loadingNote(note)));
+        getCompositeDisposable().add(getDataManager().getNoteForId(idNote).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(note -> {
+            getView().loadingNote(note);
+            setNote(note);
+        }));
+
 
     }
 
@@ -50,10 +71,7 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
 
     @Override
     public void createNote(Note note) {
-        getCompositeDisposable().add(getDataManager().addNote(note, false)
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(aLong -> getView().editIdNoteCreated(aLong)));
+        getCompositeDisposable().add(getDataManager().addNote(note, false).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(aLong -> getView().editIdNoteCreated(aLong)));
     }
 
     @Override
@@ -66,4 +84,65 @@ public class NotePresenter extends AppBasePresenter<NoteContract.view> implement
         getCompositeDisposable().add(getDataManager().deleteNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
+    public String getShareText() {
+        return shareText;
+    }
+
+    public void setShareText(String shareText) {
+        this.shareText = shareText == null ? "" : shareText;
+    }
+
+    public long getIdKey() {
+        return idKey;
+    }
+
+    public void setIdKey(long idKey) {
+        this.idKey = idKey;
+    }
+
+    public Note getNote() {
+        return mNote;
+    }
+
+    public void setNote(Note mNote) {
+        this.mNote = mNote;
+    }
+
+    public String getTagNote() {
+        return tagNote;
+    }
+
+    public void setTagNote(String tagNote) {
+        this.tagNote = tagNote == null ? "" : tagNote;
+    }
+
+    public boolean getNewNotesKey() {
+        return newNoteKey;
+    }
+
+    public void setNewNoteKey(boolean newNoteKey) {
+        this.newNoteKey = newNoteKey;
+    }
+
+    public boolean getExitNoteSave() {
+        return exitNoSave;
+    }
+
+    public void setExitNoSave(boolean exitNoSave) {
+        this.exitNoSave = exitNoSave;
+    }
+
+    @Override
+    public int getTypeFace(String textStyle) {
+        switch (textStyle) {
+            case "italic":
+                return Typeface.ITALIC;
+            case "bold":
+                return Typeface.BOLD;
+            case "bold-italic":
+                return Typeface.BOLD_ITALIC;
+            default:
+                return Typeface.NORMAL;
+        }
+    }
 }

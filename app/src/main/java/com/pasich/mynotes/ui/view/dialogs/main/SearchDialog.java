@@ -94,6 +94,8 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
     }
 
 
+
+
     private void filter(String text, List<Note> allNotes) {
         ArrayList<Note> newFilter = new ArrayList<>();
         ArrayList<IndexFilter> indexFilter = new ArrayList<>();

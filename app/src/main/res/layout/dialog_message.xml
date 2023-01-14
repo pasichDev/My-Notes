@@ -15,10 +15,8 @@
         android:layout_marginHorizontal="10dp"
         android:paddingHorizontal="@dimen/paddingItems"
         android:layout_marginBottom="10dp"
-        android:textColor="?attr/colorValueCustom"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="@dimen/textSizeMessageItems" />
 
-
-    <include layout="@layout/button_info" />
 
 </LinearLayout>

@@ -1,7 +1,11 @@
 package com.pasich.mynotes.base.activity;
 
 
+import static android.content.ContentValues.TAG;
+
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +19,9 @@ import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.di.component.DaggerActivityComponent;
 import com.pasich.mynotes.di.module.ActivityModule;
+import com.pasich.mynotes.utils.constants.PreferencesConfig;
+import com.pasich.mynotes.utils.themes.ThemesArray;
+import com.preference.PowerPreference;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
@@ -23,12 +30,40 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        selectTheme();
         activityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this)).applicationComponent(((MyApp) getApplication())
                         .getApplicationComponent()).build();
     }
 
+
+    @Override
+    public void selectTheme() {
+        boolean dynamicColorEnabled = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (dynamicColorEnabled) {
+                setTheme(R.style.AppThemeDynamic);
+            } else {
+                Log.wtf(TAG, "SET THEME API 33 NO DYNAIMcoLORS ");
+                setTheme(new ThemesArray()
+                        .getThemeStyle(
+                                PowerPreference
+                                        .getDefaultFile()
+                                        .getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)
+                        ));
+            }
+
+        } else {
+            setTheme(new ThemesArray()
+                    .getThemeStyle(
+                            PowerPreference
+                                    .getDefaultFile()
+                                    .getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)
+                    ));
+        }
+
+
+    }
 
     @Override
     public void showMessage(String message) {
@@ -57,6 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         Snackbar snackbar = Snackbar.make(view == null ? findViewById(android.R.id.content) : view, message, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
+
 
     public ActivityComponent getActivityComponent() {
         return activityComponent;

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,14 +30,14 @@ import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
-import com.pasich.mynotes.ui.view.dialogs.popupWindowsTag.PopupWindowsTag;
-import com.pasich.mynotes.ui.view.dialogs.popupWindowsTag.PopupWindowsTagOnClickListener;
-import com.pasich.mynotes.ui.view.dialogs.settings.AboutDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTag;
+import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTagOnClickListener;
+import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutDialog;
+import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutOpensActivity;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
-import com.pasich.mynotes.utils.activity.MainUtils;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
@@ -57,8 +59,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Inject
     public MainContract.presenter mainPresenter;
     @Inject
-    public MainUtils utils;
-    @Inject
     public FormatListTool formatList;
     @Inject
     public NoteActionTool noteActionTool;
@@ -78,8 +78,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Inject
     public SpacesItemDecoration itemDecorationNotes;
 
-    private Note backupDeleteNote;
+    final private ActivityResultLauncher<Intent> startThemeActivity =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        Intent data = result.getData();
+                        if (result.getResultCode() == 11) {
+                            assert data != null;
+                            this.redrawActivity(data.getIntExtra("updateThemeStyle", 0));
+                        }
 
+                    });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,9 +115,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mainPresenter.detachView();
-        variablesNull();
-
+        if (isDestroyed()) {
+            mainPresenter.detachView();
+            variablesNull();
+        }
     }
 
 
@@ -134,6 +144,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void startDeleteTagDialog(Tag tag) {
         new DeleteTagDialog(tag).show(getSupportFragmentManager(), "deleteTag");
+    }
+
+    @Override
+    public void
+    exitWhat() {
+        onError(R.string.exitWhat, mActivityBinding.newNotesButton);
+    }
+
+    @Override
+    public void finishActivityOtPresenter() {
+        finish();
     }
 
 
@@ -210,7 +231,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                 } else {
 
                     Note sNote = mNoteAdapter.getCurrentList().get(position);
-                    backupDeleteNote = sNote;
+                    mainPresenter.setBackupDeleteNote(sNote);
                     mainPresenter.deleteNote(sNote);
                     snackBarRestoreNote();
                 }
@@ -226,7 +247,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     public void snackBarRestoreNote() {
         Snackbar snackbar = Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
-        snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(backupDeleteNote));
+        snackbar.setAction(getString(R.string.restore), view -> mainPresenter.restoreNote(mainPresenter.getBackupDeleteNote()));
         if (mActivityBinding.newNotesButton.getY() >= mActivityBinding.activityMain.getHeight()) {
             snackbar.setAnchorView(mActivityBinding.newNotesButton);
         }
@@ -266,7 +287,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void callbackDeleteNote(Note mNote) {
-        backupDeleteNote = mNote;
+        mainPresenter.setBackupDeleteNote(mNote);
         snackBarRestoreNote();
     }
 
@@ -291,7 +312,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void moreActivity() {
         if (getAction()) actionUtils.closeActionPanel();
-        new AboutDialog().show(getSupportFragmentManager(), "MoreActivity");
+        new AboutDialog(new AboutOpensActivity() {
+            @Override
+            protected void openThemeActivity() {
+                startThemeActivity.launch(new Intent(MainActivity.this, ThemeActivity.class));
+            }
+        }).show(getSupportFragmentManager(), "MoreActivity");
     }
 
     @Override
@@ -332,7 +358,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void onBackPressed() {
         if (getAction()) actionUtils.closeActionPanel();
-        else utils.CloseApp(MainActivity.this);
+        else mainPresenter.closeApp();
     }
 
 
@@ -404,24 +430,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     private void variablesNull() {
         mNoteAdapter = null;
         tagsAdapter = null;
-        backupDeleteNote = null;
     }
-
-    @Override
-    public void errorProcessRestore() {
-        onError(R.string.errorEmptyNotesRestore, mActivityBinding.newNotesButton);
-    }
-
-    @Override
-    public void successfullyProcessRestore(int countNotes) {
-        onError(getString(R.string.successfullyRestoreNotes, countNotes), mActivityBinding.newNotesButton);
-    }
-
-    @Override
-    public void saveNoteRestore(Note newNote) {
-        mainPresenter.addNote(newNote);
-    }
-
 
     @Override
     public void createShortCut() {
@@ -431,5 +440,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void shortCutDouble() {
         onError(getString(R.string.shortCutCreateFallDouble), mActivityBinding.newNotesButton);
+    }
+
+    @Override
+    public void redrawActivity(int themeStyle) {
+        super.redrawActivity(themeStyle);
+        setTheme(themeStyle);
+        recreate();
     }
 }

@@ -8,17 +8,11 @@
     <string name="share"> Udostępnij </string>
     <string name="yesCleanTrash"> Tak, wyczyść </string>
     <string name="cancel"> Cofnij </string>
-    <string name="whatUpdate"> Co nowego? </string>
     <string name="notes"> Notatki </string>
     <string name="noSave"> Zamknij bez zapisywania </string>
-    <string name="infoAppPrefences"> Informacje </string>
     <string name="ratingApp"> Oceń aplikację </string>
     <string name="exitWhat">Aby wyjść, musisz powtórzyć czynność</string>
 
-    <string name="updateNowM">- Naprawiono drobne błędy i dokonano optymalizacji. \n
-- Dodano rozszerzone okno do tworzenia skrótu. \n
-- Dodano możliwość zmiany nazwy etykiety. \n
-- Drobne poprawki projektowe.</string>
     <string name="telegram">Otwórz kontakty programistów</string>
     <string name="error">Błąd</string>
     <string name="notSupportedShare">Ta zawartość nie jest obsługiwana.</string>
@@ -45,7 +39,6 @@
     <string name="sort_Title_Increase">Tytuł: A-Z</string>
     <string name="sort_Title_Decrease">Tytuł: Z-A</string>
     <string name="sortHead">Sortuj według:</string>
-    <string name="settingsTitleContacts">Skontaktuj się z nami</string>
     <string name="shareApp">Udostępnij aplikację</string>
     <string name="privacyApp">Polityka prywatności</string>
     <string name="shareAppText"> Polecaj „Moje notatki” /n
@@ -58,20 +51,7 @@
     <string name="lastDateEditNote">Ostatnia edycja: %1$s </string>
     <string name="restore">Przywróć</string>
     <string name="help">Pomoc</string>
-    <string name="trashDeleteNotes">Usunięte notatki (Kosz)</string>
-    <string name="restoreOldBackups">Przywróć notatki</string>
-    <string name="writeMe">Moje kontakty</string>
     <string name="noteSaved">Notatka została zapisana</string>
-    <string name="restoreBackup">Przywróć notatki</string>
-    <string name="restoreBackupMessages">W tym oknie możesz przywrócić notatki ze starych kopii zapasowych.
-        Ta funkcja będzie obsługiwana jeszcze przez kilka aktualizacji, zanim zostanie usunięta.
-        i synchronizacja z Google przyjdzie, aby go zastąpić.
-    </string>
-    <string name="restoreBackupMessageTwo"> Nowe notatki zostaną dodane przed istniejącymi, a duplikaty zostaną zignorowane!</string>
-    <string name="selectedArchive">Wybierz Odp. skopiuj</string>
-    <string name="loadingProgress">Proszę czekać, dane są przetwarzane</string>
-    <string name="errorEmptyNotesRestore">Błąd: to archiwum jest uszkodzone lub nie zawiera żadnych notatek</string>
-    <string name="successfullyRestoreNotes">Pomyślnie: Notatki zostały przywrócone: %1$d </string>
     <string name="searchNotesFromTitle">Zacznij pisać</string>
     <string name="errorNewTagInput">Błąd: Maksymalna liczba znaków, jaką może zawierać nazwa znacznika, to %1$d </string>
     <string name="emptyTrash">Twoje usunięte notatki są wyświetlane tutaj</string>
@@ -85,27 +65,7 @@
     <string name="button_phone">Zadzwoń</string>
     <string name="button_mail">Zapisz</string>
     <string name="button_url">Idź do</string>
-    <string name="mesFeedback">Możesz skontaktować się z autorem aplikacji, korzystając z poniższych kontaktów. Jeśli znajdziesz błędy lub chcesz zasugerować ulepszenia aplikacji, skontaktuj się z określonymi osobami kontaktowymi.</string>
     <!-- Wyczyść następną wersję -->
-    <string name="Hello_next">Kontynuuj</string>
-    <string name="Hello_text_Title">Witamy w nowej wersji Moich notatek</string>
-    <string name="Hello_text_info">Poświęcimy kilka minut na skonfigurowanie aplikacji i poinformujemy Cię, co nowego dla Ciebie.</string>
-    <string name="skip">Pomiń</string>
-    <string name="Finish_text_Title">Zakończenie konfiguracji</string>
-    <string name="Finish_text_button_save_backup">Zapisz rozdz. skopiuj</string>
-    <string name="finish">Zakończ</string>
-    <string name="Finish_text_Info">Aby zakończyć konfigurację aplikacji, musisz zapisać cięcie. kopię twoich notatek. Robimy to w przypadku niepowodzenia uruchomienia nowej wersji.</string>
-    <string name="feature_desing_title">Nowy projekt</string>
-    <string name="feature_desing_info">Nowy projekt łączy w sobie wygodę i prostotę. Każda interakcja użytkownika z aplikacją jest przemyślana w najdrobniejszych szczegółach.</string>
-    <string name="feature_tags_title">Tagi, wyszukiwanie</string>
-    <string name="feature_tags_info">Tagi są implementowane zamiast folderów. Teraz możesz umieścić etykietę na każdej notatce, aby niczego nie zgubić we właściwym czasie.
-        A pasek wyszukiwania zawsze pomoże Ci szybko znaleźć potrzebną notatkę według jej nazwy.</string>
-    <string name="feature_create_title">Aplikacja ponownie utworzona od podstaw</string>
-    <string name="feature_create_info">Ostatnia aktualizacja została wydana 5 miesięcy temu, ale przez te 5 miesięcy rozwijałem nową wersję, która jest napisana od podstaw. Wziąłem pod uwagę wszystkie błędy, które popełniłem w starszych wersjach i teraz mogę powtórzyć, że aplikacja działa stabilnie.
-    </string>
-    <string name="feature_newFetures_title">Nowe funkcje</string>
-    <string name="feature_newFetures_info">Aplikacja otrzymała wiele przydatnych funkcji, takich jak tłumaczenie notatek, wielokrotny wybór, skrót do notatek na pulpicie i wiele innych. Z biegiem czasu liczba nowych funkcji będzie rosła. (Widżet, Google Sync)</string>
-    <string name="hello_finishTextTwo">Kopia zapasowa została zapisana. Po kliknięciu przycisku Zakończ uruchomi się nowa wersja aplikacji. W rzadkich przypadkach mogą wystąpić awarie, uruchom ponownie aplikację lub napisz do mnie w sekcji opinii.</string>
     <string name="hiddeTag">Ukryj notatki</string>
     <string name="visibleTag">Pokaż notatki</string>
     <string name="hintNameLabel">Nazwa etykiety</string>

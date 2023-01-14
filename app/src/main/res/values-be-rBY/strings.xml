@@ -8,17 +8,11 @@
     <string name="share">Падзяліцца</string>
     <string name="yesCleanTrash">Так, ачысціць</string>
     <string name="cancel">Адмяніць</string>
-    <string name="whatUpdate">Што новага?</string>
     <string name="notes">Нататкі</string>
     <string name="noSave">Зачыніць без захавання</string>
-    <string name="infoAppPrefences">Аб дадатку</string>
     <string name="ratingApp">Ацаніць дадатак</string>
     <string name="exitWhat">Для выхаду, трэба паўтарыць дзеянне</string>
 
-    <string name="updateNowM">- Выпраўлена дробныя памылкі і зроблена аптымізацыю. \n
-- Дададзена пашыранае акно для стварэння цэтліка. \n
-- Дададзена магчымасць перайменаваць пазнаку. \n
-- Дробныя выпраўленні ў дызайне.</string>
     <string name="telegram">Адкрыць кантакты распрацоўніка</string>
     <string name="error">Памылка</string>
     <string name="notSupportedShare">Гэты кантэнт не падтрымліваецца.</string>
@@ -45,7 +39,6 @@
     <string name="sort_Title_Increase">Назве: ад А-Я</string>
     <string name="sort_Title_Decrease">Назве: ад Я-А</string>
     <string name="sortHead">Картаваць па:</string>
-    <string name="settingsTitleContacts">Зваротная сувязь</string>
     <string name="shareApp">Падзяліцца дадаткам</string>
     <string name="privacyApp">Палітыка прыватнасці</string>
     <string name="shareAppText"> Рэкамендую "Мае Нататкі" /n
@@ -58,20 +51,7 @@
     <string name="lastDateEditNote">Апошняя змена: %1$s</string>
     <string name="restore">Аднавіць</string>
     <string name="help">Дапамога</string>
-    <string name="trashDeleteNotes">Выдаленыя нататкі (Кошык)</string>
-    <string name="restoreOldBackups">Аднавіць нататкі</string>
-    <string name="writeMe">Мае кантакты</string>
     <string name="noteSaved">Нататку захавана</string>
-    <string name="restoreBackup">Аднавіць нататкі</string>
-    <string name="restoreBackupMessages">У гэтым акне вы можаце аднавіць нататкі са старых рэзервовых копій.
-        Гэтая функцыя будзе падтрымлівацца яшчэ некалькі абнаўленняў, потым яна будзе выдалена,
-        а на замену прыйдзе сінхранізацыя з Google.
-    </string>
-    <string name="restoreBackupMessageTwo">Новыя нататкі будуць дададзеныя да ўжо існых, а дублікаты будуць праігнараваныя!</string>
-    <string name="selectedArchive">Выбраць рэз. копію</string>
-    <string name="loadingProgress">Чакайце, ідзе апрацоўка дадзеных</string>
-    <string name="errorEmptyNotesRestore">Памылка: Дадзены архіў або пашкоджаны, або не ўтрымлівае нататак</string>
-    <string name="successfullyRestoreNotes">Паспяхова: Нататак адноўлена: %1$d </string>
     <string name="searchNotesFromTitle">Пачніце ўводзіць тэкст</string>
     <string name="errorNewTagInput">Памылка: Максімальная колькасць знакаў якая можа змяшчаць назву пазнакі %1$d </string>
     <string name="emptyTrash">Тут адлюстроўваюцца выдаленыя вамі нататкі</string>
@@ -85,27 +65,7 @@
     <string name="button_phone">Патэлефанаваць</string>
     <string name="button_mail">Напісаць</string>
     <string name="button_url">Перайсці</string>
-    <string name="mesFeedback">Вы можаце звязацца з аўтарам прыкладання па кантактах якія пазначаны ніжэй. Калі вы знайшлі памылкі ці жадаеце прапанаваць паляпшэнні па працы прыкладання звяртайцеся па паказаных кантактах.</string>
     <!-- Clean next version -->
-    <string name="Hello_next">Працягнуць</string>
-    <string name="Hello_text_Title">Вас вітае новая версія My Notes</string>
-    <string name="Hello_text_info">Мы адбярэм у вас некалькі хвілін, каб наладзіць прыкладанне, а таксама раскажам што зрабілі новага для вас.</string>
-    <string name="skip">Прапусціць</string>
-    <string name="Finish_text_Title">Завяршэнне налады</string>
-    <string name="Finish_text_button_save_backup">Захаваць рэз. копію</string>
-    <string name="finish">Завяршыць</string>
-    <string name="Finish_text_Info">Каб завяршыць наладу прыкладання трэба захаваць рэз. копію вашых нататак. Мы гэта які робіцца на выпадак таго, калі пры запуску новай версіі адбудзецца збой.</string>
-    <string name="feature_desing_title">Новы дызайн</string>
-    <string name="feature_desing_info">Новы дызайн месціць у сябе зручнасць і прастату. Кожнае ўзаемадзеянне паміж карыстальнікам і дадаткам прадумана да дробязяў.</string>
-    <string name="feature_tags_title">Пазнакі, Пошук</string>
-    <string name="feature_tags_info">Замест тэчак рэалізавана пазнакі. Цяпер можна на кожную нататку павесіць пазнаку, каб у патрэбны час нічога не страціць.
-        А панэль пошуку заўсёды дапаможа хутка, знайсці патрэбную нататку па яе назове.</string>
-    <string name="feature_create_title">Дадатак пераствораны з нуля</string>
-    <string name="feature_create_info">Апошняе абнаўленне выпушчана 5 месяцаў таму, але ўсе гэтыя 5 месяцаў я займаўся распрацоўкай новай версіі якая напісана з нуля. Я ўлічыў усе памылкі якія дапусціў у старых версіях, і зараз магу паўтараць што прыкладанне працуе стабільна.
-    </string>
-    <string name="feature_newFetures_title">Новыя функцыі </string>
-    <string name="feature_newFetures_info">Дадатак атрымаў шмат карысных функцый, як пераклад нататак, множны выбар, цэтлік нататкі на працоўны стол, і шматлікае іншае. З часам колькасць новых функцый будзе расці. (Віджэт, сінхранізацыі з Google)</string>
-    <string name="hello_finishTextTwo">Рэзервовую копію захавана. Пасля націску кнопкі завяршыць запусціцца новая версія прыкладання. У рэдкіх выпадках могуць быць збоі, перазапусціце прыкладанне або напішыце мне ў раздзеле зваротная сувязь.</string>
     <string name="hiddeTag">Схаваць нататкі</string>
     <string name="visibleTag">Адлюстроўваць нататкі</string>
     <string name="hintNameLabel">Назва ярлыка</string>

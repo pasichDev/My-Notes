@@ -32,6 +32,11 @@ public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFrag
     }
 
     @Override
+    public void selectTheme() {
+
+    }
+
+    @Override
     public void dismiss() {
         super.dismiss();
         mDialog = null;

@@ -23,7 +23,6 @@ import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.LinkInfoDialog;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
-import com.pasich.mynotes.utils.activity.NoteUtils;
 
 import java.util.Date;
 import java.util.Objects;
@@ -36,13 +35,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public ActivityNoteBinding binding;
     @Inject
     public NoteContract.presenter notePresenter;
-    @Inject
-    public NoteUtils noteUtils;
-
-    private String shareText, tagNote;
-    private long idKey;
-    private Note mNote;
-    private boolean exitNoSave = false, newNoteKey;
 
 
     @Override
@@ -53,20 +45,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         binding.setPresenter((NotePresenter) notePresenter);
         notePresenter.attachView(this);
+        notePresenter.getLoadIntentData(getIntent());
         notePresenter.viewIsReady();
 
     }
-
-    @Override
-    public void initParam() {
-        this.idKey = getIntent().getLongExtra("idNote", 0);
-        this.tagNote = getIntent().getStringExtra("tagNote");
-        if (tagNote == null) this.tagNote = "";
-        this.shareText = getIntent().getStringExtra("shareText");
-        if (shareText == null) this.shareText = "";
-        this.newNoteKey = getIntent().getBooleanExtra("NewNote", true);
-    }
-
 
     @Override
     protected void onStart() {
@@ -76,46 +58,99 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void onPause() {
         super.onPause();
-        if (!exitNoSave && binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
+        if (!notePresenter.getExitNoteSave() && binding.valueNote.getText().toString().trim().length() >= 2)
+            saveNote();
     }
 
 
     @Override
+    public void initParam() {
+
+    }
+
+    @Override
     public void initTypeActivity() {
-        if (newNoteKey) {
+        if (notePresenter.getNewNotesKey()) {
             activatedActivity();
-            if (tagNote.length() >= 2) changeTag(tagNote);
+            if (notePresenter.getTagNote().length() >= 2) changeTag(notePresenter.getTagNote());
             binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(new Date().getTime())));
 
-            if (shareText != null && shareText.length() > 5) binding.valueNote.setText(shareText);
-        } else if (idKey >= 1) {
+            if (notePresenter.getShareText() != null && notePresenter.getShareText().length() > 5)
+                binding.valueNote.setText(notePresenter.getShareText());
+        } else if (notePresenter.getIdKey() >= 1) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-            notePresenter.loadingData(idKey);
+            notePresenter.loadingData(notePresenter.getIdKey());
         }
     }
 
 
     @Override
     public void initListeners() {
-
         binding.notesTitle.addTextChangedListener(new TextWatcher() {
             @Override
             protected void changeText(Editable s) {
-
                 if (s.toString().contains("\n")) {
                     binding.notesTitle.setText(s.toString().replace('\n', ' ').trim());
                     binding.valueNote.requestFocus();
                 }
             }
         });
+        binding.valueNote.addTextChangedListener(new TextWatcher() {
+            @Override
+            protected void changeText(Editable s) {
+                autoCreatedList(s);
+            }
+        });
 
+    }
+
+    private void autoCreatedList(Editable s) {
+
+        String[] texts = s.toString().split("\n"); //массив всех строчек
+        String beforeString = texts.length > 3 ? texts[texts.length - 1] : texts[0];
+
+
+        // Log.wtf(TAG, "autoCreatedList: " + texts.length + " ??/// " );
+
+/*
+
+        if(beforeString.substring(0, beforeString.length() >= 2 ? 1 : beforeString.length()).contains("-") && s.toString().contains("\n")){
+            Log.wtf(TAG, "yes - " );
+        }
+
+        if(texts[texts.length - 1].contains("\n")){
+            Log.wtf(TAG, "probell: " );
+        }
+
+ */
+
+        //это рабочий вариант
+
+/*
+        String string = s.toString();
+        if (string.length() > 0 && string.charAt(string.length() - 1) == '\n') {
+            Log.wtf(TAG, "probell: " );
+
+            if(beforeString.substring(0, beforeString.length() >= 2 ? 1 : beforeString.length()).contains("-") && beforeString.length() == 2 ){
+            //    binding.valueNote.setText(s + beforeString.replace("- ", "").trim());
+            }
+            else if(beforeString.substring(0, beforeString.length() >= 2 ? 1 : beforeString.length()).contains("-") ){
+                Log.wtf(TAG, "yes - " );
+                binding.valueNote.setText(s  + "- ");
+                binding.valueNote.setSelection(binding.valueNote.length());
+            }
+        }
+
+
+
+ */
 
     }
 
 
     @Override
     public void editIdNoteCreated(long idNote) {
-        this.mNote.setId(Math.toIntExact(idNote));
+        notePresenter.getNote().setId(Math.toIntExact(idNote));
     }
 
 
@@ -132,10 +167,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         binding.setActivateEdit(true);
         binding.valueNote.setEnabled(true);
         binding.valueNote.setFocusable(true);
-        if (!newNoteKey) binding.valueNote.setSelection(binding.valueNote.getText().length());
+        if (!notePresenter.getNewNotesKey())
+            binding.valueNote.setSelection(binding.valueNote.getText().length());
         binding.valueNote.setFocusableInTouchMode(true);
         binding.valueNote.requestFocus();
-        if (!newNoteKey) {
+        if (!notePresenter.getNewNotesKey()) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.toggleSoftInputFromWindow(binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
         }
@@ -165,8 +201,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         }
         if (item.getItemId() == R.id.moreBut) {
-
-            new MoreNoteDialog(newNoteKey ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : mNote, newNoteKey, true, 0).show(getSupportFragmentManager(), "MoreNote");
+            new MoreNoteDialog(notePresenter.getNewNotesKey() ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : notePresenter.getNote(), notePresenter.getNewNotesKey(), true, 0).show(getSupportFragmentManager(), "MoreNote");
 
         }
 
@@ -193,15 +228,13 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             protected void onClickLink(String link, int type) {
                 link = link.replaceAll("mailto:", "").replaceAll("tel:", "");
 
-                new LinkInfoDialog(link, type).show(getSupportFragmentManager(), "LinkInfoDIalog");
+                new LinkInfoDialog(link, type).show(getSupportFragmentManager(), "LinkInfoDialog");
 
             }
 
         });
         binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(note.getDate())));
         changeTag(note.getTag());
-        this.mNote = note;
-
     }
 
 
@@ -212,11 +245,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(binding.valueNote.getWindowToken(), 0);
 
-        exitNoSave = true;
+        notePresenter.setExitNoSave(true);
         if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
-        if (shareText.length() >= 2)
+        if (notePresenter.getShareText().length() >= 2)
             Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
-
         finish();
     }
 
@@ -227,29 +259,29 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         String mNoteValue = "";
 
-        if (!newNoteKey) mNoteValue = mNote.getValue() == null ? "" : mNote.getValue();
+        if (!notePresenter.getNewNotesKey())
+            mNoteValue = notePresenter.getNote().getValue() == null ? "" : notePresenter.getNote().getValue();
 
-        if (newNoteKey) {
-            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : "", mValue, mThisDate, tagNote);
-            this.mNote = note;
+        if (notePresenter.getNewNotesKey()) {
+            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : "", mValue, mThisDate, notePresenter.getTagNote());
+            notePresenter.setNote(note);
             notePresenter.createNote(note);
+            notePresenter.setNewNoteKey(false);
 
-            this.newNoteKey = false;
-
-        } else if (!mValue.equals(mNoteValue) || !mTitle.equals(mNote.getTitle())) {
+        } else if (!mValue.equals(mNoteValue) || !mTitle.equals(notePresenter.getNote().getTitle())) {
             boolean x1 = false;
-            if (!mNote.getTitle().contentEquals(mTitle)) {
-                mNote.setTitle(mTitle);
+            if (!notePresenter.getNote().getTitle().contentEquals(mTitle)) {
+                notePresenter.getNote().setTitle(mTitle);
                 x1 = true;
             }
             if (!mNoteValue.contentEquals(mValue)) {
-                mNote.setValue(mValue);
+                notePresenter.getNote().setValue(mValue);
                 x1 = true;
             }
 
             if (x1) {
-                mNote.setDate(mThisDate);
-                notePresenter.saveNote(mNote);
+                notePresenter.getNote().setDate(mThisDate);
+                notePresenter.saveNote(notePresenter.getNote());
             }
 
         }
@@ -257,7 +289,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void closeActivityNotSaved() {
-        exitNoSave = true;
+        notePresenter.setExitNoSave(true);
         finish();
     }
 
@@ -280,7 +312,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void changeTextStyle() {
-        binding.valueNote.setTypeface(null, noteUtils.getTypeFace(notePresenter.getDataManager().getTypeFaceNoteActivity()));
+        binding.valueNote.setTypeface(null, notePresenter.getTypeFace(notePresenter.getDataManager().getTypeFaceNoteActivity()));
     }
 
     @Override
@@ -294,5 +326,15 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         changeTextSizeOnline(notePresenter.getDataManager().getSizeTextNoteActivity());
     }
 
+
+    @Override
+    public void createShortCut() {
+        onError(getString(R.string.addShortCutSuccessfully), binding.noteLayout);
+    }
+
+    @Override
+    public void shortCutDouble() {
+        onError(getString(R.string.shortCutCreateFallDouble), binding.noteLayout);
+    }
 
 }

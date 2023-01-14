@@ -8,17 +8,11 @@
     <string name="share">Поділитися</string>
     <string name="yesCleanTrash">Так, очистити</string>
     <string name="cancel">Відмінити</string>
-    <string name="whatUpdate">Що нового?</string>
     <string name="notes">Нотатки</string>
     <string name="noSave">Закрити без збереження</string>
-    <string name="infoAppPrefences">Про додаток</string>
     <string name="ratingApp">Оцінити додаток</string>
     <string name="exitWhat">Для виходу потрібно повторити дію</string>
 
-    <string name="updateNowM">- Виправлено дрібні помилки та зроблено оптимізацію.  \n
-- Додано розширене вікно для створення ярлика. \n
-- Додано можливість перейменувати тег. \n
-- Дрібні виправлення у дизайні.</string>
     <string name="telegram">Відкрити контакти розробника</string>
     <string name="error">Помилка</string>
     <string name="notSupportedShare">Цей вміст не підтримується.</string>
@@ -46,7 +40,6 @@
     <string name="sort_Title_Increase">Назвою: від А-Я</string>
     <string name="sort_Title_Decrease">Назвою: від Я-А</string>
     <string name="sortHead">Сортувати за:</string>
-    <string name="settingsTitleContacts">Зворотній зв\'язок</string>
     <string name="shareApp">Поділитись додатком</string>
     <string name="privacyApp">Політика конфіденційності</string>
     <string name="shareAppText"> Рекомендую "Мої нотатки" /n
@@ -59,20 +52,7 @@
     <string name="lastDateEditNote">Відредаговано: %1$s</string>
     <string name="restore">Відновити</string>
     <string name="help">Допомога</string>
-    <string name="trashDeleteNotes">Видалені нотатки (Кошик)</string>
-    <string name="restoreOldBackups">Відновити нотатки</string>
-    <string name="writeMe">Мої контакти</string>
     <string name="noteSaved">Нотатка збережена</string>
-    <string name="restoreBackup">Відновити нотатки</string>
-    <string name="restoreBackupMessages">У цьому вікні можна відновити нотатки зі старих резервних копій.
-        Ця функція підтримуватиметься ще кілька оновлень, потім вона буде видалена,
-        а на заміну прийде синхронізація з Google.
-    </string>
-    <string name="restoreBackupMessageTwo"> Нові нотатки будуть додані до існуючих, а дублікати будуть проігноровані!</string>
-    <string name="selectedArchive">Вибрати рез. копію</string>
-    <string name="loadingProgress">Чекайте, йде обробка даних</string>
-    <string name="errorEmptyNotesRestore">Помилка: Цей архів або пошкоджений, або не містить нотаток</string>
-    <string name="successfullyRestoreNotes">Успішно: Нотаток відновлено: %1$d</string>
     <string name="searchNotesFromTitle">Почніть вводити текст</string>
     <string name="errorNewTagInput">Помилка: Максимальна кількість символів, яка може містити назва тега %1$d </string>
     <string name="emptyTrash">Тут відображатимуться видалені вами нотатки</string>
@@ -86,28 +66,8 @@
     <string name="button_phone">Зателефонувати</string>
     <string name="button_mail">Написати</string>
     <string name="button_url">Відкрити посилання</string>
-    <string name="mesFeedback">Ви можете зв\'язатися з автором додатку, за допомогою контактів, які вказані нижче. Якщо ви знайшли помилки або хочете запропонувати функції для покращення роботи програми, звертайтеся за вказаними контактами.</string>
 
     <!-- Clean next version -->
-    <string name="Hello_next">Продовжити</string>
-    <string name="Hello_text_Title">Вас вітає нова версія My Notes</string>
-    <string name="Hello_text_info">Ми заберемо у вас кілька хвилин, щоб налаштувати програму, а також розповімо, що зробили нового для вас.</string>
-    <string name="skip">Пропустити</string>
-    <string name="Finish_text_Title">Завершення налаштування</string>
-    <string name="Finish_text_button_save_backup">Зберегти рез. копію</string>
-    <string name="finish">Завершити</string>
-    <string name="Finish_text_Info">Щоб завершити налаштування програми, потрібно зберегти рез. копію ваших нотаток. Ми це робимо на випадок, якщо при запуску нової версії відбудеться збій.</string>
-    <string name="feature_desing_title">Новий дизайн</string>
-    <string name="feature_desing_info">Новий дизайн вміщує зручність і простоту. Кожна взаємодія між користувачем та програмою продумана до дрібниць.</string>
-    <string name="feature_tags_title">Теги, Пошук</string>
-    <string name="feature_tags_info">Замість папок реалізовано теги. Тепер можна на кожну замітку повісити тег, щоб у потрібний час нічого не втратити.
-        А панель пошуку завжди допоможе швидко знайти потрібну замітку за її назвою.</string>
-    <string name="feature_create_title">Додаток перестворено з нуля</string>
-    <string name="feature_create_info">Останнє оновлення випущено 5 місяців тому, але всі ці 5 місяців я займався розробкою нової версії, яка написана з нуля. Я врахував всі помилки, які припустився в старих версіях, і тепер можу твердити, що програма працює стабільно.
-    </string>
-    <string name="feature_newFetures_title">Нові функції</string>
-    <string name="feature_newFetures_info">Додаток отримав багато корисних функцій, як переклад нотаток, множинний вибір, ярлик нотатки на робочий стіл, та багато іншого. Згодом кількість нових функцій зростатиме. (Віджет, синхронізація з Google)</string>
-    <string name="hello_finishTextTwo">Резервну копію збережено. Після натискання кнопки завершити запустити нову версію програми. В окремих випадках можуть бути збої, перезапустіть програму або напишіть мені в розділі зворотний зв\'язок.</string>
 
     <string name="hiddeTag">Приховати нотатки</string>
     <string name="visibleTag">Відображати нотатки</string>

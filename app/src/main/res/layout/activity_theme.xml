@@ -23,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
-            app:title="@string/settingsInterface"
-            app:layout_collapseMode="pin" />
+            app:title="@string/settingsInterface" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,13 +32,30 @@
             android:layout_marginHorizontal="20dp"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/paragraphText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start"
-                android:padding="6dp"
-                android:text="@string/thema" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/titleTheme"
+                    style="@style/paragraphText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:padding="6dp"
+                    android:text="@string/themes" />
+
+                <TextView
+                    android:id="@+id/countThemes"
+                    style="@style/paragraphText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:textSize="14sp"
+                    android:padding="6dp"
+                    android:text="@string/null_lit" />
+            </FrameLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/themes"
@@ -57,6 +73,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/titleFunc"
                 style="@style/paragraphText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,21 +82,22 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/functional" />
 
-            <Switch
-                android:id="@+id/mmm"
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/dynamicColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:textSize="18sp"
                 android:padding="10dp"
-                android:text="Switch" />
+                android:text="@string/onDynamicColor" />
 
-            <Switch
-                android:id="@+id/switch1"
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/tag_enable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:textSize="18sp"
-                android:text="Switch" />
+                android:padding="10dp"
+                android:text="@string/offTags" />
         </LinearLayout>
 
     </LinearLayout>

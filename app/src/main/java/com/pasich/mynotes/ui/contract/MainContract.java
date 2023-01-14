@@ -6,7 +6,6 @@ import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
-import com.pasich.mynotes.base.view.RestoreNotesBackupOld;
 import com.pasich.mynotes.base.view.ShortCutView;
 import com.pasich.mynotes.data.database.model.Note;
 import com.pasich.mynotes.data.database.model.Tag;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public interface MainContract {
 
-    interface view extends BaseView, MoreNoteMainActivityView, MainSortView, ManagerViewAction<Note>, RestoreNotesBackupOld, ShortCutView {
+    interface view extends BaseView, MoreNoteMainActivityView, MainSortView, ManagerViewAction<Note>, ShortCutView {
         void settingsSearchView();
 
         void settingsNotesList();
@@ -52,6 +51,10 @@ public interface MainContract {
         void startSearchDialog();
 
         void startDeleteTagDialog(Tag tag);
+
+        void exitWhat();
+
+        void finishActivityOtPresenter();
     }
 
 
@@ -87,6 +90,12 @@ public interface MainContract {
 
         void loadingData();
 
+        Note getBackupDeleteNote();
+
+        void setBackupDeleteNote(Note backupDeleteNote);
+
         String getSortParam();
+
+        void closeApp();
     }
 }

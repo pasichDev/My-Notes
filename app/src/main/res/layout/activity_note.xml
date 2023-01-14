@@ -34,7 +34,7 @@
             android:fitsSystemWindows="true">
 
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -54,7 +54,7 @@
                         android:layout_gravity="center"
                         android:textSize="16sp"
                         android:visibility="gone"
-                        android:textColor="@color/colorPrimaryVariant"
+                        android:textColor="?attr/colorPrimary"
                         tools:text="tag_name" />
 
                     <TextView
@@ -65,7 +65,7 @@
                         android:textSize="14sp"
                         tools:text="data_name" />
                 </LinearLayout>
-            </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -121,6 +121,7 @@
                     android:inputType="textAutoComplete|text|textCapSentences|textMultiLine"
                     android:longClickable="true"
                     android:maxLength="@integer/maxLengthNotesTextValue"
+                    android:singleLine="false"
                     android:minHeight="100dp"
                     android:padding="20dp"
                     android:textColor="@drawable/selector_color_value" />
@@ -131,21 +132,15 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/editActive"
+            style="@style/fab_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="15dp"
-            android:contentDescription="@string/NewNote"
+            android:contentDescription="@string/editNoteButton"
             android:onClick="@{(view) -> presenter.activateEditNote()}"
             android:visibility="@{activateEdit ? View.GONE : View.VISIBLE}"
-            app:backgroundTint="?attr/colorPrimaryBackground"
-            app:elevation="7dp"
             app:layout_anchor="@id/scrollView"
-            app:layout_anchorGravity="bottom|right|end"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
-            app:srcCompat="@drawable/ic_edit"
-            app:tint="@color/white" />
+            app:srcCompat="@drawable/ic_edit" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

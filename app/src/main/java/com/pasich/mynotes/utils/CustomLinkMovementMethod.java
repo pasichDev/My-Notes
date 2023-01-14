@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 
 
 /**
- * https://stackoverflow.com/questions/1697084/handle-textview-link-click-in-my-android-app/16644228#16644228
+ * <a href="https://stackoverflow.com/questions/1697084/handle-textview-link-click-in-my-android-app/16644228#16644228">...</a>
  */
 public abstract class CustomLinkMovementMethod extends LinkMovementMethod {
 

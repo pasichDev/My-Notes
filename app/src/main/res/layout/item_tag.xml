@@ -24,23 +24,23 @@
         android:orientation="vertical">
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{tag.systemAction == 1 ? View.VISIBLE : View.GONE}"
-            android:textColor="@color/colorPrimaryVariantBlue"
+            android:textColor="?attr/colorPrimary"
             android:textSize="20sp"
             android:contentDescription="@string/addTag"
             android:text="@string/plus"
             android:layout_marginVertical="11dp"
             android:layout_marginHorizontal="15dp" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/nameTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{tag.systemAction == 2 ?  @string/allNotes :  tag.nameTag}"
-            android:textColor="@{checkedTag ? @color/white : @color/colorPrimaryVariantBlue}"
+            android:textColor="?colorOnSurfaceVariant"
             android:textStyle="bold"
             android:layout_margin="15dp"
             android:visibility="@{tag.systemAction != 1 ? View.VISIBLE : View.GONE}" />

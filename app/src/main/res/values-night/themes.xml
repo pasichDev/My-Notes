@@ -1,67 +1,280 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="ThemeBlue" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimaryBackground</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/colorPrimaryVariant</item>
-
-
-        <!-- Цвет ripple -->
-        <item name="colorControlHighlight">@color/colorControlHighlightNight</item>
-
-        <!-- Custom colors -->
-        <item name="colorAccentIcon">@color/colorPrimaryVariant</item>
-        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
-        <item name="colorBackground">@color/colorDarkThemeSurface</item>
-
-        <!-- Цвет фона дилоговых окон, цвет поля ввода-->
-        <item name="colorSurface">@color/colorDarkThemeSurface</item>
-        <item name="colorAccent">@color/colorPrimaryBackground</item>
-        <item name="colorControlNormal">@color/colorTitleDark</item>
-
-        <!-- Цвет текста заголовков-->
-        <item name="colorTitle">@color/colorTitleDark</item>
-        <item name="colorValueCustom">@color/colorValueDark</item>
-
-        <!-- Цвет и настройки статусбара и навбара -->
-        <item name="android:navigationBarColor">@color/colorPrimaryBackground</item>
-
-
-        <item name="android:statusBarColor">@color/colorDarkThemeSurface</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-
-
-        <!-- Цвет линков для EditText -->
-        <item name="android:textColorLink">?attr/colorPrimaryVariant</item>
-        <!-- Style to use for action button within a Snackbar in this theme. -->
-        <item name="snackbarButtonStyle">@style/snackbar_button</item>
-        <!-- Цвет switchmaterial.SwitchMaterial -->
-        <item name="switchStyle">@style/Widget.App.Switch</item>
-        <!-- Цвет выделение текста -->
-        <item name="android:textColorHighlight">@color/colorPrimaryVariant</item>
+    <!-- Theme SplashScreen -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@android:color/background_dark</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
+        <item name="windowSplashScreenAnimationDuration">500</item>
+        <item name="postSplashScreenTheme">@style/DefaultThemeNoBackground</item>
     </style>
 
-
-    <!-- SplashStyle-->
-    <style name="ThemeBlueSplash" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimaryBackground">@color/colorPrimaryBackground</item>
-        <item name="colorBackground">@color/colorDarkThemeSurface</item>
-        <item name="android:statusBarColor">?attr/colorPrimaryBackground</item>
+    <!-- Theme Dynamic -->
+    <style name="AppThemeDynamic" parent="Theme.Material3.DynamicColors.Dark">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+    <!-- Base theme -->
+    <style name="themeBaseDark" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
+    <!-- Theme Green no Background Dark -->
+    <style name="GreenThemeNoBackground" parent="@style/themeBaseDark">
+        <item name="colorPrimary">@color/green_theme_no_background_dark_primary</item>
+        <item name="colorOnPrimary">@color/green_theme_no_background_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/green_theme_no_background_dark_primaryContainer
+        </item>
+        <item name="colorOnPrimaryContainer">
+            @color/green_theme_no_background_dark_onPrimaryContainer
+        </item>
+        <item name="colorSecondary">@color/green_theme_no_background_dark_secondary</item>
+        <item name="colorOnSecondary">@color/green_theme_no_background_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">
+            @color/green_theme_no_background_dark_secondaryContainer
+        </item>
+        <item name="colorOnSecondaryContainer">
+            @color/green_theme_no_background_dark_onSecondaryContainer
+        </item>
+        <item name="colorTertiary">@color/green_theme_no_background_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/green_theme_no_background_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">
+            @color/green_theme_no_background_dark_tertiaryContainer
+        </item>
+        <item name="colorOnTertiaryContainer">
+            @color/green_theme_no_background_dark_onTertiaryContainer
+        </item>
+        <item name="colorError">@color/green_theme_no_background_dark_error</item>
+        <item name="colorErrorContainer">@color/green_theme_no_background_dark_errorContainer</item>
+        <item name="colorOnError">@color/green_theme_no_background_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/green_theme_no_background_dark_onErrorContainer
+        </item>
+        <item name="android:colorBackground">@color/green_theme_no_background_dark_background</item>
+        <item name="colorOnBackground">@color/green_theme_no_background_dark_onBackground</item>
+        <item name="colorSurface">@color/green_theme_no_background_dark_surface</item>
+        <item name="colorOnSurface">@color/green_theme_no_background_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/green_theme_no_background_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/green_theme_no_background_dark_onSurfaceVariant
+        </item>
+        <item name="colorOutline">@color/green_theme_no_background_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/green_theme_no_background_dark_inverseOnSurface
+        </item>
+        <item name="colorSurfaceInverse">@color/green_theme_no_background_dark_inverseSurface</item>
+        <item name="elevationOverlayColor">@color/green_theme_no_background_dark_surfaceTint</item>
+        <item name="colorPrimaryInverse">@color/green_theme_no_background_dark_inversePrimary</item>
+    </style>
 
-    <!-- Стиль кнопки восстановить в SnackBar -->
-    <style name="snackbar_button" parent="Widget.Material3.Button.TextButton.Snackbar">
-        <item name="android:textColor">?attr/colorPrimary</item>
+    <!-- Theme Dark_Blue no Background Light -->
+    <style name="DefaultThemeNoBackground" parent="@style/themeBaseDark">
+        <item name="colorPrimary">@color/darkBlue_theme_no_background_dark_primary</item>
+        <item name="colorOnPrimary">@color/darkBlue_theme_no_background_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">
+            @color/darkBlue_theme_no_background_dark_primaryContainer
+        </item>
+        <item name="colorOnPrimaryContainer">
+            @color/darkBlue_theme_no_background_dark_onPrimaryContainer
+        </item>
+        <item name="colorSecondary">@color/darkBlue_theme_no_background_dark_secondary</item>
+        <item name="colorOnSecondary">@color/darkBlue_theme_no_background_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">
+            @color/darkBlue_theme_no_background_dark_secondaryContainer
+        </item>
+        <item name="colorOnSecondaryContainer">
+            @color/darkBlue_theme_no_background_dark_onSecondaryContainer
+        </item>
+        <item name="colorTertiary">@color/darkBlue_theme_no_background_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/darkBlue_theme_no_background_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">
+            @color/darkBlue_theme_no_background_dark_tertiaryContainer
+        </item>
+        <item name="colorOnTertiaryContainer">
+            @color/darkBlue_theme_no_background_dark_onTertiaryContainer
+        </item>
+        <item name="colorError">@color/darkBlue_theme_no_background_dark_error</item>
+        <item name="colorErrorContainer">@color/darkBlue_theme_no_background_dark_errorContainer
+        </item>
+        <item name="colorOnError">@color/darkBlue_theme_no_background_dark_onError</item>
+        <item name="colorOnErrorContainer">
+            @color/darkBlue_theme_no_background_dark_onErrorContainer
+        </item>
+        <item name="android:colorBackground">@color/darkBlue_theme_no_background_dark_background
+        </item>
+        <item name="colorOnBackground">@color/darkBlue_theme_no_background_dark_onBackground</item>
+        <item name="colorSurface">@color/darkBlue_theme_no_background_dark_surface</item>
+        <item name="colorOnSurface">@color/darkBlue_theme_no_background_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/darkBlue_theme_no_background_dark_surfaceVariant
+        </item>
+        <item name="colorOnSurfaceVariant">
+            @color/darkBlue_theme_no_background_dark_onSurfaceVariant
+        </item>
+        <item name="colorOutline">@color/darkBlue_theme_no_background_dark_outline</item>
+        <item name="colorOnSurfaceInverse">
+            @color/darkBlue_theme_no_background_dark_inverseOnSurface
+        </item>
+        <item name="colorSurfaceInverse">@color/darkBlue_theme_no_background_dark_inverseSurface
+        </item>
+        <item name="elevationOverlayColor">@color/darkBlue_theme_no_background_dark_surfaceTint
+        </item>
+        <item name="colorPrimaryInverse">@color/darkBlue_theme_no_background_dark_inversePrimary
+        </item>
+    </style>
+
+    <!-- Theme Yellow no Background Light -->
+    <style name="YellowThemeNoBackground" parent="@style/themeBaseDark">
+        <item name="colorPrimary">@color/yellow_theme_no_background_dark_primary</item>
+        <item name="colorOnPrimary">@color/yellow_theme_no_background_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/yellow_theme_no_background_dark_primaryContainer
+        </item>
+        <item name="colorOnPrimaryContainer">
+            @color/yellow_theme_no_background_dark_onPrimaryContainer
+        </item>
+        <item name="colorSecondary">@color/yellow_theme_no_background_dark_secondary</item>
+        <item name="colorOnSecondary">@color/yellow_theme_no_background_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">
+            @color/yellow_theme_no_background_dark_secondaryContainer
+        </item>
+        <item name="colorOnSecondaryContainer">
+            @color/yellow_theme_no_background_dark_onSecondaryContainer
+        </item>
+        <item name="colorTertiary">@color/yellow_theme_no_background_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/yellow_theme_no_background_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">
+            @color/yellow_theme_no_background_dark_tertiaryContainer
+        </item>
+        <item name="colorOnTertiaryContainer">
+            @color/yellow_theme_no_background_dark_onTertiaryContainer
+        </item>
+        <item name="colorError">@color/yellow_theme_no_background_dark_error</item>
+        <item name="colorErrorContainer">@color/yellow_theme_no_background_dark_errorContainer
+        </item>
+        <item name="colorOnError">@color/yellow_theme_no_background_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/yellow_theme_no_background_dark_onErrorContainer
+        </item>
+        <item name="android:colorBackground">@color/yellow_theme_no_background_dark_background
+        </item>
+        <item name="colorOnBackground">@color/yellow_theme_no_background_dark_onBackground</item>
+        <item name="colorSurface">@color/yellow_theme_no_background_dark_surface</item>
+        <item name="colorOnSurface">@color/yellow_theme_no_background_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/yellow_theme_no_background_dark_surfaceVariant
+        </item>
+        <item name="colorOnSurfaceVariant">@color/yellow_theme_no_background_dark_onSurfaceVariant
+        </item>
+        <item name="colorOutline">@color/yellow_theme_no_background_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/yellow_theme_no_background_dark_inverseOnSurface
+        </item>
+        <item name="colorSurfaceInverse">@color/yellow_theme_no_background_dark_inverseSurface
+        </item>
+        <item name="colorPrimaryInverse">@color/yellow_theme_no_background_dark_inversePrimary
+        </item>
+    </style>
+
+    <!-- Theme Red no Background Light -->
+    <style name="RedThemeNoBackground" parent="@style/themeBaseDark">
+        <item name="colorPrimary">@color/red_theme_no_background_dark_primary</item>
+        <item name="colorOnPrimary">@color/red_theme_no_background_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/red_theme_no_background_dark_primaryContainer
+        </item>
+        <item name="colorOnPrimaryContainer">
+            @color/red_theme_no_background_dark_onPrimaryContainer
+        </item>
+        <item name="colorSecondary">@color/red_theme_no_background_dark_secondary</item>
+        <item name="colorOnSecondary">@color/red_theme_no_background_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">
+            @color/red_theme_no_background_dark_secondaryContainer
+        </item>
+        <item name="colorOnSecondaryContainer">
+            @color/red_theme_no_background_dark_onSecondaryContainer
+        </item>
+        <item name="colorTertiary">@color/red_theme_no_background_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/red_theme_no_background_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/red_theme_no_background_dark_tertiaryContainer
+        </item>
+        <item name="colorOnTertiaryContainer">
+            @color/red_theme_no_background_dark_onTertiaryContainer
+        </item>
+        <item name="colorError">@color/red_theme_no_background_dark_error</item>
+        <item name="colorErrorContainer">@color/red_theme_no_background_dark_errorContainer</item>
+        <item name="colorOnError">@color/red_theme_no_background_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/red_theme_no_background_dark_onErrorContainer
+        </item>
+        <item name="android:colorBackground">@color/red_theme_no_background_dark_background</item>
+        <item name="colorOnBackground">@color/red_theme_no_background_dark_onBackground</item>
+        <item name="colorSurface">@color/red_theme_no_background_dark_surface</item>
+        <item name="colorOnSurface">@color/red_theme_no_background_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/red_theme_no_background_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/red_theme_no_background_dark_onSurfaceVariant
+        </item>
+        <item name="colorOutline">@color/red_theme_no_background_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/red_theme_no_background_dark_inverseOnSurface
+        </item>
+        <item name="colorSurfaceInverse">@color/red_theme_no_background_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/red_theme_no_background_dark_inversePrimary</item>
+    </style>
+
+    <!-- Theme Pink no Background Light -->
+    <style name="PinkThemeNoBackground" parent="@style/themeBaseDark">
+        <item name="colorPrimary">@color/pink_theme_no_background_dark_primary</item>
+        <item name="colorOnPrimary">@color/pink_theme_no_background_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/pink_theme_no_background_dark_primaryContainer
+        </item>
+        <item name="colorOnPrimaryContainer">
+            @color/pink_theme_no_background_dark_onPrimaryContainer
+        </item>
+        <item name="colorSecondary">@color/pink_theme_no_background_dark_secondary</item>
+        <item name="colorOnSecondary">@color/pink_theme_no_background_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">
+            @color/pink_theme_no_background_dark_secondaryContainer
+        </item>
+        <item name="colorOnSecondaryContainer">
+            @color/pink_theme_no_background_dark_onSecondaryContainer
+        </item>
+        <item name="colorTertiary">@color/pink_theme_no_background_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/pink_theme_no_background_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/pink_theme_no_background_dark_tertiaryContainer
+        </item>
+        <item name="colorOnTertiaryContainer">
+            @color/pink_theme_no_background_dark_onTertiaryContainer
+        </item>
+        <item name="colorError">@color/pink_theme_no_background_dark_error</item>
+        <item name="colorErrorContainer">@color/pink_theme_no_background_dark_errorContainer</item>
+        <item name="colorOnError">@color/pink_theme_no_background_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/pink_theme_no_background_dark_onErrorContainer
+        </item>
+        <item name="android:colorBackground">@color/pink_theme_no_background_dark_background</item>
+        <item name="colorOnBackground">@color/pink_theme_no_background_dark_onBackground</item>
+        <item name="colorSurface">@color/pink_theme_no_background_dark_surface</item>
+        <item name="colorOnSurface">@color/pink_theme_no_background_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/pink_theme_no_background_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/pink_theme_no_background_dark_onSurfaceVariant
+        </item>
+        <item name="colorOutline">@color/pink_theme_no_background_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/pink_theme_no_background_dark_inverseOnSurface
+        </item>
+        <item name="colorSurfaceInverse">@color/pink_theme_no_background_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/pink_theme_no_background_dark_inversePrimary</item>
+    </style>
+
+
+    <style name="fab_custom" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="tint">?attr/colorOnPrimary</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="elevation">7dp</item>
+        <item name="layout_anchorGravity">bottom|right|end</item>
+        <item name="layout_dodgeInsetEdges">bottom</item>
+        <item name="layout_scrollFlags">scroll|exitUntilCollapsed|enterAlwaysCollapsed</item>
     </style>
 
 
     <!-- Стиль для заголовка активности -->
     <style name="headActivityText">
         <item name="fontFamily">@font/railway_medium</item>
-        <item name="android:textColor">?attr/colorTitle</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
         <item name="android:textSize">26sp</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -69,7 +282,7 @@
     <!-- Стиль для заголовка BottomSheetsDialog -->
     <style name="headDialogText" parent="headActivityText">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">?attr/colorTitle</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <!-- Позиционирование елементов в BottomSheetsDialog -->
@@ -85,6 +298,7 @@
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
         <item name="android:background">@null</item>
+        <item name="android:tint">?android:colorPrimary</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginEnd">20dp</item>
     </style>
@@ -103,7 +317,7 @@
         <item name="chipStartPadding">5dp</item>
         <item name="chipBackgroundColor">@color/chip_background_color</item>
         <item name="chipStrokeWidth">0dp</item>
-        <item name="android:textColor">?attr/colorAccentIcon</item>
+        <item name="android:textColor">?attr/colorPrimaryInverse</item>
     </style>
 
 
@@ -114,19 +328,10 @@
 
     <!-- Стиль жирного шрифта  -->
 
-    <!-- Стиль switch  -->
-    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
-    </style>
-    <!-- Стиль switch  -->
-    <style name="ThemeOverlay.App.Switch" parent="">
-        <item name="colorOnSurface">@color/colorPrimaryBackground</item>
-        <item name="colorSecondary">@color/colorPrimary</item>
-    </style>
 
     <style name="styleAboutButtonBottom" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
         <item name="android:layout_margin">2dp</item>
-        <item name="android:textColor">?attr/colorValueCustom</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">10dp</item>
         <item name="fontFamily">@font/railway_medium</item>
@@ -163,15 +368,6 @@
     </style>
 
     <!-- Стиль для картинок из экрана приветсвий  -->
-    <style name="imageViewHello">
-        <item name="android:contentDescription">@string/srcfeatures</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">2</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginEnd">32dp</item>
-        <item name="android:scaleType">fitCenter</item>
-    </style>
 
     <style name="itemNoteTitle">
         <item name="android:layout_width">wrap_content</item>
@@ -182,7 +378,7 @@
         <item name="android:maxLines">@integer/countLinesNoteTitle</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorTitle</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <style name="itemNotePreview">
@@ -192,7 +388,7 @@
         <item name="android:layout_marginBottom">3dp</item>
         <item name="android:maxLines">@integer/maxLinesItemNoteValue</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">?attr/colorValueCustom</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <style name="itemNoteTag" parent="ChipStyleCustom">
