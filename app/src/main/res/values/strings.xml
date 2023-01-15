@@ -109,4 +109,7 @@
     <string name="glassCoffee" translatable="false">Стакан кофе</string>
     <string name="packCoffee" translatable="false">Упаковка кофе</string>
     <string name="makerCoffee" translatable="false">Кофеварка</string>
+
+
+    <string name="loginUser" translatable="false">Авторизация Google</string>
 </resources>

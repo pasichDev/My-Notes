@@ -10,10 +10,28 @@
         android:id="@+id/login_page"
         layout="@layout/view_login_page" />
 
+    <LinearLayout
+        android:id="@+id/loginUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingItems">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/loginUser"
+            android:src="@drawable/ic_login" />
+
+        <TextView
+            style="@style/itemTextBottomSheets"
+            android:text="@string/loginUser" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?attr/colorControlHighlight" />
+
 
     <LinearLayout
         android:id="@+id/trashActivityLayout"
