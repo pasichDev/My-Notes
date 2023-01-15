@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="presenter"
+            type="com.pasich.mynotes.ui.presenter.BackupPresenter" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/activity_about"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
+        android:orientation="vertical"
+        tools:context=".ui.view.activity.AboutActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:title="@string/settingsBackups" />
+
+        <include
+            android:id="@+id/login_page"
+            layout="@layout/view_login_page" />
+
+
+        <TextView
+            style="@style/paragraphText"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:padding="6dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/cloudBackup" />
+
+        <LinearLayout
+            android:id="@+id/ratingssApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/ratingApp"
+                android:src="@drawable/ic_rating_app" />
+
+            <TextView
+                style="@style/itemTextBottomSheets"
+                android:text="@string/ratingApp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/xxx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/ratingApp"
+                android:src="@drawable/ic_rating_app" />
+
+            <TextView
+                style="@style/itemTextBottomSheets"
+                android:text="@string/ratingApp" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/paragraphText"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:padding="6dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/localBackup" />
+
+        <LinearLayout
+            android:id="@+id/ratingxxApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/ratingApp"
+                android:src="@drawable/ic_rating_app" />
+
+            <TextView
+                style="@style/itemTextBottomSheets"
+                android:text="@string/ratingApp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ratinxgApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconDialogList"
+                android:contentDescription="@string/ratingApp"
+                android:src="@drawable/ic_rating_app" />
+
+            <TextView
+                style="@style/itemTextBottomSheets"
+                android:text="@string/ratingApp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</layout>

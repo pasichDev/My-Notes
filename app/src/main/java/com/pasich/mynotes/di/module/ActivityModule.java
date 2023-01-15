@@ -7,12 +7,14 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.databinding.DataBindingUtil;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.databinding.ActivityThemeBinding;
 import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.di.scope.ActivityContext;
 import com.pasich.mynotes.di.scope.PerActivity;
+import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.contract.TrashContract;
@@ -20,6 +22,7 @@ import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
 import com.pasich.mynotes.ui.contract.dialogs.SearchDialogContract;
+import com.pasich.mynotes.ui.presenter.BackupPresenter;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
@@ -75,6 +78,7 @@ public class ActivityModule {
         return DataBindingUtil.setContentView(activity, R.layout.activity_note);
     }
 
+
     @Provides
     @PerActivity
     ActivityThemeBinding providerActivityThemeBinding(AppCompatActivity activity) {
@@ -91,6 +95,12 @@ public class ActivityModule {
     @PerActivity
     ActivityTrashBinding providerActivityTrashBinding(AppCompatActivity activity) {
         return DataBindingUtil.setContentView(activity, R.layout.activity_trash);
+    }
+
+    @Provides
+    @PerActivity
+    ActivityBackupBinding providerActivityBackupBinding(AppCompatActivity activity) {
+        return DataBindingUtil.setContentView(activity, R.layout.activity_backup);
     }
 
     @Named("NotesItemSpaceDecoration")
@@ -118,6 +128,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     MainContract.presenter providesMainPresenter(MainPresenter presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    BackupContract.presenter providesBackupPresenter(BackupPresenter presenter) {
         return presenter;
     }
 

@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_HOW_TO_USE;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_PRIVACY_POLICY;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,9 +12,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -21,8 +25,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
 import com.pasich.mynotes.ui.view.activity.AboutActivity;
+import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 
 import java.util.Objects;
@@ -32,6 +38,26 @@ public class AboutDialog extends DialogFragment {
 
     private DialogAboutActivityBinding binding;
     private final AboutOpensActivity aboutOpensActivity;
+
+    final private ActivityResultLauncher<Intent> startAuthIntent =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        Intent data = result.getData();
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                            try {
+                                task.getResult(ApiException.class);
+                                loadingDataUser(Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(requireContext())));
+                                binding.loginPage.loginUser.setVisibility(View.GONE);
+                                binding.loginPage.loginPageRoot.setVisibility(View.VISIBLE);
+                            } catch (ApiException e) {
+                                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+
 
     public AboutDialog(AboutOpensActivity aboutOpensActivity) {
         this.aboutOpensActivity = aboutOpensActivity;
@@ -53,8 +79,11 @@ public class AboutDialog extends DialogFragment {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(requireContext());
         if (acct != null) {
-            binding.loginUser.setVisibility(View.GONE);
+            binding.loginPage.loginUser.setVisibility(View.GONE);
             loadingDataUser(acct);
+        } else {
+            binding.loginPage.loginPageRoot.setVisibility(View.GONE);
+            binding.loginPage.loginUser.setVisibility(View.VISIBLE);
         }
 
 
@@ -64,13 +93,16 @@ public class AboutDialog extends DialogFragment {
 
         binding.loginPage.exitUser.setOnClickListener(v -> signOut());
 
-        binding.loginUser.setOnClickListener(v -> signIn());
+        binding.loginPage.loginUser.setOnClickListener(v -> startAuthIntent.launch(gsc.getSignInIntent()));
 
         binding.trashActivityLayout.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), TrashActivity.class));
             dismiss();
         });
-
+        binding.backups.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), BackupActivity.class));
+            dismiss();
+        });
 
         binding.privacyApp.setOnClickListener(v -> {
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_PRIVACY_POLICY));
@@ -100,35 +132,18 @@ public class AboutDialog extends DialogFragment {
     private void loadingDataUser(GoogleSignInAccount acct) {
         binding.loginPage.nameUser.setText(acct.getDisplayName());
         binding.loginPage.emailUSer.setText(acct.getEmail());
+        Glide.with(requireContext())
+                .load(acct.getPhotoUrl())
+                .placeholder(R.drawable.demo_avatar_user)
+                .error(R.drawable.demo_avatar_user)
+                .into(binding.loginPage.userAvatar);
     }
 
-
-    void signIn() {
-        Intent signInIntent = gsc.getSignInIntent();
-        startActivityForResult(signInIntent, 1000);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                task.getResult(ApiException.class);
-                loadingDataUser(Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(requireContext())));
-                binding.loginUser.setVisibility(View.GONE);
-                binding.loginPage.rootPage.setVisibility(View.VISIBLE);
-            } catch (ApiException e) {
-                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
 
     void signOut() {
         gsc.signOut().addOnCompleteListener(task -> {
-            binding.loginUser.setVisibility(View.VISIBLE);
-            binding.loginPage.rootPage.setVisibility(View.GONE);
+            binding.loginPage.loginUser.setVisibility(View.VISIBLE);
+            binding.loginPage.loginPageRoot.setVisibility(View.GONE);
 
         });
     }
@@ -141,9 +156,9 @@ public class AboutDialog extends DialogFragment {
 
         binding.loginPage.exitUser.setOnClickListener(null);
 
-        binding.loginUser.setOnClickListener(null);
+        binding.loginPage.loginUser.setOnClickListener(null);
         binding.privacyApp.setOnClickListener(null);
-
+        binding.backups.setOnClickListener(null);
         binding.help.setOnClickListener(null);
         binding.aboutApp.setOnClickListener(null);
         binding.themeApp.setOnClickListener(null);

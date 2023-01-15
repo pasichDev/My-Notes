@@ -1,55 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rootPage"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center"
-    android:padding="20dp">
-
-
-    <ImageView
-        android:id="@+id/userAvatar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:contentDescription="test"
-        android:src="@drawable/demo_avatar_user" />
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/loginPageRoot"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/nameUser"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/railway_medium"
-            android:text="Andrii Pasichnik"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="18sp" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/userAvatar"
+            tools:src="@drawable/demo_avatar_user"
+            app:shapeAppearanceOverlay="@style/circleUserAvatar" />
 
-        <TextView
-            android:id="@+id/emailUSer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="apasichik9@gmail.com"
-            android:textColor="?attr/colorOutline"
-            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameUser"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/railway_medium"
+                tools:text="Developer"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/emailUSer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:text="developer@developer.com"
+                android:textColor="?attr/colorOutline"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/exitUser"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_exit"
+            android:contentDescription="@string/logOut" />
+
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/exitUser"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_exit" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/loginUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingItems">
+
+        <ImageView
+            style="@style/iconDialogList"
+            android:contentDescription="@string/loginUser"
+            android:src="@drawable/ic_login" />
+
+        <TextView
+            style="@style/itemTextBottomSheets"
+            android:text="@string/loginUser" />
+    </LinearLayout>
 
 
-
-
-
+</FrameLayout>

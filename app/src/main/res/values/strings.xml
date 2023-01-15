@@ -66,7 +66,6 @@
     <string name="button_url">Go to</string>
 
 
-
     <!-- Strings that are not translated  -->
     <string name="plus" translatable="false">+</string>
     <string name="tagHastag" translatable="false">#%1$s</string>
@@ -82,6 +81,8 @@
     <string name="versionAndCodeApp" translatable="false">My notes (v%1$s)</string>
     <string name="coffeePrice" translatable="false">%1$s$</string>
     <string name="MonoBank_Donate" translatable="false">MonoBank Donate</string>
+    <string name="userAvatar" translatable="false">User Avatar</string>
+    <string name="logOut" translatable="false">LogOut</string>
 
     <string name="hiddeTag">Hide notes</string>
     <string name="visibleTag">Show notes</string>
@@ -112,4 +113,6 @@
 
 
     <string name="loginUser" translatable="false">Авторизация Google</string>
+    <string name="cloudBackup" translatable="false">Облако</string>
+    <string name="localBackup" translatable="false">Локальный бэкап</string>
 </resources>

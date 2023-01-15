@@ -33,6 +33,9 @@
         android:roundIcon="@mipmap/ic_launcher_rounder"
         android:theme="@style/DefaultThemeNoBackground">
         <activity
+            android:name=".ui.view.activity.BackupActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.activity.AboutActivity"
             android:exported="true" />
         <activity
