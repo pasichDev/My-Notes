@@ -86,8 +86,7 @@
         <ImageView
             style="@style/iconDialogList"
             android:contentDescription="@string/ratingApp"
-            android:src="@drawable/ic_link_app"
-            app:tint="@null" />
+            android:src="@drawable/ic_link_app" />
 
         <TextView
             style="@style/itemTextBottomSheets"

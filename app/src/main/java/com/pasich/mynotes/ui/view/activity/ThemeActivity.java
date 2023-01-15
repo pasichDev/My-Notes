@@ -61,7 +61,6 @@ public class ThemeActivity extends BaseActivity {
         activityThemeBinding.tagEnable.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
         activityThemeBinding.tagEnable.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
 
-        activityThemeBinding.countThemes.setText(String.valueOf(new ThemesArray().getThemes().size()));
     }
 
     private void setListThemes() {
@@ -127,6 +126,7 @@ public class ThemeActivity extends BaseActivity {
             }
             PowerPreference.getDefaultFile().setBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, isChecked);
             enableDynamic = isChecked;
+            setStatusDynamicColor(isChecked);
         });
     }
 
@@ -150,4 +150,14 @@ public class ThemeActivity extends BaseActivity {
         getWindow().setNavigationBarColor(MaterialColors.getColor(this, R.attr.colorPrimaryInverse, Color.GRAY));
     }
 
+
+    private void setStatusDynamicColor(boolean status) {
+        if (status) {
+            activityThemeBinding.themes.setAlpha(0.4f);
+            activityThemeBinding.themes.setLayoutFrozen(true);
+        } else {
+            activityThemeBinding.themes.setAlpha(1.0f);
+            activityThemeBinding.themes.setLayoutFrozen(false);
+        }
+    }
 }

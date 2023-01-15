@@ -105,7 +105,6 @@
     <string name="offTags" translatable="false">Выключить отображениие меток</string>
     <string name="coffeeByPlay" translatable="false">Поблагодарить разработчика</string>
     <string name="coffeeByTextInfo" translatable="false">Мои заметки - это приложение без рекламы и распространяется как бесплатный продукт. Приложение разрабатывает один человек, поэтому некоторые обновление поставляются с опозданием. Вы можете поблагодарить разработчика, купив ему кофе или задонатить по указанных ссылкам, которые будут отображаться снизу. Спасибо, что используете это приложение!</string>
-
     <string name="cupCoffee" translatable="false">Кружка кофе</string>
     <string name="glassCoffee" translatable="false">Стакан кофе</string>
     <string name="packCoffee" translatable="false">Упаковка кофе</string>
