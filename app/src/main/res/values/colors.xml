@@ -33,6 +33,7 @@
     <color name="green_theme_no_background_light_inverseSurface">#2E312E</color>
     <color name="green_theme_no_background_light_inversePrimary">#7CDA9C</color>
     <color name="green_theme_no_background_light_surfaceTint">#006D3D</color>
+
     <color name="green_theme_no_background_dark_primary">#7CDA9C</color>
     <color name="green_theme_no_background_dark_onPrimary">#00391D</color>
     <color name="green_theme_no_background_dark_primaryContainer">#00522C</color>

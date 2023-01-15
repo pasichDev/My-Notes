@@ -89,7 +89,7 @@
                     android:onClick="@{(view) -> presenter.startSearchDialog()}"
                     android:padding="10dp"
                     android:text="@string/search"
-                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textColor="?attr/elevationOverlayColor"
                     android:textSize="16sp"
                     tools:ignore="SpUsage" />
 
