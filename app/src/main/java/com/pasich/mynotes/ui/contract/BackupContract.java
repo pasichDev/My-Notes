@@ -9,11 +9,19 @@ public interface BackupContract {
 
     interface view extends BaseView {
 
+        void initActivity();
+
+        void createBackupLocal();
+
+        void createBackupCloud();
     }
 
 
     @PerActivity
     interface presenter extends BasePresenter<view> {
 
+        void loadDataAndEncodeJson(boolean local);
+
+        String getJsonBackup();
     }
 }

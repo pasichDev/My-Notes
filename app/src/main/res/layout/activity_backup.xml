@@ -14,7 +14,7 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/activity_about"
+        android:id="@+id/activity_backup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurface"
@@ -94,6 +94,7 @@
             android:id="@+id/exportLocal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{(view) -> presenter.loadDataAndEncodeJson(true)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
