@@ -42,6 +42,11 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
+    public Preference getBackupCloudInfoPreference() {
+        return preferencesHelper.getBackupCloudInfoPreference();
+    }
+
+    @Override
     public int getFormatCount() {
         return preferencesHelper.getFormatCount();
     }
@@ -54,6 +59,16 @@ public class AppDataManger implements DataManager {
     @Override
     public String getSortParam() {
         return preferencesHelper.getSortParam();
+    }
+
+    @Override
+    public long getLastDataBackupCloud() {
+        return preferencesHelper.getLastDataBackupCloud();
+    }
+
+    @Override
+    public String getLastBackupCloudId() {
+        return preferencesHelper.getLastBackupCloudId();
     }
 
     @Override

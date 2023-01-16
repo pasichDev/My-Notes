@@ -26,4 +26,8 @@ public class FormattedDataUtil {
         else return new SimpleDateFormat("d MMM", Locale.getDefault()).format(date);
 
     }
+
+    public static String lastDataCloudBackup(long date) {
+        return new SimpleDateFormat("d.MM.yyyy HH:mm", Locale.getDefault()).format(date);
+    }
 }

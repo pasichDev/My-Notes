@@ -116,7 +116,9 @@
     <string name="importLocalBackup" translatable="false">Восстановить с помощью рез. копии</string>
     <string name="exportLocalBackup" translatable="false">Создать резервную копию</string>
     <string name="lastCloudCopy" translatable="false">Последняя резервная копия: %1$s</string>
-    <string name="errorDriveAuth" translatable="false">Требуеться авторизация</string>
+    <string name="errorDriveAuth" translatable="false">Вы неавторизованные</string>
+    <string name="errorDriveBackup" translatable="false">Увы, но мы не нашли рез. копий</string>
+    <string name="errorDriveSync" translatable="false">Ошибка сервера, или плохое качество интернета</string>
 
     <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано</string>
 </resources>

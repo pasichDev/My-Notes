@@ -1,6 +1,10 @@
 package com.pasich.mynotes.ui.view.activity;
 
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
 
 import android.app.Activity;
@@ -10,6 +14,7 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -38,6 +43,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -50,7 +56,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Inject
     public ActivityBackupBinding binding;
     private final Scope ACCESS_DRIVE_SCOPE = new Scope(DriveScopes.DRIVE_APPDATA);
-    private final Scope SCOPE_EMAIL = new Scope(Scopes.EMAIL);
     private final ActivityResultLauncher<Intent> startIntentExport =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -85,43 +90,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void initActivity() {
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        binding.lastBackupCloud.setText(getString(R.string.lastCloudCopy, "22.12.2022"));
-
-
-        listAppData();
     }
-
-
-    @Deprecated
-    public void listAppData() {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    FileList files = getDriveCredential().files().list()
-                            .setSpaces("appDataFolder")
-                            .setFields("nextPageToken, files(id, name)")
-                            .setPageSize(5)
-                            .execute();
-                    for (File file : files.getFiles()) {
-                        Log.wtf("xxx", "Found file: %s (%s)\n" +
-                                file.getName() + " / " + file.getId());
-
-                    }
-                    Log.wtf("xxx", "checkFunction" + files.size());
-
-                } catch (IOException e) {
-                    // TODO(developer) - handle error appropriately
-                    System.err.println("Unable to list files: " + e);
-                    //   throw e;
-                }
-            }
-        }).start();
-
-
-    }
-
 
     @Override
     public void initConnectAccount() {
@@ -129,12 +98,54 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         if (acct != null) {
             binding.userNameDrive.setText(acct.getEmail());
             checkForGooglePermissions();
-        } else {
 
+            if (!presenter.getDataManager().getLastBackupCloudId().equals("null"))
+
+                editLastDataEditBackupCloud();
+            else loadingLastBackupCloudInfo();
+        } else {
+            binding.lastBackupCloud.setVisibility(View.GONE);
             binding.userNameDrive.setText(R.string.errorDriveAuth);
             binding.cloudExport.setEnabled(false);
             binding.importCloudBackup.setEnabled(false);
         }
+
+    }
+
+    /**
+     * Метод который изменяет дату посленей модификации рез.копии
+     */
+    private void editLastDataEditBackupCloud() {
+        binding.lastBackupCloud.setText(getString(R.string.lastCloudCopy, lastDataCloudBackup(presenter.getDataManager().getLastDataBackupCloud())));
+
+    }
+
+
+    /**
+     * Эта функция реализует поиск последней резервной копии
+     * И записываеть информацию в prefences
+     */
+    private void loadingLastBackupCloudInfo() {
+        Log.wtf(TAG, "initConnectAccount: ");
+        new Thread(() -> {
+            try {
+                FileList files = getDriveCredential().files().list()
+                        .setSpaces("appDataFolder")
+                        .setFields("nextPageToken, files(id, name,modifiedTime)")
+                        .setOrderBy("modifiedTime")
+                        .setPageSize(5)
+                        .execute();
+                for (File file : files.getFiles()) {
+                    presenter.getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, file.getId());
+                    presenter.getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, file.getModifiedTime().getValue());
+                    runOnUiThread(this::editLastDataEditBackupCloud);
+                }
+
+
+            } catch (IOException e) {
+                System.err.println("Unable to list files: " + e);
+            }
+        }).start();
     }
 
 
@@ -177,54 +188,53 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void createBackupCloud() {
-        try {
-            BufferedWriter bwNote =
-                    new BufferedWriter(new FileWriter(getFilesDir() + FILE_NAME_BACKUP));
-            bwNote.write(String.valueOf(presenter.getJsonBackup()));
-            bwNote.close();
-            writeFileBackupDisk();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (!presenter.getDataManager().getLastBackupCloudId().equals("null")) {
+            try {
+                BufferedWriter bwNote =
+                        new BufferedWriter(new FileWriter(getFilesDir() + FILE_NAME_BACKUP));
+                bwNote.write(String.valueOf(presenter.getJsonBackup()));
+                bwNote.close();
+                writeFileBackupDisk();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            onError(R.string.errorDriveBackup, binding.activityBackup);
         }
 
 
     }
 
 
+    /**
+     * Метод который записывает файл рез.копии на GoogleDrive
+     */
     private void writeFileBackupDisk() {
+        //сделать очистку старых id если они есть
+        new Thread(() -> {
+            final File fileMetadata = new File();
+            final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
+            final FileContent mediaContent = new FileContent("application/json", filePath);
+            fileMetadata.setName(FILE_NAME_BACKUP);
+            fileMetadata.setParents(Collections.singletonList("appDataFolder"));
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // File's metadata.
-                    final File fileMetadata = new File();
-                    final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
-                    final FileContent mediaContent = new FileContent("application/json", filePath);
-                    fileMetadata.setName(FILE_NAME_BACKUP);
-                    fileMetadata.setParents(Collections.singletonList("appDataFolder"));
-
-                    File file = getDriveCredential().files().create(fileMetadata, mediaContent)
-                            .setFields("id")
-                            .execute();
-
-                    //  return file.getId();
-                } catch (GoogleJsonResponseException e) {
-                    // TODO(developer) - handle error appropriately
-                    System.err.println("Unable to create file: " + e.getDetails());
-                    try {
-                        throw e;
-                    } catch (GoogleJsonResponseException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                } catch (IOException e) {
-                    if (404 == ((GoogleJsonResponseException) e).getStatusCode()) {
-                        // handle  error;
-                    }
-                    throw new RuntimeException(e);
+            try {
+                File file = getDriveCredential().files().create(fileMetadata, mediaContent)
+                        .setFields("id")
+                        .execute();
+                if (file.getId().length() >= 2) {
+                    presenter.getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, file.getId());
+                    presenter.getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
+                    runOnUiThread(this::editLastDataEditBackupCloud);
                 }
-
+                new java.io.File(getFilesDir() + FILE_NAME_BACKUP).deleteOnExit();
+            } catch (IOException e) {
+                if (404 == ((GoogleJsonResponseException) e).getStatusCode()) {
+                    onError(R.string.errorDriveSync, binding.activityBackup);
+                }
+                throw new RuntimeException(e);
             }
+
         }).start();
 
     }
@@ -238,7 +248,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     private Drive getDriveCredential() {
         GoogleSignInAccount mAccount = GoogleSignIn.getLastSignedInAccount(this);
-
         GoogleAccountCredential credential =
                 GoogleAccountCredential.usingOAuth2(
                         this, Collections.singleton(Scopes.DRIVE_FILE));

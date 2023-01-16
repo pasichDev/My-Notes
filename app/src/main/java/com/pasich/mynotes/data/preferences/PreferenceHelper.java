@@ -8,6 +8,8 @@ public interface PreferenceHelper {
 
     Preference getDefaultPreferences();
 
+    Preference getBackupCloudInfoPreference();
+
     int getFormatCount();
 
     String getTypeFaceNoteActivity();
@@ -15,6 +17,10 @@ public interface PreferenceHelper {
     int getSizeTextNoteActivity();
 
     String getSortParam();
+
+    long getLastDataBackupCloud();
+
+    String getLastBackupCloudId();
 
     void editSizeTextNoteActivity(int value);
 }
