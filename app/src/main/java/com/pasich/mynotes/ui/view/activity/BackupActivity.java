@@ -42,6 +42,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Objects;
@@ -219,7 +220,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      * Метод который записывает файл рез.копии на GoogleDrive
      */
     private void writeFileBackupDisk() {
-        //сделать очистку старых id если они есть
+        final Drive mDrive = getDriveCredential();
+        final ArrayList<String> listIdsDeleted = new ArrayList<>();
+
         new Thread(() -> {
             binding.progressBackupCloud.setProgress(40);
             final File fileMetadata = new File();
@@ -229,13 +232,29 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             fileMetadata.setParents(Collections.singletonList("appDataFolder"));
 
             try {
-                File file = getDriveCredential().files().create(fileMetadata, mediaContent)
+                //Ищем старые ненужные бэкапы
+                FileList files = mDrive.files().list()
+                        .setSpaces("appDataFolder")
+                        .setFields("nextPageToken, files(id, name)")
+                        .setPageSize(10)
+                        .execute();
+                for (File file : files.getFiles()) {
+                    listIdsDeleted.add(file.getId());
+                    Log.wtf(TAG, "writeFileBackupDisk: " + file.getId());
+                }
+
+                //Создадим новы бэкап
+                File file = mDrive.files().create(fileMetadata, mediaContent)
                         .setFields("id")
                         .execute();
                 if (file.getId().length() >= 2) {
                     presenter.getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, file.getId());
                     presenter.getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
                     runOnUiThread(this::editLastDataEditBackupCloud);
+                    //Если есть старые бэкапы удаляем их
+                    for (String idDeleteBackup : listIdsDeleted) {
+                        mDrive.files().delete(idDeleteBackup).execute();
+                    }
                 }
                 new java.io.File(getFilesDir() + FILE_NAME_BACKUP).deleteOnExit();
 
