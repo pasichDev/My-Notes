@@ -35,7 +35,6 @@ import java.util.Objects;
 
 public class AboutDialog extends DialogFragment {
     private GoogleSignInClient gsc;
-
     private DialogAboutActivityBinding binding;
     private final AboutOpensActivity aboutOpensActivity;
 
@@ -147,7 +146,6 @@ public class AboutDialog extends DialogFragment {
 
         });
     }
-
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {

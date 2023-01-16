@@ -11,6 +11,8 @@ public interface BackupContract {
 
         void initActivity();
 
+        void initConnectAccount();
+
         void createBackupLocal();
 
         void createBackupCloud();

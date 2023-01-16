@@ -26,6 +26,7 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
     @Override
     public void viewIsReady() {
         getView().initActivity();
+        getView().initConnectAccount();
         getView().initListeners();
     }
 

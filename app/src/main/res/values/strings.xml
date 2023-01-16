@@ -115,6 +115,8 @@
     <string name="localBackup" translatable="false">Локальный бэкап</string>
     <string name="importLocalBackup" translatable="false">Восстановить с помощью рез. копии</string>
     <string name="exportLocalBackup" translatable="false">Создать резервную копию</string>
+    <string name="lastCloudCopy" translatable="false">Последняя резервная копия: %1$s</string>
+    <string name="errorDriveAuth" translatable="false">Требуеться авторизация</string>
 
     <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано</string>
 </resources>
