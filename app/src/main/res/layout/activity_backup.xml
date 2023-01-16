@@ -44,7 +44,7 @@
                 app:shapeAppearanceOverlay="@style/rounderIconApp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="20dp"
@@ -65,6 +65,15 @@
                     android:paddingVertical="2dp"
                     android:textColor="?attr/colorOutline"
                     android:textSize="14sp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBackupCloud"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_margin="5dp"
+                    android:progress="10" />
             </LinearLayout>
 
 
@@ -100,6 +109,7 @@
                 android:text="@string/exportLocalBackup" />
 
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/importCloudBackup"

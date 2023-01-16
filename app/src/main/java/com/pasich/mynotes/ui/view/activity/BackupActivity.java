@@ -188,7 +188,15 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void createBackupCloud() {
+
         if (!presenter.getDataManager().getLastBackupCloudId().equals("null")) {
+
+         /*   runOnUiThread(() -> {
+                binding.progressBackupCloud.setVisibility(View.VISIBLE);
+                binding.lastBackupCloud.setVisibility(View.GONE);
+            });
+
+          */
             try {
                 BufferedWriter bwNote =
                         new BufferedWriter(new FileWriter(getFilesDir() + FILE_NAME_BACKUP));
@@ -198,6 +206,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
         } else {
             onError(R.string.errorDriveBackup, binding.activityBackup);
         }
@@ -212,6 +221,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     private void writeFileBackupDisk() {
         //сделать очистку старых id если они есть
         new Thread(() -> {
+            binding.progressBackupCloud.setProgress(40);
             final File fileMetadata = new File();
             final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
             final FileContent mediaContent = new FileContent("application/json", filePath);
@@ -228,6 +238,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                     runOnUiThread(this::editLastDataEditBackupCloud);
                 }
                 new java.io.File(getFilesDir() + FILE_NAME_BACKUP).deleteOnExit();
+
             } catch (IOException e) {
                 if (404 == ((GoogleJsonResponseException) e).getStatusCode()) {
                     onError(R.string.errorDriveSync, binding.activityBackup);
