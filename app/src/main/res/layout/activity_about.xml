@@ -65,7 +65,7 @@
         android:padding="@dimen/paddingItems">
 
         <ImageView
-            style="@style/iconDialogList"
+            style="@style/iconActivityList"
             android:contentDescription="@string/telegram"
             android:src="@drawable/ic_link_app" />
 
@@ -84,7 +84,7 @@
         android:padding="@dimen/paddingItems">
 
         <ImageView
-            style="@style/iconDialogList"
+            style="@style/iconActivityList"
             android:contentDescription="@string/ratingApp"
             android:src="@drawable/ic_link_app" />
 
@@ -105,7 +105,7 @@
         android:padding="@dimen/paddingItems">
 
         <ImageView
-            style="@style/iconDialogList"
+            style="@style/iconActivityList"
             android:contentDescription="@string/shareApp"
             android:src="@drawable/ic_share_app" />
 
@@ -123,7 +123,7 @@
         android:padding="@dimen/paddingItems">
 
         <ImageView
-            style="@style/iconDialogList"
+            style="@style/iconActivityList"
             android:contentDescription="@string/ratingApp"
             android:src="@drawable/ic_rating_app" />
 
@@ -168,7 +168,7 @@
         android:padding="@dimen/paddingItems">
 
         <ImageView
-            style="@style/iconDialogList"
+            style="@style/iconActivityList"
             android:contentDescription="@string/MonoBank_Donate"
             android:src="@drawable/ic_monobank_donate" />
 

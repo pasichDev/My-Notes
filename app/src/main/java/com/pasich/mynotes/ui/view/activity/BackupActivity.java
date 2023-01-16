@@ -60,6 +60,16 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void initListeners() {
+        binding.exportLocal.setOnClickListener(v -> exportLocalCopy());
+    }
 
+
+    private void exportLocalCopy() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

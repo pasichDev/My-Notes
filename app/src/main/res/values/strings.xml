@@ -115,4 +115,6 @@
     <string name="loginUser" translatable="false">Авторизация Google</string>
     <string name="cloudBackup" translatable="false">Облако</string>
     <string name="localBackup" translatable="false">Локальный бэкап</string>
+    <string name="importLocalBackup" translatable="false">Восстановить с помощью рез. копии</string>
+    <string name="exportLocalBackup" translatable="false">Создать резервную копию</string>
 </resources>

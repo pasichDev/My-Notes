@@ -34,10 +34,10 @@
         android:theme="@style/DefaultThemeNoBackground">
         <activity
             android:name=".ui.view.activity.BackupActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.view.activity.AboutActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.view.activity.ThemeActivity"
             android:exported="true"
