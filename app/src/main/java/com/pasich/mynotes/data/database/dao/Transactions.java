@@ -52,6 +52,7 @@ public abstract class Transactions {
     @Delete
     public abstract void deleteTrashNotes(TrashNote note);
 
+
     /**
      * Транзакция переноса заметки в корзину
      *
@@ -119,14 +120,6 @@ public abstract class Transactions {
     /**
      * Метод переименования метки
      */
-    @Transaction
-    public void renameTag(Tag mTag, String newName) {
-        renameTagNotes(mTag.getNameTag(), newName);
-        setTagNote(newName, mTag.id);
-
-    }
-
-
     @Transaction
     public void renameTag(Tag mTag, String newName) {
         renameTagNotes(mTag.getNameTag(), newName);

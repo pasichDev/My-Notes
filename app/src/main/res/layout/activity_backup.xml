@@ -76,7 +76,6 @@
                     android:progress="10" />
             </LinearLayout>
 
-
         </LinearLayout>
 
         <TextView

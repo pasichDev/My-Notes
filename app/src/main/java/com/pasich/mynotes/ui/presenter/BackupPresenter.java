@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
+import com.google.gson.Gson;
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.JsonBackup;
@@ -9,6 +10,7 @@ import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 
 @PerActivity
@@ -39,20 +41,25 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
     @Override
     public void loadDataAndEncodeJson(boolean local) {
         JsonBackup jsonBackupTemp = new JsonBackup();
-
         getCompositeDisposable().add(
-                getDataManager().getNotes()
+                Flowable.zip(getDataManager().getNotes(),
+                                getDataManager().getTrashNotesLoad(),
+                                (noteList, trashNoteList) -> {
+                                    jsonBackupTemp.setNotes(noteList);
+                                    jsonBackupTemp.setTrashNotes(trashNoteList);
+                                    return true;
+                                })
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
-                        .subscribe(jsonBackupTemp::setNotes));
+                        .subscribe(aBoolean -> {
+                            setJsonBackup(new Gson().toJson(jsonBackupTemp));
+                            if (local)
+                                getView().createBackupLocal();
+                            else
+                                getView().createBackupCloud();
+                        }));
 
-     /*   setJsonBackup(new Gson().toJson(noteList));
-        if (local)
-            getView().createBackupLocal();
-        else
-            getView().createBackupCloud();
 
-      */
     }
 
     public void setJsonBackup(String jsonBackup) {
