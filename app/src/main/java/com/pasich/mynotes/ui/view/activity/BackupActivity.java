@@ -374,7 +374,37 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     }
 
+/*
+    public Task<GoogleDriveFileHolder> createFile(String folderId, String filename) {
+        return Tasks.call(Executors.newSingleThreadExecutor(), () -> {
+            GoogleDriveFileHolder googleDriveFileHolder = new GoogleDriveFileHolder();
 
+            List<String> root;
+            if (folderId == null) {
+
+                root = Collections.singletonList("root");
+
+            } else {
+
+                root = Collections.singletonList(folderId);
+            }
+            File metadata = new File()
+                    .setParents(root)
+                    .setMimeType("text/plain")
+                    .setName(filename);
+
+            File googleFile = mDriveService.files().create(metadata).execute();
+            if (googleFile == null) {
+
+                throw new IOException("Null result when requesting file creation.");
+            }
+            googleDriveFileHolder.setId(googleFile.getId());
+            return googleDriveFileHolder;
+        });
+    }
+
+
+ */
 
 
 }
