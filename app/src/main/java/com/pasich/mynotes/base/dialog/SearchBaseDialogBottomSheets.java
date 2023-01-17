@@ -37,6 +37,11 @@ public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFrag
     }
 
     @Override
+    public void onError(int resID, View view) {
+
+    }
+
+    @Override
     public void dismiss() {
         super.dismiss();
         mDialog = null;
@@ -71,12 +76,12 @@ public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFrag
     }
 
     @Override
-    public void onError(String message, View view) {
+    public void onInfo(String message, View view) {
 
     }
 
     @Override
-    public void onError(int resID, View view) {
+    public void onInfo(int resID, View view) {
 
     }
 

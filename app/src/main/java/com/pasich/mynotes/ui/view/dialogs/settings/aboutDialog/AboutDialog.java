@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog;
 
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
@@ -36,13 +37,14 @@ import com.pasich.mynotes.ui.view.activity.AboutActivity;
 import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.preference.PowerPreference;
+import com.preference.Preference;
 
+import java.util.Objects;
 
 
 public class AboutDialog extends BaseDialogBottomSheets {
 
     public GoogleSignInClient mGsic;
-    public GoogleSignInAccount mAcct;
     public DialogAboutActivityBinding binding;
     private final AboutOpensActivity aboutOpensActivity;
 
@@ -55,7 +57,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
                             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                             try {
                                 task.getResult(ApiException.class);
-                                //loadingDataUser(Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(requireContext())));
+                                loadingDataUser(Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(requireContext())));
                                 binding.loginPage.loginUser.setVisibility(View.GONE);
                                 binding.loginPage.loginPageRoot.setVisibility(View.VISIBLE);
                             } catch (ApiException e) {
@@ -154,10 +156,12 @@ public class AboutDialog extends BaseDialogBottomSheets {
 
     void signOut() {
         mGsic.signOut().addOnCompleteListener(task -> {
+            final Preference preference = PowerPreference.getFileByName("lastBackupCloudInfo");
             binding.loginPage.loginUser.setVisibility(View.VISIBLE);
             binding.loginPage.loginPageRoot.setVisibility(View.GONE);
-            PowerPreference.getFileByName("lastBackupCloudInfo").setString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
-            PowerPreference.getFileByName("lastBackupCloudInfo").setLong(ARGUMENT_LAST_BACKUP_TIME, ARGUMENT_DEFAULT_LAST_BACKUP_TIME);
+            preference.setInt(ARGUMENT_AUTO_BACKUP_CLOUD, 3);
+            preference.setString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
+            preference.setLong(ARGUMENT_LAST_BACKUP_TIME, ARGUMENT_DEFAULT_LAST_BACKUP_TIME);
         });
     }
 

@@ -124,7 +124,7 @@
 
     <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано</string>
 
-
+    <string name="warning" translatable="false">Предупреждение</string>
     <string name="autoCloudVariantsDay" translatable="false">Каждый день</string>
     <string name="autoCloudVariantsWeek" translatable="false">Каждую неделю</string>
     <string name="autoCloudVariantsMonth" translatable="false">Каждый месяц</string>

@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void
     exitWhat() {
-        onError(R.string.exitWhat, mActivityBinding.newNotesButton);
+        onInfo(R.string.exitWhat, mActivityBinding.newNotesButton);
     }
 
     @Override
@@ -300,7 +300,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void startToastCheckCountTags() {
-        onError(getString(R.string.countTagsError, String.valueOf(MAX_TAG_COUNT)), mActivityBinding.newNotesButton);
+        onInfo(getString(R.string.countTagsError, String.valueOf(MAX_TAG_COUNT)), mActivityBinding.newNotesButton);
     }
 
 
@@ -436,12 +436,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void createShortCut() {
-        onError(getString(R.string.addShortCutSuccessfully), mActivityBinding.newNotesButton);
+        onInfo(getString(R.string.addShortCutSuccessfully), mActivityBinding.newNotesButton);
     }
 
     @Override
     public void shortCutDouble() {
-        onError(getString(R.string.shortCutCreateFallDouble), mActivityBinding.newNotesButton);
+        onInfo(getString(R.string.shortCutCreateFallDouble), mActivityBinding.newNotesButton);
     }
 
     @Override

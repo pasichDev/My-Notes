@@ -9,7 +9,11 @@ import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
@@ -70,7 +74,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                             outputStream.write(presenter.getJsonBackup().getBytes());
                             outputStream.close();
                             descriptor.close();
-                            onError(R.string.creteLocalCopyOkay, binding.activityBackup);
+                            onInfo(R.string.creteLocalCopyOkay, binding.activityBackup);
 
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -87,6 +91,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.attachView(this);
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
+
+        onError(R.string.error, null);
     }
 
     @Override
@@ -102,11 +108,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         mAcct = GoogleSignIn.getLastSignedInAccount(this);
         if (mAcct != null) {
             binding.userNameDrive.setText(mAcct.getEmail());
-            //   checkForGooglePermissions();
+            checkForGooglePermissions();
 
-            if (getGoogleDriveAppPermissions()) {
 
-            }
 
             if (!presenter.getDataManager().getLastBackupCloudId().equals("null"))
 
@@ -115,6 +119,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         } else {
             binding.lastBackupCloud.setText(getString(R.string.errorDriverAuthInfo));
             binding.userNameDrive.setText(R.string.errorDriveAuth);
+            binding.autoBackup.setEnabled(false);
             binding.cloudExport.setEnabled(false);
             binding.importCloudBackup.setEnabled(false);
         }
@@ -204,7 +209,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void createBackupCloud() {
 
         //  if (!presenter.getDataManager().getLastBackupCloudId().equals("null")) {
-
          /*   runOnUiThread(() -> {
                 binding.progressBackupCloud.setVisibility(View.VISIBLE);
                 binding.lastBackupCloud.setVisibility(View.GONE);
@@ -216,10 +220,12 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                     new BufferedWriter(new FileWriter(getFilesDir() + FILE_NAME_BACKUP));
             bwNote.write(String.valueOf(presenter.getJsonBackup()));
             bwNote.close();
-            writeFileBackupDisk();
+            writeFileBackupCloud();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
 
      /*   } else {
             onError(R.string.errorDriveBackup, binding.activityBackup);
@@ -227,14 +233,38 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
 
       */
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        connectivityManager.registerNetworkCallback(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(Network network) {
+                super.onAvailable(network);
+                Log.i("Tag", "active connection");
+            }
 
+            @Override
+            public void onLost(Network network) {
+                super.onLost(network);
+                isNetworkConnected();
+            }
+        });
+
+
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (!(cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected())) {
+            //Do something
+            return false;
+        }
+        return true;
     }
 
 
     /**
      * Метод который записывает файл рез.копии на GoogleDrive
      */
-    private void writeFileBackupDisk() {
+    private void writeFileBackupCloud() {
         final Drive mDrive = getDriveCredential();
         final ArrayList<String> listIdsDeleted = new ArrayList<>();
 
@@ -271,7 +301,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                     }
                 }
                 new java.io.File(getFilesDir() + FILE_NAME_BACKUP).deleteOnExit();
-
+                runOnUiThread(() -> onInfo(R.string.creteLocalCopyOkay, binding.activityBackup));
             } catch (IOException e) {
                 if (404 == ((GoogleJsonResponseException) e).getStatusCode()) {
                     onError(R.string.errorDriveSync, binding.activityBackup);
@@ -345,14 +375,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
-    /**
-     * Метод который возврщает разрешение на использования гугл диска
-     */
-    private boolean getGoogleDriveAppPermissions() {
-        return GoogleSignIn.hasPermissions(
-                GoogleSignIn.getLastSignedInAccount(this),
-                ACCESS_DRIVE_SCOPE);
-    }
 
 
 }

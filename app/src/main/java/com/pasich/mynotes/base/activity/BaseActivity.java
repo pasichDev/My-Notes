@@ -3,6 +3,7 @@ package com.pasich.mynotes.base.activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.MyApp;
 import com.pasich.mynotes.R;
@@ -39,6 +41,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void selectTheme() {
+        /**
+         * эти переменные нельзя переносить в кинжал
+         */
         boolean dynamicColorEnabled = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (dynamicColorEnabled) {
@@ -77,22 +82,23 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     @Override
-    public void onError(String message, View view) {
-        if (message != null) showSnackbar(message, view);
-        else showSnackbar(getString(R.string.error), view);
+    public void onInfo(String message, View view) {
+        Snackbar.make(view == null ? findViewById(android.R.id.content) : view, message != null ? message : getString(R.string.error), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void onError(int resID, View view) {
-        onError(getString(resID), view);
-    }
-
-
-    private void showSnackbar(String message, View view) {
-        Snackbar snackbar = Snackbar.make(view == null ? findViewById(android.R.id.content) : view, message, Snackbar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(view == null ? findViewById(android.R.id.content) : view, getString(resID) != null ? getString(resID) : getString(R.string.warning), Snackbar.LENGTH_LONG);
+        snackbar.setBackgroundTint(MaterialColors.getColor(this, R.attr.colorError, Color.DKGRAY));
+        snackbar.setActionTextColor(MaterialColors.getColor(this, R.attr.colorOnError, Color.GRAY));
         snackbar.show();
+
     }
 
+    @Override
+    public void onInfo(int resID, View view) {
+        onInfo(getString(resID), view);
+    }
 
     public ActivityComponent getActivityComponent() {
         return activityComponent;

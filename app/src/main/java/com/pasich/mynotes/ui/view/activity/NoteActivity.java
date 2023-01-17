@@ -278,12 +278,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void createShortCut() {
-        onError(getString(R.string.addShortCutSuccessfully), binding.noteLayout);
+        onInfo(getString(R.string.addShortCutSuccessfully), binding.noteLayout);
     }
 
     @Override
     public void shortCutDouble() {
-        onError(getString(R.string.shortCutCreateFallDouble), binding.noteLayout);
+        onInfo(getString(R.string.shortCutCreateFallDouble), binding.noteLayout);
     }
 
 }
