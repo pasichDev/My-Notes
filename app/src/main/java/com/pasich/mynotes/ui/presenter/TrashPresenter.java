@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.data.model.TrashNote;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 

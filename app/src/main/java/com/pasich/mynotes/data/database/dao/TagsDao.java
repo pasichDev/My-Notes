@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.model.Tag;
 
 import java.util.List;
 

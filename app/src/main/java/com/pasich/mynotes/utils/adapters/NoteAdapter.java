@@ -4,8 +4,8 @@ package com.pasich.mynotes.utils.adapters;
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 
-import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallback;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;

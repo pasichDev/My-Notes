@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
-import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.DialogNewTagBinding;
 import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;

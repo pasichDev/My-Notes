@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.database.model.Coffee;
+import com.pasich.mynotes.data.model.Coffee;
 import com.pasich.mynotes.databinding.ActivityAboutBinding;
 import com.pasich.mynotes.utils.adapters.cofeeAdapter.CoffeeAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;

@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.model.Note;
 
 import java.util.List;
 

@@ -7,8 +7,8 @@ import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;
-import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 

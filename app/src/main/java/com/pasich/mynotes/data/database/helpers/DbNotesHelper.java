@@ -1,6 +1,6 @@
 package com.pasich.mynotes.data.database.helpers;
 
-import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.model.Note;
 
 import java.util.ArrayList;
 import java.util.List;

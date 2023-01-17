@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.color.MaterialColors;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.database.model.IndexFilter;
-import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.model.IndexFilter;
+import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.databinding.ItemResultBinding;
 import com.pasich.mynotes.di.scope.PerActivity;
 

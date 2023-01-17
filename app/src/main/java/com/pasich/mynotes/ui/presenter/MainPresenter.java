@@ -8,9 +8,9 @@ import android.view.View;
 
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.data.model.Tag;
+import com.pasich.mynotes.data.model.TrashNote;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;

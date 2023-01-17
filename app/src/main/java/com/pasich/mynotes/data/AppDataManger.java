@@ -2,9 +2,9 @@ package com.pasich.mynotes.data;
 
 
 import com.pasich.mynotes.data.database.DbHelper;
-import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.data.model.Tag;
+import com.pasich.mynotes.data.model.TrashNote;
 import com.pasich.mynotes.data.preferences.AppPreferencesHelper;
 import com.preference.Preference;
 

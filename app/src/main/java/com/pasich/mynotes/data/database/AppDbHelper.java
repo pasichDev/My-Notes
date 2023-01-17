@@ -1,9 +1,9 @@
 package com.pasich.mynotes.data.database;
 
 
-import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.data.model.Tag;
+import com.pasich.mynotes.data.model.TrashNote;
 
 import java.util.ArrayList;
 import java.util.List;

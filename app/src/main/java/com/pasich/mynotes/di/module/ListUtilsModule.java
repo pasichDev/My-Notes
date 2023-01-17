@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.data.model.Tag;
+import com.pasich.mynotes.data.model.TrashNote;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
 import com.pasich.mynotes.di.scope.ActivityContext;

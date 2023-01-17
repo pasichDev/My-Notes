@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.model.TrashNote;
 
 import java.util.List;
 

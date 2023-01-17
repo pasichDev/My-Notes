@@ -1,6 +1,6 @@
 package com.pasich.mynotes.data.database.helpers;
 
-import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.model.TrashNote;
 
 import java.util.List;
 

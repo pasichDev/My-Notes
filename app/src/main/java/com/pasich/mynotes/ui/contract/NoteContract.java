@@ -8,7 +8,7 @@ import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.ActionBar;
 import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;
-import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.model.Note;
 
 public interface NoteContract {
 

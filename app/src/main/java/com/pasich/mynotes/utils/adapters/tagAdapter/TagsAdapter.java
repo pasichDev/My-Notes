@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
 
 import java.util.Collections;

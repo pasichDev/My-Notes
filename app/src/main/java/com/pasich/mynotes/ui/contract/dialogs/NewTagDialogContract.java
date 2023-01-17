@@ -2,7 +2,7 @@ package com.pasich.mynotes.ui.contract.dialogs;
 
 import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
-import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.model.Tag;
 
 
 public interface NewTagDialogContract {

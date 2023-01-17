@@ -13,7 +13,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.database.model.Theme;
+import com.pasich.mynotes.data.model.Theme;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;
 
 import java.util.ArrayList;

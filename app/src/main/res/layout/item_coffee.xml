@@ -9,7 +9,7 @@
 
         <variable
             name="coffee"
-            type="com.pasich.mynotes.data.database.model.Coffee" />
+            type="com.pasich.mynotes.data.model.Coffee" />
 
     </data>
 

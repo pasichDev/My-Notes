@@ -1,4 +1,4 @@
-package com.pasich.mynotes.data.database.model;
+package com.pasich.mynotes.data.model;
 
 public class Label {
 

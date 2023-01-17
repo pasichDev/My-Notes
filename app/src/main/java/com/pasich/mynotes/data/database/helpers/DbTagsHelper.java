@@ -1,6 +1,6 @@
 package com.pasich.mynotes.data.database.helpers;
 
-import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.model.Tag;
 
 import java.util.List;
 

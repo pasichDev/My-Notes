@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import androidx.core.content.ContextCompat;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.database.model.Tag;
+import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.ViewPopupTagBinding;
 
 public class PopupWindowsTag {

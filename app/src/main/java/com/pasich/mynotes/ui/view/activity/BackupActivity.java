@@ -52,9 +52,6 @@ import javax.inject.Inject;
 
 public class BackupActivity extends BaseActivity implements BackupContract.view {
 
-
-    // String[] some_array = getResources().getStringArray(R.array.your_string_array)
-
     @Inject
     public BackupContract.presenter presenter;
     @Inject

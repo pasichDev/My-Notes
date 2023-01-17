@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 

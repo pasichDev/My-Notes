@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.color.MaterialColors;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.database.model.Theme;
+import com.pasich.mynotes.data.model.Theme;
 import com.pasich.mynotes.databinding.ActivityThemeBinding;
 import com.pasich.mynotes.utils.adapters.themeAdapter.ThemesAdapter;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;

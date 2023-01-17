@@ -1,6 +1,6 @@
 package com.pasich.mynotes.base.view;
 
-import com.pasich.mynotes.data.database.model.Note;
+import com.pasich.mynotes.data.model.Note;
 
 public interface NoteActivityView {
 

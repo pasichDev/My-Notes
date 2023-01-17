@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.data.database.model.Coffee;
+import com.pasich.mynotes.data.model.Coffee;
 import com.pasich.mynotes.databinding.ItemCoffeeBinding;
 
 import javax.inject.Inject;

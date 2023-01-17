@@ -8,9 +8,9 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.pasich.mynotes.data.database.model.Note;
-import com.pasich.mynotes.data.database.model.Tag;
-import com.pasich.mynotes.data.database.model.TrashNote;
+import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.data.model.Tag;
+import com.pasich.mynotes.data.model.TrashNote;
 
 
 @Dao
@@ -126,4 +126,11 @@ public abstract class Transactions {
 
     }
 
+
+    @Transaction
+    public void renameTag(Tag mTag, String newName) {
+        renameTagNotes(mTag.getNameTag(), newName);
+        setTagNote(newName, mTag.id);
+
+    }
 }
