@@ -1,5 +1,9 @@
 package com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog;
 
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_TIME;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_HOW_TO_USE;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_PRIVACY_POLICY;
 
@@ -30,6 +34,7 @@ import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
 import com.pasich.mynotes.ui.view.activity.AboutActivity;
 import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
+import com.preference.PowerPreference;
 
 import java.util.Objects;
 
@@ -143,7 +148,8 @@ public class AboutDialog extends DialogFragment {
         gsc.signOut().addOnCompleteListener(task -> {
             binding.loginPage.loginUser.setVisibility(View.VISIBLE);
             binding.loginPage.loginPageRoot.setVisibility(View.GONE);
-
+            PowerPreference.getFileByName("lastBackupCloudInfo").setString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
+            PowerPreference.getFileByName("lastBackupCloudInfo").setLong(ARGUMENT_LAST_BACKUP_TIME, ARGUMENT_DEFAULT_LAST_BACKUP_TIME);
         });
     }
 

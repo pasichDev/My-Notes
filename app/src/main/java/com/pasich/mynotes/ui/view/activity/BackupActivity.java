@@ -190,7 +190,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void createBackupCloud() {
 
-        if (!presenter.getDataManager().getLastBackupCloudId().equals("null")) {
+      //  if (!presenter.getDataManager().getLastBackupCloudId().equals("null")) {
 
          /*   runOnUiThread(() -> {
                 binding.progressBackupCloud.setVisibility(View.VISIBLE);
@@ -208,10 +208,12 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 throw new RuntimeException(e);
             }
 
-        } else {
+     /*   } else {
             onError(R.string.errorDriveBackup, binding.activityBackup);
         }
 
+
+      */
 
     }
 
@@ -224,7 +226,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         final ArrayList<String> listIdsDeleted = new ArrayList<>();
 
         new Thread(() -> {
-            binding.progressBackupCloud.setProgress(40);
             final File fileMetadata = new File();
             final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
             final FileContent mediaContent = new FileContent("application/json", filePath);
@@ -271,8 +272,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
 
     /**
-     * Метод который возвращает екземпляр Drive, если он не получен возврщает null
-     * нужно делать проверку
+     * Метод который возвращает екземпляр Drive, если он не получен возврщает null (нужно делать проверку)
      *
      * @return
      */
