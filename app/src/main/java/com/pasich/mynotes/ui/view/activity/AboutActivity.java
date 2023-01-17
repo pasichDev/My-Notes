@@ -49,15 +49,6 @@ public class AboutActivity extends BaseActivity {
         initActivity();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding.telegramSend.setOnClickListener(null);
-        // binding.emailSend.setOnClickListener(null);
-        binding.shareApp.setOnClickListener(null);
-        binding.ratingApp.setOnClickListener(null);
-        binding.monobankDonat.setOnClickListener(null);
-    }
 
     private void initListCoffee() {
         listCoffee.add(new Coffee().create(getString(R.string.cupCoffee), AppCompatResources.getDrawable(this, R.drawable.ic_cup_off_coffee), 0.25));

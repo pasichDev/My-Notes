@@ -2,7 +2,6 @@ package com.pasich.mynotes.di.component;
 
 import com.pasich.mynotes.di.module.ActivityModule;
 import com.pasich.mynotes.di.module.BindingModule;
-import com.pasich.mynotes.di.module.GoogleDriveModule;
 import com.pasich.mynotes.di.module.ListUtilsModule;
 import com.pasich.mynotes.di.module.OtherUtilsModule;
 import com.pasich.mynotes.di.scope.PerActivity;
@@ -22,7 +21,7 @@ import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 import dagger.Component;
 
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, BindingModule.class, ListUtilsModule.class, OtherUtilsModule.class, GoogleDriveModule.class})
+@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, BindingModule.class, ListUtilsModule.class, OtherUtilsModule.class})
 public interface ActivityComponent {
 
     void inject(MainActivity activity);

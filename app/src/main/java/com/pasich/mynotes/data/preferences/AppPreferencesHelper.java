@@ -1,6 +1,8 @@
 package com.pasich.mynotes.data.preferences;
 
 
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
@@ -66,6 +68,11 @@ public class AppPreferencesHelper implements PreferenceHelper {
     public void editSizeTextNoteActivity(int value) {
         getDefaultPreferences().setInt(ARGUMENT_PREFERENCE_TEXT_SIZE, value);
 
+    }
+
+    @Override
+    public int getSetCloudAuthBackup() {
+        return getBackupCloudInfoPreference().getInt(ARGUMENT_AUTO_BACKUP_CLOUD, ARGUMENT_AUTO_BACKUP_CLOUD_ID);
     }
 
     @Override

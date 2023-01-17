@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -36,16 +37,12 @@ import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.preference.PowerPreference;
 
-import java.util.Objects;
 
-import javax.inject.Inject;
 
 public class AboutDialog extends BaseDialogBottomSheets {
-    @Inject
+
     public GoogleSignInClient mGsic;
-    @Inject
     public GoogleSignInAccount mAcct;
-    @Inject
     public DialogAboutActivityBinding binding;
     private final AboutOpensActivity aboutOpensActivity;
 
@@ -58,7 +55,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
                             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                             try {
                                 task.getResult(ApiException.class);
-                                loadingDataUser(Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(requireContext())));
+                                //loadingDataUser(Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(requireContext())));
                                 binding.loginPage.loginUser.setVisibility(View.GONE);
                                 binding.loginPage.loginPageRoot.setVisibility(View.VISIBLE);
                             } catch (ApiException e) {
@@ -79,6 +76,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
         final ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
+            binding = DialogAboutActivityBinding.inflate(getLayoutInflater());
             builder.setView(binding.getRoot());
             initAccountInfo();
             initListeners();
@@ -86,11 +84,12 @@ public class AboutDialog extends BaseDialogBottomSheets {
             dismiss();
         }
 
+        mGsic = GoogleSignIn.getClient(requireContext(), new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build());
         return builder.create();
     }
 
     private void initAccountInfo() {
-
+        GoogleSignInAccount mAcct = GoogleSignIn.getLastSignedInAccount(requireContext());
         if (mAcct != null) {
             binding.loginPage.loginUser.setVisibility(View.GONE);
             loadingDataUser(mAcct);

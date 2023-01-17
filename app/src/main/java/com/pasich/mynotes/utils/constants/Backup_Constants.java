@@ -10,4 +10,9 @@ public class Backup_Constants {
     //Backup LastTimeEdit
     public static final String ARGUMENT_LAST_BACKUP_TIME = "lastBackupData";
     public static final long ARGUMENT_DEFAULT_LAST_BACKUP_TIME = 0L;
+
+    //Backup Setting AutoCloud
+    public static final String ARGUMENT_AUTO_BACKUP_CLOUD = "autoBackupCloud";
+    public static final int ARGUMENT_AUTO_BACKUP_CLOUD_ID = 0;
+
 }

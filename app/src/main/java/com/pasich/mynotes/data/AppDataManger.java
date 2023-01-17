@@ -77,6 +77,11 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
+    public int getSetCloudAuthBackup() {
+        return preferencesHelper.getSetCloudAuthBackup();
+    }
+
+    @Override
     public String getTypeFaceNoteActivity() {
         return preferencesHelper.getTypeFaceNoteActivity();
     }

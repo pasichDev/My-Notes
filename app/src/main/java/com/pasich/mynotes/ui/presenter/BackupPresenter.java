@@ -60,4 +60,9 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
     public String getJsonBackup() {
         return jsonBackup;
     }
+
+    @Override
+    public void openChoiceDialogAutoBackup() {
+        getView().dialogChoiceVariantAutoBackup();
+    }
 }

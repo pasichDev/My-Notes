@@ -116,9 +116,17 @@
     <string name="importLocalBackup" translatable="false">Восстановить с помощью рез. копии</string>
     <string name="exportLocalBackup" translatable="false">Создать резервную копию</string>
     <string name="lastCloudCopy" translatable="false">Последняя резервная копия: %1$s</string>
-    <string name="errorDriveAuth" translatable="false">Вы неавторизованные</string>
+    <string name="errorDriveAuth" translatable="false">Гость</string>
+    <string name="autoCloudBackupTitle" translatable="false">Автоматическое резервное копирование</string>
     <string name="errorDriveBackup" translatable="false">Увы, но мы не нашли рез. копий</string>
     <string name="errorDriveSync" translatable="false">Ошибка сервера, или плохое качество интернета</string>
+    <string name="errorDriverAuthInfo" translatable="false">Чтобы использовать синхронизацию с облаком необходимо авторизоваться</string>
 
     <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано</string>
+
+
+    <string name="autoCloudVariantsDay" translatable="false">Каждый день</string>
+    <string name="autoCloudVariantsWeek" translatable="false">Каждую неделю</string>
+    <string name="autoCloudVariantsMonth" translatable="false">Каждый месяц</string>
+    <string name="autoCloudVariantsOff" translatable="false">Выкл.</string>
 </resources>

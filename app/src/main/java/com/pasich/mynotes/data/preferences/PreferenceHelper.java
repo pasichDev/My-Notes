@@ -23,4 +23,6 @@ public interface PreferenceHelper {
     String getLastBackupCloudId();
 
     void editSizeTextNoteActivity(int value);
+
+    int getSetCloudAuthBackup();
 }

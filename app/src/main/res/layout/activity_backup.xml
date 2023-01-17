@@ -91,6 +91,43 @@
             android:text="@string/cloudBackup" />
 
         <LinearLayout
+            android:id="@+id/autoBackup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view) -> presenter.openChoiceDialogAutoBackup()}"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconActivityList"
+                android:contentDescription="@string/autoCloudBackupTitle"
+                android:src="@drawable/ic_cloud_auto_backup" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/itemTextBottomSheets"
+                    android:padding="4dp"
+                    android:text="@string/autoCloudBackupTitle" />
+
+                <TextView
+                    android:id="@+id/switchAutoCloud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp"
+                    android:paddingHorizontal="4dp"
+                    android:textColor="?attr/colorOutline"
+                    android:text="@string/cloudBackup" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/cloudExport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -179,6 +216,7 @@
                 android:text="@string/importLocalBackup" />
 
         </LinearLayout>
+
     </LinearLayout>
 
 

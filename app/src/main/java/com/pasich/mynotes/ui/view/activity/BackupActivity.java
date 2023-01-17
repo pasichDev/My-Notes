@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
@@ -14,20 +15,22 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.R;
@@ -49,16 +52,16 @@ import javax.inject.Inject;
 
 public class BackupActivity extends BaseActivity implements BackupContract.view {
 
+
+    // String[] some_array = getResources().getStringArray(R.array.your_string_array)
+
     @Inject
     public BackupContract.presenter presenter;
     @Inject
     public ActivityBackupBinding binding;
-    @Inject
     public GoogleSignInAccount mAcct;
-    @Inject
-    public Scope ACCESS_DRIVE_SCOPE;
-    @Inject
-    public GoogleAccountCredential mDriveCredential;
+    public Scope ACCESS_DRIVE_SCOPE = new Scope(DriveScopes.DRIVE_APPDATA);
+
     private final ActivityResultLauncher<Intent> startIntentExport =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -93,20 +96,27 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void initActivity() {
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[presenter.getDataManager().getSetCloudAuthBackup()]);
+
     }
 
     @Override
     public void initConnectAccount() {
+        mAcct = GoogleSignIn.getLastSignedInAccount(this);
         if (mAcct != null) {
             binding.userNameDrive.setText(mAcct.getEmail());
-            checkForGooglePermissions();
+            //   checkForGooglePermissions();
+
+            if (getGoogleDriveAppPermissions()) {
+
+            }
 
             if (!presenter.getDataManager().getLastBackupCloudId().equals("null"))
 
                 editLastDataEditBackupCloud();
             else loadingLastBackupCloudInfo();
         } else {
-            binding.lastBackupCloud.setVisibility(View.GONE);
+            binding.lastBackupCloud.setText(getString(R.string.errorDriverAuthInfo));
             binding.userNameDrive.setText(R.string.errorDriveAuth);
             binding.cloudExport.setEnabled(false);
             binding.importCloudBackup.setEnabled(false);
@@ -119,6 +129,11 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     private void editLastDataEditBackupCloud() {
         binding.lastBackupCloud.setText(getString(R.string.lastCloudCopy, lastDataCloudBackup(presenter.getDataManager().getLastDataBackupCloud())));
+
+    }
+
+    private void editSwitchSetAutoBackup(String text) {
+        binding.switchAutoCloud.setText(text);
 
     }
 
@@ -191,7 +206,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void createBackupCloud() {
 
-      //  if (!presenter.getDataManager().getLastBackupCloudId().equals("null")) {
+        //  if (!presenter.getDataManager().getLastBackupCloudId().equals("null")) {
 
          /*   runOnUiThread(() -> {
                 binding.progressBackupCloud.setVisibility(View.VISIBLE);
@@ -199,15 +214,15 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             });
 
           */
-            try {
-                BufferedWriter bwNote =
-                        new BufferedWriter(new FileWriter(getFilesDir() + FILE_NAME_BACKUP));
-                bwNote.write(String.valueOf(presenter.getJsonBackup()));
-                bwNote.close();
-                writeFileBackupDisk();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            BufferedWriter bwNote =
+                    new BufferedWriter(new FileWriter(getFilesDir() + FILE_NAME_BACKUP));
+            bwNote.write(String.valueOf(presenter.getJsonBackup()));
+            bwNote.close();
+            writeFileBackupDisk();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
      /*   } else {
             onError(R.string.errorDriveBackup, binding.activityBackup);
@@ -281,7 +296,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         return new Drive.Builder(
                 AndroidHttp.newCompatibleTransport(),
                 new GsonFactory(),
-                mDriveCredential.setSelectedAccount(mAcct.getAccount()))
+                GoogleAccountCredential.usingOAuth2(this, Collections.singleton(Scopes.DRIVE_FILE)).setSelectedAccount(mAcct.getAccount()))
                 .setApplicationName("My Notes")
                 .build();
     }
@@ -311,6 +326,35 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
 
 
+    }
+
+
+    @Override
+    public void dialogChoiceVariantAutoBackup() {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        builder.setCancelable(true);
+        builder.setTitle(R.string.autoCloudBackupTitle)
+                .setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(),
+                        (dialog, item) -> {
+                            editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
+                            presenter.getDataManager()
+                                    .getBackupCloudInfoPreference()
+                                    .setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+                            dialog.dismiss();
+
+                        });
+        builder.create().show();
+
+    }
+
+
+    /**
+     * Метод который возврщает разрешение на использования гугл диска
+     */
+    private boolean getGoogleDriveAppPermissions() {
+        return GoogleSignIn.hasPermissions(
+                GoogleSignIn.getLastSignedInAccount(this),
+                ACCESS_DRIVE_SCOPE);
     }
 
 

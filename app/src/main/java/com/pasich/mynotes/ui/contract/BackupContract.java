@@ -16,6 +16,8 @@ public interface BackupContract {
         void createBackupLocal();
 
         void createBackupCloud();
+
+        void dialogChoiceVariantAutoBackup();
     }
 
 
@@ -25,5 +27,8 @@ public interface BackupContract {
         void loadDataAndEncodeJson(boolean local);
 
         String getJsonBackup();
+
+        void openChoiceDialogAutoBackup();
+
     }
 }
