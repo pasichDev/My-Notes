@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
@@ -21,24 +20,32 @@ import com.pasich.mynotes.data.database.model.Coffee;
 import com.pasich.mynotes.databinding.ActivityAboutBinding;
 import com.pasich.mynotes.utils.adapters.cofeeAdapter.CoffeeAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtiCoffee;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 public class AboutActivity extends BaseActivity {
 
-    private ActivityAboutBinding binding;
+    @Inject
+    public ActivityAboutBinding binding;
+    @Inject
+    public CoffeeAdapter coffeeAdapter;
+    @Inject
+    public LinearLayoutManager mLinearLayoutManager;
+    @Named("NotesItemSpaceDecoration")
+    @Inject
+    public SpacesItemDecoration itemDecorationNotes;
     private final ArrayList<Coffee> listCoffee = new ArrayList<>();
 
-    private CoffeeAdapter coffeeAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAboutBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        getActivityComponent().inject(this);
+        binding.setActivity(this);
         initActivity();
     }
 
@@ -46,7 +53,7 @@ public class AboutActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         binding.telegramSend.setOnClickListener(null);
-        binding.emailSend.setOnClickListener(null);
+        // binding.emailSend.setOnClickListener(null);
         binding.shareApp.setOnClickListener(null);
         binding.ratingApp.setOnClickListener(null);
         binding.monobankDonat.setOnClickListener(null);
@@ -62,9 +69,8 @@ public class AboutActivity extends BaseActivity {
 
 
     private void initCoffeeList() {
-        coffeeAdapter = new CoffeeAdapter(new DiffUtiCoffee());
-        binding.coffeeDev.addItemDecoration(new SpacesItemDecoration(15));
-        binding.coffeeDev.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.coffeeDev.addItemDecoration(itemDecorationNotes);
+        binding.coffeeDev.setLayoutManager(mLinearLayoutManager);
         binding.coffeeDev.setAdapter(coffeeAdapter);
         coffeeAdapter.submitList(listCoffee);
     }
@@ -73,12 +79,6 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void initListeners() {
         coffeeAdapter.setOnItemClickListener(position -> byyCoffee(coffeeAdapter.getCurrentList().get(position)));
-        binding.telegramSend.setOnClickListener(v ->
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_TELEGRAM_DEVELOP))));
-        binding.emailSend.setOnClickListener(v -> sendEmail());
-        binding.monobankDonat.setOnClickListener(v -> monoBankLink_Open());
-        binding.shareApp.setOnClickListener(v -> startActivity(Intent.createChooser(new Intent("android.intent.action.SEND").setType("plain/text").putExtra("android.intent.extra.TEXT", getString(R.string.shareAppText)), getString(R.string.share))));
-        binding.ratingApp.setOnClickListener(v -> openIntentGooglePlay());
     }
 
     private void initActivity() {
@@ -89,7 +89,7 @@ public class AboutActivity extends BaseActivity {
         initListeners();
     }
 
-    private void sendEmail() {
+    public void sendEmail() {
         Intent intent = new Intent(Intent.ACTION_SENDTO)
                 .setData(Uri.parse("mailto:pasichDev@outlook.com"));
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -98,12 +98,20 @@ public class AboutActivity extends BaseActivity {
 
     }
 
-    private void monoBankLink_Open() {
+    public void sendTelegram() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_TELEGRAM_DEVELOP)));
+    }
+
+    public void sendMonoBank() {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_MONOBANK_DONATE)));
     }
 
+    public void shareApp() {
+        Intent.createChooser(new Intent("android.intent.action.SEND").setType("plain/text").putExtra("android.intent.extra.TEXT", getString(R.string.shareAppText)), getString(R.string.share));
+    }
 
-    private void openIntentGooglePlay() {
+
+    public void openRatingGooglePlay() {
         final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName()));
         if (getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0) {
             startActivity(rateAppIntent);

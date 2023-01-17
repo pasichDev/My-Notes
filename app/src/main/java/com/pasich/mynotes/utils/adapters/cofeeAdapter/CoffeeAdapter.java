@@ -12,11 +12,14 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.database.model.Coffee;
 import com.pasich.mynotes.databinding.ItemCoffeeBinding;
 
+import javax.inject.Inject;
+
 
 public class CoffeeAdapter extends ListAdapter<Coffee, CoffeeAdapter.ViewHolder> {
 
     private CoffeeClickListener coffeeClickListener;
 
+    @Inject
     public CoffeeAdapter(@NonNull DiffUtil.ItemCallback<Coffee> diffCallback) {
         super(diffCallback);
     }

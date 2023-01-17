@@ -8,7 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MoreNoteModule {
+public class OtherUtilsModule {
 
 
     @Provides

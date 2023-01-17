@@ -21,7 +21,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.Scope;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -29,7 +28,6 @@ import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.R;
@@ -53,10 +51,14 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Inject
     public BackupContract.presenter presenter;
-
     @Inject
     public ActivityBackupBinding binding;
-    private final Scope ACCESS_DRIVE_SCOPE = new Scope(DriveScopes.DRIVE_APPDATA);
+    @Inject
+    public GoogleSignInAccount mAcct;
+    @Inject
+    public Scope ACCESS_DRIVE_SCOPE;
+    @Inject
+    public GoogleAccountCredential mDriveCredential;
     private final ActivityResultLauncher<Intent> startIntentExport =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -95,9 +97,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void initConnectAccount() {
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            binding.userNameDrive.setText(acct.getEmail());
+        if (mAcct != null) {
+            binding.userNameDrive.setText(mAcct.getEmail());
             checkForGooglePermissions();
 
             if (!presenter.getDataManager().getLastBackupCloudId().equals("null"))
@@ -277,16 +278,10 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      * @return
      */
     private Drive getDriveCredential() {
-        GoogleSignInAccount mAccount = GoogleSignIn.getLastSignedInAccount(this);
-        GoogleAccountCredential credential =
-                GoogleAccountCredential.usingOAuth2(
-                        this, Collections.singleton(Scopes.DRIVE_FILE));
-        assert mAccount != null;
-        credential.setSelectedAccount(mAccount.getAccount());
         return new Drive.Builder(
                 AndroidHttp.newCompatibleTransport(),
                 new GsonFactory(),
-                credential)
+                mDriveCredential.setSelectedAccount(mAcct.getAccount()))
                 .setApplicationName("My Notes")
                 .build();
     }

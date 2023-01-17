@@ -77,6 +77,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Named("NotesItemSpaceDecoration")
     @Inject
     public SpacesItemDecoration itemDecorationNotes;
+    @Inject
+    public LinearLayoutManager mLinearLayoutManager;
 
     final private ActivityResultLauncher<Intent> startThemeActivity =
             registerForActivityResult(
@@ -203,7 +205,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void settingsTagsList() {
         mActivityBinding.listTags.addItemDecoration(itemDecorationTags);
-        mActivityBinding.listTags.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        mActivityBinding.listTags.setLayoutManager(mLinearLayoutManager);
         mActivityBinding.listTags.setAdapter(tagsAdapter);
 
     }
