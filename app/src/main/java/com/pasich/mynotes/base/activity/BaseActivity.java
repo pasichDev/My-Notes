@@ -3,7 +3,9 @@ package com.pasich.mynotes.base.activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,6 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         Snackbar snackbar = Snackbar.make(view == null ? findViewById(android.R.id.content) : view, getString(resID) != null ? getString(resID) : getString(R.string.warning), Snackbar.LENGTH_LONG);
         snackbar.setBackgroundTint(MaterialColors.getColor(this, R.attr.colorError, Color.DKGRAY));
         snackbar.setActionTextColor(MaterialColors.getColor(this, R.attr.colorOnError, Color.GRAY));
+
         snackbar.show();
 
     }
@@ -98,6 +101,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     public void onInfo(int resID, View view) {
         onInfo(getString(resID), view);
+    }
+
+    @Override
+    public boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     public ActivityComponent getActivityComponent() {

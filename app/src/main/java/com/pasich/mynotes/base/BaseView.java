@@ -27,5 +27,12 @@ public interface BaseView {
 
     }
 
+    default boolean isNetworkConnected() {
+
+        return false;
+    }
+
+    ;
+
 
 }

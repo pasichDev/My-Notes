@@ -129,6 +129,11 @@ public class AppDataManger implements DataManager {
         return dbHelper.getTrashNotesLoad();
     }
 
+    @Override
+    public Completable addTrashNotes(List<TrashNote> noteList) {
+        return dbHelper.addTrashNotes(noteList);
+    }
+
 
     @Override
     public Completable deleteTrashNotes(List<TrashNote> note) {
@@ -183,6 +188,11 @@ public class AppDataManger implements DataManager {
     @Override
     public Flowable<List<Note>> getNotes() {
         return dbHelper.getNotes();
+    }
+
+    @Override
+    public Completable addNotes(List<Note> notes) {
+        return dbHelper.addNotes(notes);
     }
 
 

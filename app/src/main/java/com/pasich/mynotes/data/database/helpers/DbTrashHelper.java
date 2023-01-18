@@ -13,6 +13,8 @@ public interface DbTrashHelper {
      */
     Flowable<List<TrashNote>> getTrashNotesLoad();
 
+    Completable addTrashNotes(List<TrashNote> noteList);
+
     Completable deleteTrashNotes(List<TrashNote> note);
 
     Completable deleteAll();

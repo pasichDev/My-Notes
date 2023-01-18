@@ -201,6 +201,7 @@
             android:id="@+id/importLocal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{(view) -> presenter.loadingDialogRestoreNotes(true)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">

@@ -87,6 +87,11 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
+    public Completable addTrashNotes(List<TrashNote> noteList) {
+        return Completable.fromAction(() -> appDatabase.trashDao().addNotes(noteList));
+    }
+
+    @Override
     public Completable deleteTagForNotes(Tag tag) {
         return Completable.fromAction(() -> appDatabase.transactionsNote().deleteTagForNotes(tag));
     }
@@ -139,6 +144,11 @@ public class AppDbHelper implements DbHelper {
     @Override
     public Single<Long> addNote(Note note, boolean copyNote) {
         return Single.fromCallable(() -> copyNote ? appDatabase.noteDao().addNoteCopy(note) : appDatabase.noteDao().addNote(note));
+    }
+
+    @Override
+    public Completable addNotes(List<Note> notes) {
+        return Completable.fromAction(() -> appDatabase.noteDao().addNotes(notes));
     }
 
     @Override

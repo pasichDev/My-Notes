@@ -23,6 +23,9 @@ public interface TrashDao {
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   Long addNote(TrashNote trashNote);
 
+  @Insert(onConflict = OnConflictStrategy.IGNORE)
+  void addNotes(List<TrashNote> trashNote);
+
   @Query("DELETE FROM trash")
   void deleteAll();
 

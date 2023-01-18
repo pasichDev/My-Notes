@@ -9,12 +9,10 @@ import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.Dialog;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkRequest;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.Menu;
@@ -30,7 +28,6 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
@@ -43,8 +40,10 @@ import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,6 +60,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Inject
     public ActivityBackupBinding binding;
     public GoogleSignInAccount mAcct;
+    private Dialog progressDialog;
     public Scope ACCESS_DRIVE_SCOPE = new Scope(DriveScopes.DRIVE_APPDATA);
 
     private final ActivityResultLauncher<Intent> startIntentExport =
@@ -84,6 +84,15 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 }
             });
 
+    private final ActivityResultLauncher<Intent> openBackupLocalIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        Intent data = result.getData();
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            if (data != null) {
+                readJsonBackup(data);
+            }
+        }
+    });
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +100,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.attachView(this);
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
-
-        onError(R.string.error, null);
     }
 
     @Override
@@ -109,7 +116,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         if (mAcct != null) {
             binding.userNameDrive.setText(mAcct.getEmail());
             checkForGooglePermissions();
-
 
 
             if (!presenter.getDataManager().getLastBackupCloudId().equals("null"))
@@ -136,6 +142,30 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     private void editSwitchSetAutoBackup(String text) {
         binding.switchAutoCloud.setText(text);
+
+    }
+
+    public void readJsonBackup(Intent data) {
+        progressDialog = processRestoreDialog();
+        progressDialog.show();
+        Runnable runnable = () -> {
+            try {
+                final ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(data.getData(), "r");
+                final StringBuilder jsonFile = new StringBuilder();
+                final BufferedReader bufferedReader = new BufferedReader(new FileReader(descriptor.getFileDescriptor()));
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    jsonFile.append(line);
+                    jsonFile.append('\n');
+                }
+                presenter.restoreDataAndDecodeJson(jsonFile.toString());
+                descriptor.close();
+                bufferedReader.close();
+            } catch (IOException ignored) {
+            }
+        };
+        Handler handler = new Handler();
+        handler.postDelayed(runnable, 3000);
 
     }
 
@@ -208,6 +238,19 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void createBackupCloud() {
 
+        if (isNetworkConnected()) {
+            try {
+                BufferedWriter bwNote =
+                        new BufferedWriter(new FileWriter(getFilesDir() + FILE_NAME_BACKUP));
+                bwNote.write(String.valueOf(presenter.getJsonBackup()));
+                bwNote.close();
+                writeFileBackupCloud();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            onError(R.string.errorConnectedNetwork, null);
+        }
         //  if (!presenter.getDataManager().getLastBackupCloudId().equals("null")) {
          /*   runOnUiThread(() -> {
                 binding.progressBackupCloud.setVisibility(View.VISIBLE);
@@ -215,15 +258,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             });
 
           */
-        try {
-            BufferedWriter bwNote =
-                    new BufferedWriter(new FileWriter(getFilesDir() + FILE_NAME_BACKUP));
-            bwNote.write(String.valueOf(presenter.getJsonBackup()));
-            bwNote.close();
-            writeFileBackupCloud();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
 
 
 
@@ -232,7 +267,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
 
 
-      */
+
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         connectivityManager.registerNetworkCallback(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() {
             @Override
@@ -247,17 +282,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 isNetworkConnected();
             }
         });
+ */
 
-
-    }
-
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (!(cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected())) {
-            //Do something
-            return false;
-        }
-        return true;
     }
 
 
@@ -303,9 +329,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 new java.io.File(getFilesDir() + FILE_NAME_BACKUP).deleteOnExit();
                 runOnUiThread(() -> onInfo(R.string.creteLocalCopyOkay, binding.activityBackup));
             } catch (IOException e) {
-                if (404 == ((GoogleJsonResponseException) e).getStatusCode()) {
-                    onError(R.string.errorDriveSync, binding.activityBackup);
-                }
+
                 throw new RuntimeException(e);
             }
 
@@ -358,9 +382,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void dialogChoiceVariantAutoBackup() {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
-        builder.setCancelable(true);
-        builder.setTitle(R.string.autoCloudBackupTitle)
+        new MaterialAlertDialogBuilder(this).setCancelable(true)
+                .setTitle(R.string.autoCloudBackupTitle)
                 .setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(),
                         (dialog, item) -> {
                             editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
@@ -369,42 +392,43 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                                     .setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
                             dialog.dismiss();
 
-                        });
-        builder.create().show();
+                        })
+                .create().show();
 
     }
 
-/*
-    public Task<GoogleDriveFileHolder> createFile(String folderId, String filename) {
-        return Tasks.call(Executors.newSingleThreadExecutor(), () -> {
-            GoogleDriveFileHolder googleDriveFileHolder = new GoogleDriveFileHolder();
+    @Override
+    public void dialogRestoreData(boolean local) {
+        new MaterialAlertDialogBuilder(this)
+                .setCancelable(false)
+                .setTitle(R.string.restoreNotesTitle)
+                .setMessage(R.string.restoreNotesMessage)
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
+                .setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which) -> {
+                    openBackupLocalIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
+                    dialog.dismiss();
+                })
+                .create().show();
+    }
 
-            List<String> root;
-            if (folderId == null) {
+    @Override
+    public void restoreFinish(boolean error) {
 
-                root = Collections.singletonList("root");
-
-            } else {
-
-                root = Collections.singletonList(folderId);
-            }
-            File metadata = new File()
-                    .setParents(root)
-                    .setMimeType("text/plain")
-                    .setName(filename);
-
-            File googleFile = mDriveService.files().create(metadata).execute();
-            if (googleFile == null) {
-
-                throw new IOException("Null result when requesting file creation.");
-            }
-            googleDriveFileHolder.setId(googleFile.getId());
-            return googleDriveFileHolder;
-        });
+        if (progressDialog != null) progressDialog.dismiss();
+        if (!error) {
+            onInfo(getString(R.string.restoreDataOkay), null);
+        } else {
+            onInfo(getString(R.string.restoreDataFall), null);
+        }
     }
 
 
- */
+    public Dialog processRestoreDialog() {
+        return new MaterialAlertDialogBuilder(this, R.style.progressDialogRestore)
+                .setCancelable(false)
+                .setView(R.layout.view_restore_data)
+                .create();
 
+    }
 
 }

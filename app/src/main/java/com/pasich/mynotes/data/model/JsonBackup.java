@@ -1,18 +1,18 @@
 package com.pasich.mynotes.data.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JsonBackup {
 
-    private List<Note> notes;
-    private List<TrashNote> trashNotes;
+    public List<Note> notes;
+    public List<TrashNote> trashNotes;
 
     public JsonBackup() {
     }
 
-    public boolean setNotes(List<Note> notes) {
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
-        return notes.size() >= 1;
     }
 
     public void setTrashNotes(List<TrashNote> trashNotes) {
@@ -20,4 +20,11 @@ public class JsonBackup {
     }
 
 
+    public List<Note> getNotes() {
+        return notes == null ? new ArrayList<>() : notes;
+    }
+
+    public List<TrashNote> getTrashNotes() {
+        return trashNotes == null ? new ArrayList<>() : trashNotes;
+    }
 }

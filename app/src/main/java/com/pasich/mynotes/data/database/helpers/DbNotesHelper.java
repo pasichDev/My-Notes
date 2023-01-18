@@ -17,6 +17,8 @@ public interface DbNotesHelper {
 
     Flowable<List<Note>> getNotes();
 
+    Completable addNotes(List<Note> notes);
+
     Observable<List<Note>> getNotesForTag(String nameTag);
 
     Single<Integer> getCountNotesTag(String nameTag);

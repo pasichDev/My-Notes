@@ -18,6 +18,10 @@ public interface BackupContract {
         void createBackupCloud();
 
         void dialogChoiceVariantAutoBackup();
+
+        void dialogRestoreData(boolean local);
+
+        void restoreFinish(boolean error);
     }
 
 
@@ -26,9 +30,13 @@ public interface BackupContract {
 
         void loadDataAndEncodeJson(boolean local);
 
+        void restoreDataAndDecodeJson(String jsonRestore);
+
         String getJsonBackup();
 
         void openChoiceDialogAutoBackup();
+
+        void loadingDialogRestoreNotes(boolean local);
 
     }
 }

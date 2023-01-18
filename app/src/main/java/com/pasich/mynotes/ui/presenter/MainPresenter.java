@@ -173,13 +173,12 @@ public class MainPresenter extends AppBasePresenter<MainContract.view> implement
         if (mSwipe == 1) {
             getView().exitWhat();
 
-            Runnable runnable = () -> {
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
                 if (mSwipe == 1) {
                     mSwipe = 0;
                 }
-            };
-            Handler handler = new Handler();
-            handler.postDelayed(runnable, 5000);
+            }, 5000);
 
         } else if (mSwipe == 2) {
             getView().finishActivityOtPresenter();

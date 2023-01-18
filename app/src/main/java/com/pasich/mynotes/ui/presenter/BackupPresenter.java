@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
+
 import com.google.gson.Gson;
 import com.pasich.mynotes.base.AppBasePresenter;
 import com.pasich.mynotes.data.DataManager;
@@ -10,6 +11,7 @@ import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -62,6 +64,27 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
 
     }
 
+    @Override
+    public void restoreDataAndDecodeJson(String jsonRestore) {
+        JsonBackup jsonBackupTemp = jsonRestore == null && jsonRestore.length() <= 10 ? new JsonBackup() : new Gson().fromJson(jsonRestore, JsonBackup.class);
+
+
+        if (jsonBackupTemp.getNotes().size() > 0 && jsonBackupTemp.getTrashNotes().size() > 0) {
+            getCompositeDisposable()
+                    .add(
+                            Completable.mergeArray(
+                                            getDataManager().addNotes(jsonBackupTemp.getNotes()),
+                                            getDataManager().addTrashNotes(jsonBackupTemp.getTrashNotes()))
+                                    .subscribeOn(getSchedulerProvider().io())
+                                    .observeOn(getSchedulerProvider().ui())
+                                    .subscribe(() -> getView().restoreFinish(false)));
+
+        } else {
+            getView().restoreFinish(true);
+        }
+
+    }
+
     public void setJsonBackup(String jsonBackup) {
         this.jsonBackup = jsonBackup;
     }
@@ -74,4 +97,11 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
     public void openChoiceDialogAutoBackup() {
         getView().dialogChoiceVariantAutoBackup();
     }
+
+    @Override
+    public void loadingDialogRestoreNotes(boolean local) {
+        getView().dialogRestoreData(local);
+    }
+
+
 }
