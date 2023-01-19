@@ -163,9 +163,9 @@ public class AboutDialog extends BaseDialogBottomSheets {
             final Preference preference = PowerPreference.getFileByName("lastBackupCloudInfo");
             binding.loginPage.loginUser.setVisibility(View.VISIBLE);
             binding.loginPage.loginPageRoot.setVisibility(View.GONE);
-            preference.remove(ARGUMENT_AUTO_BACKUP_CLOUD);
-            preference.remove(ARGUMENT_LAST_BACKUP_ID);
-            preference.remove(ARGUMENT_LAST_BACKUP_TIME);
+            preference.removeAsync(ARGUMENT_AUTO_BACKUP_CLOUD);
+            preference.removeAsync(ARGUMENT_LAST_BACKUP_ID);
+            preference.removeAsync(ARGUMENT_LAST_BACKUP_TIME);
         });
     }
 
