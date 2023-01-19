@@ -95,11 +95,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
 
-      /*  PeriodicWorkRequest myWorkRequest = new PeriodicWorkRequest.Builder(AutoBackupCloudWorker.class, 1, TimeUnit.MINUTES)
-                .build();
-        WorkManager.getInstance().enqueue(myWorkRequest);
 
-       */
+        //     OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).build();
+
+        //   WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
+        //   WorkManager.getInstance().enqueue(myWorkRequest);
+
+
     }
 
 
@@ -271,7 +273,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                         FileList files = mDrive.files().list()
                                 .setSpaces("appDataFolder")
                                 .setFields("nextPageToken, files(id, name)")
-                                .setPageSize(10)
+                                .setPageSize(5)
                                 .execute();
                         for (File file : files.getFiles()) {
                             listIdsDeleted.add(file.getId());

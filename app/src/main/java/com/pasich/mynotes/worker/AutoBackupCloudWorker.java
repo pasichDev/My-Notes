@@ -136,20 +136,16 @@ public class AutoBackupCloudWorker extends Worker {
             fileMetadata.setParents(Collections.singletonList("appDataFolder"));
 
             try {
-                if (!oldBackup.equals("null")) {
-                    listIdsDeleted.add(mDrive.files().get(oldBackup).getFileId());
-                } else {
-                    FileList files = null;
-                    files = mDrive.files().list()
+                    FileList files = mDrive.files().list()
                             .setSpaces("appDataFolder")
                             .setFields("nextPageToken, files(id, name)")
-                            .setPageSize(10)
+                            .setPageSize(5)
                             .execute();
 
                     for (File file : files.getFiles()) {
                         listIdsDeleted.add(file.getId());
                     }
-                }
+
 
                 File file = mDrive.files().create(fileMetadata, mediaContent).setFields("id").execute();
                 if (file.getId().length() >= 2) {
