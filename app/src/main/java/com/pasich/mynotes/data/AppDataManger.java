@@ -112,6 +112,11 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
+    public Completable addTags(List<Tag> tags) {
+        return dbHelper.addTags(tags);
+    }
+
+    @Override
     public Completable deleteTag(Tag tag) {
         return dbHelper.deleteTag(tag);
     }

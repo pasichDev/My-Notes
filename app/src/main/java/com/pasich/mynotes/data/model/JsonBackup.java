@@ -8,6 +8,8 @@ public class JsonBackup {
     public List<Note> notes;
     public List<TrashNote> trashNotes;
 
+    public List<Tag> tags;
+
     public JsonBackup() {
     }
 
@@ -26,5 +28,13 @@ public class JsonBackup {
 
     public List<TrashNote> getTrashNotes() {
         return trashNotes == null ? new ArrayList<>() : trashNotes;
+    }
+
+    public List<Tag> getTags() {
+        return tags == null ? new ArrayList<>() : tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

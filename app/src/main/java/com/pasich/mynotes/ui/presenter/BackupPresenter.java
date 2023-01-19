@@ -46,9 +46,11 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
         getCompositeDisposable().add(
                 Flowable.zip(getDataManager().getNotes(),
                                 getDataManager().getTrashNotesLoad(),
-                                (noteList, trashNoteList) -> {
+                                getDataManager().getTags(),
+                                (noteList, trashNoteList, tagList) -> {
                                     jsonBackupTemp.setNotes(noteList);
                                     jsonBackupTemp.setTrashNotes(trashNoteList);
+                                    jsonBackupTemp.setTags(tagList);
                                     return true;
                                 })
                         .subscribeOn(getSchedulerProvider().io())
@@ -66,14 +68,15 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
 
     @Override
     public void restoreDataAndDecodeJson(String jsonRestore) {
-        JsonBackup jsonBackupTemp = jsonRestore == null && jsonRestore.length() <= 10 ? new JsonBackup() : new Gson().fromJson(jsonRestore, JsonBackup.class);
 
+        if (jsonRestore.length() >= 5) {
+            JsonBackup jsonBackupTemp = new Gson().fromJson(jsonRestore, JsonBackup.class);
 
-        if (jsonBackupTemp.getNotes().size() > 0 && jsonBackupTemp.getTrashNotes().size() > 0) {
             getCompositeDisposable()
                     .add(
                             Completable.mergeArray(
                                             getDataManager().addNotes(jsonBackupTemp.getNotes()),
+                                            getDataManager().addTags(jsonBackupTemp.getTags()),
                                             getDataManager().addTrashNotes(jsonBackupTemp.getTrashNotes()))
                                     .subscribeOn(getSchedulerProvider().io())
                                     .observeOn(getSchedulerProvider().ui())

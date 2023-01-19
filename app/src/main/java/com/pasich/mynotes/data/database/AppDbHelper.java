@@ -48,6 +48,11 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
+    public Completable addTags(List<Tag> tags) {
+        return Completable.fromAction(() -> appDatabase.tagsDao().addTags(tags));
+    }
+
+    @Override
     public Completable deleteTag(Tag tag) {
         return Completable.fromAction(() -> appDatabase.tagsDao().deleteTag(tag));
     }

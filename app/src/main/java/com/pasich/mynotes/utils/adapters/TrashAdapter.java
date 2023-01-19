@@ -28,7 +28,7 @@ public class TrashAdapter<VM extends ViewDataBinding> extends GenericAdapter<Tra
     }
 
     public static class TrashNoteComparator {
-        public final Comparator<TrashNote> COMPARE_BY_DATE = (e1, e2) -> Math.toIntExact(e2.getDate() - e1.getDate());
+        public final Comparator<TrashNote> COMPARE_BY_DATE = (e1, e2) -> Long.compare(e2.getDate(), e1.getDate());
 
     }
 }
