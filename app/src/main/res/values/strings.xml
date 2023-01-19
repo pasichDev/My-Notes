@@ -80,6 +80,7 @@
     <string name="developer" translatable="false">Andrii Pasichnik (pasichDev)</string>
     <string name="versionAndCodeApp" translatable="false">My notes (v%1$s)</string>
     <string name="coffeePrice" translatable="false">%1$s$</string>
+    <string name="percentProgress" translatable="false">Создание резервной копии (%d%%)</string>
     <string name="MonoBank_Donate" translatable="false">MonoBank Donate</string>
     <string name="userAvatar" translatable="false">User Avatar</string>
     <string name="logOut" translatable="false">LogOut</string>

@@ -15,6 +15,10 @@
             name="isAuthUser"
             type="boolean" />
 
+        <variable
+            name="isVisibleProgressCloud"
+            type="boolean" />
+
     </data>
 
     <LinearLayout
@@ -66,9 +70,21 @@
                     android:id="@+id/lastBackupCloud"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:visibility="@{isVisibleProgressCloud ? View.GONE : View.VISIBLE}"
                     android:paddingVertical="2dp"
                     android:text="@string/checkLastBackupsCloud"
                     android:textColor="?attr/colorOutline"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/percentProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="@{isVisibleProgressCloud ? View.VISIBLE : View.GONE}"
+                    tools:text="0%"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="2dp"
                     android:textSize="14sp" />
 
                 <ProgressBar
@@ -76,9 +92,11 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_margin="5dp"
-                    android:progress="10" />
+                    android:visibility="@{isVisibleProgressCloud ? View.VISIBLE : View.GONE}"
+                    android:paddingVertical="2dp"
+                    android:progress="20" />
+
+
             </LinearLayout>
 
         </LinearLayout>

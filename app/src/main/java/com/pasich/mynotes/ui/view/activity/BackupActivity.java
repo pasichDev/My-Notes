@@ -1,7 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
@@ -15,7 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,6 +28,7 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
@@ -100,9 +99,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CONST_REQUEST_DRIVE_SCOPE) {
             driveConfigTemp.setHasPermissionDrive(resultCode == RESULT_OK);
-
         }
-
     }
 
     @Override
@@ -147,7 +144,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[presenter.getDataManager().getSetCloudAuthBackup()]);
-
     }
 
 
@@ -188,10 +184,10 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
 
     public void readJsonBackup(Intent data) {
-        progressDialog = processRestoreDialog();
-        progressDialog.show();
         Runnable runnable = () -> {
             try {
+                progressDialog = processRestoreDialog();
+                progressDialog.show();
                 final ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(data.getData(), "r");
                 final StringBuilder jsonFile = new StringBuilder();
                 final BufferedReader bufferedReader = new BufferedReader(new FileReader(descriptor.getFileDescriptor()));
@@ -212,29 +208,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     }
 
-
-    // TODO: 19.01.2023 Обработка исключений
-    // TODO: 19.01.2023
-    @Override
-    public void createBackupCloud() {
-        if (isNetworkConnected()) {
-            try {
-
-                final java.io.File copyFileData = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
-                BufferedWriter bwNote =
-                        new BufferedWriter(new FileWriter(copyFileData));
-                bwNote.write(String.valueOf(presenter.getJsonBackup()));
-                bwNote.close();
-                writeFileBackupCloud(copyFileData);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            onError(R.string.errorConnectedNetwork, null);
-        }
-
-    }
-
     private void writeFileExport(Uri uri) {
         try {
             ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(uri, "w");
@@ -248,65 +221,109 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
     }
 
-    /**
-     * Метод который записывает файл рез.копии на GoogleDrive
-     */
-    private void writeFileBackupCloud(java.io.File copyFileData) {
-        final Drive mDrive = getDriveCredentialService();
-        final ArrayList<String> listIdsDeleted = new ArrayList<>();
-
-        new Thread(() -> {
-            final File fileMetadata = new File();
-            final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
-            final FileContent mediaContent = new FileContent("application/json", filePath);
-            fileMetadata.setName(FILE_NAME_BACKUP);
-            fileMetadata.setParents(Collections.singletonList("appDataFolder"));
-
-            try {
-                //Ищем старые ненужные бэкапы
-                FileList files = mDrive.files().list()
-                        .setSpaces("appDataFolder")
-                        .setFields("nextPageToken, files(id, name)")
-                        .setPageSize(10)
-                        .execute();
-                for (File file : files.getFiles()) {
-                    listIdsDeleted.add(file.getId());
-                    Log.wtf(TAG, "writeFileBackupDisk: " + file.getId());
-                }
-
-                //Создадим новы бэкап
-                File file = mDrive.files().create(fileMetadata, mediaContent)
-                        .setFields("id")
-                        .execute();
-                if (file.getId().length() >= 2) {
-
-                    presenter.getDataManager().getBackupCloudInfoPreference()
-                            .putString(ARGUMENT_LAST_BACKUP_ID, file.getId())
-                            .putLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
-                    runOnUiThread(this::editLastDataEditBackupCloud);
-                    //Если есть старые бэкапы удаляем их
-                    for (String idDeleteBackup : listIdsDeleted) {
-                        mDrive.files().delete(idDeleteBackup).execute();
-                    }
-                }
-
-                runOnUiThread(() -> onInfo(R.string.creteLocalCopyOkay, binding.activityBackup));
-            } catch (IOException e) {
-                e.printStackTrace();
+    @Override
+    public void createBackupCloud() {
+        try {
+            final java.io.File copyFileData = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
+            BufferedWriter bwNote =
+                    new BufferedWriter(new FileWriter(copyFileData));
+            bwNote.write(String.valueOf(presenter.getJsonBackup()));
+            bwNote.close();
+            writeFileBackupCloud(copyFileData);
+        } catch (IOException e) {
+                throw new RuntimeException(e);
             }
 
-        }).start();
+    }
 
+    private void writeFileBackupCloud(java.io.File copyFileData) {
+        final Drive mDrive = getDriveCredentialService();
+        binding.setIsVisibleProgressCloud(true);
+        if (!checkErrorCloud(mDrive)) {
+            final ArrayList<String> listIdsDeleted = new ArrayList<>();
+            final String oldBackup = presenter.getDataManager().getLastBackupCloudId();
+
+            new Thread(() -> {
+                final File fileMetadata = new File();
+                final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
+                final FileContent mediaContent = new FileContent("application/json", filePath);
+                fileMetadata.setName(FILE_NAME_BACKUP);
+                fileMetadata.setParents(Collections.singletonList("appDataFolder"));
+
+                try {
+                    if (!oldBackup.equals("null")) {
+                        listIdsDeleted.add(mDrive.files().get(oldBackup).getFileId());
+                    } else {
+                        FileList files = mDrive.files().list()
+                                .setSpaces("appDataFolder")
+                                .setFields("nextPageToken, files(id, name)")
+                                .setPageSize(10)
+                                .execute();
+                        for (File file : files.getFiles()) {
+                            listIdsDeleted.add(file.getId());
+                        }
+                    }
+
+                   /* File file = mDrive.files().create(fileMetadata, mediaContent)
+                            .setFields("id")
+                            .execute();
+
+                    */
+                    Drive.Files.Create create = mDrive.files().create(fileMetadata, mediaContent);
+                    MediaHttpUploader uploader = create.getMediaHttpUploader();
+
+                    uploader.setProgressListener(uploader1 -> {
+                        switch (uploader1.getUploadState()) {
+                            case INITIATION_STARTED:
+                                binding.progressBackupCloud.setProgress(20);
+                                runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 20)));
+                                break;
+                            case INITIATION_COMPLETE:
+                                binding.progressBackupCloud.setProgress(50);
+                                runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 50)));
+                                break;
+                            case MEDIA_IN_PROGRESS:
+                                binding.progressBackupCloud.setProgress(80);
+                                runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 60)));
+                                break;
+                            case MEDIA_COMPLETE:
+                                binding.progressBackupCloud.setProgress(99);
+                                runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 99)));
+                                break;
+                        }
+                    });
+
+
+                    File file = create.execute();
+
+                    if (file.getId().length() >= 2) {
+
+                        presenter.getDataManager().getBackupCloudInfoPreference()
+                                .putString(ARGUMENT_LAST_BACKUP_ID, file.getId())
+                                .putLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
+                        runOnUiThread(this::editLastDataEditBackupCloud);
+                        //Если есть старые бэкапы удаляем их
+                        for (String idDeleteBackup : listIdsDeleted) {
+                            mDrive.files().delete(idDeleteBackup).execute();
+                        }
+                    }
+                    runOnUiThread(() -> {
+                        binding.setIsVisibleProgressCloud(false);
+                        binding.percentProgress.setText(getString(R.string.percentProgress, 0));
+                    });
+                    runOnUiThread(() -> onInfo(R.string.creteLocalCopyOkay, binding.activityBackup));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }).start();
+
+        }
         copyFileData.deleteOnExit();
     }
 
 
     // TODO: 19.01.2023 Обработка исключений, а также улучшение запроса API
-    /*
-    catch (UserRecoverableAuthIOException e) {
-                    startActivityForResult(e.getIntent(), 0);
-                } */
-
     private void loadingLastBackupCloudInfo(Drive mDriveCredential) {
         if (checkErrorCloud(mDriveCredential)) {
             binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
@@ -383,6 +400,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 .create().show();
     }
 
+
+    private void loadRestoreBackupCloud() {
+
+
+    }
+
+
     @Override
     public void dialogRestoreData(boolean local) {
         new MaterialAlertDialogBuilder(this)
@@ -391,7 +415,11 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 .setMessage(R.string.restoreNotesMessage)
                 .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
                 .setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which) -> {
-                    openBackupLocalIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
+                    if (local)
+                        openBackupLocalIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
+                    else {
+                        loadRestoreBackupCloud();
+                    }
                     dialog.dismiss();
                 })
                 .create().show();
