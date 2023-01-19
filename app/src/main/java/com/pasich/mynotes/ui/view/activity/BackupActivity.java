@@ -307,9 +307,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                         for (String idDeleteBackup : listIdsDeleted) {
                             mDrive.files().delete(idDeleteBackup).execute();
                         }
-                        presenter.getDataManager().getBackupCloudInfoPreference()
-                                .putString(ARGUMENT_LAST_BACKUP_ID, file.getId())
-                                .putLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
+                        presenter.getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, file.getId());
+                        presenter.getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
                         runOnUiThread(() -> {
                             editLastDataEditBackupCloud();
                             binding.setIsVisibleProgressCloud(false);
@@ -344,9 +343,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                         runOnUiThread(() -> binding.lastBackupCloud.setText(getString(R.string.emptyBackups)));
                     } else {
                         for (File file : files.getFiles()) {
-                            presenter.getDataManager().getBackupCloudInfoPreference()
-                                    .putString(ARGUMENT_LAST_BACKUP_ID, file.getId())
-                                    .putLong(ARGUMENT_LAST_BACKUP_TIME, file.getModifiedTime().getValue());
+                            presenter.getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, file.getId());
+                            presenter.getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, file.getModifiedTime().getValue());
                             runOnUiThread(this::editLastDataEditBackupCloud);
                         }
                     }
