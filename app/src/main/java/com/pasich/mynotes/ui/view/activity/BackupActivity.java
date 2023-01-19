@@ -231,12 +231,14 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             bwNote.close();
             writeFileBackupCloud(copyFileData);
         } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            e.printStackTrace();
+        }
 
     }
 
     private void writeFileBackupCloud(java.io.File copyFileData) {
+
+
         final Drive mDrive = getDriveCredentialService();
         if (!checkErrorCloud(mDrive)) {
             binding.setIsVisibleProgressCloud(true);
@@ -293,20 +295,19 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
                     if (file.getId().length() >= 2) {
 
-                        presenter.getDataManager().getBackupCloudInfoPreference()
-                                .putString(ARGUMENT_LAST_BACKUP_ID, file.getId())
-                                .putLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
-                        runOnUiThread(this::editLastDataEditBackupCloud);
-                        //Если есть старые бэкапы удаляем их
                         for (String idDeleteBackup : listIdsDeleted) {
                             mDrive.files().delete(idDeleteBackup).execute();
                         }
+                        presenter.getDataManager().getBackupCloudInfoPreference()
+                                .putString(ARGUMENT_LAST_BACKUP_ID, file.getId())
+                                .putLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
+                        runOnUiThread(() -> {
+                            editLastDataEditBackupCloud();
+                            binding.setIsVisibleProgressCloud(false);
+                            binding.percentProgress.setText(getString(R.string.percentProgress, 0));
+                            onInfo(R.string.creteLocalCopyOkay, binding.activityBackup);
+                        });
                     }
-                    runOnUiThread(() -> {
-                        binding.setIsVisibleProgressCloud(false);
-                        binding.percentProgress.setText(getString(R.string.percentProgress, 0));
-                    });
-                    runOnUiThread(() -> onInfo(R.string.creteLocalCopyOkay, binding.activityBackup));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -317,8 +318,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         copyFileData.deleteOnExit();
     }
 
-
-    // TODO: 19.01.2023 Обработка исключений, а также улучшение запроса API
     private void loadingLastBackupCloudInfo(Drive mDriveCredential) {
         if (checkErrorCloud(mDriveCredential)) {
             binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
@@ -397,8 +396,39 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
 
     private void loadRestoreBackupCloud() {
+        progressDialog = processRestoreDialog();
+        progressDialog.show();
+
+    /*    final Drive mDrive = getDriveCredentialService();
+        if (!checkErrorCloud(mDrive)) {
+
+            final ArrayList<String> listIdsDeleted = new ArrayList<>();
+            final String oldBackup = presenter.getDataManager().getLastBackupCloudId();
+
+            new Thread(() -> {
+                final File fileMetadata = new File();
+                final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
+                final FileContent mediaContent = new FileContent("application/json", filePath);
+                fileMetadata.setName(FILE_NAME_BACKUP);
+                fileMetadata.setParents(Collections.singletonList("appDataFolder"));
 
 
+
+                try {
+
+                    File mFile = mDrive.files().get(oldBackup).execute();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }).start();
+
+        }
+
+     */
+        //    copyFileData.deleteOnExit();
     }
 
 
