@@ -1,7 +1,7 @@
 package com.pasich.mynotes.utils.constants;
 
 public class Backup_Constants {
-    public static final String FILE_NAME_BACKUP = "My_Notes_backup.json";
+    public static final String FILE_NAME_BACKUP = "My_Notes_Backup.json";
 
     //Backup Id
     public static final String ARGUMENT_LAST_BACKUP_ID = "lastBackupId";
@@ -13,6 +13,6 @@ public class Backup_Constants {
 
     //Backup Setting AutoCloud
     public static final String ARGUMENT_AUTO_BACKUP_CLOUD = "autoBackupCloud";
-    public static final int ARGUMENT_AUTO_BACKUP_CLOUD_ID = 0;
+    public static final int ARGUMENT_AUTO_BACKUP_CLOUD_ID = 3;
 
 }

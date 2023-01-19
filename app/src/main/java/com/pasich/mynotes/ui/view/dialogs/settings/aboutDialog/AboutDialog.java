@@ -1,8 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog;
 
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_HOW_TO_USE;
@@ -27,8 +25,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.api.services.drive.DriveScopes;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
@@ -86,7 +86,11 @@ public class AboutDialog extends BaseDialogBottomSheets {
             dismiss();
         }
 
-        mGsic = GoogleSignIn.getClient(requireContext(), new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build());
+        mGsic = GoogleSignIn.getClient(requireContext(), new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestScopes(new Scope(DriveScopes.DRIVE_APPDATA))
+                .build());
         return builder.create();
     }
 
@@ -159,9 +163,9 @@ public class AboutDialog extends BaseDialogBottomSheets {
             final Preference preference = PowerPreference.getFileByName("lastBackupCloudInfo");
             binding.loginPage.loginUser.setVisibility(View.VISIBLE);
             binding.loginPage.loginPageRoot.setVisibility(View.GONE);
-            preference.setInt(ARGUMENT_AUTO_BACKUP_CLOUD, 3);
-            preference.setString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
-            preference.setLong(ARGUMENT_LAST_BACKUP_TIME, ARGUMENT_DEFAULT_LAST_BACKUP_TIME);
+            preference.remove(ARGUMENT_AUTO_BACKUP_CLOUD);
+            preference.remove(ARGUMENT_LAST_BACKUP_ID);
+            preference.remove(ARGUMENT_LAST_BACKUP_TIME);
         });
     }
 

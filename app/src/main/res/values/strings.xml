@@ -130,8 +130,12 @@
     <string name="restoreNotesMessage" translatable="false">Новые заметки будут добавленные до уже существующих, а дубликаты будут проигнорированные!</string>
     <string name="selectRestore" translatable="false">Выбрать рез. копию</string>
     <string name="nextRestore" translatable="false">Восстановить с облака</string>
+    <string name="errorCredential" translatable="false">Ошибка, проблемы с авторизацией</string>
     <string name="messageRestoreProcess" translatable="false"><b>Восстановление данных</b> \nПосле завершения данное окно будет автоматически закрыто.</string>
 
+    <string name="emptyBackups" translatable="false">Резервных копий не найдено</string>
+    <string name="checkLastBackupsCloud" translatable="false">Подождите, идет загрузка данных...</string>
+    <string name="errorLoadingLastBackupCloud" translatable="false">Ошибка, загрузки данных</string>
     <string name="autoCloudVariantsDay" translatable="false">Каждый день</string>
     <string name="autoCloudVariantsWeek" translatable="false">Каждую неделю</string>
     <string name="autoCloudVariantsMonth" translatable="false">Каждый месяц</string>

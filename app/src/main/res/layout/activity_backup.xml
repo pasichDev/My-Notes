@@ -11,6 +11,10 @@
             name="presenter"
             type="com.pasich.mynotes.ui.presenter.BackupPresenter" />
 
+        <variable
+            name="isAuthUser"
+            type="boolean" />
+
     </data>
 
     <LinearLayout
@@ -63,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingVertical="2dp"
+                    android:text="@string/checkLastBackupsCloud"
                     android:textColor="?attr/colorOutline"
                     android:textSize="14sp" />
 
@@ -95,6 +100,7 @@
             android:layout_height="wrap_content"
             android:onClick="@{(view) -> presenter.openChoiceDialogAutoBackup()}"
             android:background="?android:attr/selectableItemBackground"
+            android:clickable="@{isAuthUser}"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
 
@@ -131,6 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{(view) -> presenter.loadDataAndEncodeJson(false)}"
+            android:clickable="@{isAuthUser}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
@@ -151,6 +158,8 @@
             android:id="@+id/importCloudBackup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="@{isAuthUser}"
+            android:onClick="@{(view) -> presenter.loadingDialogRestoreNotes(false)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
