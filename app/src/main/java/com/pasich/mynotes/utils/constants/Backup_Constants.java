@@ -2,6 +2,7 @@ package com.pasich.mynotes.utils.constants;
 
 public class Backup_Constants {
     public static final String FILE_NAME_BACKUP = "My_Notes_Backup.json";
+    public static final String FIlE_NAME_PREFERENCE_BACKUP = "com.pasich.mynote.backupPreferences";
 
     //Backup Id
     public static final String ARGUMENT_LAST_BACKUP_ID = "lastBackupId";

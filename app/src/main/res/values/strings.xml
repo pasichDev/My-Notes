@@ -141,4 +141,10 @@
     <string name="autoCloudVariantsWeek" translatable="false">Каждую неделю</string>
     <string name="autoCloudVariantsMonth" translatable="false">Каждый месяц</string>
     <string name="autoCloudVariantsOff" translatable="false">Выкл.</string>
+
+
+    <string name="chanelAutoBackup" translatable="false">Автоматическое резервное копирование </string>
+    <string name="chanelAutoBackupDescpt" translatable="false">Автоматическое резервное копирование </string>
+
+
 </resources>

@@ -6,6 +6,8 @@ import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
+import static com.pasich.mynotes.utils.constants.Drive_Scope.ACCESS_DRIVE_SCOPE;
+import static com.pasich.mynotes.utils.constants.Drive_Scope.APPLICATION_NAME;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,7 +26,6 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -32,7 +33,6 @@ import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.R;
@@ -58,6 +58,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+
 public class BackupActivity extends BaseActivity implements BackupContract.view {
 
     @Inject
@@ -65,7 +66,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Inject
     public ActivityBackupBinding binding;
     private Dialog progressDialog;
-    public Scope ACCESS_DRIVE_SCOPE = new Scope(DriveScopes.DRIVE_APPDATA);
     public DriveConfigTemp driveConfigTemp;
     private final int CONST_REQUEST_DRIVE_SCOPE = 1245;
 
@@ -95,7 +95,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
 
+      /*  PeriodicWorkRequest myWorkRequest = new PeriodicWorkRequest.Builder(AutoBackupCloudWorker.class, 1, TimeUnit.MINUTES)
+                .build();
+        WorkManager.getInstance().enqueue(myWorkRequest);
+
+       */
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -155,9 +161,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         GoogleSignInAccount mLastAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (mLastAccount != null) {
             driveConfigTemp = new DriveConfigTemp(mLastAccount.getAccount(),
-                    GoogleSignIn.hasPermissions(
-                            GoogleSignIn.getLastSignedInAccount(this),
-                            ACCESS_DRIVE_SCOPE));
+                    GoogleSignIn.hasPermissions(mLastAccount, ACCESS_DRIVE_SCOPE));
 
             binding.userNameDrive.setText(mLastAccount.getEmail());
             binding.setIsAuthUser(true);
@@ -181,7 +185,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 GoogleAccountCredential.usingOAuth2(this,
                                 Collections.singleton(Scopes.DRIVE_APPFOLDER))
                         .setSelectedAccount(driveConfigTemp.getAccount()))
-                .setApplicationName("My Notes")
+                .setApplicationName(APPLICATION_NAME)
                 .build();
     }
 
@@ -256,8 +260,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
             new Thread(() -> {
                 final File fileMetadata = new File();
-                final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
-                final FileContent mediaContent = new FileContent("application/json", filePath);
+                final FileContent mediaContent = new FileContent("application/json", copyFileData);
                 fileMetadata.setName(FILE_NAME_BACKUP);
                 fileMetadata.setParents(Collections.singletonList("appDataFolder"));
 

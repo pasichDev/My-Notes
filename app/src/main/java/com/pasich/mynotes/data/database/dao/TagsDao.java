@@ -18,6 +18,9 @@ public interface TagsDao {
   @Query("SELECT * FROM tags")
   Flowable<List<Tag>> getTags();
 
+  @Query("SELECT * FROM tags")
+  List<Tag> getTagsWorker();
+
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   void addTags(List<Tag> tags);
 

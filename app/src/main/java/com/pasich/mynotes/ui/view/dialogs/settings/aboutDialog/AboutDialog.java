@@ -3,6 +3,8 @@ package com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.FIlE_NAME_PREFERENCE_BACKUP;
+import static com.pasich.mynotes.utils.constants.Drive_Scope.ACCESS_DRIVE_SCOPE;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_HOW_TO_USE;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_PRIVACY_POLICY;
 
@@ -25,10 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.api.services.drive.DriveScopes;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
@@ -89,7 +89,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
         mGsic = GoogleSignIn.getClient(requireContext(), new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
-                .requestScopes(new Scope(DriveScopes.DRIVE_APPDATA))
+                .requestScopes(ACCESS_DRIVE_SCOPE)
                 .build());
         return builder.create();
     }
@@ -160,7 +160,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
 
     void signOut() {
         mGsic.signOut().addOnCompleteListener(task -> {
-            final Preference preference = PowerPreference.getFileByName("lastBackupCloudInfo");
+            final Preference preference = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP);
             binding.loginPage.loginUser.setVisibility(View.VISIBLE);
             binding.loginPage.loginPageRoot.setVisibility(View.GONE);
             preference.removeAsync(ARGUMENT_AUTO_BACKUP_CLOUD);

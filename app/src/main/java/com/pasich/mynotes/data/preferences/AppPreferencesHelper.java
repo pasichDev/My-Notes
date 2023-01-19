@@ -7,6 +7,7 @@ import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAU
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.FIlE_NAME_PREFERENCE_BACKUP;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_SIZE;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;
@@ -36,7 +37,7 @@ public class AppPreferencesHelper implements PreferenceHelper {
 
     @Override
     public Preference getBackupCloudInfoPreference() {
-        return PowerPreference.getFileByName("lastBackupCloudInfo");
+        return PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP);
     }
 
     @Override
