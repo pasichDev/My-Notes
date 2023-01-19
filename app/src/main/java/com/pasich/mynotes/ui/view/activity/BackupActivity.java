@@ -12,8 +12,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.ParcelFileDescriptor;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -44,10 +44,13 @@ import com.pasich.mynotes.ui.presenter.BackupPresenter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -184,10 +187,12 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
 
     public void readJsonBackup(Intent data) {
-        Runnable runnable = () -> {
+        new Thread(() -> {
             try {
-                progressDialog = processRestoreDialog();
-                progressDialog.show();
+                runOnUiThread(() -> {
+                    progressDialog = processRestoreDialog();
+                    progressDialog.show();
+                });
                 final ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(data.getData(), "r");
                 final StringBuilder jsonFile = new StringBuilder();
                 final BufferedReader bufferedReader = new BufferedReader(new FileReader(descriptor.getFileDescriptor()));
@@ -196,15 +201,17 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                     jsonFile.append(line);
                     jsonFile.append('\n');
                 }
-                presenter.restoreDataAndDecodeJson(jsonFile.toString());
+
+
+                presenter.restoreDataAndDecodeJson(new String(
+                        Base64.decode(jsonFile.toString(), Base64.DEFAULT), StandardCharsets.UTF_8));
                 descriptor.close();
                 bufferedReader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        };
-        Handler handler = new Handler();
-        handler.postDelayed(runnable, 3000);
+        }).start();
+
 
     }
 
@@ -212,7 +219,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         try {
             ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(uri, "w");
             FileOutputStream outputStream = new FileOutputStream(descriptor.getFileDescriptor());
-            outputStream.write(presenter.getJsonBackup().getBytes());
+            outputStream.write(Base64.encodeToString(presenter.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT).getBytes());
             outputStream.close();
             descriptor.close();
             onInfo(R.string.creteLocalCopyOkay, binding.activityBackup);
@@ -227,7 +234,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             final java.io.File copyFileData = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
             BufferedWriter bwNote =
                     new BufferedWriter(new FileWriter(copyFileData));
-            bwNote.write(String.valueOf(presenter.getJsonBackup()));
+            bwNote.write(Base64.encodeToString(presenter.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
             bwNote.close();
             writeFileBackupCloud(copyFileData);
         } catch (IOException e) {
@@ -236,6 +243,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     }
 
+
+    // TODO: 19.01.2023 Упростить метод, и разбить его на методы
     private void writeFileBackupCloud(java.io.File copyFileData) {
 
 
@@ -396,39 +405,30 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
 
     private void loadRestoreBackupCloud() {
-        progressDialog = processRestoreDialog();
-        progressDialog.show();
-
-    /*    final Drive mDrive = getDriveCredentialService();
+        final String idBackupCloud = presenter.getDataManager().getLastBackupCloudId();
+        final Drive mDrive = getDriveCredentialService();
         if (!checkErrorCloud(mDrive)) {
+            if (!idBackupCloud.equals("null")) {
+                runOnUiThread(() -> {
+                    progressDialog = processRestoreDialog();
+                    progressDialog.show();
+                });
+                new Thread(() -> {
+                    try {
+                        OutputStream outputStream = new ByteArrayOutputStream();
+                        mDrive.files().get(idBackupCloud)
+                                .executeMediaAndDownloadTo(outputStream);
+                        presenter.restoreDataAndDecodeJson(new String(
+                                Base64.decode(outputStream.toString(), Base64.DEFAULT), StandardCharsets.UTF_8));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-            final ArrayList<String> listIdsDeleted = new ArrayList<>();
-            final String oldBackup = presenter.getDataManager().getLastBackupCloudId();
-
-            new Thread(() -> {
-                final File fileMetadata = new File();
-                final java.io.File filePath = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
-                final FileContent mediaContent = new FileContent("application/json", filePath);
-                fileMetadata.setName(FILE_NAME_BACKUP);
-                fileMetadata.setParents(Collections.singletonList("appDataFolder"));
-
-
-
-                try {
-
-                    File mFile = mDrive.files().get(oldBackup).execute();
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }).start();
-
+                }).start();
+            } else {
+                onError(R.string.emptyBackups, null);
+            }
         }
-
-     */
-        //    copyFileData.deleteOnExit();
     }
 
 
