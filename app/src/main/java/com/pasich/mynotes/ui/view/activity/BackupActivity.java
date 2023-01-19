@@ -238,8 +238,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     private void writeFileBackupCloud(java.io.File copyFileData) {
         final Drive mDrive = getDriveCredentialService();
-        binding.setIsVisibleProgressCloud(true);
         if (!checkErrorCloud(mDrive)) {
+            binding.setIsVisibleProgressCloud(true);
             final ArrayList<String> listIdsDeleted = new ArrayList<>();
             final String oldBackup = presenter.getDataManager().getLastBackupCloudId();
 
@@ -264,14 +264,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                         }
                     }
 
-                   /* File file = mDrive.files().create(fileMetadata, mediaContent)
-                            .setFields("id")
-                            .execute();
-
-                    */
                     Drive.Files.Create create = mDrive.files().create(fileMetadata, mediaContent);
                     MediaHttpUploader uploader = create.getMediaHttpUploader();
-
+                    create.setFields("id");
                     uploader.setProgressListener(uploader1 -> {
                         switch (uploader1.getUploadState()) {
                             case INITIATION_STARTED:
