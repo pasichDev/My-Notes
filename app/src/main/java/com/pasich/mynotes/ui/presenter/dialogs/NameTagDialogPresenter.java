@@ -1,6 +1,6 @@
 package com.pasich.mynotes.ui.presenter.dialogs;
 
-import com.pasich.mynotes.base.AppBasePresenter;
+import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class NameTagDialogPresenter extends AppBasePresenter<NewTagDialogContract.view> implements NewTagDialogContract.presenter {
+public class NameTagDialogPresenter extends BasePresenter<NewTagDialogContract.view> implements NewTagDialogContract.presenter {
 
     @Inject
     public NameTagDialogPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {

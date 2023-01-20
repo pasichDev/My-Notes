@@ -154,7 +154,7 @@
             android:id="@+id/cloudExport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> presenter.loadDataAndEncodeJson(false)}"
+            android:onClick="@{(view) -> presenter.backupData(false)}"
             android:clickable="@{isAuthUser}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
@@ -208,7 +208,7 @@
             android:id="@+id/exportLocal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> presenter.loadDataAndEncodeJson(true)}"
+            android:onClick="@{(view) -> presenter.backupData(true)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">

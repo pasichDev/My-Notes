@@ -36,7 +36,7 @@ public interface BackupContract {
     @PerActivity
     interface presenter extends BasePresenter<view> {
 
-        void loadDataAndEncodeJson(boolean local);
+        void backupData(boolean local);
 
         void restoreData(JsonBackup jsonRestore);
 

@@ -1,7 +1,7 @@
 package com.pasich.mynotes.ui.presenter.dialogs;
 
 
-import com.pasich.mynotes.base.AppBasePresenter;
+import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class DeleteTagDialogPresenter extends AppBasePresenter<DeleteTagDialogContract.view> implements DeleteTagDialogContract.presenter {
+public class DeleteTagDialogPresenter extends BasePresenter<DeleteTagDialogContract.view> implements DeleteTagDialogContract.presenter {
 
     private int countNotesForTag;
 

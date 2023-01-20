@@ -1,6 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
-import com.pasich.mynotes.base.AppBasePresenter;
+import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.JsonBackup;
 import com.pasich.mynotes.di.scope.PerActivity;
@@ -14,7 +14,7 @@ import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 
 @PerActivity
-public class BackupPresenter extends AppBasePresenter<BackupContract.view> implements BackupContract.presenter {
+public class BackupPresenter extends BasePresenter<BackupContract.view> implements BackupContract.presenter {
 
 
     @Inject
@@ -47,7 +47,7 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
      * @param local - check repository
      */
     @Override
-    public void loadDataAndEncodeJson(boolean local) {
+    public void backupData(boolean local) {
         JsonBackup jsonBackupTemp = new JsonBackup();
         getCompositeDisposable().add(Flowable.zip(getDataManager().getNotes(), getDataManager().getTrashNotesLoad(), getDataManager().getTagsUser(), (noteList, trashNoteList, tagList) -> {
             jsonBackupTemp.setNotes(noteList);

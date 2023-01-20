@@ -4,7 +4,7 @@ package com.pasich.mynotes.ui.presenter;
 import android.content.Intent;
 import android.graphics.Typeface;
 
-import com.pasich.mynotes.base.AppBasePresenter;
+import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.ui.contract.NoteContract;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class NotePresenter extends AppBasePresenter<NoteContract.view> implements NoteContract.presenter {
+public class NotePresenter extends BasePresenter<NoteContract.view> implements NoteContract.presenter {
 
     private String shareText, tagNote;
     private long idKey;

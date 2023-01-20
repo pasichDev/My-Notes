@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
-import com.pasich.mynotes.base.AppBasePresenter;
+import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
 @PerActivity
-public class MainPresenter extends AppBasePresenter<MainContract.view> implements MainContract.presenter {
+public class MainPresenter extends BasePresenter<MainContract.view> implements MainContract.presenter {
 
     private Note backupDeleteNote;
     private int mSwipe = 0;

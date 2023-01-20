@@ -3,7 +3,7 @@ package com.pasich.mynotes.ui.presenter;
 
 import android.util.Log;
 
-import com.pasich.mynotes.base.AppBasePresenter;
+import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.TrashNote;
@@ -18,7 +18,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class TrashPresenter extends AppBasePresenter<TrashContract.view> implements TrashContract.presenter {
+public class TrashPresenter extends BasePresenter<TrashContract.view> implements TrashContract.presenter {
 
 
     @Inject

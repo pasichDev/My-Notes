@@ -5,7 +5,7 @@ import static android.content.ContentValues.TAG;
 
 import android.util.Log;
 
-import com.pasich.mynotes.base.AppBasePresenter;
+import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.TrashNote;
@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MoreNoteDialogPresenter extends AppBasePresenter<MoreNoteDialogContract.view> implements MoreNoteDialogContract.presenter {
+public class MoreNoteDialogPresenter extends BasePresenter<MoreNoteDialogContract.view> implements MoreNoteDialogContract.presenter {
 
 
     @Inject

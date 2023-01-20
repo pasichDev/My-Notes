@@ -261,6 +261,31 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             e.printStackTrace();
         }
 
+        /*
+
+
+        public Task<java.io.File> createBackupJsonFile(BackupCacheHelper serviceCache) {
+            TaskCompletionSource<java.io.File> taskCompletionSource = new TaskCompletionSource<>();
+
+            new Thread(() -> {
+                final java.io.File mFile = new java.io.File(mContext.getFilesDir() + FILE_NAME_BACKUP);
+
+          try {
+           //     new BufferedWriter(new FileWriter(mFile))
+          //              .write(Base64.encodeToString(serviceCache.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+                taskCompletionSource.setResult(mFile);
+            });
+            return taskCompletionSource.getTask();
+
+        }
+         */
+
     }
 
 

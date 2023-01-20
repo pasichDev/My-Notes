@@ -1,20 +1,15 @@
 package com.pasich.mynotes.utils.backup.api_files;
 
-import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 import com.pasich.mynotes.data.model.JsonBackup;
 import com.pasich.mynotes.di.scope.ApplicationContext;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.ScramblerBackupHelper;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -96,29 +91,4 @@ public class LocalServiceHelper {
     }
 
 
-    /**
-     * Создать temp file с данными json
-     *
-     * @return
-     */
-    public Task<File> createBackupJsonFile(BackupCacheHelper serviceCache) {
-        TaskCompletionSource<File> taskCompletionSource = new TaskCompletionSource<>();
-
-        new Thread(() -> {
-            final File mFile = new File(mContext.getFilesDir() + FILE_NAME_BACKUP);
-
-        /*    try {
-           //     new BufferedWriter(new FileWriter(mFile))
-          //              .write(Base64.encodeToString(serviceCache.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-         */
-
-            taskCompletionSource.setResult(mFile);
-        });
-        return taskCompletionSource.getTask();
-
-    }
 }
