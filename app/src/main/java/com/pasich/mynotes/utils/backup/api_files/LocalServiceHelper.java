@@ -1,26 +1,23 @@
-package com.pasich.mynotes.utils.api_files;
+package com.pasich.mynotes.utils.backup.api_files;
 
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
-import android.util.Base64;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.pasich.mynotes.data.model.JsonBackup;
 import com.pasich.mynotes.di.scope.ApplicationContext;
-import com.pasich.mynotes.utils.BackupServiceCache;
-import com.pasich.mynotes.utils.Base64ServiceHelper;
+import com.pasich.mynotes.utils.backup.BackupCacheHelper;
+import com.pasich.mynotes.utils.backup.ScramblerBackupHelper;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 import javax.inject.Inject;
 
@@ -40,12 +37,12 @@ public class LocalServiceHelper {
      * @param uriLocalFile - uri public file
      * @return - errorStatus
      */
-    public boolean writeBackupLocalFile(BackupServiceCache serviceCache, Uri uriLocalFile) {
+    public boolean writeBackupLocalFile(BackupCacheHelper serviceCache, Uri uriLocalFile) {
         if (!checkServiceCache(serviceCache)) {
             try {
                 ParcelFileDescriptor descriptor = mContext.getContentResolver().openFileDescriptor(uriLocalFile, "w");
                 FileOutputStream fileOutputStream = new FileOutputStream(descriptor.getFileDescriptor());
-                fileOutputStream.write(Base64ServiceHelper.encodeString(serviceCache.getJsonBackup()).getBytes());
+                fileOutputStream.write(ScramblerBackupHelper.encodeString(serviceCache.getJsonBackup()).getBytes());
                 fileOutputStream.close();
                 descriptor.close();
                 return true;
@@ -63,11 +60,10 @@ public class LocalServiceHelper {
     /**
      * Write public json file, intent(Document)
      *
-     * @param serviceCache - cache backup initial user data
      * @param uriLocalFile - uri public file
      * @return - errorStatus
      */
-    public String readBackupLocalFile(BackupServiceCache serviceCache, Uri uriLocalFile) {
+    public JsonBackup readBackupLocalFile(Uri uriLocalFile) {
         try {
             final ParcelFileDescriptor descriptor = mContext.getContentResolver().openFileDescriptor(uriLocalFile, "r");
             final StringBuilder jsonFile = new StringBuilder();
@@ -77,10 +73,9 @@ public class LocalServiceHelper {
                 jsonFile.append(line);
                 jsonFile.append('\n');
             }
-
             descriptor.close();
             bufferedReader.close();
-            return Base64ServiceHelper.decodeString(jsonFile.toString());
+            return ScramblerBackupHelper.decodeString(jsonFile.toString());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -93,15 +88,11 @@ public class LocalServiceHelper {
      * @param serviceCache - cache backup initial user data
      * @return - error check
      */
-    private boolean checkServiceCache(BackupServiceCache serviceCache) {
+    private boolean checkServiceCache(BackupCacheHelper serviceCache) {
         if (serviceCache == null) {
             return true;
         }
-        if (serviceCache.getJsonBackup().length() < 10) {
-            serviceCache.setJsonBackup("");
-            return true;
-        }
-        return false;
+        return serviceCache.getJsonBackup() == null;
     }
 
 
@@ -110,18 +101,20 @@ public class LocalServiceHelper {
      *
      * @return
      */
-    public Task<File> createBackupJsonFile(BackupServiceCache serviceCache) {
+    public Task<File> createBackupJsonFile(BackupCacheHelper serviceCache) {
         TaskCompletionSource<File> taskCompletionSource = new TaskCompletionSource<>();
 
         new Thread(() -> {
             final File mFile = new File(mContext.getFilesDir() + FILE_NAME_BACKUP);
 
-            try {
-                new BufferedWriter(new FileWriter(mFile))
-                        .write(Base64.encodeToString(serviceCache.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
+        /*    try {
+           //     new BufferedWriter(new FileWriter(mFile))
+          //              .write(Base64.encodeToString(serviceCache.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+         */
 
             taskCompletionSource.setResult(mFile);
         });

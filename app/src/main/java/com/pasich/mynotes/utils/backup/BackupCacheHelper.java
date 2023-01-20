@@ -1,22 +1,24 @@
-package com.pasich.mynotes.utils;
+package com.pasich.mynotes.utils.backup;
 
 import android.accounts.Account;
 
+import com.pasich.mynotes.data.model.JsonBackup;
+
 import javax.inject.Inject;
 
-public class BackupServiceCache {
+public class BackupCacheHelper {
 
     private Account account;
     private boolean isHasPermissionDrive;
-    private String jsonBackup;
+    private JsonBackup jsonBackup;
 
     @Inject
-    public BackupServiceCache() {
+    public BackupCacheHelper() {
 
     }
 
 
-    public BackupServiceCache build(Account account, boolean isHasPermissionDrive) {
+    public BackupCacheHelper build(Account account, boolean isHasPermissionDrive) {
         this.account = account;
         this.isHasPermissionDrive = isHasPermissionDrive;
         return this;
@@ -35,11 +37,11 @@ public class BackupServiceCache {
         isHasPermissionDrive = hasPermissionDrive;
     }
 
-    public String getJsonBackup() {
+    public JsonBackup getJsonBackup() {
         return jsonBackup;
     }
 
-    public void setJsonBackup(String jsonBackup) {
+    public void setJsonBackup(JsonBackup jsonBackup) {
         this.jsonBackup = jsonBackup;
     }
 }

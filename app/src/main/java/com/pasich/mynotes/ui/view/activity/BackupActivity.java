@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -35,18 +34,18 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.data.model.JsonBackup;
 import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
-import com.pasich.mynotes.utils.BackupServiceCache;
-import com.pasich.mynotes.utils.api_files.LocalServiceHelper;
+import com.pasich.mynotes.utils.backup.BackupCacheHelper;
+import com.pasich.mynotes.utils.backup.api_files.LocalServiceHelper;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -65,7 +64,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public LocalServiceHelper localServiceHelper;
     private Dialog progressDialog;
     @Inject
-    public BackupServiceCache serviceCache;
+    public BackupCacheHelper serviceCache;
     private final int CONST_REQUEST_DRIVE_SCOPE = 1245;
     /**
      * Save local backup intent
@@ -164,7 +163,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void initConnectAccount() {
         GoogleSignInAccount mLastAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (mLastAccount != null) {
-            serviceCache = new BackupServiceCache().build(mLastAccount.getAccount(),
+            serviceCache = new BackupCacheHelper().build(mLastAccount.getAccount(),
                     GoogleSignIn.hasPermissions(mLastAccount, ACCESS_DRIVE_SCOPE));
 
             binding.userNameDrive.setText(mLastAccount.getEmail());
@@ -200,7 +199,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      * @param jsonValue - appData
      */
     @Override
-    public void openIntentSaveBackup(String jsonValue) {
+    public void openIntentSaveBackup(JsonBackup jsonValue) {
         serviceCache.setJsonBackup(jsonValue);
         startIntentExport.launch(new Intent(Intent.ACTION_CREATE_DOCUMENT)
                 .addCategory(Intent.CATEGORY_OPENABLE)
@@ -228,7 +227,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         } else {
             onError(R.string.creteLocalCopyFail, null);
         }
-        serviceCache.setJsonBackup("");
+        serviceCache.setJsonBackup(null);
     }
 
 
@@ -239,9 +238,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         progressDialog = processRestoreDialog();
         progressDialog.show();
 
-        final String jsonOutput = localServiceHelper.readBackupLocalFile(serviceCache, data.getData());
+        final JsonBackup jsonOutput = localServiceHelper.readBackupLocalFile(data.getData());
         if (jsonOutput != null) {
-            presenter.restoreDataAndDecodeJson(jsonOutput);
+            presenter.restoreData(jsonOutput);
         } else {
             restoreFinish(true);
         }
@@ -442,8 +441,10 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                         OutputStream outputStream = new ByteArrayOutputStream();
                         mDrive.files().get(idBackupCloud)
                                 .executeMediaAndDownloadTo(outputStream);
-                        presenter.restoreDataAndDecodeJson(new String(
+                       /* presenter.restoreDataAndDecodeJson(new String(
                                 Base64.decode(outputStream.toString(), Base64.DEFAULT), StandardCharsets.UTF_8));
+
+                        */
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -483,7 +484,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
     }
 
-
+    // TODO: 20.01.2023 Нужно проверить как и когда лучше показывать этот диалог, или вообще убрать
     public Dialog processRestoreDialog() {
         return new MaterialAlertDialogBuilder(this, R.style.progressDialogRestore)
                 .setCancelable(false)

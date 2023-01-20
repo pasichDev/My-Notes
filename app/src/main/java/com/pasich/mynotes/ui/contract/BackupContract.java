@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.contract;
 
 import com.pasich.mynotes.base.BasePresenter;
 import com.pasich.mynotes.base.BaseView;
+import com.pasich.mynotes.data.model.JsonBackup;
 import com.pasich.mynotes.di.scope.PerActivity;
 
 public interface BackupContract {
@@ -13,7 +14,7 @@ public interface BackupContract {
 
         void initConnectAccount();
 
-        void openIntentSaveBackup(String jsonValue);
+        void openIntentSaveBackup(JsonBackup jsonBackup);
 
         void createBackupCloud();
 
@@ -37,7 +38,7 @@ public interface BackupContract {
 
         void loadDataAndEncodeJson(boolean local);
 
-        void restoreDataAndDecodeJson(String jsonRestore);
+        void restoreData(JsonBackup jsonRestore);
 
         void openChoiceDialogAutoBackup();
 
