@@ -158,6 +158,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
     }
 
 
+    // TODO: 20.01.2023 Добавить удаление фоновой службы AutoBackupWorker
     void signOut() {
         mGsic.signOut().addOnCompleteListener(task -> {
             final Preference preference = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP);

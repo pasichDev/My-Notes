@@ -7,6 +7,8 @@ public class DriveConfigTemp {
     private final Account account;
     private boolean isHasPermissionDrive;
 
+    private String jsonBackup;
+
 
     public DriveConfigTemp(Account account, boolean isHasPermissionDrive) {
         this.account = account;
@@ -24,5 +26,13 @@ public class DriveConfigTemp {
 
     public void setHasPermissionDrive(boolean hasPermissionDrive) {
         isHasPermissionDrive = hasPermissionDrive;
+    }
+
+    public String getJsonBackup() {
+        return jsonBackup;
+    }
+
+    public void setJsonBackup(String jsonBackup) {
+        this.jsonBackup = jsonBackup;
     }
 }

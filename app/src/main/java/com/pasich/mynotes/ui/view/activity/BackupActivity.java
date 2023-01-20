@@ -12,7 +12,6 @@ import static com.pasich.mynotes.utils.constants.Drive_Scope.APPLICATION_NAME;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Base64;
@@ -22,8 +21,6 @@ import android.view.MenuItem;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -43,12 +40,12 @@ import com.pasich.mynotes.data.model.DriveConfigTemp;
 import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
-import com.pasich.mynotes.worker.AutoBackupCloudWorker;
+import com.pasich.mynotes.utils.Base64ServiceHelper;
+import com.pasich.mynotes.utils.api_files.LocalServiceHelper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,6 +65,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public BackupContract.presenter presenter;
     @Inject
     public ActivityBackupBinding binding;
+    @Inject
+    public LocalServiceHelper localServiceHelper;
     private Dialog progressDialog;
     public DriveConfigTemp driveConfigTemp;
     private final int CONST_REQUEST_DRIVE_SCOPE = 1245;
@@ -76,16 +75,15 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     if (result.getData() != null) {
-                        writeFileExport(result.getData().getData());
+                        writeFileExport(result.getData());
                     }
                 }
             });
 
     private final ActivityResultLauncher<Intent> openBackupLocalIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        Intent data = result.getData();
         if (result.getResultCode() == Activity.RESULT_OK) {
-            if (data != null) {
-                readJsonBackup(data);
+            if (result.getData() != null) {
+                readJsonBackup(result.getData());
             }
         }
     });
@@ -99,10 +97,10 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         binding.setPresenter((BackupPresenter) presenter);
 
 
-        OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).build();
+        //  OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).build();
 
         //  WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
-        WorkManager.getInstance().enqueue(myWorkRequest);
+        /// WorkManager.getInstance().enqueue(myWorkRequest);
 
 
         // WorkManager.getInstance().cancelAllWork();
@@ -150,10 +148,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         binding.switchAutoCloud.setText(text);
     }
 
-    @Override
-    public void createBackupLocal() {
-        startIntentExport.launch(new Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json").putExtra(Intent.EXTRA_TITLE, FILE_NAME_BACKUP));
-    }
+
 
     @Override
     public void initActivity() {
@@ -197,6 +192,29 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
+    @Override
+    public void createBackupLocal(String jsonValue) {
+        driveConfigTemp.setJsonBackup(jsonValue);
+        startIntentExport.launch(new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("application/json")
+                .putExtra(Intent.EXTRA_TITLE, FILE_NAME_BACKUP));
+    }
+
+
+    // TODO: 20.01.2023 Показать ошибку
+    //запись файла на експорт после окна сохранения
+    private void writeFileExport(Intent mData) {
+        if (localServiceHelper.writeBackupLocalRepository(driveConfigTemp.getJsonBackup(), mData.getData())) {
+            onInfo(R.string.creteLocalCopyOkay, null);
+        } else {
+            onError(R.string.creteLocalCopyFail, null);
+        }
+        driveConfigTemp.setJsonBackup("");
+    }
+
+
+    //востановление данніх прочтение файла
     public void readJsonBackup(Intent data) {
         new Thread(() -> {
             try {
@@ -214,8 +232,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 }
 
 
-                presenter.restoreDataAndDecodeJson(new String(
-                        Base64.decode(jsonFile.toString(), Base64.DEFAULT), StandardCharsets.UTF_8));
+                presenter.restoreDataAndDecodeJson(Base64ServiceHelper.decodeString(jsonFile.toString()));
                 descriptor.close();
                 bufferedReader.close();
             } catch (IOException e) {
@@ -226,19 +243,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     }
 
-    private void writeFileExport(Uri uri) {
-        try {
-            ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(uri, "w");
-            FileOutputStream outputStream = new FileOutputStream(descriptor.getFileDescriptor());
-            outputStream.write(Base64.encodeToString(presenter.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT).getBytes());
-            outputStream.close();
-            descriptor.close();
-            onInfo(R.string.creteLocalCopyOkay, binding.activityBackup);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
+    //создание файла на експорт и передача на сохранение
     @Override
     public void createBackupCloud() {
         try {
@@ -255,6 +261,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
+    //запись данных на клауд
     // TODO: 19.01.2023 Упростить метод, и разбить его на методы
     private void writeFileBackupCloud(java.io.File copyFileData) {
 
@@ -336,6 +343,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         copyFileData.deleteOnExit();
     }
 
+
+    //загрузка последних данных
     private void loadingLastBackupCloudInfo(Drive mDriveCredential) {
         if (checkErrorCloud(mDriveCredential)) {
             binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
@@ -412,6 +421,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
+    // TODO: 20.01.2023 При нажати на иконку диска обновить данные
+    //восстановлени еданных с клауда
     private void loadRestoreBackupCloud() {
         final String idBackupCloud = presenter.getDataManager().getLastBackupCloudId();
         final Drive mDrive = getDriveCredentialService();

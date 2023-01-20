@@ -56,9 +56,12 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(aBoolean -> {
-                            setJsonBackup(new Gson().toJson(jsonBackupTemp));
+                            setJsonBackup(new Gson().toJson(jsonBackupTemp)); // убрать
+
+
+                            String mGsonValue = new Gson().toJson(jsonBackupTemp);
                             if (local)
-                                getView().createBackupLocal();
+                                getView().createBackupLocal(mGsonValue);
                             else
                                 getView().createBackupCloud();
                         }));

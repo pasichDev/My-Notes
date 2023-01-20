@@ -190,15 +190,17 @@ public class AutoBackupCloudWorker extends Worker {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "autoBackup")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("My notification")
-                .setContentText("Much longer text that cannot fit one line...")
+                .setContentTitle(getApplicationContext().getString(R.string.workAutoBackupTitle))
+                .setContentText("20%")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Much longer text that cannot fit one line..."))
                 .setContentIntent(pendingIntent)
                 .setTimeoutAfter(4000)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-
+        int PROGRESS_MAX = 100;
+        int PROGRESS_CURRENT = 20;
+        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
 // notificationId is a unique int for each notification that you must define
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

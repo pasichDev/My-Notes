@@ -111,6 +111,7 @@
     <string name="glassCoffee" translatable="false">Стакан кофе</string>
     <string name="packCoffee" translatable="false">Упаковка кофе</string>
     <string name="makerCoffee" translatable="false">Кофеварка</string>
+
     <string name="loginUser" translatable="false">Авторизация Google</string>
     <string name="cloudBackup" translatable="false">Облако</string>
     <string name="localBackup" translatable="false">Устройство</string>
@@ -119,14 +120,9 @@
     <string name="lastCloudCopy" translatable="false">Последняя резервная копия: %1$s</string>
     <string name="errorDriveAuth" translatable="false">Гость</string>
     <string name="autoCloudBackupTitle" translatable="false">Автоматическое резервное копирование</string>
-    <string name="errorDriveBackup" translatable="false">Увы, но мы не нашли рез. копий</string>
     <string name="errorDriveSync" translatable="false">Ошибка сервера, или плохое качество интернета</string>
     <string name="errorDriverAuthInfo" translatable="false">Чтобы использовать синхронизацию с облаком необходимо авторизоваться</string>
-    <string name="errorConnectedNetwork" translatable="false">Нет подключения к интернету</string>
-    <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано</string>
     <string name="warning" translatable="false">Предупреждение</string>
-    <string name="restoreDataOkay" translatable="false">Восстановление завершено успешно</string>
-    <string name="restoreDataFall" translatable="false">Ошибка: Резервная копия повреждена</string>
     <string name="restoreNotesTitle" translatable="false">Восстановление данных</string>
     <string name="restoreNotesMessage" translatable="false">Новые заметки будут добавленные до уже существующих, а дубликаты будут проигнорированные!</string>
     <string name="selectRestore" translatable="false">Выбрать рез. копию</string>
@@ -137,6 +133,8 @@
     <string name="emptyBackups" translatable="false">Резервных копий не найдено</string>
     <string name="checkLastBackupsCloud" translatable="false">Подождите, идет загрузка данных...</string>
     <string name="errorLoadingLastBackupCloud" translatable="false">Ошибка, загрузки данных</string>
+
+    <!-- Arrays AutoBackup  -->
     <string name="autoCloudVariantsDay" translatable="false">Каждый день</string>
     <string name="autoCloudVariantsWeek" translatable="false">Каждую неделю</string>
     <string name="autoCloudVariantsMonth" translatable="false">Каждый месяц</string>
@@ -146,5 +144,16 @@
     <string name="chanelAutoBackup" translatable="false">Автоматическое резервное копирование </string>
     <string name="chanelAutoBackupDescpt" translatable="false">Автоматическое резервное копирование </string>
 
+
+    <string name="workAutoBackupTitle" translatable="false">Выполняеться резервное копирование</string>
+
+
+    <!-- Error results backup/restore  -->
+    <string name="errorDriveBackup" translatable="false">Увы, но мы не нашли рез. копий</string>
+    <string name="errorConnectedNetwork" translatable="false">Нет подключения к интернету</string>
+    <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано!</string>
+    <string name="creteLocalCopyFail" translatable="false">Ошибка, резервная копия не сохранена</string>
+    <string name="restoreDataOkay" translatable="false">Восстановление завершено успешно</string>
+    <string name="restoreDataFall" translatable="false">Ошибка: Резервная копия повреждена</string>
 
 </resources>

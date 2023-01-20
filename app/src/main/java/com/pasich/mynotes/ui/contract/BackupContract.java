@@ -13,7 +13,7 @@ public interface BackupContract {
 
         void initConnectAccount();
 
-        void createBackupLocal();
+        void createBackupLocal(String jsonValue);
 
         void createBackupCloud();
 
