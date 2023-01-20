@@ -129,7 +129,6 @@
     <string name="nextRestore" translatable="false">Восстановить с облака</string>
     <string name="errorCredential" translatable="false">Ошибка, проблемы с авторизацией</string>
     <string name="messageRestoreProcess" translatable="false"><b>Восстановление данных</b> \nПосле завершения данное окно будет автоматически закрыто.</string>
-
     <string name="emptyBackups" translatable="false">Резервных копий не найдено</string>
     <string name="checkLastBackupsCloud" translatable="false">Подождите, идет загрузка данных...</string>
     <string name="errorLoadingLastBackupCloud" translatable="false">Ошибка, загрузки данных</string>
@@ -149,11 +148,12 @@
 
 
     <!-- Error results backup/restore  -->
+    <string name="emptyDataToBackup" translatable="false">Нет данных, для создания резервной копии</string>
     <string name="errorDriveBackup" translatable="false">Увы, но мы не нашли рез. копий</string>
     <string name="errorConnectedNetwork" translatable="false">Нет подключения к интернету</string>
     <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано!</string>
     <string name="creteLocalCopyFail" translatable="false">Ошибка, резервная копия не сохранена</string>
-    <string name="restoreDataOkay" translatable="false">Восстановление завершено успешно</string>
+    <string name="restoreDataOkay" translatable="false">Восстановление данных завершено успешно</string>
     <string name="restoreDataFall" translatable="false">Ошибка: Резервная копия повреждена</string>
 
 </resources>

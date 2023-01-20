@@ -1,18 +1,25 @@
-package com.pasich.mynotes.data.model;
+package com.pasich.mynotes.utils;
 
 import android.accounts.Account;
 
-public class DriveConfigTemp {
+import javax.inject.Inject;
 
-    private final Account account;
+public class BackupServiceCache {
+
+    private Account account;
     private boolean isHasPermissionDrive;
-
     private String jsonBackup;
 
+    @Inject
+    public BackupServiceCache() {
 
-    public DriveConfigTemp(Account account, boolean isHasPermissionDrive) {
+    }
+
+
+    public BackupServiceCache build(Account account, boolean isHasPermissionDrive) {
         this.account = account;
         this.isHasPermissionDrive = isHasPermissionDrive;
+        return this;
     }
 
     public Account getAccount() {

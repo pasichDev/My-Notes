@@ -19,9 +19,6 @@ import io.reactivex.disposables.CompositeDisposable;
 public class BackupPresenter extends AppBasePresenter<BackupContract.view> implements BackupContract.presenter {
 
 
-    private String jsonBackup;
-
-
     @Inject
     public BackupPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
         super(schedulerProvider, compositeDisposable, dataManager);
@@ -37,76 +34,104 @@ public class BackupPresenter extends AppBasePresenter<BackupContract.view> imple
     @Override
     public void detachView() {
         super.detachView();
-        jsonBackup = null;
     }
 
-    @Override
-    public void loadDataAndEncodeJson(boolean local) {
-        JsonBackup jsonBackupTemp = new JsonBackup();
-        getCompositeDisposable().add(
-                Flowable.zip(getDataManager().getNotes(),
-                                getDataManager().getTrashNotesLoad(),
-                                getDataManager().getTags(),
-                                (noteList, trashNoteList, tagList) -> {
-                                    jsonBackupTemp.setNotes(noteList);
-                                    jsonBackupTemp.setTrashNotes(trashNoteList);
-                                    jsonBackupTemp.setTags(tagList);
-                                    return true;
-                                })
-                        .subscribeOn(getSchedulerProvider().io())
-                        .observeOn(getSchedulerProvider().ui())
-                        .subscribe(aBoolean -> {
-                            setJsonBackup(new Gson().toJson(jsonBackupTemp)); // убрать
-
-
-                            String mGsonValue = new Gson().toJson(jsonBackupTemp);
-                            if (local)
-                                getView().createBackupLocal(mGsonValue);
-                            else
-                                getView().createBackupCloud();
-                        }));
-
-
-    }
-
-    @Override
-    public void restoreDataAndDecodeJson(String jsonRestore) {
-
-        if (jsonRestore.length() >= 5) {
-            JsonBackup jsonBackupTemp = new Gson().fromJson(jsonRestore, JsonBackup.class);
-
-            getCompositeDisposable()
-                    .add(
-                            Completable.mergeArray(
-                                            getDataManager().addNotes(jsonBackupTemp.getNotes()),
-                                            getDataManager().addTags(jsonBackupTemp.getTags()),
-                                            getDataManager().addTrashNotes(jsonBackupTemp.getTrashNotes()))
-                                    .subscribeOn(getSchedulerProvider().io())
-                                    .observeOn(getSchedulerProvider().ui())
-                                    .subscribe(() -> getView().restoreFinish(false)));
-
-        } else {
-            getView().restoreFinish(true);
-        }
-
-    }
-
-    public void setJsonBackup(String jsonBackup) {
-        this.jsonBackup = jsonBackup;
-    }
-
-    public String getJsonBackup() {
-        return jsonBackup;
-    }
 
     @Override
     public void openChoiceDialogAutoBackup() {
         getView().dialogChoiceVariantAutoBackup();
     }
 
+
+    // TODO: 20.01.2023 Вырезать gson з презентера, и проверка перед резервной копие на пустоту
+
+    /**
+     * Save backup data algorithm and navigator
+     *
+     * @param local - check repository
+     */
+    @Override
+    public void loadDataAndEncodeJson(boolean local) {
+        JsonBackup jsonBackupTemp = new JsonBackup();
+        getCompositeDisposable().add(
+                Flowable.zip(getDataManager().getNotes(),
+                                getDataManager().getTrashNotesLoad(),
+                                getDataManager().getTagsUser(),
+                                (noteList, trashNoteList, tagList) -> {
+                                    jsonBackupTemp.setNotes(noteList);
+                                    jsonBackupTemp.setTrashNotes(trashNoteList);
+                                    jsonBackupTemp.setTags(tagList);
+                                    return noteList.size() + trashNoteList.size() + tagList.size();
+                                })
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
+                        .subscribe(countData -> {
+                            if (countData == 0) {
+                                String mGsonValue = new Gson().toJson(jsonBackupTemp);
+                                if (local)
+                                    getView().openIntentSaveBackup(mGsonValue);
+                                else
+                                    getView().createBackupCloud();
+                            } else {
+                                getView().emptyDataToBackup();
+                            }
+                        }));
+
+
+    }
+
+    /**
+     * Restore data algorithm and navigator
+     *
+     * @param local - check repository
+     */
     @Override
     public void loadingDialogRestoreNotes(boolean local) {
-        getView().dialogRestoreData(local);
+        getCompositeDisposable().add(
+                Flowable.zip(getDataManager().getNotes(),
+                                getDataManager().getTrashNotesLoad(),
+                                getDataManager().getTagsUser(),
+                                (noteList, trashNoteList, tagList) -> noteList.size() + trashNoteList.size() + tagList.size())
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
+                        .subscribe(countData -> {
+                            if (countData == 0) {
+                                if (local)
+                                    getView().openIntentReadBackup();
+                                else {
+                                    getView().loadRestoreBackupCloud();
+                                }
+                            } else {
+                                getView().dialogRestoreData(local);
+
+                            }
+                        }));
+
+
+    }
+
+    /**
+     * Save data of public file/cloud
+     *
+     * @param jsonRestore - json public file/cloud
+     */
+    @Override
+    public void restoreDataAndDecodeJson(String jsonRestore) {
+        if (jsonRestore.length() >= 5) {
+            JsonBackup jsonBackupTemp = new Gson().fromJson(jsonRestore, JsonBackup.class);
+            getCompositeDisposable()
+                    .add(Completable.mergeArray(
+                                    getDataManager().addNotes(jsonBackupTemp.getNotes()),
+                                    getDataManager().addTags(jsonBackupTemp.getTags()),
+                                    getDataManager().addTrashNotes(jsonBackupTemp.getTrashNotes()))
+                            .subscribeOn(getSchedulerProvider().io())
+                            .observeOn(getSchedulerProvider().ui())
+                            .subscribe(() -> getView().restoreFinish(false)));
+
+        } else {
+            getView().restoreFinish(true);
+        }
+
     }
 
 

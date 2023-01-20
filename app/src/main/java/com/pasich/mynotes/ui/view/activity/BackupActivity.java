@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,17 +35,14 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
-import com.pasich.mynotes.data.model.DriveConfigTemp;
 import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
-import com.pasich.mynotes.utils.Base64ServiceHelper;
+import com.pasich.mynotes.utils.BackupServiceCache;
 import com.pasich.mynotes.utils.api_files.LocalServiceHelper;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -68,22 +64,28 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Inject
     public LocalServiceHelper localServiceHelper;
     private Dialog progressDialog;
-    public DriveConfigTemp driveConfigTemp;
+    @Inject
+    public BackupServiceCache serviceCache;
     private final int CONST_REQUEST_DRIVE_SCOPE = 1245;
-
+    /**
+     * Save local backup intent
+     */
     private final ActivityResultLauncher<Intent> startIntentExport =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     if (result.getData() != null) {
-                        writeFileExport(result.getData());
+                        writeFileBackupLocal(result.getData());
                     }
                 }
             });
 
+    /**
+     * Restore local backup intent
+     */
     private final ActivityResultLauncher<Intent> openBackupLocalIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             if (result.getData() != null) {
-                readJsonBackup(result.getData());
+                readFileBackupLocal(result.getData());
             }
         }
     });
@@ -112,7 +114,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CONST_REQUEST_DRIVE_SCOPE) {
-            driveConfigTemp.setHasPermissionDrive(resultCode == RESULT_OK);
+            serviceCache.setHasPermissionDrive(resultCode == RESULT_OK);
         }
     }
 
@@ -162,7 +164,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void initConnectAccount() {
         GoogleSignInAccount mLastAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (mLastAccount != null) {
-            driveConfigTemp = new DriveConfigTemp(mLastAccount.getAccount(),
+            serviceCache = new BackupServiceCache().build(mLastAccount.getAccount(),
                     GoogleSignIn.hasPermissions(mLastAccount, ACCESS_DRIVE_SCOPE));
 
             binding.userNameDrive.setText(mLastAccount.getEmail());
@@ -186,61 +188,63 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 new GsonFactory(),
                 GoogleAccountCredential.usingOAuth2(this,
                                 Collections.singleton(Scopes.DRIVE_APPFOLDER))
-                        .setSelectedAccount(driveConfigTemp.getAccount()))
+                        .setSelectedAccount(serviceCache.getAccount()))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
 
 
+    /**
+     * Save local backup (2/3) - start intent save json file
+     *
+     * @param jsonValue - appData
+     */
     @Override
-    public void createBackupLocal(String jsonValue) {
-        driveConfigTemp.setJsonBackup(jsonValue);
+    public void openIntentSaveBackup(String jsonValue) {
+        serviceCache.setJsonBackup(jsonValue);
         startIntentExport.launch(new Intent(Intent.ACTION_CREATE_DOCUMENT)
                 .addCategory(Intent.CATEGORY_OPENABLE)
                 .setType("application/json")
                 .putExtra(Intent.EXTRA_TITLE, FILE_NAME_BACKUP));
     }
 
+    /**
+     * Restore local backup (2/3) - start intent load json file
+     */
+    @Override
+    public void openIntentReadBackup() {
+        openBackupLocalIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("application/json"));
+    }
 
-    // TODO: 20.01.2023 Показать ошибку
-    //запись файла на експорт после окна сохранения
-    private void writeFileExport(Intent mData) {
-        if (localServiceHelper.writeBackupLocalRepository(driveConfigTemp.getJsonBackup(), mData.getData())) {
+
+    /**
+     * Save local backup (3/3) - write appData to public file
+     */
+    private void writeFileBackupLocal(Intent mData) {
+        if (localServiceHelper.writeBackupLocalFile(serviceCache, mData.getData())) {
             onInfo(R.string.creteLocalCopyOkay, null);
         } else {
             onError(R.string.creteLocalCopyFail, null);
         }
-        driveConfigTemp.setJsonBackup("");
+        serviceCache.setJsonBackup("");
     }
 
 
-    //востановление данніх прочтение файла
-    public void readJsonBackup(Intent data) {
-        new Thread(() -> {
-            try {
-                runOnUiThread(() -> {
-                    progressDialog = processRestoreDialog();
-                    progressDialog.show();
-                });
-                final ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(data.getData(), "r");
-                final StringBuilder jsonFile = new StringBuilder();
-                final BufferedReader bufferedReader = new BufferedReader(new FileReader(descriptor.getFileDescriptor()));
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    jsonFile.append(line);
-                    jsonFile.append('\n');
-                }
+    /**
+     * Restore local backup (3/3) - start intent load json file
+     */
+    public void readFileBackupLocal(Intent data) {
+        progressDialog = processRestoreDialog();
+        progressDialog.show();
 
-
-                presenter.restoreDataAndDecodeJson(Base64ServiceHelper.decodeString(jsonFile.toString()));
-                descriptor.close();
-                bufferedReader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-
-
+        final String jsonOutput = localServiceHelper.readBackupLocalFile(serviceCache, data.getData());
+        if (jsonOutput != null) {
+            presenter.restoreDataAndDecodeJson(jsonOutput);
+        } else {
+            restoreFinish(true);
+        }
     }
 
 
@@ -251,7 +255,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             final java.io.File copyFileData = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
             BufferedWriter bwNote =
                     new BufferedWriter(new FileWriter(copyFileData));
-            bwNote.write(Base64.encodeToString(presenter.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
+            //     bwNote.write(Base64.encodeToString(presenter.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
             bwNote.close();
             writeFileBackupCloud(copyFileData);
         } catch (IOException e) {
@@ -381,12 +385,12 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             onError(R.string.errorConnectedNetwork, null);
             return true;
         }
-        if (driveConfigTemp == null) {
+        if (serviceCache == null) {
             onError(R.string.errorDriverAuthInfo, null);
             return true;
         }
 
-        if (!driveConfigTemp.isHasPermissionDrive()) {
+        if (!serviceCache.isHasPermissionDrive()) {
             GoogleSignIn.requestPermissions(this,
                     CONST_REQUEST_DRIVE_SCOPE,
                     GoogleSignIn.getLastSignedInAccount(this),
@@ -421,9 +425,10 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
+    @Override
     // TODO: 20.01.2023 При нажати на иконку диска обновить данные
     //восстановлени еданных с клауда
-    private void loadRestoreBackupCloud() {
+    public void loadRestoreBackupCloud() {
         final String idBackupCloud = presenter.getDataManager().getLastBackupCloudId();
         final Drive mDrive = getDriveCredentialService();
         if (!checkErrorCloud(mDrive)) {
@@ -450,7 +455,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
     }
 
-
     @Override
     public void dialogRestoreData(boolean local) {
         new MaterialAlertDialogBuilder(this)
@@ -460,7 +464,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
                 .setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which) -> {
                     if (local)
-                        openBackupLocalIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
+                        openIntentReadBackup();
                     else {
                         loadRestoreBackupCloud();
                     }
@@ -471,12 +475,11 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void restoreFinish(boolean error) {
-
         if (progressDialog != null) progressDialog.dismiss();
         if (!error) {
             onInfo(getString(R.string.restoreDataOkay), null);
         } else {
-            onInfo(getString(R.string.restoreDataFall), null);
+            onError(R.string.restoreDataFall, null);
         }
     }
 
@@ -487,6 +490,11 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 .setView(R.layout.view_restore_data)
                 .create();
 
+    }
+
+    @Override
+    public void emptyDataToBackup() {
+        onInfo(R.string.emptyDataToBackup, null);
     }
 
     @Override

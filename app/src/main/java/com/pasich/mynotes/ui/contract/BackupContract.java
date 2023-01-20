@@ -13,7 +13,7 @@ public interface BackupContract {
 
         void initConnectAccount();
 
-        void createBackupLocal(String jsonValue);
+        void openIntentSaveBackup(String jsonValue);
 
         void createBackupCloud();
 
@@ -22,6 +22,13 @@ public interface BackupContract {
         void dialogRestoreData(boolean local);
 
         void restoreFinish(boolean error);
+
+        void loadRestoreBackupCloud();
+
+        void openIntentReadBackup();
+
+        void emptyDataToBackup();
+
     }
 
 
@@ -31,8 +38,6 @@ public interface BackupContract {
         void loadDataAndEncodeJson(boolean local);
 
         void restoreDataAndDecodeJson(String jsonRestore);
-
-        String getJsonBackup();
 
         void openChoiceDialogAutoBackup();
 
