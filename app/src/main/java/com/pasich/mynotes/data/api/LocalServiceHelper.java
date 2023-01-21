@@ -1,5 +1,7 @@
 package com.pasich.mynotes.data.api;
 
+import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
@@ -10,8 +12,10 @@ import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.ScramblerBackupHelper;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -71,6 +75,26 @@ public class LocalServiceHelper {
             descriptor.close();
             bufferedReader.close();
             return ScramblerBackupHelper.decodeString(jsonFile.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    /**
+     * Create backup temp for cloud upload
+     *
+     * @param jsonBackup - backup model
+     * @return - temp backup
+     */
+    public java.io.File writeTempBackup(JsonBackup jsonBackup) {
+        final java.io.File backupTemp = new java.io.File(mContext.getFilesDir() + FILE_NAME_BACKUP);
+        try {
+            BufferedWriter bwNote = new BufferedWriter(new FileWriter(backupTemp));
+            bwNote.write(ScramblerBackupHelper.encodeString(jsonBackup));
+            bwNote.close();
+            return backupTemp;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

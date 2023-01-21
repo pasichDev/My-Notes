@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
@@ -32,9 +33,6 @@ import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.pasich.mynotes.utils.constants.Drive_Scope;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -61,14 +59,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     /**
      * Save local backup intent
      */
-    private final ActivityResultLauncher<Intent> startIntentExport =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    if (result.getData() != null) {
-                        presenter.writeFileBackupLocal(serviceCache, result.getData().getData());
-                    }
-                }
-            });
+    private final ActivityResultLauncher<Intent> startIntentExport = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            if (result.getData() != null) {
+                presenter.writeFileBackupLocal(serviceCache, result.getData().getData());
+            }
+        }
+    });
     @Inject
     public GoogleSignInClient googleSignInClient;
     @Inject
@@ -78,18 +75,14 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     /**
      * Auth user cloud
      */
-    final private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    cloudAuthHelper.getResultAuth(result.getData())
-                            .addOnFailureListener((GoogleSignInAccount) -> onError(R.string.errorAuth, null))
-                            .addOnSuccessListener((GoogleSignInAccount) -> {
-                                cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
-                                changeDataUserActivityFromAuth(true);
-                            });
-                }
+    final private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            cloudAuthHelper.getResultAuth(result.getData()).addOnFailureListener((GoogleSignInAccount) -> onError(R.string.errorAuth, null)).addOnSuccessListener((GoogleSignInAccount) -> {
+                cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
+                changeDataUserActivityFromAuth(true);
             });
+        }
+    });
     private Dialog progressDialog;
 
     @Override
@@ -142,10 +135,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
     @Override
-    public void editLastDataEditBackupCloud(long lastDate) {
-        binding.lastBackupCloud.setText(
-                getString(R.string.lastCloudCopy,
-                        lastDataCloudBackup(lastDate)));
+    public void editLastDataEditBackupCloud(long lastDate, boolean error) {
+        if (error) {
+            showErrors(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW);
+        } else {
+            binding.lastBackupCloud.setText(getString(R.string.lastCloudCopy, lastDataCloudBackup(lastDate)));
+
+        }
     }
 
     private void editSwitchSetAutoBackup(String text) {
@@ -187,7 +183,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
             if (presenter.getDataManager().getLastBackupCloudId().equals("null")) {
                 loadingLastBackupInfoCloud();
-            } else editLastDataEditBackupCloud(presenter.getDataManager().getLastDataBackupCloud());
+            } else
+                editLastDataEditBackupCloud(presenter.getDataManager().getLastDataBackupCloud(), false);
 
         } else {
             binding.lastBackupCloud.setText(getString(R.string.errorDriverAuthInfo));
@@ -204,10 +201,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void openIntentSaveBackup(JsonBackup jsonValue) {
         serviceCache.setJsonBackup(jsonValue);
-        startIntentExport.launch(new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType("application/json")
-                .putExtra(Intent.EXTRA_TITLE, FILE_NAME_BACKUP));
+        startIntentExport.launch(new Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json").putExtra(Intent.EXTRA_TITLE, FILE_NAME_BACKUP));
     }
 
     /**
@@ -215,9 +209,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     @Override
     public void openIntentReadBackup() {
-        openBackupLocalIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType("application/json"));
+        openBackupLocalIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
     }
 
 
@@ -241,214 +233,33 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
     }
 
-
-    private int checkErrorCloud(Drive mDriveCredential) {
-        if (!isNetworkConnected()) {
-            return Cloud_Error.NETWORK_ERROR;
-        }
-        if (!cloudCacheHelper.isAuth()) {
-            return Cloud_Error.PERMISSION_DRIVE;
-        }
-        if (mDriveCredential == null) {
-            return Cloud_Error.CREDENTIAL;
-        }
-
-        return Cloud_Error.NO_ERROR;
-    }
-
-
-    @Override
-    public void showErrors(int errorCode) {
-        switch (errorCode) {
-            case Cloud_Error.CREDENTIAL:
-                onError(R.string.errorCredential, null);
-                break;
-            case Cloud_Error.PERMISSION_DRIVE:
-                GoogleSignIn.requestPermissions(this,
-                        Drive_Scope.CONST_REQUEST_DRIVE_SCOPE,
-                        cloudCacheHelper.getGoogleSignInAccount(),
-                        ACCESS_DRIVE_SCOPE);
-                break;
-            case Cloud_Error.NETWORK_ERROR:
-                onError(R.string.errorConnectedNetwork, null);
-                break;
-            case Cloud_Error.LAST_BACKUP_EMPTY:
-                onError(R.string.emptyBackups, null);
-                break;
-            case Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP:
-                binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
-                break;
-            default:
-                onError(R.string.error, null);
-                break;
-        }
-    }
-
-
-    // TODO: 21.01.2023 Добавить разрешение
-    /* Permission userPermission = new Permission()
-                    .setType("anyone")
-                    .setRole("reader");
-
+    /**
+     * Write backup cloud (2/3)
      */
-    //создание файла на експорт и передача на сохранение
-
-    public void createBackupCloud() {
-        try {
-            final java.io.File copyFileData = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
-            BufferedWriter bwNote =
-                    new BufferedWriter(new FileWriter(copyFileData));
-            //     bwNote.write(Base64.encodeToString(presenter.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
-            bwNote.close();
-            writeFileBackupCloud(copyFileData);
-        } catch (IOException e) {
-            e.printStackTrace();
+    @Override
+    public void startWriteBackupCloud(JsonBackup jsonBackup) {
+        final Drive mDriveCredential = cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.getGoogleSignInAccount().getAccount(), this);
+        final int mError = checkErrorCloud(mDriveCredential);
+        if (showErrors(checkErrorCloud(mDriveCredential))) {
+            presenter.writeFileBackupCloud(mDriveCredential, jsonBackup);
+        } else {
+            showErrors(mError);
         }
-
-        /*
-
-
-        public Task<java.io.File> createBackupJsonFile(BackupCacheHelper serviceCache) {
-            TaskCompletionSource<java.io.File> taskCompletionSource = new TaskCompletionSource<>();
-
-            new Thread(() -> {
-                final java.io.File mFile = new java.io.File(mContext.getFilesDir() + FILE_NAME_BACKUP);
-
-          try {
-           //     new BufferedWriter(new FileWriter(mFile))
-          //              .write(Base64.encodeToString(serviceCache.getJsonBackup().getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-
-                taskCompletionSource.setResult(mFile);
-            });
-            return taskCompletionSource.getTask();
-
-        }
-         */
-
     }
 
-
-    //запись данных на клауд
-    // TODO: 19.01.2023 Упростить метод, и разбить его на методы
-    private void writeFileBackupCloud(java.io.File copyFileData) {
-
-/*
-        final Drive mDrive = null;
-        if (!checkErrorCloud(mDrive)) {
-            binding.setIsVisibleProgressCloud(true);
-            final ArrayList<String> listIdsDeleted = new ArrayList<>();
-            final String oldBackup = presenter.getDataManager().getLastBackupCloudId();
-
-            new Thread(() -> {
-                final File fileMetadata = new File();
-                final FileContent mediaContent = new FileContent("application/json", copyFileData);
-                fileMetadata.setName(FILE_NAME_BACKUP);
-                fileMetadata.setParents(Collections.singletonList("appDataFolder"));
-
-                try {
-                    if (!oldBackup.equals("null")) {
-                        listIdsDeleted.add(mDrive.files().get(oldBackup).getFileId());
-                    } else {
-                        FileList files = mDrive.files().list()
-                                .setSpaces("appDataFolder")
-                                .setFields("nextPageToken, files(id, name)")
-                                .setPageSize(5)
-                                .execute();
-                        for (File file : files.getFiles()) {
-                            listIdsDeleted.add(file.getId());
-                        }
-                    }
-
-                    Drive.Files.Create create = mDrive.files().create(fileMetadata, mediaContent);
-                    MediaHttpUploader uploader = create.getMediaHttpUploader();
-                    create.setFields("id");
-                    uploader.setProgressListener(uploader1 -> {
-                        switch (uploader1.getUploadState()) {
-                            case INITIATION_STARTED:
-                                binding.progressBackupCloud.setProgress(20);
-                                runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 20)));
-                                break;
-                            case INITIATION_COMPLETE:
-                                binding.progressBackupCloud.setProgress(50);
-                                runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 50)));
-                                break;
-                            case MEDIA_IN_PROGRESS:
-                                binding.progressBackupCloud.setProgress(80);
-                                runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 60)));
-                                break;
-                            case MEDIA_COMPLETE:
-                                binding.progressBackupCloud.setProgress(99);
-                                runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 99)));
-                                break;
-                        }
-                    });
-
-
-                    File file = create.execute();
-
-                    if (file.getId().length() >= 2) {
-
-                        for (String idDeleteBackup : listIdsDeleted) {
-                            mDrive.files().delete(idDeleteBackup).execute();
-                        }
-                        presenter.getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, file.getId());
-                        presenter.getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, new Date().getTime());
-                        runOnUiThread(() -> {
-                            editLastDataEditBackupCloud();
-                            binding.setIsVisibleProgressCloud(false);
-                            binding.percentProgress.setText(getString(R.string.percentProgress, 0));
-                            onInfo(R.string.creteLocalCopyOkay, binding.activityBackup);
-                        });
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }).start();
-
+    /**
+     * Read backup cloud (2/3)
+     */
+    @Override
+    public void startReadBackupCloud() {
+        final Drive mDriveCredential = cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.getGoogleSignInAccount().getAccount(), this);
+        final int mError = checkErrorCloud(mDriveCredential);
+        if (showErrors(checkErrorCloud(mDriveCredential))) {
+            presenter.readFileBackupCloud(mDriveCredential);
+        } else {
+            showErrors(mError);
         }
-        copyFileData.deleteOnExit();
-
- */
     }
-
-
-
-
-  /*  private boolean checkErrorCloud(Drive mDriveCredential) {
-        if (!isNetworkConnected()) {
-            onError(R.string.errorConnectedNetwork, null);
-            return true;
-        }
-        if (serviceCache == null) {
-            onError(R.string.errorDriverAuthInfo, null);
-            return true;
-        }
-
-        if (!cloudCacheHelper.isHasPermissionDrive()) {
-            GoogleSignIn.requestPermissions(this,
-                    Drive_Scope.CONST_REQUEST_DRIVE_SCOPE,
-                    GoogleSignIn.getLastSignedInAccount(this),
-                    ACCESS_DRIVE_SCOPE);
-            return true;
-        }
-
-        if (mDriveCredential == null) {
-            onError(R.string.errorCredential, null);
-            return true;
-        }
-
-
-        return false;
-    }
-
-
-   */
 
 
     //восстановлени еданных с клауда
@@ -485,38 +296,142 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
+    /**
+     * Visible progressBar write cloud backup
+     */
+    @Override
+    public void visibleProgressBarCLoud() {
+        binding.setIsVisibleProgressCloud(true);
+        binding.progressBackupCloud.setProgress(10);
+        binding.percentProgress.setText(getString(R.string.percentProgress, 10));
+    }
+
+    /**
+     * Gone progressBar write cloud backup
+     */
+    @Override
+    public void goneProgressBarCLoud() {
+        binding.setIsVisibleProgressCloud(false);
+        binding.progressBackupCloud.setProgress(0);
+        binding.percentProgress.setText(getString(R.string.percentProgress, 0));
+    }
+
+    /**
+     * Listener progress uploader file
+     *
+     * @return - MediaHttpUploaderProgressListener
+     */
+    @Override
+    public MediaHttpUploaderProgressListener getProcessListener() {
+        return uploading -> {
+            switch (uploading.getUploadState()) {
+                case INITIATION_STARTED:
+                    binding.progressBackupCloud.setProgress(20);
+                    runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 20)));
+                    break;
+                case INITIATION_COMPLETE:
+                    binding.progressBackupCloud.setProgress(50);
+                    runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 50)));
+                    break;
+                case MEDIA_IN_PROGRESS:
+                    binding.progressBackupCloud.setProgress(80);
+                    runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 80)));
+                    break;
+                case MEDIA_COMPLETE:
+                    binding.progressBackupCloud.setProgress(99);
+                    runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 99)));
+                    break;
+            }
+        };
+    }
+
+    /**
+     * Check error from request
+     *
+     * @param mDriveCredential - check isAuth user
+     * @return - code error
+     */
+    private int checkErrorCloud(Drive mDriveCredential) {
+        if (!isNetworkConnected()) {
+            return Cloud_Error.NETWORK_ERROR;
+        }
+        if (!cloudCacheHelper.isHasPermissionDrive()) {
+            return Cloud_Error.PERMISSION_DRIVE;
+        }
+
+        if (!cloudCacheHelper.isAuth()) {
+            return Cloud_Error.ERROR_AUTH;
+        }
+        if (mDriveCredential == null) {
+            return Cloud_Error.CREDENTIAL;
+        }
+
+        return Cloud_Error.NO_ERROR;
+    }
+
+
+    /**
+     * Error processing
+     *
+     * @param errorCode - code error
+     * @return - true - no errors
+     */
+    @Override
+    public boolean showErrors(int errorCode) {
+        switch (errorCode) {
+            case Cloud_Error.CREDENTIAL:
+                onError(R.string.errorCredential, null);
+                break;
+            case Cloud_Error.PERMISSION_DRIVE:
+                GoogleSignIn.requestPermissions(this, Drive_Scope.CONST_REQUEST_DRIVE_SCOPE, cloudCacheHelper.getGoogleSignInAccount(), ACCESS_DRIVE_SCOPE);
+                break;
+            case Cloud_Error.NETWORK_ERROR:
+                onError(R.string.errorConnectedNetwork, null);
+                break;
+            case Cloud_Error.ERROR_AUTH:
+                onError(R.string.errorDriverAuthInfo, null);
+                break;
+            case Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW:
+                binding.lastBackupCloud.setText(getString(R.string.emptyBackups));
+                break;
+            case Cloud_Error.LAST_BACKUP_EMPTY_RESTORE:
+                onError(R.string.emptyBackups, null);
+                break;
+            case Cloud_Error.NETWORK_FALSE:
+                onError(R.string.errorDriveSync, null);
+                break;
+            case Cloud_Error.ERROR_CREATE_CLOUD_BACKUP:
+                goneProgressBarCLoud();
+                onError(R.string.creteLocalCopyFail, null);
+                break;
+            case Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP:
+                binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
+                break;
+            default:
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public void dialogChoiceVariantAutoBackup() {
-        new MaterialAlertDialogBuilder(this).setCancelable(true)
-                .setTitle(R.string.autoCloudBackupTitle)
-                .setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(),
-                        (dialog, item) -> {
-                            editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
-                            presenter.getDataManager()
-                                    .getBackupCloudInfoPreference()
-                                    .setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
-                            dialog.dismiss();
+        new MaterialAlertDialogBuilder(this).setCancelable(true).setTitle(R.string.autoCloudBackupTitle).setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(), (dialog, item) -> {
+            editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
+            presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+            dialog.dismiss();
 
-                        })
-                .create().show();
+        }).create().show();
     }
 
     @Override
     public void dialogRestoreData(boolean local) {
-        new MaterialAlertDialogBuilder(this)
-                .setCancelable(false)
-                .setTitle(R.string.restoreNotesTitle)
-                .setMessage(R.string.restoreNotesMessage)
-                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
-                .setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which) -> {
-                    if (local)
-                        openIntentReadBackup();
-                    else {
-                        presenter.readFileBackupCloud();
-                    }
-                    dialog.dismiss();
-                })
-                .create().show();
+        new MaterialAlertDialogBuilder(this).setCancelable(false).setTitle(R.string.restoreNotesTitle).setMessage(R.string.restoreNotesMessage).setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss()).setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which) -> {
+            if (local) openIntentReadBackup();
+            else {
+                startReadBackupCloud();
+            }
+            dialog.dismiss();
+        }).create().show();
     }
 
     @Override
@@ -532,10 +447,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     // TODO: 20.01.2023 Нужно проверить как и когда лучше показывать этот диалог, или вообще убрать
     @Override
     public void showProcessRestoreDialog() {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.progressDialogRestore)
-                .setCancelable(false)
-                .setView(R.layout.view_restore_data);
-
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.progressDialogRestore).setCancelable(false).setView(R.layout.view_restore_data);
         progressDialog = builder.create();
         progressDialog.show();
     }

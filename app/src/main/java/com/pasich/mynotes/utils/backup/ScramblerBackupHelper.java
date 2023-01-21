@@ -9,8 +9,8 @@ import java.nio.charset.StandardCharsets;
 
 public class ScramblerBackupHelper {
 
-    public static String encodeString(JsonBackup string) {
-        return Base64.encodeToString(new Gson().toJson(string).getBytes(StandardCharsets.UTF_8), Base64.DEFAULT);
+    public static String encodeString(JsonBackup jsonBackup) {
+        return Base64.encodeToString(new Gson().toJson(jsonBackup).getBytes(StandardCharsets.UTF_8), Base64.DEFAULT);
     }
 
     public static JsonBackup decodeString(String string) {

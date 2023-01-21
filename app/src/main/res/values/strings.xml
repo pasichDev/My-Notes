@@ -120,7 +120,6 @@
     <string name="lastCloudCopy" translatable="false">Последняя резервная копия: %1$s</string>
     <string name="errorDriveAuth" translatable="false">Гость</string>
     <string name="autoCloudBackupTitle" translatable="false">Автоматическое резервное копирование</string>
-    <string name="errorDriverAuthInfo" translatable="false">Чтобы использовать синхронизацию с облаком необходимо авторизоваться</string>
     <string name="warning" translatable="false">Предупреждение</string>
     <string name="restoreNotesTitle" translatable="false">Восстановление данных</string>
     <string name="restoreNotesMessage" translatable="false">Новые заметки будут добавленные до уже существующих, а дубликаты будут проигнорированные!</string>
@@ -158,4 +157,6 @@
     <string name="errorLoadingLastBackupCloud" translatable="false">Ошибка, нажмите чтобы повторить попытку</string>
     <string name="errorDriveSync" translatable="false">Ошибка сервера, или плохое качество интернета</string>
     <string name="errorCredential" translatable="false">Ошибка, проблемы с авторизацией</string>
+
+    <string name="errorDriverAuthInfo" translatable="false">Чтобы использовать синхронизацию с облаком необходимо авторизоваться</string>
 </resources>

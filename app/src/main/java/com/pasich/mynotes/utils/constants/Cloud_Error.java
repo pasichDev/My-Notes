@@ -6,7 +6,11 @@ public class Cloud_Error {
     public static final int CREDENTIAL = 1;
     public static final int PERMISSION_DRIVE = 2;
     public static final int NETWORK_ERROR = 3;
-    public static final int LAST_BACKUP_EMPTY = 4;
+    public static final int LAST_BACKUP_EMPTY_DRIVE_VIEW = 4;
     public static final int ERROR_LOAD_LAST_INFO_BACKUP = 5;
+    public static final int NETWORK_FALSE = 6;
+    public static final int ERROR_CREATE_CLOUD_BACKUP = 7;
+    public static final int ERROR_AUTH = 8;
+    public static final int LAST_BACKUP_EMPTY_RESTORE = 9;
 
 }

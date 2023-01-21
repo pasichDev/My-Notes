@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.contract;
 
 import android.net.Uri;
 
+import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.view.BackupPresenter;
 import com.pasich.mynotes.base.view.BaseView;
@@ -19,7 +20,6 @@ public interface BackupContract {
         void initConnectAccount();
 
         void startIntentLogInUserCloud();
-
 
         void loadingLastBackupInfoCloud();
 
@@ -39,9 +39,19 @@ public interface BackupContract {
 
         void createLocalCopyFinish(boolean error);
 
-        void showErrors(int errorCode);
+        boolean showErrors(int errorCode);
 
-        void editLastDataEditBackupCloud(long lastDate);
+        void editLastDataEditBackupCloud(long lastDate, boolean error);
+
+        void startWriteBackupCloud(JsonBackup jsonBackup);
+
+        void startReadBackupCloud();
+
+        void visibleProgressBarCLoud();
+
+        void goneProgressBarCLoud();
+
+        MediaHttpUploaderProgressListener getProcessListener();
 
     }
 
@@ -61,9 +71,9 @@ public interface BackupContract {
 
         void readFileBackupLocal(Uri mUri);
 
-        void writeFileBackupCloud(JsonBackup jsonBackup);
+        void writeFileBackupCloud(Drive mDriveCredential, JsonBackup jsonBackup);
 
-        void readFileBackupCloud();
+        void readFileBackupCloud(Drive mDriveCredential);
 
         void saveDataLoadingLastBackup(Drive mDriveCredential);
     }

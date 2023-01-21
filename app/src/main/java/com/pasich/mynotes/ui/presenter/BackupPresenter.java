@@ -28,11 +28,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
 
 
     @Inject
-    public BackupPresenter(SchedulerProvider schedulerProvider,
-                           CompositeDisposable compositeDisposable,
-                           DataManager dataManager,
-                           LocalServiceHelper localServiceHelper,
-                           DriveServiceHelper driveServiceHelper) {
+    public BackupPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager, LocalServiceHelper localServiceHelper, DriveServiceHelper driveServiceHelper) {
         super(schedulerProvider, compositeDisposable, dataManager, localServiceHelper, driveServiceHelper);
     }
 
@@ -63,7 +59,6 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     @Override
     public void clickInformationCloud(boolean isAuth) {
         if (isAuth) {
-
             getView().loadingLastBackupInfoCloud();
         } else {
             getView().startIntentLogInUserCloud();
@@ -86,7 +81,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
         }).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(countData -> {
             if (countData != 0) {
                 if (local) getView().openIntentSaveBackup(jsonBackupTemp);
-                else writeFileBackupCloud(jsonBackupTemp);
+                else getView().startWriteBackupCloud(jsonBackupTemp);
             } else {
                 getView().emptyDataToBackup();
             }
@@ -111,13 +106,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
         final JsonBackup jsonBackup = getLocalServiceHelper().readBackupLocalFile(mUri);
         if (jsonBackup != null) {
             getView().showProcessRestoreDialog();
-            getCompositeDisposable().add(
-                    Completable.mergeArray(getDataManager().addNotes(jsonBackup.getNotes()),
-                                    getDataManager().addTags(jsonBackup.getTags()),
-                                    getDataManager().addTrashNotes(jsonBackup.getTrashNotes()))
-                            .subscribeOn(getSchedulerProvider().io())
-                            .observeOn(getSchedulerProvider().ui())
-                            .subscribe(() -> getView().restoreFinish(false)));
+            getCompositeDisposable().add(Completable.mergeArray(getDataManager().addNotes(jsonBackup.getNotes()), getDataManager().addTags(jsonBackup.getTags()), getDataManager().addTrashNotes(jsonBackup.getTrashNotes())).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(() -> getView().restoreFinish(false)));
         } else {
             getView().restoreFinish(true);
         }
@@ -135,7 +124,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
             if (countData == 0) {
                 if (local) getView().openIntentReadBackup();
                 else {
-                    readFileBackupCloud();
+                    getView().startReadBackupCloud();
                 }
             } else {
                 getView().dialogRestoreData(local);
@@ -144,29 +133,70 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
         }));
     }
 
-    @Override
-    public void writeFileBackupCloud(JsonBackup jsonBackup) {
 
+    // TODO: 21.01.2023 Если при создани копии открлючить интернет процес виснет, нужно поравить 
+    // TODO: 21.01.2023 Возможно это нужно реализовать с помощю сохранения процеса загрузки
+
+    // TODO: 21.01.2023 delete file temp
+
+    /**
+     * Upload backup to cloud (3/3)
+     *
+     * @param mDriveCredential - check isAuth user
+     * @param jsonBackup       - model data backup
+     */
+    @Override
+    public void writeFileBackupCloud(Drive mDriveCredential, JsonBackup jsonBackup) {
+        getView().visibleProgressBarCLoud();
+        getDriveServiceHelper().getOldBackupForCLean(mDriveCredential).addOnSuccessListener(listBackups -> {
+            java.io.File backupTemp = getLocalServiceHelper().writeTempBackup(jsonBackup);
+            if (backupTemp == null) {
+                getView().showErrors(Cloud_Error.ERROR_CREATE_CLOUD_BACKUP);
+            } else {
+                getDriveServiceHelper().writeCloudBackup(mDriveCredential, backupTemp, getView().getProcessListener())
+                        .addOnFailureListener(stack -> {
+                            getView().goneProgressBarCLoud();
+                            getView().showErrors(Cloud_Error.NETWORK_FALSE);
+                        }).addOnSuccessListener(backupCloud -> {
+                            getView().editLastDataEditBackupCloud(backupCloud.getLastDate(), false);
+                            getView().goneProgressBarCLoud();
+                            getDataManager().getBackupCloudInfoPreference()
+                                    .putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId())
+                                    .putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
+                            getView().createLocalCopyFinish(true);
+                            getDriveServiceHelper().cleanOldBackups(mDriveCredential, listBackups);
+                        });
+            }
+        }).addOnFailureListener(stack -> {
+            getView().goneProgressBarCLoud();
+            getView().showErrors(Cloud_Error.NETWORK_FALSE);
+        });
     }
 
+    /**
+     * Load restore backup to cloud (3/3)
+     *
+     * @param mDriveCredential - check isAuth user
+     */
     @Override
-    public void readFileBackupCloud() {
-
+    public void readFileBackupCloud(Drive mDriveCredential) {
+        //проверка в актиности найдени ли рез копии
     }
 
+    /**
+     * Save data last backup cloud
+     */
     @Override
     public void saveDataLoadingLastBackup(Drive mDriveCredential) {
-        getDriveServiceHelper()
-                .getLastBackupInfo(mDriveCredential)
-                .addOnSuccessListener(lastInfo -> {
-                    if (lastInfo.getErrorCode() == 0) {
-                        getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, lastInfo.getId());
-                        getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, lastInfo.getLastDate());
-                        getView().editLastDataEditBackupCloud(lastInfo.getLastDate());
-                    } else {
-                        getView().showErrors(Cloud_Error.LAST_BACKUP_EMPTY);
-                    }
-                }).addOnFailureListener(fileList -> getView().showErrors(Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP));
+        getDriveServiceHelper().getLastBackupInfo(mDriveCredential).addOnCompleteListener(lastInfo -> {
+            if (lastInfo.getResult().getErrorCode() == 0) {
+                getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, lastInfo.getResult().getId());
+                getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, lastInfo.getResult().getLastDate());
+            } else {
+                getView().showErrors(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW);
+            }
+            getView().editLastDataEditBackupCloud(lastInfo.getResult().getLastDate(), lastInfo.getResult().getErrorCode() != 0);
+        }).addOnFailureListener(fileList -> getView().showErrors(Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP));
     }
 
 }
