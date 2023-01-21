@@ -155,7 +155,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[presenter.getDataManager().getSetCloudAuthBackup()]);
     }
 
-
     @Override
     public void initConnectAccount() {
         GoogleSignInAccount mLastAccount = GoogleSignIn.getLastSignedInAccount(this);
