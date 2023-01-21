@@ -137,7 +137,6 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     // TODO: 21.01.2023 Если при создани копии открлючить интернет процес виснет, нужно поравить 
     // TODO: 21.01.2023 Возможно это нужно реализовать с помощю сохранения процеса загрузки
 
-    // TODO: 21.01.2023 delete file temp
 
     /**
      * Upload backup to cloud (3/3)
@@ -154,12 +153,15 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
                 getView().showErrors(Cloud_Error.ERROR_CREATE_CLOUD_BACKUP);
             } else {
                 getDriveServiceHelper().writeCloudBackup(mDriveCredential, backupTemp, getView().getProcessListener())
-                        .addOnFailureListener(stack -> {
+                        .addOnCompleteListener(stack -> {
                             getView().goneProgressBarCLoud();
+                            backupTemp.deleteOnExit();
+                        })
+                        .addOnFailureListener(stack -> {
+                            backupTemp.deleteOnExit();
                             getView().showErrors(Cloud_Error.NETWORK_FALSE);
                         }).addOnSuccessListener(backupCloud -> {
                             getView().editLastDataEditBackupCloud(backupCloud.getLastDate(), false);
-                            getView().goneProgressBarCLoud();
                             getDataManager().getBackupCloudInfoPreference()
                                     .putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId())
                                     .putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());

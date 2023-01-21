@@ -239,11 +239,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void startWriteBackupCloud(JsonBackup jsonBackup) {
         final Drive mDriveCredential = cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.getGoogleSignInAccount().getAccount(), this);
-        final int mError = checkErrorCloud(mDriveCredential);
         if (showErrors(checkErrorCloud(mDriveCredential))) {
             presenter.writeFileBackupCloud(mDriveCredential, jsonBackup);
-        } else {
-            showErrors(mError);
         }
     }
 
@@ -254,11 +251,14 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void startReadBackupCloud() {
         final Drive mDriveCredential = cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.getGoogleSignInAccount().getAccount(), this);
         final int mError = checkErrorCloud(mDriveCredential);
-        if (showErrors(checkErrorCloud(mDriveCredential))) {
-            presenter.readFileBackupCloud(mDriveCredential);
-        } else {
+        if (!showErrors(checkErrorCloud(mDriveCredential))) {
             showErrors(mError);
+        } else if (presenter.getDataManager().getLastBackupCloudId().equals("null")) {
+            showErrors(Cloud_Error.LAST_BACKUP_EMPTY_RESTORE);
+        } else {
+            presenter.readFileBackupCloud(mDriveCredential);
         }
+
     }
 
 

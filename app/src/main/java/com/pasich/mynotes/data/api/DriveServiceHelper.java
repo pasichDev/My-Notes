@@ -74,6 +74,13 @@ public class DriveServiceHelper {
     }
 
 
+    /**
+     * Write file backup to cloud
+     *
+     * @param mDriveCredential - check auth user
+     * @param backupTemp       - temp file backup
+     * @param progressListener - listener progress upload
+     */
     public Task<BackupCloud> writeCloudBackup(Drive mDriveCredential, java.io.File backupTemp, MediaHttpUploaderProgressListener progressListener) {
         final TaskCompletionSource<BackupCloud> task = new TaskCompletionSource<>();
         mExecutor.execute(() -> {
