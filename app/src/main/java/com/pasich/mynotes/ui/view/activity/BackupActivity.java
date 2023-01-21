@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
@@ -21,7 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.Scopes;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -39,6 +38,9 @@ import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
+import com.pasich.mynotes.utils.backup.CloudAuthHelper;
+import com.pasich.mynotes.utils.backup.CloudCacheHelper;
+import com.pasich.mynotes.utils.constants.Drive_Scope;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -59,10 +61,32 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public BackupContract.presenter presenter;
     @Inject
     public ActivityBackupBinding binding;
-    private Dialog progressDialog;
     @Inject
     public BackupCacheHelper serviceCache;
-    private final int CONST_REQUEST_DRIVE_SCOPE = 1245;
+    @Inject
+    public GoogleSignInClient googleSignInClient;
+    @Inject
+    public CloudCacheHelper cloudCacheHelper;
+    @Inject
+    public CloudAuthHelper cloudAuthHelper;
+    private Dialog progressDialog;
+
+    /**
+     * Auth user cloud
+     */
+    final private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    cloudAuthHelper.getResultAuth(result.getData())
+                            .addOnFailureListener((GoogleSignInAccount) -> onError(R.string.errorAuth, null))
+                            .addOnSuccessListener((GoogleSignInAccount) -> {
+                                cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
+                                changeDataUserActivityFromAuth(true);
+                            });
+                }
+            });
+
     /**
      * Save local backup intent
      */
@@ -96,11 +120,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
 
         //  OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).build();
-
         //  WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
         /// WorkManager.getInstance().enqueue(myWorkRequest);
-
-
         // WorkManager.getInstance().cancelAllWork();
 
     }
@@ -109,8 +130,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CONST_REQUEST_DRIVE_SCOPE) {
-            serviceCache.setHasPermissionDrive(resultCode == RESULT_OK);
+        if (requestCode == Drive_Scope.CONST_REQUEST_DRIVE_SCOPE) {
+            cloudCacheHelper.setHasPermissionDrive(resultCode == RESULT_OK);
         }
     }
 
@@ -157,12 +178,27 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void initConnectAccount() {
-        GoogleSignInAccount mLastAccount = GoogleSignIn.getLastSignedInAccount(this);
-        if (mLastAccount != null) {
-            serviceCache = new BackupCacheHelper().build(mLastAccount.getAccount(),
-                    GoogleSignIn.hasPermissions(mLastAccount, ACCESS_DRIVE_SCOPE));
+        changeDataUserActivityFromAuth(cloudCacheHelper.isAuth());
 
-            binding.userNameDrive.setText(mLastAccount.getEmail());
+    }
+
+    /**
+     * Start intent account login
+     */
+    @Override
+    public void startIntentLogInUserCloud() {
+        startAuthIntent.launch(googleSignInClient.getSignInIntent());
+    }
+
+
+    /**
+     * Edit and update dataUser, from isAuth cloud
+     *
+     * @param isAuth - check auth cloud
+     */
+    private void changeDataUserActivityFromAuth(boolean isAuth) {
+        if (isAuth) {
+            binding.userNameDrive.setText(cloudCacheHelper.getGoogleSignInAccount().getEmail());
             binding.setIsAuthUser(true);
 
             if (presenter.getDataManager().getLastBackupCloudId().equals("null"))
@@ -181,9 +217,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         return new Drive.Builder(
                 AndroidHttp.newCompatibleTransport(),
                 new GsonFactory(),
-                GoogleAccountCredential.usingOAuth2(this,
-                                Collections.singleton(Scopes.DRIVE_APPFOLDER))
-                        .setSelectedAccount(serviceCache.getAccount()))
+                GoogleAccountCredential.usingOAuth2(this, Collections.singleton(Scopes.DRIVE_APPFOLDER))
+                        .setSelectedAccount(cloudCacheHelper.getGoogleSignInAccount().getAccount()))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
@@ -383,9 +418,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             return true;
         }
 
-        if (!serviceCache.isHasPermissionDrive()) {
+        if (!cloudCacheHelper.isHasPermissionDrive()) {
             GoogleSignIn.requestPermissions(this,
-                    CONST_REQUEST_DRIVE_SCOPE,
+                    Drive_Scope.CONST_REQUEST_DRIVE_SCOPE,
                     GoogleSignIn.getLastSignedInAccount(this),
                     ACCESS_DRIVE_SCOPE);
             return true;

@@ -17,6 +17,8 @@ public interface BackupContract {
 
         void initConnectAccount();
 
+        void startIntentLogInUserCloud();
+
         void openIntentSaveBackup(JsonBackup jsonBackup);
 
         void openIntentReadBackup();

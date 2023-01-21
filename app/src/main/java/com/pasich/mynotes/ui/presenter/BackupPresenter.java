@@ -57,7 +57,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
         if (isAuth) {
             // ручное обновление послдней информации об бэкапе
         } else {
-            //авторизация пользователя
+            getView().startIntentLogInUserCloud();
         }
     }
 

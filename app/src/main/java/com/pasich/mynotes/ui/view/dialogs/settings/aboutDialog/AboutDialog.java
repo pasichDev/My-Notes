@@ -4,7 +4,6 @@ import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FIlE_NAME_PREFERENCE_BACKUP;
-import static com.pasich.mynotes.utils.constants.Drive_Scope.ACCESS_DRIVE_SCOPE;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_HOW_TO_USE;
 import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_PRIVACY_POLICY;
 
@@ -15,7 +14,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -23,11 +21,7 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
@@ -36,34 +30,36 @@ import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.view.activity.AboutActivity;
 import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
+import com.pasich.mynotes.utils.backup.CloudAuthHelper;
+import com.pasich.mynotes.utils.backup.CloudCacheHelper;
+import com.pasich.mynotes.utils.constants.Drive_Scope;
 import com.preference.PowerPreference;
 import com.preference.Preference;
 
-import java.util.Objects;
+import javax.inject.Inject;
 
 
 public class AboutDialog extends BaseDialogBottomSheets {
-
-    public GoogleSignInClient mGsic;
-    public DialogAboutActivityBinding binding;
     private final AboutOpensActivity aboutOpensActivity;
-
+    @Inject
+    public GoogleSignInClient googleSignInClient;
+    @Inject
+    public CloudCacheHelper cloudCacheHelper;
+    @Inject
+    public CloudAuthHelper cloudAuthHelper;
+    public DialogAboutActivityBinding binding;
     final private ActivityResultLauncher<Intent> startAuthIntent =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
                     result -> {
-                        Intent data = result.getData();
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                            try {
-                                task.getResult(ApiException.class);
-                                loadingDataUser(Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(requireContext())));
-                                binding.loginPage.loginUser.setVisibility(View.GONE);
-                                binding.loginPage.loginPageRoot.setVisibility(View.VISIBLE);
-                            } catch (ApiException e) {
-                                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                            }
 
+                            cloudAuthHelper.getResultAuth(result.getData())
+                                    .addOnFailureListener((GoogleSignInAccount) -> onError(R.string.errorAuth, null))
+                                    .addOnSuccessListener((GoogleSignInAccount) -> {
+                                        cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
+                                        loadingDataUser(true);
+                                    });
                         }
                     });
 
@@ -85,33 +81,18 @@ public class AboutDialog extends BaseDialogBottomSheets {
         } else {
             dismiss();
         }
-
-        mGsic = GoogleSignIn.getClient(requireContext(), new GoogleSignInOptions.Builder(
-                GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestScopes(ACCESS_DRIVE_SCOPE)
-                .build());
         return builder.create();
     }
 
     private void initAccountInfo() {
-        GoogleSignInAccount mAcct = GoogleSignIn.getLastSignedInAccount(requireContext());
-        if (mAcct != null) {
-            binding.loginPage.loginUser.setVisibility(View.GONE);
-            loadingDataUser(mAcct);
-        } else {
-            binding.loginPage.loginPageRoot.setVisibility(View.GONE);
-            binding.loginPage.loginUser.setVisibility(View.VISIBLE);
-        }
-
-
+        loadingDataUser(cloudCacheHelper.isAuth());
     }
 
     public void initListeners() {
 
         binding.loginPage.exitUser.setOnClickListener(v -> signOut());
 
-        binding.loginPage.loginUser.setOnClickListener(v -> startAuthIntent.launch(mGsic.getSignInIntent()));
+        binding.loginPage.loginUser.setOnClickListener(v -> startAuthIntent.launch(googleSignInClient.getSignInIntent()));
 
         binding.trashActivityLayout.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), TrashActivity.class));
@@ -147,27 +128,40 @@ public class AboutDialog extends BaseDialogBottomSheets {
     }
 
 
-    private void loadingDataUser(GoogleSignInAccount acct) {
-        binding.loginPage.nameUser.setText(acct.getDisplayName());
-        binding.loginPage.emailUSer.setText(acct.getEmail());
-        Glide.with(requireContext())
-                .load(acct.getPhotoUrl())
-                .placeholder(R.drawable.demo_avatar_user)
-                .error(R.drawable.demo_avatar_user)
-                .into(binding.loginPage.userAvatar);
+    private void loadingDataUser(boolean isAuth) {
+
+        if (isAuth) {
+            binding.loginPage.nameUser.setText(cloudCacheHelper.getGoogleSignInAccount().getDisplayName());
+            binding.loginPage.emailUSer.setText(cloudCacheHelper.getGoogleSignInAccount().getEmail());
+            Glide.with(requireContext())
+                    .load(cloudCacheHelper.getGoogleSignInAccount().getPhotoUrl())
+                    .placeholder(R.drawable.demo_avatar_user)
+                    .error(R.drawable.demo_avatar_user)
+                    .into(binding.loginPage.userAvatar);
+            binding.loginPage.loginUser.setVisibility(View.GONE);
+            binding.loginPage.loginPageRoot.setVisibility(View.VISIBLE);
+
+        } else {
+            binding.loginPage.loginPageRoot.setVisibility(View.GONE);
+            binding.loginPage.loginUser.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
 
     // TODO: 20.01.2023 Добавить удаление фоновой службы AutoBackupWorker
     void signOut() {
-        mGsic.signOut().addOnCompleteListener(task -> {
+        googleSignInClient.signOut().addOnCompleteListener(task -> {
             final Preference preference = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP);
             binding.loginPage.loginUser.setVisibility(View.VISIBLE);
             binding.loginPage.loginPageRoot.setVisibility(View.GONE);
             preference.removeAsync(ARGUMENT_AUTO_BACKUP_CLOUD);
             preference.removeAsync(ARGUMENT_LAST_BACKUP_ID);
             preference.removeAsync(ARGUMENT_LAST_BACKUP_TIME);
+            cloudCacheHelper.clean();
         });
+
     }
 
     @Override
