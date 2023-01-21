@@ -42,6 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:onClick="@{(view) -> presenter.clickInformationCloud(isAuthUser)}"
+            android:background="?android:attr/selectableItemBackground"
             android:padding="20dp">
 
 
@@ -154,7 +156,7 @@
             android:id="@+id/cloudExport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> presenter.backupData(false)}"
+            android:onClick="@{(view) -> presenter.saveBackupPresenter(false)}"
             android:clickable="@{isAuthUser}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
@@ -177,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="@{isAuthUser}"
-            android:onClick="@{(view) -> presenter.loadingDialogRestoreNotes(false)}"
+            android:onClick="@{(view) -> presenter.restoreBackupPresenter(false)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
@@ -208,7 +210,7 @@
             android:id="@+id/exportLocal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> presenter.backupData(true)}"
+            android:onClick="@{(view) -> presenter.saveBackupPresenter(true)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
@@ -228,7 +230,7 @@
             android:id="@+id/importLocal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> presenter.loadingDialogRestoreNotes(true)}"
+            android:onClick="@{(view) -> presenter.restoreBackupPresenter(true)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">

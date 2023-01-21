@@ -1,4 +1,4 @@
-package com.pasich.mynotes.base;
+package com.pasich.mynotes.base.view;
 
 import android.view.View;
 

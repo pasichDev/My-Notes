@@ -1,12 +1,12 @@
 package com.pasich.mynotes.base.presenter;
 
-import com.pasich.mynotes.base.BaseView;
+import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public abstract class BasePresenter<T extends BaseView> implements com.pasich.mynotes.base.BasePresenter<T> {
+public abstract class BasePresenter<T extends BaseView> implements com.pasich.mynotes.base.view.BasePresenter<T> {
 
     private final SchedulerProvider schedulerProvider;
     private final CompositeDisposable compositeDisposable;

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.backup.api_files;
+package com.pasich.mynotes.data.api;
 
 import android.content.Context;
 import android.net.Uri;
@@ -33,7 +33,7 @@ public class LocalServiceHelper {
      * @return - errorStatus
      */
     public boolean writeBackupLocalFile(BackupCacheHelper serviceCache, Uri uriLocalFile) {
-        if (!checkServiceCache(serviceCache)) {
+        if (checkServiceCache(serviceCache)) {
             try {
                 ParcelFileDescriptor descriptor = mContext.getContentResolver().openFileDescriptor(uriLocalFile, "w");
                 FileOutputStream fileOutputStream = new FileOutputStream(descriptor.getFileDescriptor());
@@ -85,9 +85,9 @@ public class LocalServiceHelper {
      */
     private boolean checkServiceCache(BackupCacheHelper serviceCache) {
         if (serviceCache == null) {
-            return true;
+            return false;
         }
-        return serviceCache.getJsonBackup() == null;
+        return serviceCache.getJsonBackup() != null;
     }
 
 

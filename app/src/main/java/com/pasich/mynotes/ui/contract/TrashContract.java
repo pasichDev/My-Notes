@@ -1,9 +1,9 @@
 package com.pasich.mynotes.ui.contract;
 
 
-import com.pasich.mynotes.base.BasePresenter;
-import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.ActionBar;
+import com.pasich.mynotes.base.view.BasePresenter;
+import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.data.model.TrashNote;
 
 import java.util.ArrayList;

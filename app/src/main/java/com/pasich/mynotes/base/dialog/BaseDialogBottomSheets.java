@@ -12,8 +12,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.di.component.ActivityComponent;
 
 public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment implements BaseView {

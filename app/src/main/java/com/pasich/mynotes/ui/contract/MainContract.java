@@ -2,8 +2,8 @@ package com.pasich.mynotes.ui.contract;
 
 import android.view.View;
 
-import com.pasich.mynotes.base.BasePresenter;
-import com.pasich.mynotes.base.BaseView;
+import com.pasich.mynotes.base.view.BasePresenter;
+import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;

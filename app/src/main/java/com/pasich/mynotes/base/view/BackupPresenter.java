@@ -1,11 +1,13 @@
-package com.pasich.mynotes.base;
+package com.pasich.mynotes.base.view;
 
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.api.DriveServiceHelper;
+import com.pasich.mynotes.data.api.LocalServiceHelper;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public interface BasePresenter<V extends BaseView> {
+public interface BackupPresenter<V extends BaseView> {
 
     void attachView(V mVIew);
 
@@ -18,4 +20,8 @@ public interface BasePresenter<V extends BaseView> {
     CompositeDisposable getCompositeDisposable();
 
     SchedulerProvider getSchedulerProvider();
+
+    LocalServiceHelper getLocalServiceHelper();
+
+    DriveServiceHelper getDriveServiceHelper();
 }

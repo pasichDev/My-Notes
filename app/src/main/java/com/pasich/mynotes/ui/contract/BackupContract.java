@@ -1,10 +1,13 @@
 package com.pasich.mynotes.ui.contract;
 
 
-import com.pasich.mynotes.base.BasePresenter;
-import com.pasich.mynotes.base.BaseView;
+import android.net.Uri;
+
+import com.pasich.mynotes.base.view.BackupPresenter;
+import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.data.model.JsonBackup;
 import com.pasich.mynotes.di.scope.PerActivity;
+import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 
 public interface BackupContract {
 
@@ -16,7 +19,7 @@ public interface BackupContract {
 
         void openIntentSaveBackup(JsonBackup jsonBackup);
 
-        void createBackupCloud();
+        void openIntentReadBackup();
 
         void dialogChoiceVariantAutoBackup();
 
@@ -24,25 +27,32 @@ public interface BackupContract {
 
         void restoreFinish(boolean error);
 
-        void loadRestoreBackupCloud();
-
-        void openIntentReadBackup();
+        void showProcessRestoreDialog();
 
         void emptyDataToBackup();
+
+        void createLocalCopyFinish(boolean error);
 
     }
 
 
     @PerActivity
-    interface presenter extends BasePresenter<view> {
+    interface presenter extends BackupPresenter<view> {
 
-        void backupData(boolean local);
+        void clickInformationCloud(boolean isAuth);
 
-        void restoreData(JsonBackup jsonRestore);
+        void saveBackupPresenter(boolean local);
+
+        void restoreBackupPresenter(boolean local);
+
+        void writeFileBackupLocal(BackupCacheHelper serviceCache, Uri mUri);
 
         void openChoiceDialogAutoBackup();
 
-        void loadingDialogRestoreNotes(boolean local);
+        void readFileBackupLocal(Uri mUri);
 
+        void writeFileBackupCloud(JsonBackup jsonBackup);
+
+        void readFileBackupCloud();
     }
 }

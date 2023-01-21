@@ -3,9 +3,9 @@ package com.pasich.mynotes.ui.contract;
 
 import android.content.Intent;
 
-import com.pasich.mynotes.base.BasePresenter;
-import com.pasich.mynotes.base.BaseView;
 import com.pasich.mynotes.base.view.ActionBar;
+import com.pasich.mynotes.base.view.BasePresenter;
+import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;
 import com.pasich.mynotes.data.model.Note;

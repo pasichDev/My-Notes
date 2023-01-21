@@ -39,7 +39,6 @@ import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
-import com.pasich.mynotes.utils.backup.api_files.LocalServiceHelper;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -60,8 +59,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public BackupContract.presenter presenter;
     @Inject
     public ActivityBackupBinding binding;
-    @Inject
-    public LocalServiceHelper localServiceHelper;
     private Dialog progressDialog;
     @Inject
     public BackupCacheHelper serviceCache;
@@ -73,7 +70,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     if (result.getData() != null) {
-                        writeFileBackupLocal(result.getData());
+                        presenter.writeFileBackupLocal(serviceCache, result.getData().getData());
                     }
                 }
             });
@@ -84,7 +81,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     private final ActivityResultLauncher<Intent> openBackupLocalIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             if (result.getData() != null) {
-                readFileBackupLocal(result.getData());
+                presenter.readFileBackupLocal(result.getData().getData());
             }
         }
     });
@@ -218,37 +215,10 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
-    /**
-     * Save local backup (3/3) - write appData to public file
-     */
-    private void writeFileBackupLocal(Intent mData) {
-        if (localServiceHelper.writeBackupLocalFile(serviceCache, mData.getData())) {
-            onInfo(R.string.creteLocalCopyOkay, null);
-        } else {
-            onError(R.string.creteLocalCopyFail, null);
-        }
-        serviceCache.setJsonBackup(null);
-    }
-
-
-    /**
-     * Restore local backup (3/3) - start intent load json file
-     */
-    public void readFileBackupLocal(Intent data) {
-        progressDialog = processRestoreDialog();
-        progressDialog.show();
-
-        final JsonBackup jsonOutput = localServiceHelper.readBackupLocalFile(data.getData());
-        if (jsonOutput != null) {
-            presenter.restoreData(jsonOutput);
-        } else {
-            restoreFinish(true);
-        }
-    }
 
 
     //создание файла на експорт и передача на сохранение
-    @Override
+
     public void createBackupCloud() {
         try {
             final java.io.File copyFileData = new java.io.File(getFilesDir() + FILE_NAME_BACKUP);
@@ -432,35 +402,19 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
-    @Override
-    public void dialogChoiceVariantAutoBackup() {
-        new MaterialAlertDialogBuilder(this).setCancelable(true)
-                .setTitle(R.string.autoCloudBackupTitle)
-                .setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(),
-                        (dialog, item) -> {
-                            editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
-                            presenter.getDataManager()
-                                    .getBackupCloudInfoPreference()
-                                    .setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
-                            dialog.dismiss();
 
-                        })
-                .create().show();
-    }
-
-
-    @Override
-    // TODO: 20.01.2023 При нажати на иконку диска обновить данные
     //восстановлени еданных с клауда
     public void loadRestoreBackupCloud() {
         final String idBackupCloud = presenter.getDataManager().getLastBackupCloudId();
         final Drive mDrive = getDriveCredentialService();
         if (!checkErrorCloud(mDrive)) {
             if (!idBackupCloud.equals("null")) {
-                runOnUiThread(() -> {
+            /*    runOnUiThread(() -> {
                     progressDialog = processRestoreDialog();
                     progressDialog.show();
                 });
+
+             */
                 new Thread(() -> {
                     try {
                         OutputStream outputStream = new ByteArrayOutputStream();
@@ -481,6 +435,23 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
     }
 
+
+    @Override
+    public void dialogChoiceVariantAutoBackup() {
+        new MaterialAlertDialogBuilder(this).setCancelable(true)
+                .setTitle(R.string.autoCloudBackupTitle)
+                .setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(),
+                        (dialog, item) -> {
+                            editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
+                            presenter.getDataManager()
+                                    .getBackupCloudInfoPreference()
+                                    .setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+                            dialog.dismiss();
+
+                        })
+                .create().show();
+    }
+
     @Override
     public void dialogRestoreData(boolean local) {
         new MaterialAlertDialogBuilder(this)
@@ -492,7 +463,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                     if (local)
                         openIntentReadBackup();
                     else {
-                        loadRestoreBackupCloud();
+                        presenter.readFileBackupCloud();
                     }
                     dialog.dismiss();
                 })
@@ -510,17 +481,28 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
     // TODO: 20.01.2023 Нужно проверить как и когда лучше показывать этот диалог, или вообще убрать
-    public Dialog processRestoreDialog() {
-        return new MaterialAlertDialogBuilder(this, R.style.progressDialogRestore)
+    @Override
+    public void showProcessRestoreDialog() {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.progressDialogRestore)
                 .setCancelable(false)
-                .setView(R.layout.view_restore_data)
-                .create();
+                .setView(R.layout.view_restore_data);
 
+        progressDialog = builder.create();
+        progressDialog.show();
     }
 
     @Override
     public void emptyDataToBackup() {
         onInfo(R.string.emptyDataToBackup, null);
+    }
+
+    @Override
+    public void createLocalCopyFinish(boolean error) {
+        if (error) {
+            onInfo(R.string.creteLocalCopyOkay, null);
+        } else {
+            onError(R.string.creteLocalCopyFail, null);
+        }
     }
 
     @Override
