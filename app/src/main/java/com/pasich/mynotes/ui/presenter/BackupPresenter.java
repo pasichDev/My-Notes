@@ -1,7 +1,11 @@
 package com.pasich.mynotes.ui.presenter;
 
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
+
 import android.net.Uri;
 
+import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.presenter.BackupBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.api.DriveServiceHelper;
@@ -10,6 +14,7 @@ import com.pasich.mynotes.data.model.JsonBackup;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
+import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
@@ -50,12 +55,16 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     }
 
 
-    // TODO: 20.01.2023 При нажати на иконку диска обновить данные
-    // TODO: 20.01.2023 Ограничть количество запросов при ручном обновлении
+    /**
+     * Click to layout drive info
+     *
+     * @param isAuth - check auth user
+     */
     @Override
     public void clickInformationCloud(boolean isAuth) {
         if (isAuth) {
-            // ручное обновление послдней информации об бэкапе
+
+            getView().loadingLastBackupInfoCloud();
         } else {
             getView().startIntentLogInUserCloud();
         }
@@ -115,9 +124,6 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
 
     }
 
-
-    // TODO: 20.01.2023 #1 заменить на функцию клауда
-
     /**
      * Restore data algorithm and navigator
      *
@@ -146,6 +152,21 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     @Override
     public void readFileBackupCloud() {
 
+    }
+
+    @Override
+    public void saveDataLoadingLastBackup(Drive mDriveCredential) {
+        getDriveServiceHelper()
+                .getLastBackupInfo(mDriveCredential)
+                .addOnSuccessListener(lastInfo -> {
+                    if (lastInfo.getErrorCode() == 0) {
+                        getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, lastInfo.getId());
+                        getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, lastInfo.getLastDate());
+                        getView().editLastDataEditBackupCloud(lastInfo.getLastDate());
+                    } else {
+                        getView().showErrors(Cloud_Error.LAST_BACKUP_EMPTY);
+                    }
+                }).addOnFailureListener(fileList -> getView().showErrors(Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP));
     }
 
 }

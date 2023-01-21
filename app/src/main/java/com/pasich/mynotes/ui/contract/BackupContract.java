@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.contract;
 
 import android.net.Uri;
 
+import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.view.BackupPresenter;
 import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.data.model.JsonBackup;
@@ -19,6 +20,9 @@ public interface BackupContract {
 
         void startIntentLogInUserCloud();
 
+
+        void loadingLastBackupInfoCloud();
+
         void openIntentSaveBackup(JsonBackup jsonBackup);
 
         void openIntentReadBackup();
@@ -34,6 +38,10 @@ public interface BackupContract {
         void emptyDataToBackup();
 
         void createLocalCopyFinish(boolean error);
+
+        void showErrors(int errorCode);
+
+        void editLastDataEditBackupCloud(long lastDate);
 
     }
 
@@ -56,5 +64,7 @@ public interface BackupContract {
         void writeFileBackupCloud(JsonBackup jsonBackup);
 
         void readFileBackupCloud();
+
+        void saveDataLoadingLastBackup(Drive mDriveCredential);
     }
 }

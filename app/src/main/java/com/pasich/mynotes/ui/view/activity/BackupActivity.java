@@ -2,11 +2,8 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
 import static com.pasich.mynotes.utils.constants.Drive_Scope.ACCESS_DRIVE_SCOPE;
-import static com.pasich.mynotes.utils.constants.Drive_Scope.APPLICATION_NAME;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,16 +18,8 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.common.Scopes;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.media.MediaHttpUploader;
-import com.google.api.client.http.FileContent;
-import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.model.JsonBackup;
@@ -40,16 +29,12 @@ import com.pasich.mynotes.ui.presenter.BackupPresenter;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
+import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.pasich.mynotes.utils.constants.Drive_Scope;
 
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -59,18 +44,37 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Inject
     public BackupContract.presenter presenter;
+    /**
+     * Restore local backup intent
+     */
+    private final ActivityResultLauncher<Intent> openBackupLocalIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            if (result.getData() != null) {
+                presenter.readFileBackupLocal(result.getData().getData());
+            }
+        }
+    });
     @Inject
     public ActivityBackupBinding binding;
     @Inject
     public BackupCacheHelper serviceCache;
+    /**
+     * Save local backup intent
+     */
+    private final ActivityResultLauncher<Intent> startIntentExport =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    if (result.getData() != null) {
+                        presenter.writeFileBackupLocal(serviceCache, result.getData().getData());
+                    }
+                }
+            });
     @Inject
     public GoogleSignInClient googleSignInClient;
     @Inject
     public CloudCacheHelper cloudCacheHelper;
     @Inject
     public CloudAuthHelper cloudAuthHelper;
-    private Dialog progressDialog;
-
     /**
      * Auth user cloud
      */
@@ -86,29 +90,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                             });
                 }
             });
-
-    /**
-     * Save local backup intent
-     */
-    private final ActivityResultLauncher<Intent> startIntentExport =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    if (result.getData() != null) {
-                        presenter.writeFileBackupLocal(serviceCache, result.getData().getData());
-                    }
-                }
-            });
-
-    /**
-     * Restore local backup intent
-     */
-    private final ActivityResultLauncher<Intent> openBackupLocalIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK) {
-            if (result.getData() != null) {
-                presenter.readFileBackupLocal(result.getData().getData());
-            }
-        }
-    });
+    private Dialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -159,14 +141,16 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         super.onDestroy();
     }
 
-    private void editLastDataEditBackupCloud() {
-        binding.lastBackupCloud.setText(getString(R.string.lastCloudCopy, lastDataCloudBackup(presenter.getDataManager().getLastDataBackupCloud())));
+    @Override
+    public void editLastDataEditBackupCloud(long lastDate) {
+        binding.lastBackupCloud.setText(
+                getString(R.string.lastCloudCopy,
+                        lastDataCloudBackup(lastDate)));
     }
 
     private void editSwitchSetAutoBackup(String text) {
         binding.switchAutoCloud.setText(text);
     }
-
 
 
     @Override
@@ -201,9 +185,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             binding.userNameDrive.setText(cloudCacheHelper.getGoogleSignInAccount().getEmail());
             binding.setIsAuthUser(true);
 
-            if (presenter.getDataManager().getLastBackupCloudId().equals("null"))
-                loadingLastBackupCloudInfo(getDriveCredentialService());
-            else editLastDataEditBackupCloud();
+            if (presenter.getDataManager().getLastBackupCloudId().equals("null")) {
+                loadingLastBackupInfoCloud();
+            } else editLastDataEditBackupCloud(presenter.getDataManager().getLastDataBackupCloud());
 
         } else {
             binding.lastBackupCloud.setText(getString(R.string.errorDriverAuthInfo));
@@ -211,18 +195,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             binding.setIsAuthUser(false);
         }
     }
-
-
-    private Drive getDriveCredentialService() {
-        return new Drive.Builder(
-                AndroidHttp.newCompatibleTransport(),
-                new GsonFactory(),
-                GoogleAccountCredential.usingOAuth2(this, Collections.singleton(Scopes.DRIVE_APPFOLDER))
-                        .setSelectedAccount(cloudCacheHelper.getGoogleSignInAccount().getAccount()))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-    }
-
 
     /**
      * Save local backup (2/3) - start intent save json file
@@ -249,8 +221,76 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
+    // TODO: 21.01.2023 Установить ограничение на загрузку данных
+
+    /**
+     * Loading last backup information (id/date)
+     */
+    @Override
+    public void loadingLastBackupInfoCloud() {
+        binding.lastBackupCloud.setText(R.string.checkLastBackupsCloud);
+        final Drive mDriveCredential = cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.getGoogleSignInAccount().getAccount(), this);
+        final int mError = checkErrorCloud(mDriveCredential);
+        if (mError == Cloud_Error.NO_ERROR) {
+            presenter.saveDataLoadingLastBackup(mDriveCredential);
+        } else if (mError == Cloud_Error.NETWORK_ERROR) {
+            showErrors(Cloud_Error.NETWORK_ERROR);
+            binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
+        } else {
+            showErrors(mError);
+        }
+    }
 
 
+    private int checkErrorCloud(Drive mDriveCredential) {
+        if (!isNetworkConnected()) {
+            return Cloud_Error.NETWORK_ERROR;
+        }
+        if (!cloudCacheHelper.isAuth()) {
+            return Cloud_Error.PERMISSION_DRIVE;
+        }
+        if (mDriveCredential == null) {
+            return Cloud_Error.CREDENTIAL;
+        }
+
+        return Cloud_Error.NO_ERROR;
+    }
+
+
+    @Override
+    public void showErrors(int errorCode) {
+        switch (errorCode) {
+            case Cloud_Error.CREDENTIAL:
+                onError(R.string.errorCredential, null);
+                break;
+            case Cloud_Error.PERMISSION_DRIVE:
+                GoogleSignIn.requestPermissions(this,
+                        Drive_Scope.CONST_REQUEST_DRIVE_SCOPE,
+                        cloudCacheHelper.getGoogleSignInAccount(),
+                        ACCESS_DRIVE_SCOPE);
+                break;
+            case Cloud_Error.NETWORK_ERROR:
+                onError(R.string.errorConnectedNetwork, null);
+                break;
+            case Cloud_Error.LAST_BACKUP_EMPTY:
+                onError(R.string.emptyBackups, null);
+                break;
+            case Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP:
+                binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
+                break;
+            default:
+                onError(R.string.error, null);
+                break;
+        }
+    }
+
+
+    // TODO: 21.01.2023 Добавить разрешение
+    /* Permission userPermission = new Permission()
+                    .setType("anyone")
+                    .setRole("reader");
+
+     */
     //создание файла на експорт и передача на сохранение
 
     public void createBackupCloud() {
@@ -297,8 +337,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     // TODO: 19.01.2023 Упростить метод, и разбить его на методы
     private void writeFileBackupCloud(java.io.File copyFileData) {
 
-
-        final Drive mDrive = getDriveCredentialService();
+/*
+        final Drive mDrive = null;
         if (!checkErrorCloud(mDrive)) {
             binding.setIsVisibleProgressCloud(true);
             final ArrayList<String> listIdsDeleted = new ArrayList<>();
@@ -373,42 +413,14 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
         }
         copyFileData.deleteOnExit();
+
+ */
     }
 
 
-    //загрузка последних данных
-    private void loadingLastBackupCloudInfo(Drive mDriveCredential) {
-        if (checkErrorCloud(mDriveCredential)) {
-            binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
-        } else {
-            new Thread(() -> {
-                try {
-                    FileList files = mDriveCredential.files().list()
-                            .setSpaces("appDataFolder")
-                            .setFields("nextPageToken, files(id, name, modifiedTime)")
-                            .setOrderBy("modifiedTime")
-                            .setPageSize(5)
-                            .execute();
-
-                    if (files.size() == 0) {
-                        runOnUiThread(() -> binding.lastBackupCloud.setText(getString(R.string.emptyBackups)));
-                    } else {
-                        for (File file : files.getFiles()) {
-                            presenter.getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, file.getId());
-                            presenter.getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, file.getModifiedTime().getValue());
-                            runOnUiThread(this::editLastDataEditBackupCloud);
-                        }
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }).start();
-        }
-    }
 
 
-    private boolean checkErrorCloud(Drive mDriveCredential) {
+  /*  private boolean checkErrorCloud(Drive mDriveCredential) {
         if (!isNetworkConnected()) {
             onError(R.string.errorConnectedNetwork, null);
             return true;
@@ -436,19 +448,21 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
+   */
+
 
     //восстановлени еданных с клауда
     public void loadRestoreBackupCloud() {
-        final String idBackupCloud = presenter.getDataManager().getLastBackupCloudId();
-        final Drive mDrive = getDriveCredentialService();
-        if (!checkErrorCloud(mDrive)) {
+        //       final String idBackupCloud = presenter.getDataManager().getLastBackupCloudId();
+        //     final Drive mDrive =null;
+   /*     if (!checkErrorCloud(mDrive)) {
             if (!idBackupCloud.equals("null")) {
             /*    runOnUiThread(() -> {
                     progressDialog = processRestoreDialog();
                     progressDialog.show();
                 });
 
-             */
+
                 new Thread(() -> {
                     try {
                         OutputStream outputStream = new ByteArrayOutputStream();
@@ -457,7 +471,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                        /* presenter.restoreDataAndDecodeJson(new String(
                                 Base64.decode(outputStream.toString(), Base64.DEFAULT), StandardCharsets.UTF_8));
 
-                        */
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -467,6 +481,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 onError(R.string.emptyBackups, null);
             }
         }
+        */
     }
 
 
