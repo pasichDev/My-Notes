@@ -182,7 +182,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
      */
     @Override
     public void readFileBackupCloud(Drive mDriveCredential) {
-        //проверка в актиности найдени ли рез копии
+
     }
 
     /**

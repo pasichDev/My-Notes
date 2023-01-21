@@ -152,7 +152,7 @@ public class DriveServiceHelper {
         return task.getTask();
     }
 
-    public Task<BackupCacheHelper> getOldBackupCloud(Drive mDriveCredential) {
+    public Task<BackupCacheHelper> getReadLastBackupCloud(Drive mDriveCredential) {
         final String oldBackup = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP).getString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
         final TaskCompletionSource<BackupCacheHelper> task = new TaskCompletionSource<>();
     /*       mExecutor.execute(() -> {
