@@ -155,7 +155,7 @@
     <string name="restoreDataFall" translatable="false">Ошибка: Резервная копия повреждена</string>
 
     <string name="errorAuth" translatable="false">Ошибка, повторите попытку позже</string>
-    <string name="errorLoadingLastBackupCloud" translatable="false">Ошибка, загрузки данных</string>
+    <string name="errorLoadingLastBackupCloud" translatable="false">Ошибка, нажмите чтобы повторить попытку</string>
     <string name="errorDriveSync" translatable="false">Ошибка сервера, или плохое качество интернета</string>
     <string name="errorCredential" translatable="false">Ошибка, проблемы с авторизацией</string>
 </resources>
