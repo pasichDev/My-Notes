@@ -6,6 +6,8 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.Scopes;
@@ -39,8 +41,12 @@ public class CloudAuthHelper {
         return task;
     }
 
-    public Drive getDriveCredentialService(Account mAccount, Context mContext) {
-        return new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), GoogleAccountCredential.usingOAuth2(mContext, Collections.singleton(Scopes.DRIVE_APPFOLDER)).setSelectedAccount(mAccount)).setApplicationName(APPLICATION_NAME).build();
+
+    public Drive getDriveCredentialService(@Nullable Account mAccount, Context mContext) {
+        return new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(),
+                GoogleAccountCredential.usingOAuth2(mContext, Collections.singleton(Scopes.DRIVE_APPFOLDER))
+                        .setSelectedAccount(mAccount))
+                .setApplicationName(APPLICATION_NAME).build();
     }
 
 }

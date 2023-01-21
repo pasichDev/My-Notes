@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
@@ -10,7 +9,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -44,30 +42,10 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Inject
     public BackupContract.presenter presenter;
-    /**
-     * Restore local backup intent
-     */
-    private final ActivityResultLauncher<Intent> openBackupLocalIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK) {
-            if (result.getData() != null) {
-                presenter.readFileBackupLocal(result.getData().getData());
-            }
-        }
-    });
     @Inject
     public ActivityBackupBinding binding;
     @Inject
     public BackupCacheHelper serviceCache;
-    /**
-     * Save local backup intent
-     */
-    private final ActivityResultLauncher<Intent> startIntentExport = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK) {
-            if (result.getData() != null) {
-                presenter.writeFileBackupLocal(serviceCache, result.getData().getData());
-            }
-        }
-    });
     @Inject
     public GoogleSignInClient googleSignInClient;
     @Inject
@@ -75,14 +53,34 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Inject
     public CloudAuthHelper cloudAuthHelper;
     /**
+     * Restore local backup intent
+     */
+    private final ActivityResultLauncher<Intent> startIntentImport = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            if (result.getData() != null) {
+                presenter.readFileBackupLocal(result.getData().getData());
+            }
+        }
+    });
+    /**
      * Auth user cloud
      */
-    final private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             cloudAuthHelper.getResultAuth(result.getData()).addOnFailureListener((GoogleSignInAccount) -> onError(R.string.errorAuth, null)).addOnSuccessListener((GoogleSignInAccount) -> {
                 cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
                 changeDataUserActivityFromAuth(true);
             });
+        }
+    });
+    /**
+     * Save local backup intent
+     */
+    private ActivityResultLauncher<Intent> startIntentExport = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            if (result.getData() != null) {
+                presenter.writeFileBackupLocal(serviceCache, result.getData().getData());
+            }
         }
     });
     private Dialog progressDialog;
@@ -134,6 +132,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        presenter = null;
+        startAuthIntent = null;
+        startIntentExport = null;
     }
 
     @Override
@@ -170,6 +171,17 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void startIntentLogInUserCloud() {
         startAuthIntent.launch(googleSignInClient.getSignInIntent());
+    }
+
+    /**
+     * Get Drive Object
+     *
+     * @return - drive object
+     */
+    public Drive getDrive() {
+        return cloudAuthHelper.getDriveCredentialService(
+                cloudCacheHelper.isAuth() ? cloudCacheHelper.getGoogleSignInAccount().getAccount() : null,
+                this);
     }
 
 
@@ -211,7 +223,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     @Override
     public void openIntentReadBackup() {
-        openBackupLocalIntent.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
+        startIntentImport.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
     }
 
 
@@ -223,7 +235,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void loadingLastBackupInfoCloud() {
         binding.lastBackupCloud.setText(R.string.checkLastBackupsCloud);
-        final Drive mDriveCredential = cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.getGoogleSignInAccount().getAccount(), this);
+        final Drive mDriveCredential = getDrive();
         final int mError = checkErrorCloud(mDriveCredential);
         if (mError == Cloud_Error.NO_ERROR) {
             presenter.saveDataLoadingLastBackup(mDriveCredential);
@@ -240,7 +252,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     @Override
     public void startWriteBackupCloud(JsonBackup jsonBackup) {
-        final Drive mDriveCredential = cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.getGoogleSignInAccount().getAccount(), this);
+        final Drive mDriveCredential = getDrive();
         if (showErrors(checkErrorCloud(mDriveCredential))) {
             presenter.writeFileBackupCloud(mDriveCredential, jsonBackup);
         }
@@ -251,7 +263,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     @Override
     public void startReadBackupCloud() {
-        final Drive mDriveCredential = cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.getGoogleSignInAccount().getAccount(), this);
+        final Drive mDriveCredential = getDrive();
         final int mError = checkErrorCloud(mDriveCredential);
         if (!showErrors(checkErrorCloud(mDriveCredential))) {
             showErrors(mError);
@@ -318,7 +330,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      * @param mDriveCredential - check isAuth user
      * @return - code error
      */
-    private int checkErrorCloud(Drive mDriveCredential) {
+    private int checkErrorCloud(@Nullable Drive mDriveCredential) {
         if (!isNetworkConnected()) {
             return Cloud_Error.NETWORK_ERROR;
         }
@@ -350,7 +362,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 onError(R.string.errorCredential, null);
                 break;
             case Cloud_Error.PERMISSION_DRIVE:
-                GoogleSignIn.requestPermissions(this, Drive_Scope.CONST_REQUEST_DRIVE_SCOPE, cloudCacheHelper.getGoogleSignInAccount(), ACCESS_DRIVE_SCOPE);
+                if (cloudCacheHelper.isAuth())
+                    GoogleSignIn.requestPermissions(this, Drive_Scope.CONST_REQUEST_DRIVE_SCOPE, cloudCacheHelper.getGoogleSignInAccount(), ACCESS_DRIVE_SCOPE);
+                else startIntentLogInUserCloud();
                 break;
             case Cloud_Error.NETWORK_ERROR:
                 onError(R.string.errorConnectedNetwork, null);
@@ -385,12 +399,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void dialogChoiceVariantAutoBackup() {
-        new MaterialAlertDialogBuilder(this).setCancelable(true).setTitle(R.string.autoCloudBackupTitle).setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(), (dialog, item) -> {
-            editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
-            presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
-            dialog.dismiss();
+        if (showErrors(checkErrorCloud(getDrive()))) {
+            new MaterialAlertDialogBuilder(this).setCancelable(true).setTitle(R.string.autoCloudBackupTitle).setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(), (dialog, item) -> {
+                editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
+                presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+                dialog.dismiss();
 
-        }).create().show();
+            }).create().show();}
     }
 
     @Override
@@ -402,7 +417,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             }
             dialog.dismiss();
         }).create().show();
-        Log.wtf(TAG, "restoreBackupPresenter: dialogRestoreData activity ");
     }
 
     @Override

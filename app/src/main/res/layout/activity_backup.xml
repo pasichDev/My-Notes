@@ -120,7 +120,6 @@
             android:layout_height="wrap_content"
             android:onClick="@{(view) -> presenter.openChoiceDialogAutoBackup()}"
             android:background="?android:attr/selectableItemBackground"
-            android:clickable="@{isAuthUser}"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
 
@@ -157,7 +156,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{(view) -> presenter.saveBackupPresenter(false)}"
-            android:clickable="@{isAuthUser}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
@@ -178,7 +176,6 @@
             android:id="@+id/importCloudBackup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="@{isAuthUser}"
             android:onClick="@{(view) -> presenter.restoreBackupPresenter(false)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
