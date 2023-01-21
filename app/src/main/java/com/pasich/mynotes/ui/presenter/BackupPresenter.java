@@ -1,9 +1,11 @@
 package com.pasich.mynotes.ui.presenter;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.presenter.BackupBasePresenter;
@@ -22,6 +24,7 @@ import javax.inject.Inject;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 @PerActivity
 public class BackupPresenter extends BackupBasePresenter<BackupContract.view> implements BackupContract.presenter {
@@ -103,15 +106,31 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
      */
     @Override
     public void readFileBackupLocal(Uri mUri) {
+        getView().showProcessRestoreDialog();
         final JsonBackup jsonBackup = getLocalServiceHelper().readBackupLocalFile(mUri);
         if (jsonBackup != null) {
-            getView().showProcessRestoreDialog();
-            getCompositeDisposable().add(Completable.mergeArray(getDataManager().addNotes(jsonBackup.getNotes()), getDataManager().addTags(jsonBackup.getTags()), getDataManager().addTrashNotes(jsonBackup.getTrashNotes())).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(() -> getView().restoreFinish(false)));
+            restoreData(jsonBackup);
         } else {
             getView().restoreFinish(true);
         }
 
     }
+
+    private void restoreData(JsonBackup jsonBackup) {
+        getCompositeDisposable().add(
+                Completable.mergeArray(
+                                getDataManager().addNotes(jsonBackup.getNotes()),
+                                getDataManager().addTags(jsonBackup.getTags()),
+                                getDataManager().addTrashNotes(jsonBackup.getTrashNotes()))
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
+                        .doOnTerminate(() -> getView().restoreFinish(false))
+                        .subscribe());
+
+    }
+
+
+    // TODO: 22.01.2023 Bug после восстановление обноялеться подписка, нужно уничтожить
 
     /**
      * Restore data algorithm and navigator
@@ -120,17 +139,25 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
      */
     @Override
     public void restoreBackupPresenter(boolean local) {
-        getCompositeDisposable().add(Flowable.zip(getDataManager().getNotes(), getDataManager().getTrashNotesLoad(), getDataManager().getTagsUser(), (noteList, trashNoteList, tagList) -> noteList.size() + trashNoteList.size() + tagList.size()).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(countData -> {
-            if (countData == 0) {
-                if (local) getView().openIntentReadBackup();
-                else {
-                    getView().startReadBackupCloud();
-                }
-            } else {
-                getView().dialogRestoreData(local);
+        Disposable disposable = Flowable.zip(getDataManager().getNotes(), getDataManager().getTrashNotesLoad(), getDataManager().getTagsUser(), (noteList, trashNoteList, tagList) -> noteList.size() + trashNoteList.size() + tagList.size())
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(countData -> {
+                    Log.wtf(TAG, "restoreBackupPresenter: " + countData);
+                    if (countData == 0) {
+                        if (local) {
+                            getView().openIntentReadBackup();
+                        } else {
+                            getView().startReadBackupCloud();
+                        }
+                    } else {
+                        getView().dialogRestoreData(local);
+                    }
 
-            }
-        }));
+                });
+
+        getCompositeDisposable().add(disposable);
+
     }
 
 
@@ -152,22 +179,18 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
             if (backupTemp == null) {
                 getView().showErrors(Cloud_Error.ERROR_CREATE_CLOUD_BACKUP);
             } else {
-                getDriveServiceHelper().writeCloudBackup(mDriveCredential, backupTemp, getView().getProcessListener())
-                        .addOnCompleteListener(stack -> {
-                            getView().goneProgressBarCLoud();
-                            backupTemp.deleteOnExit();
-                        })
-                        .addOnFailureListener(stack -> {
-                            backupTemp.deleteOnExit();
-                            getView().showErrors(Cloud_Error.NETWORK_FALSE);
-                        }).addOnSuccessListener(backupCloud -> {
-                            getView().editLastDataEditBackupCloud(backupCloud.getLastDate(), false);
-                            getDataManager().getBackupCloudInfoPreference()
-                                    .putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId())
-                                    .putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
-                            getView().createLocalCopyFinish(true);
-                            getDriveServiceHelper().cleanOldBackups(mDriveCredential, listBackups);
-                        });
+                getDriveServiceHelper().writeCloudBackup(mDriveCredential, backupTemp, getView().getProcessListener()).addOnCompleteListener(stack -> {
+                    getView().goneProgressBarCLoud();
+                    backupTemp.deleteOnExit();
+                }).addOnFailureListener(stack -> {
+                    backupTemp.deleteOnExit();
+                    getView().showErrors(Cloud_Error.NETWORK_FALSE);
+                }).addOnSuccessListener(backupCloud -> {
+                    getView().editLastDataEditBackupCloud(backupCloud.getLastDate(), false);
+                    getDataManager().getBackupCloudInfoPreference().putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId()).putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
+                    getView().createLocalCopyFinish(true);
+                    getDriveServiceHelper().cleanOldBackups(mDriveCredential, listBackups);
+                });
             }
         }).addOnFailureListener(stack -> {
             getView().goneProgressBarCLoud();
@@ -182,7 +205,10 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
      */
     @Override
     public void readFileBackupCloud(Drive mDriveCredential) {
-
+        getView().showProcessRestoreDialog();
+        getDriveServiceHelper().getReadLastBackupCloud(mDriveCredential)
+                .addOnSuccessListener(this::restoreData)
+                .addOnFailureListener(stack -> getView().restoreFinish(true));
     }
 
     /**

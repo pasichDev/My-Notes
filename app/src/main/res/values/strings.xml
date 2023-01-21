@@ -151,7 +151,7 @@
     <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано!</string>
     <string name="creteLocalCopyFail" translatable="false">Ошибка, резервная копия не сохранена</string>
     <string name="restoreDataOkay" translatable="false">Восстановление данных завершено успешно</string>
-    <string name="restoreDataFall" translatable="false">Ошибка: Резервная копия повреждена</string>
+    <string name="restoreDataFall" translatable="false">Ошибка: Восстановление данных завершилось с ошибкой</string>
 
     <string name="errorAuth" translatable="false">Ошибка, повторите попытку позже</string>
     <string name="errorLoadingLastBackupCloud" translatable="false">Ошибка, нажмите чтобы повторить попытку</string>

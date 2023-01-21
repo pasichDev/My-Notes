@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
@@ -9,6 +10,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -261,41 +263,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     }
 
-
-    //восстановлени еданных с клауда
-    public void loadRestoreBackupCloud() {
-        //       final String idBackupCloud = presenter.getDataManager().getLastBackupCloudId();
-        //     final Drive mDrive =null;
-   /*     if (!checkErrorCloud(mDrive)) {
-            if (!idBackupCloud.equals("null")) {
-            /*    runOnUiThread(() -> {
-                    progressDialog = processRestoreDialog();
-                    progressDialog.show();
-                });
-
-
-                new Thread(() -> {
-                    try {
-                        OutputStream outputStream = new ByteArrayOutputStream();
-                        mDrive.files().get(idBackupCloud)
-                                .executeMediaAndDownloadTo(outputStream);
-                       /* presenter.restoreDataAndDecodeJson(new String(
-                                Base64.decode(outputStream.toString(), Base64.DEFAULT), StandardCharsets.UTF_8));
-
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }).start();
-            } else {
-                onError(R.string.emptyBackups, null);
-            }
-        }
-        */
-    }
-
-
     /**
      * Visible progressBar write cloud backup
      */
@@ -404,6 +371,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 goneProgressBarCLoud();
                 onError(R.string.creteLocalCopyFail, null);
                 break;
+            case Cloud_Error.ERROR_RESTORE_BACKUP:
+                onError(R.string.restoreDataFall, null);
+                break;
             case Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP:
                 binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
                 break;
@@ -432,6 +402,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             }
             dialog.dismiss();
         }).create().show();
+        Log.wtf(TAG, "restoreBackupPresenter: dialogRestoreData activity ");
     }
 
     @Override

@@ -14,12 +14,15 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.data.model.BackupCloud;
+import com.pasich.mynotes.data.model.JsonBackup;
 import com.pasich.mynotes.data.model.LastBackupCloud;
-import com.pasich.mynotes.utils.backup.BackupCacheHelper;
+import com.pasich.mynotes.utils.backup.ScramblerBackupHelper;
 import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.preference.PowerPreference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -152,29 +155,18 @@ public class DriveServiceHelper {
         return task.getTask();
     }
 
-    public Task<BackupCacheHelper> getReadLastBackupCloud(Drive mDriveCredential) {
-        final String oldBackup = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP).getString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
-        final TaskCompletionSource<BackupCacheHelper> task = new TaskCompletionSource<>();
-    /*       mExecutor.execute(() -> {
+    public Task<JsonBackup> getReadLastBackupCloud(Drive mDriveCredential) {
+        final String idBackupCloud = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP).getString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
+        final TaskCompletionSource<JsonBackup> task = new TaskCompletionSource<>();
+        mExecutor.execute(() -> {
             try {
-             if (!oldBackup.equals("null")) {
-                    listIdsDeleted.add(mDriveCredential.files().get(oldBackup).getFileId());
-                } else {
-                    FileList files = mDriveCredential.files().list().setSpaces("appDataFolder").setFields("nextPageToken, files(id, name)").setPageSize(3).execute();
-
-                    for (File file : files.getFiles()) {
-                        listIdsDeleted.add(file.getId());
-                    }
-                }
-
-                task.setResult(listIdsDeleted);
-
-
-
+                OutputStream outputStream = new ByteArrayOutputStream();
+                mDriveCredential.files().get(idBackupCloud).executeMediaAndDownloadTo(outputStream);
+                task.setResult(ScramblerBackupHelper.decodeString(outputStream.toString()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }); */
+        });
         return task.getTask();
     }
 
