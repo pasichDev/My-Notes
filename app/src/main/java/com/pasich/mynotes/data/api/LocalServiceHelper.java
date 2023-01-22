@@ -6,7 +6,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 
-import com.pasich.mynotes.data.model.JsonBackup;
+import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.di.scope.ApplicationContext;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.ScramblerBackupHelper;

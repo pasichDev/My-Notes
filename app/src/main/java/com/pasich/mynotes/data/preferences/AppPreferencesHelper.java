@@ -1,6 +1,7 @@
 package com.pasich.mynotes.data.preferences;
 
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
@@ -15,9 +16,15 @@ import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREF
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_SIZE;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE;
 
+import android.util.Log;
+
+import com.pasich.mynotes.data.model.backup.Preferences;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;
 import com.preference.PowerPreference;
 import com.preference.Preference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -74,6 +81,35 @@ public class AppPreferencesHelper implements PreferenceHelper {
     @Override
     public int getSetCloudAuthBackup() {
         return getBackupCloudInfoPreference().getInt(ARGUMENT_AUTO_BACKUP_CLOUD, ARGUMENT_AUTO_BACKUP_CLOUD_ID);
+    }
+
+    @Override
+    public List<Preferences> getListPreferences() {
+        List<Preferences> preferences = new ArrayList<>();
+        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_FORMAT, getFormatCount()));
+        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE, getTypeFaceNoteActivity()));
+        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_SORT, getSortParam()));
+        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_SIZE, getSizeTextNoteActivity()));
+        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)));
+        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE)));
+        return preferences;
+    }
+
+    @Override
+    public void setListPreferences(List<Preferences> preferences) {
+        for (Preferences preference : preferences) {
+            Log.wtf(TAG, "setListPreferences: " + preference.getKey());
+            getDefaultPreferences().putObject(preference.getKey(), preference.getValue());
+        }
+     /*   getDefaultPreferences()
+                .put(PreferencesConfig.ARGUMENT_PREFERENCE_FORMAT, preferences.get(0).getValue())
+                .putString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE)
+                .putString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF)
+                .putInt(ARGUMENT_PREFERENCE_TEXT_SIZE, ARGUMENT_DEFAULT_TEXT_SIZE)
+                .putInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)
+                .putBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
+
+      */
     }
 
     @Override

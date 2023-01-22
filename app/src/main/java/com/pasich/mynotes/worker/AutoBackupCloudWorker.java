@@ -38,7 +38,7 @@ import com.google.api.services.drive.model.FileList;
 import com.google.gson.Gson;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DatabaseCustomConnect;
-import com.pasich.mynotes.data.model.JsonBackup;
+import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.preference.PowerPreference;
 

@@ -1,7 +1,10 @@
 package com.pasich.mynotes.data.preferences;
 
 
+import com.pasich.mynotes.data.model.backup.Preferences;
 import com.preference.Preference;
+
+import java.util.List;
 
 
 public interface PreferenceHelper {
@@ -25,4 +28,8 @@ public interface PreferenceHelper {
     void editSizeTextNoteActivity(int value);
 
     int getSetCloudAuthBackup();
+
+    List<Preferences> getListPreferences();
+
+    void setListPreferences(List<Preferences> preferences);
 }

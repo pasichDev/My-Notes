@@ -12,7 +12,7 @@ import com.pasich.mynotes.base.presenter.BackupBasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.api.DriveServiceHelper;
 import com.pasich.mynotes.data.api.LocalServiceHelper;
-import com.pasich.mynotes.data.model.JsonBackup;
+import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
@@ -76,6 +76,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     @Override
     public void saveBackupPresenter(boolean local) {
         JsonBackup jsonBackupTemp = new JsonBackup();
+        jsonBackupTemp.setPreferences(getDataManager().getListPreferences());
         getCompositeDisposable().add(Flowable.zip(getDataManager().getNotes(), getDataManager().getTrashNotesLoad(), getDataManager().getTagsUser(), (noteList, trashNoteList, tagList) -> {
             jsonBackupTemp.setNotes(noteList);
             jsonBackupTemp.setTrashNotes(trashNoteList);
@@ -117,6 +118,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     }
 
     private void restoreData(JsonBackup jsonBackup) {
+        getDataManager().setListPreferences(jsonBackup.getPreferences());
         getCompositeDisposable().add(
                 Completable.mergeArray(
                                 getDataManager().addNotes(jsonBackup.getNotes()),
@@ -179,17 +181,18 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
             if (backupTemp == null) {
                 getView().showErrors(Cloud_Error.ERROR_CREATE_CLOUD_BACKUP);
             } else {
-                getDriveServiceHelper().writeCloudBackup(mDriveCredential, backupTemp, getView().getProcessListener()).addOnCompleteListener(stack -> {
-                    getView().goneProgressBarCLoud();
-                    backupTemp.deleteOnExit();
-                }).addOnFailureListener(stack -> {
-                    backupTemp.deleteOnExit();
-                    getView().showErrors(Cloud_Error.NETWORK_FALSE);
-                }).addOnSuccessListener(backupCloud -> {
-                    getView().editLastDataEditBackupCloud(backupCloud.getLastDate(), false);
-                    getDataManager().getBackupCloudInfoPreference().putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId()).putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
-                    getView().createLocalCopyFinish(true);
-                    getDriveServiceHelper().cleanOldBackups(mDriveCredential, listBackups);
+                getDriveServiceHelper().writeCloudBackup(mDriveCredential, backupTemp, getView().getProcessListener())
+                        .addOnCompleteListener(stack -> {
+                            getView().goneProgressBarCLoud();
+                            backupTemp.deleteOnExit();
+                        }).addOnFailureListener(stack -> {
+                            backupTemp.deleteOnExit();
+                            getView().showErrors(Cloud_Error.NETWORK_FALSE);
+                        }).addOnSuccessListener(backupCloud -> {
+                            getView().editLastDataEditBackupCloud(backupCloud.getLastDate(), false);
+                            getDataManager().getBackupCloudInfoPreference().putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId()).putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
+                            getView().createLocalCopyFinish(true);
+                            getDriveServiceHelper().cleanOldBackups(mDriveCredential, listBackups);
                 });
             }
         }).addOnFailureListener(stack -> {

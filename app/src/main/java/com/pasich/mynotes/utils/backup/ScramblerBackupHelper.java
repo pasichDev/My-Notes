@@ -3,7 +3,7 @@ package com.pasich.mynotes.utils.backup;
 import android.util.Base64;
 
 import com.google.gson.Gson;
-import com.pasich.mynotes.data.model.JsonBackup;
+import com.pasich.mynotes.data.model.backup.JsonBackup;
 
 import java.nio.charset.StandardCharsets;
 

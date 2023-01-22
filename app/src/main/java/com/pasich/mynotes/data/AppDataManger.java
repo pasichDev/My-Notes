@@ -5,6 +5,7 @@ import com.pasich.mynotes.data.database.DbHelper;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
+import com.pasich.mynotes.data.model.backup.Preferences;
 import com.pasich.mynotes.data.preferences.AppPreferencesHelper;
 import com.preference.Preference;
 
@@ -79,6 +80,16 @@ public class AppDataManger implements DataManager {
     @Override
     public int getSetCloudAuthBackup() {
         return preferencesHelper.getSetCloudAuthBackup();
+    }
+
+    @Override
+    public List<Preferences> getListPreferences() {
+        return preferencesHelper.getListPreferences();
+    }
+
+    @Override
+    public void setListPreferences(List<Preferences> preferences) {
+        preferencesHelper.setListPreferences(preferences);
     }
 
     @Override

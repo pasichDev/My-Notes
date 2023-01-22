@@ -7,7 +7,7 @@ import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.view.BackupPresenter;
 import com.pasich.mynotes.base.view.BaseView;
-import com.pasich.mynotes.data.model.JsonBackup;
+import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 
