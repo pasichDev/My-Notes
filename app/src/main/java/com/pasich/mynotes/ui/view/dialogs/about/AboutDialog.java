@@ -1,4 +1,4 @@
-package com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog;
+package com.pasich.mynotes.ui.view.dialogs.about;
 
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,9 +20,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
+import com.avatarfirst.avatargenlib.AvatarGenerator;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
@@ -133,12 +136,20 @@ public class AboutDialog extends BaseDialogBottomSheets {
     private void loadingDataUser(boolean isAuth) {
 
         if (isAuth) {
-            binding.loginPage.nameUser.setText(cloudCacheHelper.getGoogleSignInAccount().getDisplayName());
+            String nameUser = cloudCacheHelper.getGoogleSignInAccount().getDisplayName();
+            binding.loginPage.nameUser.setText(nameUser);
             binding.loginPage.emailUSer.setText(cloudCacheHelper.getGoogleSignInAccount().getEmail());
             Glide.with(requireContext())
                     .load(cloudCacheHelper.getGoogleSignInAccount().getPhotoUrl())
-                    .placeholder(R.drawable.demo_avatar_user)
-                    .error(R.drawable.demo_avatar_user)
+                    .placeholder(new AvatarGenerator.AvatarBuilder(requireContext())
+                            .setLabel(nameUser == null ? "User" : nameUser)
+                            .setAvatarSize(120)
+                            .setTextSize(30)
+                            .toSquare()
+                            .toCircle()
+                            .setBackgroundColor(MaterialColors.getColor(requireContext(), R.attr.colorPrimary, Color.GRAY))
+                            .build())
+
                     .into(binding.loginPage.userAvatar);
             binding.loginPage.loginUser.setVisibility(View.GONE);
             binding.loginPage.loginPageRoot.setVisibility(View.VISIBLE);

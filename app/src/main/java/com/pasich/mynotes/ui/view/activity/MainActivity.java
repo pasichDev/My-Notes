@@ -1,20 +1,16 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,14 +26,14 @@ import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.about.AboutDialog;
+import com.pasich.mynotes.ui.view.dialogs.about.AboutOpensActivity;
 import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTag;
 import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTagOnClickListener;
-import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutDialog;
-import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutOpensActivity;
 import com.pasich.mynotes.utils.ShareUtils;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
@@ -105,18 +101,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mainPresenter.viewIsReady();
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
 
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                // Implementation
-
-                Log.wtf(TAG, "onSharedPreferenceChanged: " + prefs + "/" + key);
-            }
-        };
-
-
-        prefs.registerOnSharedPreferenceChangeListener(listener);
     }
 
 

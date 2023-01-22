@@ -229,7 +229,22 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
 
-    // TODO: 21.01.2023 Установить ограничение на загрузку данных
+    // TODO: 23.01.2023 Пример слушетеля изменения настроек
+    /**
+     *
+     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+     SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+     // Implementation
+
+     Log.wtf(TAG, "onSharedPreferenceChanged: " + prefs + "/" + key);
+     }
+     };
+
+
+     prefs.registerOnSharedPreferenceChangeListener(listener);
+     */
+
 
     /**
      * Loading last backup information (id/date)

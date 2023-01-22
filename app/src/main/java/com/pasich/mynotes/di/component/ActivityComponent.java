@@ -13,10 +13,10 @@ import com.pasich.mynotes.ui.view.activity.NoteActivity;
 import com.pasich.mynotes.ui.view.activity.ThemeActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
+import com.pasich.mynotes.ui.view.dialogs.about.AboutDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
-import com.pasich.mynotes.ui.view.dialogs.settings.aboutDialog.AboutDialog;
 import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 
 import dagger.Component;

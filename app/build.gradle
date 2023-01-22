@@ -81,22 +81,25 @@ dependencies {
     //powerPreferences
     implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"
 
-    // reactive
+    //Reactive (rxjava2)
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     implementation 'androidx.room:room-rxjava2:2.5.0'
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
     testImplementation "androidx.room:room-compiler-processing-testing:$roomVersion"
 
-    // for drive integration
+    //Google Drive integration
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
+    implementation 'com.google.http-client:google-http-client-gson:1.42.1'
+    implementation 'com.google.api-client:google-api-client-android:1.26.0'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
+
+    //Other lib (Gson/Glide)
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'com.google.code.gson:gson:2.9.0'
 
-    implementation 'com.google.http-client:google-http-client-gson:1.42.1'
-    implementation('com.google.api-client:google-api-client-android:1.26.0')
-    implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0')
-
+    //Create letter avatar
+    implementation 'com.github.amoskorir:avatarimagegenerator:1.5.0'
 
 }
 
