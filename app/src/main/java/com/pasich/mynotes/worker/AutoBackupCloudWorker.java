@@ -11,7 +11,6 @@ import static com.pasich.mynotes.utils.constants.Drive_Scope.APPLICATION_NAME;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -186,15 +185,18 @@ public class AutoBackupCloudWorker extends Worker {
 
         Intent intent = new Intent(getApplicationContext(), BackupActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+    /*    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
+                0, intent, PendingIntent.FLAG_IMMUTABLE);
 
+
+     */
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "autoBackup")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(getApplicationContext().getString(R.string.workAutoBackupTitle))
                 .setContentText("20%")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Much longer text that cannot fit one line..."))
-                .setContentIntent(pendingIntent)
+                //  .setContentIntent(pendingIntent)
                 .setTimeoutAfter(4000)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 

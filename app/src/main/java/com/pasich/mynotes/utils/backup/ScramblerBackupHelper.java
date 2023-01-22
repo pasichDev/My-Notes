@@ -14,7 +14,10 @@ public class ScramblerBackupHelper {
     }
 
     public static JsonBackup decodeString(String string) {
+
         JsonBackup jsonBackup = new Gson().fromJson(new String(Base64.decode(string, Base64.DEFAULT), StandardCharsets.UTF_8), JsonBackup.class);
         return jsonBackup;
     }
+
+
 }

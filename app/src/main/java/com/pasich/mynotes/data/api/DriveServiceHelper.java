@@ -109,7 +109,8 @@ public class DriveServiceHelper {
      * @param mDriveCredential - drive permissions check
      * @param oldBackups       - array old backups ids
      */
-    public void cleanOldBackups(Drive mDriveCredential, ArrayList<String> oldBackups) {
+    public Task<Void> cleanOldBackups(Drive mDriveCredential, ArrayList<String> oldBackups) {
+        final TaskCompletionSource<Void> task = new TaskCompletionSource<>();
         mExecutor.execute(() -> {
             try {
                 for (String idDeleteBackup : oldBackups) {
@@ -119,6 +120,7 @@ public class DriveServiceHelper {
                 e.printStackTrace();
             }
         });
+        return task.getTask();
     }
 
 

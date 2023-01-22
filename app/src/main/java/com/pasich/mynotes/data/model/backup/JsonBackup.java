@@ -16,6 +16,10 @@ public class JsonBackup {
     public List<Tag> tags;
 
     public JsonBackup() {
+        this.preferences = new PreferencesBackup();
+        this.notes = getNotes();
+        this.tags = getTags();
+        this.trashNotes = getTrashNotes();
     }
 
     public void setNotes(List<Note> notes) {

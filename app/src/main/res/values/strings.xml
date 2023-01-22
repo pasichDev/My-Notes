@@ -137,8 +137,8 @@
     <string name="autoCloudVariantsOff" translatable="false">Выкл.</string>
 
 
-    <string name="chanelAutoBackup" translatable="false">Автоматическое резервное копирование </string>
-    <string name="chanelAutoBackupDescpt" translatable="false">Автоматическое резервное копирование </string>
+    <string name="chanelAutoBackup" translatable="false">Автоматическое резервное копирование</string>
+    <string name="chanelAutoBackupDescpt" translatable="false">Автоматическое резервное копирование</string>
 
 
     <string name="workAutoBackupTitle" translatable="false">Выполняеться резервное копирование</string>
@@ -150,7 +150,7 @@
     <string name="errorConnectedNetwork" translatable="false">Нет подключения к интернету</string>
     <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано!</string>
     <string name="creteLocalCopyFail" translatable="false">Ошибка, резервная копия не сохранена</string>
-    <string name="restoreDataOkay" translatable="false">Восстановление данных завершено успешно! Чтобы все изменения вступили в силу перезапустите приложение</string>
+    <string name="restoreDataOkay" translatable="false">Восстановление данных завершено успешно!</string>
     <string name="restoreDataFall" translatable="false">Ошибка: Восстановление данных завершилось с ошибкой</string>
     <string name="errorAuth" translatable="false">Ошибка, повторите попытку позже</string>
     <string name="errorLoadingLastBackupCloud" translatable="false">Ошибка, нажмите чтобы повторить попытку</string>
