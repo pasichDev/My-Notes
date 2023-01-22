@@ -6,7 +6,7 @@ import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACK
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FIlE_NAME_PREFERENCE_BACKUP;
 
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.client.http.FileContent;
@@ -21,7 +21,6 @@ import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.preference.PowerPreference;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,30 +49,22 @@ public class DriveServiceHelper {
      */
     public Task<LastBackupCloud> getLastBackupInfo(Drive mDriveCredential) {
         final ArrayList<LastBackupCloud> list = new ArrayList<>();
-        TaskCompletionSource<LastBackupCloud> task = new TaskCompletionSource<>();
-        mExecutor.execute(() -> {
-            try {
-                FileList files = mDriveCredential.files().list().setSpaces("appDataFolder")
-                        .setFields("files(id, modifiedTime)").setOrderBy("modifiedTime")
-                        .setPageSize(PAGE_SIZE)
-                        .execute();
+        return Tasks.call(mExecutor, () -> {
+            FileList files = mDriveCredential.files().list().setSpaces("appDataFolder")
+                    .setFields("files(id, modifiedTime)").setOrderBy("modifiedTime")
+                    .setPageSize(PAGE_SIZE)
+                    .execute();
 
-                for (File file : files.getFiles()) {
-                    list.add(new LastBackupCloud(file.getId(), file.getModifiedTime().getValue()));
-                }
-
-                if (list.size() == 0) {
-                    task.setResult(new LastBackupCloud(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW));
-                } else {
-                    task.setResult(list.get(0));
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
+            for (File file : files.getFiles()) {
+                list.add(new LastBackupCloud(file.getId(), file.getModifiedTime().getValue()));
             }
 
+            if (list.size() == 0) {
+                return new LastBackupCloud(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW);
+            } else {
+                return list.get(0);
+            }
         });
-        return task.getTask();
     }
 
 
@@ -85,22 +76,16 @@ public class DriveServiceHelper {
      * @param progressListener - listener progress upload
      */
     public Task<BackupCloud> writeCloudBackup(Drive mDriveCredential, java.io.File backupTemp, MediaHttpUploaderProgressListener progressListener) {
-        final TaskCompletionSource<BackupCloud> task = new TaskCompletionSource<>();
-        mExecutor.execute(() -> {
+        return Tasks.call(mExecutor, () -> {
             final File fileMetadata = new File().setName(FILE_NAME_BACKUP).setParents(Collections.singletonList("appDataFolder"));
             final FileContent mediaContent = new FileContent("application/json", backupTemp);
 
-            try {
-                Drive.Files.Create create = mDriveCredential.files().create(fileMetadata, mediaContent).setFields("id");
-                MediaHttpUploader uploader = create.getMediaHttpUploader();
-                uploader.setProgressListener(progressListener);
-                File file = create.execute();
-                task.setResult(new BackupCloud(file.getId(), new Date().getTime()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Drive.Files.Create create = mDriveCredential.files().create(fileMetadata, mediaContent).setFields("id");
+            MediaHttpUploader uploader = create.getMediaHttpUploader();
+            uploader.setProgressListener(progressListener);
+            File file = create.execute();
+            return new BackupCloud(file.getId(), new Date().getTime());
         });
-        return task.getTask();
     }
 
     /**
@@ -109,22 +94,15 @@ public class DriveServiceHelper {
      * @param mDriveCredential - drive permissions check
      * @param oldBackups       - array old backups ids
      */
-    public Task<Void> cleanOldBackups(Drive mDriveCredential, ArrayList<String> oldBackups) {
-        final TaskCompletionSource<Void> task = new TaskCompletionSource<>();
-        mExecutor.execute(() -> {
-            try {
-                for (String idDeleteBackup : oldBackups) {
-                    mDriveCredential.files().delete(idDeleteBackup).execute();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+    public Task<Boolean> cleanOldBackups(Drive mDriveCredential, ArrayList<String> oldBackups) {
+        return Tasks.call(mExecutor, () -> {
+            for (String idDeleteBackup : oldBackups) {
+                mDriveCredential.files().delete(idDeleteBackup).execute();
             }
+            return true;
         });
-        return task.getTask();
     }
 
-
-    // TODO: 21.01.2023 #1 если нет файла то пропустим чтобы небыло бага
 
     /**
      * Load oldBackup list
@@ -134,42 +112,31 @@ public class DriveServiceHelper {
     public Task<ArrayList<String>> getOldBackupForCLean(Drive mDriveCredential) {
         final ArrayList<String> listIdsDeleted = new ArrayList<>();
         final String oldBackup = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP).getString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
-        final TaskCompletionSource<ArrayList<String>> task = new TaskCompletionSource<>();
-        mExecutor.execute(() -> {
-            try {
-                //1
-                if (!oldBackup.equals("null")) {
-                    listIdsDeleted.add(mDriveCredential.files().get(oldBackup).setFields("files(id)").getFileId());
-                } else {
-                    FileList files = mDriveCredential.files().list().setSpaces("appDataFolder")
-                            .setFields("files(id)").setPageSize(PAGE_SIZE).execute();
-
-                    for (File file : files.getFiles()) {
-                        listIdsDeleted.add(file.getId());
-                    }
+        return Tasks.call(mExecutor, () -> {
+            if (!oldBackup.equals("null")) {
+                File mFile = mDriveCredential.files().get(oldBackup).setFields("files(id)").execute();
+                if (mFile != null) {
+                    listIdsDeleted.add(mFile.getId());
                 }
-                task.setResult(listIdsDeleted);
+            } else {
+                FileList files = mDriveCredential.files().list().setSpaces("appDataFolder")
+                        .setFields("files(id)").setPageSize(PAGE_SIZE).execute();
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                for (File file : files.getFiles()) {
+                    listIdsDeleted.add(file.getId());
+                }
             }
+            return listIdsDeleted;
         });
-        return task.getTask();
     }
 
     public Task<JsonBackup> getReadLastBackupCloud(Drive mDriveCredential) {
         final String idBackupCloud = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP).getString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
-        final TaskCompletionSource<JsonBackup> task = new TaskCompletionSource<>();
-        mExecutor.execute(() -> {
-            try {
-                OutputStream outputStream = new ByteArrayOutputStream();
-                mDriveCredential.files().get(idBackupCloud).executeMediaAndDownloadTo(outputStream);
-                task.setResult(ScramblerBackupHelper.decodeString(outputStream.toString()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        return Tasks.call(mExecutor, () -> {
+            OutputStream outputStream = new ByteArrayOutputStream();
+            mDriveCredential.files().get(idBackupCloud).executeMediaAndDownloadTo(outputStream);
+            return ScramblerBackupHelper.decodeString(outputStream.toString());
         });
-        return task.getTask();
     }
 
 }

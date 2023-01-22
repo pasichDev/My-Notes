@@ -182,10 +182,6 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     }
 
 
-    // TODO: 21.01.2023 Если при создани копии открлючить интернет процес виснет, нужно поравить 
-    // TODO: 21.01.2023 Возможно это нужно реализовать с помощю сохранения процеса загрузки
-
-
     /**
      * Upload backup to cloud (3/3)
      *
@@ -244,15 +240,16 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
      */
     @Override
     public void saveDataLoadingLastBackup(Drive mDriveCredential) {
-        getDriveServiceHelper().getLastBackupInfo(mDriveCredential).addOnCompleteListener(lastInfo -> {
-            if (lastInfo.getResult().getErrorCode() == 0) {
-                getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, lastInfo.getResult().getId());
-                getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, lastInfo.getResult().getLastDate());
-            } else {
-                getView().showErrors(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW);
-            }
-            getView().editLastDataEditBackupCloud(lastInfo.getResult().getLastDate(), lastInfo.getResult().getErrorCode() != 0);
-        }).addOnFailureListener(fileList -> getView().showErrors(Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP));
+        getDriveServiceHelper().getLastBackupInfo(mDriveCredential)
+                .addOnCompleteListener(lastInfo -> {
+                    if (lastInfo.getResult().getErrorCode() == 0) {
+                        getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, lastInfo.getResult().getId());
+                        getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, lastInfo.getResult().getLastDate());
+                    } else {
+                        getView().showErrors(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW);
+                    }
+                    getView().editLastDataEditBackupCloud(lastInfo.getResult().getLastDate(), lastInfo.getResult().getErrorCode() != 0);
+                }).addOnFailureListener(fileList -> getView().showErrors(Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP));
     }
 
 }
