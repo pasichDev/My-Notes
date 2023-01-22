@@ -31,7 +31,7 @@ public interface BackupContract {
 
         void dialogRestoreData(boolean local);
 
-        void restoreFinish(boolean error);
+        void restoreFinish(int infoCode);
 
         void showProcessRestoreDialog();
 

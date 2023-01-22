@@ -9,17 +9,24 @@ import java.util.List;
 
 public class JsonBackup {
 
-    public PreferencesBackup preferences;
-    public List<Note> notes;
-    public List<TrashNote> trashNotes;
+    private PreferencesBackup preferences;
+    private List<Note> notes;
+    private List<TrashNote> trashNotes;
 
-    public List<Tag> tags;
+    private List<Tag> tags;
+
+    private boolean errorCode = false;
 
     public JsonBackup() {
         this.preferences = new PreferencesBackup();
         this.notes = getNotes();
         this.tags = getTags();
         this.trashNotes = getTrashNotes();
+    }
+
+    public JsonBackup error() {
+        this.errorCode = true;
+        return this;
     }
 
     public void setNotes(List<Note> notes) {
@@ -53,5 +60,9 @@ public class JsonBackup {
 
     public PreferencesBackup getPreferences() {
         return preferences == null ? new PreferencesBackup() : preferences;
+    }
+
+    public boolean isError() {
+        return errorCode;
     }
 }

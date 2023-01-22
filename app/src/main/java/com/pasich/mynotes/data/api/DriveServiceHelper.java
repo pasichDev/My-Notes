@@ -114,7 +114,7 @@ public class DriveServiceHelper {
         final String oldBackup = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP).getString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
         return Tasks.call(mExecutor, () -> {
             if (!oldBackup.equals("null")) {
-                File mFile = mDriveCredential.files().get(oldBackup).setFields("files(id)").execute();
+                File mFile = mDriveCredential.files().get(oldBackup).execute();
                 if (mFile != null) {
                     listIdsDeleted.add(mFile.getId());
                 }

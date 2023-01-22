@@ -13,5 +13,7 @@ public class Cloud_Error {
     public static final int ERROR_AUTH = 8;
     public static final int LAST_BACKUP_EMPTY_RESTORE = 9;
     public static final int ERROR_RESTORE_BACKUP = 10;
+    public static final int OKAY_RESTORE = 11;
+    public static final int BACKUP_DESTROY = 12;
 
 }

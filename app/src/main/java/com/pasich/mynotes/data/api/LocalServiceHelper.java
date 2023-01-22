@@ -77,7 +77,7 @@ public class LocalServiceHelper {
             return ScramblerBackupHelper.decodeString(jsonFile.toString());
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return new JsonBackup().error();
         }
     }
 

@@ -119,10 +119,10 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     public void readFileBackupLocal(Uri mUri) {
         getView().showProcessRestoreDialog();
         final JsonBackup jsonBackup = getLocalServiceHelper().readBackupLocalFile(mUri);
-        if (jsonBackup != null) {
-            restoreData(jsonBackup);
+        if (jsonBackup.isError()) {
+            getView().restoreFinish(Cloud_Error.BACKUP_DESTROY);
         } else {
-            getView().restoreFinish(true);
+            restoreData(jsonBackup);
         }
 
     }
@@ -141,7 +141,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
                                 getDataManager().addTrashNotes(jsonBackup.getTrashNotes()))
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
-                        .doOnTerminate(() -> getView().restoreFinish(false))
+                        .doOnTerminate(() -> getView().restoreFinish(Cloud_Error.OKAY_RESTORE))
                         .subscribe());
 
     }
@@ -231,8 +231,14 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     public void readFileBackupCloud(Drive mDriveCredential) {
         getView().showProcessRestoreDialog();
         getDriveServiceHelper().getReadLastBackupCloud(mDriveCredential)
-                .addOnSuccessListener(this::restoreData)
-                .addOnFailureListener(stack -> getView().restoreFinish(true));
+                .addOnSuccessListener(jsonBackup -> {
+                    if (jsonBackup.isError()) {
+                        getView().restoreFinish(Cloud_Error.BACKUP_DESTROY);
+                    } else {
+                        restoreData(jsonBackup);
+                    }
+                })
+                .addOnFailureListener(stack -> getView().restoreFinish(Cloud_Error.NETWORK_ERROR));
     }
 
     /**

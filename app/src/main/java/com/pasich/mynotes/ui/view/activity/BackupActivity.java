@@ -403,6 +403,27 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
     @Override
+    public void restoreFinish(int infoCode) {
+        if (progressDialog != null) progressDialog.dismiss();
+
+        switch (infoCode) {
+            case Cloud_Error.OKAY_RESTORE:
+                onInfo(getString(R.string.restoreDataOkay), null);
+                break;
+            case Cloud_Error.BACKUP_DESTROY:
+                onError(R.string.restoreDataFall, null);
+                break;
+            case Cloud_Error.NETWORK_ERROR:
+                goneProgressBarCLoud();
+                onError(R.string.errorDriveSync, null);
+                break;
+
+            default:
+        }
+    }
+
+
+    @Override
     public void dialogChoiceVariantAutoBackup() {
         if (showErrors(checkErrorCloud(getDrive()))) {
             new MaterialAlertDialogBuilder(this).setCancelable(true).setTitle(R.string.autoCloudBackupTitle).setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(), (dialog, item) -> {
@@ -424,17 +445,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }).create().show();
     }
 
-    @Override
-    public void restoreFinish(boolean error) {
-        if (progressDialog != null) progressDialog.dismiss();
-        if (!error) {
-            onInfo(getString(R.string.restoreDataOkay), null);
-        } else {
-            onError(R.string.restoreDataFall, null);
-        }
-    }
 
-    // TODO: 20.01.2023 Нужно проверить как и когда лучше показывать этот диалог, или вообще убрать
     @Override
     public void showProcessRestoreDialog() {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.progressDialogRestore).setCancelable(false).setView(R.layout.view_restore_data);
