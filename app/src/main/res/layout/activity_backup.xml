@@ -95,8 +95,11 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="@{isVisibleProgressCloud ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{isVisibleProgressCloud ? View.VISIBLE : View.INVISIBLE}"
                     android:paddingVertical="2dp"
+                    android:indeterminate="true"
+                    android:indeterminateTintMode="src_atop"
+                    android:indeterminateTint="?attr/colorPrimary"
                     android:progress="20" />
 
 
