@@ -51,6 +51,8 @@ public interface BackupContract {
 
         void goneProgressBarCLoud();
 
+        void getClickedOffUpdate();
+
         MediaHttpUploaderProgressListener getProcessListener();
 
     }

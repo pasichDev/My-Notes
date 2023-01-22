@@ -295,6 +295,11 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         binding.percentProgress.setText(getString(R.string.percentProgress, 0));
     }
 
+    @Override
+    public void getClickedOffUpdate() {
+        binding.driveData.setClickable(false);
+    }
+
     /**
      * Listener progress uploader file
      *

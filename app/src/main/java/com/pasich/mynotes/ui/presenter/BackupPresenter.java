@@ -27,6 +27,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 @PerActivity
 public class BackupPresenter extends BackupBasePresenter<BackupContract.view> implements BackupContract.presenter {
 
+    private int clickUpdate = 0;
 
     @Inject
     public BackupPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager, LocalServiceHelper localServiceHelper, DriveServiceHelper driveServiceHelper) {
@@ -60,7 +61,11 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     @Override
     public void clickInformationCloud(boolean isAuth) {
         if (isAuth) {
-            getView().loadingLastBackupInfoCloud();
+            if (clickUpdate < 2) {
+                getView().loadingLastBackupInfoCloud();
+                clickUpdate = clickUpdate + 1;
+                if (clickUpdate >= 2) getView().getClickedOffUpdate();
+            }
         } else {
             getView().startIntentLogInUserCloud();
         }
@@ -210,9 +215,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
 
                                     })
                                     .onSuccessTask(backupCloud -> getDriveServiceHelper().cleanOldBackups(mDriveCredential, listBackups))
-                                    .addOnFailureListener(stack -> {
-                                        getView().showErrors(Cloud_Error.NETWORK_FALSE);
-                                    }))
+                                    .addOnFailureListener(stack -> getView().showErrors(Cloud_Error.NETWORK_FALSE)))
 
                     .addOnFailureListener(stack -> {
                         backupTemp.delete();
