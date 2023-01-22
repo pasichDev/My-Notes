@@ -122,6 +122,11 @@ public class AppDbHelper implements DbHelper {
     }
 
 
+    @Override
+    public Single<Integer> getCountData() {
+        return Single.fromCallable(() -> appDatabase.noteDao().getDataCount());
+    }
+
     /**
      * Notes
      */

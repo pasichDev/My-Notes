@@ -1,11 +1,9 @@
 package com.pasich.mynotes.ui.presenter;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.presenter.BackupBasePresenter;
@@ -24,7 +22,7 @@ import javax.inject.Inject;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableSingleObserver;
 
 @PerActivity
 public class BackupPresenter extends BackupBasePresenter<BackupContract.view> implements BackupContract.presenter {
@@ -141,25 +139,31 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
      */
     @Override
     public void restoreBackupPresenter(boolean local) {
-        Disposable disposable = Flowable.zip(getDataManager().getNotes(), getDataManager().getTrashNotesLoad(), getDataManager().getTagsUser(), (noteList, trashNoteList, tagList) -> noteList.size() + trashNoteList.size() + tagList.size())
+        getDataManager().getCountData()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(countData -> {
-                    Log.wtf(TAG, "restoreBackupPresenter: " + countData);
-                    if (countData == 0) {
-                        if (local) {
-                            getView().openIntentReadBackup();
+                .subscribe(new DisposableSingleObserver<>() {
+                    @Override
+                    public void onSuccess(Integer integer) {
+
+                        if (integer == 0) {
+                            if (local) {
+                                getView().openIntentReadBackup();
+                            } else {
+                                getView().startReadBackupCloud();
+                            }
                         } else {
-                            getView().startReadBackupCloud();
+                            getView().dialogRestoreData(local);
                         }
-                    } else {
-                        getView().dialogRestoreData(local);
+
+                        dispose();
                     }
 
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
                 });
-
-        getCompositeDisposable().add(disposable);
-
     }
 
 

@@ -198,6 +198,11 @@ public class AppDataManger implements DataManager {
     }
 
 
+    @Override
+    public Single<Integer> getCountData() {
+        return dbHelper.getCountData();
+    }
+
     /**
      * Notes
      */

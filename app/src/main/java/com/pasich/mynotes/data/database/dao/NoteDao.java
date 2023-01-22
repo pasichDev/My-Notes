@@ -16,6 +16,8 @@ import io.reactivex.Flowable;
 @Dao
 public interface NoteDao {
 
+  @Query("SELECT COUNT() FROM notes  , trash")
+  int getDataCount();
 
   @Query("SELECT * FROM notes")
   Flowable<List<Note>> getNotesAll();

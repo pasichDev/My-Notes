@@ -14,6 +14,7 @@ public interface DbNotesHelper {
     /**
      * Notes
      */
+    Single<Integer> getCountData();
 
     Flowable<List<Note>> getNotes();
 
