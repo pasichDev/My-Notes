@@ -5,7 +5,7 @@ import com.pasich.mynotes.data.database.DbHelper;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
-import com.pasich.mynotes.data.model.backup.Preferences;
+import com.pasich.mynotes.data.model.backup.PreferencesBackup;
 import com.pasich.mynotes.data.preferences.AppPreferencesHelper;
 import com.preference.Preference;
 
@@ -35,7 +35,7 @@ public class AppDataManger implements DataManager {
 
 
     /**
-     * Preferences
+     * PreferencesBackup
      */
     @Override
     public Preference getDefaultPreferences() {
@@ -83,12 +83,12 @@ public class AppDataManger implements DataManager {
     }
 
     @Override
-    public List<Preferences> getListPreferences() {
+    public PreferencesBackup getListPreferences() {
         return preferencesHelper.getListPreferences();
     }
 
     @Override
-    public void setListPreferences(List<Preferences> preferences) {
+    public void setListPreferences(PreferencesBackup preferences) {
         preferencesHelper.setListPreferences(preferences);
     }
 

@@ -1,6 +1,5 @@
 package com.pasich.mynotes.data.preferences;
 
-
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD_ID;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
@@ -15,13 +14,10 @@ import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREF
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_SIZE;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE;
 
-import com.pasich.mynotes.data.model.backup.Preferences;
+import com.pasich.mynotes.data.model.backup.PreferencesBackup;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;
 import com.preference.PowerPreference;
 import com.preference.Preference;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -81,36 +77,28 @@ public class AppPreferencesHelper implements PreferenceHelper {
     }
 
     @Override
-    public List<Preferences> getListPreferences() {
-        List<Preferences> preferences = new ArrayList<>();
-        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_FORMAT, (int) getFormatCount()));
-        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_STYLE, (String) getTypeFaceNoteActivity()));
-        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_SORT, (String) getSortParam()));
-        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_TEXT_SIZE, (int) getSizeTextNoteActivity()));
-        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, (int) PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)));
-        preferences.add(new Preferences<>(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, (boolean) PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE)));
-        return preferences;
+    public PreferencesBackup getListPreferences() {
+        return new PreferencesBackup(getFormatCount(),
+                getTypeFaceNoteActivity(),
+                getSortParam(),
+                getSizeTextNoteActivity(), PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE),
+                PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE));
     }
 
-    // TODO: 22.01.2023 сохраняет не по єтих индесах
+
     @Override
-    public void setListPreferences(List<Preferences> preferences) {
+    public void setListPreferences(PreferencesBackup preferences) {
 
-      /*  for (Preferences preference : preferences) {
-            Log.wtf(TAG, "setListPreferences: " + preference.getKey());
-            getDefaultPreferences().putObject(preference.getKey(), preference.getValue());
+        if (preferences.isCreated()) {
+            getDefaultPreferences()
+                    .putInt(PreferencesConfig.ARGUMENT_PREFERENCE_FORMAT, preferences.getFormatCount())
+                    .putString(ARGUMENT_PREFERENCE_TEXT_STYLE, preferences.getTypeFaceNoteActivity())
+                    .putString(ARGUMENT_PREFERENCE_SORT, preferences.getSortParam())
+                    .putInt(ARGUMENT_PREFERENCE_TEXT_SIZE, preferences.getSizeTextNote())
+                    .putInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, preferences.getThemeValue())
+                    .putBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, preferences.isDynamicTheme());
+
         }
-
-
-       getDefaultPreferences()
-                .putInt(PreferencesConfig.ARGUMENT_PREFERENCE_FORMAT, Integer.parseInt((String) preferences.get(0).getValue()))
-                .putString(ARGUMENT_PREFERENCE_TEXT_STYLE, (String) preferences.get(1).getValue())
-                .putString(ARGUMENT_PREFERENCE_SORT, (String) preferences.get(3).getValue())
-                .putInt(ARGUMENT_PREFERENCE_TEXT_SIZE, (int) preferences.get(4).getValue())
-                .putInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, (Integer) preferences.get(5).getValue())
-                .putBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, (boolean) preferences.get(6).getValue());
-*/
-
     }
 
     @Override

@@ -1,10 +1,8 @@
 package com.pasich.mynotes.data.preferences;
 
 
-import com.pasich.mynotes.data.model.backup.Preferences;
+import com.pasich.mynotes.data.model.backup.PreferencesBackup;
 import com.preference.Preference;
-
-import java.util.List;
 
 
 public interface PreferenceHelper {
@@ -29,7 +27,7 @@ public interface PreferenceHelper {
 
     int getSetCloudAuthBackup();
 
-    List<Preferences> getListPreferences();
+    PreferencesBackup getListPreferences();
 
-    void setListPreferences(List<Preferences> preferences);
+    void setListPreferences(PreferencesBackup preferences);
 }

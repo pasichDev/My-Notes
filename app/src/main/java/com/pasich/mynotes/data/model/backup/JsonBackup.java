@@ -9,7 +9,7 @@ import java.util.List;
 
 public class JsonBackup {
 
-    public List<Preferences> preferences;
+    public PreferencesBackup preferences;
     public List<Note> notes;
     public List<TrashNote> trashNotes;
 
@@ -43,11 +43,11 @@ public class JsonBackup {
         this.tags = tags;
     }
 
-    public void setPreferences(List<Preferences> preferences) {
+    public void setPreferences(PreferencesBackup preferences) {
         this.preferences = preferences;
     }
 
-    public List<Preferences> getPreferences() {
-        return preferences == null ? new ArrayList<>() : preferences;
+    public PreferencesBackup getPreferences() {
+        return preferences == null ? new PreferencesBackup() : preferences;
     }
 }
