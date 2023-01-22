@@ -7,10 +7,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
@@ -58,7 +60,7 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
 
             if (getTag() != null && getTag().equals("RenameTag") && mTag != null) {
                 binding.nameTag.setText(mTag.getNameTag());
-                binding.outlinedTextField.setEndIconDrawable(requireActivity().getDrawable(R.drawable.ic_rename));
+                binding.outlinedTextField.setEndIconDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_rename));
             }
 
             binding.outlinedTextField.requestFocus();
@@ -99,6 +101,11 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
                 validateText(s.toString().trim().length());
             }
         });
+    }
+
+    @Override
+    public void onInfoSnack(int resID, View view, int typeInfo, int time) {
+
     }
 
 

@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.base.simplifications.TextWatcher;
@@ -23,6 +24,7 @@ import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.LinkInfoDialog;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
+import com.pasich.mynotes.utils.constants.SnackBarInfo;
 
 import java.util.Date;
 import java.util.Objects;
@@ -278,12 +280,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void createShortCut() {
-        onInfo(getString(R.string.addShortCutSuccessfully), binding.noteLayout);
+        onInfoSnack(R.string.addShortCutSuccessfully, binding.noteLayout, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
     @Override
     public void shortCutDouble() {
-        onInfo(getString(R.string.shortCutCreateFallDouble), binding.noteLayout);
+        onInfoSnack(R.string.shortCutCreateFallDouble, binding.noteLayout, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
 }

@@ -4,6 +4,9 @@
     <!-- Default Colors-->
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
+    <!-- Snackbar Colors-->
+    <color name="successColorBackground">#068F52</color>
+    <color name="successTextOnColor">#FFFFFF</color>
 
     <!-- GreenTheme Colors -->
     <color name="green_theme_no_background_light_primary">#006D3D</color>

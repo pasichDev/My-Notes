@@ -36,10 +36,6 @@ public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFrag
 
     }
 
-    @Override
-    public void onError(int resID, View view) {
-
-    }
 
     @Override
     public void dismiss() {
@@ -66,22 +62,7 @@ public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFrag
     }
 
     @Override
-    public void showMessage(String message) {
-
-    }
-
-    @Override
-    public void showMessage(int resID) {
-
-    }
-
-    @Override
-    public void onInfo(String message, View view) {
-
-    }
-
-    @Override
-    public void onInfo(int resID, View view) {
+    public void onInfoSnack(int resID, View view, int typeInfo, int time) {
 
     }
 

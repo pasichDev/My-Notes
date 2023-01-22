@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.R;
@@ -32,6 +33,7 @@ import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.pasich.mynotes.utils.constants.Drive_Scope;
+import com.pasich.mynotes.utils.constants.SnackBarInfo;
 
 import java.util.Objects;
 
@@ -67,7 +69,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
-            cloudAuthHelper.getResultAuth(result.getData()).addOnFailureListener((GoogleSignInAccount) -> onError(R.string.errorAuth, null)).addOnSuccessListener((GoogleSignInAccount) -> {
+            cloudAuthHelper.getResultAuth(result.getData()).addOnFailureListener((GoogleSignInAccount) -> onInfoSnack(R.string.errorAuth, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG)).addOnSuccessListener((GoogleSignInAccount) -> {
                 cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
                 changeDataUserActivityFromAuth(true);
             });
@@ -364,7 +366,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public boolean showErrors(int errorCode) {
         switch (errorCode) {
             case Cloud_Error.CREDENTIAL:
-                onError(R.string.errorCredential, null);
+                onInfoSnack(R.string.errorCredential, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.PERMISSION_DRIVE:
                 if (cloudCacheHelper.isAuth())
@@ -372,26 +374,26 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 else startIntentLogInUserCloud();
                 break;
             case Cloud_Error.NETWORK_ERROR:
-                onError(R.string.errorConnectedNetwork, null);
+                onInfoSnack(R.string.errorConnectedNetwork, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.ERROR_AUTH:
-                onError(R.string.errorDriverAuthInfo, null);
+                onInfoSnack(R.string.errorDriverAuthInfo, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW:
                 binding.lastBackupCloud.setText(getString(R.string.emptyBackups));
                 break;
             case Cloud_Error.LAST_BACKUP_EMPTY_RESTORE:
-                onError(R.string.emptyBackups, null);
+                onInfoSnack(R.string.emptyBackups, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.NETWORK_FALSE:
-                onError(R.string.errorDriveSync, null);
+                onInfoSnack(R.string.errorDriveSync, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.ERROR_CREATE_CLOUD_BACKUP:
                 goneProgressBarCLoud();
-                onError(R.string.creteLocalCopyFail, null);
+                onInfoSnack(R.string.creteLocalCopyFail, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.ERROR_RESTORE_BACKUP:
-                onError(R.string.restoreDataFall, null);
+                onInfoSnack(R.string.restoreDataFall, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP:
                 binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
@@ -408,14 +410,14 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
         switch (infoCode) {
             case Cloud_Error.OKAY_RESTORE:
-                onInfo(getString(R.string.restoreDataOkay), null);
+                onInfoSnack(R.string.restoreDataOkay, null, SnackBarInfo.Success, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.BACKUP_DESTROY:
-                onError(R.string.restoreDataFall, null);
+                onInfoSnack(R.string.restoreDataFall, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.NETWORK_ERROR:
                 goneProgressBarCLoud();
-                onError(R.string.errorDriveSync, null);
+                onInfoSnack(R.string.errorDriveSync, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
 
             default:
@@ -455,15 +457,15 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void emptyDataToBackup() {
-        onInfo(R.string.emptyDataToBackup, null);
+        onInfoSnack(R.string.emptyDataToBackup, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
     }
 
     @Override
     public void createLocalCopyFinish(boolean error) {
         if (error) {
-            onInfo(R.string.creteLocalCopyOkay, null);
+            onInfoSnack(R.string.creteLocalCopyOkay, null, SnackBarInfo.Success, Snackbar.LENGTH_LONG);
         } else {
-            onError(R.string.creteLocalCopyFail, null);
+            onInfoSnack(R.string.creteLocalCopyFail, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
         }
     }
 

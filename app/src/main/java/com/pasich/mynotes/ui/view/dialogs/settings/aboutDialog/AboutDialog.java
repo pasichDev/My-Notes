@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
@@ -33,6 +34,7 @@ import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.Drive_Scope;
+import com.pasich.mynotes.utils.constants.SnackBarInfo;
 import com.preference.PowerPreference;
 import com.preference.Preference;
 
@@ -55,7 +57,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
                         if (result.getResultCode() == Activity.RESULT_OK) {
 
                             cloudAuthHelper.getResultAuth(result.getData())
-                                    .addOnFailureListener((GoogleSignInAccount) -> onError(R.string.errorAuth, null))
+                                    .addOnFailureListener((GoogleSignInAccount) -> onInfoSnack(R.string.errorAuth, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG))
                                     .addOnSuccessListener((GoogleSignInAccount) -> {
                                         cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
                                         loadingDataUser(true);

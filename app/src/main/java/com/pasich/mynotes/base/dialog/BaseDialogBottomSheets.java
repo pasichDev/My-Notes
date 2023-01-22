@@ -62,31 +62,6 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
     }
 
     @Override
-    public void showMessage(String message) {
-
-    }
-
-    @Override
-    public void onError(int resID, View view) {
-
-    }
-
-    @Override
-    public void showMessage(int resID) {
-
-    }
-
-    @Override
-    public void onInfo(String message, View view) {
-
-    }
-
-    @Override
-    public void onInfo(int resID, View view) {
-
-    }
-
-    @Override
     public void vibrateOpenDialog(boolean vibrate) {
         if (vibrate) {
             Vibrator vibrator = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
@@ -102,5 +77,8 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
         return null;
     }
 
+    @Override
+    public void onInfoSnack(int resID, View view, int typeInfo, int time) {
 
+    }
 }

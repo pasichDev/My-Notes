@@ -10,15 +10,7 @@ public interface BaseView {
 
     void selectTheme();
 
-    void showMessage(String message);
-
-    void showMessage(@StringRes int resID);
-
-    void onInfo(String message, View view);
-
-    void onInfo(@StringRes int resID, View view);
-
-    void onError(@StringRes int resID, View view);
+    void onInfoSnack(@StringRes int resID, View view, int typeInfo, int time);
 
     default void redrawActivity(int themeStyle) {
     }
@@ -31,8 +23,5 @@ public interface BaseView {
 
         return false;
     }
-
-    ;
-
 
 }

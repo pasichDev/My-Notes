@@ -46,6 +46,7 @@ import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
+import com.pasich.mynotes.utils.constants.SnackBarInfo;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.SwipeToListNotesCallback;
 import com.pasich.mynotes.utils.tool.FormatListTool;
@@ -167,7 +168,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void
     exitWhat() {
-        onInfo(R.string.exitWhat, mActivityBinding.newNotesButton);
+        onInfoSnack(R.string.exitWhat, mActivityBinding.newNotesButton, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
     @Override
@@ -316,7 +317,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void startToastCheckCountTags() {
-        onInfo(getString(R.string.countTagsError, String.valueOf(MAX_TAG_COUNT)), mActivityBinding.newNotesButton);
+        onInfoSnack(Integer.parseInt(getString(R.string.countTagsError, String.valueOf(MAX_TAG_COUNT))), mActivityBinding.newNotesButton, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
 
@@ -452,12 +453,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void createShortCut() {
-        onInfo(getString(R.string.addShortCutSuccessfully), mActivityBinding.newNotesButton);
+        onInfoSnack(R.string.addShortCutSuccessfully, mActivityBinding.newNotesButton, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
     @Override
     public void shortCutDouble() {
-        onInfo(getString(R.string.shortCutCreateFallDouble), mActivityBinding.newNotesButton);
+        onInfoSnack(R.string.shortCutCreateFallDouble, mActivityBinding.newNotesButton, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
     @Override
