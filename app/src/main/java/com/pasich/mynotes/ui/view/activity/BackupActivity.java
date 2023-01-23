@@ -227,25 +227,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void openIntentReadBackup() {
         startIntentImport.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
     }
-
-
-    // TODO: 23.01.2023 Пример слушетеля изменения настроек
-    /**
-     *
-     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-     SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-     // Implementation
-
-     Log.wtf(TAG, "onSharedPreferenceChanged: " + prefs + "/" + key);
-     }
-     };
-
-
-     prefs.registerOnSharedPreferenceChangeListener(listener);
-     */
-
-
     /**
      * Loading last backup information (id/date)
      */
