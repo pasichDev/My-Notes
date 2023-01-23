@@ -449,13 +449,30 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void dialogRestoreData(boolean local) {
-        new MaterialAlertDialogBuilder(this).setCancelable(false).setTitle(R.string.restoreNotesTitle).setMessage(R.string.restoreNotesMessage).setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss()).setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which) -> {
-            if (local) openIntentReadBackup();
-            else {
-                startReadBackupCloud();
+        final Drive mDriveCredential = getDrive();
+        final MaterialAlertDialogBuilder restoreDialog = new MaterialAlertDialogBuilder(this).setCancelable(false).setTitle(R.string.restoreNotesTitle).setMessage(R.string.restoreNotesMessage).setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
+                .setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which)
+                        -> {
+                    if (local) {
+                        openIntentReadBackup();
+                    } else {
+                        startReadBackupCloud();
+                    }
+                    dialog.dismiss();
+                });
+
+
+        if (local) {
+            restoreDialog.create().show();
+        } else {
+            if (showErrors(checkErrorCloud(mDriveCredential))) {
+                if (presenter.getDataManager().getLastBackupCloudId().equals("null")) {
+                    showErrors(Cloud_Error.LAST_BACKUP_EMPTY_RESTORE);
+                } else {
+                    restoreDialog.create().show();
+                }
             }
-            dialog.dismiss();
-        }).create().show();
+        }
     }
 
 
