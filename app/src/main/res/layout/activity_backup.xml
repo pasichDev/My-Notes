@@ -75,7 +75,7 @@
                     android:layout_height="match_parent"
                     android:visibility="@{isVisibleProgressCloud ? View.GONE : View.VISIBLE}"
                     android:paddingVertical="2dp"
-                    android:text="@string/checkLastBackupsCloud"
+                    android:text="@string/errorLoadingLastBackupCloud"
                     android:textColor="?attr/colorOutline"
                     android:textSize="14sp" />
 

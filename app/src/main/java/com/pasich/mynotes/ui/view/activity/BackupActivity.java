@@ -251,17 +251,12 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     @Override
     public void loadingLastBackupInfoCloud() {
-        binding.lastBackupCloud.setText(R.string.checkLastBackupsCloud);
         final Drive mDriveCredential = getDrive();
         final int mError = checkErrorCloud(mDriveCredential);
         if (mError == Cloud_Error.NO_ERROR) {
+            binding.lastBackupCloud.setText(R.string.checkLastBackupsCloud);
             presenter.saveDataLoadingLastBackup(mDriveCredential);
-        } else if (mError == Cloud_Error.NETWORK_ERROR) {
-            showErrors(Cloud_Error.NETWORK_ERROR);
-            binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
-        } else {
-            showErrors(mError);
-        }
+        } else showErrors(mError);
     }
 
     /**
@@ -411,6 +406,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 onInfoSnack(R.string.restoreDataFall, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
             case Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP:
+                onInfoSnack(R.string.errorDriveSync, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
                 break;
             default:
