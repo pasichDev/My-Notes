@@ -23,7 +23,7 @@
             android:id="@+id/nameNote"
             style="@style/itemNoteTitle"
             android:text="@{Note.title}"
-            android:visibility="@{Note.title.length() >= 2 ? View.VISIBLE : View.GONE }" />
+            android:visibility="@{Note.title.length() >= 1 ? View.VISIBLE : View.GONE }" />
 
         <TextView
             android:id="@+id/previewNote"

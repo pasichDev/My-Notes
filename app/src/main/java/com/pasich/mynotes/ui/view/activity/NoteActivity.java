@@ -172,7 +172,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void loadingNote(Note note) {
-        binding.notesTitle.setText(note.getTitle().length() >= 2 ? note.getTitle() : "");
+        binding.notesTitle.setText(note.getTitle().length() >= 1 ? note.getTitle() : "");
         binding.valueNote.setText(note.getValue() == null ? "" : note.getValue());
         binding.valueNote.setMovementMethod(new CustomLinkMovementMethod() {
             @Override
@@ -214,7 +214,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             mNoteValue = notePresenter.getNote().getValue() == null ? "" : notePresenter.getNote().getValue();
 
         if (notePresenter.getNewNotesKey()) {
-            Note note = new Note().create(mTitle.length() >= 2 ? mTitle : "", mValue, mThisDate, notePresenter.getTagNote());
+            Note note = new Note().create(mTitle.length() >= 1 ? mTitle : "", mValue, mThisDate, notePresenter.getTagNote());
             notePresenter.setNote(note);
             notePresenter.createNote(note);
             notePresenter.setNewNoteKey(false);
