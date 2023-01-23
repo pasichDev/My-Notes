@@ -16,6 +16,10 @@
             type="boolean" />
 
         <variable
+            name="isPlayService"
+            type="boolean" />
+
+        <variable
             name="isVisibleProgressCloud"
             type="boolean" />
 
@@ -43,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="@{isPlayService ? View.VISIBLE : View.GONE}"
             android:onClick="@{(view) -> presenter.clickInformationCloud(isAuthUser)}"
             android:background="?android:attr/selectableItemBackground"
             android:padding="20dp">
@@ -113,15 +118,15 @@
             android:layout_marginVertical="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
+            android:visibility="@{isPlayService ? View.VISIBLE : View.GONE}"
             android:padding="6dp"
-            android:layout_marginBottom="10dp"
             android:text="@string/cloudBackup" />
 
         <LinearLayout
             android:id="@+id/autoBackup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{isPlayService ? View.VISIBLE : View.GONE}"
             android:onClick="@{(view) -> presenter.openChoiceDialogAutoBackup()}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
@@ -159,6 +164,7 @@
             android:id="@+id/cloudExport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{isPlayService ? View.VISIBLE : View.GONE}"
             android:onClick="@{(view) -> presenter.saveBackupPresenter(false)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
@@ -180,6 +186,7 @@
             android:id="@+id/importCloudBackup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{isPlayService ? View.VISIBLE : View.GONE}"
             android:onClick="@{(view) -> presenter.restoreBackupPresenter(false)}"
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
@@ -202,9 +209,7 @@
             android:layout_marginVertical="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
             android:padding="6dp"
-            android:layout_marginBottom="10dp"
             android:text="@string/localBackup" />
 
         <LinearLayout

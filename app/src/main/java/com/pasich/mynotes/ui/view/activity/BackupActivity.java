@@ -28,6 +28,7 @@ import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
+import com.pasich.mynotes.utils.CheckPlayStore;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
@@ -159,6 +160,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[presenter.getDataManager().getSetCloudAuthBackup()]);
+        binding.setIsPlayService(CheckPlayStore.isPlayStoreInstalled(this));
     }
 
     @Override
