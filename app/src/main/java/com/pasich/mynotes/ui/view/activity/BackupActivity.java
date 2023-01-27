@@ -46,7 +46,9 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class BackupActivity extends BaseActivity implements BackupContract.view {
 
     @Inject
@@ -97,7 +99,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
         presenter.attachView(this);
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
@@ -173,7 +174,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void initConnectAccount() {
         changeDataUserActivityFromAuth(cloudCacheHelper.isAuth());
-        checkFilesDebug();
+        //    checkFilesDebug();
 
     }
 
@@ -262,6 +263,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void openIntentReadBackup() {
         startIntentImport.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json"));
     }
+
     /**
      * Loading last backup information (id/date)
      */

@@ -8,8 +8,9 @@ import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.view.BasePresenter;
 import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
-import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
+
+import dagger.hilt.android.scopes.ActivityScoped;
 
 public interface BackupContract {
 
@@ -58,7 +59,7 @@ public interface BackupContract {
     }
 
 
-    @PerActivity
+    @ActivityScoped
     interface presenter extends BasePresenter<view> {
 
         void clickInformationCloud(boolean isAuth);

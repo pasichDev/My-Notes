@@ -31,6 +31,9 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Inject
@@ -43,7 +46,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getActivityComponent().inject(this);
 
         binding.setPresenter((NotePresenter) notePresenter);
         notePresenter.attachView(this);

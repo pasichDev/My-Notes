@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.application'
-
+    id 'com.google.dagger.hilt.android'
 }
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.dagger.hilt.android'
 
 android {
     compileSdkVersion 33
@@ -23,7 +26,7 @@ android {
         versionName '2.1.14'
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
     }
@@ -41,7 +44,9 @@ android {
         }
 
     }
-
+    hilt {
+        enableAggregatingTask = true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_18
         targetCompatibility JavaVersion.VERSION_18
@@ -55,8 +60,6 @@ android {
 ext {
     powerPrefenceVersion = '2.1.0'
     roomVersion = '2.5.0'
-    daggerCompilerVersion = '2.20'
-    daggerVersion = '2.44.2'
 }
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.0'
@@ -69,9 +72,17 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.0'
     implementation "android.arch.work:work-runtime:1.0.1"
 
-    //Dagger 2
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompilerVersion"
-    implementation "com.google.dagger:dagger:$daggerVersion"
+    //DI
+    implementation 'com.google.dagger:hilt-android:2.44.2'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
+
+    // For instrumentation tests
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44.2'
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
+
+    // For local unit tests
+    testImplementation 'com.google.dagger:hilt-android-testing:2.44.2'
+    testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
 
     //powerPreferences
     implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"

@@ -18,7 +18,6 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.DialogNewTagBinding;
-import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.NameTagDialogPresenter;
 
@@ -26,6 +25,9 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialogContract.view {
 
 
@@ -52,22 +54,15 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
         binding = DialogNewTagBinding.inflate(getLayoutInflater());
         requireDialog().setContentView(binding.getRoot());
 
-        ActivityComponent component = getActivityComponent();
-        if (component != null) {
-            component.inject(this);
-            mPresenter.attachView(this);
-            mPresenter.viewIsReady();
+        mPresenter.attachView(this);
+        mPresenter.viewIsReady();
 
-            if (getTag() != null && getTag().equals("RenameTag") && mTag != null) {
-                binding.nameTag.setText(mTag.getNameTag());
-                binding.outlinedTextField.setEndIconDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_rename));
-            }
-
-            binding.outlinedTextField.requestFocus();
-        } else {
-            dismiss();
+        if (getTag() != null && getTag().equals("RenameTag") && mTag != null) {
+            binding.nameTag.setText(mTag.getNameTag());
+            binding.outlinedTextField.setEndIconDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_rename));
         }
 
+        binding.outlinedTextField.requestFocus();
 
         return requireDialog();
     }

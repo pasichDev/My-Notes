@@ -17,13 +17,14 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.IndexFilter;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.databinding.ItemResultBinding;
-import com.pasich.mynotes.di.scope.PerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.scopes.ActivityScoped;
 
-@PerActivity
+
+@ActivityScoped
 public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.ViewHolder> {
 
     private List<Note> listNotes = new ArrayList<>();

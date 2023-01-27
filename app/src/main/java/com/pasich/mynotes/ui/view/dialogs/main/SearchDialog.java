@@ -16,7 +16,6 @@ import com.pasich.mynotes.base.dialog.SearchBaseDialogBottomSheets;
 import com.pasich.mynotes.data.model.IndexFilter;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.databinding.DialogSearchBinding;
-import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.SearchDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.SearchDialogPresenter;
 import com.pasich.mynotes.ui.view.activity.NoteActivity;
@@ -28,8 +27,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Flowable;
 
+@AndroidEntryPoint
 public class SearchDialog extends SearchBaseDialogBottomSheets implements SearchDialogContract.view {
 
     @Inject
@@ -46,14 +47,8 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
         binding = DialogSearchBinding.inflate(getLayoutInflater());
         requireDialog().setContentView(binding.getRoot());
 
-        ActivityComponent component = getActivityComponent();
-        if (component != null) {
-            component.inject(this);
-            mPresenter.attachView(this);
-            mPresenter.viewIsReady();
-        } else {
-            dismiss();
-        }
+        mPresenter.attachView(this);
+        mPresenter.viewIsReady();
 
         fabNewNote.hide();
         binding.actionSearch.requestFocus();
@@ -74,7 +69,7 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
 
     @Override
     public void initFabButton() {
-        this.fabNewNote = getBaseActivity().findViewById(R.id.newNotesButton);
+        this.fabNewNote = requireActivity().findViewById(R.id.newNotesButton);
     }
 
 
@@ -92,8 +87,6 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
 
 
     }
-
-
 
 
     private void filter(String text, List<Note> allNotes) {

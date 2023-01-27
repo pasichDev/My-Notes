@@ -9,7 +9,6 @@ import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
-import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.constants.Cloud_Error;
@@ -17,12 +16,13 @@ import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.scopes.ActivityScoped;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 
-@PerActivity
+@ActivityScoped
 public class BackupPresenter extends BasePresenter<BackupContract.view> implements BackupContract.presenter {
 
     private int clickUpdate = 0;

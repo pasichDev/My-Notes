@@ -12,13 +12,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.base.view.BaseView;
-import com.pasich.mynotes.di.component.ActivityComponent;
 
 public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFragment implements BaseView {
 
-    private BaseActivity activity;
     private BottomSheetDialog mDialog;
 
     @Override
@@ -26,9 +23,7 @@ public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFrag
         super.onAttach(context);
         mDialog = new BottomSheetDialog(requireContext(), R.style.SearchDialog);
         mDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        if (context instanceof BaseActivity) {
-            activity = (BaseActivity) context;
-        }
+
     }
 
     @Override
@@ -52,7 +47,6 @@ public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFrag
 
     @Override
     public void onDetach() {
-        activity = null;
         super.onDetach();
     }
 
@@ -69,14 +63,5 @@ public abstract class SearchBaseDialogBottomSheets extends BottomSheetDialogFrag
     @Override
     public void vibrateOpenDialog(boolean vibrate) {
 
-    }
-
-    public ActivityComponent getActivityComponent() {
-        if (activity != null) return activity.getActivityComponent();
-        return null;
-    }
-
-    public BaseActivity getBaseActivity() {
-        return activity;
     }
 }

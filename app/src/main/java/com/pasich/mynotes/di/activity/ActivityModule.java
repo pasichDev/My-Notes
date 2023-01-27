@@ -1,12 +1,7 @@
-package com.pasich.mynotes.di.module;
+package com.pasich.mynotes.di.activity;
 
-import android.content.Context;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.pasich.mynotes.di.scope.ActivityContext;
-import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
@@ -31,27 +26,16 @@ import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ActivityComponent;
+import dagger.hilt.android.scopes.ActivityScoped;
 import io.reactivex.disposables.CompositeDisposable;
 
 @Module
+@InstallIn(ActivityComponent.class)
 public class ActivityModule {
 
-    private final AppCompatActivity activity;
 
-    public ActivityModule(AppCompatActivity activity) {
-        this.activity = activity;
-    }
-
-    @Provides
-    @ActivityContext
-    Context provideContext() {
-        return activity;
-    }
-
-    @Provides
-    AppCompatActivity provideActivity() {
-        return activity;
-    }
 
 
     @Provides
@@ -65,31 +49,31 @@ public class ActivityModule {
     }
 
     @Provides
-    @PerActivity
+    @ActivityScoped
     MainContract.presenter providesMainPresenter(MainPresenter presenter) {
         return presenter;
     }
 
     @Provides
-    @PerActivity
+    @ActivityScoped
     BackupContract.presenter providesBackupPresenter(BackupPresenter presenter) {
         return presenter;
     }
 
     @Provides
-    @PerActivity
+    @ActivityScoped
     NoteContract.presenter providesNotePresenter(NotePresenter presenter) {
         return presenter;
     }
 
     @Provides
-    @PerActivity
+    @ActivityScoped
     TrashContract.presenter providerTrashActivityPresenter(TrashPresenter presenter) {
         return presenter;
     }
 
     @Provides
-    @PerActivity
+    @ActivityScoped
     NewTagDialogContract.presenter providerNewTagDialogPresenter(NameTagDialogPresenter presenter) {
         return presenter;
 
@@ -97,19 +81,19 @@ public class ActivityModule {
 
 
     @Provides
-    @PerActivity
+    @ActivityScoped
     DeleteTagDialogContract.presenter providerDeleteTagDialogPresenter(DeleteTagDialogPresenter presenter) {
         return presenter;
     }
 
     @Provides
-    @PerActivity
+    @ActivityScoped
     SearchDialogContract.presenter providerSearchDialogPresenter(SearchDialogPresenter presenter) {
         return presenter;
     }
 
     @Provides
-    @PerActivity
+    @ActivityScoped
     ClearTrashDialogContract.presenter providerClearTrashDialogPresenter(ClearTrashDialogPresenter presenter) {
         return presenter;
     }
@@ -117,14 +101,14 @@ public class ActivityModule {
 
     @Named("ActionUtilsTrash")
     @Provides
-    @PerActivity
+    @ActivityScoped
     ActionUtils providerActionUtilsTrash(@Named("TrashActivityRootLayout") CoordinatorLayout coordinatorLayout) {
         return new ActionUtils(coordinatorLayout);
     }
 
     @Named("ActionUtilsMain")
     @Provides
-    @PerActivity
+    @ActivityScoped
     ActionUtils providerActionUtilsMain(@Named("MainActivityRootLayout") CoordinatorLayout coordinatorLayout) {
         return new ActionUtils(coordinatorLayout);
     }

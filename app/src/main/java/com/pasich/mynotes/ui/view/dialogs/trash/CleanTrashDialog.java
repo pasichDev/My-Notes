@@ -10,12 +10,14 @@ import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogCleanTrashBinding;
-import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTrashDialogContract.view {
 
     @Inject
@@ -29,14 +31,10 @@ public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTra
         MaterialTextView title = binding.getRoot().findViewById(R.id.headTextDialog);
         MaterialTextView message = binding.getRoot().findViewById(R.id.textMessageDialog);
 
-        ActivityComponent component = getActivityComponent();
-        if (component != null) {
-            component.inject(this);
-            presenter.attachView(this);
-            presenter.viewIsReady();
-        } else {
-            dismiss();
-        }
+
+        presenter.attachView(this);
+        presenter.viewIsReady();
+
 
         title.setText(R.string.trashClean);
         message.setText(R.string.cleanTrashMessage);
@@ -52,7 +50,6 @@ public class CleanTrashDialog extends BaseDialogBottomSheets implements ClearTra
         binding.cancel.setOnClickListener(v -> dismiss());
 
     }
-
 
 
     @Override

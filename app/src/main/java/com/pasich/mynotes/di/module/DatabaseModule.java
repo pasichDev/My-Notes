@@ -1,6 +1,5 @@
 package com.pasich.mynotes.di.module;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -13,59 +12,29 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.database.AppDatabase;
 import com.pasich.mynotes.data.database.AppDbHelper;
 import com.pasich.mynotes.data.database.DbHelper;
-import com.pasich.mynotes.di.scope.ApplicationContext;
-import com.pasich.mynotes.di.scope.DatabaseInfo;
 import com.pasich.mynotes.utils.constants.DB_Constants;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.qualifiers.ApplicationContext;
+import dagger.hilt.components.SingletonComponent;
 
 @Module
-public class ApplicationModule {
-
-    private final Application application;
-
-    public ApplicationModule(Application application) {
-        this.application = application;
-    }
+@InstallIn(SingletonComponent.class)
+public class DatabaseModule {
 
     @Provides
-    @ApplicationContext
-    Context providesContext() {
-        return application;
-    }
-
-    @Provides
-    Application providesApplication() {
-        return application;
-    }
-
-
-    @Provides
-    @DatabaseInfo
-    String providesDatabaseName() {
-        return DB_Constants.DB_NAME;
-    }
-
-    @Provides
-    @DatabaseInfo
-    Integer providesDatabaseVersion() {
-        return DB_Constants.DB_VERSION;
+    @Singleton
+    AppDatabase providesAppDatabase(@ApplicationContext Context context, RoomDatabase.Callback sRoomDatabaseCallback) {
+        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DB_Constants.DB_NAME).addCallback(sRoomDatabaseCallback).build();
     }
 
 
     @Provides
     @Singleton
-    AppDatabase providesAppDatabase(@ApplicationContext Context context, @DatabaseInfo RoomDatabase.Callback sRoomDatabaseCallback, @DatabaseInfo String dbName) {
-        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, dbName).addCallback(sRoomDatabaseCallback).build();
-    }
-
-
-    @Provides
-    @DatabaseInfo
     RoomDatabase.Callback providerRoomDatabaseCallback() {
         return new RoomDatabase.Callback() {
 
@@ -98,6 +67,5 @@ public class ApplicationModule {
     DataManager providesDataManager(AppDataManger appDataManager) {
         return appDataManager;
     }
-
 
 }

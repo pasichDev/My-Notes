@@ -1,4 +1,4 @@
-package com.pasich.mynotes.di.module;
+package com.pasich.mynotes.di.activity;
 
 
 import android.content.Context;
@@ -8,35 +8,38 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.Scope;
-import com.pasich.mynotes.di.scope.ApplicationContext;
-import com.pasich.mynotes.di.scope.PerActivity;
-import com.pasich.mynotes.di.scope.ScopeDriveInfo;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.Drive_Scope;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ActivityComponent;
+import dagger.hilt.android.qualifiers.ApplicationContext;
+import dagger.hilt.android.scopes.ActivityScoped;
 
 @Module
+@InstallIn(ActivityComponent.class)
 public class DriveApiModule {
 
 
     @Provides
-    @ScopeDriveInfo
+    @ActivityScoped
     Scope provideCloudAccessDriveScope() {
         return Drive_Scope.ACCESS_DRIVE_SCOPE;
     }
 
 
     @Provides
-    @PerActivity
-    GoogleSignInClient providesGoogleSignInClient(@ApplicationContext Context mContext, @ScopeDriveInfo Scope accessDrive) {
+    @ActivityScoped
+    GoogleSignInClient providesGoogleSignInClient(@ApplicationContext Context mContext, Scope accessDrive) {
         return GoogleSignIn.getClient(mContext, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().requestScopes(accessDrive).build());
     }
 
+
     @Provides
-    @PerActivity
-    CloudCacheHelper providesCloudCacheHelper(@ApplicationContext Context mContext, @ScopeDriveInfo Scope accessDrive) {
+    @ActivityScoped
+    CloudCacheHelper providesCloudCacheHelper(@ApplicationContext Context mContext, Scope accessDrive) {
         GoogleSignInAccount mLastAccount = GoogleSignIn.getLastSignedInAccount(mContext);
 
         if (mLastAccount != null) {

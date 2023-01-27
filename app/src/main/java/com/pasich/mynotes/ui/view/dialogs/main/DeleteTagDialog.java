@@ -13,13 +13,15 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.DialogDeleteTagBinding;
-import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.DeleteTagDialogPresenter;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+
+@AndroidEntryPoint
 public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTagDialogContract.view {
 
     @Inject
@@ -38,15 +40,11 @@ public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTag
         requireDialog().setContentView(binding.getRoot());
         MaterialTextView title = binding.getRoot().findViewById(R.id.headTextDialog);
         MaterialTextView message = binding.getRoot().findViewById(R.id.textMessageDialog);
-        ActivityComponent component = getActivityComponent();
-        if (component != null) {
-            component.inject(this);
-            mPresenter.attachView(this);
-            mPresenter.viewIsReady();
-            mPresenter.getLoadCountNotesForTag(tag.getNameTag());
-        } else {
-            dismiss();
-        }
+
+        mPresenter.attachView(this);
+        mPresenter.viewIsReady();
+        mPresenter.getLoadCountNotesForTag(tag.getNameTag());
+
 
         title.setText(R.string.deleteTag);
         message.setText(R.string.deleteSelectTagTextMassage);

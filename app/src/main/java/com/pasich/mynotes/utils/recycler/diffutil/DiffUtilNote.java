@@ -4,11 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.pasich.mynotes.data.model.Note;
-import com.pasich.mynotes.di.scope.PerActivity;
 
 import javax.inject.Inject;
 
-@PerActivity
+import dagger.hilt.android.scopes.ActivityScoped;
+
+@ActivityScoped
 public class DiffUtilNote extends DiffUtil.ItemCallback<Note> {
 
     @Inject

@@ -26,7 +26,6 @@ import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.DialogMoreNoteBinding;
-import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.contract.dialogs.MoreNoteDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.MoreNoteDialogPresenter;
 import com.pasich.mynotes.utils.GoogleTranslationIntent;
@@ -38,9 +37,10 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Flowable;
 
-
+@AndroidEntryPoint
 public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDialogContract.view {
 
 
@@ -74,18 +74,14 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         binding = DialogMoreNoteBinding.inflate(getLayoutInflater());
         requireDialog().setContentView(binding.getRoot());
 
-        final ActivityComponent component = getActivityComponent();
-        if (component != null) {
-            component.inject(this);
-            mPresenter.attachView(this);
-            mPresenter.viewIsReady();
-            binding.setNewNote(newNoteActivity);
-            binding.setActivityNote(activityNote);
-            binding.setValuesText(mNote.getValue().length() > 1);
-            textStylePreferences.addButton(binding.settingsActivity.textStyleItem);
-        } else {
-            dismiss();
-        }
+
+        mPresenter.attachView(this);
+        mPresenter.viewIsReady();
+        binding.setNewNote(newNoteActivity);
+        binding.setActivityNote(activityNote);
+        binding.setValuesText(mNote.getValue().length() > 1);
+        textStylePreferences.addButton(binding.settingsActivity.textStyleItem);
+
 
         addTitle();
         binding.settingsActivity.rootView.setVisibility(activityNote ? View.VISIBLE : View.GONE);
@@ -212,7 +208,6 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         }
 
     }
-
 
 
     private void initTranslate() {

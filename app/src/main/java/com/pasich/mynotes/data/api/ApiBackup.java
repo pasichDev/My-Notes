@@ -19,7 +19,6 @@ import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.data.model.backup.BackupCloud;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.data.model.backup.LastBackupCloud;
-import com.pasich.mynotes.di.scope.ApplicationContext;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.ScramblerBackupHelper;
 import com.pasich.mynotes.utils.constants.Cloud_Error;
@@ -42,6 +41,8 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 @Singleton
 public class ApiBackup implements ApiHelper {

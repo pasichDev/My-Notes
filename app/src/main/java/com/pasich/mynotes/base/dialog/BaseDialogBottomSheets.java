@@ -12,24 +12,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.base.view.BaseView;
-import com.pasich.mynotes.di.component.ActivityComponent;
 
 public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment implements BaseView {
 
-    private BaseActivity activity;
     private BottomSheetDialog mDialog;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheetsStyleCustom);
-
         mDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        if (context instanceof BaseActivity) {
-            activity = (BaseActivity) context;
-        }
     }
 
     @Override
@@ -52,7 +45,6 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
 
     @Override
     public void onDetach() {
-        activity = null;
         super.onDetach();
     }
 
@@ -72,10 +64,6 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
         }
     }
 
-    public ActivityComponent getActivityComponent() {
-        if (activity != null) return activity.getActivityComponent();
-        return null;
-    }
 
     @Override
     public void onInfoSnack(int resID, View view, int typeInfo, int time) {

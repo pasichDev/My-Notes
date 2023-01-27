@@ -5,11 +5,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.pasich.mynotes.data.model.Tag;
-import com.pasich.mynotes.di.scope.PerActivity;
 
 import javax.inject.Inject;
 
-@PerActivity
+import dagger.hilt.android.scopes.ActivityScoped;
+
+@ActivityScoped
 public class DiffUtilTag extends DiffUtil.ItemCallback<Tag> {
 
     @Inject

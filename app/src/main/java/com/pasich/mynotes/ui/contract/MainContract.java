@@ -9,11 +9,12 @@ import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
-import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dagger.hilt.android.scopes.ActivityScoped;
 
 public interface MainContract {
 
@@ -58,7 +59,7 @@ public interface MainContract {
     }
 
 
-    @PerActivity
+    @ActivityScoped
     interface presenter extends BasePresenter<view> {
         void newNotesClick();
 

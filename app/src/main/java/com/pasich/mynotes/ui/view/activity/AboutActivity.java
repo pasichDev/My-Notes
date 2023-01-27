@@ -27,6 +27,9 @@ import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class AboutActivity extends BaseActivity {
 
     @Inject
@@ -44,7 +47,6 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
         binding.setActivity(this);
         initActivity();
     }

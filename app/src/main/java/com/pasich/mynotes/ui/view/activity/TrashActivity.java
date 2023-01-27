@@ -27,7 +27,9 @@ import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class TrashActivity extends BaseActivity implements TrashContract.view, ManagerViewAction<TrashNote> {
 
     @Inject
@@ -53,7 +55,6 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
         trashPresenter.attachView(this);
         trashPresenter.viewIsReady();
         binding.setPresenter(trashPresenter);

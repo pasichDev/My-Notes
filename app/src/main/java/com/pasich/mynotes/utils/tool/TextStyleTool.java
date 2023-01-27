@@ -6,12 +6,13 @@ import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREF
 import android.widget.ImageButton;
 
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.di.scope.PerActivity;
 import com.preference.PowerPreference;
 
 import javax.inject.Inject;
 
-@PerActivity
+import dagger.hilt.android.scopes.ActivityScoped;
+
+@ActivityScoped
 public class TextStyleTool {
 
     private ImageButton mButton;

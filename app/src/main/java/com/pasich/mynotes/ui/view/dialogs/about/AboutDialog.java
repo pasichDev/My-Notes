@@ -30,7 +30,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
-import com.pasich.mynotes.di.component.ActivityComponent;
 import com.pasich.mynotes.ui.view.activity.AboutActivity;
 import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
@@ -44,7 +43,9 @@ import com.preference.Preference;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class AboutDialog extends BaseDialogBottomSheets {
     private final AboutOpensActivity aboutOpensActivity;
     @Inject
@@ -77,16 +78,10 @@ public class AboutDialog extends BaseDialogBottomSheets {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
-        final ActivityComponent component = getActivityComponent();
-        if (component != null) {
-            component.inject(this);
-            binding = DialogAboutActivityBinding.inflate(getLayoutInflater());
-            builder.setView(binding.getRoot());
-            initAccountInfo();
-            initListeners();
-        } else {
-            dismiss();
-        }
+        binding = DialogAboutActivityBinding.inflate(getLayoutInflater());
+        builder.setView(binding.getRoot());
+        initAccountInfo();
+        initListeners();
         return builder.create();
     }
 

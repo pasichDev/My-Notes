@@ -52,7 +52,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
 
     @Inject
@@ -96,7 +98,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
         mainPresenter.attachView(this);
         mainPresenter.viewIsReady();
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);

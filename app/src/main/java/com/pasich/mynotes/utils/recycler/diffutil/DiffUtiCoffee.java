@@ -5,11 +5,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.pasich.mynotes.data.model.Coffee;
-import com.pasich.mynotes.di.scope.PerActivity;
 
 import javax.inject.Inject;
 
-@PerActivity
+import dagger.hilt.android.scopes.ActivityScoped;
+
+@ActivityScoped
 public class DiffUtiCoffee extends DiffUtil.ItemCallback<Coffee> {
 
     @Inject

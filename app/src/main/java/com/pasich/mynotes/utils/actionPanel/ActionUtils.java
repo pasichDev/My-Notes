@@ -6,12 +6,13 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
-import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 
 import javax.inject.Inject;
 
-@PerActivity
+import dagger.hilt.android.scopes.ActivityScoped;
+
+@ActivityScoped
 public class ActionUtils {
     private static boolean ACTION_ON = false;
     private final ActionPanelBinding binding;
