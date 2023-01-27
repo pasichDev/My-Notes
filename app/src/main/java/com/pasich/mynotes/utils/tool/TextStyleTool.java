@@ -10,9 +10,9 @@ import com.preference.PowerPreference;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.scopes.ActivityScoped;
+import dagger.hilt.android.scopes.FragmentScoped;
 
-@ActivityScoped
+@FragmentScoped
 public class TextStyleTool {
 
     private ImageButton mButton;
