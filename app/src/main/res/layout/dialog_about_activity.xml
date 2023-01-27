@@ -35,25 +35,6 @@
             android:text="@string/trash" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/reminder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
-
-        <ImageView
-            style="@style/iconDialogList"
-            android:contentDescription="@string/reminder"
-            android:src="@drawable/ic_reminder" />
-
-        <TextView
-            style="@style/itemTextBottomSheets"
-            android:text="@string/reminder" />
-    </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/themeApp"
