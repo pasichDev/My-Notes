@@ -1,5 +1,6 @@
 package com.pasich.mynotes.utils.backup;
 
+
 import android.util.Base64;
 
 import com.google.gson.Gson;
@@ -15,10 +16,9 @@ public class ScramblerBackupHelper {
 
     public static JsonBackup decodeString(String string) {
         try {
-            return new Gson().fromJson(new String(Base64.decode(string, Base64.DEFAULT), StandardCharsets.UTF_8), JsonBackup.class);
+            return new Gson().fromJson(new String(Base64.decode(string, Base64.DEFAULT), StandardCharsets.UTF_8), JsonBackup.class).setError(false);
         } catch (Exception e) {
             return new JsonBackup().error();
-
         }
     }
 

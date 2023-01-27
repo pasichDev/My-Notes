@@ -65,4 +65,9 @@ public class JsonBackup {
     public boolean isError() {
         return errorCode;
     }
+
+    public JsonBackup setError(boolean error) {
+        this.errorCode = error;
+        return this;
+    }
 }
