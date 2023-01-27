@@ -14,7 +14,6 @@
     <string name="exitWhat">To exit, you need to repeat the action</string>
     <string name="notFoundPlayMarket">Missing Play Market app</string>
     <string name="notSupportedShare">This content is not supported.</string>
-    <string name="error">Error</string>
     <string name="copyX">Copied</string>
     <string name="cd_format">Format notes</string>
 
@@ -75,7 +74,6 @@
     <string name="interpunct" translatable="false">·</string>
     <string name="theme_demo" translatable="false">Demo Screen Theme</string>
     <string name="editNoteButton" translatable="false">EditNote</string>
-    <string name="null_lit" translatable="false">0</string>
     <string name="contentCoffee" translatable="false">Coffee</string>
     <string name="developer" translatable="false">Andrii Pasichnik (pasichDev)</string>
     <string name="versionAndCodeApp" translatable="false">My notes (v%1$s)</string>
@@ -120,7 +118,6 @@
     <string name="lastCloudCopy" translatable="false">Последняя резервная копия: %1$s</string>
     <string name="errorDriveAuth" translatable="false">Гость</string>
     <string name="autoCloudBackupTitle" translatable="false">Автоматическое резервное копирование</string>
-    <string name="warning" translatable="false">Предупреждение</string>
     <string name="restoreNotesTitle" translatable="false">Восстановление данных</string>
     <string name="restoreNotesMessage" translatable="false">Новые заметки будут добавленные до уже существующих, а дубликаты будут проигнорированные!</string>
     <string name="selectRestore" translatable="false">Выбрать рез. копию</string>
@@ -144,7 +141,6 @@
 
     <!-- Error results backup/restore  -->
     <string name="emptyDataToBackup" translatable="false">Нет данных, для создания резервной копии</string>
-    <string name="errorDriveBackup" translatable="false">Увы, но мы не нашли рез. копий</string>
     <string name="errorConnectedNetwork" translatable="false">Нет подключения к интернету</string>
     <string name="creteLocalCopyOkay" translatable="false">Резервную копию успешно создано</string>
     <string name="creteLocalCopyFail" translatable="false">Ошибка, резервная копия не сохранена</string>

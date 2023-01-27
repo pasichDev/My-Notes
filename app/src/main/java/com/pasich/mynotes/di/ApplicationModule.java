@@ -1,4 +1,4 @@
-package com.pasich.mynotes.di.module;
+package com.pasich.mynotes.di;
 
 import android.content.Context;
 
@@ -31,7 +31,7 @@ import dagger.hilt.components.SingletonComponent;
 
 @Module
 @InstallIn(SingletonComponent.class)
-public class DatabaseModule {
+public class ApplicationModule {
 
     @Provides
     @Singleton
