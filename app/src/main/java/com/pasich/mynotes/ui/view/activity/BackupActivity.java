@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
@@ -9,6 +10,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,6 +24,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
+import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
@@ -36,6 +41,7 @@ import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.pasich.mynotes.utils.constants.Drive_Scope;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -95,7 +101,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.attachView(this);
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
-
 
         //  OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).build();
         //  WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
@@ -161,11 +166,39 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[presenter.getDataManager().getSetCloudAuthBackup()]);
         binding.setIsPlayService(CheckPlayStore.isPlayStoreInstalled(this));
+
+
     }
 
     @Override
     public void initConnectAccount() {
         changeDataUserActivityFromAuth(cloudCacheHelper.isAuth());
+        checkFilesDebug();
+
+    }
+
+
+    // TODO: 27.01.2023 delte method to relese 2.1.14
+    private void checkFilesDebug() {
+
+        Thread CrearEventoHilo = new Thread() {
+            public void run() {
+                try {
+                    FileList files = getDrive().files().list().setSpaces("appDataFolder")
+                            .setFields("files(id, modifiedTime)").setOrderBy("modifiedTime desc")
+                            .setPageSize(8)
+                            .execute();
+                    for (File file : files.getFiles()) {
+                        Log.wtf(TAG, "onCreate: " + file.getId() + " / " + file.getModifiedTime());
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        if (BuildConfig.DEBUG) {
+            CrearEventoHilo.start();
+        }
 
     }
 

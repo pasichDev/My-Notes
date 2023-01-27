@@ -34,7 +34,7 @@ public class DriveServiceHelper {
 
 
     private final Executor mExecutor = Executors.newSingleThreadExecutor();
-    private final int PAGE_SIZE = 5;
+    private final int PAGE_SIZE = 6;
 
 
     @Inject
@@ -51,7 +51,7 @@ public class DriveServiceHelper {
         final ArrayList<LastBackupCloud> list = new ArrayList<>();
         return Tasks.call(mExecutor, () -> {
             FileList files = mDriveCredential.files().list().setSpaces("appDataFolder")
-                    .setFields("files(id, modifiedTime)").setOrderBy("modifiedTime")
+                    .setFields("files(id, modifiedTime)").setOrderBy("modifiedTime desc")
                     .setPageSize(PAGE_SIZE)
                     .execute();
 
@@ -111,21 +111,15 @@ public class DriveServiceHelper {
      */
     public Task<ArrayList<String>> getOldBackupForCLean(Drive mDriveCredential) {
         final ArrayList<String> listIdsDeleted = new ArrayList<>();
-        final String oldBackup = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP).getString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
         return Tasks.call(mExecutor, () -> {
-            if (!oldBackup.equals("null")) {
-                File mFile = mDriveCredential.files().get(oldBackup).execute();
-                if (mFile != null) {
-                    listIdsDeleted.add(mFile.getId());
-                }
-            } else {
-                FileList files = mDriveCredential.files().list().setSpaces("appDataFolder")
+
+            FileList files = mDriveCredential.files().list().setSpaces("appDataFolder")
                         .setFields("files(id)").setPageSize(PAGE_SIZE).execute();
 
                 for (File file : files.getFiles()) {
                     listIdsDeleted.add(file.getId());
                 }
-            }
+
             return listIdsDeleted;
         });
     }
