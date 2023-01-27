@@ -5,22 +5,34 @@ import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
 import static com.pasich.mynotes.utils.constants.Backup_Constants.FIlE_NAME_PREFERENCE_BACKUP;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.pasich.mynotes.data.model.backup.BackupCloud;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.data.model.backup.LastBackupCloud;
+import com.pasich.mynotes.di.scope.ApplicationContext;
+import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.ScramblerBackupHelper;
 import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.preference.PowerPreference;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,24 +41,22 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class DriveServiceHelper {
-
-
+@Singleton
+public class ApiBackup implements ApiHelper {
     private final Executor mExecutor = Executors.newSingleThreadExecutor();
     private final int PAGE_SIZE = 6;
 
+    private final Context mContext;
 
     @Inject
-    public DriveServiceHelper() {
-
+    public ApiBackup(@ApplicationContext Context context) {
+        this.mContext = context;
     }
 
-    /**
-     * Check info lastBackup
-     *
-     * @param mDriveCredential - drive permissions check
-     */
+
+    @Override
     public Task<LastBackupCloud> getLastBackupInfo(Drive mDriveCredential) {
         final ArrayList<LastBackupCloud> list = new ArrayList<>();
         return Tasks.call(mExecutor, () -> {
@@ -55,7 +65,7 @@ public class DriveServiceHelper {
                     .setPageSize(PAGE_SIZE)
                     .execute();
 
-            for (File file : files.getFiles()) {
+            for (com.google.api.services.drive.model.File file : files.getFiles()) {
                 list.add(new LastBackupCloud(file.getId(), file.getModifiedTime().getValue()));
             }
 
@@ -67,33 +77,21 @@ public class DriveServiceHelper {
         });
     }
 
-
-    /**
-     * Write file backup to cloud
-     *
-     * @param mDriveCredential - check auth user
-     * @param backupTemp       - temp file backup
-     * @param progressListener - listener progress upload
-     */
-    public Task<BackupCloud> writeCloudBackup(Drive mDriveCredential, java.io.File backupTemp, MediaHttpUploaderProgressListener progressListener) {
+    @Override
+    public Task<BackupCloud> writeCloudBackup(Drive mDriveCredential, File backupTemp, MediaHttpUploaderProgressListener progressListener) {
         return Tasks.call(mExecutor, () -> {
-            final File fileMetadata = new File().setName(FILE_NAME_BACKUP).setParents(Collections.singletonList("appDataFolder"));
+            final com.google.api.services.drive.model.File fileMetadata = new com.google.api.services.drive.model.File().setName(FILE_NAME_BACKUP).setParents(Collections.singletonList("appDataFolder"));
             final FileContent mediaContent = new FileContent("application/json", backupTemp);
 
             Drive.Files.Create create = mDriveCredential.files().create(fileMetadata, mediaContent).setFields("id");
             MediaHttpUploader uploader = create.getMediaHttpUploader();
             uploader.setProgressListener(progressListener);
-            File file = create.execute();
+            com.google.api.services.drive.model.File file = create.execute();
             return new BackupCloud(file.getId(), new Date().getTime());
         });
     }
 
-    /**
-     * Clean old backup copy
-     *
-     * @param mDriveCredential - drive permissions check
-     * @param oldBackups       - array old backups ids
-     */
+    @Override
     public Task<Boolean> cleanOldBackups(Drive mDriveCredential, ArrayList<String> oldBackups) {
         return Tasks.call(mExecutor, () -> {
             for (String idDeleteBackup : oldBackups) {
@@ -103,27 +101,23 @@ public class DriveServiceHelper {
         });
     }
 
-
-    /**
-     * Load oldBackup list
-     *
-     * @param mDriveCredential - drive permissions check
-     */
+    @Override
     public Task<ArrayList<String>> getOldBackupForCLean(Drive mDriveCredential) {
         final ArrayList<String> listIdsDeleted = new ArrayList<>();
         return Tasks.call(mExecutor, () -> {
 
             FileList files = mDriveCredential.files().list().setSpaces("appDataFolder")
-                        .setFields("files(id)").setPageSize(PAGE_SIZE).execute();
+                    .setFields("files(id)").setPageSize(PAGE_SIZE).execute();
 
-                for (File file : files.getFiles()) {
-                    listIdsDeleted.add(file.getId());
-                }
+            for (com.google.api.services.drive.model.File file : files.getFiles()) {
+                listIdsDeleted.add(file.getId());
+            }
 
             return listIdsDeleted;
         });
     }
 
+    @Override
     public Task<JsonBackup> getReadLastBackupCloud(Drive mDriveCredential) {
         final String idBackupCloud = PowerPreference.getFileByName(FIlE_NAME_PREFERENCE_BACKUP).getString(ARGUMENT_LAST_BACKUP_ID, ARGUMENT_DEFAULT_LAST_BACKUP_ID);
         return Tasks.call(mExecutor, () -> {
@@ -131,6 +125,71 @@ public class DriveServiceHelper {
             mDriveCredential.files().get(idBackupCloud).executeMediaAndDownloadTo(outputStream);
             return ScramblerBackupHelper.decodeString(outputStream.toString());
         });
+    }
+
+    @Override
+    public boolean writeBackupLocalFile(BackupCacheHelper serviceCache, Uri uriLocalFile) {
+        if (checkServiceCache(serviceCache)) {
+            try {
+                ParcelFileDescriptor descriptor = mContext.getContentResolver().openFileDescriptor(uriLocalFile, "w");
+                FileOutputStream fileOutputStream = new FileOutputStream(descriptor.getFileDescriptor());
+                fileOutputStream.write(ScramblerBackupHelper.encodeString(serviceCache.getJsonBackup()).getBytes());
+                fileOutputStream.close();
+                descriptor.close();
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public JsonBackup readBackupLocalFile(Uri uriLocalFile) {
+        try {
+            final ParcelFileDescriptor descriptor = mContext.getContentResolver().openFileDescriptor(uriLocalFile, "r");
+            final StringBuilder jsonFile = new StringBuilder();
+            final BufferedReader bufferedReader = new BufferedReader(new FileReader(descriptor.getFileDescriptor()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                jsonFile.append(line);
+                jsonFile.append('\n');
+            }
+            descriptor.close();
+            bufferedReader.close();
+            return ScramblerBackupHelper.decodeString(jsonFile.toString());
+        } catch (IOException e) {
+            return new JsonBackup().error();
+        }
+    }
+
+    @Override
+    public File writeTempBackup(JsonBackup jsonBackup) {
+        final java.io.File backupTemp = new java.io.File(mContext.getFilesDir() + FILE_NAME_BACKUP);
+        try {
+            BufferedWriter bwNote = new BufferedWriter(new FileWriter(backupTemp));
+            bwNote.write(ScramblerBackupHelper.encodeString(jsonBackup));
+            bwNote.close();
+            return backupTemp;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Valid service cache
+     *
+     * @param serviceCache - cache backup initial user data
+     * @return - error check
+     */
+    private boolean checkServiceCache(BackupCacheHelper serviceCache) {
+        if (serviceCache == null) {
+            return false;
+        }
+        return serviceCache.getJsonBackup() != null;
     }
 
 }

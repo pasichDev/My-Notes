@@ -6,10 +6,8 @@ import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_
 import android.net.Uri;
 
 import com.google.api.services.drive.Drive;
-import com.pasich.mynotes.base.presenter.BackupBasePresenter;
+import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
-import com.pasich.mynotes.data.api.DriveServiceHelper;
-import com.pasich.mynotes.data.api.LocalServiceHelper;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.di.scope.PerActivity;
 import com.pasich.mynotes.ui.contract.BackupContract;
@@ -25,13 +23,13 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 
 @PerActivity
-public class BackupPresenter extends BackupBasePresenter<BackupContract.view> implements BackupContract.presenter {
+public class BackupPresenter extends BasePresenter<BackupContract.view> implements BackupContract.presenter {
 
     private int clickUpdate = 0;
 
     @Inject
-    public BackupPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager, LocalServiceHelper localServiceHelper, DriveServiceHelper driveServiceHelper) {
-        super(schedulerProvider, compositeDisposable, dataManager, localServiceHelper, driveServiceHelper);
+    public BackupPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, DataManager dataManager) {
+        super(schedulerProvider, compositeDisposable, dataManager);
     }
 
     @Override
@@ -108,7 +106,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
      */
     @Override
     public void writeFileBackupLocal(BackupCacheHelper serviceCache, Uri mUri) {
-        getView().createLocalCopyFinish(getLocalServiceHelper().writeBackupLocalFile(serviceCache, mUri));
+        getView().createLocalCopyFinish(getDataManager().writeBackupLocalFile(serviceCache, mUri));
     }
 
 
@@ -118,7 +116,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     @Override
     public void readFileBackupLocal(Uri mUri) {
         getView().showProcessRestoreDialog();
-        final JsonBackup jsonBackup = getLocalServiceHelper().readBackupLocalFile(mUri);
+        final JsonBackup jsonBackup = getDataManager().readBackupLocalFile(mUri);
         if (jsonBackup.isError()) {
             getView().restoreFinish(Cloud_Error.BACKUP_DESTROY);
         } else {
@@ -191,14 +189,14 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     @Override
     public void writeFileBackupCloud(Drive mDriveCredential, JsonBackup jsonBackup) {
         getView().visibleProgressBarCLoud();
-        final java.io.File backupTemp = getLocalServiceHelper().writeTempBackup(jsonBackup);
+        final java.io.File backupTemp = getDataManager().writeTempBackup(jsonBackup);
         if (backupTemp == null) {
             getView().showErrors(Cloud_Error.ERROR_CREATE_CLOUD_BACKUP);
         } else {
-            getDriveServiceHelper()
+            getDataManager()
                     .getOldBackupForCLean(mDriveCredential) //load old backup
                     .onSuccessTask(listBackups ->
-                            getDriveServiceHelper().writeCloudBackup(mDriveCredential,
+                            getDataManager().writeCloudBackup(mDriveCredential,
                                             backupTemp, getView().getProcessListener())//write new backup
                                     .addOnCompleteListener(stack -> {
                                         getView().goneProgressBarCLoud();
@@ -210,7 +208,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
                                         getView().createLocalCopyFinish(true);
 
                                     })
-                                    .onSuccessTask(backupCloud -> getDriveServiceHelper().cleanOldBackups(mDriveCredential, listBackups))
+                                    .onSuccessTask(backupCloud -> getDataManager().cleanOldBackups(mDriveCredential, listBackups))
                                     .addOnFailureListener(stack -> getView().showErrors(Cloud_Error.NETWORK_FALSE)))
 
                     .addOnFailureListener(stack -> {
@@ -230,7 +228,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
     @Override
     public void readFileBackupCloud(Drive mDriveCredential) {
         getView().showProcessRestoreDialog();
-        getDriveServiceHelper().getReadLastBackupCloud(mDriveCredential)
+        getDataManager().getReadLastBackupCloud(mDriveCredential)
                 .addOnSuccessListener(jsonBackup -> {
                     if (jsonBackup.isError()) {
                         getView().restoreFinish(Cloud_Error.BACKUP_DESTROY);
@@ -246,7 +244,7 @@ public class BackupPresenter extends BackupBasePresenter<BackupContract.view> im
      */
     @Override
     public void saveDataLoadingLastBackup(Drive mDriveCredential) {
-        getDriveServiceHelper().getLastBackupInfo(mDriveCredential)
+        getDataManager().getLastBackupInfo(mDriveCredential)
                 .addOnSuccessListener(lastInfo -> {
                     if (lastInfo.getErrorCode() == 0) {
                         getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, lastInfo.getId());

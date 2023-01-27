@@ -5,7 +5,7 @@ import android.net.Uri;
 
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.services.drive.Drive;
-import com.pasich.mynotes.base.view.BackupPresenter;
+import com.pasich.mynotes.base.view.BasePresenter;
 import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.di.scope.PerActivity;
@@ -59,7 +59,7 @@ public interface BackupContract {
 
 
     @PerActivity
-    interface presenter extends BackupPresenter<view> {
+    interface presenter extends BasePresenter<view> {
 
         void clickInformationCloud(boolean isAuth);
 

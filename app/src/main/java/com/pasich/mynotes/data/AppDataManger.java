@@ -1,14 +1,25 @@
 package com.pasich.mynotes.data;
 
 
+import android.net.Uri;
+
+import com.google.android.gms.tasks.Task;
+import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
+import com.google.api.services.drive.Drive;
+import com.pasich.mynotes.data.api.ApiBackup;
 import com.pasich.mynotes.data.database.DbHelper;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
+import com.pasich.mynotes.data.model.backup.BackupCloud;
+import com.pasich.mynotes.data.model.backup.JsonBackup;
+import com.pasich.mynotes.data.model.backup.LastBackupCloud;
 import com.pasich.mynotes.data.model.backup.PreferencesBackup;
 import com.pasich.mynotes.data.preferences.AppPreferencesHelper;
+import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.preference.Preference;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +37,13 @@ public class AppDataManger implements DataManager {
 
     private final DbHelper dbHelper;
     private final AppPreferencesHelper preferencesHelper;
+    private final ApiBackup apiBackup;
 
     @Inject
-    AppDataManger(AppPreferencesHelper preferencesHelper, DbHelper dbHelper) {
+    AppDataManger(AppPreferencesHelper preferencesHelper, DbHelper dbHelper, ApiBackup apiBackup) {
         this.dbHelper = dbHelper;
         this.preferencesHelper = preferencesHelper;
+        this.apiBackup = apiBackup;
     }
 
 
@@ -264,4 +277,43 @@ public class AppDataManger implements DataManager {
         return dbHelper.setTagNote(nameTag, idNote);
     }
 
+    @Override
+    public Task<LastBackupCloud> getLastBackupInfo(Drive mDriveCredential) {
+        return apiBackup.getLastBackupInfo(mDriveCredential);
+    }
+
+    @Override
+    public Task<BackupCloud> writeCloudBackup(Drive mDriveCredential, File backupTemp, MediaHttpUploaderProgressListener progressListener) {
+        return apiBackup.writeCloudBackup(mDriveCredential, backupTemp, progressListener);
+    }
+
+    @Override
+    public Task<Boolean> cleanOldBackups(Drive mDriveCredential, ArrayList<String> oldBackups) {
+        return apiBackup.cleanOldBackups(mDriveCredential, oldBackups);
+    }
+
+    @Override
+    public Task<ArrayList<String>> getOldBackupForCLean(Drive mDriveCredential) {
+        return apiBackup.getOldBackupForCLean(mDriveCredential);
+    }
+
+    @Override
+    public Task<JsonBackup> getReadLastBackupCloud(Drive mDriveCredential) {
+        return apiBackup.getReadLastBackupCloud(mDriveCredential);
+    }
+
+    @Override
+    public boolean writeBackupLocalFile(BackupCacheHelper serviceCache, Uri uriLocalFile) {
+        return apiBackup.writeBackupLocalFile(serviceCache, uriLocalFile);
+    }
+
+    @Override
+    public JsonBackup readBackupLocalFile(Uri uriLocalFile) {
+        return apiBackup.readBackupLocalFile(uriLocalFile);
+    }
+
+    @Override
+    public File writeTempBackup(JsonBackup jsonBackup) {
+        return apiBackup.writeTempBackup(jsonBackup);
+    }
 }
