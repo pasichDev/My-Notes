@@ -1,6 +1,9 @@
 package com.pasich.mynotes.di;
 
+
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -89,17 +92,34 @@ public class ApplicationModule {
         return GoogleSignIn.getClient(mContext, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().requestScopes(accessDrive).build());
     }
 
+    @Provides
+    @Singleton
+    boolean providerIsPlayStoreInstalled(@ApplicationContext Context context) {
+        boolean flag;
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo("com.android.vending", 0);
+            flag = packageInfo.applicationInfo.enabled;
+        } catch (PackageManager.NameNotFoundException exc) {
+            flag = false;
+        }
+        return flag;
+    }
+
 
     @Provides
     @Singleton
-    CloudCacheHelper providesCloudCacheHelper(@ApplicationContext Context mContext, Scope accessDrive) {
-        GoogleSignInAccount mLastAccount = GoogleSignIn.getLastSignedInAccount(mContext);
-
-        if (mLastAccount != null) {
-            return new CloudCacheHelper().build(mLastAccount, GoogleSignIn.hasPermissions(mLastAccount, accessDrive));
+    CloudCacheHelper providesCloudCacheHelper(@ApplicationContext Context mContext, Scope accessDrive, boolean isPlayMarketInstall) {
+        if (isPlayMarketInstall) {
+            GoogleSignInAccount mLastAccount = GoogleSignIn.getLastSignedInAccount(mContext);
+            if (mLastAccount != null) {
+                return new CloudCacheHelper().build(mLastAccount, GoogleSignIn.hasPermissions(mLastAccount, accessDrive));
+            } else {
+                return new CloudCacheHelper();
+            }
         } else {
-            return new CloudCacheHelper();
+            return new CloudCacheHelper().playMarketNoInstall();
         }
+
 
     }
 }

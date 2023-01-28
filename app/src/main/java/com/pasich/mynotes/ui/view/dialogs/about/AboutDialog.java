@@ -33,7 +33,6 @@ import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
 import com.pasich.mynotes.ui.view.activity.AboutActivity;
 import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
-import com.pasich.mynotes.utils.CheckPlayStore;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.Drive_Scope;
@@ -86,9 +85,8 @@ public class AboutDialog extends BaseDialogBottomSheets {
     }
 
     private void initAccountInfo() {
-        boolean checkPlayStore = CheckPlayStore.isPlayStoreInstalled(requireContext());
-        binding.loginPage.viewLoginRoot.setVisibility(checkPlayStore ? View.VISIBLE : View.GONE);
-        binding.divider.setVisibility(checkPlayStore ? View.VISIBLE : View.GONE);
+        binding.loginPage.viewLoginRoot.setVisibility(cloudCacheHelper.isInstallPlayMarket() ? View.VISIBLE : View.GONE);
+        binding.divider.setVisibility(cloudCacheHelper.isInstallPlayMarket() ? View.VISIBLE : View.GONE);
         loadingDataUser(cloudCacheHelper.isAuth());
     }
 

@@ -9,8 +9,8 @@ public class CloudCacheHelper {
 
     private GoogleSignInAccount googleSignInAccount;
     private boolean isHasPermissionDrive;
-
     private boolean isAuth;
+    private boolean isInstallPlayMarket;
 
     @Inject
     public CloudCacheHelper() {
@@ -21,6 +21,7 @@ public class CloudCacheHelper {
         this.googleSignInAccount = account;
         this.isHasPermissionDrive = isHasPermissionDrive;
         this.isAuth = true;
+        this.isInstallPlayMarket = true;
         return this;
     }
 
@@ -28,6 +29,14 @@ public class CloudCacheHelper {
         this.googleSignInAccount = account;
         this.isHasPermissionDrive = isHasPermissionDrive;
         this.isAuth = isAuth;
+    }
+
+    public CloudCacheHelper playMarketNoInstall() {
+        this.googleSignInAccount = null;
+        this.isHasPermissionDrive = false;
+        this.isAuth = false;
+        this.isInstallPlayMarket = false;
+        return this;
     }
 
     public void clean() {
@@ -53,5 +62,8 @@ public class CloudCacheHelper {
         return isAuth;
     }
 
+    public boolean isInstallPlayMarket() {
+        return isInstallPlayMarket;
+    }
 
 }

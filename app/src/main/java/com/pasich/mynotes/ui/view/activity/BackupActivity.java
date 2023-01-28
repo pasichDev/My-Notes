@@ -33,7 +33,6 @@ import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.databinding.ActivityBackupBinding;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
-import com.pasich.mynotes.utils.CheckPlayStore;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
@@ -166,13 +165,12 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[presenter.getDataManager().getSetCloudAuthBackup()]);
-        binding.setIsPlayService(CheckPlayStore.isPlayStoreInstalled(this));
-
 
     }
 
     @Override
     public void initConnectAccount() {
+        binding.setIsPlayService(cloudCacheHelper.isInstallPlayMarket());
         changeDataUserActivityFromAuth(cloudCacheHelper.isAuth());
         //    checkFilesDebug();
 
@@ -339,22 +337,22 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public MediaHttpUploaderProgressListener getProcessListener() {
         return uploading -> {
             switch (uploading.getUploadState()) {
-                case INITIATION_STARTED:
+                case INITIATION_STARTED -> {
                     binding.progressBackupCloud.setProgress(20);
                     runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 20)));
-                    break;
-                case INITIATION_COMPLETE:
+                }
+                case INITIATION_COMPLETE -> {
                     binding.progressBackupCloud.setProgress(50);
                     runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 50)));
-                    break;
-                case MEDIA_IN_PROGRESS:
+                }
+                case MEDIA_IN_PROGRESS -> {
                     binding.progressBackupCloud.setProgress(80);
                     runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 80)));
-                    break;
-                case MEDIA_COMPLETE:
+                }
+                case MEDIA_COMPLETE -> {
                     binding.progressBackupCloud.setProgress(99);
                     runOnUiThread(() -> binding.percentProgress.setText(getString(R.string.percentProgress, 99)));
-                    break;
+                }
             }
         };
     }
@@ -436,20 +434,17 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void restoreFinish(int infoCode) {
         if (progressDialog != null) progressDialog.dismiss();
-
         switch (infoCode) {
-            case Cloud_Error.OKAY_RESTORE:
-                onInfoSnack(R.string.restoreDataOkay, null, SnackBarInfo.Success, Snackbar.LENGTH_LONG);
-                break;
-            case Cloud_Error.BACKUP_DESTROY:
-                onInfoSnack(R.string.restoreDataFall, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
-                break;
-            case Cloud_Error.NETWORK_ERROR:
+            case Cloud_Error.OKAY_RESTORE ->
+                    onInfoSnack(R.string.restoreDataOkay, null, SnackBarInfo.Success, Snackbar.LENGTH_LONG);
+            case Cloud_Error.BACKUP_DESTROY ->
+                    onInfoSnack(R.string.restoreDataFall, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
+            case Cloud_Error.NETWORK_ERROR -> {
                 goneProgressBarCLoud();
                 onInfoSnack(R.string.errorDriveSync, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
-                break;
-
-            default:
+            }
+            default -> {
+            }
         }
     }
 
@@ -503,7 +498,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void emptyDataToBackup() {
-        onInfoSnack(R.string.emptyDataToBackup, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
+        onInfoSnack(R.string.emptyDataToBackup, null, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
     @Override
