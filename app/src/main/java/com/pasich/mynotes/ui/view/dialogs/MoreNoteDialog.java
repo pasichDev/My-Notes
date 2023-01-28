@@ -127,10 +127,10 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     @Override
     public void initInterfaces() {
         if (activityNote) {
-            noteActivity = (MoreNoteNoteActivityView) getContext();
+            noteActivity = (MoreNoteNoteActivityView) requireActivity();
             mainActivity = null;
         } else {
-            mainActivity = (MoreNoteMainActivityView) getContext();
+            mainActivity = (MoreNoteMainActivityView) requireActivity();
             noteActivity = null;
         }
     }

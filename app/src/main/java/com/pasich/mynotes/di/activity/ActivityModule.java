@@ -6,18 +6,10 @@ import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.contract.TrashContract;
-import com.pasich.mynotes.ui.contract.dialogs.ClearTrashDialogContract;
-import com.pasich.mynotes.ui.contract.dialogs.DeleteTagDialogContract;
-import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
-import com.pasich.mynotes.ui.contract.dialogs.SearchDialogContract;
 import com.pasich.mynotes.ui.presenter.BackupPresenter;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
-import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
-import com.pasich.mynotes.ui.presenter.dialogs.DeleteTagDialogPresenter;
-import com.pasich.mynotes.ui.presenter.dialogs.NameTagDialogPresenter;
-import com.pasich.mynotes.ui.presenter.dialogs.SearchDialogPresenter;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.rx.AppSchedulerProvider;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
@@ -72,31 +64,6 @@ public class ActivityModule {
         return presenter;
     }
 
-    @Provides
-    @ActivityScoped
-    NewTagDialogContract.presenter providerNewTagDialogPresenter(NameTagDialogPresenter presenter) {
-        return presenter;
-
-    }
-
-
-    @Provides
-    @ActivityScoped
-    DeleteTagDialogContract.presenter providerDeleteTagDialogPresenter(DeleteTagDialogPresenter presenter) {
-        return presenter;
-    }
-
-    @Provides
-    @ActivityScoped
-    SearchDialogContract.presenter providerSearchDialogPresenter(SearchDialogPresenter presenter) {
-        return presenter;
-    }
-
-    @Provides
-    @ActivityScoped
-    ClearTrashDialogContract.presenter providerClearTrashDialogPresenter(ClearTrashDialogPresenter presenter) {
-        return presenter;
-    }
 
 
     @Named("ActionUtilsTrash")
