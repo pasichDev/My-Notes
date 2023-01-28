@@ -36,14 +36,14 @@ import io.reactivex.disposables.CompositeDisposable;
 public class ActivityModule {
 
 
-
-
     @Provides
+    @ActivityScoped
     CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
     }
 
     @Provides
+    @ActivityScoped
     SchedulerProvider provideScheduleProvider() {
         return new AppSchedulerProvider();
     }
