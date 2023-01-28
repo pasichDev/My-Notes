@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,6 +41,7 @@ import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.Cloud_Error;
 import com.pasich.mynotes.utils.constants.Drive_Scope;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
+import com.pasich.mynotes.worker.AutoBackupCloudWorker;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -102,9 +105,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
 
-        //  OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).build();
+        OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).build();
         //  WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
-        /// WorkManager.getInstance().enqueue(myWorkRequest);
+        WorkManager.getInstance().enqueue(myWorkRequest);
         // WorkManager.getInstance().cancelAllWork();
 
     }
