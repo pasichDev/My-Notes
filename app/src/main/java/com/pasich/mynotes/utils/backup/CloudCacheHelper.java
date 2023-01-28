@@ -15,6 +15,7 @@ public class CloudCacheHelper {
     @Inject
     public CloudCacheHelper() {
         this.isAuth = false;
+        this.isInstallPlayMarket = true;
     }
 
     public CloudCacheHelper build(GoogleSignInAccount account, boolean isHasPermissionDrive) {
