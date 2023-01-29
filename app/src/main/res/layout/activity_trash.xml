@@ -21,35 +21,24 @@
         android:id="@+id/activity_trash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="?attr/colorSurface"
         tools:context=".ui.view.activity.TrashActivity">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:fitsSystemWindows="true"
-            app:layout_behavior=".utils.behavior.FixedAppBarLayoutBehavior">
+            android:fitsSystemWindows="true">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                android:fitsSystemWindows="true"
-                app:expandedTitleMarginStart="20dp"
-                app:expandedTitleTextAppearance="@style/headActivityText"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@string/trashN">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@android:color/transparent"
-                    app:layout_collapseMode="pin" />
-
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+                app:title="@string/trash"
+                app:layout_collapseMode="pin" />
         </com.google.android.material.appbar.AppBarLayout>
 
 
