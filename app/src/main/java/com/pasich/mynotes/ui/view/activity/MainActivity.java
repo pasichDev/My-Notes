@@ -69,7 +69,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public TagsAdapter tagsAdapter;
     @Inject
     public StaggeredGridLayoutManager staggeredGridLayoutManager;
-
     @Inject
     public ActionUtils actionUtils;
     @Inject
