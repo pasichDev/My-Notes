@@ -32,7 +32,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AboutActivity extends BaseActivity {
 
-    @Inject
     public ActivityAboutBinding binding;
     @Inject
     public CoffeeAdapter coffeeAdapter;
@@ -47,6 +46,8 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityAboutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         binding.setActivity(this);
         initActivity();
     }

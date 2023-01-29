@@ -55,7 +55,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Inject
     public BackupContract.presenter presenter;
-    @Inject
     public ActivityBackupBinding binding;
     @Inject
     public BackupCacheHelper serviceCache;
@@ -101,6 +100,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityBackupBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         presenter.attachView(this);
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);

@@ -107,5 +107,7 @@ dependencies {
     //Create letter avatar
     implementation 'com.github.amoskorir:avatarimagegenerator:1.5.0'
 
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 }
 

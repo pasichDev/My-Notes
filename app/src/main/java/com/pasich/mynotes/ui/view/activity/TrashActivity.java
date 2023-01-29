@@ -34,16 +34,11 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     @Inject
     public TrashPresenter trashPresenter;
-    @Inject
     public ActivityTrashBinding binding;
-
     @Inject
     public TrashNoteActionTool trashNoteActionTool;
-
     @Inject
     public TrashAdapter<ItemNoteTrashBinding> mNotesTrashAdapter;
-
-    @Named("ActionUtilsTrash")
     @Inject
     public ActionUtils actionUtils;
 
@@ -55,10 +50,14 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityTrashBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         trashPresenter.attachView(this);
         trashPresenter.viewIsReady();
         binding.setPresenter(trashPresenter);
+        actionUtils.setMangerView(binding.getRoot());
         actionUtils.setTrash();
+
     }
 
     @Override

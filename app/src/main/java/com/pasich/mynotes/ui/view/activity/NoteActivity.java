@@ -36,7 +36,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class NoteActivity extends BaseActivity implements NoteContract.view {
 
-    @Inject
     public ActivityNoteBinding binding;
     @Inject
     public NoteContract.presenter notePresenter;
@@ -45,8 +44,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        binding = ActivityNoteBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         binding.setPresenter((NotePresenter) notePresenter);
         notePresenter.attachView(this);
         notePresenter.getLoadIntentData(getIntent());

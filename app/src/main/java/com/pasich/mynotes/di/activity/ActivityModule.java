@@ -1,6 +1,5 @@
 package com.pasich.mynotes.di.activity;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.ui.contract.MainContract;
@@ -10,11 +9,8 @@ import com.pasich.mynotes.ui.presenter.BackupPresenter;
 import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
-import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.rx.AppSchedulerProvider;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
-
-import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -63,18 +59,4 @@ public class ActivityModule {
     }
 
 
-
-    @Named("ActionUtilsTrash")
-    @Provides
-    @ActivityScoped
-    ActionUtils providerActionUtilsTrash(@Named("TrashActivityRootLayout") CoordinatorLayout coordinatorLayout) {
-        return new ActionUtils(coordinatorLayout);
-    }
-
-    @Named("ActionUtilsMain")
-    @Provides
-    @ActivityScoped
-    ActionUtils providerActionUtilsMain(@Named("MainActivityRootLayout") CoordinatorLayout coordinatorLayout) {
-        return new ActionUtils(coordinatorLayout);
-    }
 }

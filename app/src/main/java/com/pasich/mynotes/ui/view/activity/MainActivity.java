@@ -57,7 +57,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
 
-    @Inject
+
     public ActivityMainBinding mActivityBinding;
     @Inject
     public MainContract.presenter mainPresenter;
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public TagsAdapter tagsAdapter;
     @Inject
     public StaggeredGridLayoutManager staggeredGridLayoutManager;
-    @Named("ActionUtilsMain")
+
     @Inject
     public ActionUtils actionUtils;
     @Inject
@@ -98,9 +98,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivityBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mActivityBinding.getRoot());
         mainPresenter.attachView(this);
         mainPresenter.viewIsReady();
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
+        actionUtils.setMangerView(mActivityBinding.getRoot());
 
     }
 

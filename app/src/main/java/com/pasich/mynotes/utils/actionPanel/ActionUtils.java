@@ -2,8 +2,6 @@ package com.pasich.mynotes.utils.actionPanel;
 
 import android.view.View;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ActionPanelBinding;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
@@ -15,17 +13,20 @@ import dagger.hilt.android.scopes.ActivityScoped;
 @ActivityScoped
 public class ActionUtils {
     private static boolean ACTION_ON = false;
-    private final ActionPanelBinding binding;
-    private final CoordinatorLayout mViewRoot;
-    private final ManagerViewAction managerViewAction;
+    private ActionPanelBinding binding;
+    private View mViewRoot;
+    private ManagerViewAction managerViewAction;
 
     @Inject
-    public ActionUtils(CoordinatorLayout view) {
-        this.mViewRoot = view;
-        this.binding = ActionPanelBinding.bind(view.findViewById(R.id.actionInclude));
-        this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
-
+    public ActionUtils() {
     }
+
+    public void setMangerView(View view) {
+        this.mViewRoot = view;
+        this.managerViewAction = (ManagerViewAction) mViewRoot.getContext();
+        this.binding = ActionPanelBinding.bind(view.findViewById(R.id.actionInclude));
+    }
+
 
     /**
      * @return - Returns the value of ACTION_ON
