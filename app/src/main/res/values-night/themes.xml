@@ -368,30 +368,6 @@
         <item name="android:layout_marginEnd">15dp</item>
     </style>
 
-    <!-- Стиль для картинок из экрана приветсвий  -->
-
-    <style name="itemNoteTitle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">3dp</item>
-        <item name="android:layout_marginBottom">3dp</item>
-        <item name="android:fontFamily">@font/railway_medium</item>
-        <item name="android:maxLines">@integer/countLinesNoteTitle</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
-    </style>
-
-    <style name="itemNotePreview">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">3dp</item>
-        <item name="android:layout_marginBottom">3dp</item>
-        <item name="android:maxLines">@integer/maxLinesItemNoteValue</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
-    </style>
-
     <style name="itemNoteTag" parent="ChipStyleCustom">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

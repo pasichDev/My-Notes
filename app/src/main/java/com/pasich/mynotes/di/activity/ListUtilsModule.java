@@ -17,7 +17,6 @@ import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.TrashAdapter;
 import com.pasich.mynotes.utils.adapters.cofeeAdapter.CoffeeAdapter;
-import com.pasich.mynotes.utils.adapters.searchAdapter.SearchNotesAdapter;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtiCoffee;
@@ -49,12 +48,6 @@ public class ListUtilsModule {
     @ActivityScoped
     NoteAdapter<ItemNoteBinding> providerGenericAdapter(@Named("Note") DiffUtil.ItemCallback<Note> diff) {
         return new NoteAdapter<>((DiffUtilNote) diff, R.layout.item_note, ItemNoteBinding::setNote);
-    }
-
-    @Provides
-    @ActivityScoped
-    SearchNotesAdapter providerSearchAdapter() {
-        return new SearchNotesAdapter();
     }
 
     @Provides

@@ -25,8 +25,10 @@ public class SearchDialogPresenter extends BasePresenter<SearchDialogContract.vi
         getView().initListeners();
     }
 
-
-
+    @Override
+    public void detachView() {
+        super.detachView();
+    }
 
 
 }

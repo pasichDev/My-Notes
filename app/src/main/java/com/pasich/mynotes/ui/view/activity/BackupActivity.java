@@ -144,9 +144,11 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter = null;
-        startAuthIntent = null;
-        startIntentExport = null;
+        if (isDestroyed()) {
+            presenter.detachView();
+            startAuthIntent = null;
+            startIntentExport = null;
+        }
     }
 
     @Override

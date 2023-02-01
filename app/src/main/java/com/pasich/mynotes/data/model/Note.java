@@ -73,6 +73,11 @@ public class Note {
         return this.value;
     }
 
+    public String getValuePreview() {
+        String newPreview = value.length() > 200 ? value.substring(0, 200) : value;
+        return newPreview.replaceAll("\n", "");
+    }
+
     public void setValue(String value) {
         this.value = value;
     }

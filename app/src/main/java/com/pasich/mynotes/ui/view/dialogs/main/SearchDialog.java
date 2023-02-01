@@ -61,11 +61,11 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         fabNewNote.show();
-        binding = null;
-        searchNotesAdapter = null;
         mPresenter.detachView();
+        binding.closeSearch.setOnClickListener(null);
 
     }
+
 
     @Override
     public void initFabButton() {

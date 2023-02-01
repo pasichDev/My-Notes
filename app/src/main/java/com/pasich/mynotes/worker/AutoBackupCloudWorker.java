@@ -33,29 +33,19 @@ public class AutoBackupCloudWorker extends Worker {
     }
 
 
-
-
-
     @Override
     public void onStopped() {
         super.onStopped();
     }
 
 
-    // TODO: 28.01.2023 Add Description
-    private void createNotificationChannel() {
+    public void createNotif() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(com.pasich.mynotes.utils.constants.NotificationChannel.AutoBackup_Chanel, getApplicationContext().getString(R.string.chanelAutoBackup), NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-
-    public void createNotif() {
-
-        createNotificationChannel();
 
 
         Intent intent = new Intent(getApplicationContext(), BackupActivity.class);
@@ -71,7 +61,7 @@ public class AutoBackupCloudWorker extends Worker {
                         .bigText("Much longer text that cannot fit one line..."))
                 .setContentIntent(pendingIntent)
                 .setTimeoutAfter(4000)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         int PROGRESS_MAX = 100;
         int PROGRESS_CURRENT = 20;

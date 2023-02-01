@@ -8,6 +8,7 @@ import com.pasich.mynotes.ui.presenter.dialogs.ClearTrashDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.DeleteTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.NameTagDialogPresenter;
 import com.pasich.mynotes.ui.presenter.dialogs.SearchDialogPresenter;
+import com.pasich.mynotes.utils.adapters.searchAdapter.SearchNotesAdapter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -27,6 +28,11 @@ public class FragmentModule {
 
     }
 
+    @Provides
+    @FragmentScoped
+    SearchNotesAdapter providerSearchAdapter() {
+        return new SearchNotesAdapter();
+    }
 
     @Provides
     @FragmentScoped

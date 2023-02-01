@@ -69,9 +69,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     public void onInfoSnack(int resID, View view, int typeInfo, int time) {
         Snackbar snackbar = Snackbar.make(view == null ? findViewById(android.R.id.content) : view, getString(resID), time);
-        TextView snackbarTextView = (TextView) snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
-        snackbarTextView.setTypeface(snackbarTextView.getTypeface(), Typeface.BOLD);
-        snackbarTextView.setMaxLines(3);
+        if (typeInfo != SnackBarInfo.Info) {
+            TextView snackbarTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+            snackbarTextView.setTypeface(snackbarTextView.getTypeface(), Typeface.BOLD);
+        }
         switch (typeInfo) {
             case SnackBarInfo.Info:
                 break;
