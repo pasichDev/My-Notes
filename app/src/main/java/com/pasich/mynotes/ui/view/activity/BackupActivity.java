@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -106,9 +108,19 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
 
-        OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).build();
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresCharging(true).setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+
+
+        OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).setConstraints(constraints).build();
+
         //  WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
         WorkManager.getInstance().enqueue(myWorkRequest);
+
+        // WorkRequest workRequest = new WorkReq(AutoBackupCloudWorker.class).build();
+
         // WorkManager.getInstance().cancelAllWork();
 
     }

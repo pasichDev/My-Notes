@@ -54,7 +54,7 @@ public class AboutActivity extends BaseActivity {
 
 
     private void initListCoffee() {
-        listCoffee.add(new Coffee().create(getString(R.string.cupCoffee), AppCompatResources.getDrawable(this, R.drawable.ic_cup_off_coffee), 0.25));
+      //  listCoffee.add(new Coffee().create(getString(R.string.cupCoffee), AppCompatResources.getDrawable(this, R.drawable.ic_cup_off_coffee), 0.50));
         listCoffee.add(new Coffee().create(getString(R.string.glassCoffee), AppCompatResources.getDrawable(this, R.drawable.ic_glass_off_coffee), 1));
         listCoffee.add(new Coffee().create(getString(R.string.packCoffee), AppCompatResources.getDrawable(this, R.drawable.ic_pack_off_coffee), 5));
         listCoffee.add(new Coffee().create(getString(R.string.makerCoffee), AppCompatResources.getDrawable(this, R.drawable.ic_maker_coffee), 20));

@@ -54,8 +54,7 @@
                     android:layout_height="wrap_content"
                     android:background="?android:attr/selectableItemBackground"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/paddingItems"
-                    android:paddingBottom="@dimen/paddingItems"
+                    android:padding="@dimen/paddingItems"
                     android:visibility="@{activityNote ?  View.GONE  : View.VISIBLE , default = gone}">
 
                     <ImageView
