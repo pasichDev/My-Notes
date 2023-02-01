@@ -1,9 +1,9 @@
 package com.pasich.mynotes.data.api;
 
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.FIlE_NAME_PREFERENCE_BACKUP;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.FILE_NAME_BACKUP;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.FIlE_NAME_PREFERENCE_BACKUP;
 
 import android.content.Context;
 import android.net.Uri;
@@ -21,7 +21,7 @@ import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.data.model.backup.LastBackupCloud;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.ScramblerBackupHelper;
-import com.pasich.mynotes.utils.constants.Cloud_Error;
+import com.pasich.mynotes.utils.constants.CloudErrors;
 import com.preference.PowerPreference;
 
 import java.io.BufferedReader;
@@ -71,7 +71,7 @@ public class ApiBackup implements ApiHelper {
             }
 
             if (list.size() == 0) {
-                return new LastBackupCloud(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW);
+                return new LastBackupCloud(CloudErrors.LAST_BACKUP_EMPTY_DRIVE_VIEW);
             } else {
                 return list.get(0);
             }

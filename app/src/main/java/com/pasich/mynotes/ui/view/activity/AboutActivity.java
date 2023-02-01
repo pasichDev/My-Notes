@@ -1,7 +1,7 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_MONOBANK_DONATE;
-import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_TELEGRAM_DEVELOP;
+import static com.pasich.mynotes.utils.constants.ContactLink.LINK_MONOBANK_DONATE;
+import static com.pasich.mynotes.utils.constants.ContactLink.LINK_TELEGRAM_DEVELOP;
 
 import android.content.Intent;
 import android.net.Uri;

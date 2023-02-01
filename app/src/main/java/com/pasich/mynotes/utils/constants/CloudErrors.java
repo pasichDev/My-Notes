@@ -1,6 +1,6 @@
 package com.pasich.mynotes.utils.constants;
 
-public class Cloud_Error {
+public class CloudErrors {
 
     public static final int NO_ERROR = 0;
     public static final int CREDENTIAL = 1;

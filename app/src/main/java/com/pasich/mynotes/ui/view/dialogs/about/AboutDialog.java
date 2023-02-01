@@ -1,11 +1,11 @@
 package com.pasich.mynotes.ui.view.dialogs.about;
 
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.FIlE_NAME_PREFERENCE_BACKUP;
-import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_HOW_TO_USE;
-import static com.pasich.mynotes.utils.constants.LinkConstants.LINK_PRIVACY_POLICY;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_AUTO_BACKUP_CLOUD;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_TIME;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.FIlE_NAME_PREFERENCE_BACKUP;
+import static com.pasich.mynotes.utils.constants.ContactLink.LINK_HOW_TO_USE;
+import static com.pasich.mynotes.utils.constants.ContactLink.LINK_PRIVACY_POLICY;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -35,7 +35,7 @@ import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
-import com.pasich.mynotes.utils.constants.Drive_Scope;
+import com.pasich.mynotes.utils.constants.DriveScope;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
 import com.preference.PowerPreference;
 import com.preference.Preference;
@@ -63,7 +63,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
                             cloudAuthHelper.getResultAuth(result.getData())
                                     .addOnFailureListener((GoogleSignInAccount) -> onInfoSnack(R.string.errorAuth, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG))
                                     .addOnSuccessListener((GoogleSignInAccount) -> {
-                                        cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
+                                        cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, DriveScope.ACCESS_DRIVE_SCOPE), true);
                                         loadingDataUser(true);
                                     });
                         }

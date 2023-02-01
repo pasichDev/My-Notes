@@ -1,12 +1,12 @@
 package com.pasich.mynotes.data.preferences;
 
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_DEFAULT_LAST_BACKUP_TIME;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.FIlE_NAME_PREFERENCE_BACKUP;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_AUTO_BACKUP_CLOUD;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_AUTO_BACKUP_CLOUD_ID;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_DEFAULT_LAST_BACKUP_TIME;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_TIME;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.FIlE_NAME_PREFERENCE_BACKUP;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_SIZE;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_TEXT_STYLE;

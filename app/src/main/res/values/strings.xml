@@ -133,7 +133,7 @@
     <string name="autoCloudVariantsMonth" translatable="false">Каждый месяц</string>
     <string name="autoCloudVariantsOff" translatable="false">Выкл.</string>
 
-
+    <!-- AutoBackup strings  -->
     <string name="chanelAutoBackup" translatable="false">Автоматическое резервное копирование</string>
     <string name="chanelAutoBackupDescpt" translatable="false">Автоматическое резервное копирование</string>
     <string name="workAutoBackupTitle" translatable="false">Выполняеться резервное копирование</string>
@@ -152,4 +152,5 @@
     <string name="errorCredential" translatable="false">Ошибка, проблемы с авторизацией</string>
 
     <string name="errorDriverAuthInfo" translatable="false">Чтобы использовать синхронизацию с облаком необходимо авторизоваться</string>
+    <string name="autoBackupInfo" translatable="false">Включите <b>автоматическое резервное копирование</b> чтобы не потерять важные данные</string>
 </resources>

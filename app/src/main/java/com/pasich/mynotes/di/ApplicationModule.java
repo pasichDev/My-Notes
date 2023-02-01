@@ -21,8 +21,8 @@ import com.pasich.mynotes.data.database.AppDatabase;
 import com.pasich.mynotes.data.database.AppDbHelper;
 import com.pasich.mynotes.data.database.DbHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
-import com.pasich.mynotes.utils.constants.DB_Constants;
-import com.pasich.mynotes.utils.constants.Drive_Scope;
+import com.pasich.mynotes.utils.constants.Database;
+import com.pasich.mynotes.utils.constants.DriveScope;
 
 import javax.inject.Singleton;
 
@@ -39,7 +39,7 @@ public class ApplicationModule {
     @Provides
     @Singleton
     AppDatabase providesAppDatabase(@ApplicationContext Context context, RoomDatabase.Callback sRoomDatabaseCallback) {
-        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DB_Constants.DB_NAME).addCallback(sRoomDatabaseCallback).build();
+        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, Database.DB_NAME).addCallback(sRoomDatabaseCallback).build();
     }
 
 
@@ -82,7 +82,7 @@ public class ApplicationModule {
     @Provides
     @Singleton
     Scope provideCloudAccessDriveScope() {
-        return Drive_Scope.ACCESS_DRIVE_SCOPE;
+        return DriveScope.ACCESS_DRIVE_SCOPE;
     }
 
 

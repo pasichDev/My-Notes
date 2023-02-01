@@ -2,9 +2,9 @@ package com.pasich.mynotes.ui.view.activity;
 
 import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_AUTO_BACKUP_CLOUD;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.FILE_NAME_BACKUP;
-import static com.pasich.mynotes.utils.constants.Drive_Scope.ACCESS_DRIVE_SCOPE;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_AUTO_BACKUP_CLOUD;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.FILE_NAME_BACKUP;
+import static com.pasich.mynotes.utils.constants.DriveScope.ACCESS_DRIVE_SCOPE;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -38,8 +38,8 @@ import com.pasich.mynotes.ui.presenter.BackupPresenter;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
-import com.pasich.mynotes.utils.constants.Cloud_Error;
-import com.pasich.mynotes.utils.constants.Drive_Scope;
+import com.pasich.mynotes.utils.constants.CloudErrors;
+import com.pasich.mynotes.utils.constants.DriveScope;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
 import com.pasich.mynotes.worker.AutoBackupCloudWorker;
 
@@ -80,7 +80,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             cloudAuthHelper.getResultAuth(result.getData()).addOnFailureListener((GoogleSignInAccount) -> onInfoSnack(R.string.errorAuth, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG)).addOnSuccessListener((GoogleSignInAccount) -> {
-                cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, Drive_Scope.ACCESS_DRIVE_SCOPE), true);
+                cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, DriveScope.ACCESS_DRIVE_SCOPE), true);
                 changeDataUserActivityFromAuth(true);
             });
         }
@@ -117,7 +117,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Drive_Scope.CONST_REQUEST_DRIVE_SCOPE) {
+        if (requestCode == DriveScope.CONST_REQUEST_DRIVE_SCOPE) {
             cloudCacheHelper.setHasPermissionDrive(resultCode == RESULT_OK);
         }
     }
@@ -154,7 +154,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void editLastDataEditBackupCloud(long lastDate, boolean error) {
         if (error) {
-            showErrors(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW);
+            showErrors(CloudErrors.LAST_BACKUP_EMPTY_DRIVE_VIEW);
         } else {
             binding.lastBackupCloud.setText(getString(R.string.lastCloudCopy, lastDataCloudBackup(lastDate)));
 
@@ -171,14 +171,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[presenter.getDataManager().getSetCloudAuthBackup()]);
-
+        editVisibleAutoBackupInfo(presenter.getDataManager().getSetCloudAuthBackup());
     }
 
     @Override
     public void initConnectAccount() {
         binding.setIsPlayService(cloudCacheHelper.isInstallPlayMarket());
         changeDataUserActivityFromAuth(cloudCacheHelper.isAuth());
-        //    checkFilesDebug();
 
     }
 
@@ -275,7 +274,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void loadingLastBackupInfoCloud() {
         final Drive mDriveCredential = getDrive();
         final int mError = checkErrorCloud(mDriveCredential);
-        if (mError == Cloud_Error.NO_ERROR) {
+        if (mError == CloudErrors.NO_ERROR) {
             binding.lastBackupCloud.setText(R.string.checkLastBackupsCloud);
             presenter.saveDataLoadingLastBackup(mDriveCredential);
         } else showErrors(mError);
@@ -302,7 +301,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         if (!showErrors(checkErrorCloud(mDriveCredential))) {
             showErrors(mError);
         } else if (presenter.getDataManager().getLastBackupCloudId().equals("null")) {
-            showErrors(Cloud_Error.LAST_BACKUP_EMPTY_RESTORE);
+            showErrors(CloudErrors.LAST_BACKUP_EMPTY_RESTORE);
         } else {
             presenter.readFileBackupCloud(mDriveCredential);
         }
@@ -371,20 +370,20 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     private int checkErrorCloud(@Nullable Drive mDriveCredential) {
         if (!isNetworkConnected()) {
-            return Cloud_Error.NETWORK_ERROR;
+            return CloudErrors.NETWORK_ERROR;
         }
         if (!cloudCacheHelper.isHasPermissionDrive()) {
-            return Cloud_Error.PERMISSION_DRIVE;
+            return CloudErrors.PERMISSION_DRIVE;
         }
 
         if (!cloudCacheHelper.isAuth()) {
-            return Cloud_Error.ERROR_AUTH;
+            return CloudErrors.ERROR_AUTH;
         }
         if (mDriveCredential == null) {
-            return Cloud_Error.CREDENTIAL;
+            return CloudErrors.CREDENTIAL;
         }
 
-        return Cloud_Error.NO_ERROR;
+        return CloudErrors.NO_ERROR;
     }
 
 
@@ -397,37 +396,37 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public boolean showErrors(int errorCode) {
         switch (errorCode) {
-            case Cloud_Error.CREDENTIAL:
+            case CloudErrors.CREDENTIAL:
                 onInfoSnack(R.string.errorCredential, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
-            case Cloud_Error.PERMISSION_DRIVE:
+            case CloudErrors.PERMISSION_DRIVE:
                 if (cloudCacheHelper.isAuth())
-                    GoogleSignIn.requestPermissions(this, Drive_Scope.CONST_REQUEST_DRIVE_SCOPE, cloudCacheHelper.getGoogleSignInAccount(), ACCESS_DRIVE_SCOPE);
+                    GoogleSignIn.requestPermissions(this, DriveScope.CONST_REQUEST_DRIVE_SCOPE, cloudCacheHelper.getGoogleSignInAccount(), ACCESS_DRIVE_SCOPE);
                 else startIntentLogInUserCloud();
                 break;
-            case Cloud_Error.NETWORK_ERROR:
+            case CloudErrors.NETWORK_ERROR:
                 onInfoSnack(R.string.errorConnectedNetwork, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
-            case Cloud_Error.ERROR_AUTH:
+            case CloudErrors.ERROR_AUTH:
                 onInfoSnack(R.string.errorDriverAuthInfo, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
-            case Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW:
+            case CloudErrors.LAST_BACKUP_EMPTY_DRIVE_VIEW:
                 binding.lastBackupCloud.setText(getString(R.string.emptyBackups));
                 break;
-            case Cloud_Error.LAST_BACKUP_EMPTY_RESTORE:
+            case CloudErrors.LAST_BACKUP_EMPTY_RESTORE:
                 onInfoSnack(R.string.emptyBackups, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
-            case Cloud_Error.NETWORK_FALSE:
+            case CloudErrors.NETWORK_FALSE:
                 onInfoSnack(R.string.errorDriveSync, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
-            case Cloud_Error.ERROR_CREATE_CLOUD_BACKUP:
+            case CloudErrors.ERROR_CREATE_CLOUD_BACKUP:
                 goneProgressBarCLoud();
                 onInfoSnack(R.string.creteLocalCopyFail, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
-            case Cloud_Error.ERROR_RESTORE_BACKUP:
+            case CloudErrors.ERROR_RESTORE_BACKUP:
                 onInfoSnack(R.string.restoreDataFall, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 break;
-            case Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP:
+            case CloudErrors.ERROR_LOAD_LAST_INFO_BACKUP:
                 onInfoSnack(R.string.errorDriveSync, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
                 binding.lastBackupCloud.setText(R.string.errorLoadingLastBackupCloud);
                 break;
@@ -441,11 +440,11 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void restoreFinish(int infoCode) {
         if (progressDialog != null) progressDialog.dismiss();
         switch (infoCode) {
-            case Cloud_Error.OKAY_RESTORE ->
+            case CloudErrors.OKAY_RESTORE ->
                     onInfoSnack(R.string.restoreDataOkay, null, SnackBarInfo.Success, Snackbar.LENGTH_LONG);
-            case Cloud_Error.BACKUP_DESTROY ->
+            case CloudErrors.BACKUP_DESTROY ->
                     onInfoSnack(R.string.restoreDataFall, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
-            case Cloud_Error.NETWORK_ERROR -> {
+            case CloudErrors.NETWORK_ERROR -> {
                 goneProgressBarCLoud();
                 onInfoSnack(R.string.errorDriveSync, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
             }
@@ -454,16 +453,22 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
     }
 
+    private void editVisibleAutoBackupInfo(int item) {
+        binding.setAutoBackupInfo(item == 3);
+    }
 
     @Override
     public void dialogChoiceVariantAutoBackup() {
         if (showErrors(checkErrorCloud(getDrive()))) {
-            new MaterialAlertDialogBuilder(this).setCancelable(true).setTitle(R.string.autoCloudBackupTitle).setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(), (dialog, item) -> {
-                editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
-                presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
-                dialog.dismiss();
+            new MaterialAlertDialogBuilder(this).setCancelable(true).setTitle(R.string.autoCloudBackupTitle).setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(),
+                    (dialog, item) -> {
+                        editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
+                        presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+                        editVisibleAutoBackupInfo(getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+                        dialog.dismiss();
 
-            }).create().show();}
+                    }).create().show();
+        }
     }
 
     @Override
@@ -486,7 +491,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         } else {
             if (showErrors(checkErrorCloud(mDriveCredential))) {
                 if (presenter.getDataManager().getLastBackupCloudId().equals("null")) {
-                    showErrors(Cloud_Error.LAST_BACKUP_EMPTY_RESTORE);
+                    showErrors(CloudErrors.LAST_BACKUP_EMPTY_RESTORE);
                 } else {
                     restoreDialog.create().show();
                 }

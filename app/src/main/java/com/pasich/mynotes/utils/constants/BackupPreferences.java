@@ -1,6 +1,6 @@
 package com.pasich.mynotes.utils.constants;
 
-public class Backup_Constants {
+public class BackupPreferences {
     public static final String FILE_NAME_BACKUP = "My_Notes_Backup.json";
     public static final String FIlE_NAME_PREFERENCE_BACKUP = "com.pasich.mynote.backupPreferences";
 

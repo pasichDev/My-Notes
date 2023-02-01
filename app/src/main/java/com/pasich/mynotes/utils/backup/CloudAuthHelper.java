@@ -1,6 +1,6 @@
 package com.pasich.mynotes.utils.backup;
 
-import static com.pasich.mynotes.utils.constants.Drive_Scope.APPLICATION_NAME;
+import static com.pasich.mynotes.utils.constants.DriveScope.APPLICATION_NAME;
 
 import android.accounts.Account;
 import android.content.Context;

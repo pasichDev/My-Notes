@@ -1,7 +1,7 @@
 package com.pasich.mynotes.ui.presenter;
 
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.Backup_Constants.ARGUMENT_LAST_BACKUP_TIME;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_TIME;
 
 import android.net.Uri;
 
@@ -11,7 +11,7 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
 import com.pasich.mynotes.ui.contract.BackupContract;
 import com.pasich.mynotes.utils.backup.BackupCacheHelper;
-import com.pasich.mynotes.utils.constants.Cloud_Error;
+import com.pasich.mynotes.utils.constants.CloudErrors;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
@@ -118,7 +118,7 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
         getView().showProcessRestoreDialog();
         final JsonBackup jsonBackup = getDataManager().readBackupLocalFile(mUri);
         if (jsonBackup.isError()) {
-            getView().restoreFinish(Cloud_Error.BACKUP_DESTROY);
+            getView().restoreFinish(CloudErrors.BACKUP_DESTROY);
         } else {
             restoreData(jsonBackup);
         }
@@ -139,7 +139,7 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
                                 getDataManager().addTrashNotes(jsonBackup.getTrashNotes()))
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
-                        .doOnTerminate(() -> getView().restoreFinish(Cloud_Error.OKAY_RESTORE))
+                        .doOnTerminate(() -> getView().restoreFinish(CloudErrors.OKAY_RESTORE))
                         .subscribe());
 
     }
@@ -191,7 +191,7 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
         getView().visibleProgressBarCLoud();
         final java.io.File backupTemp = getDataManager().writeTempBackup(jsonBackup);
         if (backupTemp == null) {
-            getView().showErrors(Cloud_Error.ERROR_CREATE_CLOUD_BACKUP);
+            getView().showErrors(CloudErrors.ERROR_CREATE_CLOUD_BACKUP);
         } else {
             getDataManager()
                     .getOldBackupForCLean(mDriveCredential) //load old backup
@@ -209,12 +209,12 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
 
                                     })
                                     .onSuccessTask(backupCloud -> getDataManager().cleanOldBackups(mDriveCredential, listBackups))
-                                    .addOnFailureListener(stack -> getView().showErrors(Cloud_Error.NETWORK_FALSE)))
+                                    .addOnFailureListener(stack -> getView().showErrors(CloudErrors.NETWORK_FALSE)))
 
                     .addOnFailureListener(stack -> {
                         backupTemp.delete();
                         getView().goneProgressBarCLoud();
-                        getView().showErrors(Cloud_Error.NETWORK_FALSE);
+                        getView().showErrors(CloudErrors.NETWORK_FALSE);
                     });
 
         }
@@ -231,12 +231,12 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
         getDataManager().getReadLastBackupCloud(mDriveCredential)
                 .addOnSuccessListener(jsonBackup -> {
                     if (jsonBackup.isError()) {
-                        getView().restoreFinish(Cloud_Error.BACKUP_DESTROY);
+                        getView().restoreFinish(CloudErrors.BACKUP_DESTROY);
                     } else {
                         restoreData(jsonBackup);
                     }
                 })
-                .addOnFailureListener(stack -> getView().restoreFinish(Cloud_Error.NETWORK_ERROR));
+                .addOnFailureListener(stack -> getView().restoreFinish(CloudErrors.NETWORK_ERROR));
     }
 
     /**
@@ -250,10 +250,10 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
                         getDataManager().getBackupCloudInfoPreference().setString(ARGUMENT_LAST_BACKUP_ID, lastInfo.getId());
                         getDataManager().getBackupCloudInfoPreference().setLong(ARGUMENT_LAST_BACKUP_TIME, lastInfo.getLastDate());
                     } else {
-                        getView().showErrors(Cloud_Error.LAST_BACKUP_EMPTY_DRIVE_VIEW);
+                        getView().showErrors(CloudErrors.LAST_BACKUP_EMPTY_DRIVE_VIEW);
                     }
                     getView().editLastDataEditBackupCloud(lastInfo.getLastDate(), lastInfo.getErrorCode() != 0);
-                }).addOnFailureListener(stack -> getView().showErrors(Cloud_Error.ERROR_LOAD_LAST_INFO_BACKUP));
+                }).addOnFailureListener(stack -> getView().showErrors(CloudErrors.ERROR_LOAD_LAST_INFO_BACKUP));
     }
 
 }

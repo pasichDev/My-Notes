@@ -1,6 +1,6 @@
 package com.pasich.mynotes.data.model.backup;
 
-import com.pasich.mynotes.utils.constants.Cloud_Error;
+import com.pasich.mynotes.utils.constants.CloudErrors;
 
 public class LastBackupCloud extends BackupCloud {
 
@@ -8,7 +8,7 @@ public class LastBackupCloud extends BackupCloud {
 
     public LastBackupCloud(String id, long lastData) {
         super(id, lastData);
-        this.errorCode = Cloud_Error.NO_ERROR;
+        this.errorCode = CloudErrors.NO_ERROR;
     }
 
     public LastBackupCloud(int errorCode) {

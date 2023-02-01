@@ -12,6 +12,10 @@
             type="com.pasich.mynotes.ui.presenter.BackupPresenter" />
 
         <variable
+            name="autoBackupInfo"
+            type="boolean" />
+
+        <variable
             name="isAuthUser"
             type="boolean" />
 
@@ -111,6 +115,46 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/item_Note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="?attr/colorSurface"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="15dp"
+            app:strokeColor="?attr/colorSurfaceVariant">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{autoBackupInfo ? View.VISIBLE : View.GONE}"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_cloud_auto_backup" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/previewNote"
+                        style="@style/itemNotePreview"
+                        android:paddingHorizontal="15dp"
+                        android:layout_gravity="center"
+                        android:text="@string/autoBackupInfo" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             style="@style/paragraphText"
