@@ -13,7 +13,7 @@ import io.reactivex.Flowable;
 public interface MoreNoteDialogContract {
 
     interface view extends BaseView {
-        void setSeekBarValue(int value);
+        void setSliderValue(int value);
 
         void loadingTagsOfChips(Flowable<List<Tag>> tagsList);
 

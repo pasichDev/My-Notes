@@ -81,6 +81,7 @@
     <string name="MonoBank_Donate" translatable="false">MonoBank Donate</string>
     <string name="userAvatar" translatable="false">User Avatar</string>
     <string name="logOut" translatable="false">LogOut</string>
+    <string name="sliderTextSize" translatable="false">Slider edit text size</string>
 
     <string name="hiddeTag">Hide notes</string>
     <string name="visibleTag">Show notes</string>

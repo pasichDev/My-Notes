@@ -11,16 +11,15 @@ import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.chip.Chip;
+import com.google.android.material.slider.Slider;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
-import com.pasich.mynotes.base.simplifications.OnSeekBarChangeListener;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.data.model.Note;
@@ -46,7 +45,6 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
     private final Note mNote;
     private final boolean newNoteActivity;
-    private final int PREF_SIZE_TEXT = 12;
     private final boolean activityNote;
     @Inject
     public MoreNoteDialogPresenter mPresenter;
@@ -97,10 +95,9 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     }
 
     @Override
-    public void setSeekBarValue(int value) {
+    public void setSliderValue(int value) {
         if (activityNote) {
-            binding.settingsActivity.seekBarSize.setMax(18);
-            binding.settingsActivity.seekBarSize.setProgress(value - PREF_SIZE_TEXT);
+            binding.settingsActivity.textSize.setValue(value);
         }
     }
 
@@ -150,20 +147,21 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
         if (activityNote) {
             binding.noSave.setOnClickListener(v -> noteActivity.closeActivityNotSaved());
-            binding.settingsActivity.seekBarSize.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            binding.settingsActivity.textSize.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
                 @Override
-                protected void changeProgress(int progress) {
-                    int size = progress + PREF_SIZE_TEXT;
-                    binding.settingsActivity.valueSeek.setText(String.valueOf(size));
-                    noteActivity.changeTextSizeOnline(size);
+                public void onStartTrackingTouch(@NonNull Slider slider) {
                 }
 
                 @Override
-                protected void stopChangeProgress(SeekBar seekBar) {
-                    noteActivity.changeTextSizeOnline(seekBar.getProgress() + PREF_SIZE_TEXT);
-                    mPresenter.editSizeText(seekBar.getProgress() + PREF_SIZE_TEXT);
+                public void onStopTrackingTouch(@NonNull Slider slider) {
+                    mPresenter.editSizeText(Math.round(slider.getValue()));
                 }
             });
+
+            binding.settingsActivity.textSize.addOnChangeListener((slider, value, fromUser) -> {
+                if (fromUser) noteActivity.changeTextSizeOnline(Math.round(value));
+            });
+
             binding.settingsActivity.textStyleItem.setOnClickListener(v -> {
                 textStylePreferences.changeArgument();
                 noteActivity.changeTextStyle();
@@ -246,7 +244,6 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         if (activityNote) {
             binding.noSave.setOnClickListener(null);
             binding.translateNote.setOnClickListener(null);
-            binding.settingsActivity.seekBarSize.setOnSeekBarChangeListener(null);
             binding.settingsActivity.textStyleItem.setOnClickListener(null);
             noteActivity = null;
         } else {
@@ -290,11 +287,9 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
 
     @SuppressLint("NewApi")
     private boolean isCreateShortCutId() {
-        List<ShortcutInfo> shortcutInfo = Objects.requireNonNull(ContextCompat.getSystemService(requireContext(), ShortcutManager.class
-        )).getPinnedShortcuts();
+        List<ShortcutInfo> shortcutInfo = Objects.requireNonNull(ContextCompat.getSystemService(requireContext(), ShortcutManager.class)).getPinnedShortcuts();
         for (ShortcutInfo info : shortcutInfo) {
-            if (Long.parseLong(info.getId()) == mNote.getId())
-                return true;
+            if (Long.parseLong(info.getId()) == mNote.getId()) return true;
         }
         return false;
     }

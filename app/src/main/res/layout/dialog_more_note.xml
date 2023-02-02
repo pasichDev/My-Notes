@@ -33,7 +33,7 @@
 
             <include
                 android:id="@+id/settingsActivity"
-                layout="@layout/view_seekbar_size_text" />
+                layout="@layout/view_set_note_activity" />
 
 
             <LinearLayout

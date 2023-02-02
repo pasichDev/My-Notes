@@ -32,7 +32,7 @@ public class MoreNoteDialogPresenter extends BasePresenter<MoreNoteDialogContrac
         getView().initInterfaces();
         getView().loadingTagsOfChips(getDataManager().getTagsUser());
         getView().initListeners();
-        getView().setSeekBarValue(getDataManager().getSizeTextNoteActivity());
+        getView().setSliderValue(getDataManager().getSizeTextNoteActivity());
     }
 
 
