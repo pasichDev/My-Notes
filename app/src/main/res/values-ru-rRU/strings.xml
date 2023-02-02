@@ -3,7 +3,6 @@
     <string name="app_name">Мои Заметки</string>
     <string name="NewNote">Создать заметку</string>
     <string name="trashNotes">Переместить в корзину</string>
-    <string name="trashN">Корзина</string>
     <string name="trashClean">Очистить корзину</string>
     <string name="share">Поделиться</string>
     <string name="yesCleanTrash">Да, очистить</string>

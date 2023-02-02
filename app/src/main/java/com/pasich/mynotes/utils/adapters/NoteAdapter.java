@@ -101,24 +101,15 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
 
 
     public static class NoteComparator {
-        private final Comparator<Note> COMPARE_BY_TITLE_REVERSE = (e1, e2) -> e2.getTitle().toLowerCase().compareTo(e1.getTitle().toLowerCase());
-        private final Comparator<Note> COMPARE_BY_TITLE_SORT = (e1, e2) -> e1.getTitle().toLowerCase().compareTo(e2.getTitle().toLowerCase());
-
-        private final Comparator<Note> COMPARE_BY_DATE_REVERSE = (e1, e2) -> Long.compare(e1.getDate(), e2.getDate());
-        private final Comparator<Note> COMPARE_BY_DATE_SORT = (e1, e2) -> Long.compare(e2.getDate(), e1.getDate());
-
-
         public Comparator<Note> getComparator(String arg) {
-            switch (arg) {
-                case "DataSort":
-                    return COMPARE_BY_DATE_SORT;
-                case "TitleSort":
-                    return COMPARE_BY_TITLE_SORT;
-                case "TitleReserve":
-                    return COMPARE_BY_TITLE_REVERSE;
-                default:
-                    return COMPARE_BY_DATE_REVERSE;
-            }
+            return switch (arg) {
+                case "DataSort" -> (e1, e2) -> Long.compare(e2.getDate(), e1.getDate());
+                case "TitleSort" ->
+                        (e1, e2) -> e1.getTitle().toLowerCase().compareTo(e2.getTitle().toLowerCase());
+                case "TitleReserve" ->
+                        (e1, e2) -> e2.getTitle().toLowerCase().compareTo(e1.getTitle().toLowerCase());
+                default -> (e1, e2) -> Long.compare(e1.getDate(), e2.getDate());
+            };
         }
     }
 

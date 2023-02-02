@@ -3,7 +3,6 @@
     <string name="app_name"> Moje notatki </string>
     <string name="NewNote"> Utwórz notatkę </string>
     <string name="trashNotes">Przenieś do koszyka</string>
-    <string name="trashN"> Kosz </string>
     <string name="trashClean"> Wyczyść kosz </string>
     <string name="share"> Udostępnij </string>
     <string name="yesCleanTrash"> Tak, wyczyść </string>

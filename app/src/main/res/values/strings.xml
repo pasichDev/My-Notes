@@ -2,7 +2,6 @@
 <resources>
     <string name="NewNote"> Create note </string>
     <string name="trashNotes">Move to trash</string>
-    <string name="trashN"> Trash </string>
     <string name="trashClean">Trash Clean</string>
     <string name="share">Share</string>
     <string name="yesCleanTrash">Yes, clear</string>
@@ -98,14 +97,12 @@
     <string name="settingsBackups" translatable="false">Синхронизация и рез.копии</string>
     <string name="aboutApps" translatable="false">О приложении</string>
     <string name="trash" translatable="false">Корзина</string>
-    <string name="reminder" translatable="false">Напоминания</string>
     <string name="themes" translatable="false">Темы</string>
     <string name="functional" translatable="false">Функции</string>
     <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
     <string name="offTags" translatable="false">Выключить отображениие меток</string>
     <string name="coffeeByPlay" translatable="false">Поблагодарить разработчика</string>
     <string name="coffeeByTextInfo" translatable="false"><b>Мои заметки</b> - это приложение без рекламы и распространяется как бесплатный продукт. Приложение разрабатывает один человек, поэтому некоторые обновление поставляются с опозданием. Вы можете поблагодарить разработчика, купив ему кофе или задонатить по указанных ссылкам, которые будут отображаться снизу. Спасибо, что используете это приложение!</string>
-    <string name="cupCoffee" translatable="false">Кружка кофе</string>
     <string name="glassCoffee" translatable="false">Стакан кофе</string>
     <string name="packCoffee" translatable="false">Упаковка кофе</string>
     <string name="makerCoffee" translatable="false">Кофеварка</string>
@@ -135,7 +132,6 @@
 
     <!-- AutoBackup strings  -->
     <string name="chanelAutoBackup" translatable="false">Автоматическое резервное копирование</string>
-    <string name="chanelAutoBackupDescpt" translatable="false">Автоматическое резервное копирование</string>
     <string name="workAutoBackupTitle" translatable="false">Выполняеться резервное копирование</string>
 
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,22 +12,33 @@
             type="com.pasich.mynotes.data.model.TrashNote" />
     </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/item_Note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{Note.checked ? @drawable/item_note_checked :  @drawable/selector_item_note_unchecked}"
-        android:padding="@dimen/marginItemsNote"
-        android:orientation="vertical">
+        app:cardBackgroundColor="@{Note.checked ? @color/item_bindig_note_surface_variant : @color/item_bindig_note_surface}"
+        app:strokeColor="@{Note.checked ? @color/item_bindig_note_primary :  @color/item_bindig_note_surface_variant}">
 
-        <TextView
-            android:id="@+id/nameNote"
-            style="@style/itemNoteTitle"
-            android:text="@{Note.title}"
-            android:visibility="@{Note.title.length() >= 1 ? View.VISIBLE : View.GONE }" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-        <TextView
-            android:id="@+id/previewNote"
-            style="@style/itemNotePreview"
-            android:text="@{Note.value.length() > 200 ? Note.value.substring(0,200) : Note.value}" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/nameNote"
+                style="@style/itemNoteTitle"
+                android:text="@{Note.title}"
+                android:visibility="@{Note.title.length() >= 1 ? View.VISIBLE : View.GONE }"
+                tools:text="Title Note" />
+
+            <TextView
+                android:id="@+id/previewNote"
+                style="@style/itemNotePreview"
+                android:text="@{Note.value}"
+                tools:text="Preview Note Check" />
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

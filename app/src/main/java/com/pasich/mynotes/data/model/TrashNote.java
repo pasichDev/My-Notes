@@ -49,6 +49,10 @@ public class TrashNote {
         return this.value;
     }
 
+    public String getValuePreview() {
+        return value.length() > 400 ? value.substring(0, 400) : value;
+    }
+
     public void setValue(String value) {
         this.value = value;
     }

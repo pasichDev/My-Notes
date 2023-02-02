@@ -9,7 +9,6 @@ import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallba
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,12 +22,7 @@ public class TrashAdapter<VM extends ViewDataBinding> extends GenericAdapter<Tra
     }
 
     public void sortListTrash(List<TrashNote> notesList) {
-        Collections.sort(notesList, new TrashNoteComparator().COMPARE_BY_DATE);
+        Collections.sort(notesList, (e1, e2) -> Long.compare(e2.getDate(), e1.getDate()));
         submitList(notesList);
-    }
-
-    public static class TrashNoteComparator {
-        public final Comparator<TrashNote> COMPARE_BY_DATE = (e1, e2) -> Long.compare(e2.getDate(), e1.getDate());
-
     }
 }

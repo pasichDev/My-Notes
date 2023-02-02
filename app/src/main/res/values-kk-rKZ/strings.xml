@@ -3,7 +3,6 @@
     <string name="app_name">Менің жазбаларым</string>
     <string name="NewNote">Жаңа ескертпе</string>
     <string name="trashNotes">Себетке жылжыту</string>
-    <string name="trashN">Себет</string>
     <string name="trashClean">Себетті босату</string>
     <string name="share">Бөлісу</string>
     <string name="yesCleanTrash">Иә, тазалаңыз</string>

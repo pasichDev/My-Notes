@@ -408,6 +408,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void selectItemAction(Note note, int position, boolean payloads) {
+        
         if (note.getChecked()) {
             note.setChecked(false);
             if (!noteActionTool.isCheckedItemFalse(note)) actionUtils.closeActionPanel();
