@@ -93,9 +93,14 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     }
 
     public void addTitle() {
-        String title = mNote.getTitle().length() > 20 ? mNote.getTitle().substring(0, 20) + "..." : mNote.getTitle();
-        binding.includeHead.headTextDialog.setText(mNote.getTitle().length() > 1 ? title : getString(R.string.chooseNote));
-        binding.includeHead.getRoot().setVisibility(newNoteActivity ? View.GONE : View.VISIBLE);
+        if (!activityNote) {
+            String title = mNote.getTitle().length() > 20 ? mNote.getTitle().substring(0, 20) + "..." : mNote.getTitle();
+            binding.includeHead.headTextDialog.setText(mNote.getTitle().length() > 1 ? title : getString(R.string.chooseNote));
+            binding.includeHead.getRoot().setVisibility(newNoteActivity ? View.GONE : View.VISIBLE);
+            binding.divider.setVisibility(View.GONE);
+        } else {
+            binding.includeHead.getRoot().setVisibility(View.GONE);
+        }
     }
 
     @Override

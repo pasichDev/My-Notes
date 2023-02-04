@@ -35,6 +35,11 @@
                 android:id="@+id/settingsActivity"
                 layout="@layout/view_set_note_activity" />
 
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorControlHighlight" />
 
             <LinearLayout
                 android:id="@+id/groupLayouts"
