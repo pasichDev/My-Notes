@@ -2,22 +2,24 @@ package com.pasich.mynotes.ui.view.dialogs.main;
 
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.model.Tag;
-import com.pasich.mynotes.databinding.DialogNewTagBinding;
+import com.pasich.mynotes.databinding.DialogNameTagBinding;
 import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.NameTagDialogPresenter;
 
@@ -34,7 +36,7 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
     private final Tag mTag;
     @Inject
     public NameTagDialogPresenter mPresenter;
-    private DialogNewTagBinding binding;
+    private DialogNameTagBinding binding;
     private boolean errorText = true;
 
 
@@ -44,16 +46,13 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
     }
 
     public NameTagDialog(Tag tag) {
-
         this.mTag = tag;
     }
 
-
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        binding = DialogNewTagBinding.inflate(getLayoutInflater());
-        requireDialog().setContentView(binding.getRoot());
-
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DialogNameTagBinding.inflate(getLayoutInflater());
         mPresenter.attachView(this);
         mPresenter.viewIsReady();
 
@@ -61,11 +60,12 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
             binding.nameTag.setText(mTag.getNameTag());
             binding.outlinedTextField.setEndIconDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_rename));
         }
-
         binding.outlinedTextField.requestFocus();
 
-        return requireDialog();
+        return binding.getRoot();
     }
+
+
 
 
     @Override

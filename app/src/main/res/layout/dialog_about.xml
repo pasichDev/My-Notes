@@ -2,20 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dialog_center_background"
     android:orientation="vertical">
-
 
     <include
         android:id="@+id/login_page"
         layout="@layout/view_login_page" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/colorControlHighlight" />
-
 
     <LinearLayout
         android:id="@+id/trashActivityLayout"

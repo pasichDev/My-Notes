@@ -33,18 +33,19 @@
                 android:id="@+id/nameUser"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/railway_medium"
+                style="@style/TextAppearance.Material3.TitleMedium"
                 tools:text="Developer"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="18sp" />
+               />
 
             <TextView
                 android:id="@+id/emailUSer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                style="@style/TextAppearance.Material3.BodySmall"
+                android:paddingVertical="2dp"
                 tools:text="developer@developer.com"
-                android:textColor="?attr/colorOutline"
-                android:textSize="14sp" />
+                android:textColor="?attr/colorOutline" />
         </LinearLayout>
 
         <ImageView

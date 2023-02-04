@@ -3,51 +3,47 @@ package com.pasich.mynotes.ui.view.dialogs.main;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_DEFAULT_SORT_PREF;
 import static com.pasich.mynotes.utils.constants.PreferencesConfig.ARGUMENT_PREFERENCE_SORT;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
+import androidx.annotation.Nullable;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.databinding.DialogChooseSortBinding;
 import com.preference.PowerPreference;
 
 
-public class ChooseSortDialog extends DialogFragment {
+public class SortDialog extends BaseDialogBottomSheets {
     private MainSortView sortView;
     private DialogChooseSortBinding binding;
     private String sortParam;
 
-    @NonNull
-    @Deprecated
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireContext(), R.style.BottomSheetsStyleCustom);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.binding = DialogChooseSortBinding.inflate(getLayoutInflater());
         this.sortView = (MainSortView) getContext();
         this.sortParam = PowerPreference.getDefaultFile().getString(ARGUMENT_PREFERENCE_SORT, ARGUMENT_DEFAULT_SORT_PREF);
-        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        builder.setContentView(binding.getRoot());
-
-        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
-        assert title != null;
-        title.setText(R.string.sortHead);
-
+        binding.head.setText(R.string.sortHead);
         selectedAutoItem(sortParam);
+        initListeners();
+        return binding.getRoot();
+    }
 
-        binding.DataSort.setOnClickListener(v -> selectedSort("DataSort"));
-        binding.DataReserve.setOnClickListener(v -> selectedSort("DataReserve"));
-        binding.TitleSort.setOnClickListener(v -> selectedSort("TitleSort"));
-        binding.TitleReserve.setOnClickListener(v -> selectedSort("TitleReserve"));
-        return builder;
+
+
+    @Override
+    public void setState(BottomSheetDialog dialog) {
+        super.setState(dialog);
     }
 
     private void selectedSort(String param) {
@@ -64,28 +60,26 @@ public class ChooseSortDialog extends DialogFragment {
         int colorText = MaterialColors.getColor(requireContext(), R.attr.colorPrimary, Color.BLACK);
 
         switch (param) {
-            case "DataSort":
+            case "DataSort" -> {
                 binding.DataSort.setBackgroundColor(colorBackground);
                 binding.DataSortText.setTextColor(colorText);
                 binding.DataSortCheck.setVisibility(View.VISIBLE);
-                break;
-            case "DataReserve":
+            }
+            case "DataReserve" -> {
                 binding.DataReserve.setBackgroundColor(colorBackground);
                 binding.DataReserveText.setTextColor(colorText);
                 binding.DataReserveCheck.setVisibility(View.VISIBLE);
-                break;
-            case "TitleSort":
+            }
+            case "TitleSort" -> {
                 binding.TitleSort.setBackgroundColor(colorBackground);
                 binding.TitleSortText.setTextColor(colorText);
                 binding.TitleSortCheck.setVisibility(View.VISIBLE);
-
-                break;
-            case "TitleReserve":
+            }
+            case "TitleReserve" -> {
                 binding.TitleReserve.setBackgroundColor(colorBackground);
                 binding.TitleReserveText.setTextColor(colorText);
                 binding.TitleReserveCheck.setVisibility(View.VISIBLE);
-
-                break;
+            }
         }
 
 
@@ -99,5 +93,13 @@ public class ChooseSortDialog extends DialogFragment {
         binding.TitleSort.setOnClickListener(null);
         binding.TitleReserve.setOnClickListener(null);
 
+    }
+
+    @Override
+    public void initListeners() {
+        binding.DataSort.setOnClickListener(v -> selectedSort("DataSort"));
+        binding.DataReserve.setOnClickListener(v -> selectedSort("DataReserve"));
+        binding.TitleSort.setOnClickListener(v -> selectedSort("TitleSort"));
+        binding.TitleReserve.setOnClickListener(v -> selectedSort("TitleReserve"));
     }
 }

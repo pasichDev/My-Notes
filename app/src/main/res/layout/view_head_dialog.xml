@@ -7,14 +7,12 @@
 
     <TextView
         android:id="@+id/headTextDialog"
-        style="@style/headDialogText"
+        style="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tool:text="DialogTitle"
         android:maxLines="1"
-        android:textSize="18sp"
         android:layout_marginHorizontal="10dp"
-        android:textColor="?attr/colorOnSurface"
         android:gravity="center" />
 
 </FrameLayout>

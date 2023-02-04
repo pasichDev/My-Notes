@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools">
 
     <LinearLayout
-        style="@style/rootDialogLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tool:ignore="UselessParent">
 
-        <include layout="@layout/view_head_dialog" />
+        <TextView
+            android:id="@+id/head"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            tool:text="DialogTitle"
+            android:maxLines="1"
+            android:gravity="start" />
 
         <FrameLayout
             android:id="@+id/DataSort"

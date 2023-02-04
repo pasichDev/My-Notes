@@ -2,7 +2,6 @@ package com.pasich.mynotes.ui.view.dialogs;
 
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,12 +9,16 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.slider.Slider;
 import com.pasich.mynotes.R;
@@ -65,13 +68,10 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         this.positionItem = position;
     }
 
-
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (!activityNote) vibrateOpenDialog(true);
-        binding = DialogMoreNoteBinding.inflate(getLayoutInflater());
-        requireDialog().setContentView(binding.getRoot());
-
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable
+    ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DialogMoreNoteBinding.inflate(getLayoutInflater(), container, false);
 
         mPresenter.attachView(this);
         mPresenter.viewIsReady();
@@ -79,19 +79,21 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         binding.setActivityNote(activityNote);
         binding.setValuesText(mNote.getValue().length() > 1);
         textStylePreferences.addButton(binding.settingsActivity.textStyleItem);
-
-
         addTitle();
         binding.settingsActivity.rootView.setVisibility(activityNote ? View.VISIBLE : View.GONE);
-        return requireDialog();
+        return binding.getRoot();
+    }
+
+
+    @Override
+    public void setState(BottomSheetDialog dialog) {
+        super.setState(dialog);
     }
 
     public void addTitle() {
         String title = mNote.getTitle().length() > 20 ? mNote.getTitle().substring(0, 20) + "..." : mNote.getTitle();
         binding.includeHead.headTextDialog.setText(mNote.getTitle().length() > 1 ? title : getString(R.string.chooseNote));
         binding.includeHead.getRoot().setVisibility(newNoteActivity ? View.GONE : View.VISIBLE);
-
-
     }
 
     @Override

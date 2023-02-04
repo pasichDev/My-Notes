@@ -28,10 +28,10 @@ import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.about.AboutDialog;
 import com.pasich.mynotes.ui.view.dialogs.about.AboutOpensActivity;
-import com.pasich.mynotes.ui.view.dialogs.main.ChooseSortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
+import com.pasich.mynotes.ui.view.dialogs.main.SortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTag;
 import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTagOnClickListener;
 import com.pasich.mynotes.utils.ShareUtils;
@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void sortButton() {
-        if (!getAction()) new ChooseSortDialog().show(getSupportFragmentManager(), "sortDialog");
+        if (!getAction()) new SortDialog().show(getSupportFragmentManager(), "sortDialog");
     }
 
     @Override

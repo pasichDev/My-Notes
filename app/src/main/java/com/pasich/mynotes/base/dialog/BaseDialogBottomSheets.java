@@ -6,23 +6,26 @@ import android.os.Vibrator;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.view.BaseView;
 
 public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment implements BaseView {
 
-    private BottomSheetDialog mDialog;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mDialog = new BottomSheetDialog(requireContext(), R.style.BottomSheetsStyleCustom);
-        mDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+
+    }
+
+
+    @Override
+    public void setState(BottomSheetDialog dialog) {
+        BaseView.super.setState(dialog);
+        dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @Override
@@ -33,15 +36,8 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
     @Override
     public void dismiss() {
         super.dismiss();
-        mDialog = null;
     }
 
-
-    @Nullable
-    @Override
-    public BottomSheetDialog getDialog() {
-        return this.mDialog;
-    }
 
     @Override
     public void onDetach() {

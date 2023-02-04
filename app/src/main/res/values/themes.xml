@@ -357,11 +357,8 @@
     </style>
 
     <!-- Стиль CustomBottomSheets  -->
-    <style name="BottomSheetsStyleCustom" parent="Widget.Material3.BottomSheet">
-        <item name="android:colorBackground">@android:color/transparent</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
+    <style name="BottomSheetsStyleCustom" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="android:layout_margin">10dp</item>
     </style>
 
     <!-- Стиль rootView BottomSheets  -->

@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
-        style="@style/rootDialogLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

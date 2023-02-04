@@ -4,6 +4,8 @@ import android.view.View;
 
 import androidx.annotation.StringRes;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 public interface BaseView {
 
     void initListeners();
@@ -20,8 +22,9 @@ public interface BaseView {
     }
 
     default boolean isNetworkConnected() {
-
         return false;
     }
+    default void setState(BottomSheetDialog dialog) {
 
+    }
 }

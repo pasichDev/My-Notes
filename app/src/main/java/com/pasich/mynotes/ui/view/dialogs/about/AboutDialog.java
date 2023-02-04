@@ -8,28 +8,29 @@ import static com.pasich.mynotes.utils.constants.ContactLink.LINK_HOW_TO_USE;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_PRIVACY_POLICY;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.avatarfirst.avatargenlib.AvatarGenerator;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
-import com.pasich.mynotes.databinding.DialogAboutActivityBinding;
+import com.pasich.mynotes.databinding.DialogAboutBinding;
 import com.pasich.mynotes.ui.view.activity.AboutActivity;
 import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.ui.view.activity.TrashActivity;
@@ -53,7 +54,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
     public CloudCacheHelper cloudCacheHelper;
     @Inject
     public CloudAuthHelper cloudAuthHelper;
-    public DialogAboutActivityBinding binding;
+    public DialogAboutBinding binding;
     final private ActivityResultLauncher<Intent> startAuthIntent =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
@@ -74,19 +75,19 @@ public class AboutDialog extends BaseDialogBottomSheets {
         this.aboutOpensActivity = aboutOpensActivity;
     }
 
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
-        binding = DialogAboutActivityBinding.inflate(getLayoutInflater());
-        builder.setView(binding.getRoot());
-        initAccountInfo();
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DialogAboutBinding.inflate(getLayoutInflater());
+       initAccountInfo();
         initListeners();
-        return builder.create();
+        return binding.getRoot();
     }
+
+
 
     private void initAccountInfo() {
         binding.loginPage.viewLoginRoot.setVisibility(cloudCacheHelper.isInstallPlayMarket() ? View.VISIBLE : View.GONE);
-        binding.divider.setVisibility(cloudCacheHelper.isInstallPlayMarket() ? View.VISIBLE : View.GONE);
         loadingDataUser(cloudCacheHelper.isAuth());
     }
 
