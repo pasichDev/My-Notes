@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.view.activity;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.themes.ThemesArray;
 import com.preference.PowerPreference;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -68,7 +70,15 @@ public class ThemeActivity extends BaseActivity {
     }
 
     private void setListThemes() {
-        mAdapter = new ThemesAdapter(new ThemesArray().getThemes(), themeIdStartActivity);
+        ArrayList<Theme> themes;
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            themes = new ThemesArray().getThemes(true);
+        } else {
+            themes = new ThemesArray().getThemes(false);
+        }
+        mAdapter = new ThemesAdapter(themes, themeIdStartActivity);
         activityThemeBinding.themes.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         activityThemeBinding.themes.addItemDecoration(new SpacesItemDecoration(10));
         activityThemeBinding.themes.setAdapter(mAdapter);
