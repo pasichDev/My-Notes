@@ -271,44 +271,12 @@
     </style>
 
 
-    <!-- Стиль для заголовка активности -->
-    <style name="headActivityText">
-        <item name="fontFamily">@font/railway_medium</item>
-        <item name="android:textColor">?attr/colorOnBackground</item>
-        <item name="android:textSize">26sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <!-- Стиль для заголовка BottomSheetsDialog -->
-
-    <!-- Позиционирование елементов в BottomSheetsDialog -->
-    <style name="marginDialogItem">
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:layout_marginStart">12dp</item>
-        <item name="android:layout_marginEnd">12dp</item>
-    </style>
-
-    <!-- Стиль иконок в BottomSheetsDialog -->
-    <style name="iconDialogList">
-        <item name="android:layout_width">24dp</item>
-        <item name="android:layout_height">24dp</item>
-        <item name="android:background">@null</item>
-        <item name="android:tint">?android:colorPrimary</item>
-        <item name="android:layout_marginStart">20dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
-        <item name="android:layout_gravity">center_vertical</item>
-    </style>
-
-
     <!-- Стиль иконок в ActionPanel -->
     <style name="iconActionPanel" parent="marginDialogItem">
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
         <item name="android:background">?selectableItemBackground</item>
     </style>
-
-
 
 
     <style name="styleAboutButtonBottom" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
@@ -319,20 +287,6 @@
         <item name="fontFamily">@font/railway_medium</item>
     </style>
 
-    <!-- Стиль SearchBottomSheetsDialog  -->
-
-    <!-- Стиль CustomBottomSheets  -->
-
-    <!-- Стиль rootView BottomSheets  -->
-
-    <!-- Стиль rootView BottomSheets (NoteSettings)  -->
-    <style name="rootDialogLayoutTop">
-        <item name="android:background">@drawable/background_bottom_sheets</item>
-        <item name="android:layout_marginBottom">0dp</item>
-        <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginStart">15dp</item>
-        <item name="android:layout_marginEnd">15dp</item>
-    </style>
 
 
 </resources>

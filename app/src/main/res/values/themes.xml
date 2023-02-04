@@ -297,8 +297,6 @@
         <item name="android:textSize">22sp</item>
     </style>
 
-    <!-- Стиль для заголовка BottomSheetsDialog -->
-
     <!-- Позиционирование елементов в BottomSheetsDialog -->
     <style name="marginDialogItem">
         <item name="android:layout_marginTop">6dp</item>
@@ -328,6 +326,7 @@
         <item name="android:layout_marginEnd">20dp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
     <!-- Стиль иконок в ActionPanel -->
     <style name="iconActionPanel" parent="marginDialogItem">
         <item name="android:layout_width">24dp</item>
@@ -335,7 +334,6 @@
         <item name="android:tint">?attr/colorOnPrimary</item>
         <item name="android:background">?selectableItemBackground</item>
     </style>
-
 
     <style name="styleAboutButtonBottom" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
         <item name="android:layout_margin">2dp</item>
@@ -360,9 +358,6 @@
         <item name="behavior_hideable">false</item>
     </style>
 
-    <!-- Стиль rootView BottomSheets  -->
-
-    <!-- Стиль rootView BottomSheets (NoteSettings)  -->
     <style name="rootDialogLayoutTop">
         <item name="android:background">@drawable/background_bottom_sheets</item>
         <item name="android:layout_marginBottom">0dp</item>
