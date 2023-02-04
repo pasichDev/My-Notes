@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -333,6 +334,8 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      */
     @Override
     public void goneProgressBarCLoud() {
+
+        binding.progressBackupCloud.setVisibilityAfterHide(View.INVISIBLE);
         binding.setIsVisibleProgressCloud(false);
         binding.progressBackupCloud.setProgress(0);
         binding.percentProgress.setText(getString(R.string.percentProgress, 0));
