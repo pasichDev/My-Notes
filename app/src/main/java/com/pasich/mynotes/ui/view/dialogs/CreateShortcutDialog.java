@@ -1,7 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,18 +12,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.base.view.ShortCutView;
 import com.pasich.mynotes.data.model.Label;
 import com.pasich.mynotes.data.model.Note;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CreateShortcutDialog extends DialogFragment {
+public class CreateShortcutDialog extends BaseDialogBottomSheets {
     private DialogShortcutBinding binding;
     private LabelAdapter labelAdapter;
     private final Note mNote;
@@ -49,17 +49,11 @@ public class CreateShortcutDialog extends DialogFragment {
     }
 
 
-    @NonNull
-    @Deprecated
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog builder = new BottomSheetDialog(requireContext(), R.style.BottomSheetsStyleCustom);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.binding = DialogShortcutBinding.inflate(getLayoutInflater());
-        builder.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        builder.setContentView(binding.getRoot());
-
-        MaterialTextView title = builder.findViewById(R.id.headTextDialog);
-        assert title != null;
-        title.setText(R.string.titleDialogShortCut);
+        binding.title.headTextDialog.setText(R.string.titleDialogShortCut);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             shortCutView = (ShortCutView) requireContext();
@@ -70,7 +64,13 @@ public class CreateShortcutDialog extends DialogFragment {
             Toast.makeText(requireContext(), getString(R.string.functionNotSupport), Toast.LENGTH_SHORT).show();
         }
 
-        return builder;
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public int getTheme() {
+        return R.style.bottomSheetInput;
     }
 
     private void initialTitle() {
@@ -83,38 +83,10 @@ public class CreateShortcutDialog extends DialogFragment {
         binding.iconsLabel.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
         binding.iconsLabel.addItemDecoration(new SpacesItemDecoration(20));
         binding.iconsLabel.setAdapter(labelAdapter);
-        setListener();
+        initListeners();
     }
 
 
-    private void setListener() {
-        labelAdapter.setSelectLabelListener(position -> labelAdapter.selectLabel(position));
-        binding.createShortCut.setOnClickListener(v -> {
-            if (!errorText) {
-                createShortCut(String.valueOf(binding.titleShortCut.getText()));
-                dismiss();
-            }
-
-        });
-
-        binding.titleShortCut.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateText(s.toString().trim().length());
-            }
-        });
-    }
 
 
     private void validateText(int length) {
@@ -183,5 +155,35 @@ public class CreateShortcutDialog extends DialogFragment {
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         binding.createShortCut.setOnClickListener(null);
+    }
+
+    @Override
+    public void initListeners() {
+        labelAdapter.setSelectLabelListener(position -> labelAdapter.selectLabel(position));
+        binding.createShortCut.setOnClickListener(v -> {
+            if (!errorText) {
+                createShortCut(String.valueOf(binding.titleShortCut.getText()));
+                dismiss();
+            }
+
+        });
+
+        binding.titleShortCut.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateText(s.toString().trim().length());
+            }
+        });
     }
 }

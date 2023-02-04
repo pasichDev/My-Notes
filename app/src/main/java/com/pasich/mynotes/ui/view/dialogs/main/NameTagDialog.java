@@ -16,11 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.DialogNameTagBinding;
-import com.pasich.mynotes.ui.contract.dialogs.NewTagDialogContract;
+import com.pasich.mynotes.ui.contract.dialogs.NameTagDialogContract;
 import com.pasich.mynotes.ui.presenter.dialogs.NameTagDialogPresenter;
 
 import java.util.Objects;
@@ -30,7 +31,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialogContract.view {
+public class NameTagDialog extends BaseDialogBottomSheets implements NameTagDialogContract.view {
 
 
     private final Tag mTag;
@@ -53,8 +54,10 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogNameTagBinding.inflate(getLayoutInflater());
+
         mPresenter.attachView(this);
         mPresenter.viewIsReady();
+
 
         if (getTag() != null && getTag().equals("RenameTag") && mTag != null) {
             binding.nameTag.setText(mTag.getNameTag());
@@ -65,8 +68,15 @@ public class NameTagDialog extends BaseDialogBottomSheets implements NewTagDialo
         return binding.getRoot();
     }
 
+    @Override
+    public int getTheme() {
+        return R.style.bottomSheetInput;
+    }
 
-
+    @Override
+    public void setState(BottomSheetDialog dialog) {
+        super.setState(dialog);
+    }
 
     @Override
     public void initListeners() {

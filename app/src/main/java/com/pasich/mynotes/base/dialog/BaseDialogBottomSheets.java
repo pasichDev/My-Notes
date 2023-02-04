@@ -5,22 +5,12 @@ import android.content.Context;
 import android.os.Vibrator;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.pasich.mynotes.base.view.BaseView;
 
 public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment implements BaseView {
-
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-    }
-
 
     @Override
     public void setState(BottomSheetDialog dialog) {

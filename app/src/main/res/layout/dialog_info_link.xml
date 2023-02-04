@@ -8,13 +8,12 @@
 
     <TextView
         android:id="@+id/headTextDialog"
+        style="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="start"
         android:padding="@dimen/paddingItems"
-        android:textSize="18sp"
-        android:textStyle="bold"
         tool:text="DialogTitle" />
 
 

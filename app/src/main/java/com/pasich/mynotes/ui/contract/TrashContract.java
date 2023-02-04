@@ -26,6 +26,8 @@ public interface TrashContract {
 
         void loadingTrash();
 
+        void clearTrash();
+
         void restoreNotesArray(ArrayList<TrashNote> notes);
     }
 }

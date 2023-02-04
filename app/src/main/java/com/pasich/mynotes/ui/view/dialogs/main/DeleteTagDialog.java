@@ -1,14 +1,15 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.google.android.material.textview.MaterialTextView;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.model.Tag;
@@ -34,21 +35,15 @@ public class DeleteTagDialog extends BaseDialogBottomSheets implements DeleteTag
         this.tag = tag;
     }
 
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogDeleteTagBinding.inflate(getLayoutInflater());
-        requireDialog().setContentView(binding.getRoot());
-        MaterialTextView title = binding.getRoot().findViewById(R.id.headTextDialog);
-        MaterialTextView message = binding.getRoot().findViewById(R.id.textMessageDialog);
-
         mPresenter.attachView(this);
         mPresenter.viewIsReady();
         mPresenter.getLoadCountNotesForTag(tag.getNameTag());
-
-
-        title.setText(R.string.deleteTag);
-        message.setText(R.string.deleteSelectTagTextMassage);
-        return requireDialog();
+        binding.title.headTextDialog.setText(R.string.deleteTag);
+        return binding.getRoot();
     }
 
     @Override

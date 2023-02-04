@@ -5,7 +5,7 @@ import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.data.model.Tag;
 
 
-public interface NewTagDialogContract {
+public interface NameTagDialogContract {
 
     interface view extends BaseView {
 

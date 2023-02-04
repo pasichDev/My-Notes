@@ -71,6 +71,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable
     ViewGroup container, @Nullable Bundle savedInstanceState) {
+        vibrateOpenDialog(true);
         binding = DialogMoreNoteBinding.inflate(getLayoutInflater(), container, false);
 
         mPresenter.attachView(this);

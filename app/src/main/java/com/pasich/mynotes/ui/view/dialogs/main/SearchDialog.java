@@ -1,18 +1,21 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pasich.mynotes.R;
-import com.pasich.mynotes.base.dialog.SearchBaseDialogBottomSheets;
+import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.data.model.IndexFilter;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.databinding.DialogSearchBinding;
@@ -31,7 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Flowable;
 
 @AndroidEntryPoint
-public class SearchDialog extends SearchBaseDialogBottomSheets implements SearchDialogContract.view {
+public class SearchDialog extends BaseDialogBottomSheets implements SearchDialogContract.view {
 
     @Inject
     SearchDialogPresenter mPresenter;
@@ -42,10 +45,13 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
     private FloatingActionButton fabNewNote;
 
 
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
         binding = DialogSearchBinding.inflate(getLayoutInflater());
-        requireDialog().setContentView(binding.getRoot());
+
 
         mPresenter.attachView(this);
         mPresenter.viewIsReady();
@@ -53,9 +59,13 @@ public class SearchDialog extends SearchBaseDialogBottomSheets implements Search
         fabNewNote.hide();
         binding.actionSearch.requestFocus();
 
-        return requireDialog();
+        return binding.getRoot();
     }
 
+    @Override
+    public int getTheme() {
+        return R.style.bottomSheetSearch;
+    }
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {

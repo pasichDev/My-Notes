@@ -361,6 +361,22 @@
         <item name="android:layout_margin">10dp</item>
     </style>
 
+    <style name="bottomSheetInput" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+
+    <style name="bottomSheetSearch" parent="Widget.Material3.BottomSheet">
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="behavior_draggable">false</item>
+        <item name="behavior_hideable">false</item>
+    </style>
+
     <!-- Стиль rootView BottomSheets  -->
     <style name="rootDialogLayout">
         <item name="android:background">@drawable/background_bottom_sheets</item>

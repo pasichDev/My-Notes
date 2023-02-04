@@ -58,4 +58,9 @@ public class TrashPresenter extends BasePresenter<TrashContract.view> implements
         }
     }
 
+    @Override
+    public void clearTrash() {
+        getCompositeDisposable().add(getDataManager().deleteAll().subscribeOn(getSchedulerProvider().io()).subscribe());
+    }
+
 }

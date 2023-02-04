@@ -189,8 +189,7 @@
                     android:id="@+id/scrollChips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
+                    android:paddingHorizontal="15dp"
                     android:paddingVertical="5dp"
                     android:scrollbars="none"
                     android:visibility="@{!newNote ?  View.VISIBLE :View.GONE , default = gone}">

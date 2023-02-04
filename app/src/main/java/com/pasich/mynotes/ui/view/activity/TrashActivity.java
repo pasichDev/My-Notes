@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.model.TrashNote;
@@ -14,7 +15,6 @@ import com.pasich.mynotes.databinding.ActivityTrashBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
 import com.pasich.mynotes.ui.contract.TrashContract;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
-import com.pasich.mynotes.ui.view.dialogs.trash.CleanTrashDialog;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.TrashNoteActionTool;
@@ -140,7 +140,11 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     @Override
     public void cleanTrashDialogShow() {
-        new CleanTrashDialog().show(getSupportFragmentManager(), "CLeanTrash");
+        new MaterialAlertDialogBuilder(this).setTitle(R.string.trashClean).setMessage(R.string.cleanTrashMessage).setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss()).setPositiveButton(R.string.yesCleanTrash, (dialog, which) -> {
+            trashPresenter.clearTrash();
+            dialog.dismiss();
+        }).show();
+
     }
 
 
@@ -179,4 +183,5 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         actionUtils.manageActionPanel(trashNoteActionTool.getCountCheckedItem());
         mNotesTrashAdapter.notifyItemChanged(position, 22);
     }
+
 }
