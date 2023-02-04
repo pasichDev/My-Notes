@@ -68,7 +68,7 @@ public class ThemeActivity extends BaseActivity {
     }
 
     private void setListThemes() {
-        mAdapter = new ThemesAdapter(this, new ThemesArray().getThemes(), themeIdStartActivity);
+        mAdapter = new ThemesAdapter(new ThemesArray().getThemes(), themeIdStartActivity);
         activityThemeBinding.themes.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         activityThemeBinding.themes.addItemDecoration(new SpacesItemDecoration(10));
         activityThemeBinding.themes.setAdapter(mAdapter);

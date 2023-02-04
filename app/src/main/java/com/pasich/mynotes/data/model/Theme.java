@@ -6,14 +6,14 @@ public class Theme {
     private boolean check;
     private final int THEME_ID;
     private final int THEME_STYLE;
-    private final int demoLogo;
+    private final int colorStrokeSelected;
 
-    public Theme(int Image, int theme_id, int theme_style, int demoLogo) {
+    public Theme(int Image, int theme_id, int theme_style, int colorStrokeSelected) {
         this.Image = Image;
         this.check = false;
         this.THEME_ID = theme_id;
         this.THEME_STYLE = theme_style;
-        this.demoLogo = demoLogo;
+        this.colorStrokeSelected = colorStrokeSelected;
     }
 
     public int getTHEME_STYLE() {
@@ -32,8 +32,8 @@ public class Theme {
         return check;
     }
 
-    public int getDemoLogo() {
-        return demoLogo;
+    public int getColorStrokeSelected() {
+        return colorStrokeSelected;
     }
 
     public Theme setCheckReturn(boolean check) {

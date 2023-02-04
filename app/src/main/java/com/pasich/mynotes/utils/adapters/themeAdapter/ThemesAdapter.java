@@ -1,19 +1,15 @@
 package com.pasich.mynotes.utils.adapters.themeAdapter;
 
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.Theme;
+import com.pasich.mynotes.databinding.ItemThemeBinding;
 import com.pasich.mynotes.utils.constants.PreferencesConfig;
 
 import java.util.ArrayList;
@@ -22,15 +18,13 @@ import java.util.List;
 public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder> {
 
     private final ArrayList<Theme> themes;
-    private final Context context;
     private final int PAYLOAD_SET_SELECTED = 44;
     private SelectThemesListener selectThemesListener;
     private Theme mSelectTheme;
 
 
-    public ThemesAdapter(Context context, ArrayList<Theme> list, int idSelectThemeUser) {
+    public ThemesAdapter(ArrayList<Theme> list, int idSelectThemeUser) {
         this.themes = list;
-        this.context = context;
         mSelectTheme = getThemeToId(idSelectThemeUser).setCheckReturn(true);
     }
 
@@ -75,7 +69,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
     @NonNull
     @Override
     public ThemesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolder view = new ThemesAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_theme, parent, false));
+        ViewHolder view = new ThemesAdapter.ViewHolder(ItemThemeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
         if (selectThemesListener != null) {
             view.itemView.setOnClickListener(v -> selectThemesListener.onSelect(view.getAdapterPosition()));
 
@@ -86,9 +80,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ThemesAdapter.ViewHolder holder, int position) {
-        Theme theme = getThemes().get(position);
-        holder.images.setImageDrawable(AppCompatResources.getDrawable(context, theme.getImage()));
-        setCheckView(holder, theme);
+        holder.itemThemeBinding.setTheme(getThemes().get(position));
     }
 
 
@@ -98,20 +90,10 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
             super.onBindViewHolder(holder, position, payloads);
         } else {
             if (payloads.contains(PAYLOAD_SET_SELECTED)) {
-                setCheckView(holder, themes.get(position));
+                holder.itemThemeBinding.setTheme(getThemes().get(position));
             }
         }
     }
-
-
-    private void setCheckView(ThemesAdapter.ViewHolder holder, Theme theme) {
-        if (theme.isCheck()) {
-            holder.item_theme.setBackground(AppCompatResources.getDrawable(context, theme.getDemoLogo()));
-        } else {
-            holder.item_theme.setBackground(AppCompatResources.getDrawable(context, R.drawable.item_theme_uncheck));
-        }
-    }
-
 
     @Override
     public int getItemCount() {
@@ -119,13 +101,11 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView images;
-        View item_theme;
+        ItemThemeBinding itemThemeBinding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            images = itemView.findViewById(R.id.imageTheme);
-            item_theme = itemView.findViewById(R.id.itemTheme);
+        public ViewHolder(@NonNull ItemThemeBinding binding) {
+            super(binding.getRoot());
+            itemThemeBinding = binding;
         }
     }
 }
