@@ -280,10 +280,6 @@
     </style>
 
     <!-- Стиль для заголовка BottomSheetsDialog -->
-    <style name="headDialogText" parent="headActivityText">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
-    </style>
 
     <!-- Позиционирование елементов в BottomSheetsDialog -->
     <style name="marginDialogItem">
@@ -324,25 +320,10 @@
     </style>
 
     <!-- Стиль SearchBottomSheetsDialog  -->
-    <style name="SearchDialog" parent="BottomSheetsStyleCustom">
-        <item name="android:windowCloseOnTouchOutside">false</item>
-        <item name="behavior_draggable">false</item>
-        <item name="behavior_hideable">false</item>
-    </style>
 
     <!-- Стиль CustomBottomSheets  -->
-    <style name="BottomSheetsStyleCustom" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:colorBackground">@android:color/transparent</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
-    </style>
 
     <!-- Стиль rootView BottomSheets  -->
-    <style name="rootDialogLayout">
-        <item name="android:background">@drawable/background_bottom_sheets</item>
-        <item name="android:layout_margin">15dp</item>
-    </style>
 
     <!-- Стиль rootView BottomSheets (NoteSettings)  -->
     <style name="rootDialogLayoutTop">
