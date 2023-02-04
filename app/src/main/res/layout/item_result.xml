@@ -6,12 +6,10 @@
     <data>
 
         <import type="android.view.View" />
-
         <variable
             name="Note"
             type="com.pasich.mynotes.data.model.Note" />
     </data>
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/item_Note"
         android:layout_width="match_parent"
