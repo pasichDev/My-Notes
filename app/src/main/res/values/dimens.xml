@@ -9,5 +9,6 @@
     <dimen name="textSizeMessageItems">16sp</dimen>
     <dimen name="marginItemsNote">15dp</dimen>
     <dimen name="marginItemsNoteChip">5dp</dimen>
-
+    <!-- Chip-->
+    <dimen name="defaultCornerChip">10dp</dimen>
 </resources>

@@ -312,22 +312,7 @@
         <item name="android:background">?selectableItemBackground</item>
     </style>
 
-    <!-- Основной стиль меток в Chip -->
-    <style name="ChipStyleCustom" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipEndPadding">5dp</item>
-        <item name="chipStartPadding">5dp</item>
-        <item name="chipBackgroundColor">@color/chip_background_color</item>
-        <item name="chipStrokeWidth">0dp</item>
-        <item name="android:textColor">?attr/colorPrimaryInverse</item>
-    </style>
 
-
-    <!-- Стиль меток chip в для MoreNoteDialog  -->
-    <style name="ChipStyleCustomChoiceNote" parent="ChipStyleCustom">
-
-    </style>
-
-    <!-- Стиль жирного шрифта  -->
 
 
     <style name="styleAboutButtonBottom" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
@@ -368,11 +353,5 @@
         <item name="android:layout_marginEnd">15dp</item>
     </style>
 
-    <style name="itemNoteTag" parent="ChipStyleCustom">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">3dp</item>
-        <item name="android:layout_marginBottom">3dp</item>
-    </style>
 
 </resources>

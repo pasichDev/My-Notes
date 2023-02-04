@@ -200,10 +200,7 @@
                         android:id="@+id/chipGroupSystem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:singleSelection="true">
-
-
-                    </com.google.android.material.chip.ChipGroup>
+                        app:singleSelection="true" />
                 </HorizontalScrollView>
 
             </LinearLayout>

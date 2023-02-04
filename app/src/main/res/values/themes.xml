@@ -340,18 +340,6 @@
         <item name="android:background">?selectableItemBackground</item>
     </style>
 
-    <!-- Основной стиль меток в Chip -->
-    <style name="ChipStyleCustom" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipEndPadding">5dp</item>
-        <item name="chipStartPadding">5dp</item>
-        <item name="chipBackgroundColor">@color/chip_background_color</item>
-        <item name="chipStrokeWidth">0dp</item>
-        <item name="android:textColor">?attr/colorTertiary</item>
-    </style>
-
-
-    <!-- Стиль меток chip в для MoreNoteDialog  -->
-    <style name="ChipStyleCustomChoiceNote" parent="ChipStyleCustom"></style>
 
     <style name="styleAboutButtonBottom" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
         <item name="android:layout_margin">2dp</item>
@@ -369,7 +357,7 @@
     </style>
 
     <!-- Стиль CustomBottomSheets  -->
-    <style name="BottomSheetsStyleCustom" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="BottomSheetsStyleCustom" parent="Widget.Material3.BottomSheet">
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -414,13 +402,6 @@
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
-    <style name="itemNoteTag" parent="ChipStyleCustom">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">3dp</item>
-        <item name="android:layout_marginBottom">3dp</item>
-    </style>
-
 
     <style name="itemTextBottomSheets" parent="">
         <item name="android:layout_width">wrap_content</item>
@@ -444,4 +425,18 @@
     </style>
 
 
+    <style name="chipTagItemNote" parent="@style/Widget.Material3.Chip.Assist">
+        <item name="android:enabled">false</item>
+        <item name="chipCornerRadius">@dimen/defaultCornerChip</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="chipBackgroundColor">?attr/colorSurfaceVariant</item>
+    </style>
+
+    <style name="chipTagDialog" parent="@style/Widget.Material3.Chip.Filter">
+        <item name="chipCornerRadius">@dimen/defaultCornerChip</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="chipBackgroundColor">?attr/colorSurfaceVariant</item>
+    </style>
 </resources>

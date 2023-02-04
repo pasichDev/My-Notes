@@ -51,15 +51,11 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/tagNote"
-                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    style="@style/chipTagItemNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:text="@{'#'+Note.tag}"
-                    android:textColor="?attr/colorPrimary"
-                    android:visibility="@{Note.tag.length() >= 1 ? View.VISIBLE : View.GONE}"
-                    app:chipBackgroundColor="?attr/colorSurfaceVariant"
-                    app:chipCornerRadius="10dp" />
+                    android:visibility="@{Note.tag.length() >= 1 ? View.VISIBLE : View.GONE}" />
 
             </com.google.android.material.chip.ChipGroup>
 
