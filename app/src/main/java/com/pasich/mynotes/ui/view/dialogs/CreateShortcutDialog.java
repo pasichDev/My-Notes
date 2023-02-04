@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.base.view.ShortCutView;
@@ -52,7 +53,8 @@ public class CreateShortcutDialog extends BaseDialogBottomSheets {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.binding = DialogShortcutBinding.inflate(getLayoutInflater());
+        setState((BottomSheetDialog) requireDialog());
+        binding = DialogShortcutBinding.inflate(getLayoutInflater());
         binding.title.headTextDialog.setText(R.string.titleDialogShortCut);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

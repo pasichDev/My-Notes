@@ -345,18 +345,13 @@
         <item name="fontFamily">@font/railway_medium</item>
     </style>
 
-    <!-- Стиль SearchBottomSheetsDialog  -->
-
-    <!-- Стиль CustomBottomSheets  -->
-
     <style name="bottomSheetInput" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
 
-    <style name="bottomSheetSearch" parent="Widget.Material3.BottomSheet">
-        <item name="android:colorBackground">@android:color/transparent</item>
+    <style name="bottomSheetSearch" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>

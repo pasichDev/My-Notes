@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
@@ -48,14 +49,12 @@ public class SearchDialog extends BaseDialogBottomSheets implements SearchDialog
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setState((BottomSheetDialog) requireDialog());
         super.onCreateView(inflater, container, savedInstanceState);
-
         binding = DialogSearchBinding.inflate(getLayoutInflater());
-
 
         mPresenter.attachView(this);
         mPresenter.viewIsReady();
-
         fabNewNote.hide();
         binding.actionSearch.requestFocus();
 
@@ -66,6 +65,7 @@ public class SearchDialog extends BaseDialogBottomSheets implements SearchDialog
     public int getTheme() {
         return R.style.bottomSheetSearch;
     }
+
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
