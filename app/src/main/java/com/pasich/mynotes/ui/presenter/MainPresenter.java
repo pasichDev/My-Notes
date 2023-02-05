@@ -84,7 +84,6 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
     }
 
 
-
     @Override
     public void deleteNotesArray(ArrayList<Note> notes) {
         for (Note note : notes) {
@@ -104,25 +103,17 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
 
     @Override
     public void deleteTag(Tag tag) {
-        getCompositeDisposable().add(getDataManager()
-                .getCountNotesTag(tag.getNameTag())
-                .subscribeOn(getSchedulerProvider().io())
-                .subscribe(integer -> {
-                    if (integer == 0)
-                        getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io())
-                                .observeOn(getSchedulerProvider().ui()).subscribe());
-                    else getView().startDeleteTagDialog(tag);
-                }));
+        getCompositeDisposable().add(getDataManager().getCountNotesTag(tag.getNameTag()).subscribeOn(getSchedulerProvider().io()).subscribe(integer -> {
+            if (integer == 0)
+                getCompositeDisposable().add(getDataManager().deleteTag(tag).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe());
+            else getView().startDeleteTagDialog(tag);
+        }));
 
     }
 
     @Override
     public void editVisibleTag(Tag tag) {
-        getCompositeDisposable().add(
-                getDataManager().updateTag(tag)
-                        .subscribeOn(getSchedulerProvider().io())
-                        .observeOn(getSchedulerProvider().ui())
-                        .subscribe());
+        getCompositeDisposable().add(getDataManager().updateTag(tag).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe());
     }
 
 

@@ -27,6 +27,7 @@ public class TransitionUtil {
         materialContainerTransform.setScrimColor(Color.TRANSPARENT);
         materialContainerTransform.setPathMotion(new MaterialArcMotion());
         materialContainerTransform.setFadeMode(MaterialContainerTransform.FADE_MODE_OUT);
+
         return materialContainerTransform;
     }
 }
