@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -55,20 +56,16 @@ public class AboutDialog extends BaseDialogBottomSheets {
     @Inject
     public CloudAuthHelper cloudAuthHelper;
     public DialogAboutBinding binding;
-    final private ActivityResultLauncher<Intent> startAuthIntent =
-            registerForActivityResult(
-                    new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
+    private BitmapDrawable avatarPlaceholder;
+    final private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
 
-                            cloudAuthHelper.getResultAuth(result.getData())
-                                    .addOnFailureListener((GoogleSignInAccount) -> onInfoSnack(R.string.errorAuth, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG))
-                                    .addOnSuccessListener((GoogleSignInAccount) -> {
-                                        cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, DriveScope.ACCESS_DRIVE_SCOPE), true);
-                                        loadingDataUser(true);
-                                    });
-                        }
-                    });
+            cloudAuthHelper.getResultAuth(result.getData()).addOnFailureListener((GoogleSignInAccount) -> onInfoSnack(R.string.errorAuth, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG)).addOnSuccessListener((GoogleSignInAccount) -> {
+                cloudCacheHelper.update(GoogleSignInAccount, GoogleSignIn.hasPermissions(GoogleSignInAccount, DriveScope.ACCESS_DRIVE_SCOPE), true);
+                loadingDataUser(true);
+            });
+        }
+    });
 
 
     public AboutDialog(AboutOpensActivity aboutOpensActivity) {
@@ -79,11 +76,10 @@ public class AboutDialog extends BaseDialogBottomSheets {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogAboutBinding.inflate(getLayoutInflater());
-       initAccountInfo();
+        initAccountInfo();
         initListeners();
         return binding.getRoot();
     }
-
 
 
     private void initAccountInfo() {
@@ -134,21 +130,14 @@ public class AboutDialog extends BaseDialogBottomSheets {
     private void loadingDataUser(boolean isAuth) {
 
         if (isAuth) {
+
             String nameUser = cloudCacheHelper.getGoogleSignInAccount().getDisplayName();
             binding.loginPage.nameUser.setText(nameUser);
             binding.loginPage.emailUSer.setText(cloudCacheHelper.getGoogleSignInAccount().getEmail());
-            Glide.with(requireContext())
-                    .load(cloudCacheHelper.getGoogleSignInAccount().getPhotoUrl())
-                    .placeholder(new AvatarGenerator.AvatarBuilder(requireContext())
-                            .setLabel(nameUser == null ? "User" : nameUser)
-                            .setAvatarSize(120)
-                            .setTextSize(30)
-                            .toSquare()
-                            .toCircle()
-                            .setBackgroundColor(MaterialColors.getColor(requireContext(), R.attr.colorPrimary, Color.GRAY))
-                            .build())
+            avatarPlaceholder = new AvatarGenerator.AvatarBuilder(requireContext()).setLabel(nameUser == null ? "User" : nameUser).setAvatarSize(120).setTextSize(30).toSquare().toCircle().setBackgroundColor(MaterialColors.getColor(requireContext(), R.attr.colorPrimary, Color.GRAY)).build();
 
-                    .into(binding.loginPage.userAvatar);
+
+            Glide.with(requireContext()).load(cloudCacheHelper.getGoogleSignInAccount().getPhotoUrl()).placeholder(avatarPlaceholder).into(binding.loginPage.userAvatar);
             binding.loginPage.loginUser.setVisibility(View.GONE);
             binding.loginPage.loginPageRoot.setVisibility(View.VISIBLE);
 
@@ -179,14 +168,13 @@ public class AboutDialog extends BaseDialogBottomSheets {
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         binding.trashActivityLayout.setOnClickListener(null);
-
         binding.loginPage.exitUser.setOnClickListener(null);
-
         binding.loginPage.loginUser.setOnClickListener(null);
         binding.privacyApp.setOnClickListener(null);
         binding.backups.setOnClickListener(null);
         binding.help.setOnClickListener(null);
         binding.aboutApp.setOnClickListener(null);
         binding.themeApp.setOnClickListener(null);
+        avatarPlaceholder = null;
     }
 }
