@@ -11,12 +11,15 @@ import android.view.animation.AnimationUtils;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.model.Note;
@@ -96,6 +99,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setExitSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
+        getWindow().setSharedElementsUseOverlay(false);
+
+
         super.onCreate(savedInstanceState);
         mActivityBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mActivityBinding.getRoot());
@@ -184,8 +191,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mNoteAdapter.setOnItemClickListener(new OnItemClickListener<>() {
 
             @Override
-            public void onClick(int position, Note model) {
-                if (!getAction()) mainPresenter.clickNote(model.id);
+            public void onClick(int position, Note model, MaterialCardView materialCardView) {
+                if (!getAction()) openNoteEdit(model.id, materialCardView);
                 else selectItemAction(model, position, true);
 
             }
@@ -286,9 +293,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         selectItemAction(note, position, true);
     }
 
+
+    // TODO: 05.02.2023 Здесь будет ошибка
     @Override
     public void openCopyNote(int idNote) {
-        openNoteEdit(idNote);
+        openNoteEdit(idNote, null);
     }
 
     @Override
@@ -297,9 +306,14 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         snackBarRestoreNote();
     }
 
-    @Override
-    public void openNoteEdit(long idNote) {
-        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
+
+    public void openNoteEdit(long idNote, MaterialCardView materialCardView) {
+        startActivity(new Intent(this, NoteActivity.class)
+                .putExtra("NewNote", false)
+                .putExtra("idNote", idNote)
+                .putExtra("shareText", "")
+                .putExtra("tagNote", ""), ActivityOptionsCompat.makeSceneTransitionAnimation(
+                MainActivity.this, materialCardView, String.valueOf(idNote)).toBundle());
     }
 
     @Override
@@ -312,7 +326,13 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public void newNotesButton() {
         Tag tagSelected = tagsAdapter.getTagSelected();
         String tagName = tagSelected == null ? "" : tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag();
-        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", tagName));
+        startActivity(new Intent(this, NoteActivity.class)
+                        .putExtra("NewNote", true)
+                        .putExtra("tagNote", tagName),
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        this,
+                        mActivityBinding.newNotesButton,
+                        "shared_element_end_root").toBundle());
     }
 
     @Override

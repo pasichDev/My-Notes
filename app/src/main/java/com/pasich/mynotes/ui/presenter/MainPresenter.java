@@ -83,10 +83,6 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
         }
     }
 
-    @Override
-    public void clickNote(int idNote) {
-        getView().openNoteEdit(idNote);
-    }
 
 
     @Override

@@ -4,8 +4,10 @@ import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.transition.Transition;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +15,12 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.platform.MaterialArcMotion;
+import com.google.android.material.transition.platform.MaterialContainerTransform;
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.base.simplifications.TextWatcher;
@@ -43,8 +50,16 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        long idNote = getIntent().getLongExtra("idNote", 0);
+
         binding = ActivityNoteBinding.inflate(getLayoutInflater());
+        binding.noteLayout.setTransitionName(idNote == 0 ? "shared_element_end_root" : String.valueOf(idNote));
+        setEnterSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
+        getWindow().setSharedElementEnterTransition(new MaterialContainerTransform().addTarget(binding.noteLayout));
+        getWindow().setSharedElementReturnTransition(new MaterialContainerTransform().addTarget(binding.noteLayout));
+
+
+        super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
         binding.setPresenter((NotePresenter) notePresenter);
         notePresenter.attachView(this);
@@ -52,6 +67,18 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.viewIsReady();
 
     }
+
+    private Transition buildContainerTransform() {
+        MaterialContainerTransform materialContainerTransform = new MaterialContainerTransform();
+        materialContainerTransform.addTarget(binding.noteLayout)
+                .setDuration(300)
+                .setInterpolator(new FastOutSlowInInterpolator());
+        materialContainerTransform.setScrimColor(Color.TRANSPARENT);
+        materialContainerTransform.setPathMotion(new MaterialArcMotion());
+        materialContainerTransform.setFadeMode(MaterialContainerTransform.FADE_MODE_OUT);
+        return materialContainerTransform;
+    }
+
 
     @Override
     protected void onStart() {
@@ -192,7 +219,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void closeNoteActivity() {
-
         binding.getRoot().clearFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(binding.valueNote.getWindowToken(), 0);
@@ -201,7 +227,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
         if (notePresenter.getShareText().length() >= 2)
             Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
-        finish();
+        supportFinishAfterTransition();
     }
 
     private void saveNote() {

@@ -41,7 +41,6 @@ public interface MainContract {
 
         void loadingTags(List<Tag> tagList);
 
-        void openNoteEdit(long idNote);
 
         void startToastCheckCountTags();
 
@@ -68,8 +67,6 @@ public interface MainContract {
         void clickTag(Tag tag, int position);
 
         void clickLongTag(Tag tag, View mView);
-
-        void clickNote(int idNote);
 
         void deleteNotesArray(ArrayList<Note> notes);
 
