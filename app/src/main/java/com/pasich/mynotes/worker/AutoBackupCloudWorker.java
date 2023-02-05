@@ -1,16 +1,16 @@
 package com.pasich.mynotes.worker;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_TIME;
 
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -25,26 +25,27 @@ import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
+import com.pasich.mynotes.ui.view.activity.BackupActivity;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
+import com.pasich.mynotes.utils.constants.CloudErrors;
 import com.pasich.mynotes.utils.constants.Notifications;
 
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 @HiltWorker
 public class AutoBackupCloudWorker extends Worker {
 
-    private NotificationCompat.Builder notificationBuilder;
     private final DataManager dataManager;
-    private final int PROGRESS_MAX = 100;
     public CloudCacheHelper cloudCacheHelper;
     public CloudAuthHelper cloudAuthHelper;
 
+    public CompositeDisposable compositeDisposable;
 
     @AssistedInject
     public AutoBackupCloudWorker(@Assisted @NonNull Context ctx, @Assisted @NonNull WorkerParameters wp, DataManager dm,
@@ -53,31 +54,17 @@ public class AutoBackupCloudWorker extends Worker {
         this.dataManager = dm;
         this.cloudCacheHelper = cch;
         this.cloudAuthHelper = cah;
+        this.compositeDisposable = new CompositeDisposable();
     }
 
-    // TODO: 01.02.2023 Проверить ли есть права на оповещения в BackupActivitty
     @NonNull
     @Override
     public Result doWork() {
-        startProcessBackup();
-
-/*
-        Log.d(TAG, "doWork: start");
-
-        try {
-            for (int i = 0; i < 10; i++) {
-                TimeUnit.SECONDS.sleep(1);
-                Log.d(TAG, i + ", isStopped " + isStopped());
-                if (isStopped()) return Result.failure();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        Log.d(TAG, "doWork: end");
+        creteProcessNotification();
 
 
- */
+        createJsonBackupData();
+
         return Result.success();
     }
 
@@ -85,18 +72,12 @@ public class AutoBackupCloudWorker extends Worker {
     @Override
     public void onStopped() {
         super.onStopped();
-        Log.d(TAG, "onStopped");
+        compositeDisposable.dispose();
     }
-
-
-    // TODO: 02.02.2023 Нужно повесить .subscribeOn(getSchedulerProvider().io())
-    //                        .observeOn(getSchedulerProvider().ui())
 
     private void createJsonBackupData() {
         JsonBackup jsonBackupTemp = new JsonBackup();
-        // resultWorker resultRequest = new resultWorker();
-        Log.wtf(TAG, "work create json: ");
-        Disposable disposable = Flowable.zip(
+        compositeDisposable.add(Flowable.zip(
                         dataManager.getNotes(),
                         dataManager.getTrashNotesLoad(),
                         dataManager.getTagsUser(),
@@ -109,79 +90,51 @@ public class AutoBackupCloudWorker extends Worker {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(countData -> {
-                    Log.wtf(TAG, "work subscribe: ");
-                    ///здесь если пусто по данних не делать запрос
-                    //     resultRequest.setResult(createDataToDrive(jsonBackupTemp, getDrive()));
-                    createDataToDrive(jsonBackupTemp, getDrive());
-                });
-        // disposable.dispose();
-        //   return resultRequest.getResult();
+                    if (countData != 0) {
+                        createDataToDrive(jsonBackupTemp, getDrive());
+                    }
+                }));
     }
 
 
     private void createDataToDrive(JsonBackup jsonBackup, Drive mDriveCredential) {
         final java.io.File backupTemp = dataManager.writeTempBackup(jsonBackup);
         if (backupTemp == null) {
-            Log.wtf(TAG, "work error: ");
-            /// return true;
+            finishWorker(CloudErrors.ERROR_CREATE_CLOUD_BACKUP);
         } else {
-            Log.wtf(TAG, "work start: ");
-            dataManager
-                    .getOldBackupForCLean(mDriveCredential) //load old backup
+            dataManager.getOldBackupForCLean(mDriveCredential)
                     .onSuccessTask(listBackups ->
                             dataManager.writeCloudBackup(mDriveCredential,
                                             backupTemp, getProcessListener())
-                                    .addOnCompleteListener(stack -> {
-                                        backupTemp.delete();
-                                    })
                                     .addOnSuccessListener(backupCloud -> {
+                                        finishWorker(CloudErrors.NO_ERROR);
                                         dataManager.getBackupCloudInfoPreference().putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId()).putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
                                     })
                                     .onSuccessTask(backupCloud ->
-
                                             dataManager.cleanOldBackups(mDriveCredential, listBackups))
-                                    .addOnFailureListener(stack -> canceledWork(true))
-
                                     .addOnFailureListener(stack -> {
-
+                                                finishWorker(CloudErrors.ERROR_CREATE_CLOUD_BACKUP);
+                                                backupTemp.delete();
+                                            }
+                                    )
+                                    .addOnFailureListener(stack -> {
+                                        finishWorker(CloudErrors.ERROR_CREATE_CLOUD_BACKUP);
                                         backupTemp.delete();
                                     }));
 
         }
-
-        //   return canceledWork(true);
     }
 
-    private boolean canceledWork(boolean error) {
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
 
-        } else {
+    private void finishWorker(int errorCode) {
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
             NotificationManagerCompat.from(getApplicationContext()).cancel(Notifications.AutoBackup_NotificationId);
         }
-        Log.wtf(TAG, "work error: reste ");
-        return error;
+        if (errorCode != CloudErrors.NO_ERROR) {
+            showErrorNotification(errorCode);
+        }
+        compositeDisposable.dispose();
     }
-
-
-    public MediaHttpUploaderProgressListener getProcessListener() {
-        return uploading -> {
-            switch (uploading.getUploadState()) {
-                case INITIATION_STARTED -> {
-                    notificationBuilder.setProgress(PROGRESS_MAX, 30, true);
-                }
-                case INITIATION_COMPLETE -> {
-                    notificationBuilder.setProgress(PROGRESS_MAX, 50, true);
-                }
-                case MEDIA_IN_PROGRESS -> {
-                    notificationBuilder.setProgress(PROGRESS_MAX, 70, true);
-                }
-                case MEDIA_COMPLETE -> {
-                    notificationBuilder.setProgress(PROGRESS_MAX, 99, true);
-                }
-            }
-        };
-    }
-
 
     public Drive getDrive() {
         return cloudAuthHelper.getDriveCredentialService(
@@ -189,39 +142,52 @@ public class AutoBackupCloudWorker extends Worker {
                 getApplicationContext());
     }
 
-    public void startProcessBackup() {
+    public void creteProcessNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(Notifications.AutoBackup_Chanel, getApplicationContext().getString(R.string.chanelAutoBackup), NotificationManager.IMPORTANCE_HIGH);
             NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-
-        notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), Notifications.AutoBackup_Chanel)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(getApplicationContext().getString(R.string.workAutoBackupTitle))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-
-        notificationBuilder.setProgress(PROGRESS_MAX, 10, true);
-
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-
-        } else {
-            NotificationManagerCompat.from(getApplicationContext()).notify(Notifications.AutoBackup_NotificationId, notificationBuilder.build());
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            NotificationManagerCompat.from(getApplicationContext()).notify(Notifications.AutoBackup_NotificationId,
+                    new NotificationCompat.Builder(getApplicationContext(), Notifications.AutoBackup_Chanel)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle(getApplicationContext().getString(R.string.workAutoBackupTitle))
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                            .setProgress(100, 10, true).build());
         }
-        createJsonBackupData();
     }
 
-    private class resultWorker {
-        private Result result;
-
-
-        public void setResult(Result result) {
-            this.result = result;
+    public void showErrorNotification(int errorCode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(Notifications.AutoBackup_Chanel, getApplicationContext().getString(R.string.chanelAutoBackup), NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
+                    0, new Intent(getApplicationContext(), BackupActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK), PendingIntent.FLAG_IMMUTABLE);
 
-        public Result getResult() {
-            return result;
+            NotificationManagerCompat.from(getApplicationContext()).notify(Notifications.AutoBackup_NotificationId,
+                    new NotificationCompat.Builder(getApplicationContext(), Notifications.AutoBackup_Chanel)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(getErrorText(errorCode)))
+                            .setContentText(getErrorText(errorCode))
+                            .setContentTitle(getApplicationContext().getString(R.string.error))
+                            .setContentIntent(pendingIntent)
+                            .setPriority(NotificationCompat.PRIORITY_HIGH).build());
         }
+    }
+
+    private String getErrorText(int errorCode) {
+        return getApplicationContext().getString(R.string.errorWorker);
+    }
+
+
+    public MediaHttpUploaderProgressListener getProcessListener() {
+        return uploading -> {
+
+        };
     }
 }

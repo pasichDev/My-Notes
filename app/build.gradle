@@ -70,7 +70,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation 'androidx.core:core-splashscreen:1.0.0'
-    implementation 'androidx.work:work-runtime:2.7.1'
+    implementation "android.arch.work:work-runtime:1.0.1"
 
     //Hilt
     implementation 'com.google.dagger:hilt-android:2.44.2'
