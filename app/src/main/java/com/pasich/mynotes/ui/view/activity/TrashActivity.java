@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.platform.MaterialFade;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.model.TrashNote;
@@ -50,8 +51,10 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     @Override
     public void onCreate(Bundle savedInstanceState) {
         selectTheme();
-        super.onCreate(savedInstanceState);
         binding = ActivityTrashBinding.inflate(getLayoutInflater());
+        getWindow().setEnterTransition(new MaterialFade().addTarget(binding.activityTrash));
+        getWindow().setAllowEnterTransitionOverlap(true);
+        super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
         trashPresenter.attachView(this);
         trashPresenter.viewIsReady();
@@ -101,7 +104,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     @Override
     public void onBackPressed() {
         if (getAction()) actionUtils.closeActionPanel();
-        finish();
+        supportFinishAfterTransition();
     }
 
     @Override
@@ -110,7 +113,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         if (item.getItemId() == android.R.id.home) {
             if (getAction()) {
                 actionUtils.closeActionPanel();
-            } else finish();
+            } else supportFinishAfterTransition();
         }
 
         return true;

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.transition.platform.MaterialFade;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.model.Theme;
@@ -43,8 +44,10 @@ public class ThemeActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         selectTheme();
-        super.onCreate(savedInstanceState);
         activityThemeBinding = ActivityThemeBinding.inflate(getLayoutInflater());
+        getWindow().setEnterTransition(new MaterialFade().addTarget(activityThemeBinding.activityTheme));
+        getWindow().setAllowEnterTransitionOverlap(true);
+        super.onCreate(savedInstanceState);
         setContentView(activityThemeBinding.getRoot());
         themeIdStartActivity = PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE);
         enableDynamic = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
@@ -120,7 +123,7 @@ public class ThemeActivity extends BaseActivity {
         if (themeDynamicStartActivity != enableDynamicColor) {
             setResult(11, new Intent().putExtra("updateThemeStyle", R.style.AppThemeDynamic));
         }
-        finish();
+        supportFinishAfterTransition();
     }
 
     @Override

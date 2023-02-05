@@ -32,9 +32,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
 import com.pasich.mynotes.databinding.DialogAboutBinding;
-import com.pasich.mynotes.ui.view.activity.AboutActivity;
-import com.pasich.mynotes.ui.view.activity.BackupActivity;
-import com.pasich.mynotes.ui.view.activity.TrashActivity;
 import com.pasich.mynotes.utils.backup.CloudAuthHelper;
 import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.DriveScope;
@@ -94,12 +91,12 @@ public class AboutDialog extends BaseDialogBottomSheets {
         binding.loginPage.loginUser.setOnClickListener(v -> startAuthIntent.launch(googleSignInClient.getSignInIntent()));
 
         binding.trashActivityLayout.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), TrashActivity.class));
             dismiss();
+            aboutOpensActivity.openTrash();
         });
         binding.backups.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), BackupActivity.class));
             dismiss();
+            aboutOpensActivity.openBackupActivity();
         });
 
         binding.privacyApp.setOnClickListener(v -> {
@@ -120,9 +117,9 @@ public class AboutDialog extends BaseDialogBottomSheets {
         });
 
         binding.aboutApp.setOnClickListener(v -> {
-            Intent i = new Intent(getActivity(), AboutActivity.class);
-            requireContext().startActivity(i);
             dismiss();
+            aboutOpensActivity.openAboutActivity();
+
         });
     }
 

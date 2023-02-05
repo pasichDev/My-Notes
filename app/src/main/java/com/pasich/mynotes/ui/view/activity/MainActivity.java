@@ -3,6 +3,7 @@ package com.pasich.mynotes.ui.view.activity;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -99,6 +101,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         selectTheme();
         setExitSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
         getWindow().setSharedElementsUseOverlay(false);
+
         super.onCreate(savedInstanceState);
         mActivityBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mActivityBinding.getRoot());
@@ -184,7 +187,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         });
 
         mNoteAdapter.setOnItemClickListener(new OnItemClickListener<>() {
-
             @Override
             public void onClick(int position, Note model, MaterialCardView materialCardView) {
                 if (!getAction()) openNoteEdit(model.id, materialCardView);
@@ -292,7 +294,13 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     // TODO: 05.02.2023 Здесь будет ошибка
     @Override
     public void openCopyNote(int idNote) {
-        openNoteEdit(idNote, null);
+        startActivity(new Intent(this, NoteActivity.class)
+                        .putExtra("NewNote", false)
+                        .putExtra("idNote", idNote)
+                        .putExtra("shareText", "")
+                        .putExtra("tagNote", ""),
+                ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+
     }
 
     @Override
@@ -325,7 +333,27 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         new AboutDialog(new AboutOpensActivity() {
             @Override
             protected void openThemeActivity() {
-                startThemeActivity.launch(new Intent(MainActivity.this, ThemeActivity.class));
+                startThemeActivity.launch(new Intent(MainActivity.this, ThemeActivity.class),
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, (Pair<View, String>[]) null));
+            }
+
+            @Override
+            protected void openTrash() {
+                startActivity(new Intent(MainActivity.this, TrashActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+
+            }
+
+            @Override
+            protected void openAboutActivity() {
+                startActivity(new Intent(MainActivity.this, AboutActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+            }
+
+            @Override
+            protected void openBackupActivity() {
+                startActivity(new Intent(MainActivity.this, BackupActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
         }).show(getSupportFragmentManager(), "MoreActivity");
     }

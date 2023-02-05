@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.transition.platform.MaterialFade;
 import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
@@ -46,8 +47,10 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         selectTheme();
-        super.onCreate(savedInstanceState);
         binding = ActivityAboutBinding.inflate(getLayoutInflater());
+        getWindow().setEnterTransition(new MaterialFade().addTarget(binding.activityAbout));
+        getWindow().setAllowEnterTransitionOverlap(true);
+        super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
         binding.setActivity(this);
         initActivity();
@@ -123,14 +126,14 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        supportFinishAfterTransition();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            supportFinishAfterTransition();
         }
 
         return true;
