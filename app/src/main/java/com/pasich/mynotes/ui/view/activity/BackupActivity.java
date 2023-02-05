@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_AUTO_BACKUP_CLOUD;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.FILE_NAME_BACKUP;
@@ -10,7 +9,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +16,11 @@ import android.view.View;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -29,9 +29,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
-import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.data.model.backup.JsonBackup;
@@ -44,10 +41,11 @@ import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.CloudErrors;
 import com.pasich.mynotes.utils.constants.DriveScope;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
+import com.pasich.mynotes.utils.constants.WorkerId;
 import com.pasich.mynotes.worker.AutoBackupCloudWorker;
 
-import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -58,15 +56,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Inject
     public BackupContract.presenter presenter;
-    public ActivityBackupBinding binding;
-    @Inject
-    public BackupCacheHelper serviceCache;
-    @Inject
-    public GoogleSignInClient googleSignInClient;
-    @Inject
-    public CloudCacheHelper cloudCacheHelper;
-    @Inject
-    public CloudAuthHelper cloudAuthHelper;
     /**
      * Restore local backup intent
      */
@@ -77,6 +66,15 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
             }
         }
     });
+    public ActivityBackupBinding binding;
+    @Inject
+    public BackupCacheHelper serviceCache;
+    @Inject
+    public GoogleSignInClient googleSignInClient;
+    @Inject
+    public CloudCacheHelper cloudCacheHelper;
+    @Inject
+    public CloudAuthHelper cloudAuthHelper;
     /**
      * Auth user cloud
      */
@@ -108,30 +106,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.attachView(this);
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
-
-
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(true)
-                .build();
-
-        // PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(AutoBackupCloudWorker.class).setConstraints(constraints).build()
-
-        binding.startWorker.setOnClickListener(v -> {
-
-
-            OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(AutoBackupCloudWorker.class).setConstraints(constraints).build();
-            WorkManager.getInstance(this).enqueue(myWorkRequest);
-        });
-
-
-        //  WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
-
-
-        // WorkRequest workRequest = new WorkReq(AutoBackupCloudWorker.class).build();
-
-        // WorkManager.getInstance().cancelAllWork();
-
     }
 
 
@@ -199,32 +173,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     public void initConnectAccount() {
         binding.setIsPlayService(cloudCacheHelper.isInstallPlayMarket());
         changeDataUserActivityFromAuth(cloudCacheHelper.isAuth());
-
-    }
-
-
-    // TODO: 27.01.2023 delte method to relese 2.1.14
-    private void checkFilesDebug() {
-
-        Thread CrearEventoHilo = new Thread() {
-            public void run() {
-                try {
-                    FileList files = getDrive().files().list().setSpaces("appDataFolder")
-                            .setFields("files(id, modifiedTime)").setOrderBy("modifiedTime desc")
-                            .setPageSize(8)
-                            .execute();
-                    for (File file : files.getFiles()) {
-                        Log.wtf(TAG, "onCreate: " + file.getId() + " / " + file.getModifiedTime());
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-        if (BuildConfig.DEBUG) {
-            CrearEventoHilo.start();
-        }
-
     }
 
     /**
@@ -488,11 +436,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                         editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
                         presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
                         editVisibleAutoBackupInfo(getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+                        creteWorkerAutoBackup(getHoursAutoBackupWorker(item));
                         dialog.dismiss();
 
                     }).create().show();
         }
     }
+
 
     @Override
     public void dialogRestoreData(boolean local) {
@@ -522,6 +472,36 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
     }
 
+    private int getHoursAutoBackupWorker(int item) {
+        switch (item) {
+            case 0 -> {
+                return 24;
+            }
+            case 1 -> {
+                return 168;
+            }
+            case 2 -> {
+                return 720;
+            }
+            default -> {
+                return 0;
+            }
+        }
+    }
+
+    private void creteWorkerAutoBackup(int hours) {
+        if (hours == 0) {
+            WorkManager.getInstance(this).cancelAllWorkByTag(WorkerId.autoBackupWorker);
+        }
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WorkerId.autoBackupWorker,
+                ExistingPeriodicWorkPolicy.REPLACE,
+                new PeriodicWorkRequest.Builder(AutoBackupCloudWorker.class, hours,
+                        TimeUnit.HOURS, 1, TimeUnit.HOURS)
+                        .addTag(WorkerId.autoBackupWorker)
+                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS, TimeUnit.MILLISECONDS)
+                        .setConstraints(new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true)
+                                .build()).build());
+    }
 
     @Override
     public void showProcessRestoreDialog() {

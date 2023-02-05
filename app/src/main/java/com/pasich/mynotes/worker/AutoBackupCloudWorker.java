@@ -1,5 +1,6 @@
 package com.pasich.mynotes.worker;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_TIME;
 
@@ -11,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -48,8 +50,7 @@ public class AutoBackupCloudWorker extends Worker {
     public CompositeDisposable compositeDisposable;
 
     @AssistedInject
-    public AutoBackupCloudWorker(@Assisted @NonNull Context ctx, @Assisted @NonNull WorkerParameters wp, DataManager dm,
-                                 CloudCacheHelper cch, CloudAuthHelper cah) {
+    public AutoBackupCloudWorker(@Assisted @NonNull Context ctx, @Assisted @NonNull WorkerParameters wp, DataManager dm, CloudCacheHelper cch, CloudAuthHelper cah) {
         super(ctx, wp);
         this.dataManager = dm;
         this.cloudCacheHelper = cch;
@@ -57,14 +58,15 @@ public class AutoBackupCloudWorker extends Worker {
         this.compositeDisposable = new CompositeDisposable();
     }
 
+
+    // TODO: 05.02.2023 Начить воркер если ошибка перепланироывать
+
     @NonNull
     @Override
     public Result doWork() {
+        if (isStopped()) return Result.failure();
         creteProcessNotification();
-
-
         createJsonBackupData();
-
         return Result.success();
     }
 
@@ -72,28 +74,22 @@ public class AutoBackupCloudWorker extends Worker {
     @Override
     public void onStopped() {
         super.onStopped();
+        Log.wtf(TAG, "onStopped: worker stoop");
         compositeDisposable.dispose();
     }
 
     private void createJsonBackupData() {
         JsonBackup jsonBackupTemp = new JsonBackup();
-        compositeDisposable.add(Flowable.zip(
-                        dataManager.getNotes(),
-                        dataManager.getTrashNotesLoad(),
-                        dataManager.getTagsUser(),
-                        (noteList, trashNoteList, tagList) -> {
-                            jsonBackupTemp.setNotes(noteList);
-                            jsonBackupTemp.setTrashNotes(trashNoteList);
-                            jsonBackupTemp.setTags(tagList);
-                            return noteList.size() + trashNoteList.size() + tagList.size();
-                        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(countData -> {
-                    if (countData != 0) {
-                        createDataToDrive(jsonBackupTemp, getDrive());
-                    }
-                }));
+        compositeDisposable.add(Flowable.zip(dataManager.getNotes(), dataManager.getTrashNotesLoad(), dataManager.getTagsUser(), (noteList, trashNoteList, tagList) -> {
+            jsonBackupTemp.setNotes(noteList);
+            jsonBackupTemp.setTrashNotes(trashNoteList);
+            jsonBackupTemp.setTags(tagList);
+            return noteList.size() + trashNoteList.size() + tagList.size();
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(countData -> {
+            if (countData != 0) {
+                createDataToDrive(jsonBackupTemp, getDrive());
+            }
+        }));
     }
 
 
@@ -102,25 +98,10 @@ public class AutoBackupCloudWorker extends Worker {
         if (backupTemp == null) {
             finishWorker(CloudErrors.ERROR_CREATE_CLOUD_BACKUP);
         } else {
-            dataManager.getOldBackupForCLean(mDriveCredential)
-                    .onSuccessTask(listBackups ->
-                            dataManager.writeCloudBackup(mDriveCredential,
-                                            backupTemp, getProcessListener())
-                                    .addOnSuccessListener(backupCloud -> {
-                                        finishWorker(CloudErrors.NO_ERROR);
-                                        dataManager.getBackupCloudInfoPreference().putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId()).putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
-                                    })
-                                    .onSuccessTask(backupCloud ->
-                                            dataManager.cleanOldBackups(mDriveCredential, listBackups))
-                                    .addOnFailureListener(stack -> {
-                                                finishWorker(CloudErrors.ERROR_CREATE_CLOUD_BACKUP);
-                                                backupTemp.delete();
-                                            }
-                                    )
-                                    .addOnFailureListener(stack -> {
-                                        finishWorker(CloudErrors.ERROR_CREATE_CLOUD_BACKUP);
-                                        backupTemp.delete();
-                                    }));
+            dataManager.getOldBackupForCLean(mDriveCredential).onSuccessTask(listBackups -> dataManager.writeCloudBackup(mDriveCredential, backupTemp, getProcessListener()).addOnSuccessListener(backupCloud -> {
+                finishWorker(CloudErrors.NO_ERROR);
+                dataManager.getBackupCloudInfoPreference().putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId()).putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
+            }).onSuccessTask(backupCloud -> dataManager.cleanOldBackups(mDriveCredential, listBackups)).addOnFailureListener(stack -> finishWorker(CloudErrors.ERROR_CREATE_CLOUD_BACKUP)).addOnFailureListener(stack -> finishWorker(CloudErrors.ERROR_CREATE_CLOUD_BACKUP))).addOnCompleteListener(task -> backupTemp.delete());
 
         }
     }
@@ -137,9 +118,7 @@ public class AutoBackupCloudWorker extends Worker {
     }
 
     public Drive getDrive() {
-        return cloudAuthHelper.getDriveCredentialService(
-                cloudCacheHelper.isAuth() ? cloudCacheHelper.getGoogleSignInAccount().getAccount() : null,
-                getApplicationContext());
+        return cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.isAuth() ? cloudCacheHelper.getGoogleSignInAccount().getAccount() : null, getApplicationContext());
     }
 
     public void creteProcessNotification() {
@@ -149,12 +128,7 @@ public class AutoBackupCloudWorker extends Worker {
             notificationManager.createNotificationChannel(channel);
         }
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-            NotificationManagerCompat.from(getApplicationContext()).notify(Notifications.AutoBackup_NotificationId,
-                    new NotificationCompat.Builder(getApplicationContext(), Notifications.AutoBackup_Chanel)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle(getApplicationContext().getString(R.string.workAutoBackupTitle))
-                            .setPriority(NotificationCompat.PRIORITY_HIGH)
-                            .setProgress(100, 10, true).build());
+            NotificationManagerCompat.from(getApplicationContext()).notify(Notifications.AutoBackup_NotificationId, new NotificationCompat.Builder(getApplicationContext(), Notifications.AutoBackup_Chanel).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(getApplicationContext().getString(R.string.workAutoBackupTitle)).setPriority(NotificationCompat.PRIORITY_HIGH).setProgress(100, 10, true).build());
         }
     }
 
@@ -165,18 +139,9 @@ public class AutoBackupCloudWorker extends Worker {
             notificationManager.createNotificationChannel(channel);
         }
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
-                    0, new Intent(getApplicationContext(), BackupActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK), PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), BackupActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK), PendingIntent.FLAG_IMMUTABLE);
 
-            NotificationManagerCompat.from(getApplicationContext()).notify(Notifications.AutoBackup_NotificationId,
-                    new NotificationCompat.Builder(getApplicationContext(), Notifications.AutoBackup_Chanel)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(getErrorText(errorCode)))
-                            .setContentText(getErrorText(errorCode))
-                            .setContentTitle(getApplicationContext().getString(R.string.error))
-                            .setContentIntent(pendingIntent)
-                            .setPriority(NotificationCompat.PRIORITY_HIGH).build());
+            NotificationManagerCompat.from(getApplicationContext()).notify(Notifications.AutoBackup_NotificationId, new NotificationCompat.Builder(getApplicationContext(), Notifications.AutoBackup_Chanel).setSmallIcon(R.mipmap.ic_launcher).setStyle(new NotificationCompat.BigTextStyle().bigText(getErrorText(errorCode))).setContentText(getErrorText(errorCode)).setContentTitle(getApplicationContext().getString(R.string.error)).setContentIntent(pendingIntent).setPriority(NotificationCompat.PRIORITY_HIGH).build());
         }
     }
 

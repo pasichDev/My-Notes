@@ -198,10 +198,7 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
                     .onSuccessTask(listBackups ->
                             getDataManager().writeCloudBackup(mDriveCredential,
                                             backupTemp, getView().getProcessListener())//write new backup
-                                    .addOnCompleteListener(stack -> {
-                                        getView().goneProgressBarCLoud();
-                                        backupTemp.delete();
-                                    })
+                                    .addOnCompleteListener(stack -> getView().goneProgressBarCLoud())
                                     .addOnSuccessListener(backupCloud -> {
                                         getView().editLastDataEditBackupCloud(backupCloud.getLastDate(), false);
                                         getDataManager().getBackupCloudInfoPreference().putString(ARGUMENT_LAST_BACKUP_ID, backupCloud.getId()).putLong(ARGUMENT_LAST_BACKUP_TIME, backupCloud.getLastDate());
@@ -210,12 +207,10 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
                                     })
                                     .onSuccessTask(backupCloud -> getDataManager().cleanOldBackups(mDriveCredential, listBackups))
                                     .addOnFailureListener(stack -> getView().showErrors(CloudErrors.NETWORK_FALSE)))
-
                     .addOnFailureListener(stack -> {
-                        backupTemp.delete();
                         getView().goneProgressBarCLoud();
                         getView().showErrors(CloudErrors.NETWORK_FALSE);
-                    });
+                    }).addOnCompleteListener(task -> backupTemp.delete());
 
         }
     }
