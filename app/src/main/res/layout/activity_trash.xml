@@ -51,7 +51,6 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:clipToPadding="false"
-            android:layoutAnimation="@anim/recycle_view_animation"
             android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
