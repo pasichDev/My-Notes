@@ -8,13 +8,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -28,13 +25,6 @@ import com.pasich.mynotes.utils.themes.ThemesArray;
 import com.preference.PowerPreference;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
-        super.onCreate(savedInstanceState);
-        selectTheme();
-    }
 
 
     @Override

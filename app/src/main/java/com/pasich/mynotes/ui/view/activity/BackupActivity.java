@@ -100,6 +100,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        selectTheme();
         super.onCreate(savedInstanceState);
         binding = ActivityBackupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

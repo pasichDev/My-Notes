@@ -17,6 +17,7 @@
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">?attr/isLightTheme</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
     <!-- Base theme -->
@@ -25,6 +26,7 @@
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">?attr/isLightTheme</item>
         <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
     <!-- Theme Dark_Blue no Background Light -->

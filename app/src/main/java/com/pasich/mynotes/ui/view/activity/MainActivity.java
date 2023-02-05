@@ -49,6 +49,7 @@ import com.pasich.mynotes.utils.constants.SnackBarInfo;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.SwipeToListNotesCallback;
 import com.pasich.mynotes.utils.tool.FormatListTool;
+import com.pasich.mynotes.utils.transition.ConstTransition;
 
 import java.util.List;
 
@@ -61,6 +62,14 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
 
 
+    final private ActivityResultLauncher<Intent> startThemeActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        Intent data = result.getData();
+        if (result.getResultCode() == 11) {
+            assert data != null;
+            this.redrawActivity(data.getIntExtra("updateThemeStyle", 0));
+        }
+
+    });
     public ActivityMainBinding mActivityBinding;
     @Inject
     public MainContract.presenter mainPresenter;
@@ -85,24 +94,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Inject
     public LinearLayoutManager mLinearLayoutManager;
 
-    final private ActivityResultLauncher<Intent> startThemeActivity =
-            registerForActivityResult(
-                    new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        Intent data = result.getData();
-                        if (result.getResultCode() == 11) {
-                            assert data != null;
-                            this.redrawActivity(data.getIntExtra("updateThemeStyle", 0));
-                        }
-
-                    });
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        selectTheme();
         setExitSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
         getWindow().setSharedElementsUseOverlay(false);
-
-
         super.onCreate(savedInstanceState);
         mActivityBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mActivityBinding.getRoot());
@@ -160,8 +156,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
-    public void
-    exitWhat() {
+    public void exitWhat() {
         onInfoSnack(R.string.exitWhat, mActivityBinding.newNotesButton, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
@@ -308,12 +303,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
     public void openNoteEdit(long idNote, MaterialCardView materialCardView) {
-        startActivity(new Intent(this, NoteActivity.class)
-                .putExtra("NewNote", false)
-                .putExtra("idNote", idNote)
-                .putExtra("shareText", "")
-                .putExtra("tagNote", ""), ActivityOptionsCompat.makeSceneTransitionAnimation(
-                MainActivity.this, materialCardView, String.valueOf(idNote)).toBundle());
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""), ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, materialCardView, String.valueOf(idNote)).toBundle());
     }
 
     @Override
@@ -326,13 +316,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public void newNotesButton() {
         Tag tagSelected = tagsAdapter.getTagSelected();
         String tagName = tagSelected == null ? "" : tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag();
-        startActivity(new Intent(this, NoteActivity.class)
-                        .putExtra("NewNote", true)
-                        .putExtra("tagNote", tagName),
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        this,
-                        mActivityBinding.newNotesButton,
-                        "shared_element_end_root").toBundle());
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", tagName), ActivityOptionsCompat.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, ConstTransition.fabTransaction).toBundle());
     }
 
     @Override
@@ -428,7 +412,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void selectItemAction(Note note, int position, boolean payloads) {
-        
+
         if (note.getChecked()) {
             note.setChecked(false);
             if (!noteActionTool.isCheckedItemFalse(note)) actionUtils.closeActionPanel();

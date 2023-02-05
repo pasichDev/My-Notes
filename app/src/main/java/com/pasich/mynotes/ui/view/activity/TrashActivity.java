@@ -49,6 +49,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        selectTheme();
         super.onCreate(savedInstanceState);
         binding = ActivityTrashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

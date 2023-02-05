@@ -42,6 +42,7 @@ public class ThemeActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        selectTheme();
         super.onCreate(savedInstanceState);
         activityThemeBinding = ActivityThemeBinding.inflate(getLayoutInflater());
         setContentView(activityThemeBinding.getRoot());
