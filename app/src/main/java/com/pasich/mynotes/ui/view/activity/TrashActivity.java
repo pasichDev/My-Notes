@@ -76,7 +76,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
 
     @Override
     public void initListeners() {
-        mNotesTrashAdapter.setOnItemClickListener((position, model, cardView) -> selectItemAction(model, position, true));
+        mNotesTrashAdapter.setOnItemClickListener((position, model) -> selectItemAction(model, position, true));
 
     }
 

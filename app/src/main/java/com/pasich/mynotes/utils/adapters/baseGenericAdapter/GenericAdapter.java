@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
 
 public class GenericAdapter<T, VM extends ViewDataBinding> extends ListAdapter<T, GenericAdapter.RecyclerViewHolder> {
     private final int layoutId;
@@ -35,7 +34,7 @@ public class GenericAdapter<T, VM extends ViewDataBinding> extends ListAdapter<T
         RecyclerViewHolder view = new RecyclerViewHolder(LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false));
         if (mOnItemClickListener != null) {
             view.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(view.getAdapterPosition(),
-                    getCurrentList().get(view.getAdapterPosition()), (MaterialCardView) view.itemView));
+                    getCurrentList().get(view.getAdapterPosition())));
             view.itemView.setOnLongClickListener(v -> {
                 mOnItemClickListener.onLongClick(view.getAdapterPosition(), getCurrentList().get(view.getAdapterPosition()));
                 return false;

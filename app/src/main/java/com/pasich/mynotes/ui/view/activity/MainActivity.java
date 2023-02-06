@@ -190,9 +190,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
         mNoteAdapter.setOnItemClickListener(new OnItemClickListener<>() {
             @Override
-            public void onClick(int position, Note model, MaterialCardView materialCardView) {
-                if (!getAction()) openNoteEdit(model.id, materialCardView);
-                else selectItemAction(model, position, true);
+            public void onClick(int position, Note model) {
+                if (!getAction()) {
+                    openNoteEdit(model.id,
+                            (MaterialCardView) staggeredGridLayoutManager.findViewByPosition(position));
+                } else selectItemAction(model, position, true);
 
             }
 
@@ -268,7 +270,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void loadingNotes(List<Note> noteList) {
-        int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(), tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+        int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(),
+                tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
+        Log.wtf(TAG, "loadingNotes: ");
         showEmptyNotes(!(countNotes >= 1));
     }
 
@@ -312,7 +316,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
     public void openNoteEdit(long idNote, MaterialCardView materialCardView) {
-        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""), ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, materialCardView, String.valueOf(idNote)).toBundle());
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", false)
+                        .putExtra("idNote", idNote).putExtra("shareText", "")
+                        .putExtra("tagNote", ""),
+                ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, materialCardView,
+                        String.valueOf(idNote)).toBundle());
     }
 
     @Override
