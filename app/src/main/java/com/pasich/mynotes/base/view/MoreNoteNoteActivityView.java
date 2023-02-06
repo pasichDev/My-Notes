@@ -12,5 +12,5 @@ public interface MoreNoteNoteActivityView {
 
     void changeTag(String nameTag);
 
-    void openCopyNote(int idNote);
+    void openCopyNote(long idNote);
 }

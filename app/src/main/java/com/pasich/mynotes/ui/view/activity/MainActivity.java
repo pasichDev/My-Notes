@@ -1,11 +1,13 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
@@ -293,13 +295,13 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     // TODO: 05.02.2023 Здесь будет ошибка
     @Override
-    public void openCopyNote(int idNote) {
+    public void openCopyNote(long idNote) {
+        Log.wtf(TAG, "openCopyNote: " + idNote);
         startActivity(new Intent(this, NoteActivity.class)
-                        .putExtra("NewNote", false)
-                        .putExtra("idNote", idNote)
-                        .putExtra("shareText", "")
-                        .putExtra("tagNote", ""),
-                ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                .putExtra("NewNote", false)
+                .putExtra("idNote", idNote)
+                .putExtra("shareText", "")
+                .putExtra("tagNote", ""));
 
     }
 

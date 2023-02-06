@@ -7,7 +7,7 @@ public interface MoreNoteMainActivityView {
 
     void actionStartNote(Note note, int position);
 
-    void openCopyNote(int idNote);
+    void openCopyNote(long idNote);
 
     void callbackDeleteNote(Note mNote);
 

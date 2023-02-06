@@ -265,7 +265,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
     @Override
-    public void openCopyNote(int idNote) {
+    public void openCopyNote(long idNote) {
         finish();
         startActivity(new Intent(NoteActivity.this, NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", idNote).putExtra("shareText", "").putExtra("tagNote", ""));
     }
