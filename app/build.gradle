@@ -104,8 +104,8 @@ dependencies {
     implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
 
     //Other lib (Gson/Glide)
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'com.google.code.gson:gson:2.9.0'
 
     //Create letter avatar

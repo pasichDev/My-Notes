@@ -23,6 +23,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="?attr/colorSurface"
+        android:fitsSystemWindows="true"
         tools:context=".ui.view.activity.TrashActivity">
 
         <com.google.android.material.appbar.AppBarLayout

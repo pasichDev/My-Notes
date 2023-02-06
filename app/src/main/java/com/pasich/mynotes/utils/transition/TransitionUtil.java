@@ -1,10 +1,9 @@
 package com.pasich.mynotes.utils.transition;
 
-import android.graphics.Color;
 import android.transition.Transition;
 import android.view.View;
 
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.transition.platform.MaterialArcMotion;
@@ -21,12 +20,11 @@ public class TransitionUtil {
     public static Transition buildContainerTransform(View container) {
         MaterialContainerTransform materialContainerTransform = new MaterialContainerTransform();
         materialContainerTransform.addTarget(container)
-                .setDuration(500)
-                .setInterpolator(new FastOutSlowInInterpolator());
+                .setDuration(200)
+                .setInterpolator(new LinearOutSlowInInterpolator());
         materialContainerTransform.setAllContainerColors(MaterialColors.getColor(container, R.attr.colorSurface));
-        materialContainerTransform.setScrimColor(Color.TRANSPARENT);
         materialContainerTransform.setPathMotion(new MaterialArcMotion());
-        materialContainerTransform.setFadeMode(MaterialContainerTransform.FADE_MODE_IN);
+        materialContainerTransform.setFadeMode(MaterialContainerTransform.FADE_MODE_CROSS);
         return materialContainerTransform;
     }
 }

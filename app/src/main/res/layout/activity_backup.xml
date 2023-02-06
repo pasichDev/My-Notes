@@ -35,6 +35,7 @@
         android:layout_height="match_parent"
         android:background="?attr/colorSurface"
         android:orientation="vertical"
+        android:fitsSystemWindows="true"
         tools:context=".ui.view.activity.BackupActivity">
 
 
