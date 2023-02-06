@@ -272,7 +272,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public void loadingNotes(List<Note> noteList) {
         int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(),
                 tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
-        Log.wtf(TAG, "loadingNotes: ");
         showEmptyNotes(!(countNotes >= 1));
     }
 
