@@ -293,7 +293,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
 
-    // TODO: 05.02.2023 Здесь будет ошибка
     @Override
     public void openCopyNote(long idNote) {
         Log.wtf(TAG, "openCopyNote: " + idNote);
