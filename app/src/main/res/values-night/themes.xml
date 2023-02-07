@@ -13,7 +13,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">?attr/isLightTheme</item>
         <item name="android:windowActivityTransitions">true</item>
@@ -21,7 +21,7 @@
     <!-- Base theme -->
     <style name="themeBaseDark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:navigationBarColor">?attr/colorPrimaryInverse</item>
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">?attr/isLightTheme</item>
         <item name="android:windowActivityTransitions">true</item>
