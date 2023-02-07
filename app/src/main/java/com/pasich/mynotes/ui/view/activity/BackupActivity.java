@@ -429,7 +429,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     }
 
     private void editVisibleAutoBackupInfo(int item) {
-        binding.setAutoBackupInfo(item == 3);
+        binding.setAutoBackupInfo(cloudCacheHelper.isInstallPlayMarket() && item == 3);
     }
 
     @Override
