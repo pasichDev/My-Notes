@@ -4,7 +4,6 @@ import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_AUTO
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.FIlE_NAME_PREFERENCE_BACKUP;
-import static com.pasich.mynotes.utils.constants.ContactLink.LINK_HOW_TO_USE;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_PRIVACY_POLICY;
 
 import android.app.Activity;
@@ -110,11 +109,6 @@ public class AboutDialog extends BaseDialogBottomSheets {
             dismiss();
         });
 
-        binding.help.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_HOW_TO_USE));
-            requireContext().startActivity(i);
-            dismiss();
-        });
 
         binding.aboutApp.setOnClickListener(v -> {
             dismiss();
@@ -169,7 +163,6 @@ public class AboutDialog extends BaseDialogBottomSheets {
         binding.loginPage.loginUser.setOnClickListener(null);
         binding.privacyApp.setOnClickListener(null);
         binding.backups.setOnClickListener(null);
-        binding.help.setOnClickListener(null);
         binding.aboutApp.setOnClickListener(null);
         binding.themeApp.setOnClickListener(null);
         avatarPlaceholder = null;

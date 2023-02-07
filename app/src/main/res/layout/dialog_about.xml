@@ -98,19 +98,7 @@
             android:layout_height="wrap_content"
             android:text="@string/privacyApp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/interpunct"
-            android:textSize="32sp"
-            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/help"
-            style="@style/styleAboutButtonBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/help" />
 
     </LinearLayout>
 </LinearLayout>
