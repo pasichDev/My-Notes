@@ -34,21 +34,21 @@ public class TextStyleTool {
     public void changeArgument() {
         if (mButton != null) {
             switch (getArgPreference()) {
-                case ARGUMENT_DEFAULT_TEXT_STYLE:
+                case ARGUMENT_DEFAULT_TEXT_STYLE -> {
                     //selected italic
                     mButton.setImageResource(getLoadSrcDrawable("italic"));
                     PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, "italic");
-                    break;
-                case "italic":
+                }
+                case "italic" -> {
                     //selected bold
                     mButton.setImageResource(getLoadSrcDrawable("bold"));
                     PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, "bold");
-                    break;
-                case "bold":
+                }
+                case "bold" -> {
                     //selected normal
                     mButton.setImageResource(getLoadSrcDrawable("normal"));
                     PowerPreference.getDefaultFile().setString(ARGUMENT_PREFERENCE_TEXT_STYLE, ARGUMENT_DEFAULT_TEXT_STYLE);
-                    break;
+                }
             }
         }
     }
@@ -58,14 +58,11 @@ public class TextStyleTool {
         int NORMAL_ICON = R.drawable.ic_style_normal;
         int ITALIC_ICON = R.drawable.ic_style_italic;
         int BOLD_ICON = R.drawable.ic_style_bold;
-        switch (param) {
-            case "italic":
-                return ITALIC_ICON;
-            case "bold":
-                return BOLD_ICON;
-            default:
-                return NORMAL_ICON;
-        }
+        return switch (param) {
+            case "italic" -> ITALIC_ICON;
+            case "bold" -> BOLD_ICON;
+            default -> NORMAL_ICON;
+        };
 
     }
 }
