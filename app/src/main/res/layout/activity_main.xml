@@ -43,6 +43,7 @@
                 android:layout_marginHorizontal="20dp"
                 app:menu="@menu/menu_search_notes"
                 app:defaultMarginsEnabled="false"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
                 android:layout_margin="15dp"
                 app:navigationIconTint="?attr/colorTertiary" />
 

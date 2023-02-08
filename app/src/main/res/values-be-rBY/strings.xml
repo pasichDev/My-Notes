@@ -7,7 +7,6 @@
     <string name="share">Падзяліцца</string>
     <string name="yesCleanTrash">Так, ачысціць</string>
     <string name="cancel">Адмяніць</string>
-    <string name="notes">Нататкі</string>
     <string name="noSave">Зачыніць без захавання</string>
     <string name="ratingApp">Ацаніць дадатак</string>
     <string name="exitWhat">Для выхаду, трэба паўтарыць дзеянне</string>
@@ -48,7 +47,6 @@
     <string name="notInstaledAppTranslate">Для выкарыстання гэтай функцыі трэба ўсталяваць Google Translator</string>
     <string name="lastDateEditNote">Апошняя змена: %1$s</string>
     <string name="restore">Аднавіць</string>
-    <string name="help">Дапамога</string>
     <string name="noteSaved">Нататку захавана</string>
     <string name="searchNotesFromTitle">Пачніце ўводзіць тэкст</string>
     <string name="errorNewTagInput">Памылка: Максімальная колькасць знакаў якая можа змяшчаць назву пазнакі %1$d </string>

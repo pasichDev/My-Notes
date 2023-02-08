@@ -7,7 +7,6 @@
     <string name="share">Бөлісу</string>
     <string name="yesCleanTrash">Иә, тазалаңыз</string>
     <string name="cancel">Болдырмау</string>
-    <string name="notes">Ескертпелер</string>
     <string name="noSave">Сақтамай жабу</string>
     <string name="ratingApp">Қолданбаны бағалау</string>
     <string name="exitWhat">Шығу үшін әрекетті қайталау керек</string>
@@ -47,7 +46,6 @@
     <string name="notInstaledAppTranslate">Бұл мүмкіндікті пайдалану үшін Google Translator орнатылуы керек</string>
     <string name="lastDateEditNote">Соңғы өңдеу: %1$s </string>
     <string name="restore">Қалпына келтіру</string>
-    <string name="help">Анықтама</string>
     <string name="noteSaved">Ескертпе сақталды</string>
     <string name="searchNotesFromTitle">Теруді бастаңыз</string>
     <string name="errorNewTagInput">Қате: тег атауында болуы мүмкін таңбалардың ең көп саны – %1$d </string>

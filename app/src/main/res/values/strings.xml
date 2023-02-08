@@ -7,7 +7,6 @@
     <string name="yesCleanTrash">Yes, clear</string>
     <string name="cancel">Cancel</string>
     <string name="telegram">Open developer contacts</string>
-    <string name="notes"> Notes </string>
     <string name="noSave"> Close without saving </string>
     <string name="ratingApp"> Rate this app </string>
     <string name="exitWhat">To exit, you need to repeat the action</string>
@@ -47,7 +46,6 @@
     <string name="notInstaledAppTranslate">Google Translator must be installed to use this feature</string>
     <string name="lastDateEditNote">Last edit: %1$s </string>
     <string name="restore">Restore</string>
-    <string name="help">Help</string>
     <string name="noteSaved">Note saved</string>
     <string name="searchNotesFromTitle">Start typing</string>
     <string name="errorNewTagInput">Error: The maximum number of characters a tag name can contain is %1$d </string>
@@ -70,7 +68,6 @@
     <string name="app_name"> My Notes </string>
     <string name="telegram_nick" translatable="false">"@"pasichDev</string>
     <string name="email_address" translatable="false">pasichDev@gmail.com</string>
-    <string name="interpunct" translatable="false">·</string>
     <string name="theme_demo" translatable="false">Demo Screen Theme</string>
     <string name="editNoteButton" translatable="false">EditNote</string>
     <string name="contentCoffee" translatable="false">Coffee</string>

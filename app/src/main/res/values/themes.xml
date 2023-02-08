@@ -285,12 +285,6 @@
     </style>
 
     <!-- Стиль для заголовка активности -->
-    <style name="headActivityText">
-        <item name="fontFamily">@font/railway_medium</item>
-        <item name="android:textColor">?attr/colorOnBackground</item>
-        <item name="android:textSize">26sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <!-- Стиль для параграфа -->
     <style name="paragraphText">
@@ -357,14 +351,6 @@
         <item name="android:windowCloseOnTouchOutside">false</item>
         <item name="behavior_draggable">false</item>
         <item name="behavior_hideable">false</item>
-    </style>
-
-    <style name="rootDialogLayoutTop">
-        <item name="android:background">@drawable/background_bottom_sheets</item>
-        <item name="android:layout_marginBottom">0dp</item>
-        <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginStart">15dp</item>
-        <item name="android:layout_marginEnd">15dp</item>
     </style>
 
 

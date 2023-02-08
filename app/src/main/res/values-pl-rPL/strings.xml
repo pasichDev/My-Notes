@@ -7,7 +7,6 @@
     <string name="share"> Udostępnij </string>
     <string name="yesCleanTrash"> Tak, wyczyść </string>
     <string name="cancel"> Cofnij </string>
-    <string name="notes"> Notatki </string>
     <string name="noSave"> Zamknij bez zapisywania </string>
     <string name="ratingApp"> Oceń aplikację </string>
     <string name="exitWhat">Aby wyjść, musisz powtórzyć czynność</string>
@@ -48,7 +47,6 @@
     <string name="notInstaledAppTranslate">Tłumacz Google musi być zainstalowany, aby korzystać z tej funkcji</string>
     <string name="lastDateEditNote">Ostatnia edycja: %1$s </string>
     <string name="restore">Przywróć</string>
-    <string name="help">Pomoc</string>
     <string name="noteSaved">Notatka została zapisana</string>
     <string name="searchNotesFromTitle">Zacznij pisać</string>
     <string name="errorNewTagInput">Błąd: Maksymalna liczba znaków, jaką może zawierać nazwa znacznika, to %1$d </string>
