@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,7 +70,7 @@ public class SearchDialog extends BaseDialogBottomSheets implements SearchDialog
         super.onDismiss(dialog);
         fabNewNote.show();
         mPresenter.detachView();
-        binding.closeSearch.setOnClickListener(null);
+   //     binding.closeSearch.setOnClickListener(null);
 
     }
 
@@ -85,13 +83,25 @@ public class SearchDialog extends BaseDialogBottomSheets implements SearchDialog
 
     @Override
     public void initListeners() {
-        binding.closeSearch.setOnClickListener(v -> {
+      /*  binding.closeSearch.setOnClickListener(v -> {
             searchNotesAdapter.cleanResult();
             binding.actionSearch.clearFocus();
             dismiss();
         });
+
+       */
+
+        binding.searchView
+                .getEditText()
+                .setOnEditorActionListener(
+                        (v, actionId, event) -> {
+                            binding.actionSearch.setText(binding.searchView.getText());
+                            binding.searchView.hide();
+                            return false;
+                        });
+
         searchNotesAdapter.setItemClickListener((idNote, view) -> {
-            view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click_scale));
+            // view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click_scale));
             startActivity(new Intent(requireActivity(), NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", Long.parseLong(String.valueOf(idNote))).putExtra("shareText", "").putExtra("tagNote", ""));
         });
 
@@ -142,7 +152,11 @@ public class SearchDialog extends BaseDialogBottomSheets implements SearchDialog
     @Override
     public void createListenerSearch(Flowable<List<Note>> mNotes) {
 
-        mPresenter.getCompositeDisposable().add(mNotes.subscribeOn(mPresenter.getSchedulerProvider().io()).subscribe(notes -> binding.actionSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mPresenter.getCompositeDisposable().add(mNotes.subscribeOn(mPresenter.getSchedulerProvider().io()).subscribe(
+                        notes -> {
+                        }
+
+                /* binding.actionSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
                         return false;
@@ -156,7 +170,9 @@ public class SearchDialog extends BaseDialogBottomSheets implements SearchDialog
                         }
                         return false;
                     }
-                }))
+                })
+                */
+                )
 
 
         );

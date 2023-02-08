@@ -53,10 +53,6 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
         if (isViewAttached()) getView().newNotesButton();
     }
 
-    @Override
-    public void moreActivityClick() {
-        if (isViewAttached()) getView().moreActivity();
-    }
 
 
     @Override
@@ -126,21 +122,6 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
     @Deprecated
     public void addNote(Note note) {
         getCompositeDisposable().add(getDataManager().addNote(note, false).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe());
-    }
-
-    @Override
-    public void sortButton() {
-        getView().sortButton();
-    }
-
-    @Override
-    public void formatButton() {
-        getView().formatButton();
-    }
-
-    @Override
-    public void startSearchDialog() {
-        getView().startSearchDialog();
     }
 
     public Note getBackupDeleteNote() {

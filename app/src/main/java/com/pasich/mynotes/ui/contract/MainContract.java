@@ -25,8 +25,6 @@ public interface MainContract {
 
         void newNotesButton();
 
-        void moreActivity();
-
         void startCreateTagDialog();
 
         void choiceTagDialog(Tag tag, View mView);
@@ -41,14 +39,7 @@ public interface MainContract {
 
         void loadingTags(List<Tag> tagList);
 
-
         void startToastCheckCountTags();
-
-        void sortButton();
-
-        void formatButton();
-
-        void startSearchDialog();
 
         void startDeleteTagDialog(Tag tag);
 
@@ -62,8 +53,6 @@ public interface MainContract {
     interface presenter extends BasePresenter<view> {
         void newNotesClick();
 
-        void moreActivityClick();
-
         void clickTag(Tag tag, int position);
 
         void clickLongTag(Tag tag, View mView);
@@ -71,12 +60,6 @@ public interface MainContract {
         void deleteNotesArray(ArrayList<Note> notes);
 
         void addNote(Note note);
-
-        void sortButton();
-
-        void formatButton();
-
-        void startSearchDialog();
 
         void deleteNote(Note note);
 

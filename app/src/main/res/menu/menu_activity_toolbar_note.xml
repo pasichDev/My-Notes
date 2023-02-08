@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-<item
+    <item
         android:id="@+id/moreBut"
         android:icon="@drawable/ic_more"
         android:title="@string/more"

@@ -33,89 +33,18 @@
             app:layout_behavior=".utils.behavior.FixedAppBarLayoutBehavior"
             android:orientation="vertical">
 
-            <FrameLayout
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/actionSearch"
+                app:layout_scrollFlags="scroll|snap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/marginConstraintLayoutOnBothSides"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal"
-                app:layout_scrollFlags="scroll|snap">
-
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/headActivityText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|start"
-                    android:padding="6dp"
-                    android:text="@string/notes" />
-
-                <ImageButton
-                    android:id="@+id/moreActivity"
-                    style="?android:attr/actionButtonStyle"
-                    android:layout_marginEnd="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:contentDescription="@string/more"
-                    android:onClick="@{(view) -> presenter.moreActivityClick()}"
-                    app:srcCompat="@drawable/ic_out_more" />
-
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:hint="@string/search"
+                android:searchIcon="@drawable/ic_search"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/background_search_view"
-                android:orientation="horizontal"
-                app:layout_scrollFlags="scroll|snap">
-
-                <ImageButton
-                    style="?android:attr/actionButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:contentDescription="@string/search"
-                    android:onClick="@{(view) -> presenter.startSearchDialog()}"
-                    android:src="@drawable/ic_search" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:onClick="@{(view) -> presenter.startSearchDialog()}"
-                    android:padding="10dp"
-                    android:text="@string/search"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="16sp"
-                    tools:ignore="SpUsage" />
-
-                <ImageButton
-                    android:id="@+id/sortButton"
-                    style="?android:attr/actionButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/sortHead"
-                    android:onClick="@{(view) -> presenter.sortButton()}"
-                    android:src="@drawable/ic_sort" />
-
-                <ImageButton
-                    android:id="@+id/formatButton"
-                    style="?android:attr/actionButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:contentDescription="@string/cd_format"
-                    android:onClick="@{(view) -> presenter.formatButton()}"
-                    android:src="@drawable/ic_edit_format_list" />
-
-            </LinearLayout>
-
+                app:menu="@menu/menu_search_notes"
+                app:defaultMarginsEnabled="false"
+                android:layout_margin="15dp"
+                app:navigationIconTint="?attr/colorTertiary" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_tags"
@@ -124,14 +53,31 @@
                 android:orientation="horizontal"
                 android:overScrollMode="never"
                 android:paddingStart="15dp"
-                android:paddingTop="10dp"
                 android:paddingEnd="20dp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="15dp"
                 app:layout_scrollFlags="noScroll" />
 
-
-
         </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            app:autoShowKeyboard="true"
+            app:layout_anchor="@id/actionSearch">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/resultsList"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="top"
+                android:layout_marginEnd="10dp"
+                app:layout_anchor="@id/actionSearch"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.search.SearchView>
 
 
         <androidx.recyclerview.widget.RecyclerView

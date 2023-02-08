@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -37,7 +36,6 @@ import com.pasich.mynotes.ui.view.dialogs.about.AboutDialog;
 import com.pasich.mynotes.ui.view.dialogs.about.AboutOpensActivity;
 import com.pasich.mynotes.ui.view.dialogs.main.DeleteTagDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.NameTagDialog;
-import com.pasich.mynotes.ui.view.dialogs.main.SearchDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.SortDialog;
 import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTag;
 import com.pasich.mynotes.ui.view.dialogs.main.popupWindowsTag.PopupWindowsTagOnClickListener;
@@ -136,24 +134,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
 
-    @Override
-    public void sortButton() {
-        if (!getAction()) new SortDialog().show(getSupportFragmentManager(), "sortDialog");
-    }
 
-    @Override
-    public void formatButton() {
-        if (!getAction()) {
-            formatList.formatNote();
-            staggeredGridLayoutManager.setSpanCount(mainPresenter.getDataManager().getFormatCount());
-        }
-    }
-
-    @Override
-    public void startSearchDialog() {
-        mActivityBinding.layoutSearch.startAnimation(AnimationUtils.loadAnimation(this, R.anim.click_scale));
-        new SearchDialog().show(getSupportFragmentManager(), "SearchDialog");
-    }
 
     @Override
     public void startDeleteTagDialog(Tag tag) {
@@ -173,6 +154,27 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void initListeners() {
+
+
+        mActivityBinding.actionSearch.setOnMenuItemClickListener(
+                menuItem -> {
+                    int idItem = menuItem.getItemId();
+                    if (idItem == R.id.sort) {
+                        if (!getAction())
+                            new SortDialog().show(getSupportFragmentManager(), "sortDialog");
+                    } else if (idItem == R.id.format) {
+                        if (!getAction()) {
+                            formatList.formatNote(menuItem);
+                            staggeredGridLayoutManager.setSpanCount(mainPresenter.getDataManager().getFormatCount());
+                        }
+                    } else if (idItem == R.id.more) {
+                        openMoreActivity();
+                    }
+
+
+                    return true;
+                });
+
 
         tagsAdapter.setOnItemClickListener(new OnItemClickListenerTag() {
             @Override
@@ -204,12 +206,44 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             }
 
         });
+
+
     }
 
 
+    private void openMoreActivity() {
+        if (getAction()) actionUtils.closeActionPanel();
+        new AboutDialog(new AboutOpensActivity() {
+            @Override
+            protected void openThemeActivity() {
+                startThemeActivity.launch(new Intent(MainActivity.this, ThemeActivity.class),
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, (Pair<View, String>[]) null));
+            }
+
+            @Override
+            protected void openTrash() {
+                startActivity(new Intent(MainActivity.this, TrashActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+
+            }
+
+            @Override
+            protected void openAboutActivity() {
+                startActivity(new Intent(MainActivity.this, AboutActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+            }
+
+            @Override
+            protected void openBackupActivity() {
+                startActivity(new Intent(MainActivity.this, BackupActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+            }
+        }).show(getSupportFragmentManager(), "MoreActivity");
+    }
+
     @Override
     public void settingsSearchView() {
-        formatList.init(mActivityBinding.formatButton);
+        formatList.init(mActivityBinding.actionSearch.getMenu().findItem(R.id.format));
 
     }
 
@@ -333,37 +367,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         Tag tagSelected = tagsAdapter.getTagSelected();
         String tagName = tagSelected == null ? "" : tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag();
         startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", tagName), ActivityOptionsCompat.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, ConstTransition.fabTransaction).toBundle());
-    }
-
-    @Override
-    public void moreActivity() {
-        if (getAction()) actionUtils.closeActionPanel();
-        new AboutDialog(new AboutOpensActivity() {
-            @Override
-            protected void openThemeActivity() {
-                startThemeActivity.launch(new Intent(MainActivity.this, ThemeActivity.class),
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, (Pair<View, String>[]) null));
-            }
-
-            @Override
-            protected void openTrash() {
-                startActivity(new Intent(MainActivity.this, TrashActivity.class),
-                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
-
-            }
-
-            @Override
-            protected void openAboutActivity() {
-                startActivity(new Intent(MainActivity.this, AboutActivity.class),
-                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
-            }
-
-            @Override
-            protected void openBackupActivity() {
-                startActivity(new Intent(MainActivity.this, BackupActivity.class),
-                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
-            }
-        }).show(getSupportFragmentManager(), "MoreActivity");
     }
 
     @Override
