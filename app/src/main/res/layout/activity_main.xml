@@ -37,7 +37,7 @@
                 android:id="@+id/actionSearch"
                 app:layout_scrollFlags="scroll|snap"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/search"
                 android:searchIcon="@drawable/ic_search"
                 android:layout_marginHorizontal="20dp"

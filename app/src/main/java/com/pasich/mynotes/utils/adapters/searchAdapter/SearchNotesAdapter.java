@@ -107,9 +107,6 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     public void filter(String text) {
         ArrayList<Note> newFilter = new ArrayList<>();
         ArrayList<IndexFilter> indexFilter = new ArrayList<>();
-
-        Log.wtf(TAG, "filter: " + defaultListNotes.size());
-
         for (Note item : defaultListNotes) {
             int indexTitle = item.getTitle().toLowerCase().indexOf(text.toLowerCase());
             int indexValue = item.getValue().toLowerCase().indexOf(text.toLowerCase());
@@ -136,7 +133,6 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
             filterList(newFilter, text, indexFilter);
         }
 
-        //    Log.wtf(TAG, "filter: " +newFilter.size() );
     }
 
 
