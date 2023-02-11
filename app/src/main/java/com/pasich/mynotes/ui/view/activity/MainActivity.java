@@ -276,6 +276,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mActivityBinding.resultsSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mActivityBinding.resultsSearchList.addItemDecoration(itemDecorationNotes);
         mActivityBinding.resultsSearchList.setAdapter(searchNotesAdapter);
+        mActivityBinding.searchView.findViewById(R.id.search_view_divider).setVisibility(View.GONE);
 
 
         new ItemTouchHelper(new SwipeToListNotesCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

@@ -395,4 +395,5 @@
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="chipBackgroundColor">?attr/colorSurfaceVariant</item>
     </style>
+
 </resources>
