@@ -1,13 +1,12 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
 import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -25,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.base.simplifications.TextWatcher;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
@@ -45,6 +45,7 @@ import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.NoteActionTool;
 import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.OnItemClickListener;
+import com.pasich.mynotes.utils.adapters.searchAdapter.SearchNotesAdapter;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
@@ -96,6 +97,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Inject
     public LinearLayoutManager mLinearLayoutManager;
 
+    @Inject
+    SearchNotesAdapter searchNotesAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         selectTheme();
@@ -134,8 +138,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
 
-
-
     @Override
     public void startDeleteTagDialog(Tag tag) {
         new DeleteTagDialog(tag).show(getSupportFragmentManager(), "deleteTag");
@@ -151,10 +153,26 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         finish();
     }
 
+    @Override
+    public void hideSearchView() {
+        mActivityBinding.searchView.hide();
+    }
+
 
     @Override
     public void initListeners() {
 
+
+        searchNotesAdapter.setItemClickListener((idNote, view) -> openNoteEdit(idNote, (MaterialCardView) view));
+        mActivityBinding.searchView.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            protected void changeText(Editable s) {
+                if (s.length() >= 2) searchNotesAdapter.filter(s.toString());
+                else {
+                    searchNotesAdapter.cleanResult();
+                }
+            }
+        });
 
         mActivityBinding.actionSearch.setOnMenuItemClickListener(
                 menuItem -> {
@@ -247,22 +265,20 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     }
 
-
     @Override
-    public void settingsTagsList() {
+    public void settingsLists() {
         mActivityBinding.listTags.addItemDecoration(itemDecorationTags);
         mActivityBinding.listTags.setLayoutManager(mLinearLayoutManager);
         mActivityBinding.listTags.setAdapter(tagsAdapter);
-
-    }
-
-    @Override
-    public void settingsNotesList() {
-
         mActivityBinding.listNotes.addItemDecoration(itemDecorationNotes);
         mActivityBinding.listNotes.setLayoutManager(staggeredGridLayoutManager);
         mActivityBinding.listNotes.setAdapter(mNoteAdapter);
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new SwipeToListNotesCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        mActivityBinding.resultsSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mActivityBinding.resultsSearchList.addItemDecoration(itemDecorationNotes);
+        mActivityBinding.resultsSearchList.setAdapter(searchNotesAdapter);
+
+
+        new ItemTouchHelper(new SwipeToListNotesCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean isItemViewSwipeEnabled() {
                 return !getAction() && mainPresenter.getDataManager().getFormatCount() == 1;
@@ -284,14 +300,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                     snackBarRestoreNote();
                 }
             }
-        };
-
-
-        new ItemTouchHelper(simpleItemTouchCallback).attachToRecyclerView(mActivityBinding.listNotes);
-
+        }).attachToRecyclerView(mActivityBinding.listNotes);
 
     }
-
 
     public void snackBarRestoreNote() {
         Snackbar snackbar = Snackbar.make(mActivityBinding.newNotesButton, getString(R.string.noteMoveTrashSnackbar), Snackbar.LENGTH_LONG);
@@ -307,6 +318,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(),
                 tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
         showEmptyNotes(!(countNotes >= 1));
+        searchNotesAdapter.setDefaultListNotes(noteList);
     }
 
     @Override
@@ -332,7 +344,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void openCopyNote(long idNote) {
-        Log.wtf(TAG, "openCopyNote: " + idNote);
         startActivity(new Intent(this, NoteActivity.class)
                 .putExtra("NewNote", false)
                 .putExtra("idNote", idNote)
@@ -407,7 +418,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     @Override
     public void onBackPressed() {
         if (getAction()) actionUtils.closeActionPanel();
-        else mainPresenter.closeApp();
+        else mainPresenter.closeApp(mActivityBinding.searchView.isShowing());
     }
 
 

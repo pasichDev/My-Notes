@@ -21,7 +21,7 @@ public interface MainContract {
     interface view extends BaseView, MoreNoteMainActivityView, MainSortView, ManagerViewAction<Note>, ShortCutView {
         void settingsSearchView();
 
-        void settingsNotesList();
+        void settingsLists();
 
         void newNotesButton();
 
@@ -30,8 +30,6 @@ public interface MainContract {
         void choiceTagDialog(Tag tag, View mView);
 
         void choiceNoteDialog(Note note, int position);
-
-        void settingsTagsList();
 
         void selectTagUser(int position);
 
@@ -46,6 +44,8 @@ public interface MainContract {
         void exitWhat();
 
         void finishActivityOtPresenter();
+
+        void hideSearchView();
     }
 
 
@@ -77,6 +77,6 @@ public interface MainContract {
 
         String getSortParam();
 
-        void closeApp();
+        void closeApp(boolean showSearchView);
     }
 }

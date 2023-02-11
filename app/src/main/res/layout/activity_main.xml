@@ -64,19 +64,15 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             app:autoShowKeyboard="true"
             android:hint="@string/searchNotesFromTitle"
             app:layout_anchor="@id/actionSearch">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/resultsList"
+                android:id="@+id/resultsSearchList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_gravity="top"
-                android:layout_marginEnd="10dp"
+                android:background="?android:colorBackground"
                 app:layout_anchor="@id/actionSearch" />
 
         </com.google.android.material.search.SearchView>

@@ -35,8 +35,7 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
     @Override
     public void viewIsReady() {
         getView().settingsSearchView();
-        getView().settingsTagsList();
-        getView().settingsNotesList();
+        getView().settingsLists();
         loadingData();
         getView().initListeners();
     }
@@ -136,21 +135,25 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
      * Method The method that implements the closing of the application
      */
     @Override
-    public void closeApp() {
-        mSwipe = mSwipe + 1;
-        if (mSwipe == 1) {
-            getView().exitWhat();
+    public void closeApp(boolean showSearchView) {
+        if (!showSearchView) {
+            mSwipe = mSwipe + 1;
+            if (mSwipe == 1) {
+                getView().exitWhat();
 
-            Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                if (mSwipe == 1) {
-                    mSwipe = 0;
-                }
-            }, 5000);
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    if (mSwipe == 1) {
+                        mSwipe = 0;
+                    }
+                }, 5000);
 
-        } else if (mSwipe == 2) {
-            getView().finishActivityOtPresenter();
-            mSwipe = 0;
+            } else if (mSwipe == 2) {
+                getView().finishActivityOtPresenter();
+                mSwipe = 0;
+            }
+        } else {
+            getView().hideSearchView();
         }
     }
 

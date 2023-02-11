@@ -1,11 +1,14 @@
 package com.pasich.mynotes.utils.adapters.searchAdapter;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -21,21 +24,32 @@ import com.pasich.mynotes.databinding.ItemResultBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.scopes.ActivityScoped;
 
 
 @ActivityScoped
 public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.ViewHolder> {
 
+    private List<Note> defaultListNotes = new ArrayList<>();
     private List<Note> listNotes = new ArrayList<>();
     private List<IndexFilter> indexValue = new ArrayList<>();
     private SetItemClickListener mOnItemClickListener;
     private String textSearch;
 
+    @Inject
+    public SearchNotesAdapter() {
+    }
+
     public void setItemClickListener(SetItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 
+
+    public void setDefaultListNotes(List<Note> defaultListNotes) {
+        this.defaultListNotes = defaultListNotes;
+    }
 
     @Override
     public int getItemCount() {
@@ -90,6 +104,41 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
         holder.ItemBinding.tagNote.setText(note.getTag());
     }
 
+    public void filter(String text) {
+        ArrayList<Note> newFilter = new ArrayList<>();
+        ArrayList<IndexFilter> indexFilter = new ArrayList<>();
+
+        Log.wtf(TAG, "filter: " + defaultListNotes.size());
+
+        for (Note item : defaultListNotes) {
+            int indexTitle = item.getTitle().toLowerCase().indexOf(text.toLowerCase());
+            int indexValue = item.getValue().toLowerCase().indexOf(text.toLowerCase());
+            int countArrays = indexFilter.size();
+            while (indexTitle != -1) {
+                indexFilter.add(new IndexFilter(item.id, indexTitle, -1));
+                indexTitle = item.getTitle().toLowerCase().indexOf(text.toLowerCase(), indexTitle + 1);
+            }
+
+            while (indexValue != -1) {
+                indexFilter.add(new IndexFilter(item.id, -1, indexValue));
+                indexValue = item.getValue().toLowerCase().indexOf(text.toLowerCase(), indexValue + 1);
+            }
+
+
+            if (indexFilter.size() != countArrays) {
+                newFilter.add(item);
+            }
+        }
+        if (newFilter.isEmpty()) {
+            cleanResult();
+        } else {
+
+            filterList(newFilter, text, indexFilter);
+        }
+
+        //    Log.wtf(TAG, "filter: " +newFilter.size() );
+    }
+
 
     @SuppressLint("NotifyDataSetChanged")
     public void filterList(ArrayList<Note> newListFilter, String textSearch, ArrayList<IndexFilter> indexValue) {
@@ -97,6 +146,8 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
         this.indexValue = indexValue;
         this.textSearch = textSearch;
         notifyDataSetChanged();
+
+        Log.wtf(TAG, "filter: " + newListFilter.size());
     }
 
     @SuppressLint("NotifyDataSetChanged")
