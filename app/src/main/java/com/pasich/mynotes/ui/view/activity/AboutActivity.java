@@ -1,6 +1,7 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_MONOBANK_DONATE;
+import static com.pasich.mynotes.utils.constants.ContactLink.LINK_PRIVACY_POLICY;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_TELEGRAM_DEVELOP;
 
 import android.content.Intent;
@@ -108,6 +109,9 @@ public class AboutActivity extends BaseActivity {
         Intent.createChooser(new Intent("android.intent.action.SEND").setType("plain/text").putExtra("android.intent.extra.TEXT", getString(R.string.shareAppText)), getString(R.string.share));
     }
 
+    public void policyOpen() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_PRIVACY_POLICY)));
+    }
 
     public void openRatingGooglePlay() {
         final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName()));
@@ -143,5 +147,6 @@ public class AboutActivity extends BaseActivity {
     private void byyCoffee(Coffee coffee) {
         Toast.makeText(this, coffee.getTitle(), Toast.LENGTH_LONG).show();
     }
+
 
 }

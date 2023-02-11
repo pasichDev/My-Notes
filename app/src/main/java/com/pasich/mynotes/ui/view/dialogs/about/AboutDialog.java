@@ -4,14 +4,12 @@ import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_AUTO
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_TIME;
 import static com.pasich.mynotes.utils.constants.BackupPreferences.FIlE_NAME_PREFERENCE_BACKUP;
-import static com.pasich.mynotes.utils.constants.ContactLink.LINK_PRIVACY_POLICY;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,12 +96,6 @@ public class AboutDialog extends BaseDialogBottomSheets {
             aboutOpensActivity.openBackupActivity();
         });
 
-        binding.privacyApp.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_PRIVACY_POLICY));
-            requireContext().startActivity(i);
-            dismiss();
-        });
-
         binding.themeApp.setOnClickListener(v -> {
             aboutOpensActivity.openThemeActivity();
             dismiss();
@@ -161,7 +153,6 @@ public class AboutDialog extends BaseDialogBottomSheets {
         binding.trashActivityLayout.setOnClickListener(null);
         binding.loginPage.exitUser.setOnClickListener(null);
         binding.loginPage.loginUser.setOnClickListener(null);
-        binding.privacyApp.setOnClickListener(null);
         binding.backups.setOnClickListener(null);
         binding.aboutApp.setOnClickListener(null);
         binding.themeApp.setOnClickListener(null);

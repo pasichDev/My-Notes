@@ -147,6 +147,25 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/privacyApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{()-> activity.policyOpen()}"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingItems">
+
+            <ImageView
+                style="@style/iconActivityList"
+                android:contentDescription="@string/privacyApp"
+                android:src="@drawable/ic_policy" />
+
+            <TextView
+                style="@style/itemTextBottomSheets"
+                android:text="@string/privacyApp" />
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
