@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             android:background="@android:color/transparent"
-            app:layout_behavior=".utils.behavior.FixedAppBarLayoutBehavior"
-            android:orientation="vertical">
+            app:layout_behavior=".utils.behavior.FixedAppBarLayoutBehavior">
 
             <com.google.android.material.search.SearchBar
                 android:id="@+id/actionSearch"
