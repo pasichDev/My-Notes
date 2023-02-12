@@ -135,7 +135,7 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
      * Method The method that implements the closing of the application
      */
     @Override
-    public void closeApp(boolean showSearchView) {
+    public boolean closeApp(boolean showSearchView) {
         if (!showSearchView) {
             mSwipe = mSwipe + 1;
             if (mSwipe == 1) {
@@ -148,13 +148,18 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
                     }
                 }, 5000);
 
+                return false;
             } else if (mSwipe == 2) {
+
                 getView().finishActivityOtPresenter();
                 mSwipe = 0;
+                return true;
             }
         } else {
             getView().hideSearchView();
+            return false;
         }
+        return false;
     }
 
     @Override

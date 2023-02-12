@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,8 +57,15 @@ public class ThemeActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setListThemes();
         initFunctions();
-    }
 
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(finishActivity());
+            }
+        });
+
+    }
 
     private void initFunctions() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -112,7 +120,7 @@ public class ThemeActivity extends BaseActivity {
     }
 
 
-    private void finishActivity() {
+    private boolean finishActivity() {
         Theme mTheme = mAdapter.getSelectTheme();
         boolean enableDynamicColor = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
 
@@ -124,6 +132,7 @@ public class ThemeActivity extends BaseActivity {
             setResult(11, new Intent().putExtra("updateThemeStyle", R.style.AppThemeDynamic));
         }
         supportFinishAfterTransition();
+        return true;
     }
 
     @Override

@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
-import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -63,7 +63,6 @@ import javax.inject.Named;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-@BuildCompat.PrereleaseSdkCheck
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
 
@@ -116,21 +115,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mainPresenter.viewIsReady();
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
         actionUtils.setMangerView(mActivityBinding.getRoot());
-        registerOnBackInvokedCallback();
-    }
-
-
-    private void registerOnBackInvokedCallback() {
-        if (BuildCompat.isAtLeastT()) {
-            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
-                    OnBackInvokedDispatcher.PRIORITY_DEFAULT,
-                    () -> {
-                        if (getAction()) actionUtils.closeActionPanel();
-                        else mainPresenter.closeApp(mActivityBinding.searchView.isShowing());
-
-                    }
-            );
-        }
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(finishActivity());
+            }
+        });
     }
 
     @Override
@@ -437,10 +427,18 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void onBackPressed() {
-        if (getAction()) actionUtils.closeActionPanel();
-        else mainPresenter.closeApp(mActivityBinding.searchView.isShowing());
+        finishActivity();
     }
 
+
+    private boolean finishActivity() {
+        if (getAction()) {
+            actionUtils.closeActionPanel();
+            return false;
+        } else {
+            return mainPresenter.closeApp(mActivityBinding.searchView.isShowing());
+        }
+    }
 
     @Override
     public void sortList(String arg) {

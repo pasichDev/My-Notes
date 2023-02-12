@@ -76,6 +76,6 @@ public interface MainContract {
 
         String getSortParam();
 
-        void closeApp(boolean showSearchView);
+        boolean closeApp(boolean showSearchView);
     }
 }
