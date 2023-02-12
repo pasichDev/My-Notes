@@ -9,6 +9,6 @@
         android:bottom="2dp" />
     <stroke
         android:width="2dp"
-        android:color="@color/darkBlue_theme_no_background_light_primary" />
+        android:color="@color/default_theme_light_primary" />
 
 </shape>
