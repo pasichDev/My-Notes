@@ -14,7 +14,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.os.BuildCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -141,8 +140,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             mainPresenter.detachView();
             variablesNull();
 
-            if (BuildCompat.isAtLeastT())
-                getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(null);
         }
     }
 
