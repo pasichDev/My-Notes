@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.os.BuildCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,6 +63,7 @@ import javax.inject.Named;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+@BuildCompat.PrereleaseSdkCheck
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity implements MainContract.view, ManagerViewAction<Note> {
 
@@ -113,9 +116,22 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         mainPresenter.viewIsReady();
         mActivityBinding.setPresenter((MainPresenter) mainPresenter);
         actionUtils.setMangerView(mActivityBinding.getRoot());
-
+        registerOnBackInvokedCallback();
     }
 
+
+    private void registerOnBackInvokedCallback() {
+        if (BuildCompat.isAtLeastT()) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    () -> {
+                        if (getAction()) actionUtils.closeActionPanel();
+                        else mainPresenter.closeApp(mActivityBinding.searchView.isShowing());
+
+                    }
+            );
+        }
+    }
 
     @Override
     protected void onStart() {
@@ -134,6 +150,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         if (isDestroyed()) {
             mainPresenter.detachView();
             variablesNull();
+
+            if (BuildCompat.isAtLeastT())
+                getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(null);
         }
     }
 
