@@ -1,9 +1,9 @@
 package com.pasich.mynotes.data.api;
 
-import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
-import static com.pasich.mynotes.utils.constants.BackupPreferences.FILE_NAME_BACKUP;
-import static com.pasich.mynotes.utils.constants.BackupPreferences.FIlE_NAME_PREFERENCE_BACKUP;
+import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
+import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.FILE_NAME_BACKUP;
+import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.FIlE_NAME_PREFERENCE_BACKUP;
 
 import android.content.Context;
 import android.net.Uri;

@@ -19,7 +19,7 @@ import com.pasich.mynotes.ui.presenter.TrashPresenter;
 import com.pasich.mynotes.utils.actionPanel.ActionUtils;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
 import com.pasich.mynotes.utils.actionPanel.tool.TrashNoteActionTool;
-import com.pasich.mynotes.utils.adapters.TrashAdapter;
+import com.pasich.mynotes.utils.adapters.notes.TrashAdapter;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.List;

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.Label;
+import com.pasich.mynotes.utils.constants.AppPayloads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
 
     private final ArrayList<Label> labels;
     private final Context context;
-    private final int PAYLOAD_SET_SELECTED = 99;
     private final Label DEFAULT_LABEL = new Label(R.mipmap.ic_launcher_note);
     private SelectLabelListener mSelectLabelListener;
     private Label mSelectLabel;
@@ -49,9 +49,9 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
     }
 
     public void selectLabel(int position) {
-        notifyItemChanged(getCheckedPosition(getSelectLabel().setCheckReturn(false)), PAYLOAD_SET_SELECTED);
+        notifyItemChanged(getCheckedPosition(getSelectLabel().setCheckReturn(false)), AppPayloads.PAYLOADS_LABEL_CHECK);
         setLabelSelected(labels.get(position).setCheckReturn(true));
-        notifyItemChanged(position, PAYLOAD_SET_SELECTED);
+        notifyItemChanged(position, AppPayloads.PAYLOADS_LABEL_CHECK);
     }
 
     public int getCheckedPosition(Label label) {
@@ -90,7 +90,8 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads);
         } else {
-            if (payloads.contains(PAYLOAD_SET_SELECTED)) setCheckView(holder, labels.get(position));
+            if (payloads.contains(AppPayloads.PAYLOADS_LABEL_CHECK))
+                setCheckView(holder, labels.get(position));
         }
     }
 

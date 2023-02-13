@@ -5,8 +5,8 @@ import static com.pasich.mynotes.utils.actionPanel.ActionUtils.setAction;
 
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
-import com.pasich.mynotes.utils.adapters.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
+import com.pasich.mynotes.utils.adapters.notes.NoteAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

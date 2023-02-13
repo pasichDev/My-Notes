@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.constants;
+package com.pasich.mynotes.utils.constants.settings;
 
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.Theme;

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.data.model.Theme;
 import com.pasich.mynotes.databinding.ItemThemeBinding;
-import com.pasich.mynotes.utils.constants.PreferencesConfig;
+import com.pasich.mynotes.utils.constants.settings.PreferencesConfig;
 
 import java.util.ArrayList;
 import java.util.List;

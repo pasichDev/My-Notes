@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -15,11 +16,13 @@
 
     </data>
 
-    <FrameLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@{checkedTag ? @drawable/item_tag_checked : @drawable/selector_item_tab_unchecked}"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
+        app:cardBackgroundColor="@{checkedTag? @color/item_bindig_tag_checked : @color/item_bindig_tag_unchecked}"
+        app:strokeWidth="0dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -28,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{tag.systemAction == 1 ? View.VISIBLE : View.GONE}"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@{checkedTag? @color/item_bindig_tag_text_checked : @color/item_bindig_tag_text_unchecked}"
             android:textSize="20sp"
             android:contentDescription="@string/addTag"
             android:text="@string/plus"
@@ -40,9 +43,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{tag.systemAction == 2 ?  @string/allNotes :  tag.nameTag}"
-            android:textColor="?colorOnSurfaceVariant"
+            android:textColor="@{checkedTag? @color/item_bindig_tag_text_checked : @color/item_bindig_tag_text_unchecked}"
             android:textStyle="bold"
             android:layout_margin="15dp"
             android:visibility="@{tag.systemAction != 1 ? View.VISIBLE : View.GONE}" />
-    </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

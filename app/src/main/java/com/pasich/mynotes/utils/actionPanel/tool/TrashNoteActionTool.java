@@ -5,8 +5,8 @@ import static com.pasich.mynotes.utils.actionPanel.ActionUtils.setAction;
 
 import com.pasich.mynotes.data.model.TrashNote;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
-import com.pasich.mynotes.utils.adapters.TrashAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
+import com.pasich.mynotes.utils.adapters.notes.TrashAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.pasich.mynotes.ui.presenter;
 
-import static com.pasich.mynotes.utils.constants.TagSettings.MAX_TAG_COUNT;
+import static com.pasich.mynotes.utils.constants.settings.TagSettings.MAX_TAG_COUNT;
 
 import android.os.Handler;
 import android.util.Log;

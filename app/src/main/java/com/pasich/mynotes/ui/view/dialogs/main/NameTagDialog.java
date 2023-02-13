@@ -1,6 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs.main;
 
-import static com.pasich.mynotes.utils.constants.TagSettings.MAX_NAME_TAG;
+import static com.pasich.mynotes.utils.constants.settings.TagSettings.MAX_NAME_TAG;
 
 import android.content.DialogInterface;
 import android.os.Bundle;

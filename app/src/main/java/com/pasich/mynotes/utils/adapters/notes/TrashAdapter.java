@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.adapters;
+package com.pasich.mynotes.utils.adapters.notes;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;

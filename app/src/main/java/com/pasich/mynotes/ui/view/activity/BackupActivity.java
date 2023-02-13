@@ -1,9 +1,9 @@
 package com.pasich.mynotes.ui.view.activity;
 
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDataCloudBackup;
-import static com.pasich.mynotes.utils.constants.BackupPreferences.ARGUMENT_AUTO_BACKUP_CLOUD;
-import static com.pasich.mynotes.utils.constants.BackupPreferences.FILE_NAME_BACKUP;
 import static com.pasich.mynotes.utils.constants.DriveScope.ACCESS_DRIVE_SCOPE;
+import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.ARGUMENT_AUTO_BACKUP_CLOUD;
+import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.FILE_NAME_BACKUP;
 
 import android.app.Activity;
 import android.app.Dialog;

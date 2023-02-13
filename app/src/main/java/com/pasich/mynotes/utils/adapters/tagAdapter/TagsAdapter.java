@@ -1,6 +1,5 @@
 package com.pasich.mynotes.utils.adapters.tagAdapter;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,11 +9,9 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.color.MaterialColors;
-import com.google.android.material.textview.MaterialTextView;
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.ItemTagBinding;
+import com.pasich.mynotes.utils.constants.AppPayloads;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +21,6 @@ import javax.inject.Named;
 
 public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
 
-    private final int PAYLOAD_SET_SELECTED = 1;
     private OnItemClickListenerTag mOnItemClickListener;
     private Tag mTagSelected;
     private boolean oneCheckedAllNotes = false;
@@ -76,7 +72,6 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         }
 
         holder.ItemBinding.setCheckedTag(tag.getSelected());
-        editColorTextTag(tag, holder.ItemBinding.nameTag);
     }
 
 
@@ -107,20 +102,10 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads);
         } else {
-            if (payloads.contains(PAYLOAD_SET_SELECTED)) {
-                Tag tag = getItem(position);
-                holder.ItemBinding.setCheckedTag(tag.getSelected());
-                editColorTextTag(tag, holder.ItemBinding.nameTag);
+            if (payloads.contains(AppPayloads.PAYLOADS_TAG_EDIT)) {
+                holder.ItemBinding.setCheckedTag(getItem(position).getSelected());
             }
         }
-    }
-
-    private void editColorTextTag(Tag mTag, MaterialTextView textView) {
-        textView.setTextColor(
-                mTag.getSelected() ?
-                        MaterialColors.getColor(textView.getContext(), R.attr.colorOnPrimary, Color.WHITE) :
-                        MaterialColors.getColor(textView.getContext(), R.attr.colorPrimary, Color.BLUE));
-
     }
 
     /**
@@ -152,9 +137,9 @@ public class TagsAdapter extends ListAdapter<Tag, TagsAdapter.ViewHolder> {
      * @param position - позация метки которую выбрали
      */
     public void chooseTag(int position) {
-        notifyItemChanged(getCheckedPosition(getTagSelected().setSelectedReturn(false)), PAYLOAD_SET_SELECTED);
+        notifyItemChanged(getCheckedPosition(getTagSelected().setSelectedReturn(false)), AppPayloads.PAYLOADS_TAG_EDIT);
         setTagSelected(getItem(position).setSelectedReturn(true));
-        notifyItemChanged(position, PAYLOAD_SET_SELECTED);
+        notifyItemChanged(position, AppPayloads.PAYLOADS_TAG_EDIT);
     }
 
 

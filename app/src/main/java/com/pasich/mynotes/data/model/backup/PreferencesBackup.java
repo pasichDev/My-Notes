@@ -1,5 +1,5 @@
 package com.pasich.mynotes.data.model.backup;
-import com.pasich.mynotes.utils.constants.PreferencesConfig;
+import com.pasich.mynotes.utils.constants.settings.PreferencesConfig;
 
 public class PreferencesBackup {
 

@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.constants;
+package com.pasich.mynotes.utils.constants.settings;
 
 public class BackupPreferences {
     public static final String FILE_NAME_BACKUP = "My_Notes_Backup.json";
