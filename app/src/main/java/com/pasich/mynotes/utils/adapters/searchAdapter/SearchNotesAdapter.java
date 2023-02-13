@@ -1,14 +1,10 @@
 package com.pasich.mynotes.utils.adapters.searchAdapter;
 
 
-import static android.content.ContentValues.TAG;
-
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -136,17 +132,14 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
     public void filterList(ArrayList<Note> newListFilter, String textSearch, ArrayList<IndexFilter> indexValue) {
         this.listNotes = newListFilter;
         this.indexValue = indexValue;
         this.textSearch = textSearch;
         notifyDataSetChanged();
 
-        Log.wtf(TAG, "filter: " + newListFilter.size());
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void cleanResult() {
         if (listNotes.size() >= 1) {
             listNotes.clear();

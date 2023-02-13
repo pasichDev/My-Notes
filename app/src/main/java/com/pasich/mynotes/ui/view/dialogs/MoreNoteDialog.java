@@ -1,7 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -69,8 +68,7 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable
-    ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         vibrateOpenDialog(true);
         setState((BottomSheetDialog) requireDialog());
         binding = DialogMoreNoteBinding.inflate(getLayoutInflater(), container, false);
@@ -294,11 +292,16 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
     }
 
 
-    @SuppressLint("NewApi")
     private boolean isCreateShortCutId() {
-        List<ShortcutInfo> shortcutInfo = Objects.requireNonNull(ContextCompat.getSystemService(requireContext(), ShortcutManager.class)).getPinnedShortcuts();
-        for (ShortcutInfo info : shortcutInfo) {
-            if (Long.parseLong(info.getId()) == mNote.getId()) return true;
+        List<ShortcutInfo> shortcutInfo;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+            shortcutInfo = Objects.requireNonNull(ContextCompat.getSystemService(requireContext(), ShortcutManager.class)).getPinnedShortcuts();
+
+            for (ShortcutInfo info : shortcutInfo) {
+                if (Long.parseLong(info.getId()) == mNote.getId()) return true;
+            }
+        } else {
+            return false;
         }
         return false;
     }

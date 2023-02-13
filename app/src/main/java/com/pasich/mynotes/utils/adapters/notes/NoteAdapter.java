@@ -113,5 +113,4 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
         }
     }
 
-
 }

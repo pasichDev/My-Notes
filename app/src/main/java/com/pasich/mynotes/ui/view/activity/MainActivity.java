@@ -49,11 +49,11 @@ import com.pasich.mynotes.utils.adapters.notes.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.searchAdapter.SearchNotesAdapter;
 import com.pasich.mynotes.utils.adapters.tagAdapter.OnItemClickListenerTag;
 import com.pasich.mynotes.utils.adapters.tagAdapter.TagsAdapter;
+import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 import com.pasich.mynotes.utils.recycler.SwipeToListNotesCallback;
 import com.pasich.mynotes.utils.tool.FormatListTool;
-import com.pasich.mynotes.utils.transition.ConstTransition;
 
 import java.util.List;
 
@@ -384,7 +384,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     public void newNotesButton() {
         Tag tagSelected = tagsAdapter.getTagSelected();
         String tagName = tagSelected == null ? "" : tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag();
-        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", tagName), ActivityOptionsCompat.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, ConstTransition.fabTransaction).toBundle());
+        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", tagName), ActivityOptionsCompat.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, NameTransition.fabTransaction).toBundle());
     }
 
     @Override

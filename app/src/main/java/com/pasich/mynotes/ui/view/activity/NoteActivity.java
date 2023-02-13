@@ -26,8 +26,8 @@ import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.LinkInfoDialog;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
+import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
-import com.pasich.mynotes.utils.transition.ConstTransition;
 
 import java.util.Date;
 import java.util.Objects;
@@ -49,7 +49,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         selectTheme();
         long idNote = getIntent().getLongExtra("idNote", 0);
         binding = ActivityNoteBinding.inflate(getLayoutInflater());
-        binding.noteLayout.setTransitionName(idNote == 0 ? ConstTransition.fabTransaction : String.valueOf(idNote));
+        binding.noteLayout.setTransitionName(idNote == 0 ? NameTransition.fabTransaction : String.valueOf(idNote));
         setEnterSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
         getWindow().setSharedElementEnterTransition(buildContainerTransform(binding.noteLayout));
         getWindow().setSharedElementReturnTransition(buildContainerTransform(binding.noteLayout));

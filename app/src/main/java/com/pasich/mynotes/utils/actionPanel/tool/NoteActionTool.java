@@ -37,7 +37,7 @@ public class NoteActionTool {
     }
 
     public void checkedClean() {
-        List<Note> data = mAdapter.getCurrentList();
+        List<Note> data = (List<Note>) mAdapter.getCurrentList();
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getChecked()) data.get(i).setChecked(false);
             mAdapter.notifyItemChanged(i, 22);

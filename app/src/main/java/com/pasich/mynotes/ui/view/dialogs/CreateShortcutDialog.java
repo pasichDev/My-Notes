@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.dialogs;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,9 +38,9 @@ import java.util.List;
 
 
 public class CreateShortcutDialog extends BaseDialogBottomSheets {
+    private final Note mNote;
     private DialogShortcutBinding binding;
     private LabelAdapter labelAdapter;
-    private final Note mNote;
     private ShortCutView shortCutView;
     private boolean errorText = true;
 
@@ -89,8 +88,6 @@ public class CreateShortcutDialog extends BaseDialogBottomSheets {
     }
 
 
-
-
     private void validateText(int length) {
         if (length >= 25 + 1) {
             errorText = true;
@@ -104,29 +101,22 @@ public class CreateShortcutDialog extends BaseDialogBottomSheets {
     }
 
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     private void createShortCut(String titleShortCut) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            ShortcutManager shortcutManager = ContextCompat.getSystemService(requireContext(), ShortcutManager.class
-            );
-            if (!isCreateShortCutId(shortcutManager != null ? shortcutManager.getPinnedShortcuts() : null)) {
-                ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(
-                        requireContext(),
-                        Integer.toString(mNote.getId()))
-                        .setShortLabel(titleShortCut)
-                        .setIntent(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse(""),
-                                requireContext(),
-                                NoteActivity.class)
-                                .putExtra("NewNote", false)
-                                .putExtra("idNote", Long.parseLong(String.valueOf(mNote.getId())))
-                                .putExtra("shareText", "")
-                                .putExtra("tagNote", ""))
-                        .setIcon(Icon.createWithResource(requireContext(), labelAdapter.getSelectLabel().getImage())).build();
+            final ShortcutManager shortcutManager = ContextCompat.getSystemService(requireContext(), ShortcutManager.class);
+            PendingIntent pendingIntent;
 
+
+            if (!isCreateShortCutId(shortcutManager != null ? shortcutManager.getPinnedShortcuts() : null)) {
+                final ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(requireContext(), Integer.toString(mNote.getId())).setShortLabel(titleShortCut).setIntent(new Intent(Intent.ACTION_VIEW, Uri.parse(""), requireContext(), NoteActivity.class).putExtra("NewNote", false).putExtra("idNote", Long.parseLong(String.valueOf(mNote.getId()))).putExtra("shareText", "").putExtra("tagNote", "")).setIcon(Icon.createWithResource(requireContext(), labelAdapter.getSelectLabel().getImage())).build();
                 assert shortcutManager != null;
-                shortcutManager.requestPinShortcut(pinShortcutInfo, PendingIntent.getBroadcast(requireContext(), 0,
-                        shortcutManager.createShortcutResultIntent(pinShortcutInfo), 0).getIntentSender());
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                    pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, shortcutManager.createShortcutResultIntent(pinShortcutInfo), PendingIntent.FLAG_MUTABLE);
+                } else {
+
+                    pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, shortcutManager.createShortcutResultIntent(pinShortcutInfo), 0);
+                }
+                shortcutManager.requestPinShortcut(pinShortcutInfo, pendingIntent.getIntentSender());
                 shortCutView.createShortCut();
             } else {
                 shortCutView.shortCutDouble();
@@ -135,11 +125,13 @@ public class CreateShortcutDialog extends BaseDialogBottomSheets {
     }
 
 
-    @SuppressLint("NewApi")
-    private boolean isCreateShortCutId(List<ShortcutInfo> shortcutInfo) {
-        for (ShortcutInfo info : shortcutInfo) {
-            if (Long.parseLong(info.getId()) == mNote.getId())
-                return true;
+    private boolean isCreateShortCutId(@Nullable List<ShortcutInfo> shortcutInfo) {
+        if (shortcutInfo != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            for (ShortcutInfo info : shortcutInfo) {
+                if (Long.parseLong(info.getId()) == mNote.getId()) return true;
+            }
+        } else {
+            return false;
         }
         return false;
     }

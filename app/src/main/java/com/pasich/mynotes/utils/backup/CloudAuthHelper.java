@@ -43,10 +43,7 @@ public class CloudAuthHelper {
 
 
     public Drive getDriveCredentialService(@Nullable Account mAccount, Context mContext) {
-        return new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(),
-                GoogleAccountCredential.usingOAuth2(mContext, Collections.singleton(Scopes.DRIVE_APPFOLDER))
-                        .setSelectedAccount(mAccount))
-                .setApplicationName(APPLICATION_NAME).build();
+        return new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), GoogleAccountCredential.usingOAuth2(mContext, Collections.singleton(Scopes.DRIVE_APPFOLDER)).setSelectedAccount(mAccount)).setApplicationName(APPLICATION_NAME).build();
     }
 
 }
