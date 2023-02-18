@@ -9,8 +9,8 @@
 
 
         <variable
-            name="coffee"
-            type="com.pasich.mynotes.data.model.Coffee" />
+            name="product"
+            type="com.android.billingclient.api.ProductDetails" />
 
     </data>
 
@@ -43,6 +43,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/railway_medium"
                 android:textSize="16sp"
+                android:text="@{product.name}"
                 tools:text="TitleCoffee" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -53,6 +54,7 @@
                 android:textColor="?colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:text="@{product.OneTimePurchaseOfferDetails.formattedPrice}"
                 tools:text="0.25$" />
 
 

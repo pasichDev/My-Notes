@@ -14,12 +14,12 @@ import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
-import com.pasich.mynotes.utils.adapters.cofeeAdapter.CoffeeAdapter;
 import com.pasich.mynotes.utils.adapters.notes.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.notes.TrashAdapter;
+import com.pasich.mynotes.utils.adapters.productAdapter.ProductBindingAdapter;
 import com.pasich.mynotes.utils.constants.settings.PreferencesConfig;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtiCoffee;
+import com.pasich.mynotes.utils.recycler.diffutil.DiffUtiProductBinding;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
@@ -52,8 +52,8 @@ public class ListUtilsModule {
 
     @Provides
     @ActivityScoped
-    CoffeeAdapter providerCoffeeAdapter(@Named("Themes") DiffUtiCoffee diff) {
-        return new CoffeeAdapter(diff);
+    ProductBindingAdapter providerCoffeeAdapter(@Named("Themes") DiffUtiProductBinding diff) {
+        return new ProductBindingAdapter(diff);
     }
 
     @Provides
@@ -72,7 +72,7 @@ public class ListUtilsModule {
     @Named("Themes")
     @Provides
     @ActivityScoped
-    DiffUtiCoffee providesDiffUtiCoffee(DiffUtiCoffee diffUtil) {
+    DiffUtiProductBinding providesDiffUtiCoffee(DiffUtiProductBinding diffUtil) {
         return diffUtil;
     }
 

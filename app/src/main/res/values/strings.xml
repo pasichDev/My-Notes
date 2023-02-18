@@ -99,7 +99,7 @@
     <string name="functional" translatable="false">Функции</string>
     <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
     <string name="coffeeByPlay" translatable="false">Поблагодарить разработчика</string>
-    <string name="coffeeByTextInfo" translatable="false"><b>Мои заметки</b> - это приложение без рекламы и распространяется как бесплатный продукт. Приложение разрабатывает один человек, поэтому некоторые обновление поставляются с опозданием. Вы можете поблагодарить разработчика, купив ему кофе или задонатить по указанных ссылкам, которые будут отображаться снизу. Спасибо, что используете это приложение!</string>
+    <string name="coffeeByTextInfo" translatable="false"><b>Мои заметки</b> - это приложение без рекламы и распространяется как бесплатный продукт. Приложение разрабатывает один человек, поэтому некоторые обновление поставляются с опозданием. Поддержка работоспособности приложения и некоторых функций создает расходы. Вы можете поблагодарить разработчика, купив ему кофе или оплатить аренду сервера, а также отправить донат по указанных ссылкам, которые будут отображаться снизу. Спасибо, что используете это приложение!</string>
     <string name="glassCoffee" translatable="false">Стакан кофе</string>
     <string name="packCoffee" translatable="false">Упаковка кофе</string>
     <string name="makerCoffee" translatable="false">Кофеварка</string>
@@ -148,4 +148,10 @@
 
     <string name="errorDriverAuthInfo" translatable="false">Чтобы использовать синхронизацию с облаком необходимо авторизоваться</string>
     <string name="autoBackupInfo" translatable="false">Включите <b>автоматическое резервное копирование</b> чтобы не потерять важные данные</string>
+
+
+    <!-- Product offer  -->
+    <string name="byyOk" translatable="false">Спасибо за приобретение.</string>
+    <string name="byyError" translatable="false">Ошибка при приобретении.</string>
+    <string name="byyCancel" translatable="false">Мы будем стремиться стать лучше.</string>
 </resources>
