@@ -16,10 +16,8 @@ import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.databinding.ItemNoteTrashBinding;
 import com.pasich.mynotes.utils.adapters.notes.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.notes.TrashAdapter;
-import com.pasich.mynotes.utils.adapters.productAdapter.ProductBindingAdapter;
 import com.pasich.mynotes.utils.constants.settings.PreferencesConfig;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
-import com.pasich.mynotes.utils.recycler.diffutil.DiffUtiProductBinding;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
@@ -52,12 +50,6 @@ public class ListUtilsModule {
 
     @Provides
     @ActivityScoped
-    ProductBindingAdapter providerCoffeeAdapter(@Named("Themes") DiffUtiProductBinding diff) {
-        return new ProductBindingAdapter(diff);
-    }
-
-    @Provides
-    @ActivityScoped
     TrashAdapter<ItemNoteTrashBinding> providerTrashAdapter(@Named("Trash") DiffUtil.ItemCallback<TrashNote> diff) {
         return new TrashAdapter<>((DiffUtilTrash) diff, R.layout.item_note_trash, ItemNoteTrashBinding::setNote);
     }
@@ -66,13 +58,6 @@ public class ListUtilsModule {
     @Provides
     @ActivityScoped
     DiffUtil.ItemCallback<TrashNote> providesDiffUtilCallbackNoteTrash(DiffUtilTrash diffUtil) {
-        return diffUtil;
-    }
-
-    @Named("Themes")
-    @Provides
-    @ActivityScoped
-    DiffUtiProductBinding providesDiffUtiCoffee(DiffUtiProductBinding diffUtil) {
         return diffUtil;
     }
 

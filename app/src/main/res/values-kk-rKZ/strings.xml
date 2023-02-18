@@ -37,8 +37,6 @@
     <string name="sortHead">Сұрыптау:</string>
     <string name="shareApp">Қолданбаны ортақ пайдалану</string>
     <string name="privacyApp">Құпиялылық саясаты</string>
-    <string name="shareAppText"> "Менің ескертпелерімді" ұсыныңыз /n
-    https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
     <string name="addShortCutLauncher">Жұмыс үстеліне төте жол қосу</string>
     <string name="addShortCutSuccessfully">Таңбаша сәтті қосылды</string>
     <string name="translateNote">Ескертуді аудару</string>

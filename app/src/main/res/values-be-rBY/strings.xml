@@ -38,8 +38,6 @@
     <string name="sortHead">Картаваць па:</string>
     <string name="shareApp">Падзяліцца дадаткам</string>
     <string name="privacyApp">Палітыка прыватнасці</string>
-    <string name="shareAppText"> Рэкамендую "Мае Нататкі" /n
-    https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
     <string name="addShortCutLauncher">Дадаць ярлык на працоўны стол</string>
     <string name="addShortCutSuccessfully">Дадаванні ярлыка выканана паспяхова</string>
     <string name="translateNote">Перавесці нататку</string>

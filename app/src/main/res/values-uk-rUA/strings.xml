@@ -39,8 +39,6 @@
     <string name="sortHead">Сортувати за:</string>
     <string name="shareApp">Поділитись додатком</string>
     <string name="privacyApp">Політика конфіденційності</string>
-    <string name="shareAppText"> Рекомендую "Мої нотатки" /n
-    https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
     <string name="addShortCutLauncher">Додати ярлик на робочий стіл</string>
     <string name="addShortCutSuccessfully">Додавання ярлика виконано успішно</string>
     <string name="translateNote">Зробити переклад нотатки</string>

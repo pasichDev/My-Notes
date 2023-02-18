@@ -38,8 +38,6 @@
     <string name="sortHead">Sortuj według:</string>
     <string name="shareApp">Udostępnij aplikację</string>
     <string name="privacyApp">Polityka prywatności</string>
-    <string name="shareAppText"> Polecaj „Moje notatki” /n
-    https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
     <string name="addShortCutLauncher">Dodaj skrót do pulpitu</string>
     <string name="addShortCutSuccessfully">Skrót został pomyślnie dodany</string>
     <string name="translateNote">Przetłumacz notatkę</string>

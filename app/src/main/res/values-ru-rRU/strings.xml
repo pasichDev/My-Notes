@@ -39,8 +39,6 @@
     <string name="sortHead">Cортировать по:</string>
     <string name="shareApp">Поделиться приложением</string>
     <string name="privacyApp">Политика Конфиденциальности</string>
-    <string name="shareAppText"> Рекомендую "Мои Заметки" /n
-    https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
     <string name="addShortCutLauncher">Добавить ярлык на рабочий стол</string>
     <string name="addShortCutSuccessfully">Добавления ярлыка выполнено успешно</string>
     <string name="translateNote">Перевести заметку</string>

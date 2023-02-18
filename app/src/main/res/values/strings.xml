@@ -37,8 +37,6 @@
     <string name="sortHead">Sort by:</string>
     <string name="shareApp">Share App</string>
     <string name="privacyApp">Privacy Policy</string>
-    <string name="shareAppText"> Recommend "My Notes" /n
-    https://play.google.com/store/apps/details?id=com.pasich.mynotes</string>
     <string name="addShortCutLauncher">Add shortcut to desktop</string>
     <string name="addShortCutSuccessfully">Shortcut added successfully</string>
     <string name="translateNote">Translate note</string>
@@ -73,7 +71,6 @@
     <string name="contentCoffee" translatable="false">Coffee</string>
     <string name="developer" translatable="false">Andrii Pasichnik (pasichDev)</string>
     <string name="versionAndCodeApp" translatable="false">My notes (v%1$s)</string>
-    <string name="coffeePrice" translatable="false">%1$s$</string>
     <string name="percentProgress" translatable="false">Создание резервной копии (%d%%)</string>
     <string name="MonoBank_Donate" translatable="false">MonoBank Donate</string>
     <string name="userAvatar" translatable="false">User Avatar</string>
@@ -96,13 +93,9 @@
     <string name="aboutApps" translatable="false">О приложении</string>
     <string name="trash" translatable="false">Корзина</string>
     <string name="themes" translatable="false">Темы</string>
-    <string name="functional" translatable="false">Функции</string>
     <string name="onDynamicColor" translatable="false">Включить Dynamic Color</string>
     <string name="coffeeByPlay" translatable="false">Поблагодарить разработчика</string>
     <string name="coffeeByTextInfo" translatable="false"><b>Мои заметки</b> - это приложение без рекламы и распространяется как бесплатный продукт. Приложение разрабатывает один человек, поэтому некоторые обновление поставляются с опозданием. Поддержка работоспособности приложения и некоторых функций создает расходы. Вы можете поблагодарить разработчика, купив ему кофе или оплатить аренду сервера, а также отправить донат по указанных ссылкам, которые будут отображаться снизу. Спасибо, что используете это приложение!</string>
-    <string name="glassCoffee" translatable="false">Стакан кофе</string>
-    <string name="packCoffee" translatable="false">Упаковка кофе</string>
-    <string name="makerCoffee" translatable="false">Кофеварка</string>
 
     <string name="loginUser" translatable="false">Авторизация Google</string>
     <string name="cloudBackup" translatable="false">Облако</string>
@@ -154,4 +147,5 @@
     <string name="byyOk" translatable="false">Спасибо за приобретение.</string>
     <string name="byyError" translatable="false">Ошибка при приобретении.</string>
     <string name="byyCancel" translatable="false">Мы будем стремиться стать лучше.</string>
+    <string name="errorLoadingsProduct" translatable="false">Ошибка, не удалось загрузить витрину</string>
 </resources>
