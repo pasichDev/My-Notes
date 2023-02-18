@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static com.pasich.mynotes.utils.constants.ContactLink.LINK_APP_SITE;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_MONOBANK_DONATE;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_PRIVACY_POLICY;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_TELEGRAM_DEVELOP;
@@ -106,7 +107,7 @@ public class AboutActivity extends BaseActivity {
     }
 
     public void shareApp() {
-        Intent.createChooser(new Intent("android.intent.action.SEND").setType("plain/text").putExtra("android.intent.extra.TEXT", getString(R.string.shareAppText)), getString(R.string.share));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_APP_SITE)));
     }
 
     public void policyOpen() {
