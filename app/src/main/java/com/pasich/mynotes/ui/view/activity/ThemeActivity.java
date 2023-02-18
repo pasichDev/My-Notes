@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -69,16 +68,9 @@ public class ThemeActivity extends BaseActivity {
 
     private void initFunctions() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            activityThemeBinding.dynamicColor.setVisibility(View.VISIBLE);
+            activityThemeBinding.dynamicColor.setEnabled(true);
             activityThemeBinding.dynamicColor.setChecked(PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE));
         }
-     /*   activityThemeBinding.dynamicColor.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
-        activityThemeBinding.dynamicColor.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
-        activityThemeBinding.tagEnable.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
-        activityThemeBinding.tagEnable.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
-
-
-      */
     }
 
     private void setListThemes() {
@@ -146,14 +138,16 @@ public class ThemeActivity extends BaseActivity {
             }
         });
         activityThemeBinding.dynamicColor.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                redrawActivity(R.style.AppThemeDynamic);
-            } else {
-                redrawActivity(new ThemesArray().getThemeStyle(PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)));
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (isChecked) {
+                    redrawActivity(R.style.AppThemeDynamic);
+                } else {
+                    redrawActivity(new ThemesArray().getThemeStyle(PowerPreference.getDefaultFile().getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)));
+                }
+                PowerPreference.getDefaultFile().setBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, isChecked);
+                enableDynamic = isChecked;
+                setStatusDynamicColor(isChecked);
             }
-            PowerPreference.getDefaultFile().setBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, isChecked);
-            enableDynamic = isChecked;
-            setStatusDynamicColor(isChecked);
         });
     }
 
@@ -161,21 +155,22 @@ public class ThemeActivity extends BaseActivity {
     @Override
     public void redrawActivity(int themeStyle) {
         super.redrawActivity(themeStyle);
-        //install theme
         setTheme(themeStyle);
         int colorOnBackground = MaterialColors.getColor(this, R.attr.colorOnBackground, Color.GRAY);
         activityThemeBinding.activityTheme.setBackgroundColor(MaterialColors.getColor(this, android.R.attr.colorBackground, Color.GRAY));
         activityThemeBinding.titleTheme.setTextColor(colorOnBackground);
-        activityThemeBinding.titleFunc.setTextColor(colorOnBackground);
+
         // materialSwitch
         activityThemeBinding.dynamicColor.setTrackTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorSurfaceVariant, Color.GRAY)));
         activityThemeBinding.dynamicColor.setThumbTintList(ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorPrimary, Color.GRAY)));
-
-        // color navigation panel
-        //    getWindow().setNavigationBarColor(MaterialColors.getColor(this, R.attr.colorPrimaryInverse, Color.GRAY));
     }
 
 
+    /**
+     * Set enable/disable list themes depending on whether dynamic color is enabled
+     *
+     * @param status - dynamic color status
+     */
     private void setStatusDynamicColor(boolean status) {
         if (status) {
             activityThemeBinding.themes.setAlpha(0.4f);
