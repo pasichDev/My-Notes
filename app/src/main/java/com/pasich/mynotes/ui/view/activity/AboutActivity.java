@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
@@ -33,6 +34,7 @@ import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.databinding.ActivityAboutBinding;
 import com.pasich.mynotes.utils.adapters.productAdapter.ProductBillingAdapter;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
+import com.pasich.mynotes.utils.recycler.LinePagerIndicatorDecoration;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -60,10 +62,12 @@ public class AboutActivity extends BaseActivity {
     private BillingClient billingClient;
 
     private HashMap<String, Integer> getProductsLocal() {
-        HashMap<String, Integer> hashMap = new HashMap<>() {
-        };
-        hashMap.put("small_coffee", R.drawable.ic_glass_off_coffee);
-        hashMap.put("medium_cofee", R.drawable.ic_pack_off_coffee);
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("one_coffee", R.drawable.ic_cup_off_coffee);
+        hashMap.put("two_coffee", R.drawable.ic_glass_off_coffee);
+        hashMap.put("server_month", R.drawable.ic_month_server);
+        hashMap.put("server_6month", R.drawable.ic_6_month_server);
+        hashMap.put("new_func", R.drawable.ic_hot_heart);
         return hashMap;
     }
 
@@ -144,9 +148,11 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void initCoffeeList() {
-        binding.coffeeDev.addItemDecoration(itemDecorationNotes);
+        binding.coffeeDev.addItemDecoration(new LinePagerIndicatorDecoration());
         binding.coffeeDev.setLayoutManager(mLinearLayoutManager);
         binding.coffeeDev.setAdapter(productBillingAdapter);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(binding.coffeeDev);
     }
 
     private void byyProduct(ProductDetails productDetails) {
