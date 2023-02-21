@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
@@ -33,9 +32,9 @@ import com.pasich.mynotes.BuildConfig;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.databinding.ActivityAboutBinding;
+import com.pasich.mynotes.ui.view.dialogs.ThanksDonatDialog;
 import com.pasich.mynotes.utils.adapters.productAdapter.ProductBillingAdapter;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
-import com.pasich.mynotes.utils.recycler.LinePagerIndicatorDecoration;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ public class AboutActivity extends BaseActivity {
     private PurchasesUpdatedListener getPurchasesUpdatedListener() {
         return (billingResult, purchases) -> {
             if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null) {
-                onInfoSnack(R.string.byyOk, null, SnackBarInfo.Success, Snackbar.LENGTH_LONG);
+                new ThanksDonatDialog().show(getSupportFragmentManager(), "thanksDialog");
             } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
                 onInfoSnack(R.string.byyCancel, null, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
             } else {
@@ -153,11 +152,9 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void initCoffeeList() {
-        binding.coffeeDev.addItemDecoration(new LinePagerIndicatorDecoration());
+        binding.coffeeDev.addItemDecoration(new SpacesItemDecoration(10));
         binding.coffeeDev.setLayoutManager(mLinearLayoutManager);
         binding.coffeeDev.setAdapter(productBillingAdapter);
-        PagerSnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(binding.coffeeDev);
     }
 
     private void byyProduct(ProductDetails productDetails) {

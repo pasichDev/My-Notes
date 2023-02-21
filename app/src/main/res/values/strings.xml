@@ -75,6 +75,7 @@
     <string name="MonoBank_Donate" translatable="false">MonoBank Donate</string>
     <string name="userAvatar" translatable="false">User Avatar</string>
     <string name="logOut" translatable="false">LogOut</string>
+    <string name="thanksImage" translatable="false">Thanks byy</string>
     <string name="sliderTextSize" translatable="false">Slider edit text size</string>
 
     <string name="hiddeTag">Hide notes</string>
@@ -149,4 +150,6 @@
     <string name="byyError" translatable="false">Ошибка при приобретении.</string>
     <string name="byyCancel" translatable="false">Мы будем стремиться стать лучше.</string>
     <string name="errorLoadingsProduct" translatable="false">Ошибка, не удалось загрузить витрину</string>
+    <string name="thanks_title" translatable="false">Уважаемый пользователь</string>
+    <string name="thanks_donate" translatable="false">Разработчик проекта говорит вам спасибо за вашу покупку. Мы будем стремиться стать лучше, и удобнее. \n <b>С уважением, мои заметки!</b></string>
 </resources>
