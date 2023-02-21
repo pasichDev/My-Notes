@@ -146,7 +146,6 @@
 
 
     <!-- Product offer  -->
-    <string name="byyOk" translatable="false">Спасибо за приобретение.</string>
     <string name="byyError" translatable="false">Ошибка при приобретении.</string>
     <string name="byyCancel" translatable="false">Мы будем стремиться стать лучше.</string>
     <string name="errorLoadingsProduct" translatable="false">Ошибка, не удалось загрузить витрину</string>
