@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_APP_SITE;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_MONOBANK_DONATE;
 import static com.pasich.mynotes.utils.constants.ContactLink.LINK_PRIVACY_POLICY;
@@ -9,7 +8,6 @@ import static com.pasich.mynotes.utils.constants.ContactLink.LINK_TELEGRAM_DEVEL
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,9 +57,13 @@ public class AboutActivity extends BaseActivity {
     @Named("NotesItemSpaceDecoration")
     @Inject
     public SpacesItemDecoration itemDecorationNotes;
-    private BillingClient billingClient;
     @Inject
     boolean isPlayMarketInstall;
+    private BillingClient billingClient;
+    /**
+     * Reconnection status billing
+     */
+    private boolean restartBilling = false;
 
     private HashMap<String, Integer> getProductsLocal() {
         HashMap<String, Integer> hashMap = new HashMap<>();
@@ -114,9 +116,13 @@ public class AboutActivity extends BaseActivity {
 
                 @Override
                 public void onBillingServiceDisconnected() {
-                    // Try to restart the connection on the next request to
-                    // Google Play by calling the startConnection() method.
-                    Log.wtf(TAG, "disconected");
+                    if (!restartBilling) {
+                        restartBilling = true;
+                        billingClient.startConnection(this);
+                    } else {
+                        onInfoSnack(R.string.errorLoadingsProduct, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
+
+                    }
                 }
             });
         } else {
