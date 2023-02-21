@@ -69,4 +69,66 @@
     <string name="buttonCreateShortCut">Дадаць ярлык на працоўны стол</string>
     <string name="errorMaxNameShortCut">Памылка ў назве ярлыка</string>
     <string name="renameTag">Перайменаваць</string>
+
+    <string name="settingsInterface">Налады інтэрфейсу</string>
+    <string name="settingsBackups">Сінхранізацыя і рэз.копіі</string>
+    <string name="aboutApps">Аб дадатку</string>
+    <string name="trash">Кошык</string>
+    <string name="themes">Тэмы</string>
+    <string name="onDynamicColor">Уключыць Dynamic Color</string>
+    <string name="coffeeByPlay">Падзякаваць распрацоўшчыку</string>
+    <string name="coffeeByTextInfo"><b>Мае нататкі</b> - гэта дадатак без рэкламы і распаўсюджваецца як бясплатны прадукт. Дадатак распрацоўвае адзін чалавек, таму некаторыя абнаўленне пастаўляюцца са спазненнем. Падтрымка працаздольнасці дадатку і некаторых функцый стварае выдаткі. Вы можаце падзякаваць распрацоўшчыку, купіўшы яму каву або аплаціць арэнду сервера, а таксама адправіць донат па ўказаных спасылках, якія будуць адлюстроўвацца знізу. Дзякуй, што карыстаецеся гэта дадатак!</string>
+
+    <string name="loginUser">Аўтарызацыя Google</string>
+    <string name="cloudBackup">Хмара</string>
+    <string name="localBackup">Прылада</string>
+    <string name="importLocalBackup">Аднавіць з дапамогай рэз. копіі</string>
+    <string name="exportLocalBackup">Стварыць рэзервовую копію</string>
+    <string name="lastCloudCopy">Апошняя рэзервовая копія: %1$s</string>
+    <string name="errorDriveAuth">Госць</string>
+    <string name="autoCloudBackupTitle">Аўтаматычнае рэзервовае капіраванне</string>
+    <string name="restoreNotesTitle">Аднаўленне дадзеных</string>
+    <string name="restoreNotesMessage">Новыя нататкі будуць дададзеныя да ўжо існых, а дублікаты будуць праігнараваныя!</string>
+    <string name="selectRestore">Выбраць рэз. копію</string>
+    <string name="nextRestore">Аднавіць з аблокі</string>
+    <string name="messageRestoreProcess"><b>Аднаўленне дадзеных</b> \nПасля завяршэння дадзенае акно будзе аўтаматычна зачынена.</string>
+    <string name="emptyBackups">Рэзервовых копій не знойдзена</string>
+    <string name="checkLastBackupsCloud">Пачакайце, ідзе загрузка дадзеных…</string>
+
+    <!-- Arrays AutoBackup -->
+    <string name="autoCloudVariantsDay">Кожны дзень</string>
+    <string name="autoCloudVariantsWeek">Кожны тыдзень</string>
+    <string name="autoCloudVariantsMonth">Кожны месяц</string>
+    <string name="autoCloudVariantsOff">Выкл.</string>
+
+    <!-- AutoBackup strings -->
+    <string name="chanelAutoBackup">Аўтаматычнае рэзервовае капіраванне</string>
+    <string name="workAutoBackupTitle">Выконваецца рэзервовае капіраванне</string>
+    <string name="errorWorker">Пры стварэнні рэзервовай копіі адбылася памылка.</string>
+    <string name="error">Памылка</string>
+
+
+    <!-- Error results backup/restore -->
+    <string name="emptyDataToBackup">Няма дадзеных, для стварэння рэзервовай копіі</string>
+    <string name="errorConnectedNetwork">Няма падлучэння да інтэрнэту</string>
+    <string name="creteLocalCopyOkay">Рэзервовую копію паспяхова створана</string>
+    <string name="creteLocalCopyFail">Памылка, рэзервовая копія не захавана</string>
+    <string name="restoreDataOkay">Аднаўленне дадзеных завершана паспяхова</string>
+    <string name="restoreDataFall">Памылка: Рэзервовая копія пашкоджана</string>
+    <string name="errorAuth">Памылка, паспрабуйце пазней</string>
+    <string name="errorLoadingLastBackupCloud">Памылка, націсніце, каб паўтарыць спробу</string>
+    <string name="errorDriveSync">Памылка сервера, або дрэнная якасць інтэрнэту</string>
+    <string name="errorCredential">Памылка, праблемы з аўтарызацыяй</string>
+
+    <string name="errorDriverAuthInfo">Каб выкарыстоўваць сінхранізацыю з воблакам неабходна аўтарызавацца</string>
+    <string name="autoBackupInfo">Уключыце <b>аўтаматычнае рэзервовае капіраванне</b> каб не страціць важныя дадзеныя</string>
+    <string name="sortNotes">Сартаваць нататкі</string>
+    <string name="percentProgress">Рэзервовае капіраванне (%d%%)</string>
+
+    <!-- Product offer -->
+    <string name="byyError">Памылка пры набыцці.</string>
+    <string name="byyCancel">Мы будзем імкнуцца стаць лепшымі.</string>
+    <string name="errorLoadingsProduct">Памылка, не атрымалася загрузіць вітрыну</string>
+    <string name="thanks_title">Паважаны карыстальнік</string>
+    <string name="thanks_donate">Распрацоўшчык праекту кажа вам дзякуй за вашу куплю. Мы будзем імкнуцца стаць лепшымі і зручнейшымі. \n <b>З павагай, мае нататкі!</b></string>
 </resources>

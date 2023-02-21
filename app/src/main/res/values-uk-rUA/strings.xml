@@ -61,8 +61,6 @@
     <string name="button_mail">Написати</string>
     <string name="button_url">Відкрити посилання</string>
 
-    <!-- Clean next version -->
-
     <string name="hiddeTag">Приховати нотатки</string>
     <string name="visibleTag">Відображати нотатки</string>
     <string name="hintNameLabel">Назва ярлика</string>
@@ -72,4 +70,65 @@
     <string name="buttonCreateShortCut">Додати ярлик на робочий стіл</string>
     <string name="errorMaxNameShortCut">Помилка у назві ярлика</string>
     <string name="renameTag">Перейменувати</string>
+
+    <string name="settingsInterface">Налаштування інтерфейсу</string>
+    <string name="settingsBackups">Синхронізація та рез.копії</string>
+    <string name="aboutApps">Про програму</string>
+    <string name="trash">Кошик</string>
+    <string name="themes">Теми</string>
+    <string name="onDynamicColor">Увімкнути Dynamic Color</string>
+    <string name="coffeeByPlay">Подякувати розробнику</string>
+    <string name="coffeeByTextInfo"><b>Мої нотатки</b> - це програма без реклами та поширюється як безкоштовний продукт. Додаток розробляє одна людина, тому деякі оновлення поставляються із запізненням. Підтримка працездатності програми та деяких функцій створює витрати. Ви можете подякувати розробнику, купивши йому каву або сплатити за оренду сервера, а також відправити донат за вказаними посиланнями, які будуть відображатися знизу. Дякую, що використовуєте цю програму!</string>
+
+    <string name="loginUser">Авторизація Google</string>
+    <string name="cloudBackup">Хмара</string>
+    <string name="localBackup">Пристрій</string>
+    <string name="importLocalBackup">Відновити за допомогою рез. копії</string>
+    <string name="exportLocalBackup">Створити резервну копію</string>
+    <string name="lastCloudCopy">Остання резервна копія: %1$s</string>
+    <string name="errorDriveAuth">Гість</string>
+    <string name="autoCloudBackupTitle">Автоматичне резервне копіювання</string>
+    <string name="restoreNotesTitle">Відновлення даних</string>
+    <string name="restoreNotesMessage">Нові нотатки будуть додані до існуючих, а дублікати будуть проігноровані!</string>
+    <string name="selectRestore">Вибрати рез. копію</string>
+    <string name="nextRestore">Відновити з хмари</string>
+    <string name="messageRestoreProcess"><b>Відновлення даних</b> \nПісля завершення це вікно буде автоматично закрито.</string>
+    <string name="emptyBackups">Резервних копій не знайдено</string>
+    <string name="checkLastBackupsCloud">Зачекайте, завантажуються дані...</string>
+    <!-- Arrays AutoBackup -->
+    <string name="autoCloudVariantsDay">Кожен день</string>
+    <string name="autoCloudVariantsWeek">Кожен тиждень</string>
+    <string name="autoCloudVariantsMonth">Кожен місяць</string>
+    <string name="autoCloudVariantsOff">Вимк.</string>
+
+    <!-- AutoBackup strings -->
+    <string name="chanelAutoBackup">Автоматичне резервне копіювання</string>
+    <string name="workAutoBackupTitle">Виконується резервне копіювання</string>
+    <string name="errorWorker">При створенні резервної копії виникла помилка.</string>
+    <string name="error">Помилка</string>
+
+
+    <!-- Error results backup/restore -->
+    <string name="emptyDataToBackup">Немає даних для створення резервної копії</string>
+    <string name="errorConnectedNetwork">Немає доступу до інтернету</string>
+    <string name="creteLocalCopyOkay">Резервну копію успішно створено</string>
+    <string name="creteLocalCopyFail">Помилка, резервна копія не збережена</string>
+    <string name="restoreDataOkay">Відновлення даних успішно завершено</string>
+    <string name="restoreDataFall">Помилка: Резервна копія пошкоджена</string>
+    <string name="errorAuth">Помилка, повторіть спробу пізніше</string>
+    <string name="errorLoadingLastBackupCloud">Помилка, натисніть, щоб повторити спробу</string>
+    <string name="errorDriveSync">Помилка сервера або погана якість інтернету</string>
+    <string name="errorCredential">Помилка, проблеми з авторизацією</string>
+
+    <string name="errorDriverAuthInfo">Щоб використовувати синхронізацію з хмарою, необхідно авторизуватися</string>
+    <string name="autoBackupInfo">Увімкніть <b>автоматичне резервне копіювання</b>, щоб не втратити важливі дані</string>
+    <string name="sortNotes">Сортувати нотатки</string>
+    <string name="percentProgress" translatable="false">Створення резервної копії (%d%%)</string>
+
+    <!-- Product offer -->
+    <string name="byyError">Помилка при придбанні.</string>
+    <string name="byyCancel">Ми будемо прагнути стати кращими.</string>
+    <string name="errorLoadingsProduct">Помилка, не вдалося завантажити вітрину</string>
+    <string name="thanks_title">Шановний користувач</string>
+    <string name="thanks_donate">Розробник проекту каже вам спасибі за вашу покупку. Ми будемо прагнути стати кращими і зручнішими. \n <b>З повагою, мої нотатки!</b></string>
 </resources>

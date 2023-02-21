@@ -68,4 +68,66 @@
     <string name="buttonCreateShortCut">Жұмыс үстеліне төте жолды қосу</string>
     <string name="errorMaxNameShortCut">Таңбаша атауындағы қате</string>
     <string name="renameTag">Атын өзгерту</string>
+
+    <string name="settingsInterface">Интерфейс параметрлері</string>
+    <string name="settingsBackups">Синхрондау және сақтық көшірме</string>
+    <string name="aboutApps">Қолданба туралы</string>
+    <string name="trash">Себет</string>
+    <string name="themes">Тақырыптар</string>
+    <string name="onDynamicColor">Динамикалық түсті қосу</string>
+    <string name="coffeeByPlay">Әзірлеушіге рахмет</string>
+    <string name="coffeeByTextInfo"><b>Менің жазбаларым</b> - бұл жарнамасыз қолданба және тегін өнім ретінде таратылады. Қолданбаны бір адам әзірлеген, сондықтан кейбір жаңартулар кеш жеткізіледі. Қолданбаның және кейбір мүмкіндіктердің денсаулығын сақтау шығындарды тудырады. Сіз әзірлеушіге кофе сатып алу немесе сервер жалдау ақысын төлеу арқылы алғыс айта аласыз, сонымен қатар төменде көрсетілетін сілтемелерге қайырымдылық жібере аласыз. Осы қолданбаны пайдаланғаныңызға рахмет!</string>
+
+    <string name="loginUser">Google жүйесіне кіру</string>
+    <string name="cloudBackup">Бұлт</string>
+    <string name="localBackup">Құрылғы</string>
+    <string name="importLocalBackup">Res. көшірмелер</string>
+    <string name="exportLocalBackup">Сақтық көшірме жасау</string>
+    <string name="lastCloudCopy">Соңғы сақтық көшірме: %1$s</string>
+    <string name="errorDriveAuth">Қонақ</string>
+    <string name="autoCloudBackupTitle">Сақтық көшірмені автоматты түрде жасау</string>
+    <string name="restoreNotesTitle">Деректерді қалпына келтіру</string>
+    <string name="restoreNotesMessage">Барлардан бұрын жаңа ескертпелер қосылады және көшірмелер еленбейді!</string>
+    <string name="selectRestore">Қалпына келтіру опциясын таңдаңыз. көшіру</string>
+    <string name="nextRestore">Бұлттан қалпына келтіру</string>
+    <string name="messageRestoreProcess"><b>Деректерді қалпына келтіру</b> \nБұл терезе аяқталғаннан кейін автоматты түрде жабылады.</string>
+    <string name="emptyBackups">Сақтық көшірмелер табылмады</string>
+    <string name="checkLastBackupsCloud">Күтіңіз, деректер жүктелуде...</string>
+
+    <!-- Массивтердің автосақтық көшірмесі -->
+    <string name="autoCloudVariantsDay">Күн сайын</string>
+    <string name="autoCloudVariantsWeek">Апта сайын</string>
+    <string name="autoCloudVariantsMonth">Ай сайын</string>
+    <string name="autoCloudVariantsOff">Өшірулі</string>
+
+    <!-- Автоматты сақтық көшірме жолдары -->
+    <string name="chanelAutoBackup">Сақтық көшірмені автоматты түрде жасау</string>
+    <string name="workAutoBackupTitle">Сақтық көшірме жасалуда</string>
+    <string name="errorWorker">Сақтық көшірме жасау кезінде қате орын алды.</string>
+    <string name="error">Қате</string>
+
+
+    <!-- Қате нәтижелерінің сақтық көшірмесін жасау/қалпына келтіру -->
+    <string name="emptyDataToBackup">Сақтық көшірме жасау үшін деректер жоқ</string>
+    <string name="errorConnectedNetwork">Интернет қосылымы жоқ</string>
+    <string name="creteLocalCopyOkay">Сақтық көшірме сәтті жасалды</string>
+    <string name="creteLocalCopyFail">Қате, сақтық көшірме сақталмады</string>
+    <string name="restoreDataOkay">Деректерді қалпына келтіру сәтті аяқталды</string>
+    <string name="restoreDataFall">Қате: сақтық көшірме бүлінген</string>
+    <string name="errorAuth">Қате, әрекетті кейінірек қайталаңыз</string>
+    <string name="errorLoadingLastBackupCloud">Қате, әрекетті қайталау үшін басыңыз</string>
+    <string name="errorDriveSync">Сервер қатесі немесе нашар интернет сапасы</string>
+    <string name="errorCredential">Қате, авторизация мәселелері</string>
+
+    <string name="errorDriverAuthInfo">Бұлтты синхрондауды пайдалану үшін жүйеге кіруіңіз керек</string>
+    <string name="autoBackupInfo">Маңызды деректерді жоғалтпау үшін <b>автоматты сақтық көшірмені</b> қосыңыз</string>
+    <string name="sortNotes">Ескертпелерді сұрыптау</string>
+    <string name="percentProgress">Сақтық көшірме (%d%%)</string>
+
+    <!-- Өнім ұсынысы -->
+    <string name="byyError">Сатып алу кезіндегі қате.</string>
+    <string name="byyCancel">Біз жақсырақ болуға тырысамыз.</string>
+    <string name="errorLoadingsProduct">Қате, дүкен сөресі жүктелмеді</string>
+    <string name="thanks_title">Құрметті пайдаланушы</string>
+    <string name="thanks_donate">Жоба әзірлеушісі сатып алғаныңыз үшін алғыс білдіреді. Біз жақсырақ және ыңғайлырақ болуға тырысамыз. \n <b>Құрметпен, менің жазбаларым!</b></string>
 </resources>

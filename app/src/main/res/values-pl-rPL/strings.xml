@@ -69,4 +69,66 @@
     <string name="buttonCreateShortCut">Dodaj skrót do pulpitu</string>
     <string name="errorMaxNameShortCut">Błąd w nazwie skrótu</string>
     <string name="renameTag">Zmień nazwę</string>
+
+    <string name="settingsInterface">Ustawienia interfejsu</string>
+    <string name="settingsBackups">Synchronizacja i kopia zapasowa</string>
+    <string name="aboutApps">Informacje o aplikacji</string>
+    <string name="trash">Kosz</string>
+    <string name="themes">Motywy</string>
+    <string name="onDynamicColor">Włącz kolor dynamiczny</string>
+    <string name="coffeeByPlay">Podziękuj deweloperowi</string>
+    <string name="coffeeByTextInfo"><b>Moje notatki</b> to aplikacja bez reklam i jest rozprowadzana jako produkt bezpłatny. Aplikacja jest rozwijana przez jedną osobę, więc niektóre aktualizacje są dostarczane z opóźnieniem. Utrzymanie kondycji aplikacji i niektórych funkcji generuje koszty. Możesz podziękować deweloperowi, kupując mu kawę lub płacąc za wynajem serwera, a także przesłać darowiznę na wskazane linki, które zostaną wyświetlone poniżej. Dziękujemy za korzystanie z tej aplikacji!</string>
+
+    <string name="loginUser">Logowanie Google</string>
+    <string name="cloudBackup">Chmura</string>
+    <string name="localBackup">Urządzenie</string>
+    <string name="importLocalBackup">Przywróć z Res. kopie</string>
+    <string name="exportLocalBackup">Utwórz kopię zapasową</string>
+    <string name="lastCloudCopy">Ostatnia kopia zapasowa: %1$s</string>
+    <string name="errorDriveAuth">Gość</string>
+    <string name="autoCloudBackupTitle">Automatyczna kopia zapasowa</string>
+    <string name="restoreNotesTitle">Przywracanie danych</string>
+    <string name="restoreNotesMessage">Nowe notatki zostaną dodane przed istniejącymi, a duplikaty będą ignorowane!</string>
+    <string name="selectRestore">Wybierz opcję Przywróć. skopiuj</string>
+    <string name="nextRestore">Przywróć z chmury</string>
+    <string name="messageRestoreProcess"><b>Przywracanie danych</b> \nTo okno zamknie się automatycznie po zakończeniu.</string>
+    <string name="emptyBackups">Nie znaleziono kopii zapasowych</string>
+    <string name="checkLastBackupsCloud">Proszę czekać, ładowanie danych...</string>
+
+    <!-- Automatyczna kopia zapasowa tablic -->
+    <string name="autoCloudVariantsDay">Każdego dnia</string>
+    <string name="autoCloudVariantsWeek">Co tydzień</string>
+    <string name="autoCloudVariantsMonth">Co miesiąc</string>
+    <string name="autoCloudVariantsOff">Wyłączone</string>
+
+    <!-- Ciągi automatycznej kopii zapasowej -->
+    <string name="chanelAutoBackup">Automatyczna kopia zapasowa</string>
+    <string name="workAutoBackupTitle">Trwa tworzenie kopii zapasowej</string>
+    <string name="errorWorker">Wystąpił błąd podczas tworzenia kopii zapasowej.</string>
+    <string name="error">Błąd</string>
+
+
+    <!-- Błąd wyników tworzenia kopii zapasowej/przywracania -->
+    <string name="emptyDataToBackup">Brak danych do wykonania kopii zapasowej</string>
+    <string name="errorConnectedNetwork">Brak połączenia internetowego</string>
+    <string name="creteLocalCopyOkay">Kopia zapasowa została pomyślnie utworzona</string>
+    <string name="creteLocalCopyFail">Błąd, kopia zapasowa nie została zapisana</string>
+    <string name="restoreDataOkay">Przywracanie danych zakończone pomyślnie</string>
+    <string name="restoreDataFall">Błąd: Uszkodzona kopia zapasowa</string>
+    <string name="errorAuth">Błąd, spróbuj ponownie później</string>
+    <string name="errorLoadingLastBackupCloud">Błąd, kliknij, aby spróbować ponownie</string>
+    <string name="errorDriveSync">Błąd serwera lub niska jakość internetu</string>
+    <string name="errorCredential">Błąd, problemy z autoryzacją</string>
+
+    <string name="errorDriverAuthInfo">Musisz być zalogowany, aby korzystać z synchronizacji w chmurze</string>
+    <string name="autoBackupInfo">Włącz <b>automatyczną kopię zapasową</b>, aby uniknąć utraty ważnych danych</string>
+    <string name="sortNotes">Sortuj notatki</string>
+    <string name="percentProgress">Kopia zapasowa (%d%%)</string>
+
+    <!-- Oferta produktowa -->
+    <string name="byyError">Błąd podczas zakupu.</string>
+    <string name="byyCancel">Będziemy starać się być lepsi.</string>
+    <string name="errorLoadingsProduct">Błąd, nie udało się załadować witryny sklepowej</string>
+    <string name="thanks_title">Drogi użytkowniku</string>
+    <string name="thanks_donate">Twórca projektu dziękuje za zakup. Będziemy dążyć do tego, aby stać się lepszymi i wygodniejszymi. \n <b>Z wyrazami szacunku, moje notatki!</b></string>
 </resources>

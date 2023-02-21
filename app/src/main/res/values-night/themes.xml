@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Theme SplashScreen -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
@@ -15,7 +15,7 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">?android:colorBackground</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">?attr/isLightTheme</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:windowActivityTransitions">true</item>
     </style>
     <!-- Base theme -->
@@ -23,7 +23,7 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">?android:colorBackground</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">?attr/isLightTheme</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:windowActivityTransitions">true</item>
     </style>
 
