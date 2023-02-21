@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,8 @@ public class AboutActivity extends BaseActivity {
     @Inject
     public SpacesItemDecoration itemDecorationNotes;
     private BillingClient billingClient;
+    @Inject
+    boolean isPlayMarketInstall;
 
     private HashMap<String, Integer> getProductsLocal() {
         HashMap<String, Integer> hashMap = new HashMap<>();
@@ -99,24 +102,27 @@ public class AboutActivity extends BaseActivity {
 
 
     private void startLoadingProducts() {
-        billingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    initialListProduct();
-                } else {
-                    onInfoSnack(R.string.errorConnectedNetwork, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
+        if (isPlayMarketInstall) {
+            billingClient.startConnection(new BillingClientStateListener() {
+                @Override
+                public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        initialListProduct();
+                    } else {
+                        onInfoSnack(R.string.errorLoadingsProduct, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
+                    }
                 }
-            }
 
-            @Override
-            public void onBillingServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-                Log.wtf(TAG, "disconected");
-            }
-        });
-
+                @Override
+                public void onBillingServiceDisconnected() {
+                    // Try to restart the connection on the next request to
+                    // Google Play by calling the startConnection() method.
+                    Log.wtf(TAG, "disconected");
+                }
+            });
+        } else {
+            binding.donnatDev.setVisibility(View.GONE);
+        }
         initListeners();
     }
 
@@ -137,7 +143,6 @@ public class AboutActivity extends BaseActivity {
 
         billingClient.queryProductDetailsAsync(QueryProductDetailsParams.newBuilder().setProductList(products).build(), (billingResult, productDetailsList) -> {
             if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-
                 productBillingAdapter.setProductsBilling(getProductsLocal());
                 runOnUiThread(() -> productBillingAdapter.setDefaultProduct(productDetailsList));
             } else {
