@@ -328,8 +328,8 @@
     <style name="iconActionPanel" parent="marginDialogItem">
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
-        <item name="android:tint">?attr/colorOnPrimary</item>
         <item name="android:background">?selectableItemBackground</item>
+        <item name="android:tint">?attr/colorOnPrimary</item>
     </style>
 
     <style name="bottomSheetInput" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
