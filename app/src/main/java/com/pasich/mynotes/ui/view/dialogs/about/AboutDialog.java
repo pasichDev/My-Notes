@@ -8,8 +8,6 @@ import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.FIlE
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +18,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.avatarfirst.avatargenlib.AvatarGenerator;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.dialog.BaseDialogBottomSheets;
@@ -50,7 +46,6 @@ public class AboutDialog extends BaseDialogBottomSheets {
     @Inject
     public CloudAuthHelper cloudAuthHelper;
     public DialogAboutBinding binding;
-    private BitmapDrawable avatarPlaceholder;
     final private ActivityResultLauncher<Intent> startAuthIntent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
 
@@ -117,10 +112,7 @@ public class AboutDialog extends BaseDialogBottomSheets {
             String nameUser = cloudCacheHelper.getGoogleSignInAccount().getDisplayName();
             binding.loginPage.nameUser.setText(nameUser);
             binding.loginPage.emailUSer.setText(cloudCacheHelper.getGoogleSignInAccount().getEmail());
-            avatarPlaceholder = new AvatarGenerator.AvatarBuilder(requireContext()).setLabel(nameUser == null ? "User" : nameUser).setAvatarSize(120).setTextSize(30).toSquare().toCircle().setBackgroundColor(MaterialColors.getColor(requireContext(), R.attr.colorPrimary, Color.GRAY)).build();
-
-
-            Glide.with(requireContext()).load(cloudCacheHelper.getGoogleSignInAccount().getPhotoUrl()).placeholder(avatarPlaceholder).into(binding.loginPage.userAvatar);
+            Glide.with(requireContext()).load(cloudCacheHelper.getGoogleSignInAccount().getPhotoUrl()).placeholder(R.drawable.ic_no_avatar).into(binding.loginPage.userAvatar);
             binding.loginPage.loginUser.setVisibility(View.GONE);
             binding.loginPage.loginPageRoot.setVisibility(View.VISIBLE);
 
@@ -156,6 +148,5 @@ public class AboutDialog extends BaseDialogBottomSheets {
         binding.backups.setOnClickListener(null);
         binding.aboutApp.setOnClickListener(null);
         binding.themeApp.setOnClickListener(null);
-        avatarPlaceholder = null;
     }
 }
