@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -110,6 +111,13 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         presenter.attachView(this);
         presenter.viewIsReady();
         binding.setPresenter((BackupPresenter) presenter);
+
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(finishActivity());
+            }
+        });
     }
 
 
@@ -129,16 +137,22 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
 
     @Override
     public void onBackPressed() {
-        supportFinishAfterTransition();
+        finishActivity();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            supportFinishAfterTransition();
+            finishActivity();
         }
         return true;
     }
+
+    private boolean finishActivity() {
+        supportFinishAfterTransition();
+        return true;
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -193,9 +207,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
      * @return - drive object
      */
     public Drive getDrive() {
-        return cloudAuthHelper.getDriveCredentialService(
-                cloudCacheHelper.isAuth() ? cloudCacheHelper.getGoogleSignInAccount().getAccount() : null,
-                this);
+        return cloudAuthHelper.getDriveCredentialService(cloudCacheHelper.isAuth() ? cloudCacheHelper.getGoogleSignInAccount().getAccount() : null, this);
     }
 
 
@@ -435,15 +447,14 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void dialogChoiceVariantAutoBackup() {
         if (showErrors(checkErrorCloud(getDrive()))) {
-            new MaterialAlertDialogBuilder(this).setCancelable(true).setTitle(R.string.autoCloudBackupTitle).setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(),
-                    (dialog, item) -> {
-                        editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
-                        presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
-                        editVisibleAutoBackupInfo(getResources().getIntArray(R.array.autoCloudIndexes)[item]);
-                        creteWorkerAutoBackup(getHoursAutoBackupWorker(item));
-                        dialog.dismiss();
+            new MaterialAlertDialogBuilder(this).setCancelable(true).setTitle(R.string.autoCloudBackupTitle).setSingleChoiceItems(getResources().getStringArray(R.array.autoCloudVariants), presenter.getDataManager().getSetCloudAuthBackup(), (dialog, item) -> {
+                editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
+                presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+                editVisibleAutoBackupInfo(getResources().getIntArray(R.array.autoCloudIndexes)[item]);
+                creteWorkerAutoBackup(getHoursAutoBackupWorker(item));
+                dialog.dismiss();
 
-                    }).create().show();
+            }).create().show();
         }
     }
 
@@ -451,16 +462,14 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
     @Override
     public void dialogRestoreData(boolean local) {
         final Drive mDriveCredential = getDrive();
-        final MaterialAlertDialogBuilder restoreDialog = new MaterialAlertDialogBuilder(this).setCancelable(false).setTitle(R.string.restoreNotesTitle).setMessage(R.string.restoreNotesMessage).setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
-                .setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which)
-                        -> {
-                    if (local) {
-                        openIntentReadBackup();
-                    } else {
-                        startReadBackupCloud();
-                    }
-                    dialog.dismiss();
-                });
+        final MaterialAlertDialogBuilder restoreDialog = new MaterialAlertDialogBuilder(this).setCancelable(false).setTitle(R.string.restoreNotesTitle).setMessage(R.string.restoreNotesMessage).setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss()).setPositiveButton(local ? R.string.selectRestore : R.string.nextRestore, (dialog, which) -> {
+            if (local) {
+                openIntentReadBackup();
+            } else {
+                startReadBackupCloud();
+            }
+            dialog.dismiss();
+        });
 
 
         if (local) {
@@ -497,14 +506,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         if (hours == 0) {
             WorkManager.getInstance(this).cancelAllWorkByTag(WorkerId.autoBackupWorker);
         }
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WorkerId.autoBackupWorker,
-                ExistingPeriodicWorkPolicy.REPLACE,
-                new PeriodicWorkRequest.Builder(AutoBackupCloudWorker.class, hours,
-                        TimeUnit.HOURS, 1, TimeUnit.HOURS)
-                        .addTag(WorkerId.autoBackupWorker)
-                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS, TimeUnit.MILLISECONDS)
-                        .setConstraints(new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true)
-                                .build()).build());
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WorkerId.autoBackupWorker, ExistingPeriodicWorkPolicy.REPLACE, new PeriodicWorkRequest.Builder(AutoBackupCloudWorker.class, hours, TimeUnit.HOURS, 1, TimeUnit.HOURS).addTag(WorkerId.autoBackupWorker).setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS, TimeUnit.MILLISECONDS).setConstraints(new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true).build()).build());
     }
 
     @Override

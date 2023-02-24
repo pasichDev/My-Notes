@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.platform.MaterialFade;
 import com.pasich.mynotes.R;
@@ -61,6 +63,12 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         binding.setPresenter(trashPresenter);
         actionUtils.setMangerView(binding.getRoot());
         actionUtils.setTrash();
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(finishActivity());
+            }
+        });
 
     }
 
@@ -104,7 +112,7 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
     @Override
     public void onBackPressed() {
         if (getAction()) actionUtils.closeActionPanel();
-        supportFinishAfterTransition();
+        finishActivity();
     }
 
     @Override
@@ -113,12 +121,17 @@ public class TrashActivity extends BaseActivity implements TrashContract.view, M
         if (item.getItemId() == android.R.id.home) {
             if (getAction()) {
                 actionUtils.closeActionPanel();
-            } else supportFinishAfterTransition();
+            } else finishActivity();
         }
 
         return true;
     }
 
+
+    private boolean finishActivity() {
+        supportFinishAfterTransition();
+        return true;
+    }
 
     @Override
     public void settingsNotesList() {

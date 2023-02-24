@@ -133,10 +133,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             binding.valueNote.setSelection(binding.valueNote.getText().length());
         binding.valueNote.setFocusableInTouchMode(true);
         binding.valueNote.requestFocus();
-      //  if (!notePresenter.getNewNotesKey()) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.toggleSoftInputFromWindow(binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
-        //  }
 
     }
 

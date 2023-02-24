@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -98,7 +99,12 @@ public class AboutActivity extends BaseActivity {
         binding.setActivity(this);
         billingClient = BillingClient.newBuilder(this).setListener(getPurchasesUpdatedListener()).enablePendingPurchases().build();
         initActivity();
-
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(finishActivity());
+            }
+        });
     }
 
 
@@ -223,18 +229,23 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        supportFinishAfterTransition();
+        finishActivity();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
-            supportFinishAfterTransition();
+            finishActivity();
         }
 
         return true;
     }
 
+
+    private boolean finishActivity() {
+        supportFinishAfterTransition();
+        return true;
+    }
 
 }
