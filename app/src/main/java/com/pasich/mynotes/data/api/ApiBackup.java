@@ -1,5 +1,6 @@
 package com.pasich.mynotes.data.api;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.ARGUMENT_DEFAULT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.ARGUMENT_LAST_BACKUP_ID;
 import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.FILE_NAME_BACKUP;
@@ -8,6 +9,7 @@ import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.FIlE
 import android.content.Context;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -147,6 +149,12 @@ public class ApiBackup implements ApiHelper {
         }
     }
 
+    /**
+     * Read local backup file to get data
+     *
+     * @param uriLocalFile - uri local file
+     * @return - data gson model
+     */
     @Override
     public JsonBackup readBackupLocalFile(Uri uriLocalFile) {
         try {
@@ -160,12 +168,21 @@ public class ApiBackup implements ApiHelper {
             }
             descriptor.close();
             bufferedReader.close();
+
+            Log.wtf(TAG, "no encr: " + jsonFile.toString());
+            Log.wtf(TAG, "encr: " + ScramblerBackupHelper.decodeString(jsonFile.toString()).getNotes().size());
             return ScramblerBackupHelper.decodeString(jsonFile.toString());
         } catch (IOException e) {
             return new JsonBackup().error();
         }
     }
 
+    /**
+     * Write a temporary backup file for uploading to the cloud
+     *
+     * @param jsonBackup - gson data
+     * @return - temp backup file
+     */
     @Override
     public File writeTempBackup(JsonBackup jsonBackup) {
         final java.io.File backupTemp = new java.io.File(mContext.getFilesDir() + FILE_NAME_BACKUP);
