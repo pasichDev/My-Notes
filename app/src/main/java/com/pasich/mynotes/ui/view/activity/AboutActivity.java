@@ -21,7 +21,9 @@ import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ConsumeParams;
 import com.android.billingclient.api.ProductDetails;
+import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
 import com.google.android.material.snackbar.Snackbar;
@@ -79,7 +81,9 @@ public class AboutActivity extends BaseActivity {
     private PurchasesUpdatedListener getPurchasesUpdatedListener() {
         return (billingResult, purchases) -> {
             if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null) {
-                new ThanksDonatDialog().show(getSupportFragmentManager(), "thanksDialog");
+                for (Purchase purchase : purchases) {
+                    handlePurchase(purchase);
+                }
             } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
                 onInfoSnack(R.string.byyCancel, null, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
             } else {
@@ -161,6 +165,23 @@ public class AboutActivity extends BaseActivity {
             }
         });
 
+    }
+
+    /**
+     * You need to confirm the purchase and say thank you to the user
+     *
+     * @param purchase - details purchase
+     */
+    private void handlePurchase(Purchase purchase) {
+
+        billingClient.consumeAsync(ConsumeParams.newBuilder()
+                .setPurchaseToken(purchase.getPurchaseToken())
+                .build(), (billingResult, purchaseToken) -> {
+            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                new ThanksDonatDialog().show(getSupportFragmentManager(), "thanksDialog");
+
+            }
+        });
     }
 
     private void initCoffeeList() {
