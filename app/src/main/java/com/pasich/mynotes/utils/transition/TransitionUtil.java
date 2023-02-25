@@ -20,7 +20,7 @@ public class TransitionUtil {
     public static Transition buildContainerTransform(View container) {
         MaterialContainerTransform materialContainerTransform = new MaterialContainerTransform();
         materialContainerTransform.addTarget(container)
-                .setDuration(200)
+                .setDuration(300)
                 .setInterpolator(new FastOutSlowInInterpolator());
         materialContainerTransform.setAllContainerColors(MaterialColors.getColor(container, R.attr.colorSurface));
         materialContainerTransform.setPathMotion(new MaterialArcMotion());
