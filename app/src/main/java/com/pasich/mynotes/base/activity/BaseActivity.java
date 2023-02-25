@@ -1,15 +1,14 @@
 package com.pasich.mynotes.base.activity;
 
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,33 +28,37 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void selectTheme() {
-        /**
-         * эти переменные нельзя переносить в кинжал
-         */
-        boolean dynamicColorEnabled = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
+        final boolean dynamicColorEnabled = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
+        final Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setFlags(
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+        );
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (dynamicColorEnabled) {
                 setTheme(R.style.AppThemeDynamic);
             } else {
-                Log.wtf(TAG, "SET THEME API 33 NO DYNAIMcoLORS ");
-                setTheme(new ThemesArray()
-                        .getThemeStyle(
-                                PowerPreference
-                                        .getDefaultFile()
-                                        .getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)
-                        ));
+                setTheme(getSelectedTheme());
             }
 
         } else {
-            setTheme(new ThemesArray()
-                    .getThemeStyle(
-                            PowerPreference
-                                    .getDefaultFile()
-                                    .getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)
-                    ));
+            setTheme(getSelectedTheme());
         }
 
 
+    }
+
+    private int getSelectedTheme() {
+        return new ThemesArray()
+                .getThemeStyle(
+                        PowerPreference
+                                .getDefaultFile()
+                                .getInt(PreferencesConfig.ARGUMENT_PREFERENCE_THEME, PreferencesConfig.ARGUMENT_DEFAULT_THEME_VALUE)
+                );
     }
 
     @Override

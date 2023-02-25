@@ -103,6 +103,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         selectTheme();
         setExitSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
         getWindow().setSharedElementsUseOverlay(false);

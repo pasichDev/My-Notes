@@ -13,7 +13,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">?android:colorBackground</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:windowActivityTransitions">true</item>
@@ -25,7 +24,6 @@
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <!-- Theme Dark_Blue no Background Light -->
@@ -278,14 +276,13 @@
         <item name="android:backgroundTint">?attr/colorPrimary</item>
         <item name="tint">?attr/colorOnPrimary</item>
         <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:layout_margin">15dp</item>
+        <item name="android:layout_marginBottom">35dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
         <item name="elevation">7dp</item>
         <item name="layout_anchorGravity">bottom|right|end</item>
         <item name="layout_dodgeInsetEdges">bottom</item>
         <item name="layout_scrollFlags">scroll|exitUntilCollapsed|enterAlwaysCollapsed</item>
     </style>
-
-    <!-- Стиль для заголовка активности -->
 
     <!-- Стиль для параграфа -->
     <style name="paragraphText">
