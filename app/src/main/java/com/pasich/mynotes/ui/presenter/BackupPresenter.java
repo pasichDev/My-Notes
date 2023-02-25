@@ -4,6 +4,7 @@ import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.ARGU
 import static com.pasich.mynotes.utils.constants.settings.BackupPreferences.ARGUMENT_LAST_BACKUP_TIME;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.base.presenter.BasePresenter;
@@ -234,6 +235,9 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
                 .addOnFailureListener(stack -> getView().restoreFinish(CloudErrors.NETWORK_ERROR));
     }
 
+
+    // TODO: 25.02.2023 Проверка ошибки перед релизом убрать
+
     /**
      * Save data last backup cloud
      */
@@ -248,7 +252,13 @@ public class BackupPresenter extends BasePresenter<BackupContract.view> implemen
                         getView().showErrors(CloudErrors.LAST_BACKUP_EMPTY_DRIVE_VIEW);
                     }
                     getView().editLastDataEditBackupCloud(lastInfo.getLastDate(), lastInfo.getErrorCode() != 0);
-                }).addOnFailureListener(stack -> getView().showErrors(CloudErrors.ERROR_LOAD_LAST_INFO_BACKUP));
+                }).addOnFailureListener(stack ->
+                        {
+                            stack.printStackTrace();
+                            Log.wtf("pasich.myNotes", "saveDataLoadingLastBackup: " + stack.getLocalizedMessage());
+                            getView().showErrors(CloudErrors.ERROR_LOAD_LAST_INFO_BACKUP);
+                        }
+                );
     }
 
 }
