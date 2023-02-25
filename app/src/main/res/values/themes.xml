@@ -275,13 +275,9 @@
     <style name="fab_custom" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="android:backgroundTint">?attr/colorPrimary</item>
         <item name="tint">?attr/colorOnPrimary</item>
-        <item name="android:layout_gravity">bottom|end</item>
         <item name="android:layout_marginBottom">35dp</item>
         <item name="android:layout_marginEnd">20dp</item>
         <item name="elevation">7dp</item>
-        <item name="layout_anchorGravity">bottom|right|end</item>
-        <item name="layout_dodgeInsetEdges">bottom</item>
-        <item name="layout_scrollFlags">scroll|exitUntilCollapsed|enterAlwaysCollapsed</item>
     </style>
 
     <!-- Стиль для параграфа -->

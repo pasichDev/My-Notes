@@ -70,6 +70,9 @@
             android:src="@drawable/ic_trash"
             android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
             app:layout_anchor="@id/ListTrash"
+            android:layout_gravity="bottom|end"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_dodgeInsetEdges="bottom"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
 

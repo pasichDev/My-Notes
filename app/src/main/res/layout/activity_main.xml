@@ -43,6 +43,8 @@
                 app:defaultMarginsEnabled="false"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
                 android:layout_margin="15dp"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                app:elevation="0dp"
                 app:navigationIconTint="?attr/colorTertiary" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -111,7 +113,11 @@
             app:layout_anchor="@id/list_notes"
             app:elevation="0dp"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            app:srcCompat="@drawable/ic_add" />
+            app:srcCompat="@drawable/ic_add"
+            android:layout_gravity="bottom|end"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_dodgeInsetEdges="bottom" />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
