@@ -66,6 +66,7 @@
             android:layout_height="match_parent"
             app:autoShowKeyboard="true"
             android:hint="@string/searchNotesFromTitle"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             app:layout_anchor="@id/actionSearch">
 
             <androidx.recyclerview.widget.RecyclerView
