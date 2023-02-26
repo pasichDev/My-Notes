@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 import com.pasich.mynotes.R;
@@ -121,6 +122,8 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                 setEnabled(finishActivity());
             }
         });
+
+
     }
 
     @Override
@@ -168,6 +171,15 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
     @Override
     public void initListeners() {
+        mActivityBinding.searchView.addTransitionListener(
+                (searchView, previousState, newState) -> {
+                    if (newState == SearchView.TransitionState.SHOWING) {
+                        mActivityBinding.listNotes.setNestedScrollingEnabled(false);
+                    } else if (newState == SearchView.TransitionState.HIDDEN) {
+                        mActivityBinding.listNotes.setNestedScrollingEnabled(true);
+
+                    }
+                });
 
 
         searchNotesAdapter.setItemClickListener((idNote, view) -> openNoteEdit(idNote, (MaterialCardView) view));

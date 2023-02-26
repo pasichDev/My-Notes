@@ -33,7 +33,6 @@
 
             <com.google.android.material.search.SearchBar
                 android:id="@+id/actionSearch"
-                app:layout_scrollFlags="scroll|snap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/search"
@@ -66,7 +65,6 @@
             android:layout_height="match_parent"
             app:autoShowKeyboard="true"
             android:hint="@string/searchNotesFromTitle"
-            android:backgroundTint="?attr/colorSurfaceVariant"
             app:layout_anchor="@id/actionSearch">
 
             <androidx.recyclerview.widget.RecyclerView
