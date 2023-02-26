@@ -2,16 +2,9 @@ package com.pasich.mynotes.data.model;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(
-        tableName = "notes",
-        indices = {
-                @Index(
-                        value = {"value"},
-                        unique = true)
-        })
+@Entity(tableName = "notes")
 public class Note {
 
 
@@ -44,13 +37,12 @@ public class Note {
         return this;
     }
 
+    public int getId() {
+        return this.id;
+    }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     public String getTitle() {
@@ -73,12 +65,12 @@ public class Note {
         return this.value;
     }
 
-    public String getValuePreview() {
-        return value.length() > 400 ? value.substring(0, 400) : value;
-    }
-
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getValuePreview() {
+        return value.length() > 400 ? value.substring(0, 400) : value;
     }
 
     public boolean getChecked() {

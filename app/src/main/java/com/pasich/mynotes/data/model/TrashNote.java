@@ -2,16 +2,10 @@ package com.pasich.mynotes.data.model;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(
-        tableName = "trash",
-        indices = {
-                @Index(
-                        value = {"value"},
-                        unique = true)
-        })
+        tableName = "trash")
 public class TrashNote {
 
     @PrimaryKey(autoGenerate = true)
@@ -47,10 +41,6 @@ public class TrashNote {
 
     public String getValue() {
         return this.value;
-    }
-
-    public String getValuePreview() {
-        return value.length() > 400 ? value.substring(0, 400) : value;
     }
 
     public void setValue(String value) {

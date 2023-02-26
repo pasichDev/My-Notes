@@ -22,16 +22,13 @@ public interface NoteDao {
   @Query("SELECT * FROM notes")
   Flowable<List<Note>> getNotesAll();
 
-  @Query("SELECT * FROM notes")
-  List<Note> getNotesAllWorker();
-
-  @Insert(onConflict = OnConflictStrategy.IGNORE)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   Long addNote(Note note);
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   Long addNoteCopy(Note note);
 
-  @Insert(onConflict = OnConflictStrategy.IGNORE)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   void addNotes(List<Note> notes);
 
   @Update
