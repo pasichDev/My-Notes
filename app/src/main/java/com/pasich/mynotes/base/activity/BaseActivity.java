@@ -30,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void selectTheme() {
         final boolean dynamicColorEnabled = PowerPreference.getDefaultFile().getBoolean(PreferencesConfig.ARGUMENT_PREFERENCE_DYNAMIC_COLOR, PreferencesConfig.ARGUMENT_DEFAULT_DYNAMIC_COLOR_VALUE);
         final Window window = getWindow();
+
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
@@ -37,18 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         );
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (dynamicColorEnabled) {
-                setTheme(R.style.AppThemeDynamic);
-            } else {
-                setTheme(getSelectedTheme());
-            }
-
-        } else {
-            setTheme(getSelectedTheme());
-        }
-
+        setTheme(dynamicColorEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? R.style.AppThemeDynamic : getSelectedTheme());
 
     }
 
