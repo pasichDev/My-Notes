@@ -5,14 +5,19 @@ import static com.pasich.mynotes.utils.transition.TransitionUtil.buildContainerT
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
@@ -47,6 +52,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         selectTheme();
+        settingsStatusBar(getWindow());
         long idNote = getIntent().getLongExtra("idNote", 0);
         binding = ActivityNoteBinding.inflate(getLayoutInflater());
         binding.noteLayout.setTransitionName(idNote == 0 ? NameTransition.fabTransaction : String.valueOf(idNote));
@@ -60,6 +66,20 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.getLoadIntentData(getIntent());
         notePresenter.viewIsReady();
 
+    }
+
+
+    /**
+     * Method that enables Motion Animation smooth transition support
+     *
+     * @param mWindow - activity window
+     */
+    private void settingsStatusBar(Window mWindow) {
+        final int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        mWindow.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        mWindow.setStatusBarColor(Color.TRANSPARENT);
+        mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        new WindowInsetsControllerCompat(mWindow, mWindow.getDecorView()).setAppearanceLightStatusBars(currentNightMode == Configuration.UI_MODE_NIGHT_NO);
     }
 
 
