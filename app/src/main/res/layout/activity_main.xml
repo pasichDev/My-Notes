@@ -110,7 +110,6 @@
             android:contentDescription="@string/NewNote"
             android:onClick="@{(view) -> presenter.newNotesClick()}"
             app:layout_anchor="@id/list_notes"
-            app:elevation="0dp"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:srcCompat="@drawable/ic_add"
             android:layout_gravity="bottom|end"
