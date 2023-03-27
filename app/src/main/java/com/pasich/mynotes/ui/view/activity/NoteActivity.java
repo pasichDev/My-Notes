@@ -51,6 +51,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         selectTheme();
         settingsStatusBar(getWindow());
         long idNote = getIntent().getLongExtra("idNote", 0);
@@ -65,6 +66,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.attachView(this);
         notePresenter.getLoadIntentData(getIntent());
         notePresenter.viewIsReady();
+
 
     }
 
@@ -146,6 +148,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void activatedActivity() {
+
         binding.setActivateEdit(true);
         binding.valueNote.setEnabled(true);
         binding.valueNote.setFocusable(true);
@@ -153,7 +156,18 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             binding.valueNote.setSelection(binding.valueNote.getText().length());
         binding.valueNote.setFocusableInTouchMode(true);
         binding.valueNote.requestFocus();
-        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).toggleSoftInputFromWindow(binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
+
+        if (notePresenter.getNewNotesKey()) {
+            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).toggleSoftInputFromWindow(binding.valueNote.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT, 0);
+
+        } else {
+            if (binding.valueNote.requestFocus()) {
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(binding.valueNote, InputMethodManager.SHOW_IMPLICIT);
+            }
+        }
+
 
     }
 
