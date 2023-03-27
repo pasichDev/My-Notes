@@ -24,6 +24,7 @@ android {
         targetSdkVersion 33
         versionCode 18
         versionName '2.1.18'
+        project.ext.set("archivesBaseName", "MyNotes_" + defaultConfig.versionName)
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
@@ -35,6 +36,7 @@ android {
         release {
             debuggable false
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
         }
@@ -59,7 +61,7 @@ android {
 
 ext {
     powerPrefenceVersion = '2.1.0'
-    roomVersion = '2.5.0'
+    roomVersion = '2.5.1'
 }
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -67,50 +69,44 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.2.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"
     implementation 'androidx.core:core-splashscreen:1.0.0'
+
+    //Worker
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
     implementation "android.arch.work:work-runtime:1.0.1"
-    implementation "com.android.billingclient:billing:5.1.0"
-    implementation 'androidx.work:work-runtime-ktx:2.8.0'
-
-
-    //Hilt
-    implementation 'com.google.dagger:hilt-android:2.44.2'
-    annotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
-
-    //Hilt worker
     implementation 'androidx.hilt:hilt-work:1.0.0'
     annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0'
 
-    // For instrumentation tests
+    //DI (Hilt)
+    implementation 'com.google.dagger:hilt-android:2.44.2'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44.2'
     androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
-
-    // For local unit tests
     testImplementation 'com.google.dagger:hilt-android-testing:2.44.2'
     testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
 
-    //powerPreferences
-    implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"
 
     //Reactive (rxjava2)
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
-    implementation 'androidx.room:room-rxjava2:2.5.0'
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    implementation 'androidx.room:room-rxjava2:2.5.1'
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
     testImplementation "androidx.room:room-compiler-processing-testing:$roomVersion"
 
-    //Google Drive integration
+    //Google Drive integration, Pay Billing
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     implementation 'com.google.http-client:google-http-client-gson:1.42.1'
     implementation 'com.google.api-client:google-api-client-android:1.26.0'
     implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
+    implementation "com.android.billingclient:billing:5.1.0"
 
-    //Other lib (Gson/Glide)
+    //Other lib (Gson/Glide/PowerPreferences)
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'com.google.code.gson:gson:2.9.0'
+    implementation "com.github.AliAsadi:PowerPreference:$powerPrefenceVersion"
 
-    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 }
 
