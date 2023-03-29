@@ -45,7 +45,7 @@ public abstract class BaseDialogBottomSheets extends BottomSheetDialogFragment i
             Vibrator vibrator = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
             if (vibrator.hasVibrator()) {
-                vibrator.vibrate(100L);
+                vibrator.vibrate(50L);
             }
         }
     }

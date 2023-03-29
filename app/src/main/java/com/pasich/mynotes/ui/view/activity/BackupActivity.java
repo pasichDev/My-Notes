@@ -184,7 +184,9 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[presenter.getDataManager().getSetCloudAuthBackup()]);
-        editVisibleAutoBackupInfo(presenter.getDataManager().getSetCloudAuthBackup());
+
+        // TODO: 29.03.2023 Заменить при добавлении функции автоматически рез копий
+        editVisibleAutoBackupInfo(1);
     }
 
     @Override
@@ -451,7 +453,7 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
                 presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
                 editVisibleAutoBackupInfo(getResources().getIntArray(R.array.autoCloudIndexes)[item]);
-                creteWorkerAutoBackup(getHoursAutoBackupWorker(item));
+                //  creteWorkerAutoBackup(getHoursAutoBackupWorker(item));
                 dialog.dismiss();
 
             }).create().show();

@@ -172,11 +172,12 @@
                     android:padding="6dp"
                     android:text="@string/cloudBackup" />
 
+                <!--   android:visibility="@{isPlayService ? View.VISIBLE : View.GONE}" -->
                 <LinearLayout
                     android:id="@+id/autoBackup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="@{isPlayService ? View.VISIBLE : View.GONE}"
+                    android:visibility="gone"
                     android:onClick="@{(view) -> presenter.openChoiceDialogAutoBackup()}"
                     android:background="?android:attr/selectableItemBackground"
                     android:orientation="horizontal"
