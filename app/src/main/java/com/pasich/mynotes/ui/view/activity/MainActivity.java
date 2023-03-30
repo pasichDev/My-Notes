@@ -123,7 +123,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
             }
         });
 
-
     }
 
     @Override

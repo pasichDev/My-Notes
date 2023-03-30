@@ -42,23 +42,28 @@
                 app:layout_collapseMode="pin" />
         </com.google.android.material.appbar.AppBarLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ListTrash"
+        <FrameLayout
+            android:id="@+id/trash_notes_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            android:clipToPadding="false"
-            android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <include
-            android:id="@+id/includeEmpty"
-            layout="@layout/view_empty_trash" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ListTrash"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:clipToPadding="false"
+                android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager" />
+
+            <include
+                android:id="@+id/includeEmpty"
+                layout="@layout/view_empty_trash" />
+        </FrameLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/cleanTrash"
@@ -69,8 +74,7 @@
             android:onClick="@{(view) -> presenter.cleanTrashDialogStart()}"
             android:src="@drawable/ic_trash"
             android:visibility="@{emptyNotesTrash ? View.GONE : View.VISIBLE}"
-            app:layout_anchor="@id/ListTrash"
-            android:layout_gravity="bottom|end"
+            app:layout_anchor="@id/trash_notes_layout"
             app:layout_anchorGravity="bottom|right|end"
             app:layout_dodgeInsetEdges="bottom"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
@@ -81,9 +85,9 @@
             layout="@layout/action_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
             android:layout_margin="15dp"
             android:visibility="gone"
+            app:layout_anchor="@id/trash_notes_layout"
             app:layout_anchorGravity="bottom|right|end" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
