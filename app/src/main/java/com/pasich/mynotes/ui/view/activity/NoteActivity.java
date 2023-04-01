@@ -32,6 +32,7 @@ import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.LinkInfoDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.popupWindowsTagNote.PopupWindowsTagNote;
 import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindowsCreateListBox;
+import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindowsCreateListBoxHelper;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
 import com.pasich.mynotes.utils.constants.NameTransition;
@@ -367,7 +368,17 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void createListBox() {
-        new PopupWindowsCreateListBox(getLayoutInflater(), binding.bottomPanel.addListCheckBox);
+        new PopupWindowsCreateListBox(getLayoutInflater(), binding.bottomPanel.addListCheckBox, new PopupWindowsCreateListBoxHelper() {
+            @Override
+            public void createListForData() {
+
+            }
+
+            @Override
+            public void addListToNote() {
+
+            }
+        });
     }
 
     @Override

@@ -1,33 +1,27 @@
 package com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox;
 
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
-import androidx.core.content.ContextCompat;
-
-import com.pasich.mynotes.R;
 import com.pasich.mynotes.databinding.ViewPopupCreateListBoxBinding;
 
 public class PopupWindowsCreateListBox {
 
     private final PopupWindow mPopupWindows;
     private final ViewPopupCreateListBoxBinding mBinding;
-    private final int widthDisplay = Resources.getSystem().getDisplayMetrics().widthPixels;
     private final int widthAnchor;
     private View mAnchor;
+    private final PopupWindowsCreateListBoxHelper createListBoxHelper;
 
-    public PopupWindowsCreateListBox(LayoutInflater layoutInflater, View anchor) {
+    public PopupWindowsCreateListBox(LayoutInflater layoutInflater, View anchor, PopupWindowsCreateListBoxHelper createListBoxHelper) {
         this.mBinding = ViewPopupCreateListBoxBinding.inflate(layoutInflater);
         this.mAnchor = anchor;
+        this.createListBoxHelper = createListBoxHelper;
         this.widthAnchor = anchor.getWidth();
         this.mPopupWindows = new PopupWindow(mBinding.getRoot(), RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
 
@@ -38,21 +32,10 @@ public class PopupWindowsCreateListBox {
 
 
     private void onSettingsView() {
-        int xof, widthDisplayCenter = widthDisplay / 2;
-        if (mAnchor.getX() > widthDisplayCenter) {
-            mBinding.getRoot().setBackground(ContextCompat.getDrawable(mBinding.getRoot().getContext(), R.drawable.background_popup_bottom_left));
-            xof = (int) (-mBinding.getRoot().getMeasuredWidth() * 0.9);
-        } else {
-            Log.wtf(TAG, "onSettingsView: ");
-            mBinding.getRoot().setBackground(ContextCompat.getDrawable(mBinding.getRoot().getContext(), R.drawable.background_popup_bottom_left));
-            xof = widthAnchor / 2;
-        }
         getPopupWindows().setElevation(10);
         getPopupWindows().setOnDismissListener(this::setOnDismissListener);
         initListeners();
         getPopupWindows().showAsDropDown(mAnchor, widthAnchor, -400);
-        //getPopupWindows().showAtLocation(mAnchor, Gravity.BOTTOM, -xof,
-        //         mAnchor.getBottom() + 100);
     }
 
 
@@ -66,22 +49,16 @@ public class PopupWindowsCreateListBox {
 
 
     private void initListeners() {
-     /*   mBinding.deleteTag.setOnClickListener(v -> {
-          //  mListener.deleteTag();
+        mBinding.creteListToDataNote.setOnClickListener(v -> {
+            createListBoxHelper.createListForData();
             getPopupWindows().dismiss();
 
         });
-        mBinding.renameTag.setOnClickListener(v -> {
-         //   mListener.renameTag();
+        mBinding.addListToNote.setOnClickListener(v -> {
+            createListBoxHelper.addListToNote();
             getPopupWindows().dismiss();
-        });
-        mBinding.visibleTag.setOnClickListener(v -> {
-        //    mListener.visibleEditTag();
-            getPopupWindows().dismiss();
-        });
 
-
-      */
+        });
     }
 
 
@@ -91,7 +68,7 @@ public class PopupWindowsCreateListBox {
 
     public void setOnDismissListener() {
         mAnchor = null;
-
-
+        mBinding.creteListToDataNote.setOnClickListener(null);
+        mBinding.addListToNote.setOnClickListener(null);
     }
 }

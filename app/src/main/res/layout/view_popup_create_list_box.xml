@@ -3,7 +3,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_popup_tag">
+    android:background="@drawable/background_popup_bottom_left">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:id="@+id/addListToNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_bottom_ripple"
+            android:background="@drawable/item_bottom_ripple_left"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
 
