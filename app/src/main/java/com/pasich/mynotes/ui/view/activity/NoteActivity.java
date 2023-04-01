@@ -95,7 +95,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void onPause() {
         super.onPause();
         if (!notePresenter.getExitNoteSave() && binding.valueNote.getText().toString().trim().length() >= 2)
-            saveNote();
+            saveNote(false);
     }
 
 
@@ -197,6 +197,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         }
         if (item.getItemId() == R.id.moreBut) {
+            saveNote(true);
             new MoreNoteDialog(notePresenter.getNewNotesKey() ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : notePresenter.getNote(), notePresenter.getNewNotesKey(), true, 0).show(getSupportFragmentManager(), "MoreNote");
 
         }
@@ -241,13 +242,13 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         imm.hideSoftInputFromWindow(binding.valueNote.getWindowToken(), 0);
 
         notePresenter.setExitNoSave(true);
-        if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote();
+        if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote(false);
         if (notePresenter.getShareText().length() >= 2)
             Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
         supportFinishAfterTransition();
     }
 
-    private void saveNote() {
+    private void saveNote(boolean saveLocal) {
         long mThisDate = new Date().getTime();
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
@@ -263,7 +264,16 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             notePresenter.createNote(note);
             notePresenter.setNewNoteKey(false);
 
-        } else if (!mValue.equals(mNoteValue) || !mTitle.equals(notePresenter.getNote().getTitle())) {
+        } else {
+            if (saveNoteToLocal(mValue, mTitle, mNoteValue, mThisDate) && !saveLocal) {
+                notePresenter.saveNote(notePresenter.getNote());
+            }
+        }
+    }
+
+
+    private boolean saveNoteToLocal(String mValue, String mTitle, String mNoteValue, long mThisDate) {
+        if (!mValue.equals(mNoteValue) || !mTitle.equals(notePresenter.getNote().getTitle())) {
             boolean x1 = false;
             if (!notePresenter.getNote().getTitle().contentEquals(mTitle)) {
                 notePresenter.getNote().setTitle(mTitle);
@@ -276,10 +286,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
             if (x1) {
                 notePresenter.getNote().setDate(mThisDate);
-                notePresenter.saveNote(notePresenter.getNote());
             }
 
         }
+        return false;
     }
 
     @Override
