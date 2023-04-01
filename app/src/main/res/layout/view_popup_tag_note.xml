@@ -15,7 +15,7 @@
             android:id="@+id/createNoteTag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_top_ripple"
+            android:background="@drawable/item_one_variant_ripple"
             android:orientation="horizontal"
             android:padding="@dimen/paddingItems">
 

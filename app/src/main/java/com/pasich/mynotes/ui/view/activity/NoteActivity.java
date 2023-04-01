@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 import static com.pasich.mynotes.utils.transition.TransitionUtil.buildContainerTransform;
 
@@ -10,7 +9,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +31,9 @@ import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.LinkInfoDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.popupWindowsTagNote.PopupWindowsTagNote;
+import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindowsCreateListBox;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
+import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
 import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
 
@@ -50,6 +50,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public ActivityNoteBinding binding;
     @Inject
     public NoteContract.presenter notePresenter;
+    @Inject
+    public BottomPanelNoteUtils bottomPanelNoteUtils;
 
 
     @Override
@@ -69,7 +71,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.attachView(this);
         notePresenter.getLoadIntentData(getIntent());
         notePresenter.viewIsReady();
-
+        bottomPanelNoteUtils.setMangerView(binding.noteLayout);
 
     }
 
@@ -256,9 +258,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         long mThisDate = new Date().getTime();
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
-
         String mNoteValue = "";
-
         if (!notePresenter.getNewNotesKey())
             mNoteValue = notePresenter.getNote().getValue() == null ? "" : notePresenter.getNote().getValue();
 
@@ -273,12 +273,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 notePresenter.saveNote(notePresenter.getNote());
             }
         }
-        Log.wtf(TAG, "saveNote: ");
     }
 
 
     private boolean saveNoteToLocal(String mValue, String mTitle, String mNoteValue, long mThisDate) {
-        Log.wtf(TAG, "saveNoteToLocal: ");
         if (!mValue.equals(mNoteValue) || !mTitle.equals(notePresenter.getNote().getTitle())) {
             boolean x1 = false;
             if (!notePresenter.getNote().getTitle().contentEquals(mTitle)) {
@@ -366,4 +364,14 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         onInfoSnack(R.string.shortCutCreateFallDouble, binding.noteLayout, SnackBarInfo.Info, Snackbar.LENGTH_LONG);
     }
 
+
+    @Override
+    public void createListBox() {
+        new PopupWindowsCreateListBox(getLayoutInflater(), binding.bottomPanel.addListCheckBox);
+    }
+
+    @Override
+    public void addPhotoFiles() {
+
+    }
 }

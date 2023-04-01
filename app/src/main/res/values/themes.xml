@@ -390,4 +390,13 @@
         <item name="chipBackgroundColor">?attr/colorSurfaceVariant</item>
     </style>
 
+    <style name="iconBottomPanelNote">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:tint">?android:colorPrimary</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
 </resources>

@@ -9,10 +9,11 @@ import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;
 import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteCallback;
 
 public interface NoteContract {
 
-    interface view extends BaseView, ActionBar, MoreNoteNoteActivityView, ShortCutView {
+    interface view extends BaseView, ActionBar, MoreNoteNoteActivityView, ShortCutView, BottomPanelNoteCallback {
 
         void initParam();
 

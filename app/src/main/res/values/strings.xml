@@ -148,5 +148,9 @@
     <string name="percentProgress">Backup (%d%%)</string>
 
 
-    <string name="creteNoteToTag">Create  note</string>
+    <string name="creteNoteToTag">Create note</string>
+
+
+    <string name="creteListForData" translatable="false">Создать список на основе заметки</string>
+    <string name="addListBox" translatable="false">Добавить список до существующей заметки</string>
 </resources>
