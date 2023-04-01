@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 import static com.pasich.mynotes.utils.transition.TransitionUtil.buildContainerTransform;
 
@@ -9,6 +10,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,8 +96,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void onPause() {
         super.onPause();
-        if (!notePresenter.getExitNoteSave() && binding.valueNote.getText().toString().trim().length() >= 2)
+        if (!notePresenter.getExitNoteSave() && binding.valueNote.getText().toString().trim().length() >= 2) {
             saveNote(false);
+        }
+
     }
 
 
@@ -197,7 +201,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         }
         if (item.getItemId() == R.id.moreBut) {
-            saveNote(true);
+            if (!notePresenter.getNewNotesKey()) saveNote(true);
             new MoreNoteDialog(notePresenter.getNewNotesKey() ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : notePresenter.getNote(), notePresenter.getNewNotesKey(), true, 0).show(getSupportFragmentManager(), "MoreNote");
 
         }
@@ -269,10 +273,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 notePresenter.saveNote(notePresenter.getNote());
             }
         }
+        Log.wtf(TAG, "saveNote: ");
     }
 
 
     private boolean saveNoteToLocal(String mValue, String mTitle, String mNoteValue, long mThisDate) {
+        Log.wtf(TAG, "saveNoteToLocal: ");
         if (!mValue.equals(mNoteValue) || !mTitle.equals(notePresenter.getNote().getTitle())) {
             boolean x1 = false;
             if (!notePresenter.getNote().getTitle().contentEquals(mTitle)) {
@@ -286,6 +292,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
             if (x1) {
                 notePresenter.getNote().setDate(mThisDate);
+                return true;
             }
 
         }
