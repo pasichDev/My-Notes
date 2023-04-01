@@ -104,8 +104,13 @@
                         android:textColor="@drawable/selector_color_title"
                         android:textStyle="bold"
                         android:enabled="@{activateEdit, default=false}"
-
                         tools:ignore="TouchTargetSizeCheck" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/listNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp" />
 
 
                     <EditText

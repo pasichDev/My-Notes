@@ -18,12 +18,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.base.simplifications.TextWatcher;
+import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.databinding.ActivityNoteBinding;
 import com.pasich.mynotes.ui.contract.NoteContract;
@@ -34,11 +37,15 @@ import com.pasich.mynotes.ui.view.dialogs.note.popupWindowsTagNote.PopupWindowsT
 import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindowsCreateListBox;
 import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindowsCreateListBoxHelper;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
+import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListNoteAdapter;
+import com.pasich.mynotes.utils.adapters.ItemListNote.ItemTouchHelperCallback;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
 import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -376,7 +383,15 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
             @Override
             public void addListToNote() {
+                //  itemList = generateItemList(); // метод, який генерує список елементів
+                ItemListNoteAdapter itemAdapter = new ItemListNoteAdapter(generateItemList());
 
+                binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                binding.listNote.setAdapter(itemAdapter);
+
+                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemAdapter);
+                ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+                touchHelper.attachToRecyclerView(binding.listNote);
             }
         });
     }
@@ -384,5 +399,15 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void addPhotoFiles() {
 
+    }
+
+
+    @Deprecated
+    private List<ItemListNote> generateItemList() {
+        List<ItemListNote> itemList = new ArrayList<>();
+        itemList.add(new ItemListNote("Елемент 1", 0));
+        itemList.add(new ItemListNote("Елемент 2", 0));
+        itemList.add(new ItemListNote("Елемент 3", 0));
+        return itemList;
     }
 }
