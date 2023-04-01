@@ -134,15 +134,11 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
 
     @Override
     public int getTypeFace(String textStyle) {
-        switch (textStyle) {
-            case "italic":
-                return Typeface.ITALIC;
-            case "bold":
-                return Typeface.BOLD;
-            case "bold-italic":
-                return Typeface.BOLD_ITALIC;
-            default:
-                return Typeface.NORMAL;
-        }
+        return switch (textStyle) {
+            case "italic" -> Typeface.ITALIC;
+            case "bold" -> Typeface.BOLD;
+            case "bold-italic" -> Typeface.BOLD_ITALIC;
+            default -> Typeface.NORMAL;
+        };
     }
 }

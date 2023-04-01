@@ -310,11 +310,11 @@ public class MoreNoteDialog extends BaseDialogBottomSheets implements MoreNoteDi
         if (checked) {
 
             mPresenter.editTagNote(nameChip, mNote.getId());
-            if (activityNote) noteActivity.changeTag(nameChip);
+            if (activityNote) noteActivity.changeTag(nameChip, true);
         } else {
 
             mPresenter.removeTagNote(mNote.getId());
-            if (activityNote) noteActivity.changeTag("");
+            if (activityNote) noteActivity.changeTag("", true);
         }
     }
 

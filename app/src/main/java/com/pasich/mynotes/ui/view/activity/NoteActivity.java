@@ -108,7 +108,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void initTypeActivity() {
         if (notePresenter.getNewNotesKey()) {
             activatedActivity();
-            if (notePresenter.getTagNote().length() >= 2) changeTag(notePresenter.getTagNote());
+            if (notePresenter.getTagNote().length() >= 2)
+                changeTag(notePresenter.getTagNote(), false);
             binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(new Date().getTime())));
 
             if (notePresenter.getShareText() != null && notePresenter.getShareText().length() > 5)
@@ -131,6 +132,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 }
             }
         });
+
+        binding.titleToolbarTag.setOnClickListener(v -> openPopupWindowsTag());
     }
 
     @Override
@@ -163,8 +166,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         } else {
             if (binding.valueNote.requestFocus()) {
-                InputMethodManager imm = (InputMethodManager)
-                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(binding.valueNote, InputMethodManager.SHOW_IMPLICIT);
             }
         }
@@ -209,7 +211,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         super.onDestroy();
         notePresenter.detachView();
         binding.notesTitle.addTextChangedListener(null);
-
+        binding.titleToolbarTag.setOnClickListener(null);
     }
 
 
@@ -228,7 +230,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         });
         binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(note.getDate())));
-        changeTag(note.getTag());
+        changeTag(note.getTag(), false);
     }
 
 
@@ -287,26 +289,30 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
     @Override
-    public void changeTag(String nameTag) {
+    public void changeTag(String nameTag, boolean change) {
+        if (change) {
+            notePresenter.getNote().setTag(nameTag);
+            notePresenter.setTagNote(nameTag);
+        }
         if (nameTag.length() >= 1) {
             binding.titleToolbarTag.setText(getString(R.string.tagHastag, nameTag));
             binding.titleToolbarTag.setVisibility(View.VISIBLE);
-            binding.titleToolbarTag.setOnClickListener(v -> openPopupWindowsTag());
         } else {
             binding.titleToolbarTag.setVisibility(View.GONE);
         }
     }
 
     private void openPopupWindowsTag() {
-        new PopupWindowsTagNote(getLayoutInflater(), binding.titleToolbarTag,
-                () -> {
-                    String noteTag = notePresenter.getTagNote();
-                    finish();
-                    startActivity(new Intent(NoteActivity.this, NoteActivity.class)
-                            .putExtra("NewNote", true)
-                            .putExtra("tagNote", noteTag));
+        String noteTag = notePresenter.getTagNote().length() == 0 ? notePresenter.getNote().getTag() : notePresenter.getTagNote();
+        if (noteTag.length() != 0) {
+            new PopupWindowsTagNote(getLayoutInflater(), binding.titleToolbarTag, () -> {
 
-                });
+                finish();
+                startActivity(new Intent(NoteActivity.this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", noteTag));
+
+
+            });
+        }
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface MoreNoteNoteActivityView {
 
     void closeActivityNotSaved();
 
-    void changeTag(String nameTag);
+    void changeTag(String nameTag, boolean change);
 
     void openCopyNote(long idNote);
 }
