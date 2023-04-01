@@ -94,7 +94,7 @@
     <string name="nextRestore">Відновити з хмари</string>
     <string name="messageRestoreProcess"><b>Відновлення даних</b> \nПісля завершення це вікно буде автоматично закрито.</string>
     <string name="emptyBackups">Резервних копій не знайдено</string>
-    <string name="checkLastBackupsCloud">Зачекайте, завантажуються дані...</string>
+    <string name="checkLastBackupsCloud">Зачекайте, завантажуються дані…</string>
     <!-- Arrays AutoBackup -->
     <string name="autoCloudVariantsDay">Кожен день</string>
     <string name="autoCloudVariantsWeek">Кожен тиждень</string>
@@ -125,5 +125,7 @@
     <string name="byyCancel">Ми будемо прагнути стати кращими.</string>
     <string name="errorLoadingsProduct">Помилка, не вдалося завантажити вітрину</string>
     <string name="thanks_title">Шановний користувач</string>
+
+    <string name="creteNoteToTag">Створити нотатку</string>
     <string name="thanks_donate">Розробник проекту каже вам спасибі за вашу покупку. Ми будемо прагнути стати кращими і зручнішими. \n <b>З повагою, мої нотатки!</b></string>
 </resources>

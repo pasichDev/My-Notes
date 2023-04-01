@@ -125,5 +125,7 @@
     <string name="byyCancel">Nos esforzaremos por ser mejores.</string>
     <string name="errorLoadingsProduct">Error, no se pudo cargar el escaparate</string>
     <string name="thanks_title">Estimado usuario</string>
+
+    <string name="creteNoteToTag">Crear una nota</string>
     <string name="thanks_donate">El desarrollador del proyecto le agradece su compra. Nos esforzaremos por ser mejores y más convenientes. \n <b>¡Respetuosamente, mis notas!</b></string>
 </resources>

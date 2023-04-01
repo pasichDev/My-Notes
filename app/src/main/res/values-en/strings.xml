@@ -146,5 +146,5 @@
     <string name="thanks_donate">The project developer thanks you for your purchase. We will strive to become better and more convenient. \n <b>Respectfully, my notes!</b></string>
 
     <string name="percentProgress">Backup (%d%%)</string>
-
+    <string name="creteNoteToTag">Create  note</string>
 </resources>

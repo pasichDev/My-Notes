@@ -92,7 +92,7 @@
     <string name="nextRestore">Бұлттан қалпына келтіру</string>
     <string name="messageRestoreProcess"><b>Деректерді қалпына келтіру</b> \nБұл терезе аяқталғаннан кейін автоматты түрде жабылады.</string>
     <string name="emptyBackups">Сақтық көшірмелер табылмады</string>
-    <string name="checkLastBackupsCloud">Күтіңіз, деректер жүктелуде...</string>
+    <string name="checkLastBackupsCloud">Күтіңіз, деректер жүктелуде…</string>
 
     <!-- Массивтердің автосақтық көшірмесі -->
     <string name="autoCloudVariantsDay">Күн сайын</string>
@@ -123,6 +123,8 @@
     <string name="byyError">Сатып алу кезіндегі қате.</string>
     <string name="byyCancel">Біз жақсырақ болуға тырысамыз.</string>
     <string name="errorLoadingsProduct">Қате, дүкен сөресі жүктелмеді</string>
+
+    <string name="creteNoteToTag">Жазба жасаңыз</string>
     <string name="thanks_title">Құрметті пайдаланушы</string>
     <string name="thanks_donate">Жоба әзірлеушісі сатып алғаныңыз үшін алғыс білдіреді. Біз жақсырақ және ыңғайлырақ болуға тырысамыз. \n <b>Құрметпен, менің жазбаларым!</b></string>
 </resources>

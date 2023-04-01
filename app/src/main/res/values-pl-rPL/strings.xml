@@ -93,7 +93,7 @@
     <string name="nextRestore">Przywróć z chmury</string>
     <string name="messageRestoreProcess"><b>Przywracanie danych</b> \nTo okno zamknie się automatycznie po zakończeniu.</string>
     <string name="emptyBackups">Nie znaleziono kopii zapasowych</string>
-    <string name="checkLastBackupsCloud">Proszę czekać, ładowanie danych...</string>
+    <string name="checkLastBackupsCloud">Proszę czekać, ładowanie danych…</string>
 
     <!-- Automatyczna kopia zapasowa tablic -->
     <string name="autoCloudVariantsDay">Każdego dnia</string>
@@ -120,6 +120,7 @@
     <string name="sortNotes">Sortuj notatki</string>
     <string name="percentProgress">Kopia zapasowa (%d%%)</string>
 
+    <string name="creteNoteToTag">Utwórz notatkę</string>
     <!-- Oferta produktowa -->
     <string name="byyError">Błąd podczas zakupu.</string>
     <string name="byyCancel">Będziemy starać się być lepsi.</string>

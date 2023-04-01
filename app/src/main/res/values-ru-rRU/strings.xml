@@ -128,4 +128,5 @@
     <string name="thanks_title">Уважаемый пользователь</string>
     <string name="thanks_donate">Разработчик проекта говорит вам спасибо за вашу покупку. Мы будем стремиться стать лучше, и удобнее. \n <b>С уважением, мои заметки!</b></string>
 
+    <string name="creteNoteToTag">Создать заметку</string>
 </resources>

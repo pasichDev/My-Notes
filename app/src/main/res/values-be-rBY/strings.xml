@@ -125,5 +125,7 @@
     <string name="byyCancel">Мы будзем імкнуцца стаць лепшымі.</string>
     <string name="errorLoadingsProduct">Памылка, не атрымалася загрузіць вітрыну</string>
     <string name="thanks_title">Паважаны карыстальнік</string>
+    <string name="creteNoteToTag">Стварыце нататку</string>
+
     <string name="thanks_donate">Распрацоўшчык праекту кажа вам дзякуй за вашу куплю. Мы будзем імкнуцца стаць лепшымі і зручнейшымі. \n <b>З павагай, мае нататкі!</b></string>
 </resources>
