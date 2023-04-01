@@ -1,8 +1,6 @@
 package com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox;
 
 
-import android.content.Context;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
@@ -26,7 +24,6 @@ public class PopupWindowsCreateListBox {
         this.mPopupWindows = new PopupWindow(mBinding.getRoot(), RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
 
         mBinding.getRoot().measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        onVibrate();
         onSettingsView();
     }
 
@@ -36,15 +33,6 @@ public class PopupWindowsCreateListBox {
         getPopupWindows().setOnDismissListener(this::setOnDismissListener);
         initListeners();
         getPopupWindows().showAsDropDown(mAnchor, widthAnchor, -400);
-    }
-
-
-    private void onVibrate() {
-        Vibrator vibrator = (Vibrator) mBinding.getRoot().getContext().getSystemService(Context.VIBRATOR_SERVICE);
-
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(100L);
-        }
     }
 
 
