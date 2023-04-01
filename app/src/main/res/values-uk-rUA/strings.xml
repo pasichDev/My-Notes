@@ -10,14 +10,11 @@
     <string name="noSave">Закрити без збереження</string>
     <string name="ratingApp">Оцінити додаток</string>
     <string name="exitWhat">Для виходу потрібно повторити дію</string>
-
     <string name="telegram">Відкрити контакти розробника</string>
     <string name="notSupportedShare">Цей вміст не підтримується.</string>
     <string name="notFoundPlayMarket">Відсутній  Play Market</string>
     <string name="copyX">Скопійовано</string>
     <string name="cd_format">Форматувати нотатки</string>
-
-
     <string name="search">Пошук у нотатках </string>
     <string name="close">Закрити</string>
     <string name="addTag">Додати тег</string>
@@ -55,12 +52,12 @@
     <string name="contentDescrChangeStyleText">Змінити стиль тексту</string>
     <string name="copyNoteEdits">Редагувати копію нотатки</string>
     <string name="noteMoveTrashSnackbar">Нотатку переміщена в кошик</string>
+
     <string name="button_edit">Редагувати</string>
     <string name="button_copy">Копіювати</string>
     <string name="button_phone">Зателефонувати</string>
     <string name="button_mail">Написати</string>
     <string name="button_url">Відкрити посилання</string>
-
     <string name="hiddeTag">Приховати нотатки</string>
     <string name="visibleTag">Відображати нотатки</string>
     <string name="hintNameLabel">Назва ярлика</string>
@@ -70,7 +67,6 @@
     <string name="buttonCreateShortCut">Додати ярлик на робочий стіл</string>
     <string name="errorMaxNameShortCut">Помилка у назві ярлика</string>
     <string name="renameTag">Перейменувати</string>
-
     <string name="settingsInterface">Налаштування інтерфейсу</string>
     <string name="settingsBackups">Синхронізація та рез.копії</string>
     <string name="aboutApps">Про програму</string>
@@ -79,7 +75,6 @@
     <string name="onDynamicColor">Увімкнути Dynamic Color</string>
     <string name="coffeeByPlay">Подякувати розробнику</string>
     <string name="coffeeByTextInfo"><b>Мої нотатки</b> - це програма без реклами та поширюється як безкоштовний продукт. Додаток розробляє одна людина, тому деякі оновлення поставляються із запізненням. Підтримка працездатності програми та деяких функцій створює витрати. Ви можете подякувати розробнику, купивши йому каву або сплатити за оренду сервера, а також відправити донат за вказаними посиланнями, які будуть відображатися знизу. Дякую, що використовуєте цю програму!</string>
-
     <string name="loginUser">Авторизація Google</string>
     <string name="cloudBackup">Хмара</string>
     <string name="localBackup">Пристрій</string>
@@ -101,8 +96,6 @@
     <string name="autoCloudVariantsMonth">Кожен місяць</string>
     <string name="autoCloudVariantsOff">Вимк.</string>
 
-    <!-- AutoBackup strings -->
-
 
     <!-- Error results backup/restore -->
     <string name="emptyDataToBackup">Немає даних для створення резервної копії</string>
@@ -115,7 +108,6 @@
     <string name="errorLoadingLastBackupCloud">Помилка, натисніть, щоб повторити спробу</string>
     <string name="errorDriveSync">Помилка сервера або погана якість інтернету</string>
     <string name="errorCredential">Помилка, проблеми з авторизацією</string>
-
     <string name="errorDriverAuthInfo">Щоб використовувати синхронізацію з хмарою, необхідно авторизуватися</string>
     <string name="sortNotes">Сортувати нотатки</string>
     <string name="percentProgress" translatable="false">Створення резервної копії (%d%%)</string>
@@ -125,7 +117,6 @@
     <string name="byyCancel">Ми будемо прагнути стати кращими.</string>
     <string name="errorLoadingsProduct">Помилка, не вдалося завантажити вітрину</string>
     <string name="thanks_title">Шановний користувач</string>
-
     <string name="creteNoteToTag">Створити нотатку</string>
     <string name="thanks_donate">Розробник проекту каже вам спасибі за вашу покупку. Ми будемо прагнути стати кращими і зручнішими. \n <b>З повагою, мої нотатки!</b></string>
 </resources>
