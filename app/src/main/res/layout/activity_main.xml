@@ -44,7 +44,7 @@
                 android:layout_margin="15dp"
                 android:backgroundTint="?attr/colorSurfaceVariant"
                 app:elevation="0dp"
-                app:navigationIconTint="?attr/colorTertiary" />
+                app:navigationIconTint="?attr/colorPrimary" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_tags"

@@ -102,10 +102,6 @@
     <string name="autoCloudVariantsOff">Вимк.</string>
 
     <!-- AutoBackup strings -->
-    <string name="chanelAutoBackup">Автоматичне резервне копіювання</string>
-    <string name="workAutoBackupTitle">Виконується резервне копіювання</string>
-    <string name="errorWorker">При створенні резервної копії виникла помилка.</string>
-    <string name="error">Помилка</string>
 
 
     <!-- Error results backup/restore -->
@@ -121,7 +117,6 @@
     <string name="errorCredential">Помилка, проблеми з авторизацією</string>
 
     <string name="errorDriverAuthInfo">Щоб використовувати синхронізацію з хмарою, необхідно авторизуватися</string>
-    <string name="autoBackupInfo">Увімкніть <b>автоматичне резервне копіювання</b>, щоб не втратити важливі дані</string>
     <string name="sortNotes">Сортувати нотатки</string>
     <string name="percentProgress" translatable="false">Створення резервної копії (%d%%)</string>
 

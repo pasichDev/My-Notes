@@ -103,10 +103,6 @@
     <string name="autoCloudVariantsOff">Desactivado</string>
 
     <!-- Cadenas de copia de seguridad automática -->
-    <string name="chanelAutoBackup">Copia de seguridad automática</string>
-    <string name="workAutoBackupTitle">Copia de seguridad en curso</string>
-    <string name="errorWorker">Ocurrió un error al crear la copia de seguridad.</string>
-    <string name="error">Error</string>
 
     <!-- Copia de seguridad/restauración de resultados de error -->
     <string name="emptyDataToBackup">No hay datos para respaldar</string>
@@ -121,7 +117,6 @@
     <string name="errorCredential">Error, problemas de autorización</string>
 
     <string name="errorDriverAuthInfo">Debe iniciar sesión para usar la sincronización en la nube</string>
-    <string name="autoBackupInfo">Activa la <b>copia de seguridad automática</b> para no perder datos importantes</string>
     <string name="sortNotes">Ordenar notas</string>
     <string name="percentProgress">Copia de seguridad (%d%%)</string>
 

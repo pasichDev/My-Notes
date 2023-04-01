@@ -17,12 +17,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
-import androidx.work.BackoffPolicy;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -43,11 +37,8 @@ import com.pasich.mynotes.utils.backup.CloudCacheHelper;
 import com.pasich.mynotes.utils.constants.CloudErrors;
 import com.pasich.mynotes.utils.constants.DriveScope;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
-import com.pasich.mynotes.utils.constants.WorkerId;
-import com.pasich.mynotes.worker.AutoBackupCloudWorker;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -453,7 +444,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
                 editSwitchSetAutoBackup(getResources().getStringArray(R.array.autoCloudVariants)[item]);
                 presenter.getDataManager().getBackupCloudInfoPreference().setInt(ARGUMENT_AUTO_BACKUP_CLOUD, getResources().getIntArray(R.array.autoCloudIndexes)[item]);
                 editVisibleAutoBackupInfo(getResources().getIntArray(R.array.autoCloudIndexes)[item]);
-                //  creteWorkerAutoBackup(getHoursAutoBackupWorker(item));
                 dialog.dismiss();
 
             }).create().show();
@@ -487,29 +477,6 @@ public class BackupActivity extends BaseActivity implements BackupContract.view 
         }
     }
 
-    private int getHoursAutoBackupWorker(int item) {
-        switch (item) {
-            case 0 -> {
-                return 24;
-            }
-            case 1 -> {
-                return 168;
-            }
-            case 2 -> {
-                return 720;
-            }
-            default -> {
-                return 0;
-            }
-        }
-    }
-
-    private void creteWorkerAutoBackup(int hours) {
-        if (hours == 0) {
-            WorkManager.getInstance(this).cancelAllWorkByTag(WorkerId.autoBackupWorker);
-        }
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WorkerId.autoBackupWorker, ExistingPeriodicWorkPolicy.REPLACE, new PeriodicWorkRequest.Builder(AutoBackupCloudWorker.class, hours, TimeUnit.HOURS, 1, TimeUnit.HOURS).addTag(WorkerId.autoBackupWorker).setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS, TimeUnit.MILLISECONDS).setConstraints(new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true).build()).build());
-    }
 
     @Override
     public void showProcessRestoreDialog() {

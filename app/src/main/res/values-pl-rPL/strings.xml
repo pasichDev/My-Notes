@@ -102,10 +102,6 @@
     <string name="autoCloudVariantsOff">Wyłączone</string>
 
     <!-- Ciągi automatycznej kopii zapasowej -->
-    <string name="chanelAutoBackup">Automatyczna kopia zapasowa</string>
-    <string name="workAutoBackupTitle">Trwa tworzenie kopii zapasowej</string>
-    <string name="errorWorker">Wystąpił błąd podczas tworzenia kopii zapasowej.</string>
-    <string name="error">Błąd</string>
 
 
     <!-- Błąd wyników tworzenia kopii zapasowej/przywracania -->
@@ -121,7 +117,6 @@
     <string name="errorCredential">Błąd, problemy z autoryzacją</string>
 
     <string name="errorDriverAuthInfo">Musisz być zalogowany, aby korzystać z synchronizacji w chmurze</string>
-    <string name="autoBackupInfo">Włącz <b>automatyczną kopię zapasową</b>, aby uniknąć utraty ważnych danych</string>
     <string name="sortNotes">Sortuj notatki</string>
     <string name="percentProgress">Kopia zapasowa (%d%%)</string>
 

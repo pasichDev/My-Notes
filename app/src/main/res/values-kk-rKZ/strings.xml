@@ -101,10 +101,6 @@
     <string name="autoCloudVariantsOff">Өшірулі</string>
 
     <!-- Автоматты сақтық көшірме жолдары -->
-    <string name="chanelAutoBackup">Сақтық көшірмені автоматты түрде жасау</string>
-    <string name="workAutoBackupTitle">Сақтық көшірме жасалуда</string>
-    <string name="errorWorker">Сақтық көшірме жасау кезінде қате орын алды.</string>
-    <string name="error">Қате</string>
 
 
     <!-- Қате нәтижелерінің сақтық көшірмесін жасау/қалпына келтіру -->
@@ -120,7 +116,6 @@
     <string name="errorCredential">Қате, авторизация мәселелері</string>
 
     <string name="errorDriverAuthInfo">Бұлтты синхрондауды пайдалану үшін жүйеге кіруіңіз керек</string>
-    <string name="autoBackupInfo">Маңызды деректерді жоғалтпау үшін <b>автоматты сақтық көшірмені</b> қосыңыз</string>
     <string name="sortNotes">Ескертпелерді сұрыптау</string>
     <string name="percentProgress">Сақтық көшірме (%d%%)</string>
 

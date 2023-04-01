@@ -120,10 +120,6 @@
     <string name="autoCloudVariantsOff">Off</string>
 
     <!-- AutoBackup strings -->
-    <string name="chanelAutoBackup">Auto Backup</string>
-    <string name="workAutoBackupTitle">Backup in progress</string>
-    <string name="errorWorker">An error occurred while creating the backup.</string>
-    <string name="error">Error</string>
 
 
     <!-- Error results backup/restore -->
@@ -139,7 +135,6 @@
     <string name="errorCredential">Error, authorization problems</string>
 
     <string name="errorDriverAuthInfo">You must be logged in to use cloud sync</string>
-    <string name="autoBackupInfo">Enable <b>automatic backup</b> to avoid losing important data</string>
     <string name="sortNotes">Sort notes</string>
 
 

@@ -102,10 +102,6 @@
     <string name="autoCloudVariantsOff">Выкл.</string>
 
     <!-- AutoBackup strings -->
-    <string name="chanelAutoBackup">Аўтаматычнае рэзервовае капіраванне</string>
-    <string name="workAutoBackupTitle">Выконваецца рэзервовае капіраванне</string>
-    <string name="errorWorker">Пры стварэнні рэзервовай копіі адбылася памылка.</string>
-    <string name="error">Памылка</string>
 
 
     <!-- Error results backup/restore -->
@@ -121,7 +117,6 @@
     <string name="errorCredential">Памылка, праблемы з аўтарызацыяй</string>
 
     <string name="errorDriverAuthInfo">Каб выкарыстоўваць сінхранізацыю з воблакам неабходна аўтарызавацца</string>
-    <string name="autoBackupInfo">Уключыце <b>аўтаматычнае рэзервовае капіраванне</b> каб не страціць важныя дадзеныя</string>
     <string name="sortNotes">Сартаваць нататкі</string>
     <string name="percentProgress">Рэзервовае капіраванне (%d%%)</string>
 
