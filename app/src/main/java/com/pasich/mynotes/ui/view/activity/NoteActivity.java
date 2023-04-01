@@ -30,6 +30,7 @@ import com.pasich.mynotes.ui.contract.NoteContract;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.view.dialogs.MoreNoteDialog;
 import com.pasich.mynotes.ui.view.dialogs.note.LinkInfoDialog;
+import com.pasich.mynotes.ui.view.dialogs.note.popupWindowsTagNote.PopupWindowsTagNote;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
 import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
@@ -290,9 +291,22 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         if (nameTag.length() >= 1) {
             binding.titleToolbarTag.setText(getString(R.string.tagHastag, nameTag));
             binding.titleToolbarTag.setVisibility(View.VISIBLE);
+            binding.titleToolbarTag.setOnClickListener(v -> openPopupWindowsTag());
         } else {
             binding.titleToolbarTag.setVisibility(View.GONE);
         }
+    }
+
+    private void openPopupWindowsTag() {
+        new PopupWindowsTagNote(getLayoutInflater(), binding.titleToolbarTag,
+                () -> {
+                    String noteTag = notePresenter.getTagNote();
+                    finish();
+                    startActivity(new Intent(NoteActivity.this, NoteActivity.class)
+                            .putExtra("NewNote", true)
+                            .putExtra("tagNote", noteTag));
+
+                });
     }
 
     @Override

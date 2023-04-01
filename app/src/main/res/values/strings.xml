@@ -147,4 +147,6 @@
 
     <string name="percentProgress">Backup (%d%%)</string>
 
+
+    <string name="creteNoteToTag" translatable="false">Створити нотатку</string>
 </resources>
