@@ -11,9 +11,6 @@
             name="presenter"
             type="com.pasich.mynotes.ui.presenter.BackupPresenter" />
 
-        <variable
-            name="autoBackupInfo"
-            type="boolean" />
 
         <variable
             name="isAuthUser"
