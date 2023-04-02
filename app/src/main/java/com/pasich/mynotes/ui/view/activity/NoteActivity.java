@@ -39,7 +39,7 @@ import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindows
 import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindowsCreateListBoxHelper;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
 import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListNoteAdapter;
-import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListSetOnCLickListener;
+import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListSetOnClickListener;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
 import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
@@ -62,7 +62,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public NoteContract.presenter notePresenter;
     @Inject
     public BottomPanelNoteUtils bottomPanelNoteUtils;
-    @Inject
     public ItemListNoteAdapter itemListNoteAdapter;
 
 
@@ -256,9 +255,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void closeNoteActivity() {
         binding.getRoot().clearFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(binding.valueNote.getWindowToken(), 0);
-
+        closeKeyboardActivity();
         notePresenter.setExitNoSave(true);
         if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote(false);
         if (notePresenter.getShareText().length() >= 2)
@@ -387,9 +384,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
             @Override
             public void addListToNote() {
+                itemListNoteAdapter = new ItemListNoteAdapter(generateItemList());
                 ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemListNoteAdapter);
                 ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-                itemListNoteAdapter.setItemListSetOnCLickListener(new ItemListSetOnCLickListener() {
+                itemListNoteAdapter.setItemListSetOnCLickListener(new ItemListSetOnClickListener() {
                     @Override
                     public void requestDrag(RecyclerView.ViewHolder viewHolder) {
                         touchHelper.startDrag(viewHolder);
@@ -397,15 +395,21 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
                     @Override
                     public void addItem(RecyclerView.ViewHolder viewHolder) {
-                        //  itemListNoteAdapter.
+                        itemListNoteAdapter.addNewItem(notePresenter.getNote().getId());
                     }
+
+                    @Override
+                    public void closeKeyboard() {
+                        closeKeyboardActivity();
+                    }
+
+
                 });
 
                 binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 binding.listNote.setAdapter(itemListNoteAdapter);
                 touchHelper.attachToRecyclerView(binding.listNote);
                 binding.listNote.setVisibility(View.VISIBLE);
-                itemListNoteAdapter.submitList(generateItemList());
             }
         });
     }
@@ -416,12 +420,16 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
+    private void closeKeyboardActivity() {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(binding.valueNote.getWindowToken(), 0);
+    }
+
     @Deprecated
     private List<ItemListNote> generateItemList() {
         List<ItemListNote> itemList = new ArrayList<>();
-        itemList.add(new ItemListNote("Елемент 1", 0));
-        itemList.add(new ItemListNote("Елемент 2", 0));
-        itemList.add(new ItemListNote("Елемент 3", 0));
+        itemList.add(new ItemListNote("Елемент 1", 0, 0));
+        itemList.add(new ItemListNote("Елемент 2", 0, 1));
+        itemList.add(new ItemListNote("Елемент 3", 0, 2));
         itemList.add(new ItemListNote("Добавить елемент", 0, true));
         return itemList;
     }

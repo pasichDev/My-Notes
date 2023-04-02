@@ -5,10 +5,9 @@ public class ItemListNote {
     private int id;
     private String value;
     private int idNote;
+    private int dragPosition;
     private boolean isChecked;
-
     private boolean isTrash;
-
     private boolean isSystem;
 
     public ItemListNote(String value, int idNote, boolean isSystem) {
@@ -21,6 +20,13 @@ public class ItemListNote {
         this.idNote = idNote;
         this.value = value;
         this.isSystem = false;
+    }
+
+    public ItemListNote(String value, int idNote, int dragPos) {
+        this.idNote = idNote;
+        this.value = value;
+        this.isSystem = false;
+        this.dragPosition = dragPos;
     }
 
     public int getId() {
@@ -65,5 +71,13 @@ public class ItemListNote {
 
     public void setSystem(boolean system) {
         isSystem = system;
+    }
+
+    public int getDragPosition() {
+        return dragPosition;
+    }
+
+    public void setDragPosition(int dragPosition) {
+        this.dragPosition = dragPosition;
     }
 }

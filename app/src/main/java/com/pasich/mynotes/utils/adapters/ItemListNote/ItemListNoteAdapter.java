@@ -1,39 +1,44 @@
 package com.pasich.mynotes.utils.adapters.ItemListNote;
 
+
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.databinding.ItemListNoteBinding;
 import com.pasich.mynotes.databinding.ItemListNoteSystemBinding;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-public class ItemListNoteAdapter extends ListAdapter<ItemListNote, RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
+
+public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     private static final int ADD_ITEM = 505;
     private static final int OTHER_ITEM = 507;
-    private ItemListSetOnCLickListener itemListSetOnCLickListener;
+    private ItemListSetOnClickListener itemListSetOnCLickListener;
 
-    @Inject
-    public ItemListNoteAdapter(@NonNull @Named("ItemListNotes") DiffUtil.ItemCallback<ItemListNote> diffCallback) {
-        super(diffCallback);
+    private final List<ItemListNote> itemsListNote;
+
+
+    public ItemListNoteAdapter(List<ItemListNote> itemsListNote) {
+        this.itemsListNote = itemsListNote;
+
     }
 
 
     @Override
     public int getItemViewType(int position) {
-        return getCurrentList().get(position).isSystem() ? ADD_ITEM : OTHER_ITEM;
+        return itemsListNote.get(position).isSystem() ? ADD_ITEM : OTHER_ITEM;
     }
 
-    public void setItemListSetOnCLickListener(ItemListSetOnCLickListener itemListSetOnCLickListener) {
+    public void setItemListSetOnCLickListener(ItemListSetOnClickListener itemListSetOnCLickListener) {
         this.itemListSetOnCLickListener = itemListSetOnCLickListener;
     }
 
@@ -43,7 +48,6 @@ public class ItemListNoteAdapter extends ListAdapter<ItemListNote, RecyclerView.
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (viewType == ADD_ITEM) {
-
             ItemListNoteAdapter.OtherItemViewHolder view = new OtherItemViewHolder(ItemListNoteSystemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
             view.itemListNoteBinding.getRoot().setOnClickListener(v -> itemListSetOnCLickListener.addItem(view));
             return view;
@@ -55,6 +59,8 @@ public class ItemListNoteAdapter extends ListAdapter<ItemListNote, RecyclerView.
                 }
                 return false;
             });
+            view.itemListNoteBinding.valueItem.setOnFocusChangeListener((v1, hasFocus) -> view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE));
+            view.itemListNoteBinding.deleteItem.setOnClickListener(v -> deleteItemList(view.getAdapterPosition()));
             return view;
         }
 
@@ -62,7 +68,7 @@ public class ItemListNoteAdapter extends ListAdapter<ItemListNote, RecyclerView.
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ItemListNote itemListNote = getCurrentList().get(position);
+        ItemListNote itemListNote = itemsListNote.get(position);
         if (holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).itemListNoteBinding.valueItem.setText(itemListNote.getValue());
             ((ItemViewHolder) holder).itemListNoteBinding.checkItem.setChecked(itemListNote.isChecked());
@@ -74,21 +80,40 @@ public class ItemListNoteAdapter extends ListAdapter<ItemListNote, RecyclerView.
 
     @Override
     public int getItemCount() {
-        return getCurrentList().size();
+        return itemsListNote.size();
+    }
+
+    public void addNewItem(int noteId) {
+        // List<ItemListNote> list = new ArrayList<>(getCurrentList());
+        ItemListNote itemListNote = new ItemListNote("", noteId, (itemsListNote.size() + 1));
+        itemsListNote.add(itemListNote);
+        Collections.sort(itemsListNote, new SortComparator());
+        int position = itemsListNote.indexOf(itemListNote);
+
+        notifyItemInserted((position + 1));
+        //submitList(list);
+    }
+
+    private void deleteItemList(int position) {
+        itemsListNote.remove(position);
+        notifyItemRemoved(position);
+        if (itemsListNote.size() < 2) {
+            itemListSetOnCLickListener.closeKeyboard();
+        }
     }
 
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        ItemListNote fromItem = getCurrentList().get(fromPosition);
-        getCurrentList().remove(fromPosition);
-        getCurrentList().add(toPosition, fromItem);
+        ItemListNote fromItem = itemsListNote.get(fromPosition);
+        itemsListNote.remove(fromPosition);
+        itemsListNote.add(toPosition, fromItem);
         notifyItemMoved(fromPosition, toPosition);
     }
 
     @Override
     public void onItemDismiss(int position) {
-        getCurrentList().remove(position);
+        itemsListNote.remove(position);
         notifyItemRemoved(position);
     }
 
@@ -118,4 +143,19 @@ public class ItemListNoteAdapter extends ListAdapter<ItemListNote, RecyclerView.
 
 
     }
+
+
+    public static class SortComparator implements Comparator<ItemListNote> {
+        @Override
+        public int compare(ItemListNote item1, ItemListNote item2) {
+            if (item1.isSystem() && !item2.isSystem()) {
+                return 1;
+            } else if (!item1.isSystem() && item2.isSystem()) {
+                return -1;
+            } else {
+                return Integer.compare(item1.getDragPosition(), item2.getDragPosition());
+            }
+        }
+    }
+
 }

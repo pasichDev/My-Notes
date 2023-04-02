@@ -2,9 +2,11 @@ package com.pasich.mynotes.utils.adapters.ItemListNote;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public interface ItemListSetOnCLickListener {
+public interface ItemListSetOnClickListener {
 
     void requestDrag(RecyclerView.ViewHolder viewHolder);
 
     void addItem(RecyclerView.ViewHolder viewHolder);
+
+    void closeKeyboard();
 }
