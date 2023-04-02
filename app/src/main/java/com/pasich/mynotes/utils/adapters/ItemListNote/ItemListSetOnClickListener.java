@@ -9,4 +9,6 @@ public interface ItemListSetOnClickListener {
     void addItem(RecyclerView.ViewHolder viewHolder);
 
     void refreshFocus(int position);
+
+    boolean isActivatedEdit();
 }

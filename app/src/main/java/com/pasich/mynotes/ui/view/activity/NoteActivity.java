@@ -482,6 +482,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
             }
 
+            @Override
+            public boolean isActivatedEdit() {
+                return binding.getActivateEdit();
+            }
+
         });
 
         binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

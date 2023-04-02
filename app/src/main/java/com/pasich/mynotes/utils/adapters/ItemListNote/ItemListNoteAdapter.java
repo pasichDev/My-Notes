@@ -22,9 +22,8 @@ import java.util.List;
 public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     private static final int ADD_ITEM = 505;
     private static final int OTHER_ITEM = 507;
-    private ItemListSetOnClickListener itemListSetOnCLickListener;
-
     private final List<ItemListNote> itemsListNote;
+    private ItemListSetOnClickListener itemListSetOnCLickListener;
 
 
     public ItemListNoteAdapter(List<ItemListNote> itemsListNote) {
@@ -61,6 +60,8 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
             view.itemListNoteBinding.valueItem.setOnFocusChangeListener((v1, hasFocus) -> view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE));
             view.itemListNoteBinding.deleteItem.setOnClickListener(v -> deleteItemList(view.getAdapterPosition()));
+
+            view.itemListNoteBinding.valueItem.setOnTouchListener((v, event) -> !itemListSetOnCLickListener.isActivatedEdit());
             return view;
         }
 
