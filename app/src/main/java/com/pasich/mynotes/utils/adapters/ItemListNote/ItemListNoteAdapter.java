@@ -1,6 +1,7 @@
 package com.pasich.mynotes.utils.adapters.ItemListNote;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,15 +14,26 @@ import java.util.List;
 
 public class ItemListNoteAdapter extends RecyclerView.Adapter<ItemListNoteAdapter.ItemViewHolder> implements ItemTouchHelperAdapter {
     private List<ItemListNote> itemList;
+    private ItemListSetOnCLickListener itemListSetOnCLickListener;
 
     public ItemListNoteAdapter(List<ItemListNote> itemList) {
         this.itemList = itemList;
     }
 
+    public void setItemListSetOnCLickListener(ItemListSetOnCLickListener itemListSetOnCLickListener) {
+        this.itemListSetOnCLickListener = itemListSetOnCLickListener;
+    }
+
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemListNoteAdapter.ItemViewHolder view = new ItemViewHolder(ItemListNoteBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
+        view.itemListNoteBinding.dragItem.setOnTouchListener((v, event) -> {
+            if (event.getAction() ==
+                    MotionEvent.ACTION_DOWN) {
+                itemListSetOnCLickListener.requestDrag(view);
+            }
+            return false;
+        });
         return view;
     }
 

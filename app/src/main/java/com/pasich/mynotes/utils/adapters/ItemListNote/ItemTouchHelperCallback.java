@@ -11,6 +11,12 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         this.adapter = adapter;
     }
 
+
+    @Override
+    public boolean isLongPressDragEnabled() {
+        return false;
+    }
+
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;

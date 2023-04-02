@@ -383,14 +383,15 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
             @Override
             public void addListToNote() {
-                //  itemList = generateItemList(); // метод, який генерує список елементів
                 ItemListNoteAdapter itemAdapter = new ItemListNoteAdapter(generateItemList());
+                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemAdapter);
+                ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+                itemAdapter.setItemListSetOnCLickListener(touchHelper::startDrag);
 
                 binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 binding.listNote.setAdapter(itemAdapter);
 
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemAdapter);
-                ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+
                 touchHelper.attachToRecyclerView(binding.listNote);
             }
         });
