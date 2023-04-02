@@ -84,22 +84,17 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void addNewItem(int noteId) {
-        // List<ItemListNote> list = new ArrayList<>(getCurrentList());
         ItemListNote itemListNote = new ItemListNote("", noteId, (itemsListNote.size() + 1));
         itemsListNote.add(itemListNote);
         Collections.sort(itemsListNote, new SortComparator());
         int position = itemsListNote.indexOf(itemListNote);
-
         notifyItemInserted((position + 1));
-        //submitList(list);
     }
 
     private void deleteItemList(int position) {
         itemsListNote.remove(position);
+        itemListSetOnCLickListener.refreshFocus(position);
         notifyItemRemoved(position);
-        if (itemsListNote.size() < 2) {
-            itemListSetOnCLickListener.closeKeyboard();
-        }
     }
 
 
@@ -109,6 +104,7 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         itemsListNote.remove(fromPosition);
         itemsListNote.add(toPosition, fromItem);
         notifyItemMoved(fromPosition, toPosition);
+
     }
 
     @Override

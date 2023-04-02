@@ -5,4 +5,6 @@ public interface PopupWindowsCreateListBoxHelper {
     void createListForData();
 
     void addListToNote();
+
+    void deleteList();
 }

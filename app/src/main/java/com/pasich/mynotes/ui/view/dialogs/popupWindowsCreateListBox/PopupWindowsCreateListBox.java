@@ -14,12 +14,17 @@ public class PopupWindowsCreateListBox {
     private final PopupWindowsCreateListBoxHelper createListBoxHelper;
     private View mAnchor;
 
-    public PopupWindowsCreateListBox(LayoutInflater layoutInflater, View anchor, PopupWindowsCreateListBoxHelper createListBoxHelper) {
+    private final boolean isVisibleList;
+
+    public PopupWindowsCreateListBox(LayoutInflater layoutInflater, View anchor, boolean isVisibleList, PopupWindowsCreateListBoxHelper createListBoxHelper) {
         this.mBinding = ViewPopupCreateListBoxBinding.inflate(layoutInflater);
         this.mAnchor = anchor;
         this.createListBoxHelper = createListBoxHelper;
         this.mPopupWindows = new PopupWindow(mBinding.getRoot(), RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-
+        this.isVisibleList = isVisibleList;
+        mBinding.deleteList.setVisibility(isVisibleList ? View.VISIBLE : View.GONE);
+        mBinding.creteListToDataNote.setVisibility(!isVisibleList ? View.VISIBLE : View.GONE);
+        mBinding.addListToNote.setVisibility(!isVisibleList ? View.VISIBLE : View.GONE);
         mBinding.getRoot().measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         onSettingsView();
     }
@@ -34,20 +39,31 @@ public class PopupWindowsCreateListBox {
         int y = (mBinding.getRoot().getMeasuredHeight() + mAnchor.getHeight()) + 40;
         int x = (mAnchor.getWidth() / 2);
         getPopupWindows().showAsDropDown(mAnchor, x, -y);
+
     }
 
 
     private void initListeners() {
-        mBinding.creteListToDataNote.setOnClickListener(v -> {
-            createListBoxHelper.createListForData();
-            getPopupWindows().dismiss();
+        if (isVisibleList) {
+            mBinding.deleteList.setOnClickListener(v -> {
+                createListBoxHelper.deleteList();
+                getPopupWindows().dismiss();
 
-        });
-        mBinding.addListToNote.setOnClickListener(v -> {
-            createListBoxHelper.addListToNote();
-            getPopupWindows().dismiss();
+            });
+        } else {
+            mBinding.creteListToDataNote.setOnClickListener(v -> {
+                createListBoxHelper.createListForData();
+                getPopupWindows().dismiss();
 
-        });
+            });
+            mBinding.addListToNote.setOnClickListener(v -> {
+                createListBoxHelper.addListToNote();
+                getPopupWindows().dismiss();
+
+            });
+        }
+
+
     }
 
 
@@ -57,7 +73,14 @@ public class PopupWindowsCreateListBox {
 
     public void setOnDismissListener() {
         mAnchor = null;
-        mBinding.creteListToDataNote.setOnClickListener(null);
-        mBinding.addListToNote.setOnClickListener(null);
+        if (isVisibleList) {
+
+            mBinding.deleteList.setOnClickListener(null);
+        } else {
+
+            mBinding.creteListToDataNote.setOnClickListener(null);
+            mBinding.addListToNote.setOnClickListener(null);
+        }
+
     }
 }

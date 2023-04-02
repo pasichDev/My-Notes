@@ -8,5 +8,5 @@ public interface ItemListSetOnClickListener {
 
     void addItem(RecyclerView.ViewHolder viewHolder);
 
-    void closeKeyboard();
+    void refreshFocus(int position);
 }

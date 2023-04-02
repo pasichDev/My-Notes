@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -362,6 +363,13 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         changeTextSizeOnline(notePresenter.getDataManager().getSizeTextNoteActivity());
     }
 
+    /**
+     * Method that implements closing the keyboard programmatically
+     */
+    private void closeKeyboardActivity() {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(binding.valueNote.getWindowToken(), 0);
+    }
+
 
     @Override
     public void createShortCut() {
@@ -376,40 +384,21 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void createListBox() {
-        new PopupWindowsCreateListBox(getLayoutInflater(), binding.bottomPanel.addListCheckBox, new PopupWindowsCreateListBoxHelper() {
+        new PopupWindowsCreateListBox(getLayoutInflater(), binding.bottomPanel.addListCheckBox, itemListNoteAdapter != null, new PopupWindowsCreateListBoxHelper() {
             @Override
             public void createListForData() {
-
+                creteListNoteItems(generateItemListForDataNotes());
+                binding.valueNote.setText("");
             }
 
             @Override
             public void addListToNote() {
-                itemListNoteAdapter = new ItemListNoteAdapter(generateItemList());
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemListNoteAdapter);
-                ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-                itemListNoteAdapter.setItemListSetOnCLickListener(new ItemListSetOnClickListener() {
-                    @Override
-                    public void requestDrag(RecyclerView.ViewHolder viewHolder) {
-                        touchHelper.startDrag(viewHolder);
-                    }
+                creteListNoteItems(generateDefaultItemList());
+            }
 
-                    @Override
-                    public void addItem(RecyclerView.ViewHolder viewHolder) {
-                        itemListNoteAdapter.addNewItem(notePresenter.getNote().getId());
-                    }
+            @Override
+            public void deleteList() {
 
-                    @Override
-                    public void closeKeyboard() {
-                        closeKeyboardActivity();
-                    }
-
-
-                });
-
-                binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                binding.listNote.setAdapter(itemListNoteAdapter);
-                touchHelper.attachToRecyclerView(binding.listNote);
-                binding.listNote.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -420,17 +409,86 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
-    private void closeKeyboardActivity() {
-        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(binding.valueNote.getWindowToken(), 0);
-    }
+    /**
+     * A method that generates a list from the text of a note
+     *
+     * @return - list data
+     */
+    private List<ItemListNote> generateItemListForDataNotes() {
+        final List<ItemListNote> itemList = new ArrayList<>();
+        final String[] lines = binding.valueNote.getText().toString().split("\n");
+        final int idNote = notePresenter.getNote().id;
+        int indexNote = 0;
 
-    @Deprecated
-    private List<ItemListNote> generateItemList() {
-        List<ItemListNote> itemList = new ArrayList<>();
-        itemList.add(new ItemListNote("Елемент 1", 0, 0));
-        itemList.add(new ItemListNote("Елемент 2", 0, 1));
-        itemList.add(new ItemListNote("Елемент 3", 0, 2));
-        itemList.add(new ItemListNote("Добавить елемент", 0, true));
+        for (String line : lines) {
+            if (!line.isEmpty()) {
+                itemList.add(new ItemListNote(line, idNote, indexNote));
+                indexNote = indexNote + 1;
+            }
+        }
+        itemList.add(new ItemListNote(getString(R.string.addListItemButton), idNote, true));
         return itemList;
     }
+
+
+    /**
+     * Method that generates a template for a list of elements
+     *
+     * @return - list default elements
+     */
+    private List<ItemListNote> generateDefaultItemList() {
+        int idNote = notePresenter.getNote().id;
+        List<ItemListNote> itemList = new ArrayList<>();
+        itemList.add(new ItemListNote("", idNote, 0));
+        itemList.add(new ItemListNote("", idNote, 1));
+        itemList.add(new ItemListNote("", idNote, 2));
+        itemList.add(new ItemListNote(getString(R.string.addListItemButton), notePresenter.getNote().getId(), true));
+        return itemList;
+    }
+
+    /**
+     * Method that creates a list and fills it with data
+     *
+     * @param listItemsNote - list data
+     */
+    private void creteListNoteItems(List<ItemListNote> listItemsNote) {
+        itemListNoteAdapter = new ItemListNoteAdapter(listItemsNote);
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemListNoteAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        itemListNoteAdapter.setItemListSetOnCLickListener(new ItemListSetOnClickListener() {
+            @Override
+            public void requestDrag(RecyclerView.ViewHolder viewHolder) {
+                touchHelper.startDrag(viewHolder);
+            }
+
+            @Override
+            public void addItem(RecyclerView.ViewHolder viewHolder) {
+                itemListNoteAdapter.addNewItem(notePresenter.getNote().getId());
+            }
+
+            @Override
+            public void refreshFocus(int position) {
+                if (itemListNoteAdapter.getItemCount() >= 2) {
+                    View view = binding.listNote.getChildAt((itemListNoteAdapter.getItemCount() - 2));
+                    EditText editText = view.findViewById(R.id.valueItem);
+                    editText.setFocusable(true);
+                    editText.isFocusableInTouchMode();
+                    editText.requestFocus();
+                    editText.setSelection(editText.getText().length());
+                } else {
+                    binding.getRoot().clearFocus();
+                    closeKeyboardActivity();
+                }
+
+            }
+
+        });
+
+        binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        binding.listNote.setAdapter(itemListNoteAdapter);
+        touchHelper.attachToRecyclerView(binding.listNote);
+        binding.listNote.setVisibility(View.VISIBLE);
+    }
+
+
 }
