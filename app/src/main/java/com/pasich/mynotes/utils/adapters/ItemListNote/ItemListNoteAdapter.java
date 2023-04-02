@@ -6,28 +6,31 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.databinding.ItemListNoteBinding;
 import com.pasich.mynotes.databinding.ItemListNoteSystemBinding;
 
-import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
+public class ItemListNoteAdapter extends ListAdapter<ItemListNote, RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     private static final int ADD_ITEM = 505;
     private static final int OTHER_ITEM = 507;
-    private final List<ItemListNote> itemList;
     private ItemListSetOnCLickListener itemListSetOnCLickListener;
 
-    public ItemListNoteAdapter(List<ItemListNote> itemList) {
-        this.itemList = itemList;
+    @Inject
+    public ItemListNoteAdapter(@NonNull @Named("ItemListNotes") DiffUtil.ItemCallback<ItemListNote> diffCallback) {
+        super(diffCallback);
     }
 
 
     @Override
     public int getItemViewType(int position) {
-        return itemList.get(position).isSystem() ? ADD_ITEM : OTHER_ITEM;
+        return getCurrentList().get(position).isSystem() ? ADD_ITEM : OTHER_ITEM;
     }
 
     public void setItemListSetOnCLickListener(ItemListSetOnCLickListener itemListSetOnCLickListener) {
@@ -42,9 +45,7 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (viewType == ADD_ITEM) {
 
             ItemListNoteAdapter.OtherItemViewHolder view = new OtherItemViewHolder(ItemListNoteSystemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-            view.itemListNoteBinding.getRoot().setOnClickListener(v -> {
-                itemListSetOnCLickListener.addItem(view);
-            });
+            view.itemListNoteBinding.getRoot().setOnClickListener(v -> itemListSetOnCLickListener.addItem(view));
             return view;
         } else {
             ItemListNoteAdapter.ItemViewHolder view = new ItemViewHolder(ItemListNoteBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
@@ -61,7 +62,7 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ItemListNote itemListNote = itemList.get(position);
+        ItemListNote itemListNote = getCurrentList().get(position);
         if (holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).itemListNoteBinding.valueItem.setText(itemListNote.getValue());
             ((ItemViewHolder) holder).itemListNoteBinding.checkItem.setChecked(itemListNote.isChecked());
@@ -73,21 +74,21 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return getCurrentList().size();
     }
 
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        ItemListNote fromItem = itemList.get(fromPosition);
-        itemList.remove(fromPosition);
-        itemList.add(toPosition, fromItem);
+        ItemListNote fromItem = getCurrentList().get(fromPosition);
+        getCurrentList().remove(fromPosition);
+        getCurrentList().add(toPosition, fromItem);
         notifyItemMoved(fromPosition, toPosition);
     }
 
     @Override
     public void onItemDismiss(int position) {
-        itemList.remove(position);
+        getCurrentList().remove(position);
         notifyItemRemoved(position);
     }
 

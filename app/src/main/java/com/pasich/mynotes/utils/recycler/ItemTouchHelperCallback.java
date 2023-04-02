@@ -1,11 +1,13 @@
-package com.pasich.mynotes.utils.adapters.ItemListNote;
+package com.pasich.mynotes.utils.recycler;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListNoteAdapter;
+
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
-    private ItemListNoteAdapter adapter;
+    private final ItemListNoteAdapter adapter;
 
     public ItemTouchHelperCallback(ItemListNoteAdapter adapter) {
         this.adapter = adapter;
@@ -20,7 +22,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-        int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+        int swipeFlags = 0;
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 

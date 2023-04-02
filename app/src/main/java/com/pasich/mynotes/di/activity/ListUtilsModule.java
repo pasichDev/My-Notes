@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
@@ -18,6 +19,7 @@ import com.pasich.mynotes.utils.adapters.notes.NoteAdapter;
 import com.pasich.mynotes.utils.adapters.notes.TrashAdapter;
 import com.pasich.mynotes.utils.constants.settings.PreferencesConfig;
 import com.pasich.mynotes.utils.recycler.SpacesItemDecoration;
+import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilItemListNote;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTag;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilTrash;
@@ -72,6 +74,13 @@ public class ListUtilsModule {
     @Provides
     @ActivityScoped
     DiffUtil.ItemCallback<Tag> providesDiffUtilCallbackTag(DiffUtilTag diffUtil) {
+        return diffUtil;
+    }
+
+    @Named("ItemListNotes")
+    @Provides
+    @ActivityScoped
+    DiffUtil.ItemCallback<ItemListNote> providesDiffUtilCallbackItemListNotes(DiffUtilItemListNote diffUtil) {
         return diffUtil;
     }
 

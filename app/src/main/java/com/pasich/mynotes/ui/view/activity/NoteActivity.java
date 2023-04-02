@@ -40,10 +40,10 @@ import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindows
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
 import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListNoteAdapter;
 import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListSetOnCLickListener;
-import com.pasich.mynotes.utils.adapters.ItemListNote.ItemTouchHelperCallback;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
 import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
+import com.pasich.mynotes.utils.recycler.ItemTouchHelperCallback;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,6 +62,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public NoteContract.presenter notePresenter;
     @Inject
     public BottomPanelNoteUtils bottomPanelNoteUtils;
+    @Inject
+    public ItemListNoteAdapter itemListNoteAdapter;
 
 
     @Override
@@ -385,10 +387,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
             @Override
             public void addListToNote() {
-                ItemListNoteAdapter itemAdapter = new ItemListNoteAdapter(generateItemList());
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemAdapter);
+                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemListNoteAdapter);
                 ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-                itemAdapter.setItemListSetOnCLickListener(new ItemListSetOnCLickListener() {
+                itemListNoteAdapter.setItemListSetOnCLickListener(new ItemListSetOnCLickListener() {
                     @Override
                     public void requestDrag(RecyclerView.ViewHolder viewHolder) {
                         touchHelper.startDrag(viewHolder);
@@ -396,16 +397,15 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
                     @Override
                     public void addItem(RecyclerView.ViewHolder viewHolder) {
-
+                        //  itemListNoteAdapter.
                     }
                 });
 
                 binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                binding.listNote.setAdapter(itemAdapter);
-
-
+                binding.listNote.setAdapter(itemListNoteAdapter);
                 touchHelper.attachToRecyclerView(binding.listNote);
                 binding.listNote.setVisibility(View.VISIBLE);
+                itemListNoteAdapter.submitList(generateItemList());
             }
         });
     }
