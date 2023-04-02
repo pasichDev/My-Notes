@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_list_checkbox"
         style="@style/iconBottomPanelNote"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/addList"
         android:padding="10dp" />
 
     <ImageButton
@@ -18,6 +20,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_photo"
         style="@style/iconBottomPanelNote"
+        android:contentDescription="@string/addPhoto"
         android:padding="10dp" />
 
 </LinearLayout>

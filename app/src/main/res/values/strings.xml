@@ -76,6 +76,12 @@
     <string name="logOut" translatable="false">LogOut</string>
     <string name="thanksImage" translatable="false">Thanks byy</string>
     <string name="sliderTextSize" translatable="false">Slider edit text size</string>
+    <string name="addListItem" translatable="false">Add list item</string>
+    <string name="addList" translatable="false">Add list</string>
+    <string name="addPhoto" translatable="false">Add photos</string>
+    <string name="dragButton" translatable="false">Drag and Drop item</string>
+    <string name="deleteItem" translatable="false">Delete item</string>
+
 
     <string name="hiddeTag">Hide notes</string>
     <string name="visibleTag">Show notes</string>
@@ -119,9 +125,6 @@
     <string name="autoCloudVariantsMonth">Every month</string>
     <string name="autoCloudVariantsOff">Off</string>
 
-    <!-- AutoBackup strings -->
-
-
     <!-- Error results backup/restore -->
     <string name="emptyDataToBackup">No data to backup</string>
     <string name="errorConnectedNetwork">No internet connection</string>
@@ -153,4 +156,5 @@
 
     <string name="creteListForData" translatable="false">Создать список на основе заметки</string>
     <string name="addListBox" translatable="false">Добавить список до существующей заметки</string>
+    <string name="hintListItem" translatable="false">Введите текст</string>
 </resources>

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
@@ -38,6 +39,7 @@ import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindows
 import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindowsCreateListBoxHelper;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
 import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListNoteAdapter;
+import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListSetOnCLickListener;
 import com.pasich.mynotes.utils.adapters.ItemListNote.ItemTouchHelperCallback;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
 import com.pasich.mynotes.utils.constants.NameTransition;
@@ -386,7 +388,17 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 ItemListNoteAdapter itemAdapter = new ItemListNoteAdapter(generateItemList());
                 ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemAdapter);
                 ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-                itemAdapter.setItemListSetOnCLickListener(touchHelper::startDrag);
+                itemAdapter.setItemListSetOnCLickListener(new ItemListSetOnCLickListener() {
+                    @Override
+                    public void requestDrag(RecyclerView.ViewHolder viewHolder) {
+                        touchHelper.startDrag(viewHolder);
+                    }
+
+                    @Override
+                    public void addItem(RecyclerView.ViewHolder viewHolder) {
+
+                    }
+                });
 
                 binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 binding.listNote.setAdapter(itemAdapter);
@@ -410,6 +422,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         itemList.add(new ItemListNote("Елемент 1", 0));
         itemList.add(new ItemListNote("Елемент 2", 0));
         itemList.add(new ItemListNote("Елемент 3", 0));
+        itemList.add(new ItemListNote("Добавить елемент", 0, true));
         return itemList;
     }
 }
