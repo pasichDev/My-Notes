@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
@@ -12,15 +11,13 @@ public class PopupWindowsCreateListBox {
 
     private final PopupWindow mPopupWindows;
     private final ViewPopupCreateListBoxBinding mBinding;
-    private final int widthAnchor;
-    private View mAnchor;
     private final PopupWindowsCreateListBoxHelper createListBoxHelper;
+    private View mAnchor;
 
     public PopupWindowsCreateListBox(LayoutInflater layoutInflater, View anchor, PopupWindowsCreateListBoxHelper createListBoxHelper) {
         this.mBinding = ViewPopupCreateListBoxBinding.inflate(layoutInflater);
         this.mAnchor = anchor;
         this.createListBoxHelper = createListBoxHelper;
-        this.widthAnchor = anchor.getWidth();
         this.mPopupWindows = new PopupWindow(mBinding.getRoot(), RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
 
         mBinding.getRoot().measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
@@ -31,8 +28,12 @@ public class PopupWindowsCreateListBox {
     private void onSettingsView() {
         getPopupWindows().setElevation(10);
         getPopupWindows().setOnDismissListener(this::setOnDismissListener);
+        getPopupWindows().setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
         initListeners();
-        getPopupWindows().showAsDropDown(mAnchor, widthAnchor, -400);
+
+        int y = (mBinding.getRoot().getMeasuredHeight() + mAnchor.getHeight()) + 40;
+        int x = (mAnchor.getWidth() / 2);
+        getPopupWindows().showAsDropDown(mAnchor, x, -y);
     }
 
 
