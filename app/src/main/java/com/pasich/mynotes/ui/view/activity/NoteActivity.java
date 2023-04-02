@@ -393,6 +393,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
 
                 touchHelper.attachToRecyclerView(binding.listNote);
+                binding.listNote.setVisibility(View.VISIBLE);
             }
         });
     }
