@@ -333,9 +333,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 }
 
             }
-            case LIST_STATUS.DELETE -> {
-                notePresenter.deleteList(notePresenter.getNote().id);
-            }
+            case LIST_STATUS.DELETE -> notePresenter.deleteList(notePresenter.getNote().id);
 
         }
     }
