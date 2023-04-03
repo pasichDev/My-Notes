@@ -65,9 +65,8 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
                 return false;
             });
-            view.itemListNoteBinding.valueItem.setOnFocusChangeListener((v1, hasFocus) -> view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE));
             view.itemListNoteBinding.deleteItem.setOnClickListener(v -> deleteItemList(view.getAdapterPosition()));
-
+            view.itemListNoteBinding.valueItem.setOnFocusChangeListener((v1, hasFocus) -> view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE));
             view.itemListNoteBinding.valueItem.setOnTouchListener((v, event) -> !itemListSetOnCLickListener.isActivatedEdit());
             return view;
         }

@@ -333,7 +333,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 }
 
             }
-            case LIST_STATUS.DELETE -> notePresenter.deleteList(notePresenter.getNote().id);
+            case LIST_STATUS.DELETE -> notePresenter.deleteList((int) notePresenter.getIdKey());
 
         }
     }
@@ -497,7 +497,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     private List<ItemListNote> generateItemListForDataNotes() {
         final List<ItemListNote> itemList = new ArrayList<>();
         final String[] lines = binding.valueNote.getText().toString().split("\n");
-        final int idNote = notePresenter.getNote().id;
+        final int idNote = (int) notePresenter.getIdKey();
         int indexNote = 0;
 
 
@@ -605,6 +605,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
 
     private ItemListNote getDefaultAddItem() {
-        return new ItemListNote(getString(R.string.addListItemButton), notePresenter.getNote().getId(), true);
+        return new ItemListNote(getString(R.string.addListItemButton), (int) notePresenter.getIdKey(), true);
     }
 }
