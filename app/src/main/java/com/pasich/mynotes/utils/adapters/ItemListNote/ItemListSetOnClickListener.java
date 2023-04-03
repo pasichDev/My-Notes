@@ -11,4 +11,6 @@ public interface ItemListSetOnClickListener {
     void refreshFocus(int position);
 
     boolean isActivatedEdit();
+
+
 }
