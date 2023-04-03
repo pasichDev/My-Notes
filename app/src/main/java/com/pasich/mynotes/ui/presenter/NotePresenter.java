@@ -102,8 +102,8 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
     }
 
     @Override
-    public void saveItemList(List<ItemListNote> itemListNotes) {
-        getCompositeDisposable().add(getDataManager().saveItemsList(itemListNotes).subscribeOn(getSchedulerProvider().io()).subscribe());
+    public void saveItemList(List<ItemListNote> updateList, List<ItemListNote> deleteList) {
+        getCompositeDisposable().add(getDataManager().updateListNotes(updateList, deleteList).subscribeOn(getSchedulerProvider().io()).subscribe());
 
     }
 

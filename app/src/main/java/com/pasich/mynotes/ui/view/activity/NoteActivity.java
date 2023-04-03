@@ -261,13 +261,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         Log.wtf(TAG, "loadingListNote: " + notePresenter.getStatusList());
         if (listItemsNote.size() >= 1) {
             Log.wtf(TAG, "loadingListNote: yes list" + listItemsNote.size());
+            for (ItemListNote listNote : listItemsNote) {
+                Log.wtf(TAG, "loadingListNote: " + listNote.getValue());
+            }
             creteListNoteItems(listItemsNote);
             notePresenter.setStatusList(LIST_STATUS.LOAD);
-
-
-            for (ItemListNote listNote : listItemsNote) {
-                Log.wtf(TAG, "loadingListNote: " + listNote.toString());
-            }
         } else {
             notePresenter.setStatusList(LIST_STATUS.NOT);
         }
@@ -315,27 +313,69 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
     private void saveListItems() {
+        List<ItemListNote> saveList = saveList();
+
+        Log.wtf(TAG, "saveListItems: saveList ");
         switch (notePresenter.getStatusList()) {
 
             case LIST_STATUS.NEW -> {
                 if (itemListNoteAdapter.getItemCount() > 1) {
-                    saveList();
+                    if (saveList.size() != 0) {
+                        notePresenter.saveItemList(saveList, itemListNoteAdapter.getDeleteItems());
+                    }
+
                 }
             }
             case LIST_STATUS.LOAD -> {
                 if (itemListNoteAdapter.getItemCount() > 1) {
-
-                    for (ItemListNote item : notePresenter.getListNotesItems()) {
-                        if (!itemListNoteAdapter.getItemsListNote().contains(item)) {
-                            saveList();
-                        }
+                    Log.wtf(TAG, "saveListItems: load " + itemListNoteAdapter.getDeleteItems().size());
+                    if (compareLists(notePresenter.getListNotesItems(), saveList) && saveList.size() != 0) {
+                        notePresenter.saveItemList(saveList, itemListNoteAdapter.getDeleteItems());
                     }
                 }
-
             }
             case LIST_STATUS.DELETE -> notePresenter.deleteList((int) notePresenter.getIdKey());
 
         }
+    }
+
+    public boolean compareLists(List<ItemListNote> list1, List<ItemListNote> list2) {
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+
+        // Порівняння наповнення моделі
+        for (int i = 0; i < list1.size(); i++) {
+            ItemListNote item1 = list1.get(i);
+            ItemListNote item2 = list2.get(i);
+
+            if (!Objects.equals(item1.getValue(), item2.getValue()) ||
+                    item1.getDragPosition() != item2.getDragPosition() ||
+                    item1.isChecked() != item2.isChecked()) {
+                Log.wtf(TAG, "compareLists: false size ");
+                return false;
+            }
+        }
+
+        // Списки однакові
+        return true;
+    }
+
+
+    /**
+     * Метод для сохранения списка, он удаляет со списка пустые строки, и системные строки
+     * Если список не пустой отправляет его в базу данных
+     */
+    private List<ItemListNote> saveList() {
+        final List<ItemListNote> listSave = itemListNoteAdapter.getItemsListNote();
+        Iterator<ItemListNote> iterator = listSave.iterator();
+        while (iterator.hasNext()) {
+            ItemListNote itemListNote = iterator.next();
+            if (itemListNote.isSystem() || itemListNote.getValue().trim().length() == 0) {
+                iterator.remove();
+            }
+        }
+        return listSave;
     }
 
 
@@ -586,22 +626,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
     }
 
-    /**
-     * Метод для сохранения списка, он удаляет со списка пустые строки, и системные строки
-     * Если список не пустой отправляет его в базу данных
-     */
-    private void saveList() {
-        final List<ItemListNote> listSave = itemListNoteAdapter.getItemsListNote();
-        Iterator<ItemListNote> iterator = listSave.iterator();
-        while (iterator.hasNext()) {
-            ItemListNote itemListNote = iterator.next();
-            if (itemListNote.isSystem() || itemListNote.getValue().trim().length() == 0) {
-                iterator.remove();
-            }
-        }
-        if (listSave.size() != 0)
-            notePresenter.saveItemList(itemListNoteAdapter.getItemsListNote());
-    }
 
 
     private ItemListNote getDefaultAddItem() {

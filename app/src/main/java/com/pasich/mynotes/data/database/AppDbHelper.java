@@ -122,6 +122,11 @@ public class AppDbHelper implements DbHelper {
         return Completable.fromAction(() -> appDatabase.transactionsNote().renameTag(mTag, newName));
     }
 
+    @Override
+    public Completable updateListNotes(List<ItemListNote> updateList, List<ItemListNote> deleteList) {
+        return Completable.fromAction(() -> appDatabase.transactionsNote().updateListNotes(updateList, deleteList));
+    }
+
 
     @Override
     public Single<Integer> getCountData() {
@@ -195,10 +200,6 @@ public class AppDbHelper implements DbHelper {
         return Observable.fromCallable(() -> appDatabase.itemListNoteDao().getListForIdNote(idNote));
     }
 
-    @Override
-    public Completable saveItemsList(List<ItemListNote> itemListNotes) {
-        return Completable.fromAction(() -> appDatabase.itemListNoteDao().saveListNote(itemListNotes));
-    }
 
     @Override
     public Completable deleteItemsList(int idNote) {

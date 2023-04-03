@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.databinding.ItemListNoteBinding;
 import com.pasich.mynotes.databinding.ItemListNoteSystemBinding;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -23,7 +25,9 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int ADD_ITEM = 505;
     private static final int OTHER_ITEM = 507;
     private List<ItemListNote> itemsListNote;
+    private final List<ItemListNote> deleteItems = new ArrayList<>();
     private ItemListSetOnClickListener itemListSetOnCLickListener;
+
 
     public ItemListNoteAdapter(List<ItemListNote> itemsListNote) {
         this.itemsListNote = itemsListNote;
@@ -32,6 +36,10 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public List<ItemListNote> getItemsListNote() {
         return itemsListNote;
+    }
+
+    public List<ItemListNote> getDeleteItems() {
+        return deleteItems;
     }
 
     public void setItemsListNote(List<ItemListNote> newList) {
@@ -66,8 +74,16 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 return false;
             });
             view.itemListNoteBinding.deleteItem.setOnClickListener(v -> deleteItemList(view.getAdapterPosition()));
-            view.itemListNoteBinding.valueItem.setOnFocusChangeListener((v1, hasFocus) -> view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE));
+            view.itemListNoteBinding.valueItem.setOnFocusChangeListener((v1, hasFocus) -> {
+                view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
+                if (!hasFocus) {
+                    getItemsListNote().get(view.getAdapterPosition()).setValue(((EditText) v1).getText().toString());
+                }
+
+
+            });
             view.itemListNoteBinding.valueItem.setOnTouchListener((v, event) -> !itemListSetOnCLickListener.isActivatedEdit());
+
             return view;
         }
 
@@ -99,6 +115,7 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private void deleteItemList(int position) {
+        deleteItems.add(itemsListNote.get(position));
         itemsListNote.remove(position);
         itemListSetOnCLickListener.refreshFocus(position);
         notifyItemRemoved(position);

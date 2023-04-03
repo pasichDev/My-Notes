@@ -46,7 +46,7 @@ public interface NoteContract {
 
         void saveNote(Note note);
 
-        void saveItemList(List<ItemListNote> itemListNotes);
+        void saveItemList(List<ItemListNote> updateList, List<ItemListNote> deleteList);
 
         void deleteNote(Note note);
 

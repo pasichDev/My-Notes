@@ -1,5 +1,7 @@
 package com.pasich.mynotes.data.model;
 
+import android.util.Log;
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -56,6 +58,7 @@ public class ItemListNote {
     }
 
     public void setValue(String value) {
+        Log.wtf("xxx", "setValue: " + value);
         this.value = value;
     }
 

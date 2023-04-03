@@ -211,6 +211,11 @@ public class AppDataManger implements DataManager {
         return dbHelper.renameTag(mTag, newName);
     }
 
+    @Override
+    public Completable updateListNotes(List<ItemListNote> updateList, List<ItemListNote> deleteList) {
+        return dbHelper.updateListNotes(updateList, deleteList);
+    }
+
 
     @Override
     public Single<Integer> getCountData() {
@@ -323,10 +328,6 @@ public class AppDataManger implements DataManager {
         return dbHelper.getListForIdNote(idNote);
     }
 
-    @Override
-    public Completable saveItemsList(List<ItemListNote> itemListNotes) {
-        return dbHelper.saveItemsList(itemListNotes);
-    }
 
     @Override
     public Completable deleteItemsList(int idNote) {

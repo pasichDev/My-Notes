@@ -8,9 +8,12 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
+
+import java.util.List;
 
 
 @Dao
@@ -30,6 +33,12 @@ public abstract class Transactions {
 
     @Delete
     public abstract void deleteTag(Tag tag);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void saveListNote(List<ItemListNote> listNotes);
+
+    @Delete
+    public abstract void deleteItemsList(List<ItemListNote> listDeletes);
 
     @Query("UPDATE NOTES SET tag='' WHERE tag=:tag")
     public abstract void deleteTagNotes(String tag);
@@ -124,6 +133,16 @@ public abstract class Transactions {
     public void renameTag(Tag mTag, String newName) {
         renameTagNotes(mTag.getNameTag(), newName);
         setTagNote(newName, mTag.id);
+
+    }
+
+    /**
+     * Обновление списка, первый список данные на обновлени второй на удаление
+     */
+    @Transaction
+    public void updateListNotes(List<ItemListNote> updateList, List<ItemListNote> deleteList) {
+        saveListNote(updateList);
+        deleteItemsList(deleteList);
 
     }
 }

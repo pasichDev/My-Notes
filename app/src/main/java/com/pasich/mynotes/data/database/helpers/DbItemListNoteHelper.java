@@ -11,7 +11,5 @@ import io.reactivex.Observable;
 public interface DbItemListNoteHelper {
     Observable<List<ItemListNote>> getListForIdNote(long idNote);
 
-    Completable saveItemsList(List<ItemListNote> itemListNotes);
-
     Completable deleteItemsList(int idNote);
 }
