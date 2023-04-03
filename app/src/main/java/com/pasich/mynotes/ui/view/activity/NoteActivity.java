@@ -586,7 +586,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
                 @Override
                 public void addItem(RecyclerView.ViewHolder viewHolder) {
-                    itemListNoteAdapter.addNewItem(notePresenter.getNote().getId());
+                    if (binding.getActivateEdit()) {
+                        itemListNoteAdapter.addNewItem(notePresenter.getNote().getId());
+                    }
                 }
 
                 @Override
