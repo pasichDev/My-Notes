@@ -7,4 +7,6 @@ public interface PopupWindowsCreateListBoxHelper {
     void addListToNote();
 
     void deleteList();
+
+    void convertToNote();
 }

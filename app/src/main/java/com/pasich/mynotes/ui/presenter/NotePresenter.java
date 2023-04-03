@@ -6,9 +6,14 @@ import android.graphics.Typeface;
 
 import com.pasich.mynotes.base.presenter.BasePresenter;
 import com.pasich.mynotes.data.DataManager;
+import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.ui.contract.NoteContract;
+import com.pasich.mynotes.utils.constants.LIST_STATUS;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -20,6 +25,10 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
     private long idKey;
     private Note mNote;
     private boolean exitNoSave = false, newNoteKey;
+
+    private int statusList = LIST_STATUS.NOT;
+
+    private List<ItemListNote> listNotesItems = new ArrayList<>();
 
 
     @Inject
@@ -60,8 +69,21 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
             getView().loadingNote(note);
             setNote(note);
         }));
+        getCompositeDisposable().add(getDataManager().getListForIdNote(idNote).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(listNotes -> {
+            getView().loadingListNote(listNotes);
+            setListNotesItems(listNotes);
+        }));
+
+    }
 
 
+    @Override
+    public List<ItemListNote> getListNotesItems() {
+        return listNotesItems;
+    }
+
+    public void setListNotesItems(List<ItemListNote> listNotesItems) {
+        this.listNotesItems = listNotesItems;
     }
 
     @Override
@@ -77,6 +99,12 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
     @Override
     public void saveNote(Note note) {
         getCompositeDisposable().add(getDataManager().updateNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
+    }
+
+    @Override
+    public void saveItemList(List<ItemListNote> itemListNotes) {
+        getCompositeDisposable().add(getDataManager().saveItemsList(itemListNotes).subscribeOn(getSchedulerProvider().io()).subscribe());
+
     }
 
     @Override
@@ -140,5 +168,21 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
             case "bold-italic" -> Typeface.BOLD_ITALIC;
             default -> Typeface.NORMAL;
         };
+    }
+
+    @Override
+    public int getStatusList() {
+        return statusList;
+    }
+
+    @Override
+    public void setStatusList(int statusList) {
+        this.statusList = statusList;
+    }
+
+    @Override
+    public void deleteList(int idNote) {
+        getCompositeDisposable().add(getDataManager().deleteItemsList(idNote).subscribeOn(getSchedulerProvider().io()).subscribe());
+
     }
 }

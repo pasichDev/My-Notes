@@ -13,20 +13,26 @@ public class PopupWindowsCreateListBox {
     private final ViewPopupCreateListBoxBinding mBinding;
     private final PopupWindowsCreateListBoxHelper createListBoxHelper;
     private View mAnchor;
+    //isVisibleListItems,isValidTextNote
+    private final boolean[] statusHelper;
 
-    private final boolean isVisibleList;
-
-    public PopupWindowsCreateListBox(LayoutInflater layoutInflater, View anchor, boolean isVisibleList, PopupWindowsCreateListBoxHelper createListBoxHelper) {
+    public PopupWindowsCreateListBox(LayoutInflater layoutInflater, View anchor, boolean[] statusHelper, PopupWindowsCreateListBoxHelper createListBoxHelper) {
         this.mBinding = ViewPopupCreateListBoxBinding.inflate(layoutInflater);
         this.mAnchor = anchor;
         this.createListBoxHelper = createListBoxHelper;
         this.mPopupWindows = new PopupWindow(mBinding.getRoot(), RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-        this.isVisibleList = isVisibleList;
-        mBinding.deleteList.setVisibility(isVisibleList ? View.VISIBLE : View.GONE);
-        mBinding.creteListToDataNote.setVisibility(!isVisibleList ? View.VISIBLE : View.GONE);
-        mBinding.addListToNote.setVisibility(!isVisibleList ? View.VISIBLE : View.GONE);
+        this.statusHelper = statusHelper;
+        visibleItems();
         mBinding.getRoot().measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         onSettingsView();
+    }
+
+    private void visibleItems() {
+        mBinding.creteListToDataNote.setVisibility(!statusHelper[0] && statusHelper[1] ? View.VISIBLE : View.GONE);
+        mBinding.deleteList.setVisibility(statusHelper[0] ? View.VISIBLE : View.GONE);
+        mBinding.convertToNote.setVisibility(statusHelper[0] ? View.VISIBLE : View.GONE);
+        mBinding.addListToNote.setVisibility(!statusHelper[0] ? View.VISIBLE : View.GONE);
+
     }
 
 
@@ -44,9 +50,14 @@ public class PopupWindowsCreateListBox {
 
 
     private void initListeners() {
-        if (isVisibleList) {
+        if (statusHelper[0]) {
             mBinding.deleteList.setOnClickListener(v -> {
                 createListBoxHelper.deleteList();
+                getPopupWindows().dismiss();
+
+            });
+            mBinding.convertToNote.setOnClickListener(v -> {
+                createListBoxHelper.convertToNote();
                 getPopupWindows().dismiss();
 
             });
@@ -73,8 +84,8 @@ public class PopupWindowsCreateListBox {
 
     public void setOnDismissListener() {
         mAnchor = null;
-        if (isVisibleList) {
-
+        if (statusHelper[0]) {
+            mBinding.convertToNote.setOnClickListener(null);
             mBinding.deleteList.setOnClickListener(null);
         } else {
 

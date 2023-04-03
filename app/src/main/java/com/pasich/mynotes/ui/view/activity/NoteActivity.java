@@ -1,14 +1,17 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 import static com.pasich.mynotes.utils.transition.TransitionUtil.buildContainerTransform;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +19,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -42,12 +44,14 @@ import com.pasich.mynotes.utils.CustomLinkMovementMethod;
 import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListNoteAdapter;
 import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListSetOnClickListener;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
+import com.pasich.mynotes.utils.constants.LIST_STATUS;
 import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
 import com.pasich.mynotes.utils.recycler.ItemTouchHelperCallback;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -110,10 +114,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Override
     public void onPause() {
         super.onPause();
-        if (!notePresenter.getExitNoteSave() && binding.valueNote.getText().toString().trim().length() >= 2) {
+        if (!notePresenter.getExitNoteSave()) {
             saveNote(false);
         }
-
     }
 
 
@@ -242,7 +245,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             @Override
             protected void onClickLink(String link, int type) {
                 link = link.replaceAll("mailto:", "").replaceAll("tel:", "");
-
                 new LinkInfoDialog(link, type).show(getSupportFragmentManager(), "LinkInfoDialog");
 
             }
@@ -253,14 +255,31 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
+    // TODO: 03.04.2023 Прибрати дебаг код
+    @Override
+    public void loadingListNote(List<ItemListNote> listItemsNote) {
+        Log.wtf(TAG, "loadingListNote: " + notePresenter.getStatusList());
+        if (listItemsNote.size() >= 1) {
+            Log.wtf(TAG, "loadingListNote: yes list" + listItemsNote.size());
+            creteListNoteItems(listItemsNote);
+            notePresenter.setStatusList(LIST_STATUS.LOAD);
+
+
+            for (ItemListNote listNote : listItemsNote) {
+                Log.wtf(TAG, "loadingListNote: " + listNote.toString());
+            }
+        } else {
+            notePresenter.setStatusList(LIST_STATUS.NOT);
+        }
+
+    }
+
     @Override
     public void closeNoteActivity() {
         binding.getRoot().clearFocus();
         closeKeyboardActivity();
         notePresenter.setExitNoSave(true);
-        if (binding.valueNote.getText().toString().trim().length() >= 2) saveNote(false);
-        if (notePresenter.getShareText().length() >= 2)
-            Toast.makeText(this, getString(R.string.noteSaved), Toast.LENGTH_SHORT).show();
+        saveNote(false);
         supportFinishAfterTransition();
     }
 
@@ -273,15 +292,51 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             mNoteValue = notePresenter.getNote().getValue() == null ? "" : notePresenter.getNote().getValue();
 
         if (notePresenter.getNewNotesKey()) {
-            Note note = new Note().create(mTitle.length() >= 1 ? mTitle : "", mValue, mThisDate, notePresenter.getTagNote());
-            notePresenter.setNote(note);
-            notePresenter.createNote(note);
-            notePresenter.setNewNoteKey(false);
-
+            if (checkValidText()) {
+                Note note = new Note().create(mTitle.length() >= 1 ? mTitle : "", mValue, mThisDate, notePresenter.getTagNote());
+                notePresenter.setNote(note);
+                notePresenter.createNote(note);
+                notePresenter.setNewNoteKey(false);
+            }
         } else {
-            if (saveNoteToLocal(mValue, mTitle, mNoteValue, mThisDate) && !saveLocal) {
+            if (!saveLocal) {
+                saveListItems();
+            }
+            if (saveNoteToLocal(mValue, mTitle, mNoteValue, mThisDate) && !saveLocal && checkValidText()) {
                 notePresenter.saveNote(notePresenter.getNote());
             }
+        }
+    }
+
+    private boolean checkValidText() {
+        if (itemListNoteAdapter != null) {
+            return itemListNoteAdapter.getItemCount() > 1 || binding.valueNote.getText().toString().trim().length() >= 2;
+        } else return binding.valueNote.getText().toString().trim().length() >= 2;
+    }
+
+    private void saveListItems() {
+        switch (notePresenter.getStatusList()) {
+
+            case LIST_STATUS.NEW -> {
+                if (itemListNoteAdapter.getItemCount() > 1) {
+                    saveList();
+                }
+            }
+            case LIST_STATUS.LOAD -> {
+                if (itemListNoteAdapter.getItemCount() > 1) {
+
+                    for (ItemListNote item : notePresenter.getListNotesItems()) {
+                        if (!itemListNoteAdapter.getItemsListNote().contains(item)) {
+                            saveList();
+                        }
+                    }
+                }
+
+            }
+            case LIST_STATUS.DELETE -> {
+                notePresenter.deleteList(notePresenter.getNote().id);
+            }
+
         }
     }
 
@@ -384,21 +439,39 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void createListBox() {
-        new PopupWindowsCreateListBox(getLayoutInflater(), binding.bottomPanel.addListCheckBox, itemListNoteAdapter != null, new PopupWindowsCreateListBoxHelper() {
+        final boolean[] statusHelper = new boolean[]{notePresenter.getStatusList() == LIST_STATUS.NEW || notePresenter.getStatusList() == LIST_STATUS.LOAD, binding.valueNote.getText().toString().trim().length() >= 2};
+        new PopupWindowsCreateListBox(getLayoutInflater(), binding.bottomPanel.addListCheckBox, statusHelper, new PopupWindowsCreateListBoxHelper() {
             @Override
             public void createListForData() {
                 creteListNoteItems(generateItemListForDataNotes());
                 binding.valueNote.setText("");
+                notePresenter.setStatusList(LIST_STATUS.NEW);
             }
 
             @Override
             public void addListToNote() {
                 creteListNoteItems(generateDefaultItemList());
+                notePresenter.setStatusList(LIST_STATUS.NEW);
             }
 
             @Override
             public void deleteList() {
+                deleteListValid();
+            }
 
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void convertToNote() {
+                String newValueNote = "";
+                if (itemListNoteAdapter != null) {
+                    for (ItemListNote itemListNote : itemListNoteAdapter.getItemsListNote()) {
+                        if (!itemListNote.isSystem()) {
+                            newValueNote = newValueNote + itemListNote.getValue() + "\n";
+                        }
+                    }
+                }
+                deleteListValid();
+                binding.valueNote.setText(newValueNote + "\n" + binding.valueNote.getText().toString());
             }
         });
     }
@@ -408,6 +481,15 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     }
 
+
+    private void deleteListValid() {
+        if (itemListNoteAdapter != null) {
+            notePresenter.getListNotesItems().clear();
+            itemListNoteAdapter.getItemsListNote().clear();
+        }
+        notePresenter.setStatusList(LIST_STATUS.DELETE);
+        binding.listNote.setVisibility(View.GONE);
+    }
 
     /**
      * A method that generates a list from the text of a note
@@ -420,13 +502,14 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         final int idNote = notePresenter.getNote().id;
         int indexNote = 0;
 
+
         for (String line : lines) {
             if (!line.isEmpty()) {
                 itemList.add(new ItemListNote(line, idNote, indexNote));
                 indexNote = indexNote + 1;
             }
         }
-        itemList.add(new ItemListNote(getString(R.string.addListItemButton), idNote, true));
+
         return itemList;
     }
 
@@ -442,7 +525,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         itemList.add(new ItemListNote("", idNote, 0));
         itemList.add(new ItemListNote("", idNote, 1));
         itemList.add(new ItemListNote("", idNote, 2));
-        itemList.add(new ItemListNote(getString(R.string.addListItemButton), notePresenter.getNote().getId(), true));
         return itemList;
     }
 
@@ -451,49 +533,80 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
      *
      * @param listItemsNote - list data
      */
+    @SuppressLint("NotifyDataSetChanged")
     private void creteListNoteItems(List<ItemListNote> listItemsNote) {
-        itemListNoteAdapter = new ItemListNoteAdapter(listItemsNote);
-        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemListNoteAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        itemListNoteAdapter.setItemListSetOnCLickListener(new ItemListSetOnClickListener() {
-            @Override
-            public void requestDrag(RecyclerView.ViewHolder viewHolder) {
-                touchHelper.startDrag(viewHolder);
-            }
-
-            @Override
-            public void addItem(RecyclerView.ViewHolder viewHolder) {
-                itemListNoteAdapter.addNewItem(notePresenter.getNote().getId());
-            }
-
-            @Override
-            public void refreshFocus(int position) {
-                if (itemListNoteAdapter.getItemCount() >= 2) {
-                    View view = binding.listNote.getChildAt((itemListNoteAdapter.getItemCount() - 2));
-                    EditText editText = view.findViewById(R.id.valueItem);
-                    editText.setFocusable(true);
-                    editText.isFocusableInTouchMode();
-                    editText.requestFocus();
-                    editText.setSelection(editText.getText().length());
-                } else {
-                    binding.getRoot().clearFocus();
-                    closeKeyboardActivity();
+        listItemsNote.add(getDefaultAddItem());
+        if (notePresenter.getStatusList() == LIST_STATUS.NOT) {
+            itemListNoteAdapter = new ItemListNoteAdapter(listItemsNote);
+            ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemListNoteAdapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            itemListNoteAdapter.setItemListSetOnCLickListener(new ItemListSetOnClickListener() {
+                @Override
+                public void requestDrag(RecyclerView.ViewHolder viewHolder) {
+                    touchHelper.startDrag(viewHolder);
                 }
 
+                @Override
+                public void addItem(RecyclerView.ViewHolder viewHolder) {
+                    itemListNoteAdapter.addNewItem(notePresenter.getNote().getId());
+                }
+
+                @Override
+                public void refreshFocus(int position) {
+                    if (itemListNoteAdapter.getItemCount() >= 2) {
+                        View view = binding.listNote.getChildAt((itemListNoteAdapter.getItemCount() - 2));
+                        EditText editText = view.findViewById(R.id.valueItem);
+                        editText.setFocusable(true);
+                        editText.isFocusableInTouchMode();
+                        editText.requestFocus();
+                        editText.setSelection(editText.getText().length());
+                    } else {
+                        binding.getRoot().clearFocus();
+                        closeKeyboardActivity();
+                    }
+
+                }
+
+                @Override
+                public boolean isActivatedEdit() {
+                    return binding.getActivateEdit();
+                }
+
+            });
+
+            binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            binding.listNote.setAdapter(itemListNoteAdapter);
+            touchHelper.attachToRecyclerView(binding.listNote);
+            binding.listNote.setVisibility(View.VISIBLE);
+
+            notePresenter.setStatusList(LIST_STATUS.NEW);
+        } else if (notePresenter.getStatusList() == LIST_STATUS.DELETE) {
+            itemListNoteAdapter.setItemsListNote(listItemsNote);
+            itemListNoteAdapter.notifyDataSetChanged();
+            binding.listNote.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    /**
+     * Метод для сохранения списка, он удаляет со списка пустые строки, и системные строки
+     * Если список не пустой отправляет его в базу данных
+     */
+    private void saveList() {
+        final List<ItemListNote> listSave = itemListNoteAdapter.getItemsListNote();
+        Iterator<ItemListNote> iterator = listSave.iterator();
+        while (iterator.hasNext()) {
+            ItemListNote itemListNote = iterator.next();
+            if (itemListNote.isSystem() || itemListNote.getValue().trim().length() == 0) {
+                iterator.remove();
             }
-
-            @Override
-            public boolean isActivatedEdit() {
-                return binding.getActivateEdit();
-            }
-
-        });
-
-        binding.listNote.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        binding.listNote.setAdapter(itemListNoteAdapter);
-        touchHelper.attachToRecyclerView(binding.listNote);
-        binding.listNote.setVisibility(View.VISIBLE);
+        }
+        if (listSave.size() != 0)
+            notePresenter.saveItemList(itemListNoteAdapter.getItemsListNote());
     }
 
 
+    private ItemListNote getDefaultAddItem() {
+        return new ItemListNote(getString(R.string.addListItemButton), notePresenter.getNote().getId(), true);
+    }
 }

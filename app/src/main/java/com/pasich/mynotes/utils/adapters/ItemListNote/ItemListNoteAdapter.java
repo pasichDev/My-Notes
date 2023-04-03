@@ -22,15 +22,21 @@ import java.util.List;
 public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     private static final int ADD_ITEM = 505;
     private static final int OTHER_ITEM = 507;
-    private final List<ItemListNote> itemsListNote;
+    private List<ItemListNote> itemsListNote;
     private ItemListSetOnClickListener itemListSetOnCLickListener;
-
 
     public ItemListNoteAdapter(List<ItemListNote> itemsListNote) {
         this.itemsListNote = itemsListNote;
 
     }
 
+    public List<ItemListNote> getItemsListNote() {
+        return itemsListNote;
+    }
+
+    public void setItemsListNote(List<ItemListNote> newList) {
+        this.itemsListNote = newList;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -40,6 +46,7 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void setItemListSetOnCLickListener(ItemListSetOnClickListener itemListSetOnCLickListener) {
         this.itemListSetOnCLickListener = itemListSetOnCLickListener;
     }
+
 
     @NonNull
     @SuppressLint("ClickableViewAccessibility")

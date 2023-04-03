@@ -8,6 +8,7 @@ import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import com.google.api.services.drive.Drive;
 import com.pasich.mynotes.data.api.ApiBackup;
 import com.pasich.mynotes.data.database.DbHelper;
+import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
@@ -315,5 +316,20 @@ public class AppDataManger implements DataManager {
     @Override
     public File writeTempBackup(JsonBackup jsonBackup) {
         return apiBackup.writeTempBackup(jsonBackup);
+    }
+
+    @Override
+    public Observable<List<ItemListNote>> getListForIdNote(long idNote) {
+        return dbHelper.getListForIdNote(idNote);
+    }
+
+    @Override
+    public Completable saveItemsList(List<ItemListNote> itemListNotes) {
+        return dbHelper.saveItemsList(itemListNotes);
+    }
+
+    @Override
+    public Completable deleteItemsList(int idNote) {
+        return dbHelper.deleteItemsList(idNote);
     }
 }

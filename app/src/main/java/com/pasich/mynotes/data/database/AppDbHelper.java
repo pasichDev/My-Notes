@@ -1,6 +1,7 @@
 package com.pasich.mynotes.data.database;
 
 
+import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
@@ -189,4 +190,18 @@ public class AppDbHelper implements DbHelper {
         return Completable.fromAction(() -> appDatabase.noteDao().setTagNote(nameTag, idNote));
     }
 
+    @Override
+    public Observable<List<ItemListNote>> getListForIdNote(long idNote) {
+        return Observable.fromCallable(() -> appDatabase.itemListNoteDao().getListForIdNote(idNote));
+    }
+
+    @Override
+    public Completable saveItemsList(List<ItemListNote> itemListNotes) {
+        return Completable.fromAction(() -> appDatabase.itemListNoteDao().saveListNote(itemListNotes));
+    }
+
+    @Override
+    public Completable deleteItemsList(int idNote) {
+        return Completable.fromAction(() -> appDatabase.itemListNoteDao().deleteItemsList(idNote));
+    }
 }

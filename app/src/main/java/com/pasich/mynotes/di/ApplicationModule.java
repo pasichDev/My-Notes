@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -38,8 +39,11 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    AppDatabase providesAppDatabase(@ApplicationContext Context context, RoomDatabase.Callback sRoomDatabaseCallback) {
-        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, Database.DB_NAME).addCallback(sRoomDatabaseCallback).build();
+    AppDatabase providesAppDatabase(@ApplicationContext Context context,
+                                    RoomDatabase.Callback sRoomDatabaseCallback,
+                                    Migration migration2_3) {
+        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, Database.DB_NAME)
+                .addCallback(sRoomDatabaseCallback).addMigrations(migration2_3).build();
     }
 
 
@@ -119,7 +123,24 @@ public class ApplicationModule {
         } else {
             return new CloudCacheHelper().playMarketNoInstall();
         }
-
-
     }
+
+    @Provides
+    @Singleton
+    Migration providesMigration2_3() {
+        return new Migration(2, 3) {
+            @Override
+            public void migrate(@NonNull SupportSQLiteDatabase database) {
+                database.execSQL("CREATE TABLE `listItemsNote` (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                        "    value TEXT,\n" +
+                        "    idNote INTEGER,\n" +
+                        "    dragPosition INTEGER,\n" +
+                        "    isChecked INTEGER,\n" +
+                        "    isTrash INTEGER)");
+            }
+        };
+    }
+
+
 }

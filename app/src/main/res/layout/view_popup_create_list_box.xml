@@ -1,98 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_popup_bottom_left">
+    android:background="@drawable/background_popup_bottom_left"
+    android:orientation="vertical">
+
 
     <LinearLayout
+        android:id="@+id/creteListToDataNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/item_top_ripple"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingItems">
 
-
-        <LinearLayout
-            android:id="@+id/creteListToDataNote"
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_top_ripple"
-            android:orientation="horizontal"
-            android:padding="@dimen/paddingItems">
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="8dp"
+            android:contentDescription="@string/creteListForData"
+            android:src="@drawable/ic_list_checkbox" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginVertical="8dp"
-                android:contentDescription="@string/creteListForData"
-                android:src="@drawable/ic_list_checkbox" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingVertical="@dimen/paddingItems"
-                android:paddingStart="@dimen/paddingItems"
-                android:paddingEnd="20dp"
-                android:text="@string/creteListForData"
-                android:textSize="@dimen/textSizeItems" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/addListToNote"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_bottom_ripple_left"
-            android:orientation="horizontal"
-            android:padding="@dimen/paddingItems">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginVertical="8dp"
-                android:contentDescription="@string/addListBox"
-                android:src="@drawable/ic_list_checkbox" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingVertical="@dimen/paddingItems"
-                android:paddingStart="@dimen/paddingItems"
-                android:paddingEnd="20dp"
-                android:text="@string/addListBox"
-                android:textSize="@dimen/textSizeItems" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/deleteList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_one_variant_ripple"
-            android:visibility="gone"
-            android:orientation="horizontal"
-            android:padding="@dimen/paddingItems">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginVertical="8dp"
-                android:contentDescription="@string/deleteListNote"
-                android:src="@drawable/ic_delete_note" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingVertical="@dimen/paddingItems"
-                android:paddingStart="@dimen/paddingItems"
-                android:paddingEnd="20dp"
-                android:text="@string/deleteListNote"
-                android:textSize="@dimen/textSizeItems" />
-        </LinearLayout>
-
+            android:layout_gravity="center_vertical"
+            android:paddingVertical="@dimen/paddingItems"
+            android:paddingStart="@dimen/paddingItems"
+            android:paddingEnd="20dp"
+            android:text="@string/creteListForData"
+            android:textSize="@dimen/textSizeItems" />
     </LinearLayout>
-</FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/addListToNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_bottom_ripple_left"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingItems">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="8dp"
+            android:contentDescription="@string/addListBox"
+            android:src="@drawable/ic_list_checkbox" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingVertical="@dimen/paddingItems"
+            android:paddingStart="@dimen/paddingItems"
+            android:paddingEnd="20dp"
+            android:text="@string/addListBox"
+            android:textSize="@dimen/textSizeItems" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/convertToNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_top_ripple"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingItems"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="8dp"
+            android:contentDescription="@string/convertListToNote"
+            android:src="@drawable/ic_convert_to_note" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingVertical="@dimen/paddingItems"
+            android:paddingStart="@dimen/paddingItems"
+            android:paddingEnd="20dp"
+            android:text="@string/convertListToNote"
+            android:textSize="@dimen/textSizeItems" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/deleteList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_bottom_ripple_left"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingItems"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="8dp"
+            android:contentDescription="@string/deleteListNote"
+            android:src="@drawable/ic_delete_note" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingVertical="@dimen/paddingItems"
+            android:paddingStart="@dimen/paddingItems"
+            android:paddingEnd="20dp"
+            android:text="@string/deleteListNote"
+            android:textSize="@dimen/textSizeItems" />
+    </LinearLayout>
+
+</LinearLayout>

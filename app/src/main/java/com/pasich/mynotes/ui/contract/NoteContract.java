@@ -8,8 +8,11 @@ import com.pasich.mynotes.base.view.BasePresenter;
 import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;
+import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteCallback;
+
+import java.util.List;
 
 public interface NoteContract {
 
@@ -24,6 +27,8 @@ public interface NoteContract {
         void activatedActivity();
 
         void loadingNote(Note note);
+
+        void loadingListNote(List<ItemListNote> listItemsNote);
 
         void editIdNoteCreated(long idNote);
     }
@@ -40,6 +45,8 @@ public interface NoteContract {
         void createNote(Note note);
 
         void saveNote(Note note);
+
+        void saveItemList(List<ItemListNote> itemListNotes);
 
         void deleteNote(Note note);
 
@@ -68,5 +75,13 @@ public interface NoteContract {
         void setNewNoteKey(boolean newNoteKey);
 
         int getTypeFace(String textStyle);
+
+        List<ItemListNote> getListNotesItems();
+
+        int getStatusList();
+
+        void setStatusList(int statusList);
+
+        void deleteList(int idNote);
     }
 }
