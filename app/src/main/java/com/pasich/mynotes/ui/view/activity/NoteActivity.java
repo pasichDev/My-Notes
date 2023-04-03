@@ -297,7 +297,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 notePresenter.setNewNoteKey(false);
             }
         } else {
-            if (!saveLocal) {
+            if (!saveLocal && notePresenter.getStatusList() != LIST_STATUS.NOT) {
                 saveListItems();
             }
             if (saveNoteToLocal(mValue, mTitle, mNoteValue, mThisDate) && !saveLocal && checkValidText()) {
@@ -307,9 +307,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
     private boolean checkValidText() {
-        if (itemListNoteAdapter != null) {
-            return itemListNoteAdapter.getItemCount() > 1 || binding.valueNote.getText().toString().trim().length() >= 2;
-        } else return binding.valueNote.getText().toString().trim().length() >= 2;
+        if (notePresenter.getStatusList() == LIST_STATUS.NOT || notePresenter.getStatusList() == LIST_STATUS.DELETE) {
+            return binding.valueNote.getText().toString().trim().length() >= 2;
+        } else {
+            return true;
+        }
     }
 
     private void saveListItems() {
@@ -319,7 +321,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         switch (notePresenter.getStatusList()) {
 
             case LIST_STATUS.NEW -> {
-                if (itemListNoteAdapter.getItemCount() > 1) {
+                if (itemListNoteAdapter.getItemCount() > 0) {
                     if (saveList.size() != 0) {
                         notePresenter.saveItemList(saveList, itemListNoteAdapter.getDeleteItems());
                     }
@@ -327,7 +329,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 }
             }
             case LIST_STATUS.LOAD -> {
-                if (itemListNoteAdapter.getItemCount() > 1) {
+                if (saveList.size() > 0) {
                     Log.wtf(TAG, "saveListItems: load " + itemListNoteAdapter.getDeleteItems().size());
                     if (compareLists(notePresenter.getListNotesItems(), saveList) && saveList.size() != 0) {
                         notePresenter.saveItemList(saveList, itemListNoteAdapter.getDeleteItems());
@@ -501,7 +503,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             @Override
             public void convertToNote() {
                 String newValueNote = "";
-                if (itemListNoteAdapter != null) {
+                if (notePresenter.getStatusList() != LIST_STATUS.NOT) {
                     for (ItemListNote itemListNote : itemListNoteAdapter.getItemsListNote()) {
                         if (!itemListNote.isSystem()) {
                             newValueNote = newValueNote + itemListNote.getValue() + "\n";
@@ -521,7 +523,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
 
     private void deleteListValid() {
-        if (itemListNoteAdapter != null) {
+        if (notePresenter.getStatusList() != LIST_STATUS.NOT) {
             notePresenter.getListNotesItems().clear();
             itemListNoteAdapter.getItemsListNote().clear();
         }
