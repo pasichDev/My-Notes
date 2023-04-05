@@ -18,8 +18,6 @@ public interface NoteContract {
 
     interface view extends BaseView, ActionBar, MoreNoteNoteActivityView, ShortCutView, BottomPanelNoteCallback {
 
-        void initParam();
-
         void initTypeActivity();
 
         void closeNoteActivity();

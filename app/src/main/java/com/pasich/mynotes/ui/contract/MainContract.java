@@ -22,7 +22,7 @@ public interface MainContract {
         void settingsSearchView();
         void settingsLists();
 
-        void newNotesButton();
+        void newNotesButton(long idNewNote);
 
         void startCreateTagDialog();
 
@@ -77,5 +77,6 @@ public interface MainContract {
         String getSortParam();
 
         boolean closeApp(boolean showSearchView);
+
     }
 }

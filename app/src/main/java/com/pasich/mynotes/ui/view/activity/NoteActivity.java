@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 import static com.pasich.mynotes.utils.transition.TransitionUtil.buildContainerTransform;
 
@@ -11,7 +10,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,6 +89,48 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        notePresenter.closeActivity();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!notePresenter.getExitNoteSave()) {
+            saveNote(false);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        notePresenter.detachView();
+        binding.notesTitle.addTextChangedListener(null);
+        binding.titleToolbarTag.setOnClickListener(null);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_toolbar_note, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            notePresenter.closeActivity();
+
+        }
+        if (item.getItemId() == R.id.moreBut) {
+            if (!notePresenter.getNewNotesKey()) saveNote(true);
+            new MoreNoteDialog(notePresenter.getNewNotesKey() ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : notePresenter.getNote(), notePresenter.getNewNotesKey(), true, 0).show(getSupportFragmentManager(), "MoreNote");
+
+        }
+
+
+        return true;
+    }
 
     /**
      * Method that enables Motion Animation smooth transition support
@@ -106,38 +146,22 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (!notePresenter.getExitNoteSave()) {
-            saveNote(false);
-        }
-    }
-
-
-    @Override
-    public void initParam() {
-
-    }
-
+    /**
+     * Данный метод настраивает активность на определенный тип работы
+     */
     @Override
     public void initTypeActivity() {
         if (notePresenter.getNewNotesKey()) {
             activatedActivity();
-            if (notePresenter.getTagNote().length() >= 2)
-                changeTag(notePresenter.getTagNote(), false);
-            binding.titleToolbarData.setText(getString(R.string.lastDateEditNote, lastDayEditNote(new Date().getTime())));
-
-            if (notePresenter.getShareText() != null && notePresenter.getShareText().length() > 5)
-                binding.valueNote.setText(notePresenter.getShareText());
-        } else if (notePresenter.getIdKey() >= 1) {
+        } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        }
+
+        if (notePresenter.getIdKey() >= 1) {
             notePresenter.loadingData(notePresenter.getIdKey());
+        } else {
+            onInfoSnack(R.string.errorNotesNotFound, null, SnackBarInfo.Error, Snackbar.LENGTH_LONG);
+            finish();
         }
     }
 
@@ -171,9 +195,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
+    /**
+     * В зависимости от типа редактирования, этот метод активирует клавиатуру и поля ввода
+     */
     @Override
     public void activatedActivity() {
-
         binding.setActivateEdit(true);
         binding.valueNote.setEnabled(true);
         binding.valueNote.setFocusable(true);
@@ -192,48 +218,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             }
         }
 
-
-    }
-
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-    }
-
-    @Override
-    public void onBackPressed() {
-        notePresenter.closeActivity();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_toolbar_note, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            notePresenter.closeActivity();
-
-        }
-        if (item.getItemId() == R.id.moreBut) {
-            if (!notePresenter.getNewNotesKey()) saveNote(true);
-            new MoreNoteDialog(notePresenter.getNewNotesKey() ? new Note().create(binding.notesTitle.getText().toString(), binding.valueNote.getText().toString(), new Date().getTime()) : notePresenter.getNote(), notePresenter.getNewNotesKey(), true, 0).show(getSupportFragmentManager(), "MoreNote");
-
-        }
-
-
-        return true;
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        notePresenter.detachView();
-        binding.notesTitle.addTextChangedListener(null);
-        binding.titleToolbarTag.setOnClickListener(null);
     }
 
 
@@ -254,16 +238,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         changeTag(note.getTag(), false);
     }
 
-
-    // TODO: 03.04.2023 Прибрати дебаг код
     @Override
     public void loadingListNote(List<ItemListNote> listItemsNote) {
-        Log.wtf(TAG, "loadingListNote: " + notePresenter.getStatusList());
         if (listItemsNote.size() >= 1) {
-           // Log.wtf(TAG, "loadingListNote: yes list" + listItemsNote.size());
-            for (ItemListNote listNote : listItemsNote) {
-                Log.wtf(TAG, "loadingListNote: " + listNote.getValue() + "/" + listNote.getDragPosition());
-            }
             creteListNoteItems(listItemsNote);
             notePresenter.setStatusList(LIST_STATUS.LOAD);
         } else {
@@ -281,6 +258,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         supportFinishAfterTransition();
     }
 
+    @Override
+    public void closeActivityNotSaved() {
+        notePresenter.setExitNoSave(true);
+        finish();
+    }
+
     private void saveNote(boolean saveLocal) {
         long mThisDate = new Date().getTime();
         String mTitle = binding.notesTitle.getText().toString();
@@ -289,23 +272,24 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         if (!notePresenter.getNewNotesKey())
             mNoteValue = notePresenter.getNote().getValue() == null ? "" : notePresenter.getNote().getValue();
 
-        if (notePresenter.getNewNotesKey()) {
-            if (checkValidText()) {
-                Note note = new Note().create(mTitle.length() >= 1 ? mTitle : "", mValue, mThisDate, notePresenter.getTagNote());
-                notePresenter.setNote(note);
-                notePresenter.createNote(note);
+        if (!saveLocal && notePresenter.getStatusList() != LIST_STATUS.NOT) {
+            saveListItems();
+        }
+        if (checkEditionNote(mValue, mTitle, mNoteValue, mThisDate) && !saveLocal && checkValidText()) {
+            if (notePresenter.getNewNotesKey()) {
                 notePresenter.setNewNoteKey(false);
             }
-        } else {
-            if (!saveLocal && notePresenter.getStatusList() != LIST_STATUS.NOT) {
-                saveListItems();
-            }
-            if (saveNoteToLocal(mValue, mTitle, mNoteValue, mThisDate) && !saveLocal && checkValidText()) {
-                notePresenter.saveNote(notePresenter.getNote());
-            }
+            notePresenter.saveNote(notePresenter.getNote());
+        } else if (notePresenter.getNewNotesKey() && notePresenter.getShareText() != null && notePresenter.getStatusList() != LIST_STATUS.NEW) {
+            //Если в созданой заметке нет изменений то удалим
+            notePresenter.deleteNote(notePresenter.getNote());
         }
+
     }
 
+    /**
+     * Метод который проверяеть валидность текста заметки в зависимости от состояния списка
+     */
     private boolean checkValidText() {
         if (notePresenter.getStatusList() == LIST_STATUS.NOT || notePresenter.getStatusList() == LIST_STATUS.DELETE) {
             return binding.valueNote.getText().toString().trim().length() >= 2;
@@ -314,6 +298,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
     }
 
+    /**
+     * Метод который сохранянет список в зависимости от состояний
+     */
     private void saveListItems() {
         List<ItemListNote> saveList = saveList();
         switch (notePresenter.getStatusList()) {
@@ -337,6 +324,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
     }
 
+    /**
+     * Метод который перед сохранением прикляпляет к елементам их позицию
+     */
     private void saveItemsAndPosition(List<ItemListNote> list) {
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setDragPosition(i);
@@ -344,6 +334,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.saveItemList(list, itemListNoteAdapter.getDeleteItems());
     }
 
+    /**
+     * Метод который сравнивает два списка на наличие изменений и возврщает false если списки не одинаковые
+     *
+     * @param list1 - список до изменений
+     * @param list2 - список с возможними изменениями
+     */
     public boolean compareLists(List<ItemListNote> list1, List<ItemListNote> list2) {
         if (list1.size() != list2.size()) {
             return false;
@@ -356,7 +352,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             if (!Objects.equals(item1.getValue(), item2.getValue()) ||
                     item1.getDragPosition() != item2.getDragPosition() ||
                     item1.isChecked() != item2.isChecked()) {
-                Log.wtf(TAG, "compareLists: false size ");
                 return false;
             }
         }
@@ -382,7 +377,10 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
-    private boolean saveNoteToLocal(String mValue, String mTitle, String mNoteValue, long mThisDate) {
+    /**
+     * Метод который проверяет текст заметки на изменения
+     */
+    private boolean checkEditionNote(String mValue, String mTitle, String mNoteValue, long mThisDate) {
         if (!mValue.equals(mNoteValue) || !mTitle.equals(notePresenter.getNote().getTitle())) {
             boolean x1 = false;
             if (!notePresenter.getNote().getTitle().contentEquals(mTitle)) {
@@ -404,12 +402,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
     @Override
-    public void closeActivityNotSaved() {
-        notePresenter.setExitNoSave(true);
-        finish();
-    }
-
-    @Override
     public void changeTag(String nameTag, boolean change) {
         if (change) {
             notePresenter.getNote().setTag(nameTag);
@@ -427,11 +419,8 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         String noteTag = notePresenter.getTagNote().length() == 0 ? notePresenter.getNote().getTag() : notePresenter.getTagNote();
         if (noteTag.length() != 0) {
             new PopupWindowsTagNote(getLayoutInflater(), binding.titleToolbarTag, () -> {
-
                 finish();
                 startActivity(new Intent(NoteActivity.this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", noteTag));
-
-
             });
         }
     }

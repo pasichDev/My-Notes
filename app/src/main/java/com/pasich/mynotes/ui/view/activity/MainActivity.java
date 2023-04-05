@@ -393,10 +393,14 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
 
     @Override
-    public void newNotesButton() {
+    public void newNotesButton(long idNewNote) {
         Tag tagSelected = tagsAdapter.getTagSelected();
         String tagName = tagSelected == null ? "" : tagSelected.getSystemAction() == 2 ? "" : tagSelected.getNameTag();
-        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", tagName), ActivityOptionsCompat.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, NameTransition.fabTransaction).toBundle());
+        startActivity(new Intent(this, NoteActivity.class)
+                        .putExtra("NewNote", true)
+                        .putExtra("idNote", idNewNote)
+                        .putExtra("tagNote", tagName),
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this, mActivityBinding.newNotesButton, NameTransition.fabTransaction).toBundle());
     }
 
     @Override

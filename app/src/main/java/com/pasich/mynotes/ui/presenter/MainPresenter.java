@@ -15,6 +15,7 @@ import com.pasich.mynotes.ui.contract.MainContract;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -49,9 +50,14 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
 
     @Override
     public void newNotesClick() {
-        if (isViewAttached()) getView().newNotesButton();
-    }
 
+
+        getCompositeDisposable().add(getDataManager().addNote(new Note().create("", "", new Date().getTime()), false).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(idNewNote -> {
+            if (isViewAttached()) getView().newNotesButton(idNewNote);
+        }));
+
+
+    }
 
 
     @Override

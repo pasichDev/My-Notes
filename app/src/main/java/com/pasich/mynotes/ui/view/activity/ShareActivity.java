@@ -5,51 +5,51 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.base.activity.BaseActivity;
+import com.pasich.mynotes.ui.contract.ShareContract;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * An activity that is a gateway to save a note via the save button
  */
-public class ShareActivity extends AppCompatActivity {
+
+@AndroidEntryPoint
+public class ShareActivity extends BaseActivity implements ShareContract.view {
+
+    @Inject
+    public ShareContract.presenter mPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.attachView(this);
+        mPresenter.viewIsReady();
+
         final Intent intent = getIntent();
 
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             try {
-                startNoteActivityIntent(readFile(getIntent().getData()));
+                mPresenter.creteNoteShare(readFile(getIntent().getData()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if (intent.getType().equals("text/plain")) {
-
-            startNoteActivityIntent(handleSendText());
-
+            mPresenter.creteNoteShare(handleSendText());
         } else {
             Toast.makeText(this, getString(R.string.notSupportedShare), Toast.LENGTH_LONG).show();
         }
 
         finish();
     }
-
-
-    /**
-     * Method that implements the opening of an intent to create an annotation
-     *
-     * @param textShare - The text that we fumble in a note
-     */
-    private void startNoteActivityIntent(String textShare) {
-        startActivity(new Intent(this, NoteActivity.class).putExtra("NewNote", true).putExtra("tagNote", "").putExtra("shareText", textShare));
-    }
-
 
     /**
      * The method that opens the file from which we want to take the text for sharing
@@ -79,5 +79,18 @@ public class ShareActivity extends AppCompatActivity {
     private String handleSendText() {
         String sharedText = getIntent().getStringExtra(Intent.EXTRA_TEXT);
         return sharedText != null ? sharedText : "";
+    }
+
+    @Override
+    public void initListeners() {
+
+    }
+
+    @Override
+    public void openNoteEdition(long idNote) {
+        startActivity(new Intent(this, NoteActivity.class)
+                .putExtra("NewNote", true)
+                .putExtra("idNote", idNote));
+
     }
 }
