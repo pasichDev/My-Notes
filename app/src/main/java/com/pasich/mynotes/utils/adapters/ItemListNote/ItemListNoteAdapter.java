@@ -1,10 +1,7 @@
 package com.pasich.mynotes.utils.adapters.ItemListNote;
 
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -128,10 +125,10 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        Log.wtf(TAG, "onItemMove: " + itemsListNote.get(fromPosition).getValue());
+      //  Log.wtf(TAG, "onItemMove: " + itemsListNote.get(fromPosition).getValue());
         ItemListNote fromItem = itemsListNote.get(fromPosition);
         itemsListNote.remove(fromPosition);
-        Log.wtf(TAG, "onItemMove: " + itemsListNote.get(toPosition).getValue());
+        //    Log.wtf(TAG, "onItemMove: " + itemsListNote.get(toPosition).getValue());
 
         itemsListNote.add(toPosition, fromItem);
         notifyItemMoved(fromPosition, toPosition);

@@ -260,9 +260,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void loadingListNote(List<ItemListNote> listItemsNote) {
         Log.wtf(TAG, "loadingListNote: " + notePresenter.getStatusList());
         if (listItemsNote.size() >= 1) {
-            Log.wtf(TAG, "loadingListNote: yes list" + listItemsNote.size());
+           // Log.wtf(TAG, "loadingListNote: yes list" + listItemsNote.size());
             for (ItemListNote listNote : listItemsNote) {
-                Log.wtf(TAG, "loadingListNote: " + listNote.getValue());
+                Log.wtf(TAG, "loadingListNote: " + listNote.getValue() + "/" + listNote.getDragPosition());
             }
             creteListNoteItems(listItemsNote);
             notePresenter.setStatusList(LIST_STATUS.LOAD);
@@ -330,6 +330,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             }
             case LIST_STATUS.LOAD -> {
                 if (saveList.size() > 0) {
+                    for (ItemListNote listNote : saveList) {
+                        Log.wtf(TAG, "loadingListNote: " + listNote.getValue() + "/" + listNote.getDragPosition());
+                    }
                     Log.wtf(TAG, "saveListItems: load " + itemListNoteAdapter.getDeleteItems().size());
                     if (compareLists(notePresenter.getListNotesItems(), saveList) && saveList.size() != 0) {
                         notePresenter.saveItemList(saveList, itemListNoteAdapter.getDeleteItems());
@@ -345,6 +348,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         if (list1.size() != list2.size()) {
             return false;
         }
+
 
         // Порівняння наповнення моделі
         for (int i = 0; i < list1.size(); i++) {
