@@ -310,8 +310,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
                 if (direction == ItemTouchHelper.LEFT) {
                     selectItemAction(mNoteAdapter.getCurrentList().get(position).getNote(), position, false);
-
-
                 } else {
 
                     Note sNote = mNoteAdapter.getCurrentList().get(position).getNote();

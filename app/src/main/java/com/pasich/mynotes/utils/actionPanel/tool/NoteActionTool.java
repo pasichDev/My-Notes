@@ -3,6 +3,7 @@ package com.pasich.mynotes.utils.actionPanel.tool;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.getAction;
 import static com.pasich.mynotes.utils.actionPanel.ActionUtils.setAction;
 
+import com.pasich.mynotes.data.model.DataNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
@@ -28,18 +29,18 @@ public class NoteActionTool {
     }
 
     public int getCountCheckedItem() {
-        List<Note> data = mAdapter.getCurrentList();
+        List<DataNote> data = mAdapter.getCurrentList();
         int count = 0;
         for (int i = 0; i < data.size(); i++) {
-            count = data.get(i).getChecked() ? count + 1 : count;
+            count = data.get(i).getNote().getChecked() ? count + 1 : count;
         }
         return count;
     }
 
     public void checkedClean() {
-        List<Note> data = (List<Note>) mAdapter.getCurrentList();
+        List<DataNote> data = (List<DataNote>) mAdapter.getCurrentList();
         for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getChecked()) data.get(i).setChecked(false);
+            if (data.get(i).getNote().getChecked()) data.get(i).getNote().setChecked(false);
             mAdapter.notifyItemChanged(i, 22);
             getArrayChecked().clear();
         }
