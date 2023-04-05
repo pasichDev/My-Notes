@@ -316,8 +316,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     private void saveListItems() {
         List<ItemListNote> saveList = saveList();
-
-        Log.wtf(TAG, "saveListItems: saveList ");
         switch (notePresenter.getStatusList()) {
 
             case LIST_STATUS.NEW -> {
@@ -330,18 +328,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             }
             case LIST_STATUS.LOAD -> {
                 if (saveList.size() > 0) {
-
-                    Log.wtf(TAG, "saveListItems: load " + itemListNoteAdapter.getDeleteItems().size());
                     if (compareLists(notePresenter.getListNotesItems(), saveList) && saveList.size() != 0) {
                         saveItemsAndPosition(saveList);
-                    }
-                    for (ItemListNote listNote : saveList) {
-                        Log.wtf(TAG, "loadingListNote: " + listNote.getValue() + "/" + listNote.getDragPosition());
                     }
                 }
             }
             case LIST_STATUS.DELETE -> notePresenter.deleteList((int) notePresenter.getIdKey());
-
         }
     }
 
@@ -511,11 +503,11 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             @SuppressLint("SetTextI18n")
             @Override
             public void convertToNote() {
-                String newValueNote = "";
+                StringBuilder newValueNote = new StringBuilder();
                 if (notePresenter.getStatusList() != LIST_STATUS.NOT) {
                     for (ItemListNote itemListNote : itemListNoteAdapter.getItemsListNote()) {
                         if (!itemListNote.isSystem()) {
-                            newValueNote = newValueNote + itemListNote.getValue() + "\n";
+                            newValueNote.append(itemListNote.getValue()).append("\n");
                         }
                     }
                 }
