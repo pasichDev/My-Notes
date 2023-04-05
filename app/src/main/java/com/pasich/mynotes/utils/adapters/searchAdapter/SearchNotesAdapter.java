@@ -1,6 +1,7 @@
 package com.pasich.mynotes.utils.adapters.searchAdapter;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.color.MaterialColors;
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.model.DataNote;
 import com.pasich.mynotes.data.model.IndexFilter;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.databinding.ItemResultBinding;
@@ -28,8 +30,8 @@ import dagger.hilt.android.scopes.ActivityScoped;
 @ActivityScoped
 public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.ViewHolder> {
 
-    private List<Note> defaultListNotes = new ArrayList<>();
-    private List<Note> listNotes = new ArrayList<>();
+    private List<DataNote> defaultListNotes = new ArrayList<>();
+    private List<DataNote> listNotes = new ArrayList<>();
     private List<IndexFilter> indexValue = new ArrayList<>();
     private SetItemClickListener mOnItemClickListener;
     private String textSearch;
@@ -43,7 +45,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     }
 
 
-    public void setDefaultListNotes(List<Note> defaultListNotes) {
+    public void setDefaultListNotes(List<DataNote> defaultListNotes) {
         this.defaultListNotes = defaultListNotes;
     }
 
@@ -52,7 +54,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
         return (null != listNotes ? listNotes.size() : 0);
     }
 
-    public List<Note> getData() {
+    public List<DataNote> getData() {
         return this.listNotes;
     }
 
@@ -63,7 +65,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
         ViewHolder view = new SearchNotesAdapter.ViewHolder(ItemResultBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
         if (mOnItemClickListener != null) {
-            view.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(getData().get(view.getAdapterPosition()).getId(), view.ItemBinding.itemNote));
+            view.itemView.setOnClickListener(v -> mOnItemClickListener.onClick(getData().get(view.getAdapterPosition()).getNote().getId(), view.ItemBinding.itemNote));
         }
 
         return view;
@@ -72,8 +74,8 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Note note = listNotes.get(position);
-        holder.ItemBinding.setNote(listNotes.get(position));
+        final Note note = listNotes.get(position).getNote();
+        holder.ItemBinding.setNote(listNotes.get(position).getNote());
 
         final int colorSpannable = MaterialColors.getColor(holder.itemView.getContext(), R.attr.colorSurfaceVariant, Color.GRAY);
         Spannable titleNote = new SpannableString(note.getTitle());
@@ -81,15 +83,13 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
 
         for (IndexFilter filter : indexValue) {
 
-            if (filter.getIdNote() == listNotes.get(position).getId()) {
+            if (filter.getIdNote() == listNotes.get(position).getNote().getId()) {
                 if (filter.getIndexTitle() != -1) {
-                    titleNote.setSpan(new BackgroundColorSpan(colorSpannable)
-                            , filter.getIndexTitle(), filter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    titleNote.setSpan(new BackgroundColorSpan(colorSpannable), filter.getIndexTitle(), filter.getIndexTitle() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
                 if (filter.getIndexValue() != -1) {
-                    valueNote.setSpan(new BackgroundColorSpan(
-                            colorSpannable), filter.getIndexValue(), filter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    valueNote.setSpan(new BackgroundColorSpan(colorSpannable), filter.getIndexValue(), filter.getIndexValue() + textSearch.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
             }
@@ -101,20 +101,20 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     }
 
     public void filter(String text) {
-        ArrayList<Note> newFilter = new ArrayList<>();
+        ArrayList<DataNote> newFilter = new ArrayList<>();
         ArrayList<IndexFilter> indexFilter = new ArrayList<>();
-        for (Note item : defaultListNotes) {
-            int indexTitle = item.getTitle().toLowerCase().indexOf(text.toLowerCase());
-            int indexValue = item.getValue().toLowerCase().indexOf(text.toLowerCase());
+        for (DataNote item : defaultListNotes) {
+            int indexTitle = item.getNote().getTitle().toLowerCase().indexOf(text.toLowerCase());
+            int indexValue = item.getNote().getValue().toLowerCase().indexOf(text.toLowerCase());
             int countArrays = indexFilter.size();
             while (indexTitle != -1) {
-                indexFilter.add(new IndexFilter(item.id, indexTitle, -1));
-                indexTitle = item.getTitle().toLowerCase().indexOf(text.toLowerCase(), indexTitle + 1);
+                indexFilter.add(new IndexFilter(item.getNote().id, indexTitle, -1));
+                indexTitle = item.getNote().getTitle().toLowerCase().indexOf(text.toLowerCase(), indexTitle + 1);
             }
 
             while (indexValue != -1) {
-                indexFilter.add(new IndexFilter(item.id, -1, indexValue));
-                indexValue = item.getValue().toLowerCase().indexOf(text.toLowerCase(), indexValue + 1);
+                indexFilter.add(new IndexFilter(item.getNote().id, -1, indexValue));
+                indexValue = item.getNote().getValue().toLowerCase().indexOf(text.toLowerCase(), indexValue + 1);
             }
 
 
@@ -132,7 +132,8 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
     }
 
 
-    public void filterList(ArrayList<Note> newListFilter, String textSearch, ArrayList<IndexFilter> indexValue) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterList(ArrayList<DataNote> newListFilter, String textSearch, ArrayList<IndexFilter> indexValue) {
         this.listNotes = newListFilter;
         this.indexValue = indexValue;
         this.textSearch = textSearch;
@@ -140,6 +141,7 @@ public class SearchNotesAdapter extends RecyclerView.Adapter<SearchNotesAdapter.
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void cleanResult() {
         if (listNotes.size() >= 1) {
             listNotes.clear();

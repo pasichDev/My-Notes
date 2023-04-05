@@ -338,7 +338,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
         int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(),
                 tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
         showEmptyNotes(!(countNotes >= 1));
-        // searchNotesAdapter.setDefaultListNotes(noteList);
+        searchNotesAdapter.setDefaultListNotes(noteList);
     }
 
     @Override
