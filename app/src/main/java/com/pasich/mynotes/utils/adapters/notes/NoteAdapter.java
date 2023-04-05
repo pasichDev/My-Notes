@@ -36,7 +36,7 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Data
         final int sizeArray = item.getItemListNotes().size();
         if (sizeArray >= 1 && item.getNote().getValue().length() >= 2) {
             TextView textView = holder.itemView.findViewById(R.id.listItemHidden);
-            textView.setText(holder.itemView.getContext().getString(R.string.countListItems, item.getItemListNotes().size()));
+            textView.setText(holder.itemView.getContext().getResources().getQuantityString(R.plurals.countListItems, sizeArray, sizeArray));
         } else if (sizeArray >= 1 && item.getNote().getValue().length() < 2) {
             RecyclerView recyclerView = holder.itemView.findViewById(R.id.listItemsRecycler);
             recyclerView.setAdapter(new DemoItemListNoteAdapter(item.getItemListNotes()));
