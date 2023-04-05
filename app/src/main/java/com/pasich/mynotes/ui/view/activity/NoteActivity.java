@@ -98,6 +98,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     public void onPause() {
         super.onPause();
         if (!notePresenter.getExitNoteSave()) {
+            binding.noteLayout.requestFocus(); //не удалять, это для того чтобы список сохранялася
             saveNote(false);
         }
     }
