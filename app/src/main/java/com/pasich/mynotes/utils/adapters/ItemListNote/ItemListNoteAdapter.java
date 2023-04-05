@@ -1,6 +1,5 @@
 package com.pasich.mynotes.utils.adapters.ItemListNote;
 
-
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -30,6 +29,7 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
     public ItemListNoteAdapter(List<ItemListNote> itemsListNote) {
+        Collections.sort(itemsListNote, new SortComparator());
         this.itemsListNote = itemsListNote;
 
     }
@@ -75,12 +75,12 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
             view.itemListNoteBinding.deleteItem.setOnClickListener(v -> deleteItemList(view.getAdapterPosition()));
             view.itemListNoteBinding.valueItem.setOnFocusChangeListener((v1, hasFocus) -> {
-                view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
-                if (!hasFocus) {
-                    getItemsListNote().get(view.getAdapterPosition()).setValue(((EditText) v1).getText().toString());
+                if (v1 != null) {
+                    view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
+                    if (!hasFocus) {
+                        getItemsListNote().get(view.getAdapterPosition()).setValue(((EditText) v1).getText().toString());
+                    }
                 }
-
-
             });
             view.itemListNoteBinding.valueItem.setOnTouchListener((v, event) -> !itemListSetOnCLickListener.isActivatedEdit());
             view.itemListNoteBinding.checkItem.setOnCheckedChangeListener((buttonView, isChecked) -> getItemsListNote().get(view.getAdapterPosition()).setChecked(isChecked));
@@ -117,19 +117,16 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void deleteItemList(int position) {
         deleteItems.add(itemsListNote.get(position));
-        itemsListNote.remove(position);
         itemListSetOnCLickListener.refreshFocus(position);
+        itemsListNote.remove(position);
         notifyItemRemoved(position);
     }
 
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-      //  Log.wtf(TAG, "onItemMove: " + itemsListNote.get(fromPosition).getValue());
         ItemListNote fromItem = itemsListNote.get(fromPosition);
         itemsListNote.remove(fromPosition);
-        //    Log.wtf(TAG, "onItemMove: " + itemsListNote.get(toPosition).getValue());
-
         itemsListNote.add(toPosition, fromItem);
         notifyItemMoved(fromPosition, toPosition);
 

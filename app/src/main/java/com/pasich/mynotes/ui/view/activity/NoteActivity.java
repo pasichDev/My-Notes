@@ -323,19 +323,20 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             case LIST_STATUS.NEW -> {
                 if (itemListNoteAdapter.getItemCount() > 0) {
                     if (saveList.size() != 0) {
-                        notePresenter.saveItemList(saveList, itemListNoteAdapter.getDeleteItems());
+                        saveItemsAndPosition(saveList);
                     }
 
                 }
             }
             case LIST_STATUS.LOAD -> {
                 if (saveList.size() > 0) {
-                    for (ItemListNote listNote : saveList) {
-                        Log.wtf(TAG, "loadingListNote: " + listNote.getValue() + "/" + listNote.getDragPosition());
-                    }
+
                     Log.wtf(TAG, "saveListItems: load " + itemListNoteAdapter.getDeleteItems().size());
                     if (compareLists(notePresenter.getListNotesItems(), saveList) && saveList.size() != 0) {
-                        notePresenter.saveItemList(saveList, itemListNoteAdapter.getDeleteItems());
+                        saveItemsAndPosition(saveList);
+                    }
+                    for (ItemListNote listNote : saveList) {
+                        Log.wtf(TAG, "loadingListNote: " + listNote.getValue() + "/" + listNote.getDragPosition());
                     }
                 }
             }
@@ -344,13 +345,18 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         }
     }
 
+    private void saveItemsAndPosition(List<ItemListNote> list) {
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setDragPosition(i);
+        }
+        notePresenter.saveItemList(list, itemListNoteAdapter.getDeleteItems());
+    }
+
     public boolean compareLists(List<ItemListNote> list1, List<ItemListNote> list2) {
         if (list1.size() != list2.size()) {
             return false;
         }
 
-
-        // Порівняння наповнення моделі
         for (int i = 0; i < list1.size(); i++) {
             ItemListNote item1 = list1.get(i);
             ItemListNote item2 = list2.get(i);
@@ -363,7 +369,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             }
         }
 
-        // Списки однакові
         return true;
     }
 
