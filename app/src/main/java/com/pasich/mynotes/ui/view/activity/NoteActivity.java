@@ -217,6 +217,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 imm.showSoftInput(binding.valueNote, InputMethodManager.SHOW_IMPLICIT);
             }
         }
+        if (notePresenter.getStatusList() >= LIST_STATUS.LOAD) {
+            itemListNoteAdapter.getItemsListNote().add(getDefaultAddItem());
+        }
 
     }
 
@@ -349,9 +352,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             ItemListNote item1 = list1.get(i);
             ItemListNote item2 = list2.get(i);
 
-            if (!Objects.equals(item1.getValue(), item2.getValue()) ||
-                    item1.getDragPosition() != item2.getDragPosition() ||
-                    item1.isChecked() != item2.isChecked()) {
+            if (!Objects.equals(item1.getValue(), item2.getValue()) || item1.getDragPosition() != item2.getDragPosition() || item1.isChecked() != item2.isChecked()) {
                 return false;
             }
         }
@@ -570,7 +571,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
      */
     @SuppressLint("NotifyDataSetChanged")
     private void creteListNoteItems(List<ItemListNote> listItemsNote) {
-        listItemsNote.add(getDefaultAddItem());
+        if (binding.getActivateEdit()) {
+            listItemsNote.add(getDefaultAddItem());
+        }
         if (notePresenter.getStatusList() == LIST_STATUS.NOT) {
             itemListNoteAdapter = new ItemListNoteAdapter(listItemsNote);
             ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(itemListNoteAdapter);
@@ -624,7 +627,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         }
     }
-
 
 
     private ItemListNote getDefaultAddItem() {
