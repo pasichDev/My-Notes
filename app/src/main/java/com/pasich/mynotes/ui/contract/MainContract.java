@@ -7,6 +7,7 @@ import com.pasich.mynotes.base.view.BaseView;
 import com.pasich.mynotes.base.view.MainSortView;
 import com.pasich.mynotes.base.view.MoreNoteMainActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;
+import com.pasich.mynotes.data.model.DataNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.utils.actionPanel.interfaces.ManagerViewAction;
@@ -32,7 +33,7 @@ public interface MainContract {
 
         void selectTagUser(int position);
 
-        void loadingNotes(List<Note> noteList);
+        void loadingNotes(List<DataNote> noteList);
 
         void loadingTags(List<Tag> tagList);
 

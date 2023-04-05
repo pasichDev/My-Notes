@@ -1,4 +1,4 @@
-package com.pasich.mynotes.utils.adapters.itemListNote;
+package com.pasich.mynotes.utils.adapters.ItemListNote;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

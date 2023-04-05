@@ -44,7 +44,11 @@ public class MainPresenter extends BasePresenter<MainContract.view> implements M
     @Override
     public void loadingData() {
         getCompositeDisposable().add(getDataManager().getTags().subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe((tagList) -> getView().loadingTags(tagList), throwable -> Log.e("com.pasich.myNotes", "loadTags", throwable)));
-        getCompositeDisposable().add(getDataManager().getNotes().subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe((noteList) -> getView().loadingNotes(noteList), throwable -> Log.e("com.pasich.myNotes", "loadNotes", throwable)));
+        getCompositeDisposable().add(getDataManager().getDataNotes()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe((noteList) -> getView().loadingNotes(noteList),
+                        throwable -> Log.e("com.pasich.myNotes", "loadNotes", throwable)));
     }
 
 

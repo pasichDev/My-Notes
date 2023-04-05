@@ -2,6 +2,7 @@ package com.pasich.mynotes.data.database;
 
 import androidx.room.RoomDatabase;
 
+import com.pasich.mynotes.data.database.dao.DataNoteDao;
 import com.pasich.mynotes.data.database.dao.ItemListNoteDao;
 import com.pasich.mynotes.data.database.dao.NoteDao;
 import com.pasich.mynotes.data.database.dao.TagsDao;
@@ -27,6 +28,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract TrashDao trashDao();
 
     public abstract ItemListNoteDao itemListNoteDao();
+
+    public abstract DataNoteDao dataNoteDao();
 
     public abstract Transactions transactionsNote();
 }

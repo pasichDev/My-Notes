@@ -27,6 +27,7 @@ import com.google.android.material.transition.platform.MaterialContainerTransfor
 import com.pasich.mynotes.R;
 import com.pasich.mynotes.base.activity.BaseActivity;
 import com.pasich.mynotes.base.simplifications.TextWatcher;
+import com.pasich.mynotes.data.model.DataNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.databinding.ActivityMainBinding;
@@ -228,17 +229,17 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
 
         mNoteAdapter.setOnItemClickListener(new OnItemClickListener<>() {
             @Override
-            public void onClick(int position, Note model) {
+            public void onClick(int position, DataNote model) {
                 if (!getAction()) {
-                    openNoteEdit(model.id,
+                    openNoteEdit(model.getNote().getId(),
                             (MaterialCardView) staggeredGridLayoutManager.findViewByPosition(position));
-                } else selectItemAction(model, position, true);
+                } else selectItemAction(model.getNote(), position, true);
 
             }
 
             @Override
-            public void onLongClick(int position, Note model) {
-                if (!getAction()) choiceNoteDialog(model, position);
+            public void onLongClick(int position, DataNote model) {
+                if (!getAction()) choiceNoteDialog(model.getNote(), position);
             }
 
         });
@@ -308,12 +309,12 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
                 int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT) {
-                    selectItemAction(mNoteAdapter.getCurrentList().get(position), position, false);
+                    selectItemAction(mNoteAdapter.getCurrentList().get(position).getNote(), position, false);
 
 
                 } else {
 
-                    Note sNote = mNoteAdapter.getCurrentList().get(position);
+                    Note sNote = mNoteAdapter.getCurrentList().get(position).getNote();
                     mainPresenter.setBackupDeleteNote(sNote);
                     mainPresenter.deleteNote(sNote);
                     snackBarRestoreNote();
@@ -333,11 +334,11 @@ public class MainActivity extends BaseActivity implements MainContract.view, Man
     }
 
     @Override
-    public void loadingNotes(List<Note> noteList) {
+    public void loadingNotes(List<DataNote> noteList) {
         int countNotes = mNoteAdapter.sortList(noteList, mainPresenter.getSortParam(),
                 tagsAdapter.getTagSelected() == null ? "allNotes" : tagsAdapter.getTagSelected().getNameTag());
         showEmptyNotes(!(countNotes >= 1));
-        searchNotesAdapter.setDefaultListNotes(noteList);
+        // searchNotesAdapter.setDefaultListNotes(noteList);
     }
 
     @Override

@@ -9,8 +9,8 @@
 
 
         <variable
-            name="Note"
-            type="com.pasich.mynotes.data.model.Note" />
+            name="DataNote"
+            type="com.pasich.mynotes.data.model.DataNote" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -18,8 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
-        app:cardBackgroundColor="@{Note.checked ? @color/item_bindig_note_surface_variant : @color/item_bindig_note_surface}"
-        app:strokeColor="@{Note.checked ? @color/item_bindig_note_primary :  @color/item_bindig_note_surface_variant}">
+        app:cardBackgroundColor="@{DataNote.getNote().checked ? @color/item_bindig_note_surface_variant : @color/item_bindig_note_surface}"
+        app:strokeColor="@{DataNote.getNote().checked ? @color/item_bindig_note_primary :  @color/item_bindig_note_surface_variant}">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,20 +27,37 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/marginItemsNote"
             android:paddingTop="15dp"
-            android:paddingBottom="@{Note.tag.length() >= 1 ? @dimen/marginItemsNoteChip : @dimen/marginItemsNote}">
+            android:paddingBottom="@{DataNote.getNote().tag.length() >= 1 ? @dimen/marginItemsNoteChip : @dimen/marginItemsNote}">
 
             <TextView
                 android:id="@+id/nameNote"
                 style="@style/itemNoteTitle"
-                android:text="@{Note.title}"
-                android:visibility="@{Note.title.length() >= 1 ? View.VISIBLE : View.GONE }"
+                android:text="@{DataNote.getNote().title}"
+                android:visibility="@{DataNote.getNote().title.length() >= 1 ? View.VISIBLE : View.GONE }"
                 tools:text="Title Note" />
 
             <TextView
                 android:id="@+id/previewNote"
                 style="@style/itemNotePreview"
-                android:text="@{Note.valuePreview}"
-                tools:text="Preview Note Check" />
+                android:text="@{DataNote.getNote().valuePreview}"
+                tools:text="Preview Note Check"
+                android:visibility="@{DataNote.getNote().getValue().length() >= 1 ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:id="@+id/listItemHidden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:visibility="@{DataNote.getItemListNotes().size() >= 1 ? View.VISIBLE : View.GONE}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listItemsRecycler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chip_group_action"
@@ -55,8 +72,9 @@
                     style="@style/chipTagItemNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{'#'+Note.tag}"
-                    android:visibility="@{Note.tag.length() >= 1 ? View.VISIBLE : View.GONE}" />
+                    android:text="@{'#'+DataNote.getNote().tag}"
+                    android:visibility="@{DataNote.getNote().tag.length() >= 1 ? View.VISIBLE : View.GONE}" />
+
 
             </com.google.android.material.chip.ChipGroup>
 

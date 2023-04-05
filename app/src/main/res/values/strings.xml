@@ -160,4 +160,7 @@
     <string name="deleteListNote" translatable="false">Удалить список</string>
     <string name="convertListToNote" translatable="false">Конвертировать список в заметку</string>
     <string name="errorNotesNotFound" translatable="false">Заметку, не найдено</string>
+
+
+    <string name="countListItems" translatable="false">+%1$d элементов списка</string>
 </resources>

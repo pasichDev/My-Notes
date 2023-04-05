@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.utils.adapters.itemListNote.ItemListNoteAdapter;
+import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListNoteAdapter;
 
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     private final ItemListNoteAdapter adapter;

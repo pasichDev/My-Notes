@@ -1,6 +1,7 @@
 package com.pasich.mynotes.data.database;
 
 
+import com.pasich.mynotes.data.model.DataNote;
 import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
@@ -204,5 +205,10 @@ public class AppDbHelper implements DbHelper {
     @Override
     public Completable deleteItemsList(int idNote) {
         return Completable.fromAction(() -> appDatabase.itemListNoteDao().deleteItemsList(idNote));
+    }
+
+    @Override
+    public Flowable<List<DataNote>> getDataNotes() {
+        return appDatabase.dataNoteDao().getDataNotes();
     }
 }

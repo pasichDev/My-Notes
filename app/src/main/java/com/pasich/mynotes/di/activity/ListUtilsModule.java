@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.model.DataNote;
 import com.pasich.mynotes.data.model.ItemListNote;
-import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.data.model.TrashNote;
 import com.pasich.mynotes.databinding.ItemNoteBinding;
@@ -46,8 +46,8 @@ public class ListUtilsModule {
 
     @Provides
     @ActivityScoped
-    NoteAdapter<ItemNoteBinding> providerGenericAdapter(@Named("Note") DiffUtil.ItemCallback<Note> diff) {
-        return new NoteAdapter<>((DiffUtilNote) diff, R.layout.item_note, ItemNoteBinding::setNote);
+    NoteAdapter<ItemNoteBinding> providerGenericAdapter(@Named("Note") DiffUtil.ItemCallback<DataNote> diff) {
+        return new NoteAdapter<>((DiffUtilNote) diff, R.layout.item_note, ItemNoteBinding::setDataNote);
     }
 
     @Provides
@@ -66,7 +66,7 @@ public class ListUtilsModule {
     @Named("Note")
     @Provides
     @ActivityScoped
-    DiffUtil.ItemCallback<Note> providesDiffUtilCallbackNote(DiffUtilNote diffUtil) {
+    DiffUtil.ItemCallback<DataNote> providesDiffUtilCallbackNote(DiffUtilNote diffUtil) {
         return diffUtil;
     }
 

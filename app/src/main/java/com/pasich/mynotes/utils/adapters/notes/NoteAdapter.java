@@ -1,11 +1,17 @@
 package com.pasich.mynotes.utils.adapters.notes;
 
 
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.R;
+import com.pasich.mynotes.data.model.DataNote;
 import com.pasich.mynotes.data.model.Tag;
+import com.pasich.mynotes.utils.adapters.ItemListNote.DemoItemListNoteAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallback;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
@@ -17,14 +23,30 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note, VM> {
+public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<DataNote, VM> {
 
     private final List<String> nameTagsHidden = new ArrayList<>();
-    private List<Note> defaultList = new ArrayList<>();
+    private List<DataNote> defaultList = new ArrayList<>();
 
+
+    @Override
+    public void onBindViewHolder(GenericAdapter.RecyclerViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        final DataNote item = getItem(position);
+        final int sizeArray = item.getItemListNotes().size();
+        if (sizeArray >= 1 && item.getNote().getValue().length() >= 2) {
+            TextView textView = holder.itemView.findViewById(R.id.listItemHidden);
+            textView.setText(holder.itemView.getContext().getString(R.string.countListItems, item.getItemListNotes().size()));
+        } else if (sizeArray >= 1 && item.getNote().getValue().length() < 2) {
+            RecyclerView recyclerView = holder.itemView.findViewById(R.id.listItemsRecycler);
+            recyclerView.setAdapter(new DemoItemListNoteAdapter(item.getItemListNotes()));
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+
+    }
 
     @Inject
-    public NoteAdapter(@NonNull DiffUtilNote diffCallback, int layoutId, GenericAdapterCallback<VM, Note> bindingInterface) {
+    public NoteAdapter(@NonNull DiffUtilNote diffCallback, int layoutId, GenericAdapterCallback<VM, DataNote> bindingInterface) {
         super(diffCallback, layoutId, bindingInterface);
     }
 
@@ -40,12 +62,12 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
 
 
     public void sortList(String arg) {
-        ArrayList<Note> newList = new ArrayList<>(getCurrentList());
+        ArrayList<DataNote> newList = new ArrayList<>(getCurrentList());
         Collections.sort(newList, new NoteComparator().getComparator(arg));
         submitList(newList);
     }
 
-    public int sortList(List<Note> notesList, String arg, String tagSelected) {
+    public int sortList(List<DataNote> notesList, String arg, String tagSelected) {
         Collections.sort(notesList, new NoteComparator().getComparator(arg));
         defaultList = notesList;
         return filter(tagSelected);
@@ -54,10 +76,10 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
 
     public int updateFromVisibilityTags() {
 
-        ArrayList<Note> newList = new ArrayList<>();
+        ArrayList<DataNote> newList = new ArrayList<>();
         if (defaultList.size() >= 1) {
-            for (Note item : defaultList) {
-                if (!nameTagsHidden.contains(item.getTag())) {
+            for (DataNote item : defaultList) {
+                if (!nameTagsHidden.contains(item.getNote().getTag())) {
                     newList.add(item);
                 }
             }
@@ -69,11 +91,11 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
 
 
     public int filter(String tagSelected) {
-        ArrayList<Note> newFilter = new ArrayList<>();
+        ArrayList<DataNote> newFilter = new ArrayList<>();
 
         if (tagSelected.equals("allNotes")) {
-            for (Note item : defaultList) {
-                if (!nameTagsHidden.contains(item.getTag())) {
+            for (DataNote item : defaultList) {
+                if (!nameTagsHidden.contains(item.getNote().getTag())) {
                     newFilter.add(item);
                 }
             }
@@ -86,9 +108,9 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
                 return defaultList.size();
             }
         } else {
-            for (Note item : defaultList) {
+            for (DataNote item : defaultList) {
 
-                if (item.getTag().equals(tagSelected)) {
+                if (item.getNote().getTag().equals(tagSelected)) {
                     newFilter.add(item);
                 }
             }
@@ -101,14 +123,15 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Note
 
 
     public static class NoteComparator {
-        public Comparator<Note> getComparator(String arg) {
+        public Comparator<DataNote> getComparator(String arg) {
             return switch (arg) {
-                case "DataSort" -> (e1, e2) -> Long.compare(e2.getDate(), e1.getDate());
+                case "DataSort" ->
+                        (e1, e2) -> Long.compare(e2.getNote().getDate(), e1.getNote().getDate());
                 case "TitleSort" ->
-                        (e1, e2) -> e1.getTitle().toLowerCase().compareTo(e2.getTitle().toLowerCase());
+                        (e1, e2) -> e1.getNote().getTitle().toLowerCase().compareTo(e2.getNote().getTitle().toLowerCase());
                 case "TitleReserve" ->
-                        (e1, e2) -> e2.getTitle().toLowerCase().compareTo(e1.getTitle().toLowerCase());
-                default -> (e1, e2) -> Long.compare(e1.getDate(), e2.getDate());
+                        (e1, e2) -> e2.getNote().getTitle().toLowerCase().compareTo(e1.getNote().getTitle().toLowerCase());
+                default -> (e1, e2) -> Long.compare(e1.getNote().getDate(), e2.getNote().getDate());
             };
         }
     }
