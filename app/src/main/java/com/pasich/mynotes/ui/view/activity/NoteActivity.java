@@ -469,6 +469,9 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void createListBox() {
+        if (notePresenter.getStatusList() != LIST_STATUS.NOT && !binding.getActivateEdit()) {
+            return;
+        }
         final boolean[] statusHelper = new boolean[]{notePresenter.getStatusList() == LIST_STATUS.NEW || notePresenter.getStatusList() == LIST_STATUS.LOAD, binding.valueNote.getText().toString().trim().length() >= 2};
         new PopupWindowsCreateListBox(getLayoutInflater(), binding.bottomPanel.addListCheckBox, statusHelper, new PopupWindowsCreateListBoxHelper() {
             @Override
@@ -476,12 +479,14 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
                 creteListNoteItems(generateItemListForDataNotes());
                 binding.valueNote.setText("");
                 notePresenter.setStatusList(LIST_STATUS.NEW);
+                if (!binding.getActivateEdit()) activatedActivity();
             }
 
             @Override
             public void addListToNote() {
                 creteListNoteItems(generateDefaultItemList());
                 notePresenter.setStatusList(LIST_STATUS.NEW);
+                if (!binding.getActivateEdit()) activatedActivity();
             }
 
             @Override
