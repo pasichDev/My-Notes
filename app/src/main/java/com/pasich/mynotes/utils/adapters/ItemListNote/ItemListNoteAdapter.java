@@ -119,7 +119,6 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         viewHolder.itemListNoteBinding.valueItem.setOnFocusChangeListener(null);
         deleteItems.add(itemsListNote.get(position));
         itemListSetOnCLickListener.refreshFocus(position);
-
         itemsListNote.remove(position);
         notifyItemRemoved(position);
     }
