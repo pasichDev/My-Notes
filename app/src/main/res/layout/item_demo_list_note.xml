@@ -19,11 +19,13 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/checkbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_gravity="center_vertical"
-            android:padding="0dp"
+            android:button="@drawable/check_box_selector"
             android:checked="@{itemListNote.checked}"
-            android:textSize="14sp"
-            android:text="@{itemListNote.value}" />
+            android:text="@{itemListNote.value}"
+            android:paddingHorizontal="10dp"
+            android:clickable="false"
+            android:textSize="16sp" />
     </LinearLayout>
 </layout>
