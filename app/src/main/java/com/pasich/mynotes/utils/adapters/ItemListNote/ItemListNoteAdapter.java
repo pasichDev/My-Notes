@@ -73,7 +73,7 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
                 return false;
             });
-            view.itemListNoteBinding.deleteItem.setOnClickListener(v -> deleteItemList(view.getAdapterPosition()));
+            view.itemListNoteBinding.deleteItem.setOnClickListener(v -> deleteItemList(view.getAdapterPosition(), view));
             view.itemListNoteBinding.valueItem.setOnFocusChangeListener((v1, hasFocus) -> {
                 if (v1 != null) {
                     view.itemListNoteBinding.deleteItem.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
@@ -115,9 +115,11 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         notifyItemInserted((position + 1));
     }
 
-    private void deleteItemList(int position) {
+    private void deleteItemList(int position, ItemViewHolder viewHolder) {
+        viewHolder.itemListNoteBinding.valueItem.setOnFocusChangeListener(null);
         deleteItems.add(itemsListNote.get(position));
         itemListSetOnCLickListener.refreshFocus(position);
+
         itemsListNote.remove(position);
         notifyItemRemoved(position);
     }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp"
+    android:paddingHorizontal="4dp"
     android:orientation="horizontal">
 
     <ImageButton
@@ -23,15 +23,20 @@
 
     <EditText
         android:id="@+id/valueItem"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@null"
         android:textSize="16sp"
         android:autofillHints="no"
         android:layout_gravity="center_vertical"
         android:hint="@string/hintListItem"
-        android:inputType="textMultiLine" />
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:inputType="textMultiLine">
+
+        <requestFocus />
+    </EditText>
 
     <ImageButton
         android:id="@+id/deleteItem"
