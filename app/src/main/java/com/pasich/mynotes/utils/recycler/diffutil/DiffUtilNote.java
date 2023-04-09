@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.pasich.mynotes.data.model.DataNote;
+import com.pasich.mynotes.utils.recycler.CompareListItemListNote;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,7 @@ public class DiffUtilNote extends DiffUtil.ItemCallback<DataNote> {
 
     @Override
     public boolean areContentsTheSame(@NonNull DataNote oldItem, @NonNull DataNote newItem) {
-        return oldItem.getNote().getTitle().equals(newItem.getNote().getTitle()) && oldItem.getNote().getValue().equals(newItem.getNote().getValue()) && oldItem.getNote().getTag().equals(newItem.getNote().getTag());
+        return oldItem.getNote().getTitle().equals(newItem.getNote().getTitle()) && oldItem.getNote().getValue().equals(newItem.getNote().getValue()) &&
+                oldItem.getNote().getTag().equals(newItem.getNote().getTag()) && CompareListItemListNote.compareLists(oldItem.getItemListNotes(), newItem.itemListNotes);
     }
 }

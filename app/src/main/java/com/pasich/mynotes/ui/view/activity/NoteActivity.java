@@ -45,6 +45,7 @@ import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
 import com.pasich.mynotes.utils.constants.LIST_STATUS;
 import com.pasich.mynotes.utils.constants.NameTransition;
 import com.pasich.mynotes.utils.constants.SnackBarInfo;
+import com.pasich.mynotes.utils.recycler.CompareListItemListNote;
 import com.pasich.mynotes.utils.recycler.ItemTouchHelperCallback;
 
 import java.util.ArrayList;
@@ -270,6 +271,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     private void saveNote(boolean saveLocal) {
         long mThisDate = new Date().getTime();
+        boolean saveNote = false;
         String mTitle = binding.notesTitle.getText().toString();
         String mValue = binding.valueNote.getText().toString();
         String mNoteValue = "";
@@ -278,15 +280,21 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
         if (!saveLocal && notePresenter.getStatusList() != LIST_STATUS.NOT) {
             saveListItems();
+            saveNote = true;
         }
         if (checkEditionNote(mValue, mTitle, mNoteValue, mThisDate) && !saveLocal && checkValidText()) {
             if (notePresenter.getNewNotesKey()) {
                 notePresenter.setNewNoteKey(false);
             }
-            notePresenter.saveNote(notePresenter.getNote());
+            saveNote = true;
         } else if (notePresenter.getNewNotesKey() && notePresenter.getShareText() != null && notePresenter.getStatusList() != LIST_STATUS.NEW) {
             //Если в созданой заметке нет изменений то удалим
             notePresenter.deleteNote(notePresenter.getNote());
+        }
+
+        if (saveNote) {
+            notePresenter.saveNote(notePresenter.getNote());
+
         }
 
     }
@@ -319,7 +327,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             }
             case LIST_STATUS.LOAD -> {
                 if (saveList.size() > 0) {
-                    if (compareLists(notePresenter.getListNotesItems(), saveList) && saveList.size() != 0) {
+                    if (CompareListItemListNote.compareLists(notePresenter.getListNotesItems(), saveList) && saveList.size() != 0) {
                         saveItemsAndPosition(saveList);
                     }
                 }
@@ -329,7 +337,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
     /**
-     * Метод который перед сохранением прикляпляет к елементам их позицию
+     * Метод который перед сохранением прикрепляет к елементам их позицию
      */
     private void saveItemsAndPosition(List<ItemListNote> list) {
         for (int i = 0; i < list.size(); i++) {
@@ -338,28 +346,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.saveItemList(list, itemListNoteAdapter.getDeleteItems());
     }
 
-    /**
-     * Метод который сравнивает два списка на наличие изменений и возврщает false если списки не одинаковые
-     *
-     * @param list1 - список до изменений
-     * @param list2 - список с возможними изменениями
-     */
-    public boolean compareLists(List<ItemListNote> list1, List<ItemListNote> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-
-        for (int i = 0; i < list1.size(); i++) {
-            ItemListNote item1 = list1.get(i);
-            ItemListNote item2 = list2.get(i);
-
-            if (!Objects.equals(item1.getValue(), item2.getValue()) || item1.getDragPosition() != item2.getDragPosition() || item1.isChecked() != item2.isChecked()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 
 
     /**
