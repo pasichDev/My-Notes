@@ -27,7 +27,7 @@ import java.util.List;
 public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     private static final int ADD_ITEM = 505;
     private static final int OTHER_ITEM = 507;
-    private final List<ItemListNote> deleteItems = new ArrayList<>();
+    private List<ItemListNote> deleteItems = new ArrayList<>();
     private List<ItemListNote> itemsListNote;
     private ItemListSetOnClickListener itemListSetOnCLickListener;
 
@@ -37,6 +37,7 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.itemsListNote = itemsListNote;
 
     }
+
 
     public List<ItemListNote> getItemsListNote() {
         return itemsListNote;
@@ -48,6 +49,10 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public List<ItemListNote> getDeleteItems() {
         return deleteItems;
+    }
+
+    public void setDeleteItems(List<ItemListNote> deletes) {
+        deleteItems = new ArrayList<>(deletes);
     }
 
     @Override
