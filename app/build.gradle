@@ -91,11 +91,11 @@ dependencies {
     testImplementation "androidx.room:room-compiler-processing-testing:$roomVersion"
 
     //Google Drive integration, Pay Billing
-    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
     implementation 'com.google.http-client:google-http-client-gson:1.42.1'
     implementation 'com.google.api-client:google-api-client-android:1.26.0'
     implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
-    implementation "com.android.billingclient:billing:5.1.0"
+    implementation "com.android.billingclient:billing:5.2.0"
 
     //Other lib (Gson/Glide/PowerPreferences)
     implementation 'com.github.bumptech.glide:glide:4.14.2'
