@@ -71,6 +71,14 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return view;
         } else {
             ItemListNoteAdapter.ItemViewHolder view = new ItemViewHolder(ItemListNoteBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+
+            if (itemListSetOnCLickListener.isActivatedEdit()) {
+                view.itemListNoteBinding.valueItem.setFocusable(true);
+                view.itemListNoteBinding.valueItem.isFocusableInTouchMode();
+                view.itemListNoteBinding.valueItem.requestFocus();
+            }
+
+
             view.itemListNoteBinding.dragItem.setOnTouchListener((v, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     itemListSetOnCLickListener.requestDrag(view);

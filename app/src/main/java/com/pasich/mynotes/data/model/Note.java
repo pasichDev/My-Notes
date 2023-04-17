@@ -70,7 +70,13 @@ public class Note {
     }
 
     public String getValuePreview() {
-        return value.length() > 400 ? value.substring(0, 400) : value;
+        String valPrev = value;
+        valPrev = value.length() > 400 ? valPrev.substring(0, 400) : valPrev;
+        if (value.length() > 400) {
+            valPrev = valPrev + "...";
+        }
+
+        return valPrev;
     }
 
     public boolean getChecked() {

@@ -36,7 +36,6 @@
         android:focusableInTouchMode="true"
         android:inputType="text">
 
-        <requestFocus />
     </EditText>
 
     <ImageButton
@@ -48,5 +47,6 @@
         android:background="@null"
         android:layout_gravity="center_vertical"
         app:tint="?attr/colorOnBackground"
+        android:visibility="gone"
         android:contentDescription="@string/deleteItem" />
 </LinearLayout>
