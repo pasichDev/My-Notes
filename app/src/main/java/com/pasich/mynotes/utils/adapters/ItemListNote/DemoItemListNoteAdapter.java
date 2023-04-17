@@ -8,25 +8,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.databinding.ItemDemoListNoteBinding;
+import com.pasich.mynotes.utils.adapters.ItemListNote.listeners.DemoItemListSetOnClickListener;
 
 import java.util.List;
 
 public class DemoItemListNoteAdapter extends RecyclerView.Adapter<DemoItemListNoteAdapter.ViewHolder> {
     private final List<ItemListNote> items;
+    private final DemoItemListSetOnClickListener demoItemListSetOnClickListener;
 
-
-    public DemoItemListNoteAdapter(List<ItemListNote> list) {
+    public DemoItemListNoteAdapter(List<ItemListNote> list, DemoItemListSetOnClickListener demoItemListSetOnClickListener) {
         this.items = list;
-
+        this.demoItemListSetOnClickListener = demoItemListSetOnClickListener;
     }
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DemoItemListNoteAdapter
-                .ViewHolder(ItemDemoListNoteBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        ViewHolder viewHolder = new DemoItemListNoteAdapter.ViewHolder(ItemDemoListNoteBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
+        viewHolder.itemView.setOnClickListener(v -> demoItemListSetOnClickListener.click());
+        return viewHolder;
     }
 
 

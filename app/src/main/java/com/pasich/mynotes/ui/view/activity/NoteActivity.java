@@ -40,7 +40,7 @@ import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindows
 import com.pasich.mynotes.ui.view.dialogs.popupWindowsCreateListBox.PopupWindowsCreateListBoxHelper;
 import com.pasich.mynotes.utils.CustomLinkMovementMethod;
 import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListNoteAdapter;
-import com.pasich.mynotes.utils.adapters.ItemListNote.ItemListSetOnClickListener;
+import com.pasich.mynotes.utils.adapters.ItemListNote.listeners.ItemListSetOnClickListener;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteUtils;
 import com.pasich.mynotes.utils.constants.LIST_STATUS;
 import com.pasich.mynotes.utils.constants.NameTransition;

@@ -12,6 +12,7 @@ import com.pasich.mynotes.R;
 import com.pasich.mynotes.data.model.DataNote;
 import com.pasich.mynotes.data.model.Tag;
 import com.pasich.mynotes.utils.adapters.ItemListNote.DemoItemListNoteAdapter;
+import com.pasich.mynotes.utils.adapters.ItemListNote.listeners.DemoItemListSetOnClickListener;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapter;
 import com.pasich.mynotes.utils.adapters.baseGenericAdapter.GenericAdapterCallback;
 import com.pasich.mynotes.utils.recycler.diffutil.DiffUtilNote;
@@ -39,7 +40,13 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Data
             textView.setText(holder.itemView.getContext().getResources().getQuantityString(R.plurals.countListItems, sizeArray, sizeArray));
         } else if (sizeArray >= 1 && item.getNote().getValue().length() < 2) {
             RecyclerView recyclerView = holder.itemView.findViewById(R.id.listItemsRecycler);
-            recyclerView.setAdapter(new DemoItemListNoteAdapter(item.getItemListNotes()));
+            recyclerView.setAdapter(new DemoItemListNoteAdapter(item.getItemListNotes(), new DemoItemListSetOnClickListener() {
+                @Override
+                public void click() {
+                    mOnItemClickListener.onClick(holder.getAdapterPosition(),
+                            getCurrentList().get(holder.getAdapterPosition()));
+                }
+            }));
             recyclerView.setVisibility(View.VISIBLE);
         }
 

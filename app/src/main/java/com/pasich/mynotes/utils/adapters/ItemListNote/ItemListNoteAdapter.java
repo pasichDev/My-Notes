@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.databinding.ItemListNoteBinding;
 import com.pasich.mynotes.databinding.ItemListNoteSystemBinding;
+import com.pasich.mynotes.utils.adapters.ItemListNote.listeners.ItemListSetOnClickListener;
+import com.pasich.mynotes.utils.adapters.ItemListNote.listeners.ItemTouchHelperAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,8 +25,8 @@ import java.util.List;
 public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     private static final int ADD_ITEM = 505;
     private static final int OTHER_ITEM = 507;
-    private List<ItemListNote> itemsListNote;
     private final List<ItemListNote> deleteItems = new ArrayList<>();
+    private List<ItemListNote> itemsListNote;
     private ItemListSetOnClickListener itemListSetOnCLickListener;
 
 
@@ -38,12 +40,12 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return itemsListNote;
     }
 
-    public List<ItemListNote> getDeleteItems() {
-        return deleteItems;
-    }
-
     public void setItemsListNote(List<ItemListNote> newList) {
         this.itemsListNote = newList;
+    }
+
+    public List<ItemListNote> getDeleteItems() {
+        return deleteItems;
     }
 
     @Override
