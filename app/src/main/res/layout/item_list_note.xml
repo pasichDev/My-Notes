@@ -32,8 +32,9 @@
         android:layout_gravity="center_vertical"
         android:hint="@string/hintListItem"
         android:focusable="true"
+        android:imeOptions="actionPrevious"
         android:focusableInTouchMode="true"
-        android:inputType="textMultiLine">
+        android:inputType="text">
 
         <requestFocus />
     </EditText>

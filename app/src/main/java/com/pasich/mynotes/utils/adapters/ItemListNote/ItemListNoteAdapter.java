@@ -1,10 +1,12 @@
 package com.pasich.mynotes.utils.adapters.ItemListNote;
 
+
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -86,7 +88,12 @@ public class ItemListNoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
             view.itemListNoteBinding.valueItem.setOnTouchListener((v, event) -> !itemListSetOnCLickListener.isActivatedEdit());
             view.itemListNoteBinding.checkItem.setOnCheckedChangeListener((buttonView, isChecked) -> getItemsListNote().get(view.getAdapterPosition()).setChecked(isChecked));
-
+            view.itemListNoteBinding.valueItem.setOnEditorActionListener((v, actionId, event) -> {
+                if (actionId == EditorInfo.IME_ACTION_PREVIOUS) {
+                    itemListSetOnCLickListener.addItem(view);
+                }
+                return false;
+            });
             return view;
         }
 
