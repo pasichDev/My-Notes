@@ -1,6 +1,5 @@
 package com.pasich.mynotes.ui.view.activity;
 
-import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 import static com.pasich.mynotes.utils.transition.TransitionUtil.buildContainerTransform;
 
@@ -11,7 +10,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -263,7 +261,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         notePresenter.setExitNoSave(true);
         saveNote(false);
         supportFinishAfterTransition();
-        Log.wtf(TAG, "closeNoteActivity: " + notePresenter.getStatusList());
     }
 
     @Override
@@ -346,7 +343,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setDragPosition(i);
         }
-        Log.wtf(TAG, "saveItemsAndPosition: " + itemListNoteAdapter.getDeleteItems().size());
         notePresenter.saveItemList(list, itemListNoteAdapter.getDeleteItems());
     }
 
@@ -461,7 +457,7 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void createListBox() {
-        if (notePresenter.getStatusList() != LIST_STATUS.NOT && !binding.getActivateEdit()) {
+        if (!binding.getActivateEdit()) {
             return;
         }
         final boolean[] statusHelper = new boolean[]{notePresenter.getStatusList() == LIST_STATUS.NEW || notePresenter.getStatusList() == LIST_STATUS.LOAD, binding.valueNote.getText().toString().trim().length() >= 2};
