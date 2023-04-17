@@ -49,6 +49,12 @@ public class NoteAdapter<VM extends ViewDataBinding> extends GenericAdapter<Data
             recyclerView.setAdapter(new DemoItemListNoteAdapter(item.getItemListNotes(), () -> mOnItemClickListener.onClick(holder.getAdapterPosition(),
                     getCurrentList().get(holder.getAdapterPosition()))));
             recyclerView.setVisibility(View.VISIBLE);
+        } else if (sizeArray == 0) {
+            textOtherEl.setText("");
+            textOtherEl.setVisibility(View.GONE);
+            recyclerView.setAdapter(null);
+            recyclerView.setVisibility(View.GONE);
+
         }
 
     }
