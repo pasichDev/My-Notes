@@ -15,6 +15,7 @@ import java.util.List;
 public class DemoItemListNoteAdapter extends RecyclerView.Adapter<DemoItemListNoteAdapter.ViewHolder> {
     private final List<ItemListNote> items;
     private final DemoItemListSetOnClickListener demoItemListSetOnClickListener;
+    private static final int MAX_ITEMS = 10; // максимальное количество элементов
 
     public DemoItemListNoteAdapter(List<ItemListNote> list, DemoItemListSetOnClickListener demoItemListSetOnClickListener) {
         this.items = list;
@@ -39,7 +40,7 @@ public class DemoItemListNoteAdapter extends RecyclerView.Adapter<DemoItemListNo
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return Math.min(items.size(), MAX_ITEMS);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
