@@ -1,5 +1,6 @@
 package com.pasich.mynotes.ui.view.activity;
 
+import static android.content.ContentValues.TAG;
 import static com.pasich.mynotes.utils.FormattedDataUtil.lastDayEditNote;
 import static com.pasich.mynotes.utils.transition.TransitionUtil.buildContainerTransform;
 
@@ -10,6 +11,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,7 +72,12 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     @Inject
     public BottomPanelNoteUtils bottomPanelNoteUtils;
     public ItemListNoteAdapter itemListNoteAdapter;
+    ActivityResultLauncher<PickVisualMediaRequest> pickMultipleVisualMedia =
+            registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(), result -> {
 
+                Log.wtf(TAG, "image: " + result.size());
+
+            });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -501,7 +511,17 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void addPhotoFiles() {
+   /*  ActivityResult pickMultipleVisualMedia =
+             registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(5))
+        {uris ->
+                // Process URIs
+                Log.d("Photo Picker URIs count", uris)
+        }
 
+    */
+
+
+        pickMultipleVisualMedia.launch(new PickVisualMediaRequest());
     }
 
 

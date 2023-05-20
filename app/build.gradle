@@ -65,14 +65,14 @@ ext {
 }
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.6.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"
-    implementation 'androidx.core:core-splashscreen:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20"
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 
 
     //DI (Hilt)
@@ -95,7 +95,8 @@ dependencies {
     implementation 'com.google.http-client:google-http-client-gson:1.42.1'
     implementation 'com.google.api-client:google-api-client-android:1.26.0'
     implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
-    implementation "com.android.billingclient:billing:5.2.0"
+    implementation "com.android.billingclient:billing:6.0.0"
+
 
     //Other lib (Gson/Glide/PowerPreferences)
     implementation 'com.github.bumptech.glide:glide:4.14.2'
