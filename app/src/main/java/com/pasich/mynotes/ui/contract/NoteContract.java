@@ -10,6 +10,7 @@ import com.pasich.mynotes.base.view.MoreNoteNoteActivityView;
 import com.pasich.mynotes.base.view.ShortCutView;
 import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
+import com.pasich.mynotes.ui.state.NoteState;
 import com.pasich.mynotes.utils.bottomPanelNote.BottomPanelNoteCallback;
 
 import java.util.List;
@@ -48,37 +49,9 @@ public interface NoteContract {
 
         void deleteNote(Note note);
 
-        String getShareText();
-
-        void setShareText(String shareText);
-
-        long getIdKey();
-
-        void setIdKey(long idKey);
-
-        Note getNote();
-
-        void setNote(Note mNote);
-
-        String getTagNote();
-
-        void setTagNote(String tagNote);
-
-        boolean getExitNoteSave();
-
-        void setExitNoSave(boolean exitNoSave);
-
-        boolean getNewNotesKey();
-
-        void setNewNoteKey(boolean newNoteKey);
-
         int getTypeFace(String textStyle);
 
-        List<ItemListNote> getListNotesItems();
-
-        int getStatusList();
-
-        void setStatusList(int statusList);
+        NoteState getNoteState();
 
         void deleteList(int idNote);
     }

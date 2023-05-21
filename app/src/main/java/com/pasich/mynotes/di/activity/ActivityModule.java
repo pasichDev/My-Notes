@@ -11,6 +11,7 @@ import com.pasich.mynotes.ui.presenter.MainPresenter;
 import com.pasich.mynotes.ui.presenter.NotePresenter;
 import com.pasich.mynotes.ui.presenter.SharePresenter;
 import com.pasich.mynotes.ui.presenter.TrashPresenter;
+import com.pasich.mynotes.ui.state.NoteState;
 import com.pasich.mynotes.utils.rx.AppSchedulerProvider;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
@@ -64,6 +65,12 @@ public class ActivityModule {
     @ActivityScoped
     ShareContract.presenter providerShareActivityPresenter(SharePresenter presenter) {
         return presenter;
+    }
+
+    @Provides
+    @ActivityScoped
+    NoteState providerNoteState() {
+        return new NoteState();
     }
 
 }

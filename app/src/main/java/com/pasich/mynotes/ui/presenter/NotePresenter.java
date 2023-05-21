@@ -9,10 +9,9 @@ import com.pasich.mynotes.data.DataManager;
 import com.pasich.mynotes.data.model.ItemListNote;
 import com.pasich.mynotes.data.model.Note;
 import com.pasich.mynotes.ui.contract.NoteContract;
-import com.pasich.mynotes.utils.constants.LIST_STATUS;
+import com.pasich.mynotes.ui.state.NoteState;
 import com.pasich.mynotes.utils.rx.SchedulerProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,14 +20,8 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class NotePresenter extends BasePresenter<NoteContract.view> implements NoteContract.presenter {
 
-    private String shareText, tagNote;
-    private long idKey;
-    private Note mNote;
-    private boolean exitNoSave = false, newNoteKey;
-
-    private int statusList = LIST_STATUS.NOT;
-
-    private List<ItemListNote> listNotesItems = new ArrayList<>();
+    @Inject
+    public NoteState noteState;
 
 
     @Inject
@@ -56,33 +49,23 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
 
     @Override
     public void getLoadIntentData(Intent mIntent) {
-        setIdKey(mIntent.getLongExtra("idNote", 0));
-        setTagNote(mIntent.getStringExtra("tagNote"));
-        setShareText(mIntent.getStringExtra("shareText"));
-        setNewNoteKey(mIntent.getBooleanExtra("NewNote", true));
+        noteState.setIdKey(mIntent.getLongExtra("idNote", 0));
+        noteState.setTagNote(mIntent.getStringExtra("tagNote"));
+        noteState.setShareText(mIntent.getStringExtra("shareText"));
+        noteState.setNewNoteKey(mIntent.getBooleanExtra("NewNote", true));
     }
 
     @Override
     public void loadingData(long idNote) {
         getCompositeDisposable().add(getDataManager().getNoteForId(idNote).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(note -> {
             getView().loadingNote(note);
-            setNote(note);
+            noteState.setNote(note);
         }));
         getCompositeDisposable().add(getDataManager().getListForIdNote(idNote).subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui()).subscribe(listNotes -> {
             getView().loadingListNote(listNotes);
-            setListNotesItems(listNotes);
+            noteState.setListNotesItems(listNotes);
         }));
 
-    }
-
-
-    @Override
-    public List<ItemListNote> getListNotesItems() {
-        return listNotesItems;
-    }
-
-    public void setListNotesItems(List<ItemListNote> listNotesItems) {
-        this.listNotesItems = listNotesItems;
     }
 
     @Override
@@ -111,53 +94,6 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
         getCompositeDisposable().add(getDataManager().deleteNote(note).subscribeOn(getSchedulerProvider().io()).subscribe());
     }
 
-    public String getShareText() {
-        return shareText;
-    }
-
-    public void setShareText(String shareText) {
-        this.shareText = shareText == null ? "" : shareText;
-    }
-
-    public long getIdKey() {
-        return idKey;
-    }
-
-    public void setIdKey(long idKey) {
-        this.idKey = idKey;
-    }
-
-    public Note getNote() {
-        return mNote;
-    }
-
-    public void setNote(Note mNote) {
-        this.mNote = mNote;
-    }
-
-    public String getTagNote() {
-        return tagNote;
-    }
-
-    public void setTagNote(String tagNote) {
-        this.tagNote = tagNote == null ? "" : tagNote;
-    }
-
-    public boolean getNewNotesKey() {
-        return newNoteKey;
-    }
-
-    public void setNewNoteKey(boolean newNoteKey) {
-        this.newNoteKey = newNoteKey;
-    }
-
-    public boolean getExitNoteSave() {
-        return exitNoSave;
-    }
-
-    public void setExitNoSave(boolean exitNoSave) {
-        this.exitNoSave = exitNoSave;
-    }
 
     @Override
     public int getTypeFace(String textStyle) {
@@ -170,14 +106,10 @@ public class NotePresenter extends BasePresenter<NoteContract.view> implements N
     }
 
     @Override
-    public int getStatusList() {
-        return statusList;
+    public NoteState getNoteState() {
+        return noteState;
     }
 
-    @Override
-    public void setStatusList(int statusList) {
-        this.statusList = statusList;
-    }
 
     @Override
     public void deleteList(int idNote) {
