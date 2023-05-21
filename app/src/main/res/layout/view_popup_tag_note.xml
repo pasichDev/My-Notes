@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_one_variant_ripple"
         android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
+        android:padding="4dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="8dp"
             android:contentDescription="@string/creteNoteToTag"
@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingVertical="@dimen/paddingItems"
-            android:paddingStart="@dimen/paddingItems"
+            android:paddingVertical="4dp"
+            android:paddingStart="4dp"
             android:paddingEnd="20dp"
             android:text="@string/creteNoteToTag"
             android:textSize="@dimen/textSizeItems" />

@@ -5,10 +5,7 @@
         android:id="@android:id/mask"
         android:gravity="center">
         <shape android:shape="rectangle">
-            <corners
-                android:topRightRadius="20dp"
-                android:bottomLeftRadius="20dp"
-                android:bottomRightRadius="20dp" />
+            <corners android:topRightRadius="20dp" />
             <solid android:color="?attr/colorControlHighlight" />
 
         </shape>

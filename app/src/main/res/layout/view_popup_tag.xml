@@ -10,13 +10,13 @@
         android:id="@+id/deleteTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_top_ripple"
+        android:background="@drawable/item_top_ripple_tag"
         android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
+        android:padding="4dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="8dp"
             android:contentDescription="@string/deleteTag"
@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingVertical="@dimen/paddingItems"
-            android:paddingStart="@dimen/paddingItems"
+            android:paddingVertical="4dp"
+            android:paddingStart="4dp"
             android:paddingEnd="20dp"
             android:text="@string/deleteTag"
             android:textSize="@dimen/textSizeItems" />
@@ -39,11 +39,11 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
+        android:padding="4dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="8dp"
             android:contentDescription="@string/renameTag"
@@ -53,8 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingVertical="@dimen/paddingItems"
-            android:paddingStart="@dimen/paddingItems"
+            android:paddingVertical="4dp"
+            android:paddingStart="4dp"
             android:paddingEnd="20dp"
             android:text="@string/renameTag"
             android:textSize="@dimen/textSizeItems" />
@@ -66,12 +66,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_bottom_ripple"
         android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
+        android:padding="4dp">
 
         <ImageView
             android:id="@+id/imageTagVisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="8dp"
             android:contentDescription="@string/deleteTag"
@@ -82,8 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingVertical="@dimen/paddingItems"
-            android:paddingStart="@dimen/paddingItems"
+            android:paddingVertical="4dp"
+            android:paddingStart="4dp"
             android:paddingEnd="20dp"
             android:textSize="@dimen/textSizeItems" />
 

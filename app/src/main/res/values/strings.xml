@@ -154,11 +154,11 @@
     <string name="creteNoteToTag">Create note</string>
 
     <string name="creteListForData" translatable="false">Создать список на основе заметки</string>
-    <string name="addListBox" translatable="false">Добавить список до существующей заметки</string>
+    <string name="addListBox" translatable="false">Добавить список до заметки</string>
     <string name="hintListItem" translatable="false">Введите текст</string>
     <string name="addListItemButton" translatable="false">Добавить пункт</string>
     <string name="deleteListNote" translatable="false">Удалить список</string>
-    <string name="convertListToNote" translatable="false">Конвертировать список в заметку</string>
+    <string name="convertListToNote" translatable="false">Конвертировать в заметку</string>
     <string name="errorNotesNotFound" translatable="false">Заметку, не найдено</string>
 
     <plurals name="countListItems" translatable="false">

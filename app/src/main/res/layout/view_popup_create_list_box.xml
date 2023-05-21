@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_top_ripple"
         android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
+        android:padding="4dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="8dp"
             android:contentDescription="@string/creteListForData"
@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingVertical="@dimen/paddingItems"
-            android:paddingStart="@dimen/paddingItems"
+            android:paddingVertical="4dp"
+            android:paddingStart="4dp"
             android:paddingEnd="20dp"
             android:text="@string/creteListForData"
             android:textSize="@dimen/textSizeItems" />
@@ -39,11 +39,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_bottom_ripple_left"
         android:orientation="horizontal"
-        android:padding="@dimen/paddingItems">
+        android:padding="4dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="8dp"
             android:contentDescription="@string/addListBox"
@@ -53,8 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingVertical="@dimen/paddingItems"
-            android:paddingStart="@dimen/paddingItems"
+            android:paddingVertical="4dp"
+            android:paddingStart="4dp"
             android:paddingEnd="20dp"
             android:text="@string/addListBox"
             android:textSize="@dimen/textSizeItems" />
@@ -66,12 +66,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_top_ripple"
         android:orientation="horizontal"
-        android:padding="@dimen/paddingItems"
+        android:padding="4dp"
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="8dp"
             android:contentDescription="@string/convertListToNote"
@@ -81,8 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingVertical="@dimen/paddingItems"
-            android:paddingStart="@dimen/paddingItems"
+            android:paddingVertical="4dp"
+            android:paddingStart="4dp"
             android:paddingEnd="20dp"
             android:text="@string/convertListToNote"
             android:textSize="@dimen/textSizeItems" />
@@ -94,12 +94,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_bottom_ripple_left"
         android:orientation="horizontal"
-        android:padding="@dimen/paddingItems"
+        android:padding="4dp"
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="8dp"
             android:contentDescription="@string/deleteListNote"
@@ -109,8 +109,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingVertical="@dimen/paddingItems"
-            android:paddingStart="@dimen/paddingItems"
+            android:paddingVertical="4dp"
+            android:paddingStart="4dp"
             android:paddingEnd="20dp"
             android:text="@string/deleteListNote"
             android:textSize="@dimen/textSizeItems" />

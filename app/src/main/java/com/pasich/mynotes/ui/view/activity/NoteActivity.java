@@ -515,16 +515,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
 
     @Override
     public void addPhotoFiles() {
-   /*  ActivityResult pickMultipleVisualMedia =
-             registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(5))
-        {uris ->
-                // Process URIs
-                Log.d("Photo Picker URIs count", uris)
-        }
-
-    */
-
-
         pickMultipleVisualMedia.launch(new PickVisualMediaRequest());
     }
 
@@ -630,7 +620,6 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
             binding.listNote.setAdapter(itemListNoteAdapter);
             touchHelper.attachToRecyclerView(binding.listNote);
             binding.listNote.setVisibility(View.VISIBLE);
-
             notePresenter.getNoteState().setStatusList(LIST_STATUS.NEW);
         } else if (notePresenter.getNoteState().getStatusList() == LIST_STATUS.DELETE) {
             itemListNoteAdapter.setItemsListNote(listItemsNote);
