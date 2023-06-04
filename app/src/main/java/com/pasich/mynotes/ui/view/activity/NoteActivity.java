@@ -469,6 +469,18 @@ public class NoteActivity extends BaseActivity implements NoteContract.view {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public void createListBox() {
         if (!binding.getActivateEdit()) {

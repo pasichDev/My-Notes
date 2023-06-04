@@ -35,7 +35,7 @@
         android:imeOptions="actionPrevious"
         android:focusableInTouchMode="true"
         android:inputType="text">
-
+        <requestFocus/>
     </EditText>
 
     <ImageButton
