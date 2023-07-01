@@ -2,24 +2,24 @@
 
 [![Google Play](https://img.shields.io/badge/Google%20Play-Download-blue.svg)](https://play.google.com/store/apps/details?id=com.pasich.mynotes)
 
-My Notes - це простий і зручний додаток для збереження ваших нотаток та важливих деталей. Використовуйте його для записування ідеї, списків завдань, меморандумів та багато іншого. Додаток дозволяє вам швидко створювати, редагувати та видаляти нотатки, а також впорядковувати їх за категоріями.
+My Notes is a simple and convenient application for storing your notes and important details. Use it to jot down ideas, task lists, memos, and more. The app allows you to quickly create, edit, and delete notes, as well as organize them into categories.
 
-## Особливості
+## Features
 
-- **Простий і зрозумілий інтерфейс**: Додаток має інтуїтивно зрозумілий і легкий у використанні інтерфейс, що дозволяє швидко створювати та організовувати нотатки.
-- **Категорії**: Розподіліть свої нотатки на категорії, щоб зробити їх більш структурованими та легко знаходимими.
-- **Пошук**: Швидко знайдіть потрібну нотатку за допомогою функції пошуку.
-- **Резервне копіювання і відновлення**: Збережіть свої нотатки та дані, зробивши резервну копію на зовнішньому пристрої та відновивши їх у разі потреби.
+- **Simple and intuitive interface**: The app has a user-friendly and easy-to-use interface that allows you to quickly create and organize notes.
+- **Categories**: Categorize your notes to make them more structured and easily searchable.
+- **Search**: Quickly find the note you need with the search function.
+- **Backup and Restore**: Save your notes and data by creating a backup on an external device and restore them when needed.
 
-## Вимоги
+## Requirements
 
-- Потрібний пристрій з операційною системою Android версії 4.4 і вище.
+- Requires an Android device running version 5.0 or higher.
 
-## Встановлення
+## Installation
 
-1. Відкрийте [посилання](https://play.google.com/store/apps/details?id=com.pasich.mynotes) на Google Play Store.
-2. Натисніть кнопку "Встановити", щоб завантажити та встановити додаток на свій пристрій.
+1. Open the [link](https://play.google.com/store/apps/details?id=com.pasich.mynotes) to the Google Play Store.
+2. Click the "Install" button to download and install the app on your device.
 
-## Внесок
+## Contribution
 
-Якщо ви виявите проблеми, помилки або маєте пропозиції щодо покращення додатку, будь ласка, відкрийте новий [Issue](https://github.com/your-username/repo-name/issues) у репозиторії проекту
+If you encounter issues, bugs, or have suggestions for improvements, please open a new [Issue](https://github.com/pasichDev/My-Notes/issues) in the project repository.
