@@ -4,6 +4,13 @@
 
 My Notes is a simple and convenient application for storing your notes and important details. Use it to jot down ideas, task lists, memos, and more. The app allows you to quickly create, edit, and delete notes, as well as organize them into categories.
 
+## Screenshots
+
+![src1](/doc/images/src_1.jpg)
+![src2](/doc/images/src_2.jpg)
+![src3](/doc/images/src_3.jpg)
+![src4](/doc/images/src_4.jpg)
+
 ## Features
 
 - **Simple and intuitive interface**: The app has a user-friendly and easy-to-use interface that allows you to quickly create and organize notes.
