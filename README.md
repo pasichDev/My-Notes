@@ -1,22 +1,25 @@
-<img alt="Icon" src="app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true" align="left" hspace="1" vspace="1">
+# My Notes
 
-<a alt='Try it on Google Play' href='https://play.google.com/store/apps/details?id=com.pasich.mynotes' target='_blank' align='right'><img align='right' height='36' style='border:0px;height:36px;' src='https://developer.android.com/images/brand/en_generic_rgb_wo_60.png' border='0' /></a>
+[![Google Play](https://img.shields.io/badge/Google%20Play-Download-blue.svg)](https://play.google.com/store/apps/details?id=com.pasich.mynotes)
 
-# My Notes: Quick notes with voice input!
->[![License Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=true)](http://www.apache.org/licenses/LICENSE-2.0)
-![minSdkVersion 21](https://img.shields.io/badge/minSdkVersion-21-red.svg?style=true)
-![compileSdkVersion 33](https://img.shields.io/badge/compileSdkVersion-33-green.svg?style=true)
+My Notes - це простий і зручний додаток для збереження ваших нотаток та важливих деталей. Використовуйте його для записування ідеї, списків завдань, меморандумів та багато іншого. Додаток дозволяє вам швидко створювати, редагувати та видаляти нотатки, а також впорядковувати їх за категоріями.
 
-The application does not require any suspicious permissions, and most importantly, we do not have any advertising!
+## Особливості
 
-#### This project is under development so errors in the application can be expected!
+- **Простий і зрозумілий інтерфейс**: Додаток має інтуїтивно зрозумілий і легкий у використанні інтерфейс, що дозволяє швидко створювати та організовувати нотатки.
+- **Категорії**: Розподіліть свої нотатки на категорії, щоб зробити їх більш структурованими та легко знаходимими.
+- **Пошук**: Швидко знайдіть потрібну нотатку за допомогою функції пошуку.
+- **Резервне копіювання і відновлення**: Збережіть свої нотатки та дані, зробивши резервну копію на зовнішньому пристрої та відновивши їх у разі потреби.
 
-## Roadmap
+## Вимоги
 
-- [ ] Add voice notes 
+- Потрібний пристрій з операційною системою Android версії 4.4 і вище.
 
+## Встановлення
 
-See the [open issues](https://github.com/pasichDev/My-Notes/issues) for a full list of proposed features (and known issues).
+1. Відкрийте [посилання](https://play.google.com/store/apps/details?id=com.pasich.mynotes) на Google Play Store.
+2. Натисніть кнопку "Встановити", щоб завантажити та встановити додаток на свій пристрій.
 
+## Внесок
 
-
+Якщо ви виявите проблеми, помилки або маєте пропозиції щодо покращення додатку, будь ласка, відкрийте новий [Issue](https://github.com/your-username/repo-name/issues) у репозиторії проекту
